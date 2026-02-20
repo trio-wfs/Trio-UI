@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spacing - AHTG Design System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="design-system-shell.css">
+  <style>
+.spacing-item {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-lg);
+      padding: var(--spacing-md);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: var(--border-radius);
+      margin-bottom: var(--spacing-md);
+      background: var(--color-background-default);
+    }
+
+    .spacing-visual {
+      flex-shrink: 0;
+      background: var(--color-primary-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .spacing-info {
+      flex: 1;
+    }
+
+    .spacing-name {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .spacing-value {
+      font-size: 13px;
+      color: var(--color-text-secondary);
+      font-family: 'Courier New', monospace;
+      margin-bottom: 4px;
+    }
+
+    .spacing-usage {
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      line-height: 1.4;
+    }
+
+    .grid-example {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 8px;
+      margin-top: var(--spacing-md);
+    }
+
+    .grid-column {
+      background: var(--color-primary-light);
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: var(--color-primary-main);
+      border-radius: 2px;
+      font-weight: 500;
+    }
+
+    
+
+    /* Browser chrome frame */
+    .ld-frame {
+      border: 1px solid #E0E0E0;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      margin-bottom: var(--spacing-xl);
+      background: #fff;
+    }
+
+    .ld-browser-bar {
+      background: #F5F5F5;
+      border-bottom: 1px solid #E0E0E0;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .ld-dots { display: flex; gap: 5px; }
+    .ld-dot  { width: 10px; height: 10px; border-radius: 50%; background: #E0E0E0; }
+    .ld-dot:nth-child(1) { background: #FF5F56; }
+    .ld-dot:nth-child(2) { background: #FFBD2E; }
+    .ld-dot:nth-child(3) { background: #27C93F; }
+
+    .ld-url-bar {
+      flex: 1;
+      max-width: 280px;
+      background: #fff;
+      border: 1px solid #E0E0E0;
+      border-radius: 10px;
+      padding: 3px 12px;
+      font-size: 11px;
+      color: #9E9E9E;
+    }
+
+    /* Page area */
+    .ld-page {
+      display: flex;
+      background: #ECEFF1;
+      min-height: 360px;
+    }
+
+    /* Fixed sidebar */
+    .ld-sidebar {
+      width: 160px;
+      flex-shrink: 0;
+      background: #fff;
+      border-right: 1px solid #E0E0E0;
+      padding: 10px 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .ld-sidebar-logo {
+      background: #E3F2FD;
+      border-radius: 3px;
+      height: 28px;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      padding: 0 8px;
+      font-size: 10px;
+      color: #1565C0;
+      font-weight: 500;
+    }
+
+    .ld-nav-row {
+      border-radius: 3px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      padding: 0 6px;
+      font-size: 10px;
+      color: #9E9E9E;
+      gap: 5px;
+    }
+
+    .ld-nav-row.active {
+      background: #E3F2FD;
+      color: #1565C0;
+    }
+
+    .ld-nav-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 2px;
+      background: currentColor;
+      opacity: 0.4;
+      flex-shrink: 0;
+    }
+
+    /* Main content area */
+    .ld-main {
+      flex: 1;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+      min-width: 0;
+    }
+
+    /* Column guide overlay */
+    .ld-guides-wrap {
+      position: absolute;
+      inset: 0;
+      padding: 0 12px;
+      pointer-events: none;
+      display: flex;
+      gap: 6px;
+      opacity: 0.08;
+    }
+
+    .ld-guide { flex: 1; background: #2196F3; }
+
+    /* Margin callout lines */
+    .ld-margin-callout {
+      font-size: 9px;
+      font-weight: 600;
+      color: #E17109;
+      letter-spacing: 0;
+      position: absolute;
+      top: 4px;
+    }
+    .ld-margin-callout.left  { left: 3px; }
+    .ld-margin-callout.right { right: 3px; }
+
+    /* Content rows */
+    .ld-row {
+      display: flex;
+      gap: 6px;
+      position: relative;
+    }
+
+    /* Container blocks */
+    .ld-block {
+      border-radius: 3px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 5px 8px;
+      font-size: 10px;
+      font-weight: 500;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .ld-block-name { opacity: 0.85; }
+
+    .ld-span-pill {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(0,0,0,0.12);
+      border-radius: 8px;
+      padding: 1px 5px;
+      font-size: 9px;
+      font-weight: 600;
+      align-self: flex-start;
+    }
+
+    /* Column span widths using flex */
+    .ld-c12 { flex: 12; }
+    .ld-c9  { flex: 9; }
+    .ld-c8  { flex: 8; }
+    .ld-c6  { flex: 6; }
+    .ld-c4  { flex: 4; }
+    .ld-c3  { flex: 3; }
+    .ld-c2  { flex: 2; }
+    .ld-c1  { flex: 1; }
+
+    /* Block color themes */
+    .ld-theme-header   { background:#BBDEFB; color:#0D47A1; border:1px solid #90CAF9; height:32px; justify-content:center; flex-direction:row; align-items:center; gap:6px; }
+    .ld-theme-breadcrumb { background:#E8EAF6; color:#3949AB; border:1px dashed #9FA8DA; height:22px; justify-content:center; flex-direction:row; align-items:center; gap:6px; }
+    .ld-theme-metric   { background:#E4F7FD; color:#37636B; border:1px solid #92E0F4; height:56px; }
+    .ld-theme-main     { background:#E8F5E9; color:#1B5E20; border:1px solid #A5D6A7; height:96px; }
+    .ld-theme-side     { background:#FFF8E1; color:#E65100; border:1px solid #FFE082; height:96px; }
+    .ld-theme-full     { background:#F3E5F5; color:#4A148C; border:1px solid #CE93D8; height:64px; }
+    .ld-theme-equal    { background:#FCE4EC; color:#880E4F; border:1px solid #F48FB1; height:72px; }
+    .ld-theme-toolbar  { background:#ECEFF1; color:#546E7A; border:1px solid #CFD8DC; height:30px; justify-content:center; flex-direction:row; align-items:center; gap:6px; }
+
+    /* Legend */
+    .ld-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: var(--spacing-sm);
+      font-size: 11px;
+    }
+
+    .ld-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: var(--color-text-secondary);
+    }
+
+    .ld-legend-swatch {
+      width: 14px;
+      height: 14px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    /* Column span pattern strips */
+    .ld-pattern-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-md);
+      margin: var(--spacing-md) 0;
+    }
+
+    .ld-pattern-card {
+      background: var(--color-background-default);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-md);
+    }
+
+    .ld-pattern-label {
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--color-text-secondary);
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .ld-pattern-use {
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      margin-bottom: var(--spacing-sm);
+      line-height: 1.4;
+    }
+
+    .ld-pattern-strip {
+      display: flex;
+      gap: 4px;
+      height: 28px;
+    }
+
+    .ld-ps-block {
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 600;
+    }
+
+    /* Modal diagrams */
+    .ld-modal-scene {
+      background: rgba(33,150,243,0.04);
+      border: 1px solid #E0E0E0;
+      border-radius: 4px;
+      padding: var(--spacing-xl);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: var(--spacing-xl);
+      margin-bottom: var(--spacing-lg);
+      min-height: 260px;
+      flex-wrap: wrap;
+    }
+
+    .ld-modal-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--spacing-sm);
+    }
+
+    .ld-modal-size-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+    }
+
+    .ld-modal-box {
+      background: #fff;
+      border: 1px solid #E0E0E0;
+      border-radius: 4px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.14);
+      overflow: hidden;
+    }
+
+    .ld-modal-box--lg { width: 360px; }
+    .ld-modal-box--sm { width: 220px; }
+
+    .ld-modal-titlebar {
+      background: #FAFAFA;
+      border-bottom: 1px solid #E0E0E0;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      font-weight: 500;
+      color: #424242;
+    }
+
+    .ld-modal-x {
+      width: 14px; height: 14px;
+      background: #E0E0E0;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 9px; color: #9E9E9E;
+    }
+
+    .ld-modal-content {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+    }
+
+    .ld-modal-field-mock {
+      background: #F5F5F5;
+      border: 1px solid #E0E0E0;
+      border-radius: 3px;
+      height: 24px;
+    }
+
+    .ld-modal-fields-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .ld-modal-fields-row .ld-modal-field-mock { flex: 1; }
+
+    .ld-modal-text-mock {
+      background: #F5F5F5;
+      border: 1px solid #E0E0E0;
+      border-radius: 3px;
+      height: 48px;
+    }
+
+    .ld-modal-footer {
+      background: #FAFAFA;
+      border-top: 1px solid #E0E0E0;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 6px;
+    }
+
+    .ld-modal-btn {
+      height: 24px;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 500;
+      padding: 0 10px;
+    }
+
+    .ld-modal-btn--ghost  { background: #F5F5F5; color: #757575; border: 1px solid #E0E0E0; }
+    .ld-modal-btn--primary { background: #2196F3; color: #fff; }
+
+    /* Padding annotation overlay */
+    .ld-modal-padding-note {
+      position: absolute;
+      font-size: 9px;
+      font-weight: 600;
+      color: #E17109;
+      background: rgba(255,255,255,0.9);
+      border: 1px solid #E17109;
+      border-radius: 3px;
+      padding: 1px 4px;
+    }
+    .ld-modal-padding-note.top    { top: 4px; left: 50%; transform: translateX(-50%); }
+    .ld-modal-padding-note.left   { top: 50%; left: 4px; transform: translateY(-50%); }
+    .ld-modal-padding-note.right  { top: 50%; right: 4px; transform: translateY(-50%); }
+    .ld-modal-padding-note.bottom { bottom: 4px; left: 50%; transform: translateX(-50%); }
+
+    /* Spacing annotation strip */
+    .ld-annotation-row {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      padding: var(--spacing-xs) 0;
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      border-top: 1px dashed var(--color-secondary-outline);
+      margin-top: var(--spacing-sm);
+    }
+
+    .ld-annotation-badge {
+      background: #FCF1E0;
+      border: 1px solid #E17109;
+      border-radius: 3px;
+      padding: 1px 6px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #E17109;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* ==============================
+       COMPACT SPACING SCALE
+       ============================== */
+
+    .sp-frame {
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 6px;
+      overflow: hidden;
+      background: var(--color-background-paper);
+    }
+
+    .sp-bar-area {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      padding: 20px 20px 0 20px;
+      background: #F8FAFC;
+      border-bottom: 2px solid #E3F2FD;
+      height: 110px;
+    }
+
+    .sp-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      height: 100%;
+    }
+
+    .sp-bar {
+      width: 100%;
+      border-radius: 3px 3px 0 0;
+    }
+
+    .sp-bar--none {
+      height: 2px;
+      background: repeating-linear-gradient(
+        90deg, #BDBDBD 0, #BDBDBD 4px, transparent 4px, transparent 8px
+      );
+      border-radius: 0;
+    }
+
+    .sp-label-area {
+      display: flex;
+      gap: 3px;
+      padding: 0 20px 16px 20px;
+      background: var(--color-background-paper);
+    }
+
+    .sp-label-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      padding-top: 10px;
+      border-top: 1px solid transparent;
+    }
+
+    .sp-px-val {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      letter-spacing: -.02em;
+    }
+
+    .sp-name-tag {
+      font-size: 9px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--color-text-secondary);
+    }
+
+    .sp-token-chip {
+      font-size: 9px;
+      font-family: 'Courier New', monospace;
+      background: var(--color-primary-light);
+      color: var(--color-primary-main);
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .sp-use-note {
+      font-size: 9px;
+      color: #9E9E9E;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    /* Rule callouts */
+    .sp-rule-row {
+      display: flex;
+      gap: var(--spacing-md);
+      margin-top: var(--spacing-md);
+    }
+
+    .sp-rule-card {
+      flex: 1;
+      border-radius: 4px;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .sp-rule-card--primary {
+      background: #E3F2FD;
+      border: 1px solid #90CAF9;
+    }
+
+    .sp-rule-card--warning {
+      background: #FCF1E0;
+      border: 1px solid #FFCC80;
+    }
+
+    .sp-rule-title {
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .sp-rule-card--primary .sp-rule-title { color: #0D47A1; }
+    .sp-rule-card--warning .sp-rule-title { color: #E65100; }
+
+    .sp-rule-
+    .sp-rule-card--primary .sp-rule-    .sp-rule-card--warning .sp-rule-
+    .sp-example-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 2px;
+    }
+
+    .sp-example-chip {
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 10px;
+      font-weight: 500;
+    }
+
+    .sp-example-chip--do {
+      background: rgba(33,150,243,0.12);
+      color: #1565C0;
+    }
+
+    .sp-example-chip--dont {
+      background: rgba(229,115,0,0.12);
+      color: #E65100;
+    }
+  </style>
+  <script src="design-system-nav.js"></script>
+</head>
+<body>
+    <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
+
+  <main class="main-content">
+    <header class="page-header">
+      <h1 class="page-title">Spacing System</h1>
+      <p class="page-subtitle">
+        Consistent spacing creates visual rhythm, improves scannability, and maintains alignment across interfaces. AHTG uses an 8px base grid system for all layout spacing.
+      </p>
+    </header>
+
+    <!-- SPACING SCALE -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">straighten</span>
+        Spacing Scale
+      </h2>
+      <p class="section-description">
+        <strong>Base Unit:</strong> 8px is the fundamental spacing unit. All layout spacing uses multiples of 8px.
+      </p>
+
+      <div class="sp-frame">
+        <div class="sp-bar-area">
+          <div class="sp-col">
+            <div class="sp-bar sp-bar--none"></div>
+          </div>
+          <div class="sp-col">
+            <div class="sp-bar" style="height:8px; background:#BBDEFB;"></div>
+          </div>
+          <div class="sp-col">
+            <div class="sp-bar" style="height:16px; background:#90CAF9;"></div>
+          </div>
+          <div class="sp-col">
+            <div class="sp-bar" style="height:24px; background:#64B5F6;"></div>
+          </div>
+          <div class="sp-col">
+            <div class="sp-bar" style="height:32px; background:#42A5F5;"></div>
+          </div>
+          <div class="sp-col">
+            <div class="sp-bar" style="height:48px; background:#2196F3;"></div>
+          </div>
+          <div class="sp-col">
+            <div class="sp-bar" style="height:64px; background:#1976D2;"></div>
+          </div>
+          <div class="sp-col">
+            <div class="sp-bar" style="height:80px; background:#1565C0;"></div>
+          </div>
+        </div>
+        <div class="sp-label-area">
+          <div class="sp-label-col">
+            <span class="sp-token-chip">spacing.none</span>
+            <span class="sp-px-val">0px</span>
+            <span class="sp-name-tag">None</span>
+            <span class="sp-use-note">Adjacent</span>
+          </div>
+          <div class="sp-label-col">
+            <span class="sp-token-chip">spacing.xs</span>
+            <span class="sp-px-val">4px</span>
+            <span class="sp-name-tag">XS</span>
+            <span class="sp-use-note">Icon ↔ label</span>
+          </div>
+          <div class="sp-label-col">
+            <span class="sp-token-chip">spacing.sm</span>
+            <span class="sp-px-val">8px</span>
+            <span class="sp-name-tag">SM · Base</span>
+            <span class="sp-use-note">Tight related</span>
+          </div>
+          <div class="sp-label-col">
+            <span class="sp-token-chip">spacing.mid</span>
+            <span class="sp-px-val">12px</span>
+            <span class="sp-name-tag">MID</span>
+            <span class="sp-use-note">Component internals</span>
+          </div>
+          <div class="sp-label-col">
+            <span class="sp-token-chip">spacing.md</span>
+            <span class="sp-px-val">16px</span>
+            <span class="sp-name-tag">MD</span>
+            <span class="sp-use-note">Form fields · gutters</span>
+          </div>
+          <div class="sp-label-col">
+            <span class="sp-token-chip">spacing.lg</span>
+            <span class="sp-px-val">24px</span>
+            <span class="sp-name-tag">LG</span>
+            <span class="sp-use-note">Form spacing · large components</span>
+          </div>
+          <div class="sp-label-col">
+            <span class="sp-token-chip">spacing.xl</span>
+            <span class="sp-px-val">32px</span>
+            <span class="sp-name-tag">XL</span>
+            <span class="sp-use-note">Section breaks</span>
+          </div>
+          <div class="sp-label-col">
+            <span class="sp-token-chip">spacing.xxl</span>
+            <span class="sp-px-val">40px</span>
+            <span class="sp-name-tag">XXL</span>
+            <span class="sp-use-note">Page margins · modals</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sp-rule-row">
+        <div class="sp-rule-card sp-rule-card--primary">
+          <div class="sp-rule-title">
+            <span class="material-icons" style="font-size:14px;">grid_on</span>
+            8px Grid Rule
+          </div>
+          <div class="sp-rule-body">All layout spacing must be a multiple of 8px — creating consistent vertical and horizontal rhythm across the entire application.</div>
+          <div class="sp-example-row">
+            <span class="sp-example-chip sp-example-chip--do">16px between fields</span>
+            <span class="sp-example-chip sp-example-chip--do">24px card padding</span>
+            <span class="sp-example-chip sp-example-chip--do">40px page margins</span>
+          </div>
+        </div>
+        <div class="sp-rule-card sp-rule-card--warning">
+          <div class="sp-rule-title">
+            <span class="material-icons" style="font-size:14px;">warning_amber</span>
+            4px Exception
+          </div>
+          <div class="sp-rule-body">4px is allowed only for related content <em>within</em> a single component — never for layout spacing between components or sections.</div>
+          <div class="sp-example-row">
+            <span class="sp-example-chip sp-example-chip--do">icon → label gap</span>
+            <span class="sp-example-chip sp-example-chip--do">label → value gap</span>
+            <span class="sp-example-chip sp-example-chip--dont">between sections ✗</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LAYOUT GRID -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">grid_view</span>
+        Layout Grid System
+      </h2>
+      <p class="section-description">
+        AHTG uses a 12-column flexbox grid with 16px gutters and 16px page margins. The fixed navigation sidebar sits outside the grid. All content containers are expressed as column spans within the main content area.
+      </p>
+
+      <!-- Grid tokens -->
+      <div style="display:flex; gap:12px; flex-wrap:wrap; margin-bottom:var(--spacing-lg);">
+        <div style="background:var(--color-background-default);border:1px solid var(--color-secondary-outline);border-radius:4px;padding:10px 16px;font-size:13px;">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin-bottom:3px;">Columns</div>
+          <div style="font-weight:500;color:var(--color-primary-main);">12</div>
+        </div>
+        <div style="background:var(--color-background-default);border:1px solid var(--color-secondary-outline);border-radius:4px;padding:10px 16px;font-size:13px;">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin-bottom:3px;">Gutter</div>
+          <div style="font-weight:500;color:var(--color-primary-main);">16px</div>
+        </div>
+        <div style="background:var(--color-background-default);border:1px solid var(--color-secondary-outline);border-radius:4px;padding:10px 16px;font-size:13px;">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin-bottom:3px;">Page Margin</div>
+          <div style="font-weight:500;color:var(--color-primary-main);">16px</div>
+        </div>
+        <div style="background:var(--color-background-default);border:1px solid var(--color-secondary-outline);border-radius:4px;padding:10px 16px;font-size:13px;">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin-bottom:3px;">Nav Sidebar</div>
+          <div style="font-weight:500;color:var(--color-primary-main);">Fixed — outside grid</div>
+        </div>
+      </div>
+
+      <!-- 12-column strip -->
+      <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin-bottom:var(--spacing-sm);">12-Column Reference</div>
+      <div class="grid-example" style="margin-bottom:var(--spacing-xl);">
+        <div class="grid-column">1</div>
+        <div class="grid-column">2</div>
+        <div class="grid-column">3</div>
+        <div class="grid-column">4</div>
+        <div class="grid-column">5</div>
+        <div class="grid-column">6</div>
+        <div class="grid-column">7</div>
+        <div class="grid-column">8</div>
+        <div class="grid-column">9</div>
+        <div class="grid-column">10</div>
+        <div class="grid-column">11</div>
+        <div class="grid-column">12</div>
+      </div>
+
+      <!-- Full page hierarchy diagram -->
+      <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin-bottom:var(--spacing-sm);">Page Layout Hierarchy</div>
+
+      <div class="ld-frame">
+        <!-- Browser chrome -->
+        <div class="ld-browser-bar">
+          <div class="ld-dots">
+            <div class="ld-dot"></div>
+            <div class="ld-dot"></div>
+            <div class="ld-dot"></div>
+          </div>
+          <div class="ld-url-bar">localhost:8888 / dashboard</div>
+        </div>
+
+        <!-- Page -->
+        <div class="ld-page">
+
+          <!-- Fixed nav sidebar (outside grid) -->
+          <div class="ld-sidebar">
+            <div class="ld-sidebar-logo">⬡ AHTG</div>
+            <div class="ld-nav-row active"><div class="ld-nav-dot"></div>Dashboard</div>
+            <div class="ld-nav-row"><div class="ld-nav-dot"></div>Workers</div>
+            <div class="ld-nav-row"><div class="ld-nav-dot"></div>Timecards</div>
+            <div class="ld-nav-row"><div class="ld-nav-dot"></div>Projects</div>
+            <div class="ld-nav-row"><div class="ld-nav-dot"></div>Reports</div>
+            <div class="ld-nav-row"><div class="ld-nav-dot"></div>Settings</div>
+          </div>
+
+          <!-- Main grid area -->
+          <div class="ld-main">
+
+            <!-- Column guide overlay -->
+            <div class="ld-guides-wrap">
+              <div class="ld-guide"></div><div class="ld-guide"></div><div class="ld-guide"></div>
+              <div class="ld-guide"></div><div class="ld-guide"></div><div class="ld-guide"></div>
+              <div class="ld-guide"></div><div class="ld-guide"></div><div class="ld-guide"></div>
+              <div class="ld-guide"></div><div class="ld-guide"></div><div class="ld-guide"></div>
+            </div>
+
+            <!-- Row 1: Page toolbar — 12 cols -->
+            <div class="ld-row">
+              <div class="ld-block ld-theme-toolbar ld-c12">
+                <span class="ld-block-name">Page Header / Toolbar</span>
+                <span class="ld-span-pill">12 cols</span>
+              </div>
+            </div>
+
+            <!-- Row 2: Breadcrumb — 12 cols -->
+            <div class="ld-row">
+              <div class="ld-block ld-theme-breadcrumb ld-c12">
+                <span class="ld-block-name">Breadcrumb &amp; Page Title</span>
+                <span class="ld-span-pill">12 cols</span>
+              </div>
+            </div>
+
+            <!-- Row 3: 4× Metric Cards — 3 cols each -->
+            <div class="ld-row">
+              <div class="ld-block ld-theme-metric ld-c3">
+                <span class="ld-block-name">Metric Card</span>
+                <span class="ld-span-pill">3 cols</span>
+              </div>
+              <div class="ld-block ld-theme-metric ld-c3">
+                <span class="ld-block-name">Metric Card</span>
+                <span class="ld-span-pill">3 cols</span>
+              </div>
+              <div class="ld-block ld-theme-metric ld-c3">
+                <span class="ld-block-name">Metric Card</span>
+                <span class="ld-span-pill">3 cols</span>
+              </div>
+              <div class="ld-block ld-theme-metric ld-c3">
+                <span class="ld-block-name">Metric Card</span>
+                <span class="ld-span-pill">3 cols</span>
+              </div>
+            </div>
+
+            <!-- Row 4: Main content 8 + Side panel 4 -->
+            <div class="ld-row">
+              <div class="ld-block ld-theme-main ld-c8">
+                <span class="ld-block-name">Primary Content (Data Table / Chart)</span>
+                <span class="ld-span-pill">8 cols</span>
+              </div>
+              <div class="ld-block ld-theme-side ld-c4">
+                <span class="ld-block-name">Secondary Panel</span>
+                <span class="ld-span-pill">4 cols</span>
+              </div>
+            </div>
+
+            <!-- Row 5: Two equal sections -->
+            <div class="ld-row">
+              <div class="ld-block ld-theme-equal ld-c6">
+                <span class="ld-block-name">Section A</span>
+                <span class="ld-span-pill">6 cols</span>
+              </div>
+              <div class="ld-block ld-theme-equal ld-c6">
+                <span class="ld-block-name">Section B</span>
+                <span class="ld-span-pill">6 cols</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Annotation row -->
+      <div class="ld-annotation-row">
+        <span class="ld-annotation-badge">16px</span> margins left &amp; right of content area
+        <span style="margin-left:12px;" class="ld-annotation-badge">16px</span> gutter between every column
+        <span style="margin-left:12px;" class="ld-annotation-badge">8px</span> gap between content rows
+      </div>
+
+      <!-- Legend -->
+      <div class="ld-legend" style="margin-top:var(--spacing-md);">
+        <div class="ld-legend-item"><div class="ld-legend-swatch" style="background:#BBDEFB;border:1px solid #90CAF9;"></div>Toolbar / Header (12 cols)</div>
+        <div class="ld-legend-item"><div class="ld-legend-swatch" style="background:#E4F7FD;border:1px solid #92E0F4;"></div>Metric Cards (3 cols each)</div>
+        <div class="ld-legend-item"><div class="ld-legend-swatch" style="background:#E8F5E9;border:1px solid #A5D6A7;"></div>Primary Content (8 cols)</div>
+        <div class="ld-legend-item"><div class="ld-legend-swatch" style="background:#FFF8E1;border:1px solid #FFE082;"></div>Secondary Panel (4 cols)</div>
+        <div class="ld-legend-item"><div class="ld-legend-swatch" style="background:#FCE4EC;border:1px solid #F48FB1;"></div>Equal Sections (6 + 6 cols)</div>
+        <div class="ld-legend-item"><div class="ld-legend-swatch" style="background:rgba(33,150,243,0.08);border:1px solid #90CAF9;"></div>Column guides (overlay)</div>
+      </div>
+
+      <!-- Header nav full-width layout -->
+      <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin-top:var(--spacing-xl);margin-bottom:var(--spacing-sm);">Header Navigation — Full Page Width Layout</div>
+
+      <div class="ld-frame">
+        <!-- Browser chrome -->
+        <div class="ld-browser-bar">
+          <div class="ld-dots">
+            <div class="ld-dot"></div><div class="ld-dot"></div><div class="ld-dot"></div>
+          </div>
+          <div class="ld-url-bar">localhost:8888 / projects</div>
+        </div>
+
+        <!-- Page: full-width, no sidebar -->
+        <div style="display:flex;flex-direction:column;background:#ECEFF1;min-height:400px;">
+
+          <!-- Global header nav — full viewport width -->
+          <div style="background:#fff;border-bottom:1px solid #E0E0E0;display:flex;align-items:center;padding:0 24px;height:52px;gap:0;flex-shrink:0;">
+            <!-- Logo / brand -->
+            <div style="display:flex;align-items:center;gap:8px;margin-right:32px;min-width:120px;">
+              <div style="width:24px;height:24px;background:#2196F3;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;font-weight:700;">A</div>
+              <span style="font-size:13px;font-weight:500;color:#212121;">AHTG</span>
+            </div>
+            <!-- Primary nav items -->
+            <div style="display:flex;align-items:stretch;height:100%;gap:0;">
+              <div style="display:flex;align-items:center;padding:0 16px;font-size:12px;color:#757575;border-bottom:2px solid transparent;cursor:pointer;">Dashboard</div>
+              <div style="display:flex;align-items:center;padding:0 16px;font-size:12px;font-weight:500;color:#2196F3;border-bottom:2px solid #2196F3;cursor:pointer;">Projects</div>
+              <div style="display:flex;align-items:center;padding:0 16px;font-size:12px;color:#757575;border-bottom:2px solid transparent;cursor:pointer;">Workers</div>
+              <div style="display:flex;align-items:center;padding:0 16px;font-size:12px;color:#757575;border-bottom:2px solid transparent;cursor:pointer;">Timecards</div>
+              <div style="display:flex;align-items:center;padding:0 16px;font-size:12px;color:#757575;border-bottom:2px solid transparent;cursor:pointer;">Reports</div>
+            </div>
+            <!-- Right: actions -->
+            <div style="margin-left:auto;display:flex;align-items:center;gap:12px;">
+              <div style="width:28px;height:28px;background:#F5F5F5;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:#757575;">🔔</div>
+              <div style="width:28px;height:28px;background:#E3F2FD;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#1565C0;">JD</div>
+            </div>
+          </div>
+          <!-- Header nav span label -->
+          <div style="display:flex;justify-content:center;margin:-1px 0 0 0;">
+            <div style="background:#BBDEFB;color:#0D47A1;font-size:9px;font-weight:600;padding:2px 10px;border-radius:0 0 4px 4px;letter-spacing:.04em;">GLOBAL HEADER NAV — FULL VIEWPORT WIDTH (outside 12-col grid)</div>
+          </div>
+
+          <!-- Main content area — full width with 16px margins -->
+          <div style="flex:1;padding:12px;display:flex;flex-direction:column;gap:8px;position:relative;">
+
+            <!-- Column guide overlay -->
+            <div class="ld-guides-wrap">
+              <div class="ld-guide"></div><div class="ld-guide"></div><div class="ld-guide"></div>
+              <div class="ld-guide"></div><div class="ld-guide"></div><div class="ld-guide"></div>
+              <div class="ld-guide"></div><div class="ld-guide"></div><div class="ld-guide"></div>
+              <div class="ld-guide"></div><div class="ld-guide"></div><div class="ld-guide"></div>
+            </div>
+
+            <!-- Row 1: Page title + actions — 12 cols -->
+            <div class="ld-row">
+              <div class="ld-block ld-theme-breadcrumb ld-c12" style="height:30px;flex-direction:row;align-items:center;justify-content:space-between;">
+                <span class="ld-block-name">Page Title &amp; Breadcrumb</span>
+                <div style="display:flex;align-items:center;gap:5px;">
+                  <div style="height:16px;width:48px;background:rgba(33,150,243,0.15);border-radius:3px;font-size:9px;color:#1565C0;display:flex;align-items:center;justify-content:center;">+ Add</div>
+                  <span class="ld-span-pill">12 cols</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Row 2: 4× Metric Cards — 3 cols each, full width now -->
+            <div class="ld-row">
+              <div class="ld-block ld-theme-metric ld-c3">
+                <span class="ld-block-name">Metric Card</span>
+                <span class="ld-span-pill">3 cols</span>
+              </div>
+              <div class="ld-block ld-theme-metric ld-c3">
+                <span class="ld-block-name">Metric Card</span>
+                <span class="ld-span-pill">3 cols</span>
+              </div>
+              <div class="ld-block ld-theme-metric ld-c3">
+                <span class="ld-block-name">Metric Card</span>
+                <span class="ld-span-pill">3 cols</span>
+              </div>
+              <div class="ld-block ld-theme-metric ld-c3">
+                <span class="ld-block-name">Metric Card</span>
+                <span class="ld-span-pill">3 cols</span>
+              </div>
+            </div>
+
+            <!-- Row 3: Filter toolbar — 12 cols -->
+            <div class="ld-row">
+              <div class="ld-block ld-theme-toolbar ld-c12" style="height:28px;">
+                <span class="ld-block-name">Filter / Tab Bar</span>
+                <span class="ld-span-pill">12 cols</span>
+              </div>
+            </div>
+
+            <!-- Row 4: Full-width data table — 12 cols -->
+            <div class="ld-row">
+              <div class="ld-block ld-theme-main ld-c12" style="height:110px;position:relative;">
+                <span class="ld-block-name">Full-Width Data Table / Primary Content</span>
+                <span class="ld-span-pill">12 cols</span>
+                <!-- Simulated table rows -->
+                <div style="position:absolute;bottom:8px;left:8px;right:8px;display:flex;flex-direction:column;gap:3px;">
+                  <div style="height:8px;background:rgba(27,94,32,0.15);border-radius:2px;"></div>
+                  <div style="height:8px;background:rgba(27,94,32,0.10);border-radius:2px;width:92%;"></div>
+                  <div style="height:8px;background:rgba(27,94,32,0.08);border-radius:2px;width:85%;"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Row 5: Two-column — 6+6 below the table -->
+            <div class="ld-row">
+              <div class="ld-block ld-theme-equal ld-c6" style="height:56px;">
+                <span class="ld-block-name">Summary Panel A</span>
+                <span class="ld-span-pill">6 cols</span>
+              </div>
+              <div class="ld-block ld-theme-equal ld-c6" style="height:56px;">
+                <span class="ld-block-name">Summary Panel B</span>
+                <span class="ld-span-pill">6 cols</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="ld-annotation-row">
+        <span class="ld-annotation-badge">Full width</span> global header nav sits outside &amp; above the 12-col grid at full viewport width
+        <span style="margin-left:12px;" class="ld-annotation-badge">16px</span> grid margins begin below the header for all page content
+        <span style="margin-left:12px;" class="ld-annotation-badge">12 cols</span> content now fills the full available width (no sidebar offset)
+      </div>
+
+      <!-- Common span patterns -->
+      <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin-top:var(--spacing-xl);margin-bottom:var(--spacing-sm);">Common Column Span Patterns</div>
+
+      <div class="ld-pattern-grid">
+
+        <div class="ld-pattern-card">
+          <div class="ld-pattern-label">Full Width — 12/12</div>
+          <div class="ld-pattern-use">Page headers, toolbars, data tables, breadcrumbs</div>
+          <div class="ld-pattern-strip">
+            <div class="ld-ps-block ld-c12" style="background:#BBDEFB;color:#0D47A1;border:1px solid #90CAF9;flex:12;">12 cols</div>
+          </div>
+        </div>
+
+        <div class="ld-pattern-card">
+          <div class="ld-pattern-label">Two Equal — 6 + 6</div>
+          <div class="ld-pattern-use">Side-by-side form sections, two-panel layouts</div>
+          <div class="ld-pattern-strip">
+            <div class="ld-ps-block ld-c6" style="background:#FCE4EC;color:#880E4F;border:1px solid #F48FB1;flex:6;">6</div>
+            <div class="ld-ps-block ld-c6" style="background:#FCE4EC;color:#880E4F;border:1px solid #F48FB1;flex:6;">6</div>
+          </div>
+        </div>
+
+        <div class="ld-pattern-card">
+          <div class="ld-pattern-label">Main + Side — 8 + 4</div>
+          <div class="ld-pattern-use">Content area with supporting sidebar or filter panel</div>
+          <div class="ld-pattern-strip">
+            <div class="ld-ps-block" style="background:#E8F5E9;color:#1B5E20;border:1px solid #A5D6A7;flex:8;">8 cols</div>
+            <div class="ld-ps-block" style="background:#FFF8E1;color:#E65100;border:1px solid #FFE082;flex:4;">4</div>
+          </div>
+        </div>
+
+        <div class="ld-pattern-card">
+          <div class="ld-pattern-label">Three Equal — 4 + 4 + 4</div>
+          <div class="ld-pattern-use">Three-up card rows, form field triads</div>
+          <div class="ld-pattern-strip">
+            <div class="ld-ps-block" style="background:#F3E5F5;color:#4A148C;border:1px solid #CE93D8;flex:4;">4</div>
+            <div class="ld-ps-block" style="background:#F3E5F5;color:#4A148C;border:1px solid #CE93D8;flex:4;">4</div>
+            <div class="ld-ps-block" style="background:#F3E5F5;color:#4A148C;border:1px solid #CE93D8;flex:4;">4</div>
+          </div>
+        </div>
+
+        <div class="ld-pattern-card">
+          <div class="ld-pattern-label">Four Equal — 3 + 3 + 3 + 3</div>
+          <div class="ld-pattern-use">Metric card rows (primary dashboard pattern)</div>
+          <div class="ld-pattern-strip">
+            <div class="ld-ps-block" style="background:#E4F7FD;color:#37636B;border:1px solid #92E0F4;flex:3;">3</div>
+            <div class="ld-ps-block" style="background:#E4F7FD;color:#37636B;border:1px solid #92E0F4;flex:3;">3</div>
+            <div class="ld-ps-block" style="background:#E4F7FD;color:#37636B;border:1px solid #92E0F4;flex:3;">3</div>
+            <div class="ld-ps-block" style="background:#E4F7FD;color:#37636B;border:1px solid #92E0F4;flex:3;">3</div>
+          </div>
+        </div>
+
+        <div class="ld-pattern-card">
+          <div class="ld-pattern-label">Asymmetric — 9 + 3</div>
+          <div class="ld-pattern-use">Wide content with narrow supporting info column</div>
+          <div class="ld-pattern-strip">
+            <div class="ld-ps-block" style="background:#E8F5E9;color:#1B5E20;border:1px solid #A5D6A7;flex:9;">9 cols</div>
+            <div class="ld-ps-block" style="background:#FFF8E1;color:#E65100;border:1px solid #FFE082;flex:3;">3</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- MODAL LAYOUT -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">open_in_new</span>
+        Modal Layout
+      </h2>
+      <p class="section-description">
+        Modals come in two fixed widths — 900px (large) and 500px (small). Both use 40px internal padding on all sides and a 16px gutter between content areas. The grid inside a modal follows the same 12-column structure scaled to the modal's content width.
+      </p>
+
+      <!-- Modal tokens -->
+      <div style="display:flex; gap:12px; flex-wrap:wrap; margin-bottom:var(--spacing-xl);">
+        <div style="background:var(--color-background-default);border:1px solid var(--color-secondary-outline);border-radius:4px;padding:10px 16px;font-size:13px;">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin-bottom:3px;">Large Modal</div>
+          <div style="font-weight:500;color:var(--color-primary-main);">900px</div>
+        </div>
+        <div style="background:var(--color-background-default);border:1px solid var(--color-secondary-outline);border-radius:4px;padding:10px 16px;font-size:13px;">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin-bottom:3px;">Small Modal</div>
+          <div style="font-weight:500;color:var(--color-primary-main);">500px</div>
+        </div>
+        <div style="background:var(--color-background-default);border:1px solid var(--color-secondary-outline);border-radius:4px;padding:10px 16px;font-size:13px;">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin-bottom:3px;">Internal Padding</div>
+          <div style="font-weight:500;color:var(--color-primary-main);">40px all sides</div>
+        </div>
+        <div style="background:var(--color-background-default);border:1px solid var(--color-secondary-outline);border-radius:4px;padding:10px 16px;font-size:13px;">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin-bottom:3px;">Internal Gutter</div>
+          <div style="font-weight:500;color:var(--color-primary-main);">16px</div>
+        </div>
+      </div>
+
+      <!-- Modal diagrams scene -->
+      <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin-bottom:var(--spacing-sm);">Modal Size Comparison</div>
+
+      <div class="ld-modal-scene">
+
+        <!-- Large 900px modal -->
+        <div class="ld-modal-wrap">
+          <div class="ld-modal-size-label">Large — 900px</div>
+          <div class="ld-modal-box ld-modal-box--lg">
+            <div class="ld-modal-titlebar">
+              <span>Modal Title</span>
+              <div class="ld-modal-x">×</div>
+            </div>
+            <div class="ld-modal-content" style="position:relative;">
+              <!-- Padding callouts -->
+              <div class="ld-modal-padding-note top">40px</div>
+              <div class="ld-modal-padding-note left">40px</div>
+              <div class="ld-modal-padding-note right">40px</div>
+              <!-- Content fields -->
+              <div class="ld-modal-fields-row">
+                <div class="ld-modal-field-mock"></div>
+                <div class="ld-modal-field-mock"></div>
+              </div>
+              <div class="ld-modal-fields-row">
+                <div class="ld-modal-field-mock"></div>
+                <div class="ld-modal-field-mock"></div>
+              </div>
+              <div class="ld-modal-text-mock"></div>
+              <div class="ld-modal-fields-row">
+                <div class="ld-modal-field-mock"></div>
+                <div class="ld-modal-field-mock"></div>
+                <div class="ld-modal-field-mock"></div>
+              </div>
+              <div class="ld-modal-padding-note bottom">40px</div>
+            </div>
+            <div class="ld-modal-footer">
+              <div class="ld-modal-btn ld-modal-btn--ghost">Cancel</div>
+              <div class="ld-modal-btn ld-modal-btn--primary">Save</div>
+            </div>
+          </div>
+          <div style="font-size:11px;color:var(--color-text-secondary);margin-top:4px;">Complex forms, multi-section content, data entry</div>
+        </div>
+
+        <!-- Small 500px modal -->
+        <div class="ld-modal-wrap">
+          <div class="ld-modal-size-label">Small — 500px</div>
+          <div class="ld-modal-box ld-modal-box--sm">
+            <div class="ld-modal-titlebar">
+              <span>Confirm Action</span>
+              <div class="ld-modal-x">×</div>
+            </div>
+            <div class="ld-modal-content" style="position:relative;">
+              <div class="ld-modal-padding-note top">40px</div>
+              <div class="ld-modal-padding-note left">40px</div>
+              <div class="ld-modal-padding-note right">40px</div>
+              <div class="ld-modal-field-mock"></div>
+              <div class="ld-modal-text-mock" style="height:36px;"></div>
+              <div class="ld-modal-field-mock"></div>
+              <div class="ld-modal-padding-note bottom">40px</div>
+            </div>
+            <div class="ld-modal-footer">
+              <div class="ld-modal-btn ld-modal-btn--ghost">Cancel</div>
+              <div class="ld-modal-btn ld-modal-btn--primary">Confirm</div>
+            </div>
+          </div>
+          <div style="font-size:11px;color:var(--color-text-secondary);margin-top:4px;">Confirmations, simple forms, single-field entry</div>
+        </div>
+
+      </div>
+
+      <!-- Modal hierarchy diagram -->
+      <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin-bottom:var(--spacing-sm);">Large Modal — Internal Grid Hierarchy</div>
+
+      <div class="ld-frame" style="margin-bottom:var(--spacing-md);">
+        <div class="ld-browser-bar">
+          <div class="ld-dots">
+            <div class="ld-dot"></div><div class="ld-dot"></div><div class="ld-dot"></div>
+          </div>
+          <div class="ld-url-bar">localhost:8888 / workers/add</div>
+        </div>
+        <!-- Dimmed page behind modal -->
+        <div style="background:rgba(0,0,0,0.28);display:flex;align-items:center;justify-content:center;padding:24px;min-height:340px;">
+          <!-- Modal shell -->
+          <div style="background:#fff;border-radius:4px;box-shadow:0 8px 32px rgba(0,0,0,0.28);width:100%;max-width:640px;overflow:hidden;">
+
+            <!-- Modal title bar -->
+            <div style="background:#FAFAFA;border-bottom:1px solid #E0E0E0;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;">
+              <span style="font-size:13px;font-weight:500;color:#212121;">Add Worker</span>
+              <div style="display:flex;gap:8px;align-items:center;">
+                <div style="width:16px;height:16px;background:#E0E0E0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;color:#9E9E9E;">×</div>
+              </div>
+            </div>
+
+            <!-- 40px padding + internal grid -->
+            <div style="padding:16px 20px;display:flex;flex-direction:column;gap:6px;position:relative;">
+
+              <!-- Column guides inside modal -->
+              <div style="position:absolute;inset:0;padding:0 20px;pointer-events:none;display:flex;gap:4px;opacity:0.06;">
+                <div style="flex:1;background:#2196F3;"></div><div style="flex:1;background:#2196F3;"></div>
+                <div style="flex:1;background:#2196F3;"></div><div style="flex:1;background:#2196F3;"></div>
+                <div style="flex:1;background:#2196F3;"></div><div style="flex:1;background:#2196F3;"></div>
+                <div style="flex:1;background:#2196F3;"></div><div style="flex:1;background:#2196F3;"></div>
+                <div style="flex:1;background:#2196F3;"></div><div style="flex:1;background:#2196F3;"></div>
+                <div style="flex:1;background:#2196F3;"></div><div style="flex:1;background:#2196F3;"></div>
+              </div>
+
+              <!-- Section header — 12 cols -->
+              <div style="display:flex;gap:5px;">
+                <div class="ld-block ld-theme-breadcrumb ld-c12" style="height:20px;font-size:10px;">
+                  Section Header
+                  <span class="ld-span-pill">12 cols</span>
+                </div>
+              </div>
+
+              <!-- Two equal fields — 6 + 6 -->
+              <div style="display:flex;gap:5px;">
+                <div class="ld-block ld-theme-equal ld-c6" style="height:32px;font-size:10px;">
+                  First Name <span class="ld-span-pill">6</span>
+                </div>
+                <div class="ld-block ld-theme-equal ld-c6" style="height:32px;font-size:10px;">
+                  Last Name <span class="ld-span-pill">6</span>
+                </div>
+              </div>
+
+              <!-- 8 + 4 -->
+              <div style="display:flex;gap:5px;">
+                <div class="ld-block ld-theme-main ld-c8" style="height:32px;font-size:10px;">
+                  Email Address <span class="ld-span-pill">8</span>
+                </div>
+                <div class="ld-block ld-theme-side ld-c4" style="height:32px;font-size:10px;">
+                  Role <span class="ld-span-pill">4</span>
+                </div>
+              </div>
+
+              <!-- Three equal — 4+4+4 -->
+              <div style="display:flex;gap:5px;">
+                <div class="ld-block ld-c4" style="height:32px;font-size:10px;background:#F3E5F5;color:#4A148C;border:1px solid #CE93D8;">
+                  Department <span class="ld-span-pill">4</span>
+                </div>
+                <div class="ld-block ld-c4" style="height:32px;font-size:10px;background:#F3E5F5;color:#4A148C;border:1px solid #CE93D8;">
+                  Start Date <span class="ld-span-pill">4</span>
+                </div>
+                <div class="ld-block ld-c4" style="height:32px;font-size:10px;background:#F3E5F5;color:#4A148C;border:1px solid #CE93D8;">
+                  Pay Rate <span class="ld-span-pill">4</span>
+                </div>
+              </div>
+
+              <!-- Full-width textarea -->
+              <div style="display:flex;gap:5px;">
+                <div class="ld-block ld-theme-full ld-c12" style="height:44px;font-size:10px;">
+                  Notes / Description <span class="ld-span-pill">12 cols</span>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Modal footer -->
+            <div style="background:#FAFAFA;border-top:1px solid #E0E0E0;padding:10px 20px;display:flex;align-items:center;justify-content:flex-end;gap:8px;">
+              <div style="height:24px;background:#F5F5F5;border:1px solid #E0E0E0;border-radius:3px;display:flex;align-items:center;padding:0 12px;font-size:11px;color:#757575;">Cancel</div>
+              <div style="height:24px;background:#2196F3;border-radius:3px;display:flex;align-items:center;padding:0 12px;font-size:11px;color:#fff;font-weight:500;">Save Worker</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ld-annotation-row">
+        <span class="ld-annotation-badge">40px</span> modal internal padding (all sides)
+        <span style="margin-left:12px;" class="ld-annotation-badge">16px</span> gutter between form field columns
+        <span style="margin-left:12px;" class="ld-annotation-badge">6px</span> gap between field rows
+      </div>
+
+      <div class="ld-annotation-row" style="margin-top:4px;">
+        <span class="ld-annotation-badge">12 cols</span> full-width: section headers, textareas, notes
+        <span style="margin-left:12px;" class="ld-annotation-badge">6 + 6</span> paired fields (name, date ranges)
+        <span style="margin-left:12px;" class="ld-annotation-badge">8 + 4</span> primary field + short select
+        <span style="margin-left:12px;" class="ld-annotation-badge">4+4+4</span> three short fields in a row
+      </div>
+    </section>
+
+    <!-- APPLICATION EXAMPLES -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">apps</span>
+        Application Examples
+      </h2>
+
+      <div style="font-size: 14px; line-height: 2;">
+        <p style="margin-bottom: 12px;"><strong>Form Layouts:</strong></p>
+        <ul style="margin-left: 20px; margin-bottom: 20px; color: var(--color-text-secondary);">
+          <li>Between form fields: 16px (md)</li>
+          <li>Between form sections: 32px (xl)</li>
+          <li>Form padding: 24px (lg)</li>
+          <li>Label to input: 8px (sm)</li>
+        </ul>
+
+        <p style="margin-bottom: 12px;"><strong>Cards & Containers:</strong></p>
+        <ul style="margin-left: 20px; margin-bottom: 20px; color: var(--color-text-secondary);">
+          <li>Card padding: 24px (lg)</li>
+          <li>Between cards: 16px (md)</li>
+          <li>Card title to content: 16px (md)</li>
+        </ul>
+
+        <p style="margin-bottom: 12px;"><strong>Lists & Tables:</strong></p>
+        <ul style="margin-left: 20px; margin-bottom: 20px; color: var(--color-text-secondary);">
+          <li>List item height: 48px (minimum)</li>
+          <li>List item padding: 16px (md)</li>
+          <li>Between list items: 0px or 8px (sm)</li>
+          <li>Table cell padding: 16px (md)</li>
+        </ul>
+
+        <p style="margin-bottom: 12px;"><strong>Page Layout:</strong></p>
+        <ul style="margin-left: 20px; color: var(--color-text-secondary);">
+          <li>Page margins: 40px (xxl)</li>
+          <li>Section spacing: 32px (xl)</li>
+          <li>Content max-width: 1200-1400px</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

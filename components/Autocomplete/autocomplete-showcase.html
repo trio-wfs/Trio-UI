@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Autocomplete - AHTG Design System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="../../design-system-shell.css">
+  <style>
+    .demo-row {
+      display: flex;
+      gap: var(--spacing-lg);
+      flex-wrap: wrap;
+      padding: var(--spacing-lg);
+      background: var(--color-background-paper);
+      border-radius: var(--border-radius);
+      border: 1px solid var(--color-secondary-outline);
+      align-items: flex-start;
+    }
+    .demo-field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 260px;
+    }
+    .demo-label {
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-text-secondary);
+      margin-bottom: 4px;
+    }
+
+    /* ── Autocomplete Field ─────────────────────────── */
+    .ac-field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      width: 100%;
+    }
+    .ac-label {
+      font-size: 12px;
+      font-weight: 400;
+      color: #757575;
+      line-height: 18px;
+    }
+    .ac-label .required { color: #DB4537; margin-left: 2px; }
+
+    .ac-input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .ac-input {
+      width: 100%;
+      height: 36px;
+      padding: 4px 32px 4px 8px;
+      border: 1px solid #9E9E9E;
+      border-radius: 4px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 14px;
+      color: #212121;
+      background: transparent;
+      outline: none;
+      transition: border-color 0.15s;
+      box-sizing: border-box;
+    }
+    .ac-input::placeholder { color: #757575; }
+    .ac-input:hover { border-color: #616161; }
+    .ac-input:focus { border-color: #64B5F6; }
+    .ac-input.error { border-color: #DB4537; }
+    .ac-input:disabled {
+      border-color: #E0E0E0;
+      background: rgba(0,0,0,0.07);
+      color: #9E9E9E;
+      cursor: not-allowed;
+    }
+    .ac-icon {
+      position: absolute;
+      right: 6px;
+      font-size: 20px;
+      color: #757575;
+      pointer-events: none;
+      user-select: none;
+    }
+    .ac-helper {
+      font-size: 12px;
+      color: #757575;
+      line-height: 18px;
+      margin-top: 2px;
+    }
+    .ac-helper.error { color: #DB4537; }
+
+    /* ── Dropdown ───────────────────────────────────── */
+    .ac-dropdown {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0; right: 0;
+      background: #FFFFFF;
+      border-radius: 4px;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+      z-index: 100;
+      overflow: hidden;
+      display: none;
+    }
+    .ac-dropdown.open { display: block; }
+    .ac-option {
+      padding: 8px 16px;
+      font-size: 14px;
+      font-family: 'Roboto', sans-serif;
+      color: #212121;
+      cursor: pointer;
+      transition: background 0.1s;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .ac-option:hover { background: rgba(0,0,0,0.04); }
+    .ac-option.selected { background: #E3F2FD; }
+    .ac-option .check-icon {
+      font-size: 16px;
+      color: #2196F3;
+      opacity: 0;
+    }
+    .ac-option.selected .check-icon { opacity: 1; }
+    .ac-no-options {
+      padding: 12px 16px;
+      font-size: 14px;
+      color: #757575;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    /* ── Multi chips ─────────────────────────────────── */
+    .ac-multi-wrap {
+      min-height: 36px;
+      height: auto;
+      padding: 4px 32px 4px 8px;
+      border: 1px solid #9E9E9E;
+      border-radius: 4px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      align-items: center;
+      cursor: text;
+      transition: border-color 0.15s;
+      background: transparent;
+      position: relative;
+      box-sizing: border-box;
+    }
+    .ac-multi-wrap:hover { border-color: #616161; }
+    .ac-multi-wrap.focused { border-color: #64B5F6; }
+    .ac-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #FAFAFA;
+      border: 1px solid #E0E0E0;
+      border-radius: 999px;
+      padding: 2px 8px 2px 10px;
+      font-size: 12px;
+      color: #212121;
+      height: 24px;
+      font-family: 'Roboto', sans-serif;
+    }
+    .ac-chip button {
+      background: none; border: none; cursor: pointer;
+      display: flex; align-items: center;
+      color: #757575; padding: 0;
+      line-height: 1;
+    }
+    .ac-chip button .material-icons { font-size: 14px; }
+    .ac-chip button:hover { color: #212121; }
+    .ac-multi-input {
+      border: none; outline: none; background: transparent;
+      font-family: 'Roboto', sans-serif; font-size: 14px;
+      color: #212121; min-width: 80px; flex: 1;
+    }
+    .ac-multi-icon {
+      position: absolute;
+      right: 6px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 20px;
+      color: #757575;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* ── Interactive demo container ─────────────────── */
+    .interactive-demo {
+      background: #F5F7FA;
+      border-radius: 8px;
+      padding: 32px;
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      align-items: flex-start;
+    }
+    .interactive-demo .demo-col {
+      flex: 1;
+      min-width: 280px;
+      max-width: 360px;
+    }
+    .interactive-demo .demo-col h3 {
+      font-size: 13px;
+      font-weight: 500;
+      color: #424242;
+      margin: 0 0 16px 0;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* ── Spec table ──────────────────────────────────── */
+    .spec-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .spec-table th {
+      text-align: left; padding: 8px 12px;
+      background: #F5F5F5; font-weight: 500;
+      border-bottom: 1px solid #E0E0E0;
+      font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .spec-table td {
+      padding: 8px 12px; border-bottom: 1px solid #F5F5F5;
+      font-family: 'Roboto Mono', monospace; font-size: 12px;
+    }
+    .spec-table tr:last-child td { border-bottom: none; }
+    .token-ref { color: #2196F3; }
+  </style>
+  <script src="../../design-system-nav.js"></script>
+</head>
+<body>
+  <div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+      <!-- PAGE HEADER -->
+      <header class="page-header">
+        <h1 class="page-title">Autocomplete</h1>
+        <p class="page-subtitle">
+          Autocomplete inputs extend Text Field with typeahead search and dropdown selection. Supports single-select and multi-select (chip) modes. Used throughout AHTG for searching providers, agencies, facilities, and other VMS entities.
+        </p>
+        <div class="component-meta">
+          <span><span class="material-icons" style="font-size:14px">category</span> Form Component</span>
+          <span><span class="material-icons" style="font-size:14px">link</span> Figma: 2381:6441</span>
+          <span><span class="material-icons" style="font-size:14px">verified</span> Production Ready</span>
+        </div>
+      </header>
+
+      <!-- OVERVIEW -->
+      <section class="section">
+        <h2 class="section-title"><span class="material-icons">info</span>Overview</h2>
+        <div class="grid-3">
+          <div class="card">
+            <h3>Types</h3>
+            <p><strong>Single</strong> — one value selected, replaces input text on selection.<br><strong>Multi</strong> — multiple values shown as removable chips inside the input.</p>
+          </div>
+          <div class="card">
+            <h3>States</h3>
+            <p><strong>Default</strong> — gray border (#9E9E9E).<br><strong>Focus</strong> — blue border (#64B5F6).<br><strong>Error</strong> — red border (#DB4537) with helper text.<br><strong>Disabled</strong> — muted border + fill.</p>
+          </div>
+          <div class="card">
+            <h3>Accessibility</h3>
+            <p>ARIA combobox role. Keyboard navigation: Arrow keys to browse options, Enter to select, Escape to close, Backspace to remove last chip (multi mode).</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- INTERACTIVE DEMO -->
+      <section class="section">
+        <h2 class="section-title"><span class="material-icons">touch_app</span>Interactive Demo</h2>
+        <p class="section-description">Click the fields below to open the dropdown, select options, and remove chips. Try typing to filter results.</p>
+
+        <div class="interactive-demo">
+
+          <!-- Single Select -->
+          <div class="demo-col">
+            <h3>Single Select</h3>
+            <div class="ac-field">
+              <span class="ac-label">Provider</span>
+              <div class="ac-input-wrap" style="position:relative" id="single-wrap">
+                <input
+                  class="ac-input"
+                  id="single-input"
+                  placeholder="Search providers..."
+                  type="text"
+                  autocomplete="off"
+                >
+                <span class="material-icons ac-icon" id="single-arrow">arrow_drop_down</span>
+                <div class="ac-dropdown" id="single-dropdown"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Multi Select -->
+          <div class="demo-col">
+            <h3>Multi Select</h3>
+            <div class="ac-field">
+              <span class="ac-label">Resources <span class="required">*</span></span>
+              <div style="position:relative" id="multi-wrap">
+                <div class="ac-multi-wrap" id="multi-container">
+                  <!-- chips injected here -->
+                  <input class="ac-multi-input" id="multi-input" placeholder="Search resources..." autocomplete="off">
+                  <span class="material-icons ac-multi-icon" id="multi-arrow">arrow_drop_down</span>
+                </div>
+                <div class="ac-dropdown" id="multi-dropdown"></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- TYPE: SINGLE — STATE GALLERY -->
+      <section class="section">
+        <h2 class="section-title"><span class="material-icons">person</span>Single Select — States</h2>
+
+        <div class="demo-row">
+          <!-- Default -->
+          <div class="demo-field">
+            <span class="demo-label">Default</span>
+            <div class="ac-field">
+              <span class="ac-label">Provider</span>
+              <div class="ac-input-wrap">
+                <input class="ac-input" placeholder="Search providers..." type="text" readonly>
+                <span class="material-icons ac-icon">arrow_drop_down</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- With value -->
+          <div class="demo-field">
+            <span class="demo-label">With Value</span>
+            <div class="ac-field">
+              <span class="ac-label">Provider</span>
+              <div class="ac-input-wrap">
+                <input class="ac-input" value="Jane Smith, RN" type="text" readonly>
+                <span class="material-icons ac-icon">arrow_drop_down</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Focus + open -->
+          <div class="demo-field">
+            <span class="demo-label">Focus / Open</span>
+            <div class="ac-field">
+              <span class="ac-label">Provider</span>
+              <div class="ac-input-wrap" style="position:relative">
+                <input class="ac-input" placeholder="Search providers..." type="text" style="border-color:#64B5F6" value="Jane" readonly>
+                <span class="material-icons ac-icon">arrow_drop_up</span>
+                <div class="ac-dropdown open" style="position:absolute;top:calc(100% + 4px);left:0;right:0;background:#fff;border-radius:4px;box-shadow:0 4px 6px -1px rgba(0,0,0,0.1);z-index:10;overflow:hidden">
+                  <div class="ac-option">Jane Smith, RN</div>
+                  <div class="ac-option">Jane Doe, LPN</div>
+                  <div class="ac-option">Janelle Carter, CNA</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Error -->
+          <div class="demo-field">
+            <span class="demo-label">Error</span>
+            <div class="ac-field">
+              <span class="ac-label">Provider <span style="color:#DB4537">*</span></span>
+              <div class="ac-input-wrap">
+                <input class="ac-input error" placeholder="Search providers..." type="text" readonly>
+                <span class="material-icons ac-icon">arrow_drop_down</span>
+              </div>
+              <span class="ac-helper error">Required field</span>
+            </div>
+          </div>
+
+          <!-- Disabled -->
+          <div class="demo-field">
+            <span class="demo-label">Disabled</span>
+            <div class="ac-field">
+              <span class="ac-label">Provider</span>
+              <div class="ac-input-wrap">
+                <input class="ac-input" placeholder="Search providers..." type="text" disabled>
+                <span class="material-icons ac-icon">arrow_drop_down</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TYPE: MULTI — STATE GALLERY -->
+      <section class="section">
+        <h2 class="section-title"><span class="material-icons">group</span>Multi Select — States</h2>
+
+        <div class="demo-row">
+          <!-- Empty -->
+          <div class="demo-field" style="min-width:300px">
+            <span class="demo-label">Empty</span>
+            <div class="ac-field">
+              <span class="ac-label">Resources</span>
+              <div style="position:relative">
+                <div class="ac-multi-wrap">
+                  <input class="ac-multi-input" placeholder="Search..." readonly>
+                  <span class="material-icons ac-multi-icon">arrow_drop_down</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- With chips -->
+          <div class="demo-field" style="min-width:360px">
+            <span class="demo-label">With Selections</span>
+            <div class="ac-field">
+              <span class="ac-label">Resources <span style="color:#DB4537">*</span></span>
+              <div style="position:relative">
+                <div class="ac-multi-wrap focused">
+                  <span class="ac-chip">Jane Smith, RN <button disabled><span class="material-icons">cancel</span></button></span>
+                  <span class="ac-chip">Marcus Lee, CNA <button disabled><span class="material-icons">cancel</span></button></span>
+                  <input class="ac-multi-input" placeholder="" readonly>
+                  <span class="material-icons ac-multi-icon">arrow_drop_up</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Multi open with dropdown -->
+          <div class="demo-field" style="min-width:300px">
+            <span class="demo-label">Open Dropdown</span>
+            <div class="ac-field">
+              <span class="ac-label">Agencies</span>
+              <div style="position:relative">
+                <div class="ac-multi-wrap focused">
+                  <span class="ac-chip">Agency Name 6 <button disabled><span class="material-icons">cancel</span></button></span>
+                  <input class="ac-multi-input" value="Ag" readonly>
+                  <span class="material-icons ac-multi-icon">arrow_drop_up</span>
+                  <div class="ac-dropdown open" style="position:absolute;top:calc(100% + 4px);left:0;right:0;background:#fff;border-radius:4px;box-shadow:0 4px 6px -1px rgba(0,0,0,0.1);z-index:10;overflow:hidden">
+                    <div class="ac-option selected">Agency Name 6 <span class="material-icons check-icon" style="opacity:1;font-size:16px;color:#2196F3">check</span></div>
+                    <div class="ac-option">Agency Name 7 <span class="material-icons check-icon">check</span></div>
+                    <div class="ac-option">Agency Name 8 <span class="material-icons check-icon">check</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Multi disabled -->
+          <div class="demo-field" style="min-width:260px">
+            <span class="demo-label">Disabled</span>
+            <div class="ac-field">
+              <span class="ac-label">Resources</span>
+              <div style="position:relative">
+                <div class="ac-multi-wrap" style="border-color:#E0E0E0;background:rgba(0,0,0,0.07)">
+                  <span class="ac-chip" style="opacity:0.5">Jane Smith, RN <button disabled><span class="material-icons">cancel</span></button></span>
+                  <input class="ac-multi-input" disabled placeholder="" style="color:#9E9E9E">
+                  <span class="material-icons ac-multi-icon" style="color:#9E9E9E">arrow_drop_down</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- BEST PRACTICES -->
+      <section class="section">
+        <h2 class="section-title"><span class="material-icons">recommend</span>Best Practices</h2>
+        <div class="grid-2">
+          <div class="card do-card">
+            <div class="card-title">
+              <span class="material-icons">check_circle</span>
+              Do
+            </div>
+            <div class="card-content">
+              <ul>
+                <li>Use <strong>single</strong> for one-value selections (assigned provider, primary facility)</li>
+                <li>Use <strong>multi</strong> for many-value selections (resource pools, agencies, tiers)</li>
+                <li>Always provide a label — never rely on placeholder alone</li>
+                <li>Show provider counts in options for VMS context (e.g. "Agency Name (12 providers)")</li>
+                <li>Disable the field when the context makes it inapplicable — pair with helper text explaining why</li>
+                <li>Use for dynamic lists with 5+ options that benefit from search filtering</li>
+              </ul>
+            </div>
+          </div>
+          <div class="card dont-card">
+            <div class="card-title">
+              <span class="material-icons">cancel</span>
+              Don't
+            </div>
+            <div class="card-content">
+              <ul>
+                <li>Don't use Autocomplete for short static lists (&lt;5 items) — use Select instead</li>
+                <li>Don't use placeholder text as a substitute for a visible label</li>
+                <li>Don't mix single and multi behavior for the same field type across the app</li>
+                <li>Don't disable without communicating why (silent disabled state is confusing)</li>
+                <li>Don't use for boolean or binary choices — use Checkbox or Switch instead</li>
+                <li>Don't allow free-form text entry unless the field explicitly supports it</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TECHNICAL SPECIFICATIONS -->
+      <section class="section">
+        <h2 class="section-title"><span class="material-icons">code</span>Technical Specifications</h2>
+        <table class="spec-table">
+          <thead>
+            <tr>
+              <th>Property</th>
+              <th>Value</th>
+              <th>Token</th>
+              <th>Source</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Input height</td><td>36px</td><td class="token-ref">—</td><td>Figma absoluteBoundingBox</td></tr>
+            <tr><td>Padding top/bottom</td><td>4px</td><td class="token-ref">tokens.spacing.xs</td><td>Figma paddingTop/paddingBottom</td></tr>
+            <tr><td>Padding left/right</td><td>8px</td><td class="token-ref">tokens.spacing.sm</td><td>Figma paddingLeft/paddingRight</td></tr>
+            <tr><td>Border radius</td><td>4px</td><td class="token-ref">tokens.borderRadius.default</td><td>Figma cornerRadius</td></tr>
+            <tr><td>Default border</td><td>#9E9E9E</td><td class="token-ref">tokens.colors.components.input.enabledBorder</td><td>Figma strokes (default)</td></tr>
+            <tr><td>Hover border</td><td>#616161</td><td class="token-ref">tokens.colors.components.input.hoverBorder</td><td>Figma strokes (hover)</td></tr>
+            <tr><td>Focus border</td><td>#64B5F6</td><td class="token-ref">tokens.colors.components.border.focus</td><td>Figma strokes (focus)</td></tr>
+            <tr><td>Error border</td><td>#DB4537</td><td class="token-ref">tokens.colors.error.main</td><td>Figma strokes (error)</td></tr>
+            <tr><td>Disabled border</td><td>#E0E0E0</td><td class="token-ref">tokens.colors.components.input.disabledBorder</td><td>Figma strokes (disabled)</td></tr>
+            <tr><td>Disabled fill</td><td>rgba(0,0,0,0.07)</td><td class="token-ref">tokens.colors.action.disabled</td><td>Figma fills (disabled)</td></tr>
+            <tr><td>Label font size</td><td>12px</td><td class="token-ref">tokens.typography.caption.fontSize</td><td>Figma text layer "Label"</td></tr>
+            <tr><td>Input font size</td><td>14px</td><td class="token-ref">tokens.typography.body2.fontSize</td><td>Figma text layer "Placeholder text"</td></tr>
+            <tr><td>Chip height</td><td>24px</td><td class="token-ref">—</td><td>Extracted from multi-select instance</td></tr>
+            <tr><td>Option padding</td><td>8px 16px</td><td class="token-ref">tokens.spacing.sm / tokens.spacing.md</td><td>Figma option row padding</td></tr>
+            <tr><td>Option hover</td><td>rgba(0,0,0,0.04)</td><td class="token-ref">tokens.colors.action.hover</td><td>AHTG action token</td></tr>
+            <tr><td>Option selected</td><td>#E3F2FD</td><td class="token-ref">tokens.colors.primary.light</td><td>AHTG primary.light token</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+    </main>
+  </div>
+
+  <script>
+    // ─────────────────────────────────────────────────────────────────
+    //  SINGLE SELECT AUTOCOMPLETE
+    // ─────────────────────────────────────────────────────────────────
+    const SINGLE_OPTIONS = [
+      'Jane Smith, RN',
+      'Marcus Lee, CNA',
+      'Priya Patel, LPN',
+      'David Torres, RN',
+      'Sarah Kim, NP',
+      'James Okafor, CNA',
+      'Emily Chen, RN',
+      'Michael Brown, LPN',
+    ];
+
+    const singleInput = document.getElementById('single-input');
+    const singleDropdown = document.getElementById('single-dropdown');
+    const singleArrow = document.getElementById('single-arrow');
+    let singleOpen = false;
+    let singleValue = null;
+
+    function renderSingleOptions(filter) {
+      const filtered = SINGLE_OPTIONS.filter(o =>
+        o.toLowerCase().includes((filter || '').toLowerCase())
+      );
+      if (filtered.length === 0) {
+        singleDropdown.innerHTML = '<div class="ac-no-options">No results</div>';
+      } else {
+        singleDropdown.innerHTML = filtered.map(o => `
+          <div class="ac-option${singleValue === o ? ' selected' : ''}" data-value="${o}">
+            <span>${o}</span>
+            <span class="material-icons check-icon">check</span>
+          </div>
+        `).join('');
+        singleDropdown.querySelectorAll('.ac-option').forEach(el => {
+          el.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            selectSingle(el.dataset.value);
+          });
+        });
+      }
+    }
+
+    function openSingle() {
+      singleOpen = true;
+      singleDropdown.classList.add('open');
+      singleArrow.textContent = 'arrow_drop_up';
+      singleInput.style.borderColor = '#64B5F6';
+      renderSingleOptions(singleInput.value);
+    }
+
+    function closeSingle() {
+      singleOpen = false;
+      singleDropdown.classList.remove('open');
+      singleArrow.textContent = 'arrow_drop_down';
+      singleInput.style.borderColor = '';
+      // restore committed value if user typed but didn't select
+      if (singleValue) singleInput.value = singleValue;
+      else if (!singleValue) singleInput.value = '';
+    }
+
+    function selectSingle(value) {
+      singleValue = value;
+      singleInput.value = value;
+      closeSingle();
+    }
+
+    singleInput.addEventListener('focus', () => openSingle());
+    singleInput.addEventListener('blur', () => closeSingle());
+    singleInput.addEventListener('input', () => renderSingleOptions(singleInput.value));
+    singleInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') { closeSingle(); singleInput.blur(); }
+    });
+
+    // ─────────────────────────────────────────────────────────────────
+    //  MULTI SELECT AUTOCOMPLETE
+    // ─────────────────────────────────────────────────────────────────
+    const MULTI_OPTIONS = [
+      'Sunrise Health Agency',
+      'MedStaff Solutions',
+      'Allied Nursing Partners',
+      'Premier Staffing Group',
+      'Coastal Healthcare',
+      'Pinnacle Medical Staffing',
+      'BrightPath RN Services',
+      'National Nurse Network',
+    ];
+
+    const multiInput = document.getElementById('multi-input');
+    const multiDropdown = document.getElementById('multi-dropdown');
+    const multiContainer = document.getElementById('multi-container');
+    const multiArrow = document.getElementById('multi-arrow');
+    let multiOpen = false;
+    let multiSelected = [];
+
+    function renderChips() {
+      // Remove existing chips (keep the input and arrow)
+      multiContainer.querySelectorAll('.ac-chip').forEach(c => c.remove());
+      const before = multiInput;
+      multiSelected.forEach(val => {
+        const chip = document.createElement('span');
+        chip.className = 'ac-chip';
+        chip.innerHTML = `${val} <button type="button" aria-label="Remove ${val}"><span class="material-icons">cancel</span></button>`;
+        chip.querySelector('button').addEventListener('click', () => removeChip(val));
+        multiContainer.insertBefore(chip, before);
+      });
+    }
+
+    function removeChip(val) {
+      multiSelected = multiSelected.filter(v => v !== val);
+      renderChips();
+      renderMultiOptions(multiInput.value);
+    }
+
+    function renderMultiOptions(filter) {
+      const available = MULTI_OPTIONS.filter(o =>
+        o.toLowerCase().includes((filter || '').toLowerCase())
+      );
+      if (available.length === 0) {
+        multiDropdown.innerHTML = '<div class="ac-no-options">No results</div>';
+      } else {
+        multiDropdown.innerHTML = available.map(o => {
+          const sel = multiSelected.includes(o);
+          return `
+            <div class="ac-option${sel ? ' selected' : ''}" data-value="${o}">
+              <span>${o}</span>
+              <span class="material-icons check-icon">check</span>
+            </div>
+          `;
+        }).join('');
+        multiDropdown.querySelectorAll('.ac-option').forEach(el => {
+          el.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            toggleMulti(el.dataset.value);
+          });
+        });
+      }
+    }
+
+    function toggleMulti(val) {
+      if (multiSelected.includes(val)) {
+        multiSelected = multiSelected.filter(v => v !== val);
+      } else {
+        multiSelected.push(val);
+      }
+      renderChips();
+      multiInput.value = '';
+      renderMultiOptions('');
+      multiInput.focus();
+    }
+
+    function openMulti() {
+      multiOpen = true;
+      multiDropdown.classList.add('open');
+      multiContainer.classList.add('focused');
+      multiArrow.textContent = 'arrow_drop_up';
+      renderMultiOptions(multiInput.value);
+    }
+
+    function closeMulti() {
+      multiOpen = false;
+      multiDropdown.classList.remove('open');
+      multiContainer.classList.remove('focused');
+      multiArrow.textContent = 'arrow_drop_down';
+    }
+
+    multiInput.addEventListener('focus', () => openMulti());
+    multiInput.addEventListener('blur', () => closeMulti());
+    multiInput.addEventListener('input', () => renderMultiOptions(multiInput.value));
+    multiInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') { closeMulti(); multiInput.blur(); }
+      if (e.key === 'Backspace' && multiInput.value === '' && multiSelected.length > 0) {
+        removeChip(multiSelected[multiSelected.length - 1]);
+      }
+    });
+
+    // Clicking the container (not a chip button) focuses the input
+    multiContainer.addEventListener('click', (e) => {
+      if (!e.target.closest('.ac-chip button')) {
+        multiInput.focus();
+      }
+    });
+  </script>
+</body>
+</html>

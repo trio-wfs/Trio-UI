@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Radio Group - AHTG Design System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="../../design-system-shell.css">
+  <style>
+
+.meta-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .meta-item .material-icons {
+      font-size: 16px;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--spacing-lg);
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .radio-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-lg);
+      align-items: flex-start;
+      background: var(--color-background-paper);
+      padding: var(--spacing-lg);
+      border-radius: var(--border-radius);
+      border: 1px solid var(--color-secondary-outline);
+    }
+
+    /* RADIO STYLES */
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-sm);
+    }
+
+    .radio-label {
+      display: inline-flex;
+      align-items: center;
+      cursor: pointer;
+      font-family: var(--font-family);
+      font-size: 14px;
+      user-select: none;
+    }
+
+    .radio-label.disabled {
+      cursor: default;
+      color: var(--color-text-disabled);
+    }
+
+    .radio-input {
+      width: 38px;
+      height: 38px;
+      margin: 0;
+      padding: 8px;
+      cursor: pointer;
+      position: relative;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background: transparent;
+      border: none;
+      outline: none;
+    }
+
+    .radio-input:disabled {
+      cursor: default;
+    }
+
+    .radio-input::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 16px;
+      height: 16px;
+      border: 2px solid var(--color-text-secondary);
+      border-radius: 50%;
+      background: var(--color-background-paper);
+      transition: all 0.2s;
+    }
+
+    .radio-input:hover:not(:disabled)::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    .radio-input:checked::before {
+      border-color: var(--color-primary-main);
+      border-width: 2px;
+    }
+
+    /* Filled inner circle for checked state */
+    .radio-input:checked::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--color-primary-main);
+      z-index: 1;
+    }
+
+    .radio-input.error:checked::before {
+      border-color: var(--color-error-main);
+    }
+
+    .radio-input.error:checked::after {
+      background: var(--color-error-main);
+    }
+
+    .radio-input:disabled::before {
+      border-color: var(--color-text-disabled);
+      background: var(--color-disabled-bg);
+    }
+
+    .radio-input:disabled:checked::before {
+      border-color: var(--color-text-disabled);
+    }
+
+    .radio-input:disabled:checked::after {
+      background: var(--color-text-disabled);
+    }
+
+    .do-dont-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: var(--spacing-lg);
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .do-card,
+
+    .do-card-title, .dont-card-title {
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: var(--spacing-sm);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+    }
+
+    .do-card-title {
+      color: var(--color-success-main);
+    }
+
+    .dont-card-title {
+      color: var(--color-error-main);
+    }
+
+    .do-card-title .material-icons,
+    .dont-card-title .material-icons {
+      font-size: 20px;
+    }
+
+    .spec-table {
+      width: 100%;
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: var(--border-radius);
+      border-collapse: collapse;
+      margin-top: var(--spacing-lg);
+    }
+
+    .spec-table th,
+    .spec-table td {
+      padding: var(--spacing-md);
+      text-align: left;
+      border-bottom: 1px solid var(--color-secondary-outline);
+    }
+
+    .spec-table th {
+      font-weight: 500;
+      background-color: var(--color-background-default);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--color-text-secondary);
+    }
+
+    .spec-table td {
+      font-size: 14px;
+    }
+
+    .spec-table code {
+      background-color: var(--color-background-default);
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 12px;
+      font-family: 'Courier New', monospace;
+    }
+
+    .spec-table tr:last-child td {
+      border-bottom: none;
+    }
+  
+  </style>
+  <script src="../../design-system-nav.js"></script>
+</head>
+<body>
+  <!-- LEFT NAVIGATION -->
+    <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <!-- PAGE HEADER -->
+    <header class="page-header">
+      <h1 class="page-title">Radio Group</h1>
+      <p class="page-subtitle">
+        Allows users to select exactly one option from a set. Use when users must choose a single option and all options should be visible at once.
+      </p>
+      <div class="component-meta">
+        <div class="meta-item">
+          <span class="material-icons">category</span>
+          <span>Form Control</span>
+        </div>
+        <div class="meta-item">
+          <span class="material-icons">link</span>
+          <span>Figma: Radio-Group (5382:7056)</span>
+        </div>
+        <div class="meta-item">
+          <span class="material-icons">check_circle</span>
+          <span>Production Ready</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- OVERVIEW -->
+    <section class="section">
+      <h2 class="section-title">Overview</h2>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons">info</span>
+            Purpose
+          </div>
+          <div class="card-content">
+            Radio buttons let users select exactly one option from a set. Use when:
+            <ul>
+              <li>Users must choose one option (mutually exclusive)</li>
+              <li>All options should be visible (2-5 options)</li>
+              <li>Comparing options is important</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons">tune</span>
+            States
+          </div>
+          <div class="card-content">
+            <strong>Checked:</strong> true, false<br>
+            <strong>Disabled:</strong> true, false<br>
+            <strong>Color:</strong> primary, default, error<br>
+            <strong>Hover:</strong> on, off<br>
+            <strong>Size:</strong> 38x38px hitbox, 16px circle
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons">accessibility</span>
+            Accessibility
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Keyboard accessible (Arrow keys to navigate, Space to select)</li>
+              <li>Group with fieldset/legend for screen readers</li>
+              <li>Always pre-select one option by default</li>
+              <li>Use clear, distinct labels for each option</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- USAGE GUIDELINES -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">rule</span>
+        Usage Guidelines
+      </h2>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons">check_circle</span>
+            When to Use
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Use for mutually exclusive selections</li>
+              <li>Display 2-5 options (use Select for more)</li>
+              <li>Pre-select the most common/safe option</li>
+              <li>Stack vertically for easy scanning</li>
+              <li>Use clear, concise labels</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons">cancel</span>
+            When NOT to Use
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Don't use for multiple selections (use Checkbox instead)</li>
+              <li>Don't use for more than 5 options (use Select instead)</li>
+              <li>Don't use for actions (use Button instead)</li>
+              <li>Don't leave unselected if one option must be chosen</li>
+              <li>Don't use for binary yes/no choices (use Checkbox or Switch)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATE VARIANTS -->
+    <section class="section">
+      <h2 class="section-title">States</h2>
+      <p class="section-description">
+        Radio buttons have multiple states extracted from Figma specifications.
+      </p>
+
+      <div class="variant-group">
+        <div class="variant-label">Default - Unchecked & Checked</div>
+        <div class="radio-row">
+          <div class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="example1" class="radio-input">
+              Option A
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="example1" class="radio-input" checked>
+              Option B (selected)
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="example1" class="radio-input">
+              Option C
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Disabled States</div>
+        <div class="radio-row">
+          <div class="radio-group">
+            <label class="radio-label disabled">
+              <input type="radio" name="example2" class="radio-input" disabled>
+              Disabled Unchecked
+            </label>
+            <label class="radio-label disabled">
+              <input type="radio" name="example2" class="radio-input" checked disabled>
+              Disabled Checked
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Error - For validation failures</div>
+        <div class="radio-row">
+          <div class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="example3" class="radio-input error">
+              Delete immediately
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="example3" class="radio-input error" checked>
+              Delete permanently (no undo)
+            </label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BEST PRACTICES -->
+    <section class="section">
+      <h2 class="section-title">Best Practices</h2>
+      <div class="do-dont-grid">
+        <div class="do-card">
+          <div class="do-card-title">
+            <span class="material-icons">check_circle</span>
+            Do
+          </div>
+          <div class="card-content">
+            <strong>Mutually Exclusive:</strong><br>
+            <div style="margin-top: 8px;" class="radio-group">
+              <label class="radio-label">
+                <input type="radio" name="shipping" class="radio-input" checked>
+                Standard Shipping (3-5 days)
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="shipping" class="radio-input">
+                Express Shipping (1-2 days)
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="shipping" class="radio-input">
+                Overnight Shipping
+              </label>
+            </div>
+            <p style="margin-top: 8px; font-size: 12px;">Use for single choice selections</p>
+          </div>
+        </div>
+
+        <div class="dont-card">
+          <div class="dont-card-title">
+            <span class="material-icons">cancel</span>
+            Don't
+          </div>
+          <div class="card-content">
+            <strong>Using for Multiple Selection:</strong><br>
+            <div style="margin-top: 8px;" class="radio-group">
+              <label class="radio-label">
+                <input type="radio" name="notifications" class="radio-input" checked>
+                Email notifications
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="sms" class="radio-input" checked>
+                SMS notifications
+              </label>
+            </div>
+            <p style="margin-top: 8px; font-size: 12px;">Don't use radio for multiple selections - use Checkbox instead</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TECHNICAL SPECIFICATIONS -->
+    <section class="section">
+      <h2 class="section-title">Technical Specifications</h2>
+      <p class="section-description">
+        All values extracted from Figma component instances (node: 5382:7056).
+      </p>
+
+      <table class="spec-table">
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Value</th>
+            <th>Figma Source</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Hitbox size</td>
+            <td>38x38px</td>
+            <td><code>.absoluteBoundingBox</code></td>
+            <td>Total clickable area</td>
+          </tr>
+          <tr>
+            <td>Radio circle</td>
+            <td>16px diameter</td>
+            <td><code>.children[0].absoluteBoundingBox</code></td>
+            <td>Visible radio button circle</td>
+          </tr>
+          <tr>
+            <td>Padding</td>
+            <td>8px</td>
+            <td>Calculated: (38-16)/2</td>
+            <td>Space around radio circle</td>
+          </tr>
+          <tr>
+            <td>Colors</td>
+            <td>primary, default, error</td>
+            <td><code>componentPropertyDefinitions.color.variantOptions</code></td>
+            <td>Primary (#2196F3), Error (#DB4537), Default (gray)</td>
+          </tr>
+          <tr>
+            <td>States</td>
+            <td>checked, disabled</td>
+            <td><code>componentPropertyDefinitions</code></td>
+            <td>Boolean variants from Figma</td>
+          </tr>
+          <tr>
+            <td>Hover state</td>
+            <td>rgba(0,0,0,0.04)</td>
+            <td>Standard Material Design hover</td>
+            <td>38px circular ripple</td>
+          </tr>
+          <tr>
+            <td>Selected indicator</td>
+            <td>8px filled inner circle</td>
+            <td>Material Design radio standard</td>
+            <td>2px outer border + filled center when checked</td>
+          </tr>
+          <tr>
+            <td>Typography</td>
+            <td>14px Roboto Regular</td>
+            <td><code>tokens.typography.fontSize.sm</code></td>
+            <td>For label text</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</body>
+</html>

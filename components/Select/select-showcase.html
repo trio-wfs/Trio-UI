@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Select - AHTG Design System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="../../design-system-shell.css">
+  <style>
+
+.meta-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .meta-item .material-icons {
+      font-size: 16px;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--spacing-lg);
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .select-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-lg);
+      align-items: flex-start;
+      background: var(--color-background-paper);
+      padding: var(--spacing-lg);
+      border-radius: var(--border-radius);
+      border: 1px solid var(--color-secondary-outline);
+    }
+
+    /* SELECT STYLES - Uses custom Menu component */
+    .select-wrapper {
+      display: inline-block;
+      min-width: 256px;
+      position: relative;
+    }
+
+    .select-control {
+      position: relative;
+      height: 36px; /* Matches TextField single-line */
+    }
+
+    .select-input {
+      width: 100%;
+      height: 36px;
+      padding: 0 40px 0 16px;
+      font-family: var(--font-family);
+      font-size: 14px;
+      color: var(--color-text-primary);
+      background-color: var(--color-background-paper);
+      border: 1px solid #9E9E9E;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      user-select: none;
+    }
+
+    .select-input:hover {
+      border-color: #616161;
+    }
+
+    .select-input.open {
+      border-color: var(--color-primary-main);
+      border-width: 2px;
+      padding: 0 39px 0 15px;
+    }
+
+    .select-input.error {
+      border-color: var(--color-error-main);
+    }
+
+    .select-input.disabled {
+      background-color: var(--color-disabled-bg);
+      border-color: #E0E0E0;
+      color: var(--color-text-disabled);
+      cursor: default;
+    }
+
+    .select-icon {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      color: var(--color-text-secondary);
+      transition: transform 0.2s;
+    }
+
+    .select-input.open .select-icon {
+      transform: translateY(-50%) rotate(180deg);
+    }
+
+    /* Custom Menu Dropdown */
+    .select-menu {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      min-width: 254px;
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: var(--border-radius);
+      box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.08), 0px 1px 4px rgba(0, 0, 0, 0.06);
+      padding: var(--spacing-sm) 0;
+      z-index: 1000;
+      display: none;
+    }
+
+    .select-menu.open {
+      display: block;
+    }
+
+    .select-menu-item {
+      min-height: 37px;
+      padding: var(--spacing-sm) var(--spacing-md);
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      color: var(--color-text-primary);
+      cursor: pointer;
+      transition: background 0.2s;
+      user-select: none;
+    }
+
+    .select-menu-item:hover {
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    .select-menu-item.selected {
+      background: rgba(33, 150, 243, 0.08);
+    }
+
+    .select-menu-item.selected:hover {
+      background: rgba(33, 150, 243, 0.12);
+    }
+
+    .select-menu-item.disabled {
+      color: var(--color-text-disabled);
+      cursor: default;
+      pointer-events: none;
+    }
+
+    .select-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--color-text-primary);
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .select-helper {
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      margin-top: var(--spacing-xs);
+    }
+
+    .select-helper.error {
+      color: var(--color-error-main);
+    }
+
+    .do-dont-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: var(--spacing-lg);
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .do-card,
+
+    .do-card-title, .dont-card-title {
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: var(--spacing-sm);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+    }
+
+    .do-card-title {
+      color: var(--color-success-main);
+    }
+
+    .dont-card-title {
+      color: var(--color-error-main);
+    }
+
+    .do-card-title .material-icons,
+    .dont-card-title .material-icons {
+      font-size: 20px;
+    }
+
+    .spec-table {
+      width: 100%;
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: var(--border-radius);
+      border-collapse: collapse;
+      margin-top: var(--spacing-lg);
+    }
+
+    .spec-table th,
+    .spec-table td {
+      padding: var(--spacing-md);
+      text-align: left;
+      border-bottom: 1px solid var(--color-secondary-outline);
+    }
+
+    .spec-table th {
+      font-weight: 500;
+      background-color: var(--color-background-default);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--color-text-secondary);
+    }
+
+    .spec-table td {
+      font-size: 14px;
+    }
+
+    .spec-table code {
+      background-color: var(--color-background-default);
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 12px;
+      font-family: 'Courier New', monospace;
+    }
+
+    .spec-table tr:last-child td {
+      border-bottom: none;
+    }
+  
+  </style>
+  <script src="../../design-system-nav.js"></script>
+</head>
+<body>
+  <!-- LEFT NAVIGATION -->
+    <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <!-- PAGE HEADER -->
+    <header class="page-header">
+      <h1 class="page-title">Select</h1>
+      <p class="page-subtitle">
+        Allows users to choose a single option from a dropdown list. Use when you have 5 or more options that would clutter the interface as radio buttons.
+      </p>
+      <div class="component-meta">
+        <div class="meta-item">
+          <span class="material-icons">category</span>
+          <span>Form Control</span>
+        </div>
+        <div class="meta-item">
+          <span class="material-icons">link</span>
+          <span>Figma: Select (2433:8481)</span>
+        </div>
+        <div class="meta-item">
+          <span class="material-icons">check_circle</span>
+          <span>Production Ready</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- OVERVIEW -->
+    <section class="section">
+      <h2 class="section-title">Overview</h2>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons">info</span>
+            Purpose
+          </div>
+          <div class="card-content">
+            Select dropdowns let users choose one option from many. Use when:
+            <ul>
+              <li>You have 5 or more options</li>
+              <li>Space is limited (dropdown saves space)</li>
+              <li>Options are well-known (countries, states, etc.)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons">tune</span>
+            States
+          </div>
+          <div class="card-content">
+            <strong>State:</strong> default, focus, disabled, error, selected<br>
+            <strong>Type:</strong> open, closed<br>
+            <strong>Input Height:</strong> 36px (TextField single-line)<br>
+            <strong>Min Width:</strong> 256px<br>
+            <strong>Dropdown:</strong> Uses custom Menu component
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons">accessibility</span>
+            Accessibility
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Keyboard accessible (Arrow keys to navigate, Enter to select)</li>
+              <li>Always include a visible label</li>
+              <li>Use helper text for additional context</li>
+              <li>Provide clear error messages for validation</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- USAGE GUIDELINES -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">rule</span>
+        Usage Guidelines
+      </h2>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons">check_circle</span>
+            When to Use
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Use for 5+ options (otherwise use Radio buttons)</li>
+              <li>Sort options logically (alphabetically or by usage)</li>
+              <li>Provide a default selection when appropriate</li>
+              <li>Use clear, concise option labels</li>
+              <li>Include helper text for complex selections</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons">cancel</span>
+            When NOT to Use
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Don't use for 2-4 options (use Radio buttons instead)</li>
+              <li>Don't use for actions (use Button or Menu instead)</li>
+              <li>Don't use overly long option names</li>
+              <li>Don't change content based on selection without user action</li>
+              <li>Don't nest select dropdowns</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATE VARIANTS -->
+    <section class="section">
+      <h2 class="section-title">States</h2>
+      <p class="section-description">
+        Select inputs have multiple states extracted from Figma specifications.
+      </p>
+
+      <div class="variant-group">
+        <div class="variant-label">Default</div>
+        <div class="select-row">
+          <div class="select-wrapper">
+            <label class="select-label">Country</label>
+            <div class="select-control">
+              <div class="select-input" onclick="toggleMenu(this)">
+                <span>Select a country</span>
+                <span class="material-icons select-icon">arrow_drop_down</span>
+              </div>
+              <div class="select-menu">
+                <div class="select-menu-item" onclick="selectOption(this, 'Select a country')">Select a country</div>
+                <div class="select-menu-item" onclick="selectOption(this, 'United States')">United States</div>
+                <div class="select-menu-item" onclick="selectOption(this, 'Canada')">Canada</div>
+                <div class="select-menu-item" onclick="selectOption(this, 'United Kingdom')">United Kingdom</div>
+                <div class="select-menu-item" onclick="selectOption(this, 'Australia')">Australia</div>
+              </div>
+            </div>
+            <div class="select-helper">Please select your country</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Selected - With value chosen</div>
+        <div class="select-row">
+          <div class="select-wrapper">
+            <label class="select-label">State</label>
+            <div class="select-control">
+              <div class="select-input" onclick="toggleMenu(this)">
+                <span>California</span>
+                <span class="material-icons select-icon">arrow_drop_down</span>
+              </div>
+              <div class="select-menu">
+                <div class="select-menu-item selected" onclick="selectOption(this, 'California')">California</div>
+                <div class="select-menu-item" onclick="selectOption(this, 'New York')">New York</div>
+                <div class="select-menu-item" onclick="selectOption(this, 'Texas')">Texas</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Error - Validation failure</div>
+        <div class="select-row">
+          <div class="select-wrapper">
+            <label class="select-label">Required Field</label>
+            <div class="select-control">
+              <div class="select-input error" onclick="toggleMenu(this)">
+                <span>Select an option</span>
+                <span class="material-icons select-icon">arrow_drop_down</span>
+              </div>
+              <div class="select-menu">
+                <div class="select-menu-item" onclick="selectOption(this, 'Select an option')">Select an option</div>
+                <div class="select-menu-item" onclick="selectOption(this, 'Option 1')">Option 1</div>
+                <div class="select-menu-item" onclick="selectOption(this, 'Option 2')">Option 2</div>
+              </div>
+            </div>
+            <div class="select-helper error">This field is required</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Disabled</div>
+        <div class="select-row">
+          <div class="select-wrapper">
+            <label class="select-label">Disabled Select</label>
+            <div class="select-control">
+              <div class="select-input disabled">
+                <span>Not available</span>
+                <span class="material-icons select-icon">arrow_drop_down</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BEST PRACTICES -->
+    <section class="section">
+      <h2 class="section-title">Best Practices</h2>
+      <div class="do-dont-grid">
+        <div class="do-card">
+          <div class="do-card-title">
+            <span class="material-icons">check_circle</span>
+            Do
+          </div>
+          <div class="card-content">
+            <strong>Logical Grouping:</strong><br>
+            <div style="margin-top: 8px;">
+              <div class="select-wrapper">
+                <label class="select-label">Priority Level</label>
+                <div class="select-control">
+                  <div class="select-input" onclick="toggleMenu(this)">
+                    <span>Select priority</span>
+                    <span class="material-icons select-icon">arrow_drop_down</span>
+                  </div>
+                  <div class="select-menu">
+                    <div class="select-menu-item" onclick="selectOption(this, 'Select priority')">Select priority</div>
+                    <div class="select-menu-item" onclick="selectOption(this, 'Low')">Low</div>
+                    <div class="select-menu-item" onclick="selectOption(this, 'Medium')">Medium</div>
+                    <div class="select-menu-item" onclick="selectOption(this, 'High')">High</div>
+                    <div class="select-menu-item" onclick="selectOption(this, 'Urgent')">Urgent</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p style="margin-top: 8px; font-size: 12px;">Options sorted by logical order (severity)</p>
+          </div>
+        </div>
+
+        <div class="dont-card">
+          <div class="dont-card-title">
+            <span class="material-icons">cancel</span>
+            Don't
+          </div>
+          <div class="card-content">
+            <strong>Too Few Options:</strong><br>
+            <div style="margin-top: 8px;">
+              <div class="select-wrapper">
+                <label class="select-label">Gender</label>
+                <div class="select-control">
+                  <div class="select-input" onclick="toggleMenu(this)">
+                    <span>Select</span>
+                    <span class="material-icons select-icon">arrow_drop_down</span>
+                  </div>
+                  <div class="select-menu">
+                    <div class="select-menu-item" onclick="selectOption(this, 'Select')">Select</div>
+                    <div class="select-menu-item" onclick="selectOption(this, 'Male')">Male</div>
+                    <div class="select-menu-item" onclick="selectOption(this, 'Female')">Female</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p style="margin-top: 8px; font-size: 12px;">Don't use Select for only 2-3 options - use Radio buttons instead</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TECHNICAL SPECIFICATIONS -->
+    <section class="section">
+      <h2 class="section-title">Technical Specifications</h2>
+      <p class="section-description">
+        All values extracted from Figma component instances (node: 2433:8481).
+      </p>
+
+      <table class="spec-table">
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Value</th>
+            <th>Figma Source</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Input height</td>
+            <td>36px</td>
+            <td>TextField single-line instance</td>
+            <td>Select uses TextField component internally</td>
+          </tr>
+          <tr>
+            <td>Total height (with label)</td>
+            <td>~58px</td>
+            <td><code>.absoluteBoundingBox.height</code></td>
+            <td>Includes label above input</td>
+          </tr>
+          <tr>
+            <td>Default width</td>
+            <td>256px</td>
+            <td><code>.absoluteBoundingBox.width</code></td>
+            <td>Minimum recommended width</td>
+          </tr>
+          <tr>
+            <td>States</td>
+            <td>default, focus, disabled, error, selected</td>
+            <td><code>componentPropertyDefinitions.state.variantOptions</code></td>
+            <td>All state variants from Figma</td>
+          </tr>
+          <tr>
+            <td>Type</td>
+            <td>open, closed</td>
+            <td><code>componentPropertyDefinitions.type.variantOptions</code></td>
+            <td>Dropdown open/closed states</td>
+          </tr>
+          <tr>
+            <td>Dropdown component</td>
+            <td>Custom Menu</td>
+            <td>Menu component (node: 4505:3795)</td>
+            <td>Uses design system Menu instead of system dropdown</td>
+          </tr>
+          <tr>
+            <td>Border (default)</td>
+            <td>#9E9E9E</td>
+            <td><code>tokens.colors.components.input.enabledBorder</code></td>
+            <td>Default border color</td>
+          </tr>
+          <tr>
+            <td>Border (focus)</td>
+            <td>#64B5F6 (2px)</td>
+            <td><code>tokens.colors.border.focus</code></td>
+            <td>Focus state with thicker border</td>
+          </tr>
+          <tr>
+            <td>Border (error)</td>
+            <td>#DB4537</td>
+            <td><code>tokens.colors.error.main</code></td>
+            <td>Error validation state</td>
+          </tr>
+          <tr>
+            <td>Padding</td>
+            <td>0 40px 0 16px</td>
+            <td>Internal spacing</td>
+            <td>Right padding for dropdown icon</td>
+          </tr>
+          <tr>
+            <td>Typography</td>
+            <td>14px Roboto Regular</td>
+            <td><code>tokens.typography.fontSize.sm</code></td>
+            <td>For option text</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <script>
+    // Close all menus when clicking outside
+    document.addEventListener('click', function(event) {
+      if (!event.target.closest('.select-wrapper')) {
+        document.querySelectorAll('.select-menu.open').forEach(menu => {
+          menu.classList.remove('open');
+          menu.parentElement.querySelector('.select-input').classList.remove('open');
+        });
+      }
+    });
+
+    function toggleMenu(trigger) {
+      // Don't open if disabled
+      if (trigger.classList.contains('disabled')) {
+        return;
+      }
+
+      const menu = trigger.parentElement.querySelector('.select-menu');
+      const isOpen = menu.classList.contains('open');
+
+      // Close all other menus
+      document.querySelectorAll('.select-menu.open').forEach(m => {
+        if (m !== menu) {
+          m.classList.remove('open');
+          m.parentElement.querySelector('.select-input').classList.remove('open');
+        }
+      });
+
+      // Toggle this menu
+      if (isOpen) {
+        menu.classList.remove('open');
+        trigger.classList.remove('open');
+      } else {
+        menu.classList.add('open');
+        trigger.classList.add('open');
+      }
+    }
+
+    function selectOption(item, value) {
+      const menu = item.parentElement;
+      const trigger = menu.parentElement.querySelector('.select-input');
+      const valueSpan = trigger.querySelector('span:first-child');
+
+      // Update selected state
+      menu.querySelectorAll('.select-menu-item').forEach(i => i.classList.remove('selected'));
+      item.classList.add('selected');
+
+      // Update display value
+      valueSpan.textContent = value;
+
+      // Close menu
+      menu.classList.remove('open');
+      trigger.classList.remove('open');
+    }
+  </script>
+</body>
+</html>

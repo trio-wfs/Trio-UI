@@ -1,0 +1,1832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Metric Card - AHTG Design System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="../../design-system-shell.css">
+  <style>
+
+
+    
+
+    
+
+    /* DEMO AREA */
+    .demo-area {
+      background: var(--color-background-default);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-xl);
+      margin-bottom: var(--spacing-md);
+    }
+
+    /* Metric card group: horizontal row of cards with 16px gap */
+    .metric-group {
+      display: flex;
+      flex-direction: row;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    /* Each card in a group fills equal width */
+    .metric-group .metric-card-wrapper {
+      flex: 1;
+      min-width: 170px;
+    }
+
+    /* SPEC TABLE */
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    .spec-table th {
+      background: var(--color-secondary-main);
+      padding: var(--spacing-sm) var(--spacing-md);
+      text-align: left;
+      font-weight: 500;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 2px solid var(--color-secondary-outline);
+    }
+
+    .spec-table td {
+      padding: var(--spacing-sm) var(--spacing-md);
+      border-bottom: 1px solid var(--color-secondary-outline);
+      vertical-align: top;
+    }
+
+    .spec-table tr:last-child td { border-bottom: none; }
+    .spec-table tr:hover td { background: var(--color-secondary-main); }
+
+    code {
+      background: #F5F5F5;
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 2px;
+      padding: 2px 6px;
+      font-size: 12px;
+      font-family: 'Roboto Mono', monospace;
+    }
+
+    /* COLOR SWATCHES */
+    .color-row { display: flex; gap: var(--spacing-sm); flex-wrap: wrap; }
+
+    .color-swatch {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      color: var(--color-text-secondary);
+    }
+
+    .swatch {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--border-radius);
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+
+    /* TOKEN PILLS */
+    .token-pill {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 500;
+      color: #fff;
+      margin: 2px;
+    }
+
+    /* ANATOMY DIAGRAM */
+    .anatomy-diagram {
+      position: relative;
+      display: inline-block;
+      background: var(--color-background-default);
+      padding: var(--spacing-xl);
+      border-radius: var(--border-radius);
+    }
+
+    .anatomy-callout {
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 4px;
+    }
+
+    .callout-num {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--color-primary-main);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* ========================================
+       METRIC CARD COMPONENT STYLES
+       (Pure CSS implementation for showcase)
+       ======================================== */
+
+    .metric-card {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      min-width: 170px;
+      height: 150px;
+      background-color: #FFFFFF;
+      border: 1px solid #E0E0E0;
+      border-radius: 4px;
+      padding: 16px 16px 8px 16px;
+      gap: 8px;
+      box-sizing: border-box;
+      overflow: hidden;
+      font-family: var(--font-family);
+    }
+
+    /* Label Row */
+    .mc-label-row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      height: 24px;
+    }
+
+    .mc-label-left {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 4px;
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .mc-label-icon {
+      font-size: 16px;
+      color: #757575;
+      flex-shrink: 0;
+    }
+
+    .mc-label-text {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 24px;
+      color: #757575;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Metrics container */
+    .mc-metrics {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: 8px;
+      min-height: 0;
+    }
+
+    /* Metric row — horizontal columns */
+    .mc-row {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      flex: 1;
+      min-height: 0;
+      gap: 0;
+    }
+
+    /* Single metric column */
+    .mc-col {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      flex: 1;
+      min-width: 0;
+      gap: 8px;
+      overflow: hidden;
+    }
+
+    /* Value typography — size set via class modifier */
+    .mc-value {
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: center;
+    }
+
+    .mc-value--lg { font-size: 34px; line-height: 41px; } /* 1–2 cols */
+    .mc-value--md { font-size: 24px; line-height: 28px; } /* 3 cols */
+    .mc-value--sm { font-size: 16px; line-height: 24px; } /* list / grouped-sub */
+
+    /* Metric sub-label */
+    .mc-sub-label {
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 18px;
+      color: #757575;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: center;
+    }
+
+    /* Column divider */
+    .mc-divider-wrap {
+      display: flex;
+      align-items: flex-start;
+      padding-top: 8px;
+      width: 9px;
+      justify-content: center;
+      align-self: stretch;
+      flex-shrink: 0;
+    }
+
+    .mc-divider {
+      width: 1px;
+      height: 24px;
+      background-color: #E0E0E0;
+    }
+
+    /* List layout */
+    .mc-list {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: space-between;
+      min-height: 0;
+    }
+
+    .mc-list-row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      height: 24px;
+      overflow: hidden;
+    }
+
+    .mc-list-caption {
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 18px;
+      color: #757575;
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding-right: 4px;
+    }
+
+    .mc-list-value {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 24px;
+      flex-shrink: 0;
+    }
+
+    /* Grouped layout */
+    .mc-grouped-primary {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      flex: 1;
+      min-width: 0;
+      gap: 8px;
+      overflow: hidden;
+    }
+
+    .mc-grouped-secondary {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      padding-left: 8px;
+    }
+
+    .mc-grouped-sub-row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      height: 24px;
+      overflow: hidden;
+    }
+
+    /* Progress bar footer */
+    .mc-bar-footer {
+      flex-shrink: 0;
+      height: 18px;
+      display: flex;
+      align-items: center;
+    }
+
+    .mc-progress-track {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      height: 10px;
+      background-color: #EEEEEE;
+      overflow: hidden;
+      border-radius: 999px;
+    }
+
+    .mc-segment {
+      height: 100%;
+      box-sizing: border-box;
+      border-right: 2px solid #fff;
+    }
+
+    .mc-segment:last-child { border-right: none; }
+
+    /* Icons footer */
+    .mc-icons-footer {
+      display: flex;
+      flex-direction: row;
+      flex-shrink: 0;
+      height: 18px;
+      align-items: center;
+    }
+
+    .mc-icon-segment {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .mc-footer-icon {
+      font-size: 16px;
+      color: #757575;
+    }
+
+    /* Labels footer */
+    .mc-labels-footer {
+      display: flex;
+      flex-direction: row;
+      flex-shrink: 0;
+      height: 18px;
+      align-items: center;
+      gap: 4px;
+      overflow: hidden;
+    }
+
+    .mc-label-chip {
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .mc-label-chip-text {
+      display: block;
+      font-size: 11px;
+      font-weight: 500;
+      line-height: 16px;
+      color: #757575;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: center;
+    }
+  
+  </style>
+  <script src="../../design-system-nav.js"></script>
+</head>
+<body>
+
+  <!-- LEFT SIDEBAR -->
+    <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+
+    <!-- PAGE HEADER -->
+    <header class="page-header">
+      <h1 class="page-title">Metric Card</h1>
+      <p class="page-subtitle">
+        Metric Cards display numeric KPIs and data summaries in a compact 150px-tall card.
+        They support 1–4 metric values, four footer styles, and per-metric semantic color
+        overrides. Cards are always used in horizontal groups of 2 or more, filling
+        available width with 16px gaps between them.
+      </p>
+      <div class="component-meta">
+        <span><span class="material-icons" style="font-size: 14px;">category</span> Custom Component</span>
+        <span><span class="material-icons" style="font-size: 14px;">link</span> Figma: 3787:29023</span>
+        <span><span class="material-icons" style="font-size: 14px;">verified</span> Production Ready</span>
+      </div>
+    </header>
+
+    <!-- OVERVIEW -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">info</span>
+        Overview
+      </h2>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons" style="color: var(--color-primary-main);">bar_chart</span>
+            Purpose
+          </div>
+          <div class="card-content">
+            Display compact numeric KPIs at a glance. Each card shows a label, 1–4 metric
+            values with sub-labels, and an optional footer (progress bar, icons, or labels).
+            Height is always exactly 150px regardless of variant.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons" style="color: var(--color-primary-main);">palette</span>
+            Color System
+          </div>
+          <div class="card-content">
+            Uses the info tone scale (900 → 700 → 500 → 300) as the primary data viz color.
+            Semantic colors (error, warning, success) can override any metric starting at 500,
+            ascending to 700, then 900 for additional urgency.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons" style="color: var(--color-primary-main);">grid_view</span>
+            Layout Rules
+          </div>
+          <div class="card-content">
+            Always used in groups of 2+ cards in a horizontal flex row with 16px gaps.
+            Cards have a minimum width of 170px and expand to fill available space equally.
+            Labels truncate with ellipsis at minimum width.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- USAGE GUIDELINES -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">rule</span>
+        Usage Guidelines
+      </h2>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons">check_circle</span>
+            When to Use
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Dashboard KPI summaries (counts, totals, statuses)</li>
+              <li>2+ related metrics that benefit from side-by-side comparison</li>
+              <li>Proportional data that a progress bar meaningfully represents</li>
+              <li>Operational metrics with urgency states (error/warning/success)</li>
+              <li>Grouped comparison: 1 primary metric + 2 supporting sub-metrics</li>
+              <li>Lists of 4 related values that don't need chart visualization</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons">cancel</span>
+            When NOT to Use
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Single standalone card — always pair with at least one other card</li>
+              <li>More than 4 metric values — use a data table instead</li>
+              <li>Trend over time — use a chart component</li>
+              <li>Detailed breakdowns — use a table or expandable list</li>
+              <li>Non-numeric content — use a summary card pattern instead</li>
+              <li>Mixing info and semantic colors randomly — use per-metric overrides intentionally</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DATA VIZ COLOR PALETTE -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">palette</span>
+        Data Visualization Color Palette
+      </h2>
+      <p class="section-description">
+        The info tone scale is the primary color family for all Metric Card data. Segments
+        are assigned by position (900 = first, 700 = second, 500 = third, 300 = fourth).
+        Semantic overrides replace a metric's color entirely and ascend 500 → 700 → 900.
+      </p>
+
+      <div class="variant-group">
+        <div class="variant-label">Primary Data Viz — Info Scale (default)</div>
+        <div class="color-row">
+          <div class="color-swatch">
+            <div class="swatch" style="background:#37636B"></div>
+            <span>info/900</span>
+            <span>#37636B</span>
+            <span style="font-size:10px;color:#9e9e9e;">1st metric</span>
+          </div>
+          <div class="color-swatch">
+            <div class="swatch" style="background:#4B9AB0"></div>
+            <span>info/700</span>
+            <span>#4B9AB0</span>
+            <span style="font-size:10px;color:#9e9e9e;">2nd metric</span>
+          </div>
+          <div class="color-swatch">
+            <div class="swatch" style="background:#5BBFDE"></div>
+            <span>info/500</span>
+            <span>#5BBFDE</span>
+            <span style="font-size:10px;color:#9e9e9e;">3rd metric</span>
+          </div>
+          <div class="color-swatch">
+            <div class="swatch" style="background:#6FD3ED"></div>
+            <span>info/300</span>
+            <span>#6FD3ED</span>
+            <span style="font-size:10px;color:#9e9e9e;">4th metric</span>
+          </div>
+          <div class="color-swatch">
+            <div class="swatch" style="background:#EEEEEE;border:1px solid #e0e0e0;"></div>
+            <span>sec/200</span>
+            <span>#EEEEEE</span>
+            <span style="font-size:10px;color:#9e9e9e;">bar bg</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Semantic Urgency — Error (500 → 700 → 900)</div>
+        <div class="color-row">
+          <div class="color-swatch">
+            <div class="swatch" style="background:#DB4537"></div>
+            <span>error/500</span>
+            <span>#DB4537</span>
+          </div>
+          <div class="color-swatch">
+            <div class="swatch" style="background:#BB3430"></div>
+            <span>error/700</span>
+            <span>#BB3430</span>
+          </div>
+          <div class="color-swatch">
+            <div class="swatch" style="background:#A0241E"></div>
+            <span>error/900</span>
+            <span>#A0241E</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Semantic Urgency — Warning (500 → 700 → 900)</div>
+        <div class="color-row">
+          <div class="color-swatch">
+            <div class="swatch" style="background:#EB8B0C"></div>
+            <span>warn/500</span>
+            <span>#EB8B0C</span>
+          </div>
+          <div class="color-swatch">
+            <div class="swatch" style="background:#E17109"></div>
+            <span>warn/700</span>
+            <span>#E17109</span>
+          </div>
+          <div class="color-swatch">
+            <div class="swatch" style="background:#E65100"></div>
+            <span>warn/900</span>
+            <span>#E65100</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Semantic Urgency — Success (500 → 700 → 900)</div>
+        <div class="color-row">
+          <div class="color-swatch">
+            <div class="swatch" style="background:#4CAF50"></div>
+            <span>succ/500</span>
+            <span>#4CAF50</span>
+          </div>
+          <div class="color-swatch">
+            <div class="swatch" style="background:#388E3C"></div>
+            <span>succ/700</span>
+            <span>#388E3C</span>
+          </div>
+          <div class="color-swatch">
+            <div class="swatch" style="background:#1B5E20"></div>
+            <span>succ/900</span>
+            <span>#1B5E20</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         VARIANTS — 1, 2, 3, 4 METRIC VALUES
+         ============================================================ -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">widgets</span>
+        Metric Count Variants
+      </h2>
+      <p class="section-description">
+        The number of metrics in the array drives the layout. 1–3 values display as equal-width
+        columns. 4 values switch to a vertical list. Value font size scales down to fit
+        (34px → 24px → 16px) as more columns are added.
+      </p>
+
+      <!-- 1 metric -->
+      <div class="variant-group">
+        <div class="variant-label">1 Metric — Single Column (fs=34, info/900, bar footer)</div>
+        <div class="demo-area">
+          <div class="metric-group">
+            <div class="metric-card-wrapper">
+              <div class="metric-card">
+                <div class="mc-label-row">
+                  <div class="mc-label-left">
+                    <span class="material-icons mc-label-icon">schedule</span>
+                    <span class="mc-label-text">Total Hours</span>
+                  </div>
+                </div>
+                <div class="mc-metrics">
+                  <div class="mc-row">
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--lg" style="color:#37636B">2,840</span>
+                      <span class="mc-sub-label">Logged This Week</span>
+                    </div>
+                  </div>
+                  <div class="mc-bar-footer">
+                    <div class="mc-progress-track">
+                      <div class="mc-segment" style="width:100%;background:#37636B"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="metric-card-wrapper">
+              <div class="metric-card">
+                <div class="mc-label-row">
+                  <div class="mc-label-left">
+                    <span class="material-icons mc-label-icon">people</span>
+                    <span class="mc-label-text">Active Workers</span>
+                  </div>
+                  <span class="material-icons mc-label-icon">help_outline</span>
+                </div>
+                <div class="mc-metrics">
+                  <div class="mc-row">
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--lg" style="color:#37636B">147</span>
+                      <span class="mc-sub-label">On Site Today</span>
+                    </div>
+                  </div>
+                  <div class="mc-bar-footer">
+                    <div class="mc-progress-track">
+                      <div class="mc-segment" style="width:100%;background:#37636B"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="metric-card-wrapper">
+              <div class="metric-card">
+                <div class="mc-label-row">
+                  <div class="mc-label-left">
+                    <span class="material-icons mc-label-icon">warning_amber</span>
+                    <span class="mc-label-text">Open Incidents</span>
+                  </div>
+                </div>
+                <div class="mc-metrics">
+                  <div class="mc-row">
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--lg" style="color:#DB4537">12</span>
+                      <span class="mc-sub-label">Unresolved</span>
+                    </div>
+                  </div>
+                  <div class="mc-bar-footer">
+                    <div class="mc-progress-track">
+                      <div class="mc-segment" style="width:100%;background:#DB4537"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2 metrics -->
+      <div class="variant-group">
+        <div class="variant-label">2 Metrics — Two Equal Columns (fs=34, info/900 + info/700)</div>
+        <div class="demo-area">
+          <div class="metric-group">
+            <div class="metric-card-wrapper">
+              <div class="metric-card">
+                <div class="mc-label-row">
+                  <div class="mc-label-left">
+                    <span class="material-icons mc-label-icon">schedule</span>
+                    <span class="mc-label-text">Timecards</span>
+                  </div>
+                </div>
+                <div class="mc-metrics">
+                  <div class="mc-row">
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--lg" style="color:#37636B">48</span>
+                      <span class="mc-sub-label">Approved</span>
+                    </div>
+                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--lg" style="color:#4B9AB0">12</span>
+                      <span class="mc-sub-label">Pending</span>
+                    </div>
+                  </div>
+                  <div class="mc-bar-footer">
+                    <div class="mc-progress-track">
+                      <div class="mc-segment" style="width:80%;background:#37636B"></div>
+                      <div class="mc-segment" style="width:20%;background:#4B9AB0"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="metric-card-wrapper">
+              <div class="metric-card">
+                <div class="mc-label-row">
+                  <div class="mc-label-left">
+                    <span class="material-icons mc-label-icon">assignment</span>
+                    <span class="mc-label-text">Work Orders</span>
+                  </div>
+                  <span class="material-icons mc-label-icon">help_outline</span>
+                </div>
+                <div class="mc-metrics">
+                  <div class="mc-row">
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--lg" style="color:#37636B">103</span>
+                      <span class="mc-sub-label">Complete</span>
+                    </div>
+                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--lg" style="color:#4B9AB0">27</span>
+                      <span class="mc-sub-label">In Progress</span>
+                    </div>
+                  </div>
+                  <div class="mc-bar-footer">
+                    <div class="mc-progress-track">
+                      <div class="mc-segment" style="width:79%;background:#37636B"></div>
+                      <div class="mc-segment" style="width:21%;background:#4B9AB0"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 metrics -->
+      <div class="variant-group">
+        <div class="variant-label">3 Metrics — Three Equal Columns (fs=24, info/900 + 700 + 500)</div>
+        <div class="demo-area">
+          <div class="metric-group">
+            <div class="metric-card-wrapper">
+              <div class="metric-card">
+                <div class="mc-label-row">
+                  <div class="mc-label-left">
+                    <span class="material-icons mc-label-icon">schedule</span>
+                    <span class="mc-label-text">Entries</span>
+                  </div>
+                </div>
+                <div class="mc-metrics">
+                  <div class="mc-row">
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--md" style="color:#37636B">84</span>
+                      <span class="mc-sub-label">Approved</span>
+                    </div>
+                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--md" style="color:#4B9AB0">23</span>
+                      <span class="mc-sub-label">Pending</span>
+                    </div>
+                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--md" style="color:#5BBFDE">11</span>
+                      <span class="mc-sub-label">Rejected</span>
+                    </div>
+                  </div>
+                  <div class="mc-bar-footer">
+                    <div class="mc-progress-track">
+                      <div class="mc-segment" style="width:71%;background:#37636B"></div>
+                      <div class="mc-segment" style="width:19%;background:#4B9AB0"></div>
+                      <div class="mc-segment" style="width:10%;background:#5BBFDE"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="metric-card-wrapper">
+              <div class="metric-card">
+                <div class="mc-label-row">
+                  <div class="mc-label-left">
+                    <span class="material-icons mc-label-icon">people</span>
+                    <span class="mc-label-text">Certifications</span>
+                  </div>
+                  <span class="material-icons mc-label-icon">help_outline</span>
+                </div>
+                <div class="mc-metrics">
+                  <div class="mc-row">
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--md" style="color:#37636B">62</span>
+                      <span class="mc-sub-label">Current</span>
+                    </div>
+                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--md" style="color:#4B9AB0">18</span>
+                      <span class="mc-sub-label">Expiring</span>
+                    </div>
+                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--md" style="color:#5BBFDE">7</span>
+                      <span class="mc-sub-label">Expired</span>
+                    </div>
+                  </div>
+                  <div class="mc-bar-footer">
+                    <div class="mc-progress-track">
+                      <div class="mc-segment" style="width:71%;background:#37636B"></div>
+                      <div class="mc-segment" style="width:21%;background:#4B9AB0"></div>
+                      <div class="mc-segment" style="width:8%;background:#5BBFDE"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 metrics — list -->
+      <div class="variant-group">
+        <div class="variant-label">4 Metrics — Vertical List (fs=16, list layout, no footer)</div>
+        <div class="demo-area">
+          <div class="metric-group">
+            <div class="metric-card-wrapper">
+              <div class="metric-card">
+                <div class="mc-label-row">
+                  <div class="mc-label-left">
+                    <span class="material-icons mc-label-icon">schedule</span>
+                    <span class="mc-label-text">Hours by Type</span>
+                  </div>
+                </div>
+                <div class="mc-metrics">
+                  <div class="mc-list">
+                    <div class="mc-list-row">
+                      <span class="mc-list-caption">Regular</span>
+                      <span class="mc-list-value" style="color:#37636B">1,240</span>
+                    </div>
+                    <div class="mc-list-row">
+                      <span class="mc-list-caption">Overtime</span>
+                      <span class="mc-list-value" style="color:#4B9AB0">380</span>
+                    </div>
+                    <div class="mc-list-row">
+                      <span class="mc-list-caption">Holiday</span>
+                      <span class="mc-list-value" style="color:#5BBFDE">96</span>
+                    </div>
+                    <div class="mc-list-row">
+                      <span class="mc-list-caption">PTO</span>
+                      <span class="mc-list-value" style="color:#6FD3ED">64</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="metric-card-wrapper">
+              <div class="metric-card">
+                <div class="mc-label-row">
+                  <div class="mc-label-left">
+                    <span class="material-icons mc-label-icon">assignment</span>
+                    <span class="mc-label-text">Work Order Status</span>
+                  </div>
+                  <span class="material-icons mc-label-icon">help_outline</span>
+                </div>
+                <div class="mc-metrics">
+                  <div class="mc-list">
+                    <div class="mc-list-row">
+                      <span class="mc-list-caption">Open</span>
+                      <span class="mc-list-value" style="color:#37636B">45</span>
+                    </div>
+                    <div class="mc-list-row">
+                      <span class="mc-list-caption">In Progress</span>
+                      <span class="mc-list-value" style="color:#4B9AB0">28</span>
+                    </div>
+                    <div class="mc-list-row">
+                      <span class="mc-list-caption">On Hold</span>
+                      <span class="mc-list-value" style="color:#5BBFDE">9</span>
+                    </div>
+                    <div class="mc-list-row">
+                      <span class="mc-list-caption">Closed</span>
+                      <span class="mc-list-value" style="color:#6FD3ED">103</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="metric-card-wrapper">
+              <div class="metric-card">
+                <div class="mc-label-row">
+                  <div class="mc-label-left">
+                    <span class="material-icons mc-label-icon">folder</span>
+                    <span class="mc-label-text">Document Review</span>
+                  </div>
+                </div>
+                <div class="mc-metrics">
+                  <div class="mc-list">
+                    <div class="mc-list-row">
+                      <span class="mc-list-caption">Approved</span>
+                      <span class="mc-list-value" style="color:#37636B">210</span>
+                    </div>
+                    <div class="mc-list-row">
+                      <span class="mc-list-caption">Pending</span>
+                      <span class="mc-list-value" style="color:#4B9AB0">34</span>
+                    </div>
+                    <div class="mc-list-row">
+                      <span class="mc-list-caption">Revisions</span>
+                      <span class="mc-list-value" style="color:#5BBFDE">12</span>
+                    </div>
+                    <div class="mc-list-row">
+                      <span class="mc-list-caption">Rejected</span>
+                      <span class="mc-list-value" style="color:#6FD3ED">5</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         FOOTER VARIANTS
+         ============================================================ -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">view_headline</span>
+        Footer Variants
+      </h2>
+      <p class="section-description">
+        The footer area below the metric columns is swappable. The bar is the default.
+        Icons and labels can replace the bar. Any footer can be omitted entirely.
+      </p>
+
+      <!-- Bar footer -->
+      <div class="variant-group">
+        <div class="variant-label">footer="bar" — Proportional segmented progress bar (default)</div>
+        <div class="demo-area">
+          <div class="metric-group">
+            <div class="metric-card-wrapper">
+              <div class="metric-card">
+                <div class="mc-label-row">
+                  <div class="mc-label-left">
+                    <span class="material-icons mc-label-icon">schedule</span>
+                    <span class="mc-label-text">Timecards</span>
+                  </div>
+                </div>
+                <div class="mc-metrics">
+                  <div class="mc-row">
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--md" style="color:#37636B">84</span>
+                      <span class="mc-sub-label">Approved</span>
+                    </div>
+                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--md" style="color:#4B9AB0">23</span>
+                      <span class="mc-sub-label">Pending</span>
+                    </div>
+                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--md" style="color:#5BBFDE">11</span>
+                      <span class="mc-sub-label">Rejected</span>
+                    </div>
+                  </div>
+                  <div class="mc-bar-footer">
+                    <div class="mc-progress-track">
+                      <div class="mc-segment" style="width:71%;background:#37636B"></div>
+                      <div class="mc-segment" style="width:19%;background:#4B9AB0"></div>
+                      <div class="mc-segment" style="width:10%;background:#5BBFDE"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="metric-card-wrapper" style="min-width:170px;max-width:280px;">
+              <!-- Narrow width demo -->
+              <div class="metric-card">
+                <div class="mc-label-row">
+                  <div class="mc-label-left">
+                    <span class="material-icons mc-label-icon">schedule</span>
+                    <span class="mc-label-text">Narrow Width</span>
+                  </div>
+                </div>
+                <div class="mc-metrics">
+                  <div class="mc-row">
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--md" style="color:#37636B">84</span>
+                      <span class="mc-sub-label">Approved</span>
+                    </div>
+                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--md" style="color:#4B9AB0">23</span>
+                      <span class="mc-sub-label">Pending</span>
+                    </div>
+                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--md" style="color:#5BBFDE">11</span>
+                      <span class="mc-sub-label">Rejected</span>
+                    </div>
+                  </div>
+                  <div class="mc-bar-footer">
+                    <div class="mc-progress-track">
+                      <div class="mc-segment" style="width:71%;background:#37636B"></div>
+                      <div class="mc-segment" style="width:19%;background:#4B9AB0"></div>
+                      <div class="mc-segment" style="width:10%;background:#5BBFDE"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Icons footer -->
+      <div class="variant-group">
+        <div class="variant-label">footer="icons" — Per-metric Material icon indicator</div>
+        <div class="demo-area">
+          <div class="metric-group">
+            <div class="metric-card-wrapper">
+              <div class="metric-card">
+                <div class="mc-label-row">
+                  <div class="mc-label-left">
+                    <span class="material-icons mc-label-icon">schedule</span>
+                    <span class="mc-label-text">Safety Status</span>
+                  </div>
+                </div>
+                <div class="mc-metrics">
+                  <div class="mc-row">
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--md" style="color:#37636B">14</span>
+                      <span class="mc-sub-label">Safe Days</span>
+                    </div>
+                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--md" style="color:#EB8B0C">3</span>
+                      <span class="mc-sub-label">Near Miss</span>
+                    </div>
+                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--md" style="color:#DB4537">1</span>
+                      <span class="mc-sub-label">Incident</span>
+                    </div>
+                  </div>
+                  <div class="mc-icons-footer">
+                    <div class="mc-icon-segment">
+                      <span class="material-icons mc-footer-icon">check_circle</span>
+                    </div>
+                    <div class="mc-icon-segment">
+                      <span class="material-icons mc-footer-icon" style="color:#EB8B0C">warning_amber</span>
+                    </div>
+                    <div class="mc-icon-segment">
+                      <span class="material-icons mc-footer-icon" style="color:#DB4537">error</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="metric-card-wrapper">
+              <div class="metric-card">
+                <div class="mc-label-row">
+                  <div class="mc-label-left">
+                    <span class="material-icons mc-label-icon">assignment</span>
+                    <span class="mc-label-text">Compliance</span>
+                  </div>
+                  <span class="material-icons mc-label-icon">help_outline</span>
+                </div>
+                <div class="mc-metrics">
+                  <div class="mc-row">
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--lg" style="color:#37636B">94</span>
+                      <span class="mc-sub-label">Pass Rate %</span>
+                    </div>
+                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--lg" style="color:#DB4537">6</span>
+                      <span class="mc-sub-label">Failed</span>
+                    </div>
+                  </div>
+                  <div class="mc-icons-footer">
+                    <div class="mc-icon-segment">
+                      <span class="material-icons mc-footer-icon">verified</span>
+                    </div>
+                    <div class="mc-icon-segment">
+                      <span class="material-icons mc-footer-icon" style="color:#DB4537">cancel</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Labels footer -->
+      <div class="variant-group">
+        <div class="variant-label">footer="labels" — Secondary caption labels (Figma: style=custom)</div>
+        <div class="demo-area">
+          <div class="metric-group">
+            <div class="metric-card-wrapper">
+              <div class="metric-card">
+                <div class="mc-label-row">
+                  <div class="mc-label-left">
+                    <span class="material-icons mc-label-icon">schedule</span>
+                    <span class="mc-label-text">Weekly Summary</span>
+                  </div>
+                </div>
+                <div class="mc-metrics">
+                  <div class="mc-row">
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--md" style="color:#37636B">84</span>
+                      <span class="mc-sub-label">Entries</span>
+                    </div>
+                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--md" style="color:#4B9AB0">12</span>
+                      <span class="mc-sub-label">Projects</span>
+                    </div>
+                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--md" style="color:#5BBFDE">48</span>
+                      <span class="mc-sub-label">Workers</span>
+                    </div>
+                  </div>
+                  <div class="mc-labels-footer">
+                    <div class="mc-label-chip"><span class="mc-label-chip-text">Timecards</span></div>
+                    <div class="mc-label-chip"><span class="mc-label-chip-text">Active Jobs</span></div>
+                    <div class="mc-label-chip"><span class="mc-label-chip-text">Assigned</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="metric-card-wrapper">
+              <div class="metric-card">
+                <div class="mc-label-row">
+                  <div class="mc-label-left">
+                    <span class="material-icons mc-label-icon">folder</span>
+                    <span class="mc-label-text">Documents</span>
+                  </div>
+                  <span class="material-icons mc-label-icon">help_outline</span>
+                </div>
+                <div class="mc-metrics">
+                  <div class="mc-row">
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--lg" style="color:#37636B">210</span>
+                      <span class="mc-sub-label">Approved</span>
+                    </div>
+                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--lg" style="color:#4B9AB0">34</span>
+                      <span class="mc-sub-label">Pending</span>
+                    </div>
+                  </div>
+                  <div class="mc-labels-footer">
+                    <div class="mc-label-chip"><span class="mc-label-chip-text">Processed</span></div>
+                    <div class="mc-label-chip"><span class="mc-label-chip-text">In Review</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- No footer -->
+      <div class="variant-group">
+        <div class="variant-label">footer="none" — No footer, metrics fill available height</div>
+        <div class="demo-area">
+          <div class="metric-group">
+            <div class="metric-card-wrapper">
+              <div class="metric-card">
+                <div class="mc-label-row">
+                  <div class="mc-label-left">
+                    <span class="material-icons mc-label-icon">people</span>
+                    <span class="mc-label-text">Headcount</span>
+                  </div>
+                </div>
+                <div class="mc-metrics">
+                  <div class="mc-row">
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--lg" style="color:#37636B">312</span>
+                      <span class="mc-sub-label">Total Staff</span>
+                    </div>
+                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--lg" style="color:#4B9AB0">147</span>
+                      <span class="mc-sub-label">On Site</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="metric-card-wrapper">
+              <div class="metric-card">
+                <div class="mc-label-row">
+                  <div class="mc-label-left">
+                    <span class="material-icons mc-label-icon">schedule</span>
+                    <span class="mc-label-text">This Month</span>
+                  </div>
+                  <span class="material-icons mc-label-icon">help_outline</span>
+                </div>
+                <div class="mc-metrics">
+                  <div class="mc-row">
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--md" style="color:#37636B">1,840</span>
+                      <span class="mc-sub-label">Hours Regular</span>
+                    </div>
+                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--md" style="color:#4B9AB0">380</span>
+                      <span class="mc-sub-label">Overtime</span>
+                    </div>
+                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--md" style="color:#5BBFDE">96</span>
+                      <span class="mc-sub-label">Holiday</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         GROUPED LAYOUT
+         ============================================================ -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">view_sidebar</span>
+        Grouped Layout
+      </h2>
+      <p class="section-description">
+        The <code>grouped</code> layout places one large primary metric on the left (34px)
+        and stacks 2 smaller caption/value pairs on the right (16px). This is the Figma
+        "groupe/bar" variant. Supports bar or no footer.
+      </p>
+
+      <div class="variant-group">
+        <div class="variant-label">layout="grouped" with bar footer</div>
+        <div class="demo-area">
+          <div class="metric-group">
+            <div class="metric-card-wrapper">
+              <div class="metric-card">
+                <div class="mc-label-row">
+                  <div class="mc-label-left">
+                    <span class="material-icons mc-label-icon">schedule</span>
+                    <span class="mc-label-text">Hours Overview</span>
+                  </div>
+                </div>
+                <div class="mc-metrics">
+                  <div class="mc-row">
+                    <div class="mc-grouped-primary">
+                      <span class="mc-value mc-value--lg" style="color:#37636B">2,840</span>
+                      <span class="mc-sub-label">Total Hours</span>
+                    </div>
+                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
+                    <div class="mc-grouped-secondary">
+                      <div class="mc-grouped-sub-row">
+                        <span class="mc-list-caption">Regular</span>
+                        <span class="mc-list-value" style="color:#4B9AB0">2,460</span>
+                      </div>
+                      <div class="mc-grouped-sub-row">
+                        <span class="mc-list-caption">Overtime</span>
+                        <span class="mc-list-value" style="color:#5BBFDE">380</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mc-bar-footer">
+                    <div class="mc-progress-track">
+                      <div class="mc-segment" style="width:55%;background:#37636B"></div>
+                      <div class="mc-segment" style="width:27%;background:#4B9AB0"></div>
+                      <div class="mc-segment" style="width:18%;background:#5BBFDE"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="metric-card-wrapper">
+              <div class="metric-card">
+                <div class="mc-label-row">
+                  <div class="mc-label-left">
+                    <span class="material-icons mc-label-icon">assignment</span>
+                    <span class="mc-label-text">Work Orders</span>
+                  </div>
+                  <span class="material-icons mc-label-icon">help_outline</span>
+                </div>
+                <div class="mc-metrics">
+                  <div class="mc-row">
+                    <div class="mc-grouped-primary">
+                      <span class="mc-value mc-value--lg" style="color:#37636B">130</span>
+                      <span class="mc-sub-label">Total Orders</span>
+                    </div>
+                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
+                    <div class="mc-grouped-secondary">
+                      <div class="mc-grouped-sub-row">
+                        <span class="mc-list-caption">In Progress</span>
+                        <span class="mc-list-value" style="color:#4B9AB0">27</span>
+                      </div>
+                      <div class="mc-grouped-sub-row">
+                        <span class="mc-list-caption">On Hold</span>
+                        <span class="mc-list-value" style="color:#5BBFDE">9</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mc-bar-footer">
+                    <div class="mc-progress-track">
+                      <div class="mc-segment" style="width:72%;background:#37636B"></div>
+                      <div class="mc-segment" style="width:18%;background:#4B9AB0"></div>
+                      <div class="mc-segment" style="width:10%;background:#5BBFDE"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SEMANTIC COLOR OVERRIDES
+         ============================================================ -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">error_outline</span>
+        Semantic Color Overrides
+      </h2>
+      <p class="section-description">
+        Any metric can be assigned a semantic color override (error, warning, success) for
+        urgency signaling. Semantic colors start at 500 for the first occurrence and
+        ascend to 700, then 900. Info metrics retain their positional tone assignment.
+        You can mix info and semantic colors within the same card.
+      </p>
+
+      <!-- All error -->
+      <div class="variant-group">
+        <div class="variant-label">All metrics → error (500 → 700 → 900)</div>
+        <div class="demo-area">
+          <div class="metric-group">
+            <div class="metric-card-wrapper">
+              <div class="metric-card">
+                <div class="mc-label-row">
+                  <div class="mc-label-left">
+                    <span class="material-icons mc-label-icon">warning</span>
+                    <span class="mc-label-text">Safety Alerts</span>
+                  </div>
+                </div>
+                <div class="mc-metrics">
+                  <div class="mc-row">
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--md" style="color:#DB4537">8</span>
+                      <span class="mc-sub-label">Critical</span>
+                    </div>
+                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--md" style="color:#BB3430">14</span>
+                      <span class="mc-sub-label">High</span>
+                    </div>
+                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--md" style="color:#A0241E">23</span>
+                      <span class="mc-sub-label">Medium</span>
+                    </div>
+                  </div>
+                  <div class="mc-bar-footer">
+                    <div class="mc-progress-track">
+                      <div class="mc-segment" style="width:18%;background:#DB4537"></div>
+                      <div class="mc-segment" style="width:31%;background:#BB3430"></div>
+                      <div class="mc-segment" style="width:51%;background:#A0241E"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="metric-card-wrapper">
+              <div class="metric-card">
+                <div class="mc-label-row">
+                  <div class="mc-label-left">
+                    <span class="material-icons mc-label-icon">schedule</span>
+                    <span class="mc-label-text">Exceptions</span>
+                  </div>
+                  <span class="material-icons mc-label-icon">help_outline</span>
+                </div>
+                <div class="mc-metrics">
+                  <div class="mc-row">
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--lg" style="color:#DB4537">47</span>
+                      <span class="mc-sub-label">Missing</span>
+                    </div>
+                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--lg" style="color:#BB3430">12</span>
+                      <span class="mc-sub-label">Errors</span>
+                    </div>
+                  </div>
+                  <div class="mc-bar-footer">
+                    <div class="mc-progress-track">
+                      <div class="mc-segment" style="width:80%;background:#DB4537"></div>
+                      <div class="mc-segment" style="width:20%;background:#BB3430"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mixed info + semantic -->
+      <div class="variant-group">
+        <div class="variant-label">Mixed — info (1st metric) + error override (2nd metric)</div>
+        <div class="demo-area">
+          <div class="metric-group">
+            <div class="metric-card-wrapper">
+              <div class="metric-card">
+                <div class="mc-label-row">
+                  <div class="mc-label-left">
+                    <span class="material-icons mc-label-icon">schedule</span>
+                    <span class="mc-label-text">Timecard Review</span>
+                  </div>
+                </div>
+                <div class="mc-metrics">
+                  <div class="mc-row">
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--lg" style="color:#37636B">96</span>
+                      <span class="mc-sub-label">Approved</span>
+                    </div>
+                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--lg" style="color:#DB4537">18</span>
+                      <span class="mc-sub-label">Errors</span>
+                    </div>
+                  </div>
+                  <div class="mc-bar-footer">
+                    <div class="mc-progress-track">
+                      <div class="mc-segment" style="width:84%;background:#37636B"></div>
+                      <div class="mc-segment" style="width:16%;background:#DB4537"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="metric-card-wrapper">
+              <div class="metric-card">
+                <div class="mc-label-row">
+                  <div class="mc-label-left">
+                    <span class="material-icons mc-label-icon">people</span>
+                    <span class="mc-label-text">Certifications</span>
+                  </div>
+                  <span class="material-icons mc-label-icon">help_outline</span>
+                </div>
+                <div class="mc-metrics">
+                  <div class="mc-row">
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--md" style="color:#37636B">62</span>
+                      <span class="mc-sub-label">Current</span>
+                    </div>
+                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--md" style="color:#EB8B0C">18</span>
+                      <span class="mc-sub-label">Expiring</span>
+                    </div>
+                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
+                    <div class="mc-col">
+                      <span class="mc-value mc-value--md" style="color:#DB4537">7</span>
+                      <span class="mc-sub-label">Expired</span>
+                    </div>
+                  </div>
+                  <div class="mc-bar-footer">
+                    <div class="mc-progress-track">
+                      <div class="mc-segment" style="width:71%;background:#37636B"></div>
+                      <div class="mc-segment" style="width:21%;background:#EB8B0C"></div>
+                      <div class="mc-segment" style="width:8%;background:#DB4537"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         LABEL ICON VARIANTS
+         ============================================================ -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">label</span>
+        Label Icon Variants
+      </h2>
+      <p class="section-description">
+        The label row supports an optional left icon (Material Icons only) and an optional
+        help_outline icon on the right. Both are optional and can be combined freely.
+      </p>
+      <div class="demo-area">
+        <div class="metric-group">
+          <!-- Icon + no help -->
+          <div class="metric-card-wrapper">
+            <div class="metric-card">
+              <div class="mc-label-row">
+                <div class="mc-label-left">
+                  <span class="material-icons mc-label-icon">schedule</span>
+                  <span class="mc-label-text">With Icon</span>
+                </div>
+              </div>
+              <div class="mc-metrics">
+                <div class="mc-row">
+                  <div class="mc-col">
+                    <span class="mc-value mc-value--lg" style="color:#37636B">42</span>
+                    <span class="mc-sub-label">This Week</span>
+                  </div>
+                  <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
+                  <div class="mc-col">
+                    <span class="mc-value mc-value--lg" style="color:#4B9AB0">8</span>
+                    <span class="mc-sub-label">Last Week</span>
+                  </div>
+                </div>
+                <div class="mc-bar-footer">
+                  <div class="mc-progress-track">
+                    <div class="mc-segment" style="width:84%;background:#37636B"></div>
+                    <div class="mc-segment" style="width:16%;background:#4B9AB0"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- No icon + help -->
+          <div class="metric-card-wrapper">
+            <div class="metric-card">
+              <div class="mc-label-row">
+                <div class="mc-label-left">
+                  <span class="mc-label-text">No Left Icon</span>
+                </div>
+                <span class="material-icons mc-label-icon">help_outline</span>
+              </div>
+              <div class="mc-metrics">
+                <div class="mc-row">
+                  <div class="mc-col">
+                    <span class="mc-value mc-value--lg" style="color:#37636B">42</span>
+                    <span class="mc-sub-label">This Week</span>
+                  </div>
+                  <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
+                  <div class="mc-col">
+                    <span class="mc-value mc-value--lg" style="color:#4B9AB0">8</span>
+                    <span class="mc-sub-label">Last Week</span>
+                  </div>
+                </div>
+                <div class="mc-bar-footer">
+                  <div class="mc-progress-track">
+                    <div class="mc-segment" style="width:84%;background:#37636B"></div>
+                    <div class="mc-segment" style="width:16%;background:#4B9AB0"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Icon + help -->
+          <div class="metric-card-wrapper">
+            <div class="metric-card">
+              <div class="mc-label-row">
+                <div class="mc-label-left">
+                  <span class="material-icons mc-label-icon">people</span>
+                  <span class="mc-label-text">Icon + Help</span>
+                </div>
+                <span class="material-icons mc-label-icon">help_outline</span>
+              </div>
+              <div class="mc-metrics">
+                <div class="mc-row">
+                  <div class="mc-col">
+                    <span class="mc-value mc-value--lg" style="color:#37636B">42</span>
+                    <span class="mc-sub-label">This Week</span>
+                  </div>
+                  <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
+                  <div class="mc-col">
+                    <span class="mc-value mc-value--lg" style="color:#4B9AB0">8</span>
+                    <span class="mc-sub-label">Last Week</span>
+                  </div>
+                </div>
+                <div class="mc-bar-footer">
+                  <div class="mc-progress-track">
+                    <div class="mc-segment" style="width:84%;background:#37636B"></div>
+                    <div class="mc-segment" style="width:16%;background:#4B9AB0"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- No icon, no help -->
+          <div class="metric-card-wrapper">
+            <div class="metric-card">
+              <div class="mc-label-row">
+                <div class="mc-label-left">
+                  <span class="mc-label-text">Label Only</span>
+                </div>
+              </div>
+              <div class="mc-metrics">
+                <div class="mc-row">
+                  <div class="mc-col">
+                    <span class="mc-value mc-value--lg" style="color:#37636B">42</span>
+                    <span class="mc-sub-label">This Week</span>
+                  </div>
+                  <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
+                  <div class="mc-col">
+                    <span class="mc-value mc-value--lg" style="color:#4B9AB0">8</span>
+                    <span class="mc-sub-label">Last Week</span>
+                  </div>
+                </div>
+                <div class="mc-bar-footer">
+                  <div class="mc-progress-track">
+                    <div class="mc-segment" style="width:84%;background:#37636B"></div>
+                    <div class="mc-segment" style="width:16%;background:#4B9AB0"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SPECS TABLE
+         ============================================================ -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">straighten</span>
+        Specifications
+      </h2>
+      <div class="card" style="padding: 0; overflow: hidden;">
+        <table class="spec-table">
+          <thead>
+            <tr>
+              <th>Property</th>
+              <th>Value</th>
+              <th>Token / Source</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Card height</td><td>150px (fixed)</td><td>Figma: absoluteBoundingBox.height</td></tr>
+            <tr><td>Card min-width</td><td>170px</td><td>Design rule</td></tr>
+            <tr><td>Card background</td><td>#FFFFFF</td><td>paper</td></tr>
+            <tr><td>Card border</td><td>1px solid #E0E0E0</td><td>secondary/300</td></tr>
+            <tr><td>Card border-radius</td><td>4px</td><td>Figma: cornerRadius</td></tr>
+            <tr><td>Card padding</td><td>16px / 16px / 8px / 16px</td><td>Figma: paddingTop/Right/Bottom/Left</td></tr>
+            <tr><td>Card gap (label → metrics)</td><td>8px</td><td>Figma: itemSpacing</td></tr>
+            <tr><td>Label font</td><td>14px / 500 / 24px lh</td><td>Figma: Label text layer</td></tr>
+            <tr><td>Label color</td><td>#757575</td><td>secondary/600</td></tr>
+            <tr><td>Label icon size</td><td>16x16px</td><td>Figma: instance absoluteBoundingBox</td></tr>
+            <tr><td>Metric value — 1–2 cols</td><td>34px / 500 / 41px lh</td><td>Figma: state=1/2 text layer</td></tr>
+            <tr><td>Metric value — 3 cols</td><td>24px / 500 / 28px lh</td><td>Figma: state=3 text layer</td></tr>
+            <tr><td>Metric value — list/grouped-sub</td><td>16px / 500 / 24px lh</td><td>Figma: state=4/groupe text layer</td></tr>
+            <tr><td>Metric sub-label font</td><td>12px / 400 / 18px lh</td><td>Figma: Metric Label text layer</td></tr>
+            <tr><td>Caption font</td><td>12px / 400 / 18px lh</td><td>Figma: Caption text layer</td></tr>
+            <tr><td>Secondary label chip</td><td>11px / 500 / 16px lh</td><td>Figma: grouped footer Caption</td></tr>
+            <tr><td>Column divider</td><td>1px / #E0E0E0 / 24px tall</td><td>Figma: Line stroke + height</td></tr>
+            <tr><td>Progress bar height</td><td>10px</td><td>Figma: Rectangle height</td></tr>
+            <tr><td>Progress bar background</td><td>#EEEEEE</td><td>secondary/200 (background-fill token)</td></tr>
+            <tr><td>Card group gap</td><td>16px</td><td>Design rule</td></tr>
+            <tr><td>Primary color scale</td><td>info/900 → 700 → 500 → 300</td><td>charts.tokens.json → material.tokens.json</td></tr>
+            <tr><td>Semantic colors</td><td>500 → 700 → 900 per occurrence</td><td>charts.tokens.json → material.tokens.json</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- PROPS TABLE -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">code</span>
+        Component API
+      </h2>
+      <div class="card" style="padding: 0; overflow: hidden;">
+        <table class="spec-table">
+          <thead>
+            <tr>
+              <th>Prop</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>label</code></td>
+              <td><code>string</code></td>
+              <td>—</td>
+              <td>Card header label text</td>
+            </tr>
+            <tr>
+              <td><code>labelIcon</code></td>
+              <td><code>string</code></td>
+              <td><code>'schedule'</code></td>
+              <td>Material icon name for the label left icon</td>
+            </tr>
+            <tr>
+              <td><code>showHelpIcon</code></td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
+              <td>Show help_outline icon at right of label row</td>
+            </tr>
+            <tr>
+              <td><code>metrics</code></td>
+              <td><code>MetricItem[]</code></td>
+              <td>—</td>
+              <td>Array of 1–4 metric objects. Length determines layout.</td>
+            </tr>
+            <tr>
+              <td><code>layout</code></td>
+              <td><code>'auto' | 'grouped'</code></td>
+              <td><code>'auto'</code></td>
+              <td>
+                <code>auto</code>: equal columns (1–3) or list (4+).<br>
+                <code>grouped</code>: 1 large left + stacked small right.
+              </td>
+            </tr>
+            <tr>
+              <td><code>footer</code></td>
+              <td><code>'bar' | 'icons' | 'labels' | 'none'</code></td>
+              <td><code>'bar'</code></td>
+              <td>Footer display style beneath metric values</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="margin-top: var(--spacing-md);">
+        <div class="card" style="padding: 0; overflow: hidden;">
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th>MetricItem</th>
+                <th>Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>label</code></td>
+                <td><code>string</code></td>
+                <td>Sub-label below the value (e.g. "Approved")</td>
+              </tr>
+              <tr>
+                <td><code>value</code></td>
+                <td><code>string | number</code></td>
+                <td>Displayed value (used for bar proportions if numeric)</td>
+              </tr>
+              <tr>
+                <td><code>color</code></td>
+                <td><code>'info' | 'error' | 'warning' | 'success'</code></td>
+                <td>
+                  Per-metric semantic override. Defaults to <code>'info'</code>
+                  (positional tone scale). Semantics start at 500 and ascend.
+                </td>
+              </tr>
+              <tr>
+                <td><code>icon</code></td>
+                <td><code>string</code></td>
+                <td>Material icon name for <code>footer="icons"</code> style</td>
+              </tr>
+              <tr>
+                <td><code>secondaryLabel</code></td>
+                <td><code>string</code></td>
+                <td>Caption chip text for <code>footer="labels"</code> style</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</body>
+</html>

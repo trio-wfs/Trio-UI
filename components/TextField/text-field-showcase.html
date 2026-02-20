@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TextField - AHTG Design System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="../../design-system-shell.css">
+  <style>
+    /* ── Spec annotation colors ─────────────────────────── */
+    :root {
+      --ann:           #2196F3;
+      --ann-light:     rgba(33,150,243,0.10);
+      --ann-mid:       rgba(33,150,243,0.22);
+      --color-default-border:  #9E9E9E;
+      --color-focus-border:    #64B5F6;
+      --color-disabled-bg:     #EEEEEE;
+      --color-disabled-border: #BDBDBD;
+      --color-error:           #DB4537;
+      --color-secondary-200:   #EEEEEE;
+    }
+
+    /* ── Anatomy frame ──────────────────────────────────── */
+    .anatomy-frame {
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .anatomy-bar {
+      background: #F0F4F8;
+      border-bottom: 1px solid var(--color-secondary-outline);
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+    }
+    .anatomy-bar .material-icons { font-size: 14px; color: var(--ann); }
+    .anatomy-bar-tag {
+      margin-left: auto;
+      font-size: 10px;
+      background: var(--ann-light);
+      color: var(--ann);
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-weight: 600;
+      letter-spacing: .04em;
+      border: 1px solid var(--ann-mid);
+    }
+    .anatomy-body {
+      display: flex;
+      align-items: stretch;
+      background: #F8FAFC;
+      min-height: 180px;
+    }
+
+    /* Y ruler */
+    .y-ruler {
+      width: 48px;
+      min-width: 48px;
+      border-right: 2px solid var(--ann-mid);
+      display: flex;
+      flex-direction: column;
+      /* padding matches comp-canvas top/bottom */
+      padding-top: 28px;
+      padding-bottom: 28px;
+    }
+    .y-ruler-fill { flex: 1; }
+    .y-seg {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 7px;
+      position: relative;
+    }
+    .y-seg::after {
+      content: '';
+      position: absolute;
+      right: -3px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 5px;
+      height: 1px;
+      background: var(--ann);
+    }
+    .y-seg--label { height: 18px; }
+    .y-seg--gap   { height: 4px; }
+    .y-seg--input { height: 36px; }
+    .y-seg--help  { height: 18px; }
+    .y-badge {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--ann);
+      line-height: 1;
+    }
+    .y-badge--gap {
+      font-size: 9px;
+      color: rgba(33,150,243,0.55);
+      font-style: italic;
+    }
+
+    /* Canvas */
+    .comp-canvas {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 28px 40px;
+    }
+    .tf-wrap {
+      display: flex;
+      flex-direction: column;
+      width: 280px;
+      position: relative;
+    }
+    /* Label row — 18px, NO margin-bottom (gap indicator handles spacing) */
+    .tf-label-row {
+      height: 18px;
+      display: flex;
+      align-items: center;
+    }
+    .tf-label-text {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--color-text-primary);
+      line-height: 18px;
+    }
+    /* Dashed 4px gap indicator */
+    .tf-gap-indicator {
+      height: 4px;
+      width: 100%;
+      position: relative;
+    }
+    .tf-gap-indicator::before {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; top: 50%;
+      border-top: 1px dashed rgba(33,150,243,0.30);
+    }
+    /* Input — 36px, NO margin-bottom (gap indicator handles it) */
+    .tf-input-box {
+      height: 36px;
+      border: 1px solid var(--color-default-border);
+      border-radius: var(--border-radius);
+      display: flex;
+      align-items: center;
+      padding: 4px 8px;
+      background: #fff;
+      position: relative;
+    }
+    .tf-placeholder-text {
+      font-size: 14px;
+      color: #BDBDBD;
+      flex: 1;
+      line-height: 1;
+    }
+    .tf-icon-right { font-size: 18px; color: var(--color-text-secondary); }
+    /* Vertical padding markers */
+    .v-pad-marker {
+      position: absolute;
+      right: -22px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1px;
+    }
+    .v-pad-marker--top { top: 0; }
+    .v-pad-marker--btm { bottom: 0; }
+    .v-pad-dot {
+      width: 8px; height: 4px;
+      background: var(--ann-light);
+      border: 1px solid var(--ann);
+      border-radius: 1px;
+    }
+    .v-pad-label { font-size: 9px; font-weight: 700; color: var(--ann); white-space: nowrap; }
+    /* Help row */
+    .tf-help-row { height: 18px; display: flex; align-items: center; }
+    .tf-help-text { font-size: 12px; color: var(--color-text-secondary); line-height: 18px; }
+
+    /* X measurement rail */
+    .x-rail {
+      display: flex;
+      align-items: flex-start;
+      width: 280px;
+      margin-top: 10px;
+    }
+    .x-pad {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+    }
+    .x-pad-line {
+      height: 8px;
+      width: 100%;
+      background: var(--ann-light);
+      border: 1px solid var(--ann);
+      border-radius: 2px;
+    }
+    .x-badge { font-size: 10px; font-weight: 700; color: var(--ann); }
+    .x-content-span {
+      flex: 1;
+      height: 8px;
+      position: relative;
+    }
+    .x-content-span::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 0; right: 0;
+      border-top: 1px dashed rgba(33,150,243,0.20);
+    }
+
+    /* Callout panel — right side */
+    .callout-panel {
+      width: 188px;
+      min-width: 188px;
+      border-left: 1px solid var(--ann-mid);
+      background: #fff;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    /* Each callout row aligns with a component layer by height */
+    .callout-row {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #F0F4F8;
+      padding: 0 12px;
+      position: relative;
+    }
+    .callout-row::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--ann);
+      opacity: 0.5;
+    }
+    .callout-row--label { height: 18px; }
+    .callout-row--gap   { height: 4px; background: rgba(33,150,243,0.04); }
+    .callout-row--input { height: 36px; }
+    .callout-row--help  { height: 18px; }
+    .callout-row-fill   { flex: 1; border-bottom: none; }
+    .callout-content {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      padding: 3px 0;
+    }
+    .callout-layer {
+      font-size: 8px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--ann);
+    }
+    .callout-prop { font-size: 10px; font-weight: 500; color: var(--color-text-primary); }
+    .callout-token {
+      font-family: 'Courier New', monospace;
+      font-size: 8px;
+      background: var(--ann-light);
+      color: var(--ann);
+      padding: 0px 4px;
+      border-radius: 3px;
+      font-weight: 600;
+      display: inline-block;
+    }
+    .callout-hex { font-size: 8px; color: var(--color-text-secondary); font-family: 'Courier New', monospace; }
+
+    /* Spec legend */
+    .spec-legend {
+      display: flex;
+      gap: var(--spacing-lg);
+      margin-top: var(--spacing-sm);
+      flex-wrap: wrap;
+    }
+    .spec-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      color: var(--color-text-secondary);
+    }
+
+    /* State variants */
+    .states-grid { display: flex; gap: var(--spacing-md); }
+    .state-card { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+    .state-label {
+      font-size: 10px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .07em;
+      color: var(--color-text-secondary);
+    }
+    .state-chip {
+      display: inline-block; font-size: 9px; font-weight: 600;
+      padding: 2px 7px; border-radius: 10px;
+    }
+    .chip-default  { background: #ECEFF1; color: #546E7A; }
+    .chip-focus    { background: #E3F2FD; color: var(--ann); }
+    .chip-error    { background: #FDECEA; color: var(--color-error); }
+    .chip-disabled { background: var(--color-secondary-200); color: #BDBDBD; }
+    .mini-tf { display: flex; flex-direction: column; gap: 3px; margin-top: 4px; }
+    .mini-label { font-size: 11px; color: var(--color-text-primary); }
+    .mini-input {
+      height: 30px; border-radius: var(--border-radius);
+      display: flex; align-items: center;
+      padding: 4px 8px; font-size: 12px;
+    }
+    .mini-input--default  { border: 1px solid var(--color-default-border); background:#fff; color:#BDBDBD; }
+    .mini-input--focus    { border: 2px solid var(--color-focus-border); background:#fff; color:var(--color-text-primary); box-shadow: 0 0 0 3px rgba(100,181,246,0.12); }
+    .mini-input--error    { border: 1px solid var(--color-error); background:#fff; color:var(--color-text-primary); }
+    .mini-input--disabled { border: 1px solid var(--color-disabled-border); background:var(--color-disabled-bg); color:#BDBDBD; }
+    .mini-help { font-size: 11px; }
+    .mini-help--default  { color: var(--color-text-secondary); }
+    .mini-help--error    { color: var(--color-error); }
+    .mini-help--disabled { color: #BDBDBD; }
+
+    /* Border spec grid */
+    .border-grid { display: flex; gap: var(--spacing-sm); margin-top: var(--spacing-md); }
+    .border-item {
+      flex: 1; border-radius: var(--border-radius); padding: 10px 12px;
+      background: var(--color-background-default);
+      border: 1px solid var(--color-secondary-outline);
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .border-state-name {
+      font-size: 10px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .06em;
+      color: var(--color-text-secondary);
+    }
+    .border-preview { border-radius: 999px; margin: 4px 0; }
+    .border-weight { font-size: 11px; font-weight: 500; color: var(--color-text-primary); }
+    .border-color-chip {
+      font-family: 'Courier New', monospace; font-size: 10px;
+      padding: 1px 5px; border-radius: 3px; font-weight: 600;
+    }
+
+    /* Token table */
+    .token-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .token-table th {
+      text-align: left; font-size: 10px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .06em;
+      color: var(--color-text-secondary); padding: 6px 12px;
+      border-bottom: 2px solid var(--color-secondary-outline);
+      background: var(--color-background-default);
+    }
+    .token-table td { padding: 8px 12px; border-bottom: 1px solid var(--color-secondary-outline); vertical-align: middle; }
+    .token-table tr:last-child td { border-bottom: none; }
+    .token-table tr:hover td { background: #FAFAFA; }
+    .tt-swatch {
+      width: 14px; height: 14px; border-radius: 3px;
+      border: 1px solid rgba(0,0,0,0.1);
+      display: inline-block; vertical-align: middle; margin-right: 5px;
+    }
+    .tt-token {
+      font-family: 'Courier New', monospace; font-size: 10px;
+      background: var(--ann-light); color: var(--ann);
+      padding: 1px 5px; border-radius: 3px; font-weight: 600;
+    }
+    .tt-hex { font-family: 'Courier New', monospace; font-size: 11px; color: var(--color-text-secondary); }
+    .tt-desc { font-size: 11px; color: var(--color-text-secondary); }
+
+    .input-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: var(--spacing-lg);
+      padding: var(--spacing-lg);
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: var(--border-radius);
+    }
+
+    /* TextField Styles - Extracted from Figma */
+    .text-input {
+      font-family: var(--font-family);
+      font-size: 14px;
+      font-weight: 400;
+      border: 1px solid;
+      border-radius: var(--border-radius);
+      padding: 4px 8px;
+      background: var(--color-background-paper);
+      color: var(--color-text-primary);
+      width: 100%;
+      box-sizing: border-box;
+      transition: all 0.2s;
+    }
+
+    .text-input-single {
+      height: 36px;
+    }
+
+    .text-input-multi {
+      height: 90px;
+      resize: vertical;
+    }
+
+    .text-input-default {
+      border-color: #9E9E9E;
+    }
+
+    .text-input-error {
+      border-color: var(--color-error-main);
+    }
+
+    .text-input-focus {
+      border-color: #64B5F6;
+      border-width: 2px;
+      padding: 3px 7px;
+    }
+
+    .text-input:disabled {
+      background-color: var(--color-disabled-bg);
+      border-color: var(--color-secondary-outline);
+      color: var(--color-text-disabled);
+      cursor: not-allowed;
+    }
+
+    .text-input::placeholder {
+      color: var(--color-text-disabled);
+    }
+
+    .input-container {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .input-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--color-text-primary);
+    }
+
+    .helper-text {
+      font-size: 12px;
+      color: var(--color-text-secondary);
+    }
+
+    .helper-text-error {
+      color: var(--color-error-main);
+    }
+  
+  </style>
+  <script src="../../design-system-nav.js"></script>
+</head>
+<body>
+    <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
+
+  <main class="main-content">
+    <header class="page-header">
+      <h1 class="page-title">TextField</h1>
+      <p class="page-subtitle">
+        Text fields let users enter and edit text. They typically appear in forms and dialogs. Text fields provide a single-line or multi-line input for freeform data entry.
+      </p>
+      <div class="component-meta">
+        <span><span class="material-icons" style="font-size: 14px;">category</span> Atomic Component</span>
+        <span><span class="material-icons" style="font-size: 14px;">link</span> Figma: text-field</span>
+        <span><span class="material-icons" style="font-size: 14px;">verified</span> Production Ready</span>
+      </div>
+    </header>
+
+    <!-- OVERVIEW -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">info</span>
+        Overview
+      </h2>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons" style="color: var(--color-primary-main);">psychology</span>
+            Purpose
+          </div>
+          <div class="card-content">
+            Text fields enable users to input freeform text data. They're used for short responses (single-line) or longer content (multi-line) in forms and data entry interfaces.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons" style="color: var(--color-primary-main);">priority_high</span>
+            States
+          </div>
+          <div class="card-content">
+            Text fields have clear visual states: default (unfocused), focus (active input), error (validation failed), and disabled (not editable).
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons" style="color: var(--color-primary-main);">accessibility</span>
+            Accessibility
+          </div>
+          <div class="card-content">
+            All text fields include proper labels, ARIA attributes, keyboard navigation, and clear focus indicators for screen reader support.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- USAGE GUIDELINES -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">rule</span>
+        Usage Guidelines
+      </h2>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons">check_circle</span>
+            When to Use
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Collecting freeform user input in forms</li>
+              <li>Short text entries (name, email, phone)</li>
+              <li>Longer text content (descriptions, comments)</li>
+              <li>Search queries and filter inputs</li>
+              <li>Editable data fields in tables</li>
+              <li>User-generated content entry</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons">cancel</span>
+            When NOT to Use
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Selecting from predefined options (use Select)</li>
+              <li>Yes/no questions (use Checkbox or Switch)</li>
+              <li>Choosing one option from many (use Radio)</li>
+              <li>Date/time input (use Date Picker)</li>
+              <li>Large blocks of formatted text (use rich text editor)</li>
+              <li>Password fields without proper security</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TYPE VARIANTS -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">widgets</span>
+        Type Variants
+      </h2>
+      <p class="section-description">
+        Text fields come in two types: single-line for short entries and multi-line for longer content. Heights are extracted from Figma: 36px (single-line), 90px (multi-line).
+      </p>
+
+      <div class="variant-group">
+        <div class="variant-label">Single-Line (36px height)</div>
+        <div class="input-row">
+          <div class="input-container">
+            <label class="input-label">Label</label>
+            <input type="text" class="text-input text-input-single text-input-default" placeholder="Placeholder" />
+            <span class="helper-text">Helper text</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Multi-Line (90px height)</div>
+        <div class="input-row">
+          <div class="input-container">
+            <label class="input-label">Label</label>
+            <textarea class="text-input text-input-multi text-input-default" placeholder="Placeholder"></textarea>
+            <span class="helper-text">Helper text</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATE VARIANTS -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">toggle_on</span>
+        States
+      </h2>
+      <p class="section-description">
+        Border colors extracted from Figma: default (#9E9E9E), error (#DB4537), focus (#64B5F6). Padding: 8px left/right, 4px top/bottom.
+      </p>
+
+      <div class="variant-group">
+        <div class="variant-label">Default State (#9E9E9E border)</div>
+        <div class="input-row">
+          <div class="input-container">
+            <label class="input-label">Label</label>
+            <input type="text" class="text-input text-input-single text-input-default" placeholder="Placeholder" value="Input text" />
+          </div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Focus State (#64B5F6 border, 2px)</div>
+        <div class="input-row">
+          <div class="input-container">
+            <label class="input-label">Label</label>
+            <input type="text" class="text-input text-input-single text-input-focus" placeholder="Placeholder" value="Input text" />
+          </div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Error State (#DB4537 border)</div>
+        <div class="input-row">
+          <div class="input-container">
+            <label class="input-label">Label</label>
+            <input type="text" class="text-input text-input-single text-input-error" placeholder="Placeholder" value="Invalid input" />
+            <span class="helper-text helper-text-error">Error message</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Disabled State</div>
+        <div class="input-row">
+          <div class="input-container">
+            <label class="input-label">Label</label>
+            <input type="text" class="text-input text-input-single text-input-default" placeholder="Placeholder" value="Disabled" disabled />
+            <span class="helper-text">Helper text</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BEST PRACTICES -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">recommend</span>
+        Best Practices
+      </h2>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons">check_circle</span>
+            Do
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Always include a clear, descriptive label</li>
+              <li>Use helper text for additional context</li>
+              <li>Show error messages clearly and specifically</li>
+              <li>Keep single-line inputs for short data</li>
+              <li>Provide clear placeholder examples</li>
+              <li>Use appropriate input types (email, tel, etc.)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons">cancel</span>
+            Don't
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Use placeholder as the only label</li>
+              <li>Make required fields unclear</li>
+              <li>Show generic error messages</li>
+              <li>Use multi-line for short inputs</li>
+              <li>Disable without explanation</li>
+              <li>Make inputs too narrow for expected content</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SPECIFICATIONS -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">construction</span>
+        Technical Specifications
+      </h2>
+      <p class="section-description">
+        All values extracted from Figma component instances
+      </p>
+
+      <table class="property-table">
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Value</th>
+            <th>Source</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Height (Single-Line)</td>
+            <td><code>36px</code></td>
+            <td>.absoluteBoundingBox.height</td>
+          </tr>
+          <tr>
+            <td>Height (Multi-Line)</td>
+            <td><code>90px</code></td>
+            <td>.absoluteBoundingBox.height</td>
+          </tr>
+          <tr>
+            <td>Padding</td>
+            <td><code>8px left/right, 4px top/bottom</code></td>
+            <td>.children[0].padding*</td>
+          </tr>
+          <tr>
+            <td>Border Radius</td>
+            <td><code>4px</code></td>
+            <td>.children[0].cornerRadius</td>
+          </tr>
+          <tr>
+            <td>Typography</td>
+            <td>Roboto <code>14px</code>, weight <code>400</code></td>
+            <td>.style.fontSize, .style.fontWeight</td>
+          </tr>
+          <tr>
+            <td>Border (Default)</td>
+            <td><code>#9E9E9E</code> 1px</td>
+            <td>.children[0].strokes[0].color</td>
+          </tr>
+          <tr>
+            <td>Border (Error)</td>
+            <td><code>#DB4537</code> 1px</td>
+            <td>.children[0].strokes[0].color</td>
+          </tr>
+          <tr>
+            <td>Border (Focus)</td>
+            <td><code>#64B5F6</code> 2px</td>
+            <td>.children[0].strokes[0].color</td>
+          </tr>
+          <tr>
+            <td>Background</td>
+            <td>Transparent (White)</td>
+            <td>.children[0].fills[0]</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         COMPONENT SPEC · ANATOMY
+    ═══════════════════════════════════════════════════════ -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">biotech</span>
+        Component Spec · Anatomy
+      </h2>
+      <p class="section-description">
+        Exact dimensions, padding, and typography extracted from the Figma source — single-line, default state.
+      </p>
+
+      <div class="anatomy-frame">
+        <div class="anatomy-bar">
+          <span class="material-icons">text_fields</span>
+          type=single-line &nbsp;·&nbsp; state=default &nbsp;·&nbsp; disabled=no
+          <span class="anatomy-bar-tag">255 × 58 px</span>
+        </div>
+
+        <div class="anatomy-body">
+
+          <!-- Y RULER -->
+          <div class="y-ruler">
+            <div class="y-ruler-fill"></div>
+            <div class="y-seg y-seg--label"><span class="y-badge">18</span></div>
+            <div class="y-seg y-seg--gap"><span class="y-badge y-badge--gap">4</span></div>
+            <div class="y-seg y-seg--input"><span class="y-badge">36</span></div>
+            <div class="y-seg y-seg--gap"><span class="y-badge y-badge--gap">4</span></div>
+            <div class="y-seg y-seg--help"><span class="y-badge">18</span></div>
+            <div class="y-ruler-fill"></div>
+          </div>
+
+          <!-- COMPONENT CANVAS -->
+          <div class="comp-canvas">
+            <div class="tf-wrap">
+
+              <div class="tf-label-row">
+                <span class="tf-label-text">Label</span>
+              </div>
+
+              <div class="tf-gap-indicator"></div>
+
+              <div class="tf-input-box">
+                <span class="tf-placeholder-text">Placeholder</span>
+                <span class="material-icons tf-icon-right">search</span>
+                <div class="v-pad-marker v-pad-marker--top">
+                  <div class="v-pad-dot"></div>
+                  <div class="v-pad-label">4px</div>
+                </div>
+                <div class="v-pad-marker v-pad-marker--btm">
+                  <div class="v-pad-label">4px</div>
+                  <div class="v-pad-dot"></div>
+                </div>
+              </div>
+
+              <div class="tf-gap-indicator"></div>
+
+              <div class="tf-help-row">
+                <span class="tf-help-text">Help text</span>
+              </div>
+
+              <div class="x-rail">
+                <div class="x-pad" style="width:8px">
+                  <div class="x-pad-line"></div>
+                  <span class="x-badge">8</span>
+                </div>
+                <div class="x-content-span"></div>
+                <div class="x-pad" style="width:8px">
+                  <div class="x-pad-line"></div>
+                  <span class="x-badge">8</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- CALLOUT PANEL — rows locked to component layer heights -->
+          <div class="callout-panel">
+            <div class="callout-row-fill"></div>
+
+            <div class="callout-row callout-row--label">
+              <div class="callout-content">
+                <div class="callout-layer">Label</div>
+                <div class="callout-prop">12px / Regular</div>
+                <span class="callout-token">text.primary</span>
+              </div>
+            </div>
+
+            <div class="callout-row callout-row--gap"></div>
+
+            <div class="callout-row callout-row--input">
+              <div class="callout-content">
+                <div class="callout-layer">Input</div>
+                <div class="callout-prop">14px / Regular · pad 8×4px</div>
+                <span class="callout-token">input.enabledBorder</span>
+                <span class="callout-hex">#9E9E9E · 1px</span>
+              </div>
+            </div>
+
+            <div class="callout-row callout-row--gap"></div>
+
+            <div class="callout-row callout-row--help">
+              <div class="callout-content">
+                <div class="callout-layer">Help Text</div>
+                <div class="callout-prop">12px / Regular</div>
+                <span class="callout-token">text.secondary</span>
+              </div>
+            </div>
+
+            <div class="callout-row-fill"></div>
+          </div>
+
+        </div><!-- /anatomy-body -->
+      </div><!-- /anatomy-frame -->
+
+      <div class="spec-legend">
+        <div class="spec-legend-item">
+          <div style="width:16px; height:2px; background:var(--ann); border-radius:1px;"></div>
+          Height (px)
+        </div>
+        <div class="spec-legend-item">
+          <div style="width:16px; height:6px; background:var(--ann-light); border:1px solid var(--ann); border-radius:2px;"></div>
+          Padding zone
+        </div>
+        <div class="spec-legend-item">
+          <div style="width:16px; height:1px; border-top:1px dashed rgba(33,150,243,0.35);"></div>
+          Gap · spacing.xs (4px)
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         COMPONENT SPEC · STATES & BORDERS
+    ═══════════════════════════════════════════════════════ -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">compare_arrows</span>
+        State Variants
+      </h2>
+
+      <div class="states-grid">
+        <div class="state-card">
+          <div class="state-label">Default</div>
+          <span class="state-chip chip-default">state=default</span>
+          <div class="mini-tf">
+            <div class="mini-label">Label</div>
+            <div class="mini-input mini-input--default">Placeholder</div>
+            <div class="mini-help mini-help--default">Help text</div>
+          </div>
+        </div>
+        <div class="state-card">
+          <div class="state-label">Focus</div>
+          <span class="state-chip chip-focus">state=focus</span>
+          <div class="mini-tf">
+            <div class="mini-label">Label</div>
+            <div class="mini-input mini-input--focus">Text value|</div>
+            <div class="mini-help mini-help--default">Help text</div>
+          </div>
+        </div>
+        <div class="state-card">
+          <div class="state-label">Error</div>
+          <span class="state-chip chip-error">state=error</span>
+          <div class="mini-tf">
+            <div class="mini-label" style="color:var(--color-error)">Label</div>
+            <div class="mini-input mini-input--error">Invalid value</div>
+            <div class="mini-help mini-help--error">Error message</div>
+          </div>
+        </div>
+        <div class="state-card">
+          <div class="state-label">Disabled</div>
+          <span class="state-chip chip-disabled">disabled=yes</span>
+          <div class="mini-tf">
+            <div class="mini-label" style="color:#BDBDBD">Label</div>
+            <div class="mini-input mini-input--disabled">Placeholder</div>
+            <div class="mini-help mini-help--disabled">Help text</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-grid">
+        <div class="border-item">
+          <div class="border-state-name">Default</div>
+          <div class="border-preview" style="height:1px; background:#9E9E9E;"></div>
+          <div class="border-weight">1px solid</div>
+          <span class="border-color-chip" style="background:#ECEFF1; color:#546E7A;">#9E9E9E</span>
+        </div>
+        <div class="border-item">
+          <div class="border-state-name">Focus</div>
+          <div class="border-preview" style="height:2px; background:#64B5F6;"></div>
+          <div class="border-weight">2px solid</div>
+          <span class="border-color-chip" style="background:#E3F2FD; color:var(--ann);">#64B5F6</span>
+        </div>
+        <div class="border-item">
+          <div class="border-state-name">Error</div>
+          <div class="border-preview" style="height:1px; background:#DB4537;"></div>
+          <div class="border-weight">1px solid</div>
+          <span class="border-color-chip" style="background:#FDECEA; color:#DB4537;">#DB4537</span>
+        </div>
+        <div class="border-item">
+          <div class="border-state-name">Disabled</div>
+          <div class="border-preview" style="height:1px; background:#BDBDBD;"></div>
+          <div class="border-weight">1px solid</div>
+          <span class="border-color-chip" style="background:#F5F5F5; color:#BDBDBD;">#BDBDBD</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         COMPONENT SPEC · TOKEN REFERENCE
+    ═══════════════════════════════════════════════════════ -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">data_object</span>
+        Token Reference
+      </h2>
+
+      <table class="token-table">
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Value</th>
+            <th>Token</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Input height</strong></td><td>36px</td><td><span class="tt-token">—</span></td><td class="tt-desc">Single-line. Multi-line: 90px</td></tr>
+          <tr><td><strong>Full height (label + input + help)</strong></td><td>80px</td><td><span class="tt-token">—</span></td><td class="tt-desc">18 + 4 + 36 + 4 + 18</td></tr>
+          <tr><td><strong>Horizontal padding</strong></td><td>8px</td><td><span class="tt-token">spacing.sm</span></td><td class="tt-desc">Left and right inside input box</td></tr>
+          <tr><td><strong>Vertical padding</strong></td><td>4px</td><td><span class="tt-token">spacing.xs</span></td><td class="tt-desc">Top and bottom inside input box</td></tr>
+          <tr><td><strong>Label → input gap</strong></td><td>4px</td><td><span class="tt-token">spacing.xs</span></td><td class="tt-desc">itemSpacing on root frame</td></tr>
+          <tr><td><strong>Input → help text gap</strong></td><td>4px</td><td><span class="tt-token">spacing.xs</span></td><td class="tt-desc">itemSpacing on root frame</td></tr>
+          <tr><td><strong>Label font</strong></td><td>12px / 400</td><td><span class="tt-token">fontSize.xs</span></td><td class="tt-desc">lineHeight 18px</td></tr>
+          <tr><td><strong>Input font</strong></td><td>14px / 400</td><td><span class="tt-token">fontSize.sm</span></td><td class="tt-desc">Value and placeholder</td></tr>
+          <tr><td><strong>Help text font</strong></td><td>12px / 400</td><td><span class="tt-token">fontSize.xs</span></td><td class="tt-desc">lineHeight 18px</td></tr>
+          <tr><td><strong>Label color</strong></td><td><span class="tt-swatch" style="background:#212121;"></span><span class="tt-hex">#212121</span></td><td><span class="tt-token">text.primary</span></td><td class="tt-desc">Error state: error.main</td></tr>
+          <tr><td><strong>Placeholder color</strong></td><td><span class="tt-swatch" style="background:#BDBDBD;"></span><span class="tt-hex">#BDBDBD</span></td><td><span class="tt-token">action.disabled</span></td><td class="tt-desc"></td></tr>
+          <tr><td><strong>Help text color</strong></td><td><span class="tt-swatch" style="background:#757575;"></span><span class="tt-hex">#757575</span></td><td><span class="tt-token">text.secondary</span></td><td class="tt-desc">Error state: error.main</td></tr>
+          <tr><td><strong>Border · default</strong></td><td><span class="tt-swatch" style="background:#9E9E9E;"></span><span class="tt-hex">#9E9E9E</span></td><td><span class="tt-token">input.enabledBorder</span></td><td class="tt-desc">1px solid</td></tr>
+          <tr><td><strong>Border · focus</strong></td><td><span class="tt-swatch" style="background:#64B5F6;"></span><span class="tt-hex">#64B5F6</span></td><td><span class="tt-token">border.focus</span></td><td class="tt-desc">2px solid</td></tr>
+          <tr><td><strong>Border · error</strong></td><td><span class="tt-swatch" style="background:#DB4537;"></span><span class="tt-hex">#DB4537</span></td><td><span class="tt-token">error.main</span></td><td class="tt-desc">1px solid</td></tr>
+          <tr><td><strong>Border · disabled</strong></td><td><span class="tt-swatch" style="background:#BDBDBD;"></span><span class="tt-hex">#BDBDBD</span></td><td><span class="tt-token">input.disabledBorder</span></td><td class="tt-desc">1px solid, bg: #EEEEEE</td></tr>
+          <tr><td><strong>Border radius</strong></td><td>4px</td><td><span class="tt-token">borderRadius.default</span></td><td class="tt-desc"></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+</body>
+</html>

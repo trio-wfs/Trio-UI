@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Overview - AHTG Design System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="design-system-shell.css">
+  <style>
+.hero {
+      background: linear-gradient(135deg, var(--color-primary-main) 0%, var(--color-primary-dark) 100%);
+      color: white;
+      padding: 60px var(--spacing-xl);
+      border-radius: var(--border-radius);
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 300;
+      margin-bottom: var(--spacing-md);
+    }
+
+    .hero p {
+      font-size: 18px;
+      opacity: 0.95;
+      line-height: 1.6;
+      max-width: 700px;
+    }
+
+    .principle-card {
+      border-left: 4px solid var(--color-primary-main);
+      padding-left: var(--spacing-lg);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--spacing-lg);
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: var(--spacing-lg);
+      background: var(--color-background-paper);
+      border-radius: var(--border-radius);
+      border: 1px solid var(--color-secondary-outline);
+    }
+
+    .stat-number {
+      font-size: 36px;
+      font-weight: 300;
+      color: var(--color-primary-main);
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: var(--color-text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+  </style>
+  <script src="design-system-nav.js"></script>
+</head>
+<body>
+    <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
+
+  <main class="main-content">
+    <div class="hero">
+      <h1>AHTG Design System</h1>
+      <p>
+        A comprehensive design system for desktop SaaS applications. Built on Material Design principles with customized components, design tokens, and patterns that ensure consistency, accessibility, and efficiency across all AHTG products.
+      </p>
+    </div>
+
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-number">87</div>
+        <div class="stat-label">Components</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">100%</div>
+        <div class="stat-label">Figma Accuracy</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">Desktop</div>
+        <div class="stat-label">Platform</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">8px</div>
+        <div class="stat-label">Base Grid</div>
+      </div>
+    </div>
+
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">stars</span>
+        Design Principles
+      </h2>
+      <p class="section-description">
+        Our design system is built on core principles that guide every decision, from component design to implementation patterns.
+      </p>
+      <div class="grid-2">
+        <div class="card principle-card">
+          <div class="card-title">
+            <span class="material-icons">verified</span>
+            Figma as Source of Truth
+          </div>
+          <div class="card-content">
+            Every component is built by extracting actual values from Figma component instances. No assumptions, no interpretations—just pixel-perfect accuracy. Design tokens define what exists; Figma instances define how to apply them.
+          </div>
+        </div>
+        <div class="card principle-card">
+          <div class="card-title">
+            <span class="material-icons">desktop_windows</span>
+            Desktop-First
+          </div>
+          <div class="card-content">
+            Designed exclusively for desktop SaaS applications. No responsive breakpoints, no mobile considerations. This focused approach allows for optimal desktop experiences without compromise.
+          </div>
+        </div>
+        <div class="card principle-card">
+          <div class="card-title">
+            <span class="material-icons">accessibility</span>
+            Accessibility Built-In
+          </div>
+          <div class="card-content">
+            All components meet WCAG 2.1 AA standards with proper focus states, keyboard navigation, screen reader support, and minimum touch targets of 32px.
+          </div>
+        </div>
+        <div class="card principle-card">
+          <div class="card-title">
+            <span class="material-icons">speed</span>
+            Consistency & Efficiency
+          </div>
+          <div class="card-content">
+            Standardized patterns reduce decision fatigue. The 8px spacing system, semantic color rules, and predictable component behavior create a cohesive experience across all products.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">architecture</span>
+        System Architecture
+      </h2>
+      <p class="section-description">
+        The design system is organized in layers, from foundational design tokens to complex patterns and templates.
+      </p>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons">category</span>
+            Foundation Layer
+          </div>
+          <div class="card-content">
+            <strong>Design Tokens</strong><br>
+            Colors, typography, spacing, and shapes extracted from Figma Variables. These are the atomic building blocks used across all components.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons">widgets</span>
+            Component Layer
+          </div>
+          <div class="card-content">
+            <strong>87 Components</strong><br>
+            Atomic to organism-level components built from design tokens. Each component extracts implementation values directly from Figma.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons">view_quilt</span>
+            Pattern Layer
+          </div>
+          <div class="card-content">
+            <strong>Workflows & Templates</strong><br>
+            Forms, navigation, search, and data display patterns that combine components into complete user experiences.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">rule</span>
+        Core Rules
+      </h2>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Spacing System</div>
+          <div class="card-content">
+            <strong>8px base grid</strong> for all layout spacing. Exception: 4px for related content <em>within</em> components. Never break the grid for arbitrary values.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Typography</div>
+          <div class="card-content">
+            <strong>Roboto only</strong>, max H5 for page headers. Font sizes from 11px-24px scale. Desktop-optimized line heights.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Color Semantics</div>
+          <div class="card-content">
+            <strong>Primary blue (#2196F3)</strong> for Save/Update only. Secondary for Edit. Error for Delete. Info for read-only. Background (#F5F5F5) for canvas, Paper (white) for containers.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Icons</div>
+          <div class="card-content">
+            <strong>Material Icons only</strong>. No custom icon sets. Icons reinforce action meaning but should not replace clear text labels.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Data Tables</div>
+          <div class="card-content">
+            <strong>AG Grid for all tables</strong>. No custom table implementations. Consistent sorting, filtering, and pagination across products.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Layout</div>
+          <div class="card-content">
+            <strong>12-column flex grid</strong> with 16px margins and gutters. Modals use 6-8 columns with 40px gutters and 16px margins.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">build</span>
+        Implementation Workflow
+      </h2>
+      <p class="section-description">
+        Every component follows a mandatory 4-step extraction workflow to ensure Figma accuracy.
+      </p>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Step 1: Extract Properties</div>
+          <div class="card-content">
+            Read <code>componentPropertyDefinitions</code> from cached Figma spec. Extract VARIANT, BOOLEAN, and TEXT properties. Map to TypeScript interfaces.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Step 2: Load Design Tokens</div>
+          <div class="card-content">
+            Import design tokens to understand available colors, spacing values, typography options, and shapes.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Step 3: Extract Actual Values</div>
+          <div class="card-content">
+            <strong>CRITICAL:</strong> Extract padding, dimensions, fills, strokes from actual Figma component instances. Never assume based on tokens.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Step 4: Implement</div>
+          <div class="card-content">
+            Build component using extracted values. Reference design tokens for colors/typography, but use actual extracted measurements.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">rocket_launch</span>
+        Getting Started
+      </h2>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons">palette</span>
+            Explore Design Tokens
+          </div>
+          <div class="card-content">
+            Start with Colors, Typography, and Spacing to understand the foundational building blocks of the system.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons">smart_button</span>
+            Browse Components
+          </div>
+          <div class="card-content">
+            View the Button component as the golden template. All components follow this structure and documentation pattern.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons">code</span>
+            Build New Components
+          </div>
+          <div class="card-content">
+            Use <code>/build-component</code> skill to generate new components following the extraction workflow automatically.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Button Group - AHTG Design System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="../../design-system-shell.css">
+  <style>
+
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .meta-item .material-icons {
+      font-size: 16px;
+    }
+
+    
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--spacing-lg);
+      margin-bottom: var(--spacing-lg);
+    }
+
+    /* VARIANT DISPLAYS */
+
+    .button-group-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-lg);
+      align-items: flex-start;
+      background: var(--color-background-paper);
+      padding: var(--spacing-lg);
+      border-radius: var(--border-radius);
+      border: 1px solid var(--color-secondary-outline);
+    }
+
+    /* BUTTON GROUP STYLES */
+    .btn-group {
+      display: inline-flex;
+      border-radius: var(--border-radius);
+    }
+
+    .btn-group.vertical {
+      flex-direction: column;
+    }
+
+    .btn-group .btn {
+      border: 1px solid transparent;
+      font-family: var(--font-family);
+      font-size: 14px;
+      font-weight: 500;
+      text-transform: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    /* Remove border radius for middle buttons */
+    .btn-group:not(.vertical) .btn:not(:first-child) {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      margin-left: -1px;
+    }
+
+    .btn-group:not(.vertical) .btn:not(:last-child) {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .btn-group.vertical .btn:not(:first-child) {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      margin-top: -1px;
+    }
+
+    .btn-group.vertical .btn:not(:last-child) {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    /* Small size - 32px height (extracted from Figma) */
+    .btn-group-sm .btn {
+      height: 32px;
+      padding: 0 12px;
+      border-radius: var(--border-radius);
+    }
+
+    /* Medium size - 38px height (extracted from Figma) */
+    .btn-group-md .btn {
+      height: 38px;
+      padding: 0 16px;
+      border-radius: var(--border-radius);
+    }
+
+    /* Contained variant */
+    .btn-group-contained-primary .btn {
+      background-color: var(--color-primary-main);
+      color: white;
+      border-color: var(--color-primary-main);
+    }
+
+    .btn-group-contained-primary .btn:hover {
+      background-color: var(--color-primary-dark);
+      border-color: var(--color-primary-dark);
+    }
+
+    .btn-group-contained-secondary .btn {
+      background-color: var(--color-secondary-main);
+      color: var(--color-text-primary);
+      border: 1px solid var(--color-secondary-outline);
+    }
+
+    .btn-group-contained-secondary .btn:hover {
+      box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.08);
+      border-color: var(--color-text-secondary);
+    }
+
+    /* Outlined variant */
+    .btn-group-outlined-primary .btn {
+      background-color: transparent;
+      color: var(--color-primary-main);
+      border-color: var(--color-primary-main);
+    }
+
+    .btn-group-outlined-primary .btn:hover {
+      background-color: var(--color-primary-light);
+    }
+
+    .btn-group-outlined-secondary .btn {
+      background-color: transparent;
+      color: var(--color-text-primary);
+      border: 1px solid var(--color-secondary-outline);
+    }
+
+    .btn-group-outlined-secondary .btn:hover {
+      background-color: rgba(0, 0, 0, 0.04);
+      border-color: var(--color-text-secondary);
+    }
+
+    
+    .do-dont-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: var(--spacing-lg);
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .do-card,
+
+    .do-card-title, .dont-card-title {
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: var(--spacing-sm);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+    }
+
+    .do-card-title {
+      color: var(--color-success-main);
+    }
+
+    .dont-card-title {
+      color: var(--color-error-main);
+    }
+
+    .do-card-title .material-icons,
+    .dont-card-title .material-icons {
+      font-size: 20px;
+    }
+
+    /* TABLE */
+    .spec-table {
+      width: 100%;
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: var(--border-radius);
+      border-collapse: collapse;
+      margin-top: var(--spacing-lg);
+    }
+
+    .spec-table th,
+    .spec-table td {
+      padding: var(--spacing-md);
+      text-align: left;
+      border-bottom: 1px solid var(--color-secondary-outline);
+    }
+
+    .spec-table th {
+      font-weight: 500;
+      background-color: var(--color-background-default);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--color-text-secondary);
+    }
+
+    .spec-table td {
+      font-size: 14px;
+    }
+
+    .spec-table code {
+      background-color: var(--color-background-default);
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 12px;
+      font-family: 'Courier New', monospace;
+    }
+
+    .spec-table tr:last-child td {
+      border-bottom: none;
+    }
+  
+  </style>
+  <script src="../../design-system-nav.js"></script>
+</head>
+<body>
+  <!-- LEFT NAVIGATION -->
+    <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <!-- PAGE HEADER -->
+    <header class="page-header">
+      <h1 class="page-title">Button Group</h1>
+      <p class="page-subtitle">
+        Groups related button actions together to show multiple options in a single, connected unit. Use to present related actions that should be visually grouped.
+      </p>
+      <div class="component-meta">
+        <div class="meta-item">
+          <span class="material-icons">category</span>
+          <span>Atomic Component</span>
+        </div>
+        <div class="meta-item">
+          <span class="material-icons">link</span>
+          <span>Figma: buttonGroup (2172:9605)</span>
+        </div>
+        <div class="meta-item">
+          <span class="material-icons">check_circle</span>
+          <span>Production Ready</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- OVERVIEW -->
+    <section class="section">
+      <h2 class="section-title">Overview</h2>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons">info</span>
+            Purpose
+          </div>
+          <div class="card-content">
+            Button groups connect related actions to show they belong together. Use when:
+            <ul>
+              <li>Multiple actions are related and should be visually connected</li>
+              <li>Actions modify the same object or data</li>
+              <li>You need to save horizontal space for multiple buttons</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons">tune</span>
+            Variants
+          </div>
+          <div class="card-content">
+            <strong>Variant:</strong> contained, outline<br>
+            <strong>Size:</strong> sm (32px), md (38px)<br>
+            <strong>Color:</strong> primary, secondary<br>
+            <strong>Orientation:</strong> horizontal, vertical<br>
+            <strong>Buttons:</strong> 2-6 buttons (button-3 to button-8)
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons">accessibility</span>
+            Accessibility
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Each button is individually focusable via keyboard</li>
+              <li>Use clear, descriptive labels for each button</li>
+              <li>Avoid icon-only buttons without text labels</li>
+              <li>Proper ARIA roles handled by MUI ButtonGroup</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- USAGE GUIDELINES -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">rule</span>
+        Usage Guidelines
+      </h2>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons">check_circle</span>
+            When to Use
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Group related actions that modify the same object</li>
+              <li>Use 2-4 buttons for optimal usability</li>
+              <li>Use clear, action-oriented labels</li>
+              <li>Use primary color only for confirming/save actions</li>
+              <li>Use secondary for editing/prompt actions</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons">cancel</span>
+            When NOT to Use
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Don't group unrelated actions together</li>
+              <li>Don't exceed 6 buttons (Figma limit: button-8)</li>
+              <li>Don't use for exclusive selection (use Toggle Button)</li>
+              <li>Don't mix primary and secondary colors in one group</li>
+              <li>Don't use for navigation (use Tabs instead)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SIZE VARIANTS -->
+    <section class="section">
+      <h2 class="section-title">Size Variants</h2>
+      <p class="section-description">
+        Button groups come in two sizes with heights extracted from Figma specifications.
+      </p>
+
+      <div class="variant-group">
+        <div class="variant-label">Small (32px) - Toolbars and dense interfaces</div>
+        <div class="button-group-row">
+          <div class="btn-group btn-group-sm btn-group-contained-secondary">
+            <button class="btn">Edit</button>
+            <button class="btn">Duplicate</button>
+            <button class="btn">Archive</button>
+          </div>
+          <div class="btn-group btn-group-sm btn-group-outlined-secondary">
+            <button class="btn">Filter</button>
+            <button class="btn">Sort</button>
+            <button class="btn">Export</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Medium (38px) - Standard forms and modals</div>
+        <div class="button-group-row">
+          <div class="btn-group btn-group-md btn-group-contained-secondary">
+            <button class="btn">Option A</button>
+            <button class="btn">Option B</button>
+            <button class="btn">Option C</button>
+          </div>
+          <div class="btn-group btn-group-md btn-group-outlined-secondary">
+            <button class="btn">View</button>
+            <button class="btn">Edit</button>
+            <button class="btn">Delete</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COLOR VARIANTS -->
+    <section class="section">
+      <h2 class="section-title">Color Variants</h2>
+      <p class="section-description">
+        Primary blue is for confirming/save actions. Secondary is for editing/prompt actions.
+      </p>
+
+      <div class="variant-group">
+        <div class="variant-label">Primary - Confirming Actions</div>
+        <div class="button-group-row">
+          <div class="btn-group btn-group-sm btn-group-contained-primary">
+            <button class="btn">Save Draft</button>
+            <button class="btn">Save & Close</button>
+            <button class="btn">Save & Continue</button>
+          </div>
+          <div class="btn-group btn-group-sm btn-group-outlined-primary">
+            <button class="btn">Approve</button>
+            <button class="btn">Approve & Next</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Secondary - Editing/Prompt Actions</div>
+        <div class="button-group-row">
+          <div class="btn-group btn-group-sm btn-group-contained-secondary">
+            <button class="btn">Edit</button>
+            <button class="btn">Duplicate</button>
+            <button class="btn">Archive</button>
+          </div>
+          <div class="btn-group btn-group-sm btn-group-outlined-secondary">
+            <button class="btn">Manage</button>
+            <button class="btn">Settings</button>
+            <button class="btn">History</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ORIENTATION VARIANTS -->
+    <section class="section">
+      <h2 class="section-title">Orientation</h2>
+      <p class="section-description">
+        Button groups can be arranged horizontally (default) or vertically for narrow layouts.
+      </p>
+
+      <div class="variant-group">
+        <div class="variant-label">Horizontal (Default)</div>
+        <div class="button-group-row">
+          <div class="btn-group btn-group-sm btn-group-contained-secondary">
+            <button class="btn">Edit</button>
+            <button class="btn">Duplicate</button>
+            <button class="btn">Archive</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Vertical - For narrow containers</div>
+        <div class="button-group-row">
+          <div class="btn-group btn-group-sm btn-group-contained-secondary vertical">
+            <button class="btn">Option A</button>
+            <button class="btn">Option B</button>
+            <button class="btn">Option C</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BEST PRACTICES -->
+    <section class="section">
+      <h2 class="section-title">Best Practices</h2>
+      <div class="do-dont-grid">
+        <div class="do-card">
+          <div class="do-card-title">
+            <span class="material-icons">check_circle</span>
+            Do
+          </div>
+          <div class="card-content">
+            <strong>Toolbar Actions:</strong><br>
+            <div class="btn-group btn-group-sm btn-group-contained-secondary" style="margin-top: 8px;">
+              <button class="btn">Filter</button>
+              <button class="btn">Sort</button>
+              <button class="btn">Export</button>
+            </div>
+            <p style="margin-top: 8px; font-size: 12px;">Use sm size for toolbars and table actions</p>
+          </div>
+        </div>
+
+        <div class="dont-card">
+          <div class="dont-card-title">
+            <span class="material-icons">cancel</span>
+            Don't
+          </div>
+          <div class="card-content">
+            <strong>Mixed Colors:</strong><br>
+            <div class="btn-group btn-group-sm" style="margin-top: 8px;">
+              <button class="btn" style="background: #2196F3; color: white; border: 1px solid #2196F3; height: 32px; padding: 0 12px; border-radius: 4px 0 0 4px;">Save</button>
+              <button class="btn" style="background: #F5F5F5; color: #212121; border: 1px solid #E0E0E0; height: 32px; padding: 0 12px; border-radius: 0 4px 4px 0; margin-left: -1px;">Cancel</button>
+            </div>
+            <p style="margin-top: 8px; font-size: 12px;">Don't mix primary and secondary colors in one group</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TECHNICAL SPECIFICATIONS -->
+    <section class="section">
+      <h2 class="section-title">Technical Specifications</h2>
+      <p class="section-description">
+        All values extracted from Figma component instances (node: 2172:9605).
+      </p>
+
+      <table class="spec-table">
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Value</th>
+            <th>Figma Source</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Height (sm)</td>
+            <td>32px</td>
+            <td><code>.absoluteBoundingBox.height</code></td>
+            <td>Extracted from size=sm variant</td>
+          </tr>
+          <tr>
+            <td>Height (md)</td>
+            <td>38px</td>
+            <td><code>.absoluteBoundingBox.height</code></td>
+            <td>Extracted from size=md variant</td>
+          </tr>
+          <tr>
+            <td>Button gap</td>
+            <td>-1px (shared border)</td>
+            <td>Position calculation from instances</td>
+            <td>Buttons overlap by 1px to share borders</td>
+          </tr>
+          <tr>
+            <td>Variants</td>
+            <td>contained, outline</td>
+            <td><code>componentPropertyDefinitions.variant.variantOptions</code></td>
+            <td>Only 2 variants in Figma</td>
+          </tr>
+          <tr>
+            <td>Sizes</td>
+            <td>sm, md</td>
+            <td><code>componentPropertyDefinitions.size.variantOptions</code></td>
+            <td>Only 2 sizes in Figma</td>
+          </tr>
+          <tr>
+            <td>Colors</td>
+            <td>secondary, primary</td>
+            <td><code>componentPropertyDefinitions.color.variantOptions</code></td>
+            <td>Primary for save/confirm only</td>
+          </tr>
+          <tr>
+            <td>Orientation</td>
+            <td>horizontal, vertical</td>
+            <td><code>componentPropertyDefinitions.orientation.variantOptions</code></td>
+            <td>Horizontal is default</td>
+          </tr>
+          <tr>
+            <td>Button count</td>
+            <td>2-6 buttons</td>
+            <td><code>componentPropertyDefinitions.button-3 through button-8</code></td>
+            <td>BOOLEAN properties for button visibility</td>
+          </tr>
+          <tr>
+            <td>Border radius</td>
+            <td>4px</td>
+            <td><code>tokens.borderRadius.default</code></td>
+            <td>Applied to outer corners only</td>
+          </tr>
+          <tr>
+            <td>Typography</td>
+            <td>14px Roboto Medium</td>
+            <td><code>tokens.typography.*</code></td>
+            <td>Consistent with Button component</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</body>
+</html>

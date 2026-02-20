@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Button - AHTG Design System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="../../design-system-shell.css">
+  <style>
+
+
+    
+
+    .button-row {
+      display: flex;
+      gap: var(--spacing-md);
+      flex-wrap: wrap;
+      padding: var(--spacing-lg);
+      background: var(--color-background-paper);
+      border-radius: var(--border-radius);
+      border: 1px solid var(--color-secondary-outline);
+    }
+
+    
+
+    /* BUTTONS - Extracted from Figma */
+    .btn {
+      font-family: var(--font-family);
+      font-size: 14px;
+      font-weight: 400;
+      border: none;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      text-transform: none;
+    }
+
+    .btn-md {
+      height: 38px;
+      padding: 12px;
+      min-width: 86px;
+    }
+
+    .btn-sm {
+      height: 32px;
+      padding: 8px;
+      min-width: 72px;
+    }
+
+    .btn .material-icons {
+      font-size: 18px;
+    }
+
+    .btn-primary-contained {
+      background-color: rgba(33, 150, 243, 1);
+      color: rgba(255, 255, 255, 1);
+    }
+
+    .btn-primary-contained:hover {
+      background-color: rgba(25, 118, 210, 1);
+    }
+
+    .btn-primary-outlined {
+      background-color: transparent;
+      color: rgba(33, 150, 243, 1);
+      border: 1px solid rgba(33, 150, 243, 1);
+    }
+
+    .btn-primary-outlined:hover {
+      background-color: rgba(33, 150, 243, 0.08);
+      color: rgba(25, 118, 210, 1);
+      border-color: rgba(25, 118, 210, 1);
+    }
+
+    .btn-primary-text {
+      background-color: transparent;
+      color: rgba(33, 150, 243, 1);
+    }
+
+    .btn-primary-text:hover {
+      background-color: rgba(33, 150, 243, 0.08);
+    }
+
+    .btn-secondary-contained {
+      background-color: var(--color-secondary-main);
+      color: var(--color-text-primary);
+      border: 1px solid var(--color-secondary-outline);
+    }
+
+    .btn-secondary-contained:hover {
+      box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.08);
+      border-color: var(--color-text-secondary);
+    }
+
+    .btn-secondary-outlined {
+      background-color: transparent;
+      color: var(--color-text-primary);
+      border: 1px solid var(--color-secondary-outline);
+    }
+
+    .btn-secondary-outlined:hover {
+      background-color: rgba(0, 0, 0, 0.04);
+      border-color: var(--color-text-secondary);
+    }
+
+    .btn-secondary-text {
+      background-color: transparent;
+      color: var(--color-text-primary);
+    }
+
+    .btn-secondary-text:hover {
+      background-color: rgba(0, 0, 0, 0.04);
+    }
+
+    .btn-success-contained {
+      background-color: var(--color-success-main);
+      color: white;
+    }
+
+    .btn-success-contained:hover {
+      background-color: #45a049;
+    }
+
+    .btn-success-outlined {
+      background-color: transparent;
+      color: var(--color-success-main);
+      border: 1px solid var(--color-success-main);
+    }
+
+    .btn-success-outlined:hover {
+      background-color: rgba(76, 175, 80, 0.08);
+    }
+
+    .btn-success-text {
+      background-color: transparent;
+      color: var(--color-success-main);
+    }
+
+    .btn-success-text:hover {
+      background-color: rgba(76, 175, 80, 0.04);
+    }
+
+    .btn-error-contained {
+      background-color: var(--color-error-main);
+      color: white;
+    }
+
+    .btn-error-contained:hover {
+      background-color: #c23d2f;
+    }
+
+    .btn-error-outlined {
+      background-color: transparent;
+      color: var(--color-error-main);
+      border: 1px solid var(--color-error-main);
+    }
+
+    .btn-error-outlined:hover {
+      background-color: rgba(219, 69, 55, 0.08);
+    }
+
+    .btn-error-text {
+      background-color: transparent;
+      color: var(--color-error-main);
+    }
+
+    .btn-error-text:hover {
+      background-color: rgba(219, 69, 55, 0.04);
+    }
+
+    .btn-warning-contained {
+      background-color: var(--color-warning-main);
+      color: white;
+    }
+
+    .btn-warning-contained:hover {
+      background-color: #c96308;
+    }
+
+    .btn-warning-outlined {
+      background-color: transparent;
+      color: var(--color-warning-main);
+      border: 1px solid var(--color-warning-main);
+    }
+
+    .btn-warning-outlined:hover {
+      background-color: rgba(225, 113, 9, 0.08);
+    }
+
+    .btn-warning-text {
+      background-color: transparent;
+      color: var(--color-warning-main);
+    }
+
+    .btn-warning-text:hover {
+      background-color: rgba(225, 113, 9, 0.04);
+    }
+
+    .btn-info-contained {
+      background-color: var(--color-info-main);
+      color: white;
+    }
+
+    .btn-info-contained:hover {
+      background-color: #4aa8c7;
+    }
+
+    .btn-info-outlined {
+      background-color: transparent;
+      color: var(--color-info-main);
+      border: 1px solid var(--color-info-main);
+    }
+
+    .btn-info-outlined:hover {
+      background-color: rgba(91, 191, 222, 0.08);
+    }
+
+    .btn-info-text {
+      background-color: transparent;
+      color: var(--color-info-main);
+    }
+
+    .btn-info-text:hover {
+      background-color: rgba(91, 191, 222, 0.04);
+    }
+
+    .btn:disabled {
+      cursor: not-allowed;
+      background-color: rgba(238, 238, 238, 1);
+      color: rgba(158, 158, 158, 1);
+      border-color: transparent;
+    }
+
+    .btn-outlined:disabled {
+      background-color: transparent;
+      color: rgba(158, 158, 158, 1);
+      border-color: rgba(224, 224, 224, 1);
+    }
+
+    .btn-text:disabled {
+      background-color: transparent;
+      color: rgba(158, 158, 158, 1);
+    }
+
+    .btn-loading {
+      position: relative;
+      color: transparent;
+      pointer-events: none;
+    }
+
+    .btn-loading::after {
+      content: "";
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      top: 50%;
+      left: 50%;
+      margin-left: -8px;
+      margin-top: -8px;
+      border: 2px solid;
+      border-color: white transparent white transparent;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* DIVIDER */
+    .divider {
+      height: 1px;
+      background: var(--color-secondary-outline);
+      margin: var(--spacing-xl) 0;
+    }
+  
+  </style>
+  <script src="../../design-system-nav.js"></script>
+</head>
+<body>
+  <!-- LEFT NAVIGATION -->
+    <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <!-- PAGE HEADER -->
+    <header class="page-header">
+      <h1 class="page-title">Button</h1>
+      <p class="page-subtitle">
+        Buttons communicate actions that users can take. They are typically placed throughout your UI, in places like dialogs, modal windows, forms, cards, and toolbars. Buttons express what action will occur when the user interacts with them.
+      </p>
+      <div class="component-meta">
+        <span><span class="material-icons" style="font-size: 14px;">category</span> Atomic Component</span>
+        <span><span class="material-icons" style="font-size: 14px;">link</span> Figma: 978:5063</span>
+        <span><span class="material-icons" style="font-size: 14px;">verified</span> Production Ready</span>
+      </div>
+    </header>
+
+    <!-- OVERVIEW -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">info</span>
+        Overview
+      </h2>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons" style="color: var(--color-primary-main);">psychology</span>
+            Purpose
+          </div>
+          <div class="card-content">
+            Buttons trigger immediate actions or navigate users to new views. They are the primary mechanism for user interaction in forms, dialogs, and workflows.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons" style="color: var(--color-primary-main);">priority_high</span>
+            Visual Hierarchy
+          </div>
+          <div class="card-content">
+            Use contained buttons for primary actions, outlined for secondary actions, and text buttons for tertiary or low-priority actions.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons" style="color: var(--color-primary-main);">accessibility</span>
+            Accessibility
+          </div>
+          <div class="card-content">
+            All buttons include proper focus states, keyboard navigation, and ARIA labels. Minimum touch target is 32px for accessibility compliance.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHEN TO USE / NOT USE -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">rule</span>
+        Usage Guidelines
+      </h2>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons">check_circle</span>
+            When to Use
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Submitting forms (Save, Update, Submit)</li>
+              <li>Confirming or canceling actions in dialogs</li>
+              <li>Navigating to a new page or view</li>
+              <li>Starting a workflow or process</li>
+              <li>Adding or creating new items</li>
+              <li>Destructive actions with clear labeling (Delete, Remove)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons">cancel</span>
+            When NOT to Use
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Navigation between views (use tabs or links instead)</li>
+              <li>Displaying a list of options (use select or menu)</li>
+              <li>Toggling between states (use switch or checkbox)</li>
+              <li>Opening a dropdown menu (use select component)</li>
+              <li>More than 2 buttons in a small space (prioritize actions)</li>
+              <li>Generic "Click Here" labels (be specific about action)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VARIANTS -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">widgets</span>
+        Variants
+      </h2>
+      <p class="section-description">
+        Buttons come in three visual variants that communicate different levels of emphasis. Use contained buttons for primary actions, outlined for secondary actions, and text buttons for tertiary or less important actions.
+      </p>
+
+      <div class="variant-group">
+        <div class="variant-label">Contained (High Emphasis)</div>
+        <div class="button-row">
+          <button class="btn btn-md btn-primary-contained">Primary</button>
+          <button class="btn btn-md btn-secondary-contained">Secondary</button>
+          <button class="btn btn-md btn-success-contained">Success</button>
+          <button class="btn btn-md btn-error-contained">Error</button>
+          <button class="btn btn-md btn-warning-contained">Warning</button>
+          <button class="btn btn-md btn-info-contained">Info</button>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Outlined (Medium Emphasis)</div>
+        <div class="button-row">
+          <button class="btn btn-md btn-primary-outlined">Primary</button>
+          <button class="btn btn-md btn-secondary-outlined">Secondary</button>
+          <button class="btn btn-md btn-success-outlined">Success</button>
+          <button class="btn btn-md btn-error-outlined">Error</button>
+          <button class="btn btn-md btn-warning-outlined">Warning</button>
+          <button class="btn btn-md btn-info-outlined">Info</button>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Text (Low Emphasis)</div>
+        <div class="button-row">
+          <button class="btn btn-md btn-primary-text">Primary</button>
+          <button class="btn btn-md btn-secondary-text">Secondary</button>
+          <button class="btn btn-md btn-success-text">Success</button>
+          <button class="btn btn-md btn-error-text">Error</button>
+          <button class="btn btn-md btn-warning-text">Warning</button>
+          <button class="btn btn-md btn-info-text">Info</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SIZES -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">straighten</span>
+        Sizes
+      </h2>
+      <p class="section-description">
+        Buttons are available in two sizes. Medium is the default for most use cases. Small buttons are used in compact layouts, tables, or when vertical space is limited.
+      </p>
+
+      <div class="variant-group">
+        <div class="variant-label">Medium (Default) - 38px height</div>
+        <div class="button-row">
+          <button class="btn btn-md btn-primary-contained">
+            <span class="material-icons">add</span>
+            Create New
+          </button>
+          <button class="btn btn-md btn-primary-contained">Save Changes</button>
+          <button class="btn btn-md btn-secondary-outlined">Cancel</button>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Small - 32px height</div>
+        <div class="button-row">
+          <button class="btn btn-sm btn-primary-contained">
+            <span class="material-icons">add</span>
+            Add
+          </button>
+          <button class="btn btn-sm btn-primary-contained">Save</button>
+          <button class="btn btn-sm btn-secondary-outlined">Cancel</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATES -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">toggle_on</span>
+        States
+      </h2>
+      <p class="section-description">
+        Buttons have multiple interactive states to provide visual feedback. All state values are extracted directly from Figma specifications.
+      </p>
+
+      <div class="variant-group">
+        <div class="variant-label">Default & Hover</div>
+        <div class="button-row">
+          <button class="btn btn-md btn-primary-contained">Hover Me</button>
+          <button class="btn btn-md btn-primary-outlined">Hover Me</button>
+          <button class="btn btn-md btn-primary-text">Hover Me</button>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Disabled</div>
+        <div class="button-row">
+          <button class="btn btn-md btn-primary-contained" disabled>Contained</button>
+          <button class="btn btn-md btn-primary-outlined btn-outlined" disabled>Outlined</button>
+          <button class="btn btn-md btn-primary-text btn-text" disabled>Text</button>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Loading</div>
+        <div class="button-row">
+          <button class="btn btn-md btn-primary-contained btn-loading">Processing</button>
+          <button class="btn btn-md btn-secondary-contained btn-loading">Loading</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- BEST PRACTICES -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">recommend</span>
+        Best Practices
+      </h2>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons">check_circle</span>
+            Do
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Use specific, action-oriented labels (Save, Delete, Create)</li>
+              <li>Limit to 1 primary button per section or dialog</li>
+              <li>Place primary action on the right in button groups</li>
+              <li>Use icons only when they reinforce the action meaning</li>
+              <li>Maintain consistent button sizing throughout forms</li>
+              <li>Use Primary blue only for Save/Update actions</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons">cancel</span>
+            Don't
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Use vague labels like "OK", "Click Here", or "Submit"</li>
+              <li>Place more than 3 buttons in a single button group</li>
+              <li>Use all caps text (use sentence case)</li>
+              <li>Mix button sizes in the same row or group</li>
+              <li>Use icons without labels in primary actions</li>
+              <li>Use Primary blue for Edit actions (use Secondary)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COLOR SEMANTICS -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">palette</span>
+        Color Semantics
+      </h2>
+      <p class="section-description">
+        Button colors communicate meaning and action consequence. Follow these semantic rules consistently across the application.
+      </p>
+
+      <table class="property-table">
+        <thead>
+          <tr>
+            <th>Color</th>
+            <th>When to Use</th>
+            <th>Example Actions</th>
+            <th>Visual</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>primary</code></td>
+            <td>Save or Update operations only</td>
+            <td>Save, Update, Apply Changes</td>
+            <td><button class="btn btn-sm btn-primary-contained">Save</button></td>
+          </tr>
+          <tr>
+            <td><code>secondary</code></td>
+            <td>Edit actions and general navigation</td>
+            <td>Edit, Cancel, Close, Back</td>
+            <td><button class="btn btn-sm btn-secondary-contained">Edit</button></td>
+          </tr>
+          <tr>
+            <td><code>success</code></td>
+            <td>Positive confirmation actions</td>
+            <td>Confirm, Approve, Activate</td>
+            <td><button class="btn btn-sm btn-success-contained">Approve</button></td>
+          </tr>
+          <tr>
+            <td><code>error</code></td>
+            <td>Destructive or irreversible actions</td>
+            <td>Delete, Remove, Deactivate</td>
+            <td><button class="btn btn-sm btn-error-contained">Delete</button></td>
+          </tr>
+          <tr>
+            <td><code>warning</code></td>
+            <td>Actions requiring caution</td>
+            <td>Archive, Deprecate, Force Update</td>
+            <td><button class="btn btn-sm btn-warning-contained">Archive</button></td>
+          </tr>
+          <tr>
+            <td><code>info</code></td>
+            <td>Informational or help actions</td>
+            <td>Learn More, View Details, Help</td>
+            <td><button class="btn btn-sm btn-info-contained">Details</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- SPECIFICATIONS -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">construction</span>
+        Technical Specifications
+      </h2>
+      <p class="section-description">
+        All values extracted from Figma component instances (node: 978:5063)
+      </p>
+
+      <table class="property-table">
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Value</th>
+            <th>Source</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Height (MD)</td>
+            <td><code>38px</code></td>
+            <td>.absoluteBoundingBox.height</td>
+          </tr>
+          <tr>
+            <td>Height (SM)</td>
+            <td><code>32px</code></td>
+            <td>.absoluteBoundingBox.height</td>
+          </tr>
+          <tr>
+            <td>Padding (MD)</td>
+            <td><code>12px</code> all sides</td>
+            <td>.children[0].padding*</td>
+          </tr>
+          <tr>
+            <td>Padding (SM)</td>
+            <td><code>8px</code> all sides</td>
+            <td>.children[0].padding*</td>
+          </tr>
+          <tr>
+            <td>Border Radius</td>
+            <td><code>4px</code></td>
+            <td>.children[0].cornerRadius</td>
+          </tr>
+          <tr>
+            <td>Typography</td>
+            <td>Roboto <code>14px</code>, weight <code>400</code></td>
+            <td>.style.fontSize, .style.fontWeight</td>
+          </tr>
+          <tr>
+            <td>Primary Color</td>
+            <td><code>#2196F3</code> rgba(33, 150, 243, 1)</td>
+            <td>.children[0].fills[0].color</td>
+          </tr>
+          <tr>
+            <td>Primary Hover</td>
+            <td><code>#1976D2</code> rgba(25, 118, 210, 1)</td>
+            <td>.children[0].fills[0].color</td>
+          </tr>
+          <tr>
+            <td>Text Hover BG</td>
+            <td>Primary at <code>8% opacity</code></td>
+            <td>.children[0].fills[0].opacity</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</body>
+</html>

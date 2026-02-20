@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TextField - AHTG Design System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="../design-system-templates/component-template-styles.css" rel="stylesheet">
+    <style>
+        /* Active nav link */
+        .nav-links a.active {
+            color: #2196F3;
+            font-weight: 500;
+            border-bottom: 2px solid #2196F3;
+            padding-bottom: 4px;
+        }
+
+        /* TextField-specific styles */
+        .demo-textfield {
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-width: 400px;
+        }
+
+        .demo-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: #212121;
+        }
+
+        .demo-input-container {
+            display: flex;
+            align-items: center;
+            height: 36px;
+            padding: 4px 8px;
+            border: 1px solid #9E9E9E;
+            border-radius: 4px;
+            background-color: #FFFFFF;
+            transition: border-color 0.2s;
+        }
+
+        .demo-input-container.error {
+            border-color: #DB4537;
+        }
+
+        .demo-input-container.focus {
+            border-color: #64B5F6;
+            border-width: 2px;
+        }
+
+        .demo-input-container.disabled {
+            background-color: #EEEEEE;
+            border-color: #E0E0E0;
+        }
+
+        .demo-input-container input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
+            color: #212121;
+            background: transparent;
+        }
+
+        .demo-input-container input::placeholder {
+            color: #9E9E9E;
+        }
+
+        .demo-input-container input:disabled {
+            color: #9E9E9E;
+        }
+
+        .demo-input-container.multiline {
+            height: 90px;
+            align-items: flex-start;
+            padding: 4px 8px;
+        }
+
+        .demo-input-container.multiline input {
+            resize: none;
+            line-height: 1.5;
+        }
+
+        .demo-help-text {
+            font-size: 12px;
+            color: #757575;
+            margin-top: 4px;
+        }
+
+        .demo-help-text.error {
+            color: #DB4537;
+        }
+
+        .demo-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 8px;
+            background-color: #E3F2FD;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #2196F3;
+            margin-top: 4px;
+            width: fit-content;
+        }
+
+        .demo-chip button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #2196F3;
+            padding: 0;
+            font-size: 14px;
+        }
+
+        .variant-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: #9E9E9E;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .icon-slot {
+            display: flex;
+            align-items: center;
+            color: #757575;
+            font-size: 18px;
+        }
+
+        .showcase-item-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: #757575;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">AHTG Design System</div>
+            <ul class="nav-links">
+                <li><a href="../../design-system-overview.html">Home</a></li>
+                <li><a href="../../foundation/typography.html">Foundation</a></li>
+                <li><a href="../../components-overview.html">Components</a></li>
+                <li><a href="../../tokens-overview.html">Tokens</a></li>
+                <li><a href="./text-field.html" class="active">TextField</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Header -->
+        <div class="component-header">
+            <div class="breadcrumb">
+                <a href="../../design-system-overview.html">Design System</a>
+                <span>/</span>
+                <a href="../../components-overview.html">Components</a>
+                <span>/</span>
+                <span>TextField</span>
+            </div>
+            <h1>TextField</h1>
+            <p class="component-description">
+                Text fields allow users to enter and edit text. They support single-line and multi-line input with various states including default, error, focus, and disabled.
+            </p>
+            <div class="component-meta">
+                <span class="badge">Input</span>
+                <span class="badge status-ready">Production Ready</span>
+            </div>
+        </div>
+
+        <!-- Usage Section -->
+        <section class="section">
+            <h2>Usage</h2>
+            <p>
+                Use text fields when you need users to input short text, emails, passwords, or longer content like descriptions and comments. TextFields adapt to single-line or multi-line contexts and provide clear feedback through states.
+            </p>
+            <h3>When to Use</h3>
+            <ul>
+                <li><strong>Single-line:</strong> For names, emails, search queries, and short responses</li>
+                <li><strong>Multi-line:</strong> For descriptions, comments, notes, and longer text content</li>
+                <li><strong>With icons:</strong> To provide context (search icon, validation checkmark)</li>
+                <li><strong>With help text:</strong> To clarify requirements or validation rules</li>
+            </ul>
+            <h3>When NOT to Use</h3>
+            <ul>
+                <li>Don't use for binary choices — use Checkbox or Radio instead</li>
+                <li>Don't use for selecting from predefined options — use Select or Autocomplete</li>
+                <li>Avoid overloading with too many optional features (icons, chips, help text)</li>
+            </ul>
+        </section>
+
+        <!-- Props Section -->
+        <section class="section">
+            <h2>Props</h2>
+            <p>All props are optional. Default values match Figma specification.</p>
+            <table class="props-table">
+                <thead>
+                    <tr>
+                        <th>Prop</th>
+                        <th>Type</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="props-table-name">type</td>
+                        <td class="props-table-type">'single-line' | 'multi-line'</td>
+                        <td class="props-table-default">'single-line'</td>
+                        <td>Input mode: single line (height 36px) or multi-line textarea (height 90px)</td>
+                    </tr>
+                    <tr>
+                        <td class="props-table-name">state</td>
+                        <td class="props-table-type">'default' | 'error' | 'focus'</td>
+                        <td class="props-table-default">'default'</td>
+                        <td>Visual state affecting border color: default (#9E9E9E), error (#DB4537), focus (#64B5F6)</td>
+                    </tr>
+                    <tr>
+                        <td class="props-table-name">disabled</td>
+                        <td class="props-table-type">'no' | 'yes'</td>
+                        <td class="props-table-default">'no'</td>
+                        <td>Disable input and show disabled styling (#EEEEEE background, #9E9E9E text)</td>
+                    </tr>
+                    <tr>
+                        <td class="props-table-name">label</td>
+                        <td class="props-table-type">boolean</td>
+                        <td class="props-table-default">true</td>
+                        <td>Show/hide label above input</td>
+                    </tr>
+                    <tr>
+                        <td class="props-table-name">labelText</td>
+                        <td class="props-table-type">string</td>
+                        <td class="props-table-default">'Label'</td>
+                        <td>Text content for label</td>
+                    </tr>
+                    <tr>
+                        <td class="props-table-name">helpText</td>
+                        <td class="props-table-type">boolean</td>
+                        <td class="props-table-default">false</td>
+                        <td>Show/hide help text below input</td>
+                    </tr>
+                    <tr>
+                        <td class="props-table-name">helperText</td>
+                        <td class="props-table-type">string</td>
+                        <td class="props-table-default">'Help text'</td>
+                        <td>Text content for help text (color changes to error in error state)</td>
+                    </tr>
+                    <tr>
+                        <td class="props-table-name">placeholderLabel</td>
+                        <td class="props-table-type">string</td>
+                        <td class="props-table-default">'Placeholder'</td>
+                        <td>Placeholder text shown when input is empty</td>
+                    </tr>
+                    <tr>
+                        <td class="props-table-name">inputContent</td>
+                        <td class="props-table-type">string</td>
+                        <td class="props-table-default">''</td>
+                        <td>Initial value for input (use value prop in controlled components)</td>
+                    </tr>
+                    <tr>
+                        <td class="props-table-name">iconRight</td>
+                        <td class="props-table-type">boolean</td>
+                        <td class="props-table-default">false</td>
+                        <td>Show icon on right side of input (e.g., validation checkmark)</td>
+                    </tr>
+                    <tr>
+                        <td class="props-table-name">adormentInput</td>
+                        <td class="props-table-type">boolean</td>
+                        <td class="props-table-default">false</td>
+                        <td>Show icon/adornment on left side of input (e.g., search icon)</td>
+                    </tr>
+                    <tr>
+                        <td class="props-table-name">iconSupport</td>
+                        <td class="props-table-type">boolean</td>
+                        <td class="props-table-default">false</td>
+                        <td>Enable support icon (typically near help text)</td>
+                    </tr>
+                    <tr>
+                        <td class="props-table-name">inputFill</td>
+                        <td class="props-table-type">boolean</td>
+                        <td class="props-table-default">false</td>
+                        <td>Use filled background (#FAFAFA) instead of transparent</td>
+                    </tr>
+                    <tr>
+                        <td class="props-table-name">chipContent</td>
+                        <td class="props-table-type">boolean</td>
+                        <td class="props-table-default">false</td>
+                        <td>Show chip(s) below input for added content/tags</td>
+                    </tr>
+                    <tr>
+                        <td class="props-table-name">value</td>
+                        <td class="props-table-type">string</td>
+                        <td class="props-table-default">undefined</td>
+                        <td>Controlled component value (use with onChange)</td>
+                    </tr>
+                    <tr>
+                        <td class="props-table-name">onChange</td>
+                        <td class="props-table-type">(value: string) => void</td>
+                        <td class="props-table-default">undefined</td>
+                        <td>Callback when input value changes</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Variants Section -->
+        <section class="section">
+            <h2>Variants</h2>
+
+            <!-- Type Variants -->
+            <h3>Input Type</h3>
+            <div class="showcase-grid showcase-grid-2col">
+                <div class="showcase-item">
+                    <div class="variant-label">Single-line (height: 36px)</div>
+                    <div class="showcase-item-demo">
+                        <div class="demo-textfield">
+                            <label class="demo-label">Username</label>
+                            <div class="demo-input-container">
+                                <input type="text" placeholder="Enter username" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="showcase-item">
+                    <div class="variant-label">Multi-line (height: 90px)</div>
+                    <div class="showcase-item-demo">
+                        <div class="demo-textfield">
+                            <label class="demo-label">Description</label>
+                            <div class="demo-input-container multiline">
+                                <input type="text" placeholder="Enter description..." style="height: 100%;" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- State Variants -->
+            <h3>States</h3>
+            <div class="showcase-grid showcase-grid-3col">
+                <div class="showcase-item">
+                    <div class="variant-label">Default (Border: #9E9E9E)</div>
+                    <div class="showcase-item-demo">
+                        <div class="demo-textfield">
+                            <label class="demo-label">Email</label>
+                            <div class="demo-input-container">
+                                <input type="email" placeholder="email@example.com" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="showcase-item">
+                    <div class="variant-label">Error (Border: #DB4537)</div>
+                    <div class="showcase-item-demo">
+                        <div class="demo-textfield">
+                            <label class="demo-label">Email</label>
+                            <div class="demo-input-container error">
+                                <input type="email" value="invalid-email" />
+                            </div>
+                            <div class="demo-help-text error">Invalid email address</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="showcase-item">
+                    <div class="variant-label">Focus (Border: #64B5F6)</div>
+                    <div class="showcase-item-demo">
+                        <div class="demo-textfield">
+                            <label class="demo-label">Email</label>
+                            <div class="demo-input-container focus">
+                                <input type="email" placeholder="email@example.com" autofocus />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Disabled Variant -->
+            <h3>Disabled</h3>
+            <div class="showcase-grid showcase-grid-2col">
+                <div class="showcase-item">
+                    <div class="variant-label">Enabled (disabled='no')</div>
+                    <div class="showcase-item-demo">
+                        <div class="demo-textfield">
+                            <label class="demo-label">Name</label>
+                            <div class="demo-input-container">
+                                <input type="text" placeholder="Enter name" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="showcase-item">
+                    <div class="variant-label">Disabled (disabled='yes')</div>
+                    <div class="showcase-item-demo">
+                        <div class="demo-textfield">
+                            <label class="demo-label">Name</label>
+                            <div class="demo-input-container disabled">
+                                <input type="text" placeholder="Read-only" disabled />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- With Icons -->
+            <h3>With Icons</h3>
+            <div class="showcase-grid showcase-grid-2col">
+                <div class="showcase-item">
+                    <div class="variant-label">Left Icon (adormentInput=true)</div>
+                    <div class="showcase-item-demo">
+                        <div class="demo-textfield">
+                            <label class="demo-label">Search</label>
+                            <div class="demo-input-container">
+                                <span class="icon-slot material-icons">search</span>
+                                <input type="text" placeholder="Search..." />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="showcase-item">
+                    <div class="variant-label">Right Icon (iconRight=true)</div>
+                    <div class="showcase-item-demo">
+                        <div class="demo-textfield">
+                            <label class="demo-label">Verification</label>
+                            <div class="demo-input-container">
+                                <input type="text" value="Verified" />
+                                <span class="icon-slot material-icons" style="color: #4CAF50;">check_circle</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- With Help Text -->
+            <h3>With Help Text</h3>
+            <div class="showcase-grid showcase-grid-1col">
+                <div class="showcase-item">
+                    <div class="variant-label">Help Text (helpText=true)</div>
+                    <div class="showcase-item-demo">
+                        <div class="demo-textfield">
+                            <label class="demo-label">Password</label>
+                            <div class="demo-input-container">
+                                <input type="password" placeholder="••••••••" />
+                            </div>
+                            <div class="demo-help-text">Minimum 8 characters required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- With Chip Content -->
+            <h3>With Chip Content</h3>
+            <div class="showcase-grid showcase-grid-1col">
+                <div class="showcase-item">
+                    <div class="variant-label">Chip Content (chipContent=true)</div>
+                    <div class="showcase-item-demo">
+                        <div class="demo-textfield">
+                            <label class="demo-label">Tags</label>
+                            <div class="demo-input-container">
+                                <input type="text" placeholder="Add tags..." />
+                            </div>
+                            <div class="demo-chip">
+                                Design
+                                <button>✕</button>
+                            </div>
+                            <div class="demo-chip">
+                                System
+                                <button>✕</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- With Fill -->
+            <h3>With Filled Background</h3>
+            <div class="showcase-grid showcase-grid-1col">
+                <div class="showcase-item">
+                    <div class="variant-label">Input Fill (inputFill=true)</div>
+                    <div class="showcase-item-demo">
+                        <div class="demo-textfield">
+                            <label class="demo-label">Notes</label>
+                            <div class="demo-input-container" style="background-color: #FAFAFA;">
+                                <input type="text" placeholder="Add notes..." />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Code Examples Section -->
+        <section class="section">
+            <h2>Code Examples</h2>
+
+            <!-- Basic Usage -->
+            <h3>Basic Single-line Input</h3>
+            <div class="code-block">
+                <div class="code-block-header">
+                    <span class="code-block-title">React/TypeScript</span>
+                    <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                </div>
+                <pre><code><span class="keyword">import</span> { TextField } <span class="keyword">from</span> <span class="string">'@ahtg/components'</span>;
+
+<span class="keyword">export function</span> <span class="function">LoginForm</span>() {
+  <span class="keyword">const</span> [email, setEmail] = <span class="function">useState</span>(<span class="string">''</span>);
+
+  <span class="keyword">return</span> (
+    &lt;TextField
+      type=<span class="string">"single-line"</span>
+      label={true}
+      labelText=<span class="string">"Email Address"</span>
+      placeholderLabel=<span class="string">"you@example.com"</span>
+      value={email}
+      onChange={setEmail}
+      helpText={true}
+      helperText=<span class="string">"We'll never share your email"</span>
+    /&gt;
+  );
+}</code></pre>
+            </div>
+
+            <!-- Multi-line Example -->
+            <h3>Multi-line with Error State</h3>
+            <div class="code-block">
+                <div class="code-block-header">
+                    <span class="code-block-title">React/TypeScript</span>
+                    <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                </div>
+                <pre><code><span class="keyword">import</span> { TextField } <span class="keyword">from</span> <span class="string">'@ahtg/components'</span>;
+
+<span class="keyword">export function</span> <span class="function">FeedbackForm</span>() {
+  <span class="keyword">const</span> [feedback, setFeedback] = <span class="function">useState</span>(<span class="string">''</span>);
+  <span class="keyword">const</span> isRequired = feedback.length === 0;
+
+  <span class="keyword">return</span> (
+    &lt;TextField
+      type=<span class="string">"multi-line"</span>
+      label={true}
+      labelText=<span class="string">"Feedback"</span>
+      placeholderLabel=<span class="string">"Tell us what you think..."</span>
+      value={feedback}
+      onChange={setFeedback}
+      state={isRequired ? <span class="string">'error'</span> : <span class="string">'default'</span>}
+      helpText={isRequired}
+      helperText=<span class="string">"Feedback is required"</span>
+    /&gt;
+  );
+}</code></pre>
+            </div>
+
+            <!-- With Icons Example -->
+            <h3>Search Input with Icon</h3>
+            <div class="code-block">
+                <div class="code-block-header">
+                    <span class="code-block-title">React/TypeScript</span>
+                    <button class="code-block-copy" onclick="copyCode(this)">Copy</button>
+                </div>
+                <pre><code><span class="keyword">import</span> { TextField } <span class="keyword">from</span> <span class="string">'@ahtg/components'</span>;
+
+<span class="keyword">export function</span> <span class="function">SearchBar</span>() {
+  <span class="keyword">const</span> [query, setQuery] = <span class="function">useState</span>(<span class="string">''</span>);
+
+  <span class="keyword">return</span> (
+    &lt;TextField
+      type=<span class="string">"single-line"</span>
+      adormentInput={true}
+      placeholderLabel=<span class="string">"Search patients..."</span>
+      value={query}
+      onChange={setQuery}
+      label={false}
+    /&gt;
+  );
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- DO/DON'T Section -->
+        <section class="section">
+            <h2>Guidelines</h2>
+            <div class="guidelines-grid">
+                <div class="guideline-card do">
+                    <div class="guideline-card-header">
+                        <span class="material-icons">check_circle</span>
+                        <h3 class="guideline-card-title">Do</h3>
+                    </div>
+                    <div class="guideline-card-content">
+                        <p>Use clear, concise labels that describe the input purpose.</p>
+                    </div>
+                    <div class="guideline-card-demo">
+                        <div class="demo-textfield">
+                            <label class="demo-label">First Name</label>
+                            <div class="demo-input-container">
+                                <input type="text" placeholder="Enter first name" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="guideline-card dont">
+                    <div class="guideline-card-header">
+                        <span class="material-icons">cancel</span>
+                        <h3 class="guideline-card-title">Don't</h3>
+                    </div>
+                    <div class="guideline-card-content">
+                        <p>Don't use placeholder as the only label — it disappears when typing.</p>
+                    </div>
+                    <div class="guideline-card-demo">
+                        <div class="demo-textfield">
+                            <div class="demo-input-container">
+                                <input type="text" placeholder="First Name" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="guideline-card do">
+                    <div class="guideline-card-header">
+                        <span class="material-icons">check_circle</span>
+                        <h3 class="guideline-card-title">Do</h3>
+                    </div>
+                    <div class="guideline-card-content">
+                        <p>Provide helpful context via help text for complex requirements.</p>
+                    </div>
+                    <div class="guideline-card-demo">
+                        <div class="demo-textfield">
+                            <label class="demo-label">Password</label>
+                            <div class="demo-input-container">
+                                <input type="password" placeholder="••••••••" />
+                            </div>
+                            <div class="demo-help-text">Minimum 8 characters, must include uppercase and number</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="guideline-card dont">
+                    <div class="guideline-card-header">
+                        <span class="material-icons">cancel</span>
+                        <h3 class="guideline-card-title">Don't</h3>
+                    </div>
+                    <div class="guideline-card-content">
+                        <p>Don't overcrowd with too many features (icons, chips, help text all at once).</p>
+                    </div>
+                    <div class="guideline-card-demo">
+                        <div class="demo-textfield">
+                            <label class="demo-label">Username</label>
+                            <div class="demo-input-container">
+                                <span class="icon-slot material-icons" style="font-size: 16px;">person</span>
+                                <input type="text" placeholder="Username" />
+                                <span class="icon-slot material-icons" style="font-size: 16px;">help</span>
+                            </div>
+                            <div class="demo-help-text">Too many icons here</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="guideline-card do">
+                    <div class="guideline-card-header">
+                        <span class="material-icons">check_circle</span>
+                        <h3 class="guideline-card-title">Do</h3>
+                    </div>
+                    <div class="guideline-card-content">
+                        <p>Use error state to provide real-time validation feedback.</p>
+                    </div>
+                    <div class="guideline-card-demo">
+                        <div class="demo-textfield">
+                            <label class="demo-label">Email</label>
+                            <div class="demo-input-container error">
+                                <input type="email" value="invalid" />
+                            </div>
+                            <div class="demo-help-text error">Please enter a valid email address</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="guideline-card dont">
+                    <div class="guideline-card-header">
+                        <span class="material-icons">cancel</span>
+                        <h3 class="guideline-card-title">Don't</h3>
+                    </div>
+                    <div class="guideline-card-content">
+                        <p>Don't use error state for disabled/read-only fields — use disabled state instead.</p>
+                    </div>
+                    <div class="guideline-card-demo">
+                        <div class="demo-textfield">
+                            <label class="demo-label">Locked Field</label>
+                            <div class="demo-input-container disabled">
+                                <input type="text" value="Read-only" disabled />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Design Tokens Section -->
+        <section class="section">
+            <h2>Design Tokens</h2>
+            <p>TextFields use the following design tokens from the AHTG system:</p>
+
+            <h3>Spacing (8px Grid)</h3>
+            <table class="tokens-table">
+                <thead>
+                    <tr>
+                        <th>Token</th>
+                        <th>Value</th>
+                        <th>Usage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>--spacing-sm</td>
+                        <td>8px</td>
+                        <td>Horizontal padding (left/right)</td>
+                    </tr>
+                    <tr>
+                        <td>--spacing-xs</td>
+                        <td>4px</td>
+                        <td>Vertical padding (top/bottom)</td>
+                    </tr>
+                    <tr>
+                        <td>--spacing-md</td>
+                        <td>16px</td>
+                        <td>Gap between label and input, input and help text</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Typography</h3>
+            <table class="tokens-table">
+                <thead>
+                    <tr>
+                        <th>Element</th>
+                        <th>Size</th>
+                        <th>Weight</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Label</td>
+                        <td>12px</td>
+                        <td>500</td>
+                    </tr>
+                    <tr>
+                        <td>Input Text</td>
+                        <td>14px</td>
+                        <td>400</td>
+                    </tr>
+                    <tr>
+                        <td>Help Text</td>
+                        <td>12px</td>
+                        <td>400</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Colors</h3>
+            <table class="tokens-table">
+                <thead>
+                    <tr>
+                        <th>State</th>
+                        <th>Border Color</th>
+                        <th>Hex</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Default</td>
+                        <td style="color: #9E9E9E;">■</td>
+                        <td>#9E9E9E</td>
+                    </tr>
+                    <tr>
+                        <td>Error</td>
+                        <td style="color: #DB4537;">■</td>
+                        <td>#DB4537</td>
+                    </tr>
+                    <tr>
+                        <td>Focus</td>
+                        <td style="color: #64B5F6;">■</td>
+                        <td>#64B5F6</td>
+                    </tr>
+                    <tr>
+                        <td>Disabled Background</td>
+                        <td style="color: #EEEEEE;">■</td>
+                        <td>#EEEEEE</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Dimensions</h3>
+            <table class="tokens-table">
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Height</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Single-line</td>
+                        <td>36px</td>
+                        <td>Input container height (padding 4px top/bottom)</td>
+                    </tr>
+                    <tr>
+                        <td>Multi-line</td>
+                        <td>90px</td>
+                        <td>Textarea height (4 rows approximately)</td>
+                    </tr>
+                    <tr>
+                        <td>Label Height</td>
+                        <td>18px</td>
+                        <td>Line height for label text</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Accessibility Section -->
+        <section class="section">
+            <h2>Accessibility</h2>
+            <h3>Keyboard Interaction</h3>
+            <ul>
+                <li><strong>Tab:</strong> Focus input field</li>
+                <li><strong>Shift+Tab:</strong> Focus previous interactive element</li>
+                <li><strong>Type:</strong> Enter text content</li>
+                <li><strong>Backspace:</strong> Delete text</li>
+                <li><strong>Ctrl+A:</strong> Select all text</li>
+            </ul>
+
+            <h3>Screen Reader</h3>
+            <ul>
+                <li>Label is associated with input via &lt;label&gt; element</li>
+                <li>Help text is announced as additional context</li>
+                <li>Error state is indicated by aria-invalid and aria-describedby</li>
+                <li>Placeholder text is read after label and help text</li>
+            </ul>
+
+            <h3>WCAG Compliance</h3>
+            <ul>
+                <li>✓ WCAG 2.1 Level AA compliant</li>
+                <li>✓ Color contrast meets 4.5:1 ratio for text</li>
+                <li>✓ Focus indicators visible for keyboard navigation</li>
+                <li>✓ Label properly associated with input</li>
+            </ul>
+        </section>
+
+        <!-- Related Components Section -->
+        <section class="section">
+            <h2>Related Components</h2>
+            <ul>
+                <li><a href="./button.html">Button</a> — For triggering actions and submissions</li>
+                <li><a href="./select.html">Select</a> — For choosing from predefined options</li>
+                <li><a href="./autocomplete.html">Autocomplete</a> — For text input with suggestions</li>
+                <li><a href="./checkbox.html">Checkbox</a> — For boolean selections</li>
+                <li><a href="./radio-group.html">Radio Group</a> — For single selection from options</li>
+            </ul>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <p>&copy; 2026 AHTG Design System. All rights reserved.</p>
+            <ul class="footer-links">
+                <li><a href="../../design-system-overview.html">Home</a></li>
+                <li><a href="../../foundation/tokens-overview.html">Design Tokens</a></li>
+                <li><a href="../../components-overview.html">All Components</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.closest('.code-block');
+            const code = codeBlock.querySelector('code').innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                const originalText = button.innerText;
+                button.innerText = 'Copied!';
+                setTimeout(() => {
+                    button.innerText = originalText;
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Colors - AHTG Design System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="design-system-shell.css">
+  <style>
+.color-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: var(--spacing-lg);
+    }
+
+    .color-card {
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+    }
+
+    .color-swatch {
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .color-label {
+      color: white;
+      font-size: 14px;
+      font-weight: 500;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    }
+
+    .color-info {
+      padding: var(--spacing-md);
+      background: var(--color-background-default);
+    }
+
+    .color-name {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .color-value {
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      font-family: 'Courier New', monospace;
+      margin-bottom: 2px;
+    }
+
+    .color-usage {
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      line-height: 1.4;
+      margin-top: var(--spacing-sm);
+    }
+
+    .usage-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .usage-table th {
+      text-align: left;
+      padding: var(--spacing-sm) var(--spacing-md);
+      background: var(--color-background-default);
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      border-bottom: 2px solid var(--color-secondary-outline);
+    }
+
+    .usage-table td {
+      padding: var(--spacing-sm) var(--spacing-md);
+      border-bottom: 1px solid var(--color-secondary-outline);
+    }
+
+    .usage-table code {
+      background: var(--color-background-default);
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 12px;
+      font-family: 'Courier New', monospace;
+    }
+  </style>
+  <script src="design-system-nav.js"></script>
+</head>
+<body>
+    <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
+
+  <main class="main-content">
+    <header class="page-header">
+      <h1 class="page-title">Color System</h1>
+      <p class="page-subtitle">
+        The AHTG color palette is semantic and purposeful. Each color communicates meaning and guides user understanding. All color values are extracted from Figma Variables and enforced through design tokens.
+      </p>
+    </header>
+
+    <!-- PRIMARY COLORS -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">star</span>
+        Primary (Blue)
+      </h2>
+      <p class="section-description">
+        <strong>Usage Rule:</strong> Primary blue is reserved exclusively for Save and Update actions. This creates a strong visual association between blue and committing changes.
+      </p>
+      <div class="color-grid">
+        <div class="color-card">
+          <div class="color-swatch" style="background-color: #E3F2FD;">
+            <span class="color-label" style="color: #212121;">Light</span>
+          </div>
+          <div class="color-info">
+            <div class="color-name">Primary Light</div>
+            <div class="color-value">#E3F2FD</div>
+            <div class="token-path">tokens.colors.primary.light</div>
+            <div class="color-usage">Backgrounds, hover states, selected states</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-swatch" style="background-color: #2196F3;">
+            <span class="color-label">Main</span>
+          </div>
+          <div class="color-info">
+            <div class="color-name">Primary Main</div>
+            <div class="color-value">#2196F3</div>
+            <div class="token-path">tokens.colors.primary.main</div>
+            <div class="color-usage">Save/Update button backgrounds, primary actions</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-swatch" style="background-color: #1976D2;">
+            <span class="color-label">Dark</span>
+          </div>
+          <div class="color-info">
+            <div class="color-name">Primary Dark</div>
+            <div class="color-value">#1976D2</div>
+            <div class="token-path">tokens.colors.primary.dark</div>
+            <div class="color-usage">Hover states, active states, emphasis</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECONDARY COLORS -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">layers</span>
+        Secondary (Grey)
+      </h2>
+      <p class="section-description">
+        <strong>Usage Rule:</strong> Secondary grey is used for Edit actions and general navigation. It provides visual hierarchy without competing with primary actions.
+      </p>
+      <div class="color-grid">
+        <div class="color-card">
+          <div class="color-swatch" style="background-color: #F5F5F5;">
+            <span class="color-label" style="color: #212121;">Main</span>
+          </div>
+          <div class="color-info">
+            <div class="color-name">Secondary Main</div>
+            <div class="color-value">#F5F5F5</div>
+            <div class="token-path">tokens.colors.secondary.main</div>
+            <div class="color-usage">Edit button backgrounds, neutral actions</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-swatch" style="background-color: #616161;">
+            <span class="color-label">Dark</span>
+          </div>
+          <div class="color-info">
+            <div class="color-name">Secondary Dark</div>
+            <div class="color-value">#616161</div>
+            <div class="token-path">tokens.colors.secondary.dark</div>
+            <div class="color-usage">Text on secondary backgrounds, borders</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-swatch" style="background-color: #E0E0E0;">
+            <span class="color-label" style="color: #212121;">Outline</span>
+          </div>
+          <div class="color-info">
+            <div class="color-name">Secondary Outline</div>
+            <div class="color-value">#E0E0E0</div>
+            <div class="token-path">tokens.colors.secondary.outline</div>
+            <div class="color-usage">Borders, dividers, outlines</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEMANTIC COLORS -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">emoji_objects</span>
+        Semantic Colors
+      </h2>
+      <p class="section-description">
+        Semantic colors communicate status, urgency, and action consequence. Use consistently to build user understanding.
+      </p>
+      <div class="color-grid">
+        <!-- Success -->
+        <div class="color-card">
+          <div class="color-swatch" style="background-color: #4CAF50;">
+            <span class="color-label">Success</span>
+          </div>
+          <div class="color-info">
+            <div class="color-name">Success Main</div>
+            <div class="color-value">#4CAF50</div>
+            <div class="token-path">tokens.colors.success.main</div>
+            <div class="color-usage">Confirm, Approve, Activate actions</div>
+          </div>
+        </div>
+        <!-- Error -->
+        <div class="color-card">
+          <div class="color-swatch" style="background-color: #DB4537;">
+            <span class="color-label">Error</span>
+          </div>
+          <div class="color-info">
+            <div class="color-name">Error Main</div>
+            <div class="color-value">#DB4537</div>
+            <div class="token-path">tokens.colors.error.main</div>
+            <div class="color-usage">Delete, Remove, destructive actions</div>
+          </div>
+        </div>
+        <!-- Warning -->
+        <div class="color-card">
+          <div class="color-swatch" style="background-color: #E17109;">
+            <span class="color-label">Warning</span>
+          </div>
+          <div class="color-info">
+            <div class="color-name">Warning Main</div>
+            <div class="color-value">#E17109</div>
+            <div class="token-path">tokens.colors.warning.main</div>
+            <div class="color-usage">Caution, Archive, Force Update actions</div>
+          </div>
+        </div>
+        <!-- Info -->
+        <div class="color-card">
+          <div class="color-swatch" style="background-color: #5BBFDE;">
+            <span class="color-label">Info</span>
+          </div>
+          <div class="color-info">
+            <div class="color-name">Info Main</div>
+            <div class="color-value">#5BBFDE</div>
+            <div class="token-path">tokens.colors.info.main</div>
+            <div class="color-usage">Learn More, Details, Help actions</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEXT COLORS -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">format_color_text</span>
+        Text Colors
+      </h2>
+      <div class="color-grid">
+        <div class="color-card">
+          <div class="color-swatch" style="background-color: #212121;">
+            <span class="color-label">Primary</span>
+          </div>
+          <div class="color-info">
+            <div class="color-name">Text Primary</div>
+            <div class="color-value">#212121</div>
+            <div class="token-path">tokens.colors.text.primary</div>
+            <div class="color-usage">Main content, headlines, labels</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-swatch" style="background-color: #757575;">
+            <span class="color-label">Secondary</span>
+          </div>
+          <div class="color-info">
+            <div class="color-name">Text Secondary</div>
+            <div class="color-value">#757575</div>
+            <div class="token-path">tokens.colors.text.secondary</div>
+            <div class="color-usage">Supporting text, descriptions, captions</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-swatch" style="background-color: #9E9E9E;">
+            <span class="color-label" style="color: #212121;">Disabled</span>
+          </div>
+          <div class="color-info">
+            <div class="color-name">Text Disabled</div>
+            <div class="color-value">#9E9E9E</div>
+            <div class="token-path">tokens.colors.text.disabled</div>
+            <div class="color-usage">Disabled text, inactive states</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BACKGROUND COLORS -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">gradient</span>
+        Background Colors
+      </h2>
+      <p class="section-description">
+        Background colors create surface hierarchy. Default is for application pages, Paper is where most content sits, Secondary is for page canvas, and Accent highlights cards and selections.
+      </p>
+      <div class="color-grid">
+        <div class="color-card">
+          <div class="color-swatch" style="background-color: #F5F5F5; border: 1px solid #E0E0E0;">
+            <span class="color-label" style="color: #212121;">Default</span>
+          </div>
+          <div class="color-info">
+            <div class="color-name">Background Default</div>
+            <div class="color-value">#F5F5F5</div>
+            <div class="token-path">tokens.colors.background.default</div>
+            <div class="color-usage">Application background pages only</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-swatch" style="background-color: #FFFFFF; border: 1px solid #E0E0E0;">
+            <span class="color-label" style="color: #212121;">Paper</span>
+          </div>
+          <div class="color-info">
+            <div class="color-name">Background Paper</div>
+            <div class="color-value">#FFFFFF</div>
+            <div class="token-path">tokens.colors.background.paper</div>
+            <div class="color-usage">White - most content sits on paper (cards, modals, containers)</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-swatch" style="background-color: #FAFAFA; border: 1px solid #E0E0E0;">
+            <span class="color-label" style="color: #212121;">Secondary</span>
+          </div>
+          <div class="color-info">
+            <div class="color-name">Background Secondary</div>
+            <div class="color-value">#FAFAFA</div>
+            <div class="token-path">tokens.colors.background.secondary</div>
+            <div class="color-usage">Page canvas (different from default application background)</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-swatch" style="background-color: #E4F7FD; border: 1px solid #E0E0E0;">
+            <span class="color-label" style="color: #212121;">Accent</span>
+          </div>
+          <div class="color-info">
+            <div class="color-name">Background Accent</div>
+            <div class="color-value">#E4F7FD</div>
+            <div class="token-path">tokens.colors.background.accent</div>
+            <div class="color-usage">Highlight cards and selections</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- USAGE RULES -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">rule</span>
+        Color Usage Rules
+      </h2>
+      <table class="usage-table">
+        <thead>
+          <tr>
+            <th>Color</th>
+            <th>When to Use</th>
+            <th>When NOT to Use</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>Primary Blue</code></td>
+            <td>Save, Update, Apply Changes buttons only</td>
+            <td>Edit, Cancel, Delete, or any non-save action</td>
+          </tr>
+          <tr>
+            <td><code>Secondary Grey</code></td>
+            <td>Edit, Cancel, Close, Back, general navigation</td>
+            <td>Save/Update actions, destructive actions</td>
+          </tr>
+          <tr>
+            <td><code>Success Green</code></td>
+            <td>Confirm, Approve, Activate, positive outcomes</td>
+            <td>General actions, neutral navigation</td>
+          </tr>
+          <tr>
+            <td><code>Error Red</code></td>
+            <td>Delete, Remove, Deactivate, destructive actions</td>
+            <td>Warnings, general alerts, non-destructive actions</td>
+          </tr>
+          <tr>
+            <td><code>Warning Orange</code></td>
+            <td>Archive, Deprecate, actions requiring caution</td>
+            <td>Errors, destructive actions, informational content</td>
+          </tr>
+          <tr>
+            <td><code>Info Blue</code></td>
+            <td>Learn More, Details, Help, informational actions</td>
+            <td>Primary actions, warnings, errors</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</body>
+</html>

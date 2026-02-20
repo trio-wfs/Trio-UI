@@ -1,0 +1,1 @@
+echo "Claude Code is connected" && ls ~/.openclaw/shared-data/

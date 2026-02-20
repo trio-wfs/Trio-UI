@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkbox - AHTG Design System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="../../design-system-shell.css">
+  <style>
+
+.meta-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .meta-item .material-icons {
+      font-size: 16px;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--spacing-lg);
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .checkbox-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-lg);
+      align-items: center;
+      background: var(--color-background-paper);
+      padding: var(--spacing-lg);
+      border-radius: var(--border-radius);
+      border: 1px solid var(--color-secondary-outline);
+    }
+
+    /* CHECKBOX STYLES */
+    .checkbox-label {
+      display: inline-flex;
+      align-items: center;
+      cursor: pointer;
+      font-family: var(--font-family);
+      font-size: 14px;
+      user-select: none;
+    }
+
+    .checkbox-label.disabled {
+      cursor: default;
+      color: var(--color-text-disabled);
+    }
+
+    .checkbox-input {
+      width: 38px;
+      height: 38px;
+      margin: 0;
+      padding: 8px;
+      cursor: pointer;
+      position: relative;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background: transparent;
+      border: none;
+      outline: none;
+    }
+
+    .checkbox-input:disabled {
+      cursor: default;
+    }
+
+    .checkbox-input::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 16px;
+      height: 16px;
+      border: 2px solid var(--color-text-secondary);
+      border-radius: 2px;
+      background: var(--color-background-paper);
+      transition: all 0.2s;
+    }
+
+    .checkbox-input:hover:not(:disabled)::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    .checkbox-input:checked::before {
+      background: var(--color-primary-main);
+      border-color: var(--color-primary-main);
+    }
+
+    .checkbox-input.error:checked::before {
+      background: var(--color-error-main);
+      border-color: var(--color-error-main);
+    }
+
+    .checkbox-input:checked::after {
+      content: '✓';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+      z-index: 1;
+    }
+
+    .checkbox-input.indeterminate::before {
+      background: var(--color-primary-main);
+      border-color: var(--color-primary-main);
+    }
+
+    .checkbox-input.indeterminate::after {
+      content: '−';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      z-index: 1;
+    }
+
+    .checkbox-input:disabled::before {
+      border-color: var(--color-text-disabled);
+      background: var(--color-disabled-bg);
+    }
+
+    .checkbox-input:disabled:checked::before {
+      background: var(--color-text-disabled);
+      border-color: var(--color-text-disabled);
+    }
+
+    .do-dont-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: var(--spacing-lg);
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .do-card,
+
+    .do-card-title, .dont-card-title {
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: var(--spacing-sm);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+    }
+
+    .do-card-title {
+      color: var(--color-success-main);
+    }
+
+    .dont-card-title {
+      color: var(--color-error-main);
+    }
+
+    .do-card-title .material-icons,
+    .dont-card-title .material-icons {
+      font-size: 20px;
+    }
+
+    .spec-table {
+      width: 100%;
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: var(--border-radius);
+      border-collapse: collapse;
+      margin-top: var(--spacing-lg);
+    }
+
+    .spec-table th,
+    .spec-table td {
+      padding: var(--spacing-md);
+      text-align: left;
+      border-bottom: 1px solid var(--color-secondary-outline);
+    }
+
+    .spec-table th {
+      font-weight: 500;
+      background-color: var(--color-background-default);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--color-text-secondary);
+    }
+
+    .spec-table td {
+      font-size: 14px;
+    }
+
+    .spec-table code {
+      background-color: var(--color-background-default);
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 12px;
+      font-family: 'Courier New', monospace;
+    }
+
+    .spec-table tr:last-child td {
+      border-bottom: none;
+    }
+  
+  </style>
+  <script src="../../design-system-nav.js"></script>
+</head>
+<body>
+  <!-- LEFT NAVIGATION -->
+    <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <!-- PAGE HEADER -->
+    <header class="page-header">
+      <h1 class="page-title">Checkbox</h1>
+      <p class="page-subtitle">
+        Allows users to select one or more options from a set. Use for binary choices, multiple selections, or to show agreement to terms.
+      </p>
+      <div class="component-meta">
+        <div class="meta-item">
+          <span class="material-icons">category</span>
+          <span>Form Control</span>
+        </div>
+        <div class="meta-item">
+          <span class="material-icons">link</span>
+          <span>Figma: Checkbox (2425:7975)</span>
+        </div>
+        <div class="meta-item">
+          <span class="material-icons">check_circle</span>
+          <span>Production Ready</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- OVERVIEW -->
+    <section class="section">
+      <h2 class="section-title">Overview</h2>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons">info</span>
+            Purpose
+          </div>
+          <div class="card-content">
+            Checkboxes let users select one or more items from a list, or turn an option on or off. Use when:
+            <ul>
+              <li>Users can select multiple options</li>
+              <li>Selections are independent of each other</li>
+              <li>Users need to opt in or agree to terms</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons">tune</span>
+            States
+          </div>
+          <div class="card-content">
+            <strong>Checked:</strong> true, false<br>
+            <strong>Indeterminate:</strong> true (partial), false<br>
+            <strong>Disabled:</strong> true, false<br>
+            <strong>Color:</strong> primary, error<br>
+            <strong>Hover:</strong> on, off
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons">accessibility</span>
+            Accessibility
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Keyboard accessible (Space to toggle)</li>
+              <li>Always include a visible label</li>
+              <li>Group related checkboxes with fieldset/legend</li>
+              <li>Use aria-label if no visible label</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- USAGE GUIDELINES -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">rule</span>
+        Usage Guidelines
+      </h2>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons">check_circle</span>
+            When to Use
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Use for multiple independent selections</li>
+              <li>Always include a clear label</li>
+              <li>Use indeterminate for "select all" parent checkboxes</li>
+              <li>Stack checkboxes vertically in a list</li>
+              <li>Use error color for validation failures</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons">cancel</span>
+            When NOT to Use
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Don't use for mutually exclusive options (use Radio instead)</li>
+              <li>Don't use more than one checkbox for a single choice</li>
+              <li>Don't use for on/off toggles (use Switch instead)</li>
+              <li>Don't nest checkboxes more than one level deep</li>
+              <li>Don't change content based on checkbox state without user action</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATE VARIANTS -->
+    <section class="section">
+      <h2 class="section-title">States</h2>
+      <p class="section-description">
+        Checkboxes have multiple states to show interaction and validation feedback.
+      </p>
+
+      <div class="variant-group">
+        <div class="variant-label">Unchecked & Checked</div>
+        <div class="checkbox-row">
+          <label class="checkbox-label">
+            <input type="checkbox" class="checkbox-input">
+            Unchecked
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" class="checkbox-input" checked>
+            Checked
+          </label>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Indeterminate - For parent "Select All" checkboxes</div>
+        <div class="checkbox-row">
+          <label class="checkbox-label">
+            <input type="checkbox" class="checkbox-input indeterminate">
+            Indeterminate (Partial selection)
+          </label>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Disabled States</div>
+        <div class="checkbox-row">
+          <label class="checkbox-label disabled">
+            <input type="checkbox" class="checkbox-input" disabled>
+            Disabled Unchecked
+          </label>
+          <label class="checkbox-label disabled">
+            <input type="checkbox" class="checkbox-input" checked disabled>
+            Disabled Checked
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <!-- COLOR VARIANTS -->
+    <section class="section">
+      <h2 class="section-title">Color Variants</h2>
+      <p class="section-description">
+        Primary is default. Error is used for validation failures or destructive confirmations.
+      </p>
+
+      <div class="variant-group">
+        <div class="variant-label">Primary (Default)</div>
+        <div class="checkbox-row">
+          <label class="checkbox-label">
+            <input type="checkbox" class="checkbox-input" checked>
+            Accept terms and conditions
+          </label>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Error - For validation or destructive actions</div>
+        <div class="checkbox-row">
+          <label class="checkbox-label">
+            <input type="checkbox" class="checkbox-input error" checked>
+            Permanently delete all data
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <!-- BEST PRACTICES -->
+    <section class="section">
+      <h2 class="section-title">Best Practices</h2>
+      <div class="do-dont-grid">
+        <div class="do-card">
+          <div class="do-card-title">
+            <span class="material-icons">check_circle</span>
+            Do
+          </div>
+          <div class="card-content">
+            <strong>Multiple Selections:</strong><br>
+            <div style="margin-top: 8px;">
+              <label class="checkbox-label">
+                <input type="checkbox" class="checkbox-input" checked>
+                Email notifications
+              </label><br>
+              <label class="checkbox-label" style="margin-top: 4px;">
+                <input type="checkbox" class="checkbox-input" checked>
+                SMS notifications
+              </label><br>
+              <label class="checkbox-label" style="margin-top: 4px;">
+                <input type="checkbox" class="checkbox-input">
+                Push notifications
+              </label>
+            </div>
+            <p style="margin-top: 8px; font-size: 12px;">Use for independent selections</p>
+          </div>
+        </div>
+
+        <div class="dont-card">
+          <div class="dont-card-title">
+            <span class="material-icons">cancel</span>
+            Don't
+          </div>
+          <div class="card-content">
+            <strong>Mutually Exclusive:</strong><br>
+            <div style="margin-top: 8px;">
+              <label class="checkbox-label">
+                <input type="checkbox" class="checkbox-input" checked>
+                Male
+              </label><br>
+              <label class="checkbox-label" style="margin-top: 4px;">
+                <input type="checkbox" class="checkbox-input">
+                Female
+              </label>
+            </div>
+            <p style="margin-top: 8px; font-size: 12px;">Don't use checkboxes for mutually exclusive options - use Radio buttons instead</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TECHNICAL SPECIFICATIONS -->
+    <section class="section">
+      <h2 class="section-title">Technical Specifications</h2>
+      <p class="section-description">
+        All values extracted from Figma component instances (node: 2425:7975).
+      </p>
+
+      <table class="spec-table">
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Value</th>
+            <th>Figma Source</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Hitbox size</td>
+            <td>38x38px</td>
+            <td><code>.absoluteBoundingBox</code></td>
+            <td>Total clickable area</td>
+          </tr>
+          <tr>
+            <td>Checkbox box</td>
+            <td>16x16px</td>
+            <td><code>.children[0].absoluteBoundingBox</code></td>
+            <td>Visible checkbox square</td>
+          </tr>
+          <tr>
+            <td>Padding</td>
+            <td>8px</td>
+            <td>Calculated: (38-16)/2</td>
+            <td>Space around checkbox box</td>
+          </tr>
+          <tr>
+            <td>Colors</td>
+            <td>primary, error</td>
+            <td><code>componentPropertyDefinitions.color.variantOptions</code></td>
+            <td>Primary (#2196F3), Error (#DB4537)</td>
+          </tr>
+          <tr>
+            <td>States</td>
+            <td>checked, indeterminate, disabled</td>
+            <td><code>componentPropertyDefinitions</code></td>
+            <td>All boolean variants</td>
+          </tr>
+          <tr>
+            <td>Hover state</td>
+            <td>rgba(0,0,0,0.04)</td>
+            <td>Standard Material Design hover</td>
+            <td>38px circular ripple</td>
+          </tr>
+          <tr>
+            <td>Border radius</td>
+            <td>2px</td>
+            <td>Standard checkbox corner radius</td>
+            <td>Applied to 16x16 box</td>
+          </tr>
+          <tr>
+            <td>Typography</td>
+            <td>14px Roboto Regular</td>
+            <td><code>tokens.typography.fontSize.sm</code></td>
+            <td>For label text</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</body>
+</html>

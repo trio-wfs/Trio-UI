@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typography - AHTG Design System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="design-system-shell.css">
+  <style>
+.type-sample {
+      padding: var(--spacing-lg);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: var(--border-radius);
+      margin-bottom: var(--spacing-md);
+      background: var(--color-background-default);
+    }
+
+    .type-label {
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .type-spec {
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      margin-top: var(--spacing-sm);
+      font-family: 'Courier New', monospace;
+    }
+
+    .scale-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--spacing-md);
+    }
+
+    .scale-card {
+      padding: var(--spacing-md);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: var(--border-radius);
+      background: var(--color-background-default);
+    }
+
+    .scale-label {
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .scale-value {
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      color: var(--color-primary-main);
+    }
+
+    .weight-sample {
+      padding: var(--spacing-lg);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: var(--border-radius);
+      margin-bottom: var(--spacing-md);
+      background: var(--color-background-default);
+    }
+  </style>
+  <script src="design-system-nav.js"></script>
+</head>
+<body>
+    <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
+
+  <main class="main-content">
+    <header class="page-header">
+      <h1 class="page-title">Typography System</h1>
+      <p class="page-subtitle">
+        Typography creates hierarchy, communicates brand, and guides users through content. The AHTG typography system uses Roboto exclusively with a defined scale of sizes and weights optimized for desktop SaaS applications.
+      </p>
+    </header>
+
+    <!-- FONT FAMILY -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">font_download</span>
+        Font Family
+      </h2>
+      <div class="type-sample">
+        <div class="type-label">Roboto (All Weights)</div>
+        <div style="font-size: 24px; font-weight: 400;">
+          The quick brown fox jumps over the lazy dog
+        </div>
+        <div class="token-path">tokens.typography.fontFamily</div>
+        <div class="type-spec">fontFamily: 'Roboto, sans-serif'</div>
+      </div>
+      <p class="section-description">
+        <strong>Rule:</strong> Roboto is the only typeface used in AHTG applications. No custom fonts or font stacks.
+      </p>
+    </section>
+
+    <!-- HEADINGS -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">title</span>
+        Headings
+      </h2>
+      <p class="section-description">
+        <strong>AHTG Rule:</strong> Maximum headline size is H5 (24px). Larger headings are not used in desktop SaaS interfaces.
+      </p>
+
+      <div class="type-sample">
+        <div class="type-label">H5 (Maximum for AHTG)</div>
+        <h5 style="font-size: 24px; font-weight: 500; line-height: 28px;">
+          Main Page Headline
+        </h5>
+        <div class="token-path">tokens.typography.h5</div>
+        <div class="type-spec">24px / 500 weight / 28px line-height</div>
+      </div>
+
+      <div class="type-sample">
+        <div class="type-label">H6</div>
+        <h6 style="font-size: 20px; font-weight: 500; line-height: 24px;">
+          Section Headline
+        </h6>
+        <div class="token-path">tokens.typography.h6</div>
+        <div class="type-spec">20px / 500 weight / 24px line-height</div>
+      </div>
+    </section>
+
+    <!-- BODY TEXT -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">notes</span>
+        Body Text
+      </h2>
+
+      <div class="type-sample">
+        <div class="type-label">Body 1 (Primary Content)</div>
+        <p style="font-size: 16px; font-weight: 400; line-height: 24px;">
+          This is primary body text used for main content, descriptions, and paragraphs. It provides comfortable reading for longer passages of text.
+        </p>
+        <div class="token-path">tokens.typography.body1</div>
+        <div class="type-spec">16px / 400 weight / 24px line-height</div>
+      </div>
+
+      <div class="type-sample">
+        <div class="type-label">Body 2 (Secondary Content)</div>
+        <p style="font-size: 14px; font-weight: 400; line-height: 21px;">
+          This is secondary body text used for supporting content, form labels, and general descriptive text throughout the interface.
+        </p>
+        <div class="token-path">tokens.typography.body2</div>
+        <div class="type-spec">14px / 400 weight / 21px line-height</div>
+      </div>
+    </section>
+
+    <!-- UTILITY TEXT -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">label</span>
+        Utility Text
+      </h2>
+
+      <div class="type-sample">
+        <div class="type-label">Caption</div>
+        <div style="font-size: 12px; font-weight: 400; line-height: 18px; color: var(--color-text-secondary);">
+          Helper text, timestamps, metadata, and supplementary information
+        </div>
+        <div class="token-path">tokens.typography.caption</div>
+        <div class="type-spec">12px / 400 weight / 18px line-height</div>
+      </div>
+
+      <div class="type-sample">
+        <div class="type-label">Overline</div>
+        <div style="font-size: 11px; font-weight: 500; line-height: 16px; letter-spacing: 1px; text-transform: uppercase; color: var(--color-text-secondary);">
+          Section Labels
+        </div>
+        <div class="token-path">tokens.typography.overline</div>
+        <div class="type-spec">11px / 500 weight / 16px line-height / uppercase</div>
+      </div>
+    </section>
+
+    <!-- FONT SIZE SCALE -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">straighten</span>
+        Font Size Scale
+      </h2>
+      <p class="section-description">
+        A defined type scale provides consistency and hierarchy across all interfaces.
+      </p>
+      <div class="scale-grid">
+        <div class="scale-card">
+          <div class="scale-label">XXS</div>
+          <div style="font-size: 11px;">Sample Text</div>
+          <div class="scale-value">11px</div>
+          <div class="token-path">tokens.typography.fontSize.xxs</div>
+        </div>
+        <div class="scale-card">
+          <div class="scale-label">XS</div>
+          <div style="font-size: 12px;">Sample Text</div>
+          <div class="scale-value">12px</div>
+          <div class="token-path">tokens.typography.fontSize.xs</div>
+        </div>
+        <div class="scale-card">
+          <div class="scale-label">SM</div>
+          <div style="font-size: 14px;">Sample Text</div>
+          <div class="scale-value">14px</div>
+          <div class="token-path">tokens.typography.fontSize.sm</div>
+        </div>
+        <div class="scale-card">
+          <div class="scale-label">MD</div>
+          <div style="font-size: 16px;">Sample Text</div>
+          <div class="scale-value">16px</div>
+          <div class="token-path">tokens.typography.fontSize.md</div>
+        </div>
+        <div class="scale-card">
+          <div class="scale-label">LG</div>
+          <div style="font-size: 18px;">Sample Text</div>
+          <div class="scale-value">18px</div>
+          <div class="token-path">tokens.typography.fontSize.lg</div>
+        </div>
+        <div class="scale-card">
+          <div class="scale-label">XL</div>
+          <div style="font-size: 20px;">Sample Text</div>
+          <div class="scale-value">20px</div>
+          <div class="token-path">tokens.typography.fontSize.xl</div>
+        </div>
+        <div class="scale-card">
+          <div class="scale-label">XXL (Max)</div>
+          <div style="font-size: 24px;">Sample Text</div>
+          <div class="scale-value">24px</div>
+          <div class="token-path">tokens.typography.fontSize.xxl</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FONT WEIGHTS -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">format_bold</span>
+        Font Weights
+      </h2>
+
+      <div class="weight-sample">
+        <div class="type-label">Light (300)</div>
+        <div style="font-size: 20px; font-weight: 300;">
+          The quick brown fox jumps over the lazy dog
+        </div>
+        <div class="token-path">tokens.typography.fontWeight.light</div>
+      </div>
+
+      <div class="weight-sample">
+        <div class="type-label">Regular (400)</div>
+        <div style="font-size: 20px; font-weight: 400;">
+          The quick brown fox jumps over the lazy dog
+        </div>
+        <div class="token-path">tokens.typography.fontWeight.regular</div>
+      </div>
+
+      <div class="weight-sample">
+        <div class="type-label">Medium (500)</div>
+        <div style="font-size: 20px; font-weight: 500;">
+          The quick brown fox jumps over the lazy dog
+        </div>
+        <div class="token-path">tokens.typography.fontWeight.medium</div>
+      </div>
+
+      <div class="weight-sample">
+        <div class="type-label">Bold (700)</div>
+        <div style="font-size: 20px; font-weight: 700;">
+          The quick brown fox jumps over the lazy dog
+        </div>
+        <div class="token-path">tokens.typography.fontWeight.bold</div>
+      </div>
+    </section>
+
+    <!-- USAGE RULES -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">rule</span>
+        Typography Rules
+      </h2>
+      <div style="font-size: 14px; line-height: 1.8;">
+        <p style="margin-bottom: 12px;"><strong>✓ DO:</strong></p>
+        <ul style="margin-left: 20px; margin-bottom: 20px;">
+          <li>Use Roboto only — no custom fonts</li>
+          <li>Limit headlines to H5 (24px) maximum</li>
+          <li>Use 14px (sm) for general descriptive text</li>
+          <li>Use 16px (md) for primary content and large buttons</li>
+          <li>Use Medium (500) weight for headings and emphasis</li>
+          <li>Use Regular (400) for body text</li>
+          <li>Maintain consistent line heights from the scale</li>
+        </ul>
+        <p style="margin-bottom: 12px;"><strong>✗ DON'T:</strong></p>
+        <ul style="margin-left: 20px;">
+          <li>Use H1-H4 sizes in production interfaces</li>
+          <li>Mix custom fonts with Roboto</li>
+          <li>Use font sizes not in the defined scale</li>
+          <li>Use Bold (700) for large blocks of text</li>
+          <li>Use Light (300) for small text (below 16px)</li>
+          <li>Use all caps except for overline/labels</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

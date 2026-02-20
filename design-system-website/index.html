@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AHTG Design System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #F5F5F5 0%, #FAFAFA 100%);
+            color: #212121;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .header h1 {
+            font-size: 48px;
+            font-weight: 300;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            font-size: 18px;
+            opacity: 0.95;
+            margin-bottom: 24px;
+        }
+
+        .header-badges {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        .section {
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 400;
+            margin-bottom: 32px;
+            color: #212121;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 32px;
+            background-color: #2196F3;
+            border-radius: 2px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 32px 24px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border-top: 3px solid #2196F3;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            transform: translateY(-4px);
+        }
+
+        .card-icon {
+            font-size: 40px;
+            color: #2196F3;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 500;
+            color: #212121;
+        }
+
+        .card-desc {
+            font-size: 14px;
+            color: #757575;
+        }
+
+        .card-status {
+            display: inline-block;
+            padding: 4px 8px;
+            background-color: #E8F5E9;
+            color: #2E7D32;
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 24px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .stat-number {
+            font-size: 40px;
+            font-weight: 700;
+            color: #2196F3;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #757575;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+            color: white;
+            padding: 60px 40px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .cta-section h2 {
+            font-size: 28px;
+            margin-bottom: 16px;
+            font-weight: 400;
+        }
+
+        .cta-section p {
+            font-size: 16px;
+            opacity: 0.95;
+            margin-bottom: 24px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 32px;
+            background-color: white;
+            color: #2196F3;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #F5F5F5;
+        }
+
+        .footer {
+            background-color: #263238;
+            color: #CFD8DC;
+            padding: 40px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .footer a {
+            color: #64B5F6;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .header h1 {
+                font-size: 32px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>AHTG Design System</h1>
+        <p>Consistent, beautiful interfaces for Trio Workforce Solutions</p>
+        <div class="header-badges">
+            <span class="badge">React Components</span>
+            <span class="badge">Design Tokens</span>
+            <span class="badge">AHTG Standards</span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Stats -->
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number">16</div>
+                <div class="stat-label">Components</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">1000+</div>
+                <div class="stat-label">Design Tokens</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">8px</div>
+                <div class="stat-label">Spacing Grid</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">5</div>
+                <div class="stat-label">Semantic Colors</div>
+            </div>
+        </div>
+
+        <!-- Components Section -->
+        <div class="section">
+            <h2 class="section-title">Components</h2>
+            <div class="grid">
+                <!-- Button -->
+                <a href="components/button.html" class="card">
+                    <span class="card-icon">🔘</span>
+                    <div class="card-title">Button</div>
+                    <div class="card-desc">Primary action trigger with multiple variants</div>
+                    <span class="card-status">Live</span>
+                </a>
+
+                <!-- ButtonGroup -->
+                <a href="components/button-group.html" class="card">
+                    <span class="card-icon">⬜</span>
+                    <div class="card-title">ButtonGroup</div>
+                    <div class="card-desc">Group related actions together</div>
+                    <span class="card-status">Live</span>
+                </a>
+
+                <!-- SearchInput -->
+                <a href="components/search-input.html" class="card">
+                    <span class="card-icon">🔍</span>
+                    <div class="card-title">SearchInput</div>
+                    <div class="card-desc">Text input optimized for search</div>
+                    <span class="card-status">Live</span>
+                </a>
+
+                <!-- Checkbox -->
+                <a href="components/checkbox.html" class="card">
+                    <span class="card-icon">☑️</span>
+                    <div class="card-title">Checkbox</div>
+                    <div class="card-desc">Multiple selection input</div>
+                    <span class="card-status">Live</span>
+                </a>
+
+                <!-- Radio -->
+                <a href="components/radio.html" class="card">
+                    <span class="card-icon">⭕</span>
+                    <div class="card-title">Radio</div>
+                    <div class="card-desc">Exclusive selection input</div>
+                    <span class="card-status">Live</span>
+                </a>
+
+                <!-- TextField -->
+                <a href="components/text-field.html" class="card">
+                    <span class="card-icon">📝</span>
+                    <div class="card-title">TextField</div>
+                    <div class="card-desc">Text input with validation states</div>
+                    <span class="card-status">Live</span>
+                </a>
+
+                <!-- Chip -->
+                <a href="components/chip.html" class="card">
+                    <span class="card-icon">🏷️</span>
+                    <div class="card-title">Chip</div>
+                    <div class="card-desc">Compact element for tags or filters</div>
+                    <span class="card-status">Ready</span>
+                </a>
+
+                <!-- Select -->
+                <a href="components/select.html" class="card">
+                    <span class="card-icon">▼</span>
+                    <div class="card-title">Select</div>
+                    <div class="card-desc">Dropdown selection menu</div>
+                    <span class="card-status">Ready</span>
+                </a>
+
+                <!-- Badge -->
+                <a href="components/badge.html" class="card">
+                    <span class="card-icon">📌</span>
+                    <div class="card-title">Badge</div>
+                    <div class="card-desc">Status or count indicator</div>
+                    <span class="card-status">Live</span>
+                </a>
+
+                <!-- Tooltip -->
+                <a href="components/tooltip.html" class="card">
+                    <span class="card-icon">💬</span>
+                    <div class="card-title">Tooltip</div>
+                    <div class="card-desc">Contextual help text</div>
+                    <span class="card-status">Live</span>
+                </a>
+
+                <!-- Menu -->
+                <a href="components/menu.html" class="card">
+                    <span class="card-icon">☰</span>
+                    <div class="card-title">Menu</div>
+                    <div class="card-desc">Dropdown menu with actions</div>
+                    <span class="card-status">Live</span>
+                </a>
+
+                <!-- Autocomplete -->
+                <a href="components/autocomplete.html" class="card">
+                    <span class="card-icon">✨</span>
+                    <div class="card-title">Autocomplete</div>
+                    <div class="card-desc">Search with suggestions</div>
+                    <span class="card-status">Live</span>
+                </a>
+
+                <!-- Alert -->
+                <a href="components/alert.html" class="card">
+                    <span class="card-icon">⚠️</span>
+                    <div class="card-title">Alert</div>
+                    <div class="card-desc">Messages and notifications</div>
+                    <span class="card-status">Live</span>
+                </a>
+
+                <!-- Switch -->
+                <a href="components/switch.html" class="card">
+                    <span class="card-icon">🔘</span>
+                    <div class="card-title">Switch</div>
+                    <div class="card-desc">Binary toggle control</div>
+                    <span class="card-status">Ready</span>
+                </a>
+
+                <!-- Breadcrumb -->
+                <a href="components/breadcrumb.html" class="card">
+                    <span class="card-icon">📍</span>
+                    <div class="card-title">Breadcrumb</div>
+                    <div class="card-desc">Navigation path indicator</div>
+                    <span class="card-status">Ready</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Design Tokens Section -->
+        <div class="section">
+            <h2 class="section-title">Design Tokens</h2>
+            <div class="grid">
+                <a href="tokens/colors.html" class="card">
+                    <span class="card-icon">🎨</span>
+                    <div class="card-title">Colors</div>
+                    <div class="card-desc">Complete color palette and semantic usage</div>
+                    <span class="card-status">Live</span>
+                </a>
+
+                <a href="tokens/typography.html" class="card">
+                    <span class="card-icon">𝐓</span>
+                    <div class="card-title">Typography</div>
+                    <div class="card-desc">Font sizes, weights, and line heights</div>
+                    <span class="card-status">Live</span>
+                </a>
+
+                <a href="tokens/spacing.html" class="card">
+                    <span class="card-icon">⬚</span>
+                    <div class="card-title">Spacing</div>
+                    <div class="card-desc">8px-based spacing scale</div>
+                    <span class="card-status">Live</span>
+                </a>
+
+                <a href="tokens/elevation.html" class="card">
+                    <span class="card-icon">🎯</span>
+                    <div class="card-title">Elevation</div>
+                    <div class="card-desc">Shadow depth and layering</div>
+                    <span class="card-status">Live</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="cta-section">
+            <h2>Getting Started</h2>
+            <p>Ready to use AHTG components in your project? Install from npm or import directly.</p>
+            <a href="#" class="cta-button">View Documentation</a>
+        </div>
+
+        <!-- Features Section -->
+        <div class="section">
+            <h2 class="section-title">Why AHTG?</h2>
+            <div class="grid">
+                <div class="card">
+                    <span class="card-icon">✅</span>
+                    <div class="card-title">Consistent</div>
+                    <div class="card-desc">Design tokens ensure visual consistency across all products</div>
+                </div>
+                <div class="card">
+                    <span class="card-icon">⚡</span>
+                    <div class="card-title">Fast</div>
+                    <div class="card-desc">Reusable components accelerate development cycles</div>
+                </div>
+                <div class="card">
+                    <span class="card-icon">🎯</span>
+                    <div class="card-title">Accessible</div>
+                    <div class="card-desc">Built with WCAG compliance and keyboard navigation</div>
+                </div>
+                <div class="card">
+                    <span class="card-icon">📚</span>
+                    <div class="card-title">Documented</div>
+                    <div class="card-desc">Every component includes specs, usage, and examples</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>AHTG Design System • Built for <a href="#">Trio Workforce Solutions</a> • Last updated: February 2026</p>
+    </div>
+</body>
+</html>

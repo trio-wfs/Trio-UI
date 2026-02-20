@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ButtonGroup - AHTG Design System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="../design-system-templates/component-template-styles.css" rel="stylesheet">
+    <style>
+        /* Active nav link */
+        .nav-links a.active {
+            color: #2196F3;
+            font-weight: 500;
+            border-bottom: 2px solid #2196F3;
+            padding-bottom: 4px;
+        }
+
+        /* ButtonGroup-specific styles */
+        .demo-button-group {
+            font-family: 'Roboto', sans-serif;
+            display: inline-flex;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .demo-button-group.vertical {
+            flex-direction: column;
+        }
+
+        .demo-button-group button {
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            background-color: #F5F5F5;
+            color: #212121;
+            padding: 8px 16px;
+            height: 40px;
+            min-width: 100px;
+        }
+
+        .demo-button-group button:not(:last-child) {
+            border-right: 1px solid rgba(0,0,0,0.12);
+        }
+
+        .demo-button-group.vertical button:not(:last-child) {
+            border-right: none;
+            border-bottom: 1px solid rgba(0,0,0,0.12);
+        }
+
+        .demo-button-group button:hover {
+            background-color: #EEEEEE;
+        }
+
+        .demo-button-group button:active {
+            background-color: #E0E0E0;
+        }
+
+        /* Size variants */
+        .demo-button-group.size-sm button {
+            padding: 4px 12px;
+            font-size: 13px;
+            height: 32px;
+        }
+
+        .demo-button-group.size-md button {
+            padding: 8px 16px;
+            font-size: 14px;
+            height: 40px;
+        }
+
+        /* Color variants */
+        .demo-button-group.color-primary button {
+            background-color: #2196F3;
+            color: white;
+        }
+
+        .demo-button-group.color-primary button:hover {
+            background-color: #1976D2;
+        }
+
+        .demo-button-group.color-primary button:active {
+            background-color: #1565C0;
+        }
+
+        .demo-button-group.color-secondary button {
+            background-color: #F5F5F5;
+            color: #212121;
+        }
+
+        /* Variant: Outline */
+        .demo-button-group.variant-outline button {
+            background-color: transparent;
+            border: 1px solid rgba(0,0,0,0.23);
+            color: #212121;
+        }
+
+        .demo-button-group.variant-outline.color-primary button {
+            border-color: #2196F3;
+            color: #2196F3;
+        }
+
+        .demo-button-group.variant-outline.color-primary button:hover {
+            background-color: rgba(33, 150, 243, 0.08);
+        }
+
+        .demo-button-group.variant-outline.color-secondary button {
+            border-color: rgba(0,0,0,0.23);
+            color: #212121;
+        }
+
+        .demo-button-group.variant-outline.color-secondary button:hover {
+            background-color: rgba(0, 0, 0, 0.04);
+        }
+
+        .demo-button-group.variant-outline button:not(:last-child) {
+            border-right: 1px solid rgba(0,0,0,0.23);
+        }
+
+        .demo-button-group.variant-outline.vertical button:not(:last-child) {
+            border-right: 1px solid rgba(0,0,0,0.23);
+            border-bottom: 1px solid rgba(0,0,0,0.23);
+        }
+
+        /* Disabled state */
+        .demo-button-group button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .demo-section {
+            margin-bottom: 32px;
+        }
+
+        .demo-section-title {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 16px;
+            color: #212121;
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .demo-item {
+            padding: 16px;
+            border: 1px solid #E0E0E0;
+            border-radius: 4px;
+            background-color: #FAFAFA;
+        }
+
+        .demo-item-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: #757575;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .demo-item-content {
+            margin-bottom: 12px;
+            padding: 12px;
+            background-color: white;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .demo-code {
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            background-color: #263238;
+            color: #AED581;
+            padding: 8px 12px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+
+        .demo-specs-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 24px;
+        }
+
+        .demo-specs-table th,
+        .demo-specs-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #E0E0E0;
+            font-size: 14px;
+        }
+
+        .demo-specs-table th {
+            font-weight: 500;
+            background-color: #FAFAFA;
+            color: #757575;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .demo-specs-table td {
+            color: #212121;
+        }
+
+        .demo-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 2px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background-color: #2196F3;
+            color: white;
+            margin-right: 8px;
+        }
+
+        .demo-badge.figma {
+            background-color: #A259FF;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <header class="demo-header">
+            <h1>ButtonGroup</h1>
+            <p class="demo-subtitle">
+                Groups multiple related button actions into a single interface element.
+            </p>
+            <div class="demo-badges">
+                <span class="demo-badge figma">Figma: 2172:9605</span>
+                <span class="demo-badge">AHTG</span>
+            </div>
+        </header>
+
+        <!-- Overview -->
+        <section class="demo-section">
+            <h2 class="demo-section-title">Overview</h2>
+            <p class="demo-text">
+                ButtonGroup organizes multiple related actions into a compact, visually connected interface. 
+                Use for presenting actions in toolbars, modals, form footers, and page headers.
+            </p>
+        </section>
+
+        <!-- Specifications -->
+        <section class="demo-section">
+            <h2 class="demo-section-title">Properties</h2>
+            <table class="demo-specs-table">
+                <thead>
+                    <tr>
+                        <th>Property</th>
+                        <th>Type</th>
+                        <th>Options</th>
+                        <th>Default</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>variant</td>
+                        <td>VARIANT</td>
+                        <td>"contained", "outline"</td>
+                        <td>"contained"</td>
+                    </tr>
+                    <tr>
+                        <td>size</td>
+                        <td>VARIANT</td>
+                        <td>"sm", "md"</td>
+                        <td>"sm"</td>
+                    </tr>
+                    <tr>
+                        <td>color</td>
+                        <td>VARIANT</td>
+                        <td>"primary", "secondary"</td>
+                        <td>"secondary"</td>
+                    </tr>
+                    <tr>
+                        <td>orientation</td>
+                        <td>VARIANT</td>
+                        <td>"horizontal", "vertical"</td>
+                        <td>"horizontal"</td>
+                    </tr>
+                    <tr>
+                        <td>buttons</td>
+                        <td>Array</td>
+                        <td>3-6 buttons (button-3 through button-8)</td>
+                        <td>3 buttons</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Size Variants -->
+        <section class="demo-section">
+            <h2 class="demo-section-title">Size Variants</h2>
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <div class="demo-item-label">Small (sm) - 32px</div>
+                    <div class="demo-item-content">
+                        <div class="demo-button-group variant-contained color-secondary size-sm">
+                            <button>Button 1</button>
+                            <button>Button 2</button>
+                            <button>Button 3</button>
+                        </div>
+                    </div>
+                    <div class="demo-code">size="sm" // 32px height (8px × 4)</div>
+                </div>
+
+                <div class="demo-item">
+                    <div class="demo-item-label">Medium (md) - 40px</div>
+                    <div class="demo-item-content">
+                        <div class="demo-button-group variant-contained color-secondary size-md">
+                            <button>Button 1</button>
+                            <button>Button 2</button>
+                            <button>Button 3</button>
+                        </div>
+                    </div>
+                    <div class="demo-code">size="md" // 40px height (8px × 5)</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Variant & Color -->
+        <section class="demo-section">
+            <h2 class="demo-section-title">Variants & Colors</h2>
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <div class="demo-item-label">Contained - Secondary</div>
+                    <div class="demo-item-content">
+                        <div class="demo-button-group variant-contained color-secondary size-md">
+                            <button>Edit</button>
+                            <button>Duplicate</button>
+                            <button>Archive</button>
+                        </div>
+                    </div>
+                    <div class="demo-code">variant="contained" color="secondary"</div>
+                </div>
+
+                <div class="demo-item">
+                    <div class="demo-item-label">Contained - Primary</div>
+                    <div class="demo-item-content">
+                        <div class="demo-button-group variant-contained color-primary size-md">
+                            <button>Save Draft</button>
+                            <button>Save & Close</button>
+                            <button>Save & Continue</button>
+                        </div>
+                    </div>
+                    <div class="demo-code">variant="contained" color="primary"</div>
+                </div>
+
+                <div class="demo-item">
+                    <div class="demo-item-label">Outline - Secondary</div>
+                    <div class="demo-item-content">
+                        <div class="demo-button-group variant-outline color-secondary size-md">
+                            <button>Filter</button>
+                            <button>Sort</button>
+                            <button>Export</button>
+                        </div>
+                    </div>
+                    <div class="demo-code">variant="outline" color="secondary"</div>
+                </div>
+
+                <div class="demo-item">
+                    <div class="demo-item-label">Outline - Primary</div>
+                    <div class="demo-item-content">
+                        <div class="demo-button-group variant-outline color-primary size-md">
+                            <button>Submit</button>
+                            <button>Approve</button>
+                            <button>Confirm</button>
+                        </div>
+                    </div>
+                    <div class="demo-code">variant="outline" color="primary"</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Orientation -->
+        <section class="demo-section">
+            <h2 class="demo-section-title">Orientation</h2>
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <div class="demo-item-label">Horizontal (default)</div>
+                    <div class="demo-item-content">
+                        <div class="demo-button-group variant-contained color-secondary size-md">
+                            <button>Option A</button>
+                            <button>Option B</button>
+                            <button>Option C</button>
+                        </div>
+                    </div>
+                    <div class="demo-code">orientation="horizontal"</div>
+                </div>
+
+                <div class="demo-item">
+                    <div class="demo-item-label">Vertical</div>
+                    <div class="demo-item-content">
+                        <div class="demo-button-group variant-contained color-secondary size-md vertical">
+                            <button>Option A</button>
+                            <button>Option B</button>
+                            <button>Option C</button>
+                        </div>
+                    </div>
+                    <div class="demo-code">orientation="vertical"</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Use Cases -->
+        <section class="demo-section">
+            <h2 class="demo-section-title">Common Use Cases</h2>
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <div class="demo-item-label">Toolbar Actions (AG Grid)</div>
+                    <div class="demo-item-content">
+                        <div class="demo-button-group variant-contained color-secondary size-sm">
+                            <button>Add Row</button>
+                            <button>Delete</button>
+                            <button>Export</button>
+                        </div>
+                    </div>
+                    <div class="demo-code">size="sm" variant="contained"</div>
+                </div>
+
+                <div class="demo-item">
+                    <div class="demo-item-label">Modal Footer Actions</div>
+                    <div class="demo-item-content">
+                        <div class="demo-button-group variant-contained color-primary size-md">
+                            <button>Cancel</button>
+                            <button>Save</button>
+                        </div>
+                    </div>
+                    <div class="demo-code">size="md" color="primary"</div>
+                </div>
+
+                <div class="demo-item">
+                    <div class="demo-item-label">Page Header Actions</div>
+                    <div class="demo-item-content">
+                        <div class="demo-button-group variant-outline color-secondary size-sm">
+                            <button>Edit</button>
+                            <button>History</button>
+                            <button>Print</button>
+                        </div>
+                    </div>
+                    <div class="demo-code">variant="outline" size="sm"</div>
+                </div>
+
+                <div class="demo-item">
+                    <div class="demo-item-label">Maximum Buttons (6)</div>
+                    <div class="demo-item-content">
+                        <div class="demo-button-group variant-contained color-secondary size-sm">
+                            <button>Btn 3</button>
+                            <button>Btn 4</button>
+                            <button>Btn 5</button>
+                            <button>Btn 6</button>
+                            <button>Btn 7</button>
+                            <button>Btn 8</button>
+                        </div>
+                    </div>
+                    <div class="demo-code">// Figma: button-3 through button-8</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Design System Rules -->
+        <section class="demo-section">
+            <h2 class="demo-section-title">AHTG Design System Compliance</h2>
+            <table class="demo-specs-table">
+                <thead>
+                    <tr>
+                        <th>Rule</th>
+                        <th>Implementation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Desktop Only</td>
+                        <td>✅ No responsive patterns, fixed sizes</td>
+                    </tr>
+                    <tr>
+                        <td>8px Spacing System</td>
+                        <td>✅ Heights: 32px (sm), 40px (md) — multiples of 8</td>
+                    </tr>
+                    <tr>
+                        <td>Primary Blue Usage</td>
+                        <td>✅ Save/Update/Confirm actions only (#2196F3)</td>
+                    </tr>
+                    <tr>
+                        <td>Secondary Usage</td>
+                        <td>✅ Edit/Prompt/Manage actions (#F5F5F5)</td>
+                    </tr>
+                    <tr>
+                        <td>Roboto Typography</td>
+                        <td>✅ Inherited from MUI theme, 14px default</td>
+                    </tr>
+                    <tr>
+                        <td>Material Icons</td>
+                        <td>✅ Supported when used in individual buttons</td>
+                    </tr>
+                    <tr>
+                        <td>Maximum Buttons</td>
+                        <td>✅ 3-6 buttons (Figma spec: button-3 through button-8)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Color Semantics -->
+        <section class="demo-section">
+            <h2 class="demo-section-title">Color Semantics</h2>
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <div class="demo-item-label">Primary - Save/Confirm Actions</div>
+                    <p class="demo-text" style="margin-bottom: 12px; font-size: 14px;">Use only for confirming or saving data. Examples: "Save & Continue", "Submit All", "Confirm Changes"</p>
+                    <div class="demo-item-content">
+                        <div class="demo-button-group variant-contained color-primary size-md">
+                            <button>Confirm</button>
+                            <button>Save & Close</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo-item">
+                    <div class="demo-item-label">Secondary - Edit/Prompt Actions</div>
+                    <p class="demo-text" style="margin-bottom: 12px; font-size: 14px;">Use for exploratory or editing actions. Examples: "Edit All", "Add Items", "Manage Options"</p>
+                    <div class="demo-item-content">
+                        <div class="demo-button-group variant-contained color-secondary size-md">
+                            <button>Edit</button>
+                            <button>Manage</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Integration Examples -->
+        <section class="demo-section">
+            <h2 class="demo-section-title">Integration Examples</h2>
+            <div class="demo-item" style="margin-bottom: 24px;">
+                <div class="demo-item-label">React / TypeScript Implementation</div>
+                <div class="demo-code">
+&lt;ButtonGroup<br>
+&nbsp;&nbsp;variant="contained"<br>
+&nbsp;&nbsp;color="primary"<br>
+&nbsp;&nbsp;size="md"<br>
+&nbsp;&nbsp;buttons={['Cancel', 'Save & Close']}<br>
+/&gt;
+                </div>
+            </div>
+        </section>
+
+    </div>
+</body>
+</html>

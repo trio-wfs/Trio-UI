@@ -1,81 +1,51 @@
-# Projects Directory
+# Projects Registry
 
-Organized storage for all design + development work. Each project gets its own folder with consistent structure.
+Index of all projects managed by SAL.
 
-## Folder Structure
+## Active Projects
 
+### spotify-bot
+- **Type:** Experiment (minimal, quick-start)
+- **Created:** 2026-03-08
+- **Status:** Setup (ready for Claude Code)
+- **Path:** `~/.openclaw/shared-data/projects/spotify-bot/`
+- **Next:** Grab Spotify credentials, run `claude < build/claude-task.md`
+- **Goal:** Chat widget on portfolio that queries Spotify API in real-time
+
+## Project Structure
+
+Each project lives in: `~/.openclaw/shared-data/projects/[project-name]/`
+
+Standard structure:
 ```
-/projects/[project-name]/
-├── brief.md              # Research agent output (requirements, personas, workflows)
-├── spec.md               # DesignSalWork output (requirements, logic, journeys)
-├── reviews/              # Design/implementation reviews
-│   ├── design-review.md
-│   └── [other-reviews].md
-├── claude-task.md        # Final Claude Code task (ready to run)
-└── components/           # Built React components
-    ├── ComponentName.tsx
-    └── [other-components].tsx
+[project-name]/
+├── README.md                    # Project overview (Claude Context injected)
+├── BRIEF.md                     # Project intent & scope
+├── PLAN.md                      # Roadmap & milestones (Claude fills this)
+├── PROGRESS.md                  # Status tracking (updated during work)
+├── context.md                   # Project-specific rules & constraints
+├── notes.md                     # Raw input & ideas
+├── build/
+│   └── claude-task.md          # Ready for Claude Code (auto-generated)
+├── src/ or components/          # Project files (template-specific)
+└── docs/
+    ├── LEARNINGS.md            # Key insights after completion
+    └── RETROSPECTIVE.md        # What went well/poorly
 ```
 
-## File Contents
+## Project Lifecycle
 
-### brief.md (Research)
-- Stakeholder analysis
-- Data models
-- Workflows and pain points
-- Journey maps
-- VMS context (for AHTG projects)
+1. **Create**: `new project: [name]` → SAL scaffolds structure
+2. **Plan**: BRIEF + PLAN describe what's being built
+3. **Build**: Claude Code reads claude-task.md
+4. **Track**: PROGRESS updates as work happens
+5. **Complete**: LEARNINGS + RETROSPECTIVE capture outcomes
+6. **Archive**: Project stays in shared-data for reference
 
-### spec.md (DesignSalWork)
-- Requirements from brief
-- User flows and journeys
-- Business logic rules
-- Data structure examples
-- Implementation checklist
-- **NO visual direction** (Claude handles UI)
+## Recent Projects
 
-### reviews/design-review.md
-- Component audit against Figma
-- Compliance checks
-- Issues/gaps found
-- Recommendations
+(Auto-generated)
 
-### claude-task.md
-- Complete task for Claude Code
-- Context + logic + checklist
-- Ready to run: `claude < [path]/claude-task.md`
+---
 
-### components/
-- Production React components
-- TypeScript
-- AHTG tokens only
-- Full docstrings
-
-## Workflow
-
-### Starting a New Project
-
-1. Create folder: `/projects/[project-name]/` with subdirs (reviews, components)
-2. **Research** writes: `brief.md`
-3. **DesignSalWork** writes: `spec.md`
-4. **Reviews**: Add to `reviews/` folder
-5. **Claude Code**: Write `claude-task.md`, run: `claude < [path]/claude-task.md`
-6. **Output**: Save components to `components/`
-
-### Examples
-
-- **Shift Distribution**: `/projects/shift-distribution/`
-- **Next Project**: `/projects/[name]/`
-- **Another**: `/projects/[name]/`
-
-## Naming Conventions
-
-- Project folders: `kebab-case` (my-project, shift-distribution)
-- Files: `kebab-case.md` or `CamelCase.tsx`
-- Branches: `project/name` in git
-
-## Access
-
-All projects are discoverable at: `/Users/jesseszygiel/.openclaw/shared-data/projects/`
-
-This is the source of truth for all design + dev work.
+Last registry update: N/A (auto-maintained by SAL)

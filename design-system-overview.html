@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Overview - AHTG Design System</title>
+  <title>Overview - TRIO WFS Design System</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="design-system-shell.css">
@@ -70,7 +70,7 @@
 
   <main class="main-content">
     <div class="hero">
-      <h1>AHTG Design System</h1>
+      <h1>TRIO WFS Design System</h1>
       <p>
         A comprehensive design system for desktop SaaS applications. Built on Material Design principles with customized components, design tokens, and patterns that ensure consistency, accessibility, and efficiency across all AHTG products.
       </p>
@@ -78,8 +78,8 @@
 
     <div class="stats">
       <div class="stat-card">
-        <div class="stat-number">87</div>
-        <div class="stat-label">Components</div>
+        <div class="stat-number" id="stat-built">–</div>
+        <div class="stat-label">Components Built</div>
       </div>
       <div class="stat-card">
         <div class="stat-number">100%</div>
@@ -168,7 +168,7 @@
             Component Layer
           </div>
           <div class="card-content">
-            <strong>87 Components</strong><br>
+            <strong id="arch-built">–</strong> components built<br>
             Atomic to organism-level components built from design tokens. Each component extracts implementation values directly from Figma.
           </div>
         </div>
@@ -268,6 +268,19 @@
 
     <section class="section">
       <h2 class="section-title">
+        <span class="material-icons">widgets</span>
+        Built Components
+      </h2>
+      <p class="section-description">
+        All components currently in the library. Updates automatically as new components are added.
+      </p>
+      <div class="grid-3" id="component-gallery">
+        <!-- Populated dynamically from DS_NAV.components -->
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">
         <span class="material-icons">rocket_launch</span>
         Getting Started
       </h2>
@@ -302,5 +315,28 @@
       </div>
     </section>
   </main>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const count = DS_NAV.components.length;
+
+      // Update stat cards
+      document.getElementById('stat-built').textContent = count;
+      document.getElementById('arch-built').textContent = count;
+
+      // Render component gallery
+      const gallery = document.getElementById('component-gallery');
+      gallery.innerHTML = DS_NAV.components.map(c => `
+        <a href="${c.href}" class="card" style="text-decoration:none; color:inherit; cursor:pointer;">
+          <div class="card-title">
+            <span class="material-icons">${c.icon}</span>
+            ${c.label}
+          </div>
+          <div class="card-content" style="font-size:12px; color:var(--color-text-secondary);">
+            View specs, variants, and usage
+          </div>
+        </a>
+      `).join('');
+    });
+  </script>
 </body>
 </html>

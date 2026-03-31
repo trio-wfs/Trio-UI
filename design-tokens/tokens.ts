@@ -18,6 +18,7 @@ export const tokens = {
       light: '#E3F2FD',
       dark: '#1976D2',
       contrastText: '#FFFFFF',
+      selected: '#2196F31F', // primary/states/selected — nav item, list item selected bg
     },
 
     // Secondary - Edit actions
@@ -30,13 +31,13 @@ export const tokens = {
 
     // Semantic Colors (urgency indicators)
     success: {
-      main: '#4CAF50',
+      main: '#2e7d32',
       light: '#E8F5E9',
-      dark: '#388E3C',
+      dark: '#1b5e20',
       contrastText: '#FFFFFF',
     },
     info: {
-      main: '#5BBFDE',
+      main: '#54afca',
       light: '#E4F7FD',
       dark: '#4B9AB0',
       contrastText: '#FFFFFF',
@@ -58,7 +59,7 @@ export const tokens = {
     text: {
       primary: '#212121',
       secondary: '#757575',
-      disabled: '#9E9E9E',
+      disabled: 'rgba(0, 0, 0, 0.4)',
       inverse: '#FFFFFF',
     },
 
@@ -76,8 +77,8 @@ export const tokens = {
       hover: 'rgba(0, 0, 0, 0.04)',
       selected: 'rgba(0, 0, 0, 0.08)',
       focus: 'rgba(0, 0, 0, 0.12)',
-      disabled: 'rgba(0, 0, 0, 0.07)',
-      disabledBackground: '#EEEEEE',
+      disabled: 'rgba(0, 0, 0, 0.12)',
+      disabledBackground: 'rgba(0, 0, 0, 0.12)',
     },
 
     // Component-Specific Colors
@@ -213,7 +214,7 @@ export const tokens = {
         letterSpacing: 0,
       },
       md: {
-        fontSize: 12,
+        fontSize: 14,
         fontWeight: 400,
         lineHeight: 14,
         letterSpacing: 0,

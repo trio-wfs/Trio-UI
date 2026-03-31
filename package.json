@@ -1,0 +1,28 @@
+{
+  "name": "@trio-wfs/ui",
+  "version": "1.0.0",
+  "description": "TRIO WFS shared component library. React + MUI v5 components aligned to the AHTG design system.",
+  "main": "./components/index.ts",
+  "types": "./components/index.ts",
+  "scripts": {
+    "figma:validate": "figma connect --token $(grep FIGMA_ACCESS_TOKEN .env | cut -d= -f2)",
+    "figma:publish": "figma connect publish --token $(grep FIGMA_ACCESS_TOKEN .env | cut -d= -f2)"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0",
+    "@mui/material": ">=5.0.0",
+    "@mui/icons-material": ">=5.0.0",
+    "@emotion/react": ">=11.0.0",
+    "@emotion/styled": ">=11.0.0"
+  },
+  "devDependencies": {
+    "@figma/code-connect": "^1.4.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jszygiel1981-ship-it/ahtg-design-system.git"
+  },
+  "keywords": ["trio", "wfs", "design-system", "mui", "react", "components"],
+  "license": "UNLICENSED"
+}

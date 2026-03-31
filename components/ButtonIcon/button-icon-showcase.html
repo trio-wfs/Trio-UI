@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Button Icon - TRIO WFS Design System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+  <link rel="stylesheet" href="../../design-system-shell.css">
+  <style>
+    .demo-row {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-lg);
+      flex-wrap: wrap;
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .demo-label {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      min-width: 100px;
+    }
+
+    /* Base icon button reset */
+    .icon-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      cursor: pointer;
+      font-family: var(--font-family);
+      position: relative;
+      transition: background 0.15s;
+    }
+
+    /* Sizes */
+    .icon-btn-sm {
+      width: 24px;
+      height: 24px;
+      border-radius: var(--border-radius);
+    }
+    .icon-btn-sm .material-icons,
+    .icon-btn-sm .material-icons-outlined {
+      font-size: 16px;
+    }
+
+    .icon-btn-md {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--border-radius);
+    }
+    .icon-btn-md .material-icons,
+    .icon-btn-md .material-icons-outlined {
+      font-size: 24px;
+    }
+
+    /* Contained — primary */
+    .icon-btn-contained-primary {
+      background: var(--color-primary-main);
+      color: #fff;
+    }
+    .icon-btn-contained-primary:hover { background: var(--color-primary-dark); }
+
+    /* Contained — secondary */
+    .icon-btn-contained-secondary {
+      background: var(--color-secondary-main);
+      color: var(--color-secondary-dark);
+      border: 1px solid var(--color-secondary-outline);
+    }
+    .icon-btn-contained-secondary:hover { background: var(--color-secondary-outline); }
+
+    /* Ghost — primary */
+    .icon-btn-ghost-primary {
+      background: transparent;
+      color: var(--color-primary-main);
+      border-radius: 50%;
+    }
+    .icon-btn-ghost-primary:hover { background: rgba(0,0,0,0.04); }
+    .icon-btn-ghost-primary:active { background: rgba(0,0,0,0.08); }
+
+    /* Ghost — secondary */
+    .icon-btn-ghost-secondary {
+      background: transparent;
+      color: var(--color-secondary-dark);
+      border-radius: 50%;
+    }
+    .icon-btn-ghost-secondary:hover { background: rgba(0,0,0,0.04); }
+
+    /* Disabled */
+    .icon-btn-disabled {
+      background: var(--color-disabled-bg) !important;
+      color: var(--color-text-disabled) !important;
+      border-color: transparent !important;
+      cursor: not-allowed;
+    }
+
+    /* Badge overlay */
+    .badge-wrapper {
+      position: relative;
+      display: inline-flex;
+    }
+    .badge-dot {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--color-error-main);
+    }
+    .badge-count {
+      position: absolute;
+      top: -6px;
+      right: -8px;
+      min-width: 16px;
+      height: 16px;
+      border-radius: 999px;
+      background: var(--color-error-main);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 3px;
+      font-family: var(--font-family);
+    }
+
+    .state-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--spacing-xs);
+    }
+    .state-col-label {
+      font-size: 10px;
+      color: var(--color-text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+  </style>
+  <script src="../../design-system-nav.js"></script>
+</head>
+<body>
+  <aside class="sidebar"></aside>
+  <main class="main-content">
+
+    <div class="page-header">
+      <h1 class="page-title">Button Icon</h1>
+      <p class="page-description">Icon-only buttons for compact actions where the icon alone communicates the intent. Use sparingly — prefer labeled buttons when the action isn't immediately obvious.</p>
+    </div>
+
+    <!-- 1. Overview -->
+    <section class="section">
+      <h2 class="section-title"><span class="material-icons">info</span>Overview</h2>
+      <p class="section-description">ButtonIcon wraps MUI IconButton with TRIO WFS design tokens. Use when space is constrained and the icon is unambiguous — toolbars, toggle groups, and inline table actions. Always provide an <code>aria-label</code> for accessibility. Supports a badge overlay for notification counts.</p>
+    </section>
+
+    <!-- 2. Variants -->
+    <section class="section">
+      <h2 class="section-title"><span class="material-icons">palette</span>Variants</h2>
+      <p class="section-description">Two visual styles: <strong>contained</strong> (filled background) and <strong>ghost</strong> (transparent, with hover ripple).</p>
+
+      <div class="variant-group">
+        <div class="variant-label">Contained — Primary</div>
+        <div class="demo-row">
+          <div class="state-col">
+            <button class="icon-btn icon-btn-md icon-btn-contained-primary"><span class="material-icons">filter_alt</span></button>
+            <span class="state-col-label">Default</span>
+          </div>
+          <div class="state-col">
+            <button class="icon-btn icon-btn-md icon-btn-contained-primary" style="background: var(--color-primary-dark)"><span class="material-icons">filter_alt</span></button>
+            <span class="state-col-label">Hover</span>
+          </div>
+          <div class="state-col">
+            <button class="icon-btn icon-btn-md icon-btn-contained-primary icon-btn-disabled"><span class="material-icons">filter_alt</span></button>
+            <span class="state-col-label">Disabled</span>
+          </div>
+          <div class="state-col">
+            <button class="icon-btn icon-btn-sm icon-btn-contained-primary"><span class="material-icons">filter_alt</span></button>
+            <span class="state-col-label">sm</span>
+          </div>
+          <div class="state-col">
+            <button class="icon-btn icon-btn-md icon-btn-contained-primary"><span class="material-icons">filter_alt</span></button>
+            <span class="state-col-label">md</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Contained — Secondary</div>
+        <div class="demo-row">
+          <div class="state-col">
+            <button class="icon-btn icon-btn-md icon-btn-contained-secondary"><span class="material-icons">file_download</span></button>
+            <span class="state-col-label">Default</span>
+          </div>
+          <div class="state-col">
+            <button class="icon-btn icon-btn-md icon-btn-contained-secondary" style="background: var(--color-secondary-outline)"><span class="material-icons">file_download</span></button>
+            <span class="state-col-label">Hover</span>
+          </div>
+          <div class="state-col">
+            <button class="icon-btn icon-btn-md icon-btn-contained-secondary icon-btn-disabled"><span class="material-icons">file_download</span></button>
+            <span class="state-col-label">Disabled</span>
+          </div>
+          <div class="state-col">
+            <button class="icon-btn icon-btn-sm icon-btn-contained-secondary"><span class="material-icons">file_download</span></button>
+            <span class="state-col-label">sm</span>
+          </div>
+          <div class="state-col">
+            <button class="icon-btn icon-btn-md icon-btn-contained-secondary"><span class="material-icons">file_download</span></button>
+            <span class="state-col-label">md</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Ghost — Primary</div>
+        <div class="demo-row">
+          <div class="state-col">
+            <button class="icon-btn icon-btn-md icon-btn-ghost-primary"><span class="material-icons">restart_alt</span></button>
+            <span class="state-col-label">Default</span>
+          </div>
+          <div class="state-col">
+            <button class="icon-btn icon-btn-md icon-btn-ghost-primary" style="background: rgba(0,0,0,0.04)"><span class="material-icons">restart_alt</span></button>
+            <span class="state-col-label">Hover</span>
+          </div>
+          <div class="state-col">
+            <button class="icon-btn icon-btn-md icon-btn-ghost-primary" style="background: rgba(0,0,0,0.08)"><span class="material-icons">restart_alt</span></button>
+            <span class="state-col-label">Active</span>
+          </div>
+          <div class="state-col">
+            <button class="icon-btn icon-btn-md icon-btn-ghost-primary icon-btn-disabled" style="background: transparent"><span class="material-icons">restart_alt</span></button>
+            <span class="state-col-label">Disabled</span>
+          </div>
+          <div class="state-col">
+            <button class="icon-btn icon-btn-sm icon-btn-ghost-primary"><span class="material-icons">restart_alt</span></button>
+            <span class="state-col-label">sm</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Badge -->
+    <section class="section">
+      <h2 class="section-title"><span class="material-icons">notifications</span>Badge Overlay</h2>
+      <p class="section-description">An optional red badge overlays the top-right corner — dot-only for presence, count for quantity.</p>
+      <div class="demo-row">
+        <div class="state-col">
+          <div class="badge-wrapper">
+            <button class="icon-btn icon-btn-md icon-btn-contained-secondary"><span class="material-icons">notifications</span></button>
+            <span class="badge-dot"></span>
+          </div>
+          <span class="state-col-label">Dot</span>
+        </div>
+        <div class="state-col">
+          <div class="badge-wrapper">
+            <button class="icon-btn icon-btn-md icon-btn-contained-secondary"><span class="material-icons">notifications</span></button>
+            <span class="badge-count">3</span>
+          </div>
+          <span class="state-col-label">Count</span>
+        </div>
+        <div class="state-col">
+          <div class="badge-wrapper">
+            <button class="icon-btn icon-btn-md icon-btn-contained-primary"><span class="material-icons">filter_alt</span></button>
+            <span class="badge-count">12</span>
+          </div>
+          <span class="state-col-label">Count (Primary)</span>
+        </div>
+        <div class="state-col">
+          <div class="badge-wrapper">
+            <button class="icon-btn icon-btn-sm icon-btn-contained-secondary"><span class="material-icons">notifications</span></button>
+            <span class="badge-count">5</span>
+          </div>
+          <span class="state-col-label">sm + Count</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. In Context -->
+    <section class="section">
+      <h2 class="section-title"><span class="material-icons">view_in_ar</span>In Context</h2>
+      <p class="section-description">How ButtonIcon appears in toolbar groupings — the primary use case in TRIO WFS.</p>
+      <div class="demo-row">
+        <!-- Inline toolbar strip (simulating toggleButton) -->
+        <div style="display: flex; border: 1px solid var(--color-primary-main); border-radius: var(--border-radius); overflow: hidden;">
+          <button class="icon-btn icon-btn-sm icon-btn-ghost-primary" style="border-radius: 0; border-right: 1px solid var(--color-primary-main)"><span class="material-icons" style="font-size:16px">filter_alt_off</span></button>
+          <button class="icon-btn icon-btn-sm icon-btn-ghost-primary" style="border-radius: 0; border-right: 1px solid var(--color-primary-main)"><span class="material-icons" style="font-size:16px">file_download</span></button>
+          <button class="icon-btn icon-btn-sm icon-btn-ghost-primary" style="border-radius: 0;"><span class="material-icons" style="font-size:16px">restart_alt</span></button>
+        </div>
+        <!-- Standalone in a table row -->
+        <div style="display: flex; align-items: center; gap: 4px; padding: 4px 8px; background: var(--color-background-paper); border: 1px solid var(--color-secondary-outline); border-radius: var(--border-radius);">
+          <span style="font-size: 13px; color: var(--color-text-primary); margin-right: 8px;">Worker Name</span>
+          <button class="icon-btn icon-btn-sm icon-btn-ghost-primary"><span class="material-icons" style="font-size:16px">edit</span></button>
+          <button class="icon-btn icon-btn-sm icon-btn-ghost-primary"><span class="material-icons" style="font-size:16px">more_vert</span></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Best Practices -->
+    <section class="section">
+      <h2 class="section-title"><span class="material-icons">rule</span>Best Practices</h2>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title" style="color: var(--color-success-main)">Do</div>
+          <div class="card-content">
+            <ul style="padding-left: 16px; margin: 0; font-size: 13px; line-height: 1.6;">
+              <li>Always provide an <code>aria-label</code></li>
+              <li>Use <strong>ghost</strong> for inline/table actions — least disruptive</li>
+              <li>Use <strong>contained primary</strong> for toolbar toggles and high-visibility actions</li>
+              <li>Use <strong>contained secondary</strong> as the default toolbar button when multiple actions are equal weight</li>
+              <li>Group related icon buttons into a toggle strip using ToggleButton</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title" style="color: var(--color-error-main)">Don't</div>
+          <div class="card-content">
+            <ul style="padding-left: 16px; margin: 0; font-size: 13px; line-height: 1.6;">
+              <li>Don't use icon-only buttons for primary page actions — use a labeled Button instead</li>
+              <li>Don't use ambiguous icons without a tooltip</li>
+              <li>Don't mix contained and ghost styles in the same toolbar strip</li>
+              <li>Don't use badge counts above 99 — truncate to "99+"</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Technical Specifications -->
+    <section class="section">
+      <h2 class="section-title"><span class="material-icons">straighten</span>Technical Specifications</h2>
+      <table class="property-table">
+        <thead><tr><th>Property</th><th>Value</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td>Size sm — button</td><td>24 × 24px</td><td>Figma node extracted</td></tr>
+          <tr><td>Size sm — icon</td><td>16px</td><td>Figma node extracted</td></tr>
+          <tr><td>Size md — button</td><td>36 × 36px</td><td>Figma node extracted</td></tr>
+          <tr><td>Size md — icon</td><td>24px</td><td>Figma node extracted</td></tr>
+          <tr><td>Border radius (contained)</td><td>4px</td><td>Design token</td></tr>
+          <tr><td>Border radius (ghost)</td><td>999px (circle)</td><td>Figma node extracted</td></tr>
+          <tr><td>Badge size</td><td>16 × 16px</td><td>Figma node extracted</td></tr>
+          <tr><td>Badge font</td><td>11px / 500</td><td>Design token</td></tr>
+          <tr><td>MUI base</td><td>@mui/material/IconButton</td><td>Implementation</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+</body>
+</html>

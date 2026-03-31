@@ -21,10 +21,11 @@
  *   sm: height 24px  (node 5612:3236)
  *
  * LAYOUT (wrapper):
- *   padding:       4px all sides  (var(--xs, 4px))
- *   border-radius: 999px          (var(--radius/base/component/chip, 999px)) — pill
- *   inner gap:     4px            (var(--spacing/base/xs, 4px))
- *   icon size:     24px × 24px    (both left check + right cancel)
+ *   padding:          0 4px       (0 vertical — flex+height handles it; 4px horizontal)
+ *   border-radius:    999px       (var(--radius/base/component/chip, 999px)) — pill
+ *   label padding:    0 8px       (from Figma text wrapper px-[sm])
+ *   icon-left size:   16px × 16px (check icon — Figma: size-[16px])
+ *   icon-right size:  24px × 24px (cancel/delete icon — Figma: size-[24px])
  *
  * TYPOGRAPHY (both sizes):
  *   font-family:    Roboto Regular
@@ -167,7 +168,7 @@ export const Chip: React.FC<ChipProps> = ({
         // ── Dimensions (from Figma) ──────────────────────────
         height,
         borderRadius: '999px',   // pill — var(--radius/base/component/chip)
-        padding: '4px',          // wrapper padding all sides — var(--xs, 4px)
+        padding: '0 4px',        // 0 vertical (height+flex handles it), 4px horizontal
 
         // ── Typography (from Figma) ──────────────────────────
         fontFamily: tokens.typography.fontFamily,
@@ -213,29 +214,31 @@ export const Chip: React.FC<ChipProps> = ({
           }),
         },
 
-        // ── Internal label — reset MUI defaults ──────────────
+        // ── Internal label — 8px horizontal padding (from Figma text wrapper) ──
         '& .MuiChip-label': {
-          padding: 0,
+          padding: '0 8px',
           fontSize: 'inherit',
           fontWeight: 'inherit',
           lineHeight: 'inherit',
           letterSpacing: 'inherit',
         },
 
-        // ── Icons — 24px × 24px, 4px gap (from Figma) ────────
+        // ── Icons (from Figma) ────────────────────────────────
+        // icon-left: 16×16px container (check icon)
         '& .MuiChip-icon': {
-          width: 24,
-          height: 24,
-          fontSize: 20,
-          margin: '0 4px 0 0',  // 4px gap to label
+          width: 16,
+          height: 16,
+          fontSize: 16,
+          margin: '0 0 0 0',    // gap handled by label padding
           color: 'inherit',
           flexShrink: 0,
         },
+        // icon-right: 24×24px container (cancel/delete icon)
         '& .MuiChip-deleteIcon': {
           width: 24,
           height: 24,
           fontSize: 20,
-          margin: '0 0 0 4px',  // 4px gap from label
+          margin: '0 0 0 0',    // gap handled by label padding
           color: 'inherit',
           flexShrink: 0,
           '&:hover': {

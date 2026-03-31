@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Search Bar - TRIO WFS Design System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="../../design-system-shell.css">
+  <style>
+    /* ── SearchBar component ──────────────────────────────────────── */
+
+    /* Shared input reset */
+    .sb-input {
+      border: 1px solid #9E9E9E;
+      background: #fff;
+      font-family: var(--font-family);
+      color: var(--color-text-primary);
+      outline: none;
+      padding: 0 var(--spacing-md);
+      flex: 1;
+      min-width: 200px;
+    }
+    .sb-input::placeholder { color: var(--color-text-disabled); }
+    .sb-input:focus {
+      border-color: #64B5F6;
+      box-shadow: 0 0 0 3px rgba(66,165,245,0.18);
+      z-index: 1;
+      position: relative;
+    }
+    .sb-input:disabled {
+      border-color: var(--color-secondary-outline);
+      background: var(--color-disabled-bg);
+      color: var(--color-text-disabled);
+      cursor: not-allowed;
+    }
+
+    /* Support button */
+    .sb-support {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--color-secondary-main);
+      border: 1px solid #9E9E9E;
+      color: #424242;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .sb-support:hover { background: rgba(0,0,0,0.08); }
+    .sb-support:disabled { background: var(--color-disabled-bg); color: var(--color-text-disabled); cursor: not-allowed; }
+
+    /* Sizes */
+    .sb-sm { height: 32px; font-size: 12px; }
+    .sb-sm .sb-support { width: 32px; }
+    .sb-sm .sb-input { font-size: 12px; }
+
+    .sb-md { height: 40px; font-size: 14px; }
+    .sb-md .sb-support { width: 40px; }
+    .sb-md .sb-input { font-size: 14px; }
+
+    .sb-lg { height: 48px; font-size: 16px; }
+    .sb-lg .sb-support { width: 48px; }
+    .sb-lg .sb-input { font-size: 16px; }
+
+    /* Container */
+    .search-bar {
+      display: inline-flex;
+      align-items: stretch;
+      border-radius: var(--border-radius);
+      overflow: hidden;
+    }
+    /* Left type: support btn has right border folded into input's left border */
+    .search-bar.left .sb-support { border-right: none; border-radius: var(--border-radius) 0 0 var(--border-radius); }
+    .search-bar.left .sb-input  { border-radius: 0 var(--border-radius) var(--border-radius) 0; }
+
+    /* Right type */
+    .search-bar.right .sb-support { border-left: none; border-radius: 0 var(--border-radius) var(--border-radius) 0; }
+    .search-bar.right .sb-input   { border-radius: var(--border-radius) 0 0 var(--border-radius); }
+
+    /* Both type */
+    .search-bar.both .sb-support:first-child { border-right: none; border-radius: var(--border-radius) 0 0 var(--border-radius); }
+    .search-bar.both .sb-support:last-child  { border-left: none; border-radius: 0 var(--border-radius) var(--border-radius) 0; }
+    .search-bar.both .sb-input { border-radius: 0; }
+
+    /* Demo panels */
+    .demo-panel {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-md);
+      margin-bottom: var(--spacing-md);
+    }
+    .demo-row {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-lg);
+      flex-wrap: wrap;
+    }
+    .demo-label {
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      width: 60px;
+      flex-shrink: 0;
+    }
+
+    /* Best practices */
+    .bp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-md); }
+    .bp-card { border-radius: var(--border-radius); padding: var(--spacing-md); border: 1px solid transparent; }
+    .bp-card.do { background: var(--color-success-light); border-color: var(--color-success-main); }
+    .bp-card.dont { background: var(--color-error-light); border-color: var(--color-error-main); }
+    .bp-label { font-size: 11px; font-weight: 500; text-transform: uppercase; margin-bottom: var(--spacing-sm); }
+    .bp-card.do .bp-label { color: var(--color-success-dark); }
+    .bp-card.dont .bp-label { color: var(--color-error-dark); }
+    .bp-card p { font-size: 13px; line-height: 1.5; }
+  </style>
+  <script src="../../design-system-nav.js"></script>
+</head>
+<body>
+  <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
+  <main class="main-content">
+
+    <div class="page-header">
+      <h1 class="page-title">Search Bar</h1>
+      <p class="page-description">A text input with an attached search icon button — used to filter lists, grids, or page content.</p>
+    </div>
+
+    <!-- ── 1. Overview ─────────────────────────────────────────────── -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">info</span>
+        Overview
+      </h2>
+      <p class="section-description">
+        SearchBar wraps a TextField with one or two support button segments containing a
+        search icon. The button visually attaches to the input, forming a single compound
+        control. Pressing Enter or clicking the search button triggers the <code>onSearch</code> callback.
+      </p>
+      <div class="demo-panel" style="align-items: flex-start;">
+        <div class="search-bar left sb-md">
+          <button class="sb-support"><span class="material-icons" style="font-size:18px">search</span></button>
+          <input class="sb-input" type="text" placeholder="Search workers, shifts, orders...">
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 2. Type Variants ────────────────────────────────────────── -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">view_week</span>
+        Type
+      </h2>
+      <p class="section-description">
+        The <code>type</code> prop controls which side(s) have the support button.
+      </p>
+      <div class="demo-panel">
+        <div class="demo-row">
+          <div class="demo-label">Left</div>
+          <div class="search-bar left sb-md">
+            <button class="sb-support"><span class="material-icons" style="font-size:18px">search</span></button>
+            <input class="sb-input" type="text" placeholder="Search...">
+          </div>
+        </div>
+        <div class="demo-row">
+          <div class="demo-label">Right</div>
+          <div class="search-bar right sb-md">
+            <input class="sb-input" type="text" placeholder="Search...">
+            <button class="sb-support"><span class="material-icons" style="font-size:18px">search</span></button>
+          </div>
+        </div>
+        <div class="demo-row">
+          <div class="demo-label">Both</div>
+          <div class="search-bar both sb-md">
+            <button class="sb-support"><span class="material-icons" style="font-size:18px">search</span></button>
+            <input class="sb-input" type="text" placeholder="Search...">
+            <button class="sb-support"><span class="material-icons" style="font-size:18px">search</span></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="prop-table">
+        <div class="prop-row">
+          <div class="prop-label">Left</div>
+          <div class="prop-value">Search button on the left of the input. Most common pattern.</div>
+        </div>
+        <div class="prop-row">
+          <div class="prop-label">Right</div>
+          <div class="prop-value">Search button on the right. Use when the input should lead visually (e.g., prominent search bars).</div>
+        </div>
+        <div class="prop-row">
+          <div class="prop-label">Both</div>
+          <div class="prop-value">Search buttons on both sides. Use when the search context could be triggered from either direction.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 3. Sizes ────────────────────────────────────────────────── -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">format_size</span>
+        Sizes
+      </h2>
+      <p class="section-description">Three sizes match the broader form input scale.</p>
+      <div class="demo-panel">
+        <div class="demo-row">
+          <div class="demo-label">Small<br><span style="font-size:10px;color:var(--color-text-disabled)">32px</span></div>
+          <div class="search-bar left sb-sm">
+            <button class="sb-support"><span class="material-icons" style="font-size:16px">search</span></button>
+            <input class="sb-input" type="text" placeholder="Search...">
+          </div>
+        </div>
+        <div class="demo-row">
+          <div class="demo-label">Medium<br><span style="font-size:10px;color:var(--color-text-disabled)">40px · Default</span></div>
+          <div class="search-bar left sb-md">
+            <button class="sb-support"><span class="material-icons" style="font-size:18px">search</span></button>
+            <input class="sb-input" type="text" placeholder="Search...">
+          </div>
+        </div>
+        <div class="demo-row">
+          <div class="demo-label">Large<br><span style="font-size:10px;color:var(--color-text-disabled)">48px</span></div>
+          <div class="search-bar left sb-lg">
+            <button class="sb-support"><span class="material-icons" style="font-size:22px">search</span></button>
+            <input class="sb-input" type="text" placeholder="Search...">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 4. States ───────────────────────────────────────────────── -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">toggle_on</span>
+        States
+      </h2>
+      <div class="demo-panel">
+        <div class="demo-row">
+          <div class="demo-label" style="width:80px">Default</div>
+          <div class="search-bar left sb-md">
+            <button class="sb-support"><span class="material-icons" style="font-size:18px">search</span></button>
+            <input class="sb-input" type="text" placeholder="Search...">
+          </div>
+        </div>
+        <div class="demo-row">
+          <div class="demo-label" style="width:80px">With value</div>
+          <div class="search-bar left sb-md">
+            <button class="sb-support"><span class="material-icons" style="font-size:18px">search</span></button>
+            <input class="sb-input" type="text" value="Kelly, R.">
+          </div>
+        </div>
+        <div class="demo-row">
+          <div class="demo-label" style="width:80px">Disabled</div>
+          <div class="search-bar left sb-md" style="opacity:0.6; pointer-events:none;">
+            <button class="sb-support" disabled><span class="material-icons" style="font-size:18px">search</span></button>
+            <input class="sb-input" type="text" placeholder="Search..." disabled>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 5. Best Practices ──────────────────────────────────────── -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">thumb_up</span>
+        Best Practices
+      </h2>
+      <div class="bp-grid">
+        <div class="bp-card do">
+          <div class="bp-label">✓ Do</div>
+          <p>Use the Medium size by default. Reserve Small for dense toolbars (e.g., inline grid filters) and Large for primary page-level search.</p>
+        </div>
+        <div class="bp-card dont">
+          <div class="bp-label">✗ Don't</div>
+          <p>Don't use SearchBar for navigation or routing. It's a filter control, not a site-wide search. For global search, use the App Bar search field.</p>
+        </div>
+        <div class="bp-card do">
+          <div class="bp-label">✓ Do</div>
+          <p>Provide a clear placeholder that tells the user what is searchable: "Search workers, shifts, or orders…" is better than just "Search".</p>
+        </div>
+        <div class="bp-card dont">
+          <div class="bp-label">✗ Don't</div>
+          <p>Don't use the Both type unless there's a clear reason for dual triggers. Left is the standard pattern across TRIO WFS.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 6. Technical Specifications ───────────────────────────── -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">straighten</span>
+        Technical Specifications
+      </h2>
+      <table class="spec-table">
+        <thead>
+          <tr><th>Property</th><th>Value</th><th>Source</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Height — Small</td><td>32px</td><td>Figma node 492:653</td></tr>
+          <tr><td>Height — Medium (default)</td><td>40px</td><td>Figma node 492:653</td></tr>
+          <tr><td>Height — Large</td><td>48px</td><td>Figma node 492:653</td></tr>
+          <tr><td>Font size — Small</td><td>12px (fontSize.xs)</td><td>Figma typography</td></tr>
+          <tr><td>Font size — Medium</td><td>14px (fontSize.sm)</td><td>Figma typography</td></tr>
+          <tr><td>Font size — Large</td><td>16px (fontSize.md)</td><td>Figma typography</td></tr>
+          <tr><td>Support button width</td><td>Equal to height (square)</td><td>Extracted from Figma</td></tr>
+          <tr><td>Support button background</td><td>#F5F5F5 — secondary.main</td><td>Figma node 2810:4766</td></tr>
+          <tr><td>Search icon size — Small</td><td>16px</td><td>Extracted from Figma</td></tr>
+          <tr><td>Search icon size — Medium</td><td>18px</td><td>Extracted from Figma</td></tr>
+          <tr><td>Search icon size — Large</td><td>22px</td><td>Extracted from Figma</td></tr>
+          <tr><td>Input border</td><td>1px solid #9E9E9E — input.enabledBorder</td><td>TextField token</td></tr>
+          <tr><td>Focus ring</td><td>1px #64B5F6 + 3px rgba(66,165,245,0.18) shadow</td><td>components.border.focus</td></tr>
+          <tr><td>Border radius</td><td>4px — borderRadius.default</td><td>Design token</td></tr>
+          <tr><td>Type variants</td><td>Left | Right | Both</td><td>Figma variant: Type</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+</body>
+</html>

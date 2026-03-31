@@ -133,7 +133,7 @@ export const Select: React.FC<SelectProps> = ({
             hasError
               ? tokens.colors.error.main
               : isFocused
-              ? tokens.colors.border.focus
+              ? tokens.colors.components.border.focus
               : tokens.colors.components.input.enabledBorder
           }`,
           cursor: isDisabled ? 'default' : 'pointer',

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tooltip - TRIO WFS Design System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="../../design-system-shell.css">
+  <style>
+    /* ── Tooltip visual ───────────────────────────────────────────── */
+    .tooltip-wrap {
+      position: relative;
+      display: inline-flex;
+    }
+
+    .tooltip-bubble {
+      position: absolute;
+      background: #000;
+      color: #fff;
+      font-family: var(--font-family);
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.4;
+      padding: 4px 8px;
+      border-radius: var(--border-radius);
+      white-space: nowrap;
+      pointer-events: none;
+      z-index: 10;
+    }
+    /* Arrow shared */
+    .tooltip-bubble::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 0;
+    }
+
+    /* ── Positions ── */
+    .tooltip-bubble.top {
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .tooltip-bubble.top::after {
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: #000;
+    }
+
+    .tooltip-bubble.bottom {
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .tooltip-bubble.bottom::after {
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-bottom-color: #000;
+    }
+
+    .tooltip-bubble.left {
+      right: calc(100% + 8px);
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .tooltip-bubble.left::after {
+      left: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 5px solid transparent;
+      border-left-color: #000;
+    }
+
+    .tooltip-bubble.right {
+      left: calc(100% + 8px);
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .tooltip-bubble.right::after {
+      right: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 5px solid transparent;
+      border-right-color: #000;
+    }
+
+    /* ── Trigger buttons ─────────────────────────────────────────── */
+    .trigger-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--spacing-xs);
+      height: 32px;
+      padding: 0 var(--spacing-md);
+      background: var(--color-primary-main);
+      color: #fff;
+      font-family: var(--font-family);
+      font-size: 12px;
+      font-weight: 400;
+      border: none;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+    }
+    .trigger-btn.secondary {
+      background: var(--color-secondary-main);
+      color: var(--color-secondary-dark);
+      border: 1px solid var(--color-secondary-outline);
+    }
+    .trigger-btn.icon-only {
+      width: 32px;
+      padding: 0;
+      justify-content: center;
+      background: transparent;
+      color: var(--color-text-secondary);
+      border: 1px solid var(--color-secondary-outline);
+    }
+
+    /* ── Demo panels ─────────────────────────────────────────────── */
+    .demo-panel {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-xxl) var(--spacing-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 80px;
+      flex-wrap: wrap;
+      margin-bottom: var(--spacing-md);
+    }
+    .demo-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--spacing-lg);
+    }
+    .demo-label {
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      text-align: center;
+      margin-top: var(--spacing-xs);
+    }
+
+    /* ── Position diagram ────────────────────────────────────────── */
+    .position-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, 120px);
+      gap: var(--spacing-md);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .position-cell {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ── Best practices ──────────────────────────────────────────── */
+    .bp-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-md);
+    }
+    .bp-card {
+      border-radius: var(--border-radius);
+      padding: var(--spacing-md);
+      border: 1px solid transparent;
+    }
+    .bp-card.do { background: var(--color-success-light); border-color: var(--color-success-main); }
+    .bp-card.dont { background: var(--color-error-light); border-color: var(--color-error-main); }
+    .bp-label { font-size: 11px; font-weight: 500; text-transform: uppercase; margin-bottom: var(--spacing-sm); }
+    .bp-card.do .bp-label { color: var(--color-success-dark); }
+    .bp-card.dont .bp-label { color: var(--color-error-dark); }
+    .bp-card p { font-size: 13px; color: var(--color-text-primary); line-height: 1.5; }
+
+    /* ── Anatomy diagram ─────────────────────────────────────────── */
+    .anatomy-wrap {
+      display: flex;
+      justify-content: center;
+      padding: var(--spacing-xxl) 0;
+    }
+    .anatomy-item {
+      position: relative;
+      display: inline-block;
+    }
+    .callout {
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      position: absolute;
+      white-space: nowrap;
+    }
+  </style>
+  <script src="../../design-system-nav.js"></script>
+</head>
+<body>
+  <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
+  <main class="main-content">
+
+    <div class="page-header">
+      <h1 class="page-title">Tooltip</h1>
+      <p class="page-description">A short contextual label that appears on hover to clarify the purpose of a UI element.</p>
+    </div>
+
+    <!-- ── 1. Overview ─────────────────────────────────────────────── -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">info</span>
+        Overview
+      </h2>
+      <p class="section-description">
+        Tooltips display a brief text label when a user hovers over or focuses an element.
+        They are always black with white text, and include a directional arrow pointing at the
+        trigger. Use tooltips to clarify icon-only buttons, truncated text, or secondary actions
+        where adding a permanent label would clutter the UI.
+      </p>
+
+      <div class="demo-panel" style="gap: 120px;">
+        <div class="demo-center">
+          <div class="tooltip-wrap" style="margin-top: 40px;">
+            <div class="tooltip-bubble top">Approve submission</div>
+            <button class="trigger-btn"><span class="material-icons" style="font-size:16px">check_circle</span>Approve</button>
+          </div>
+          <div class="demo-label">Top (default)</div>
+        </div>
+        <div class="demo-center">
+          <div class="tooltip-wrap">
+            <div class="tooltip-bubble right">Required credential</div>
+            <button class="trigger-btn icon-only"><span class="material-icons" style="font-size:18px">info_outline</span></button>
+          </div>
+          <div class="demo-label">Right</div>
+        </div>
+        <div class="demo-center">
+          <div class="tooltip-wrap" style="margin-bottom: 40px;">
+            <div class="tooltip-bubble bottom">Remove from shift</div>
+            <button class="trigger-btn secondary"><span class="material-icons" style="font-size:16px">delete_outline</span>Remove</button>
+          </div>
+          <div class="demo-label">Bottom</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 2. Positions ────────────────────────────────────────────── -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">open_with</span>
+        Positions
+      </h2>
+      <p class="section-description">
+        The tooltip can be placed on any of four sides of its trigger element.
+        Use <code>position="none"</code> to suppress the tooltip entirely (e.g., when the label
+        is already visible or the interaction is not supported in a given context).
+      </p>
+
+      <div class="position-grid">
+        <!-- Row 1: empty, top, empty -->
+        <div class="position-cell"></div>
+        <div class="position-cell" style="flex-direction:column; gap: 8px;">
+          <div class="tooltip-wrap" style="margin-top: 40px;">
+            <div class="tooltip-bubble top">Top tooltip</div>
+            <button class="trigger-btn">Button</button>
+          </div>
+          <div class="demo-label">top</div>
+        </div>
+        <div class="position-cell"></div>
+
+        <!-- Row 2: left, none, right -->
+        <div class="position-cell" style="flex-direction:column; gap:8px;">
+          <div class="tooltip-wrap">
+            <div class="tooltip-bubble left">Left</div>
+            <button class="trigger-btn">Button</button>
+          </div>
+          <div class="demo-label">left</div>
+        </div>
+        <div class="position-cell" style="flex-direction:column; gap:8px;">
+          <button class="trigger-btn secondary">Button</button>
+          <div class="demo-label" style="color: var(--color-text-disabled);">none (no tooltip)</div>
+        </div>
+        <div class="position-cell" style="flex-direction:column; gap:8px;">
+          <div class="tooltip-wrap">
+            <div class="tooltip-bubble right">Right</div>
+            <button class="trigger-btn">Button</button>
+          </div>
+          <div class="demo-label">right</div>
+        </div>
+
+        <!-- Row 3: empty, bottom, empty -->
+        <div class="position-cell"></div>
+        <div class="position-cell" style="flex-direction:column; gap:8px;">
+          <div class="tooltip-wrap" style="margin-bottom: 40px;">
+            <div class="tooltip-bubble bottom">Bottom tooltip</div>
+            <button class="trigger-btn">Button</button>
+          </div>
+          <div class="demo-label">bottom</div>
+        </div>
+        <div class="position-cell"></div>
+      </div>
+    </section>
+
+    <!-- ── 3. Use Cases ────────────────────────────────────────────── -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">lightbulb</span>
+        Common Use Cases
+      </h2>
+      <p class="section-description">
+        Tooltips in TRIO WFS primarily serve three roles: explaining icon-only actions,
+        surfacing truncated text, and providing inline field guidance.
+      </p>
+
+      <div class="demo-panel" style="gap: 40px; flex-direction: column; align-items: flex-start;">
+
+        <!-- Icon buttons row -->
+        <div>
+          <div style="font-size:12px; font-weight:500; color:var(--color-text-secondary); margin-bottom:var(--spacing-sm);">Icon-only action bar</div>
+          <div style="display:flex; gap: var(--spacing-sm);">
+            <div class="tooltip-wrap" style="margin-top:36px;">
+              <div class="tooltip-bubble top">Edit worker</div>
+              <button class="trigger-btn icon-only"><span class="material-icons" style="font-size:18px">edit</span></button>
+            </div>
+            <div class="tooltip-wrap" style="margin-top:36px;">
+              <div class="tooltip-bubble top">View credentials</div>
+              <button class="trigger-btn icon-only"><span class="material-icons" style="font-size:18px">verified_user</span></button>
+            </div>
+            <div class="tooltip-wrap" style="margin-top:36px;">
+              <div class="tooltip-bubble top">Send message</div>
+              <button class="trigger-btn icon-only"><span class="material-icons" style="font-size:18px">mail_outline</span></button>
+            </div>
+            <div class="tooltip-wrap" style="margin-top:36px;">
+              <div class="tooltip-bubble top">Remove from shift</div>
+              <button class="trigger-btn icon-only" style="color: var(--color-error-main);"><span class="material-icons" style="font-size:18px">delete_outline</span></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Info field guidance -->
+        <div>
+          <div style="font-size:12px; font-weight:500; color:var(--color-text-secondary); margin-bottom:var(--spacing-sm);">Field guidance</div>
+          <div style="display:flex; align-items:center; gap: var(--spacing-sm);">
+            <span style="font-size:14px; color:var(--color-text-primary);">Bill Rate</span>
+            <div class="tooltip-wrap">
+              <div class="tooltip-bubble right">Hourly rate charged to facility. Must include agency margin.</div>
+              <span class="material-icons" style="font-size:16px; color:var(--color-text-secondary); cursor:pointer;">help_outline</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── 4. Best Practices ──────────────────────────────────────── -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">thumb_up</span>
+        Best Practices
+      </h2>
+      <div class="bp-grid">
+        <div class="bp-card do">
+          <div class="bp-label">✓ Do</div>
+          <p>Keep tooltip text short — one phrase or sentence. Tooltips are supplemental, not primary documentation.</p>
+        </div>
+        <div class="bp-card dont">
+          <div class="bp-label">✗ Don't</div>
+          <p>Don't put interactive content (links, buttons) inside a tooltip. Tooltips dismiss on mouse leave and aren't accessible for click.</p>
+        </div>
+        <div class="bp-card do">
+          <div class="bp-label">✓ Do</div>
+          <p>Use tooltips on icon-only ButtonIcon components to always provide an accessible text label for screen readers.</p>
+        </div>
+        <div class="bp-card dont">
+          <div class="bp-label">✗ Don't</div>
+          <p>Don't use tooltips to surface critical information that users must see to complete a task. Use inline help text or an Alert instead.</p>
+        </div>
+        <div class="bp-card do">
+          <div class="bp-label">✓ Do</div>
+          <p>Choose the position that keeps the tooltip visible within the viewport — prefer top or bottom for most UI contexts.</p>
+        </div>
+        <div class="bp-card dont">
+          <div class="bp-label">✗ Don't</div>
+          <p>Don't add tooltips to disabled elements — users can't trigger them and the tooltip may mislead. Use inline disabled messaging instead.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 5. Technical Specifications ───────────────────────────── -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">straighten</span>
+        Technical Specifications
+      </h2>
+      <table class="spec-table">
+        <thead>
+          <tr><th>Property</th><th>Value</th><th>Source</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Background</td><td>#000000 — base.black</td><td>Figma node 490:88</td></tr>
+          <tr><td>Text color</td><td>#FFFFFF — base.white</td><td>Figma node 490:88</td></tr>
+          <tr><td>Font size</td><td>14px — fontSize.sm</td><td>Figma node 490:88</td></tr>
+          <tr><td>Font weight</td><td>500 Medium</td><td>Figma node 490:88</td></tr>
+          <tr><td>Padding</td><td>4px 8px (spacing.xs × spacing.sm)</td><td>Figma node 490:88</td></tr>
+          <tr><td>Border radius</td><td>4px — borderRadius.default</td><td>Figma node 490:88</td></tr>
+          <tr><td>Arrow</td><td>5px CSS triangle, matches background color</td><td>Figma node 490:88</td></tr>
+          <tr><td>Offset from trigger</td><td>8px</td><td>MUI Tooltip default</td></tr>
+          <tr><td>Positions</td><td>top | bottom | left | right | none</td><td>Figma variant: position</td></tr>
+          <tr><td>z-index</td><td>1500 — tokens.zIndex.tooltip</td><td>Design token</td></tr>
+          <tr><td>Trigger</td><td>hover (mouse) + focus (keyboard)</td><td>MUI default behavior</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+</body>
+</html>

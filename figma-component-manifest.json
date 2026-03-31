@@ -354,6 +354,13 @@
       "description": ""
     },
     {
+      "name": "stepper",
+      "nodeId": "7352:1162",
+      "type": "component_set",
+      "variants": ["Wizard"],
+      "description": "Wizard/stepper with 6 steps: WorkDetails, API Key, Policies, Instructions, TestWorker, AgentSet"
+    },
+    {
       "name": "Switch",
       "nodeId": "2433:9802",
       "type": "component_set",

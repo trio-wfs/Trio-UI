@@ -1,15 +1,5 @@
-# Figma JSON cache — large files, not needed for the website
+.env
+node_modules/
 figma-specs/
 figma-cache/
-
-# Node artifacts
-output/node_modules/
-node_modules/
-*.lock
-
-# Shell scripts with API keys / internal tooling
-cache-figma-specs*.sh
-cache-from-manifest.sh
-
-# macOS
-.DS_Store
+*.local

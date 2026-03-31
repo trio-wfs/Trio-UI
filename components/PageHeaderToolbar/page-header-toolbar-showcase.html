@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Page Header Toolbar - TRIO WFS Design System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="../../design-system-shell.css">
+  <style>
+    .demo-stack {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-xl);
+    }
+
+    .demo-label {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: var(--spacing-sm);
+    }
+
+    /* ── Toolbar wrapper ── */
+    .pht {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      border-radius: var(--border-radius);
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+    }
+
+    .pht-new-canvas {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      border-radius: var(--border-radius);
+    }
+
+    /* ── Top bar ── */
+    .pht-top {
+      display: flex;
+      align-items: center;
+      min-height: 68px;
+    }
+
+    .pht-top-border {
+      border-bottom: 1px solid var(--color-secondary-outline);
+    }
+
+    /* ── Status indicator ── */
+    .pht-indicator {
+      display: flex;
+      align-self: stretch;
+      align-items: center;
+      justify-content: center;
+      width: 80px;
+      background: var(--color-primary-main);
+      flex-shrink: 0;
+      border-radius: var(--border-radius) 0 0 0;
+    }
+    .pht-indicator span {
+      font-size: 12px;
+      color: #fff;
+      letter-spacing: 0.5px;
+      font-family: var(--font-family);
+    }
+
+    /* ── Content row ── */
+    .pht-content {
+      display: flex;
+      flex: 1;
+      align-items: center;
+      justify-content: flex-end;
+      gap: var(--spacing-md);
+      padding: var(--spacing-md);
+    }
+
+    /* ── Title area ── */
+    .pht-title-area {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      gap: var(--spacing-sm);
+      min-width: 0;
+    }
+
+    .pht-title-row {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+
+    .pht-title {
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--color-text-primary);
+      font-family: var(--font-family);
+      line-height: 24px;
+      white-space: nowrap;
+    }
+
+    .pht-eyebrow {
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      font-family: var(--font-family);
+      line-height: 18px;
+      white-space: nowrap;
+    }
+
+    /* ── Chips row ── */
+    .pht-chips {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--spacing-sm);
+    }
+
+    .chip-sm {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      height: 24px;
+      padding: 0 var(--spacing-sm);
+      border-radius: 999px;
+      background: var(--color-secondary-main);
+      color: var(--color-text-primary);
+      font-size: 12px;
+      font-family: var(--font-family);
+    }
+    .chip-sm .material-icons { font-size: 14px; color: var(--color-text-secondary); cursor: pointer; }
+
+    /* ── Right-side actions ── */
+    .pht-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      flex-shrink: 0;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      height: 36px;
+      padding: 0 var(--spacing-md);
+      border-radius: var(--border-radius);
+      font-size: 12px;
+      font-family: var(--font-family);
+      cursor: pointer;
+      border: none;
+      white-space: nowrap;
+    }
+    .btn-secondary { background: var(--color-secondary-main); color: var(--color-secondary-dark); border: 1px solid var(--color-secondary-outline); }
+    .btn-secondary:hover { background: var(--color-secondary-outline); }
+    .btn-secondary .material-icons { font-size: 16px; }
+
+    /* Split button */
+    .split-btn {
+      display: inline-flex;
+      align-items: center;
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      border: 1px solid var(--color-secondary-outline);
+    }
+    .split-btn-label {
+      height: 36px;
+      padding: 0 var(--spacing-md);
+      background: var(--color-secondary-main);
+      color: var(--color-secondary-dark);
+      font-size: 12px;
+      font-family: var(--font-family);
+      cursor: pointer;
+      border: none;
+      white-space: nowrap;
+    }
+    .split-btn-icon {
+      height: 36px;
+      width: 32px;
+      background: var(--color-secondary-main);
+      color: var(--color-secondary-dark);
+      font-size: 12px;
+      cursor: pointer;
+      border: none;
+      border-left: 1px solid var(--color-secondary-outline);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .split-btn-icon .material-icons { font-size: 16px; }
+
+    /* Inline button group (3-up) — matches ButtonGroup component exactly */
+    .btn-group {
+      display: inline-flex;
+      border-radius: var(--border-radius);
+    }
+    .btn-group-item {
+      height: 38px;
+      padding: 0 var(--spacing-md);
+      background: var(--color-secondary-main);
+      color: var(--color-secondary-dark);
+      font-size: 12px;
+      font-weight: 400;
+      font-family: var(--font-family);
+      cursor: pointer;
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 0;
+      white-space: nowrap;
+      text-transform: none;
+    }
+    .btn-group-item:first-child {
+      border-radius: var(--border-radius) 0 0 var(--border-radius);
+    }
+    .btn-group-item:last-child {
+      border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    }
+    .btn-group-item:not(:first-child) { margin-left: -1px; }
+    .btn-group-item:hover { box-shadow: inset 0 0 0 9999px rgba(0,0,0,0.08); border-color: var(--color-text-secondary); }
+
+    /* ── Breadcrumb strip ── */
+    .pht-breadcrumb {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 40px;
+      padding: 0 var(--spacing-md);
+      background: var(--color-background-secondary, #fafafa);
+      border-radius: 0 0 var(--border-radius) var(--border-radius);
+    }
+
+    .bc-links {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+    }
+
+    .bc-item {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      flex-shrink: 0;
+    }
+
+    .bc-link {
+      font-size: 12px;
+      color: var(--color-primary-main);
+      text-decoration: none;
+      font-family: var(--font-family);
+    }
+
+    .bc-selected {
+      font-size: 12px;
+      color: var(--color-text-primary);
+      font-family: var(--font-family);
+      border-bottom: 2px solid var(--color-primary-main);
+      line-height: 38px;
+    }
+
+    .bc-divider {
+      font-size: 16px;
+      color: var(--color-text-secondary);
+    }
+
+    .bc-right {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-md);
+      flex-shrink: 0;
+    }
+
+    .bc-count {
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      font-family: var(--font-family);
+    }
+
+    .toggle-strip {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--color-primary-main);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+    }
+    .toggle-slot {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      background: transparent;
+      color: var(--color-primary-main);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+    }
+    .toggle-slot:not(:last-child) { border-right: 1px solid var(--color-primary-main); }
+    .toggle-slot .material-icons { font-size: 16px; }
+  </style>
+  <script src="../../design-system-nav.js"></script>
+</head>
+<body>
+  <aside class="sidebar"></aside>
+  <main class="main-content">
+
+    <div class="page-header">
+      <h1 class="page-title">Page Header Toolbar</h1>
+      <p class="page-description">The top-of-page toolbar used across all TRIO WFS list and detail views. Contains the page title, optional chips and eyebrow, right-side actions, and an optional Breadcrumb strip.</p>
+    </div>
+
+    <!-- 1. Overview -->
+    <section class="section">
+      <h2 class="section-title"><span class="material-icons">info</span>Overview</h2>
+      <p class="section-description">The Page Header Toolbar is a white card that anchors every page. The <strong>full</strong> variant includes the complete set of elements — title, chip tags, eyebrow text, action buttons, and a Breadcrumb strip with ToggleButton. The <strong>default</strong> variant strips it back to title + buttons only. <strong>NewCanvas</strong> is identical to full but without the outer card border — used when the toolbar is embedded inside another surface.</p>
+    </section>
+
+    <!-- 2. Variants -->
+    <section class="section">
+      <h2 class="section-title"><span class="material-icons">palette</span>Variants</h2>
+
+      <div class="demo-stack">
+
+        <!-- Full -->
+        <div>
+          <div class="demo-label">Full</div>
+          <div class="pht">
+            <div class="pht-top pht-top-border">
+              <div class="pht-content">
+                <div class="pht-title-area">
+                  <div class="pht-title-row">
+                    <span class="pht-title">Per Diem Shift Scheduler</span>
+                    <div class="pht-chips">
+                      <span class="chip-sm">Lorem Ipsum Tag <span class="material-icons">close</span></span>
+                      <span class="chip-sm">Lorem Tag <span class="material-icons">close</span></span>
+                      <span class="chip-sm">Ipsum Tag <span class="material-icons">close</span></span>
+                      <span class="chip-sm" style="color: var(--color-primary-main);">+8 More</span>
+                    </div>
+                  </div>
+                  <span class="pht-eyebrow">Eyebrow Text Placement (Header Support text)</span>
+                </div>
+                <div class="pht-actions">
+                  <div class="split-btn">
+                    <button class="split-btn-label">Single</button>
+                    <button class="split-btn-icon"><span class="material-icons">arrow_drop_down</span></button>
+                  </div>
+                  <div class="btn-group">
+                    <button class="btn-group-item">Action</button>
+                    <button class="btn-group-item">Action</button>
+                    <button class="btn-group-item">Action</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="pht-breadcrumb">
+              <div class="bc-links">
+                <div class="bc-item"><a class="bc-link" href="#">Parent</a><span class="bc-divider">/</span></div>
+                <div class="bc-item"><a class="bc-link" href="#">Child</a><span class="bc-divider">/</span></div>
+                <div class="bc-item"><span class="bc-selected">Selected Page</span></div>
+              </div>
+              <div class="bc-right">
+                <span class="bc-count">1,284 records</span>
+                <div class="toggle-strip">
+                  <button class="toggle-slot"><span class="material-icons">filter_alt_off</span></button>
+                  <button class="toggle-slot"><span class="material-icons">file_download</span></button>
+                  <button class="toggle-slot"><span class="material-icons">restart_alt</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Default -->
+        <div>
+          <div class="demo-label">Default</div>
+          <div class="pht">
+            <div class="pht-top">
+              <div class="pht-content">
+                <div class="pht-title-area">
+                  <div class="pht-title-row">
+                    <span class="pht-title">Per Diem Shift Scheduler</span>
+                  </div>
+                </div>
+                <div class="pht-actions">
+                  <div class="btn-group">
+                    <button class="btn-group-item">Action</button>
+                    <button class="btn-group-item">Action</button>
+                    <button class="btn-group-item">Action</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- NewCanvas -->
+        <div>
+          <div class="demo-label">NewCanvas (no outer border)</div>
+          <div class="pht-new-canvas" style="background: var(--color-background-paper); border-radius: var(--border-radius); border: 1px solid var(--color-secondary-outline);">
+            <div class="pht-top pht-top-border">
+              <div class="pht-content">
+                <div class="pht-title-area">
+                  <div class="pht-title-row">
+                    <span class="pht-title">Per Diem Shift Scheduler</span>
+                    <div class="pht-chips">
+                      <span class="chip-sm">Lorem Tag <span class="material-icons">close</span></span>
+                      <span class="chip-sm">Ipsum Tag <span class="material-icons">close</span></span>
+                    </div>
+                  </div>
+                  <span class="pht-eyebrow">Eyebrow Text Placement (Header Support text)</span>
+                </div>
+                <div class="pht-actions">
+                  <div class="split-btn">
+                    <button class="split-btn-label">Single</button>
+                    <button class="split-btn-icon"><span class="material-icons">arrow_drop_down</span></button>
+                  </div>
+                  <div class="btn-group">
+                    <button class="btn-group-item">Action</button>
+                    <button class="btn-group-item">Action</button>
+                    <button class="btn-group-item">Action</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="pht-breadcrumb">
+              <div class="bc-links">
+                <div class="bc-item"><a class="bc-link" href="#">Parent</a><span class="bc-divider">/</span></div>
+                <div class="bc-item"><a class="bc-link" href="#">Child</a><span class="bc-divider">/</span></div>
+                <div class="bc-item"><span class="bc-selected">Selected Page</span></div>
+              </div>
+              <div class="bc-right">
+                <span class="bc-count">842 records</span>
+                <div class="toggle-strip">
+                  <button class="toggle-slot"><span class="material-icons">filter_alt_off</span></button>
+                  <button class="toggle-slot"><span class="material-icons">file_download</span></button>
+                  <button class="toggle-slot"><span class="material-icons">restart_alt</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 3. Status Indicator -->
+    <section class="section">
+      <h2 class="section-title"><span class="material-icons">label_important</span>Status Indicator</h2>
+      <p class="section-description">An optional 80px left-side color bar communicates a page-level status (e.g. OPEN, CLOSED, PENDING). Used on detail pages where the entity has a primary status that affects all actions.</p>
+      <div class="pht" style="max-width: 720px;">
+        <div class="pht-top">
+          <div class="pht-indicator"><span>OPEN</span></div>
+          <div class="pht-content">
+            <div class="pht-title-area">
+              <div class="pht-title-row">
+                <span class="pht-title">Shift #20481 — ICU Night</span>
+              </div>
+              <span class="pht-eyebrow">Memorial Hospital · ICU · RN · Nights</span>
+            </div>
+            <div class="pht-actions">
+              <div class="btn-group">
+                <button class="btn-group-item">Edit</button>
+                <button class="btn-group-item">Close</button>
+                <button class="btn-group-item">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Boolean Controls -->
+    <section class="section">
+      <h2 class="section-title"><span class="material-icons">tune</span>Boolean Controls</h2>
+      <p class="section-description">Every section of the toolbar is independently toggleable via props.</p>
+      <div class="demo-stack">
+
+        <!-- Title only -->
+        <div>
+          <div class="demo-label">Title only</div>
+          <div class="pht">
+            <div class="pht-top">
+              <div class="pht-content">
+                <div class="pht-title-area">
+                  <div class="pht-title-row"><span class="pht-title">Page Title</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Title + eyebrow, no chips, no actions -->
+        <div>
+          <div class="demo-label">Title + eyebrow</div>
+          <div class="pht">
+            <div class="pht-top">
+              <div class="pht-content">
+                <div class="pht-title-area">
+                  <div class="pht-title-row"><span class="pht-title">Page Title</span></div>
+                  <span class="pht-eyebrow">Supporting context for this page</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Full without breadcrumb -->
+        <div>
+          <div class="demo-label">Full, breadcrumb hidden</div>
+          <div class="pht">
+            <div class="pht-top">
+              <div class="pht-content">
+                <div class="pht-title-area">
+                  <div class="pht-title-row">
+                    <span class="pht-title">Credentialing Queue</span>
+                    <div class="pht-chips">
+                      <span class="chip-sm">RN <span class="material-icons">close</span></span>
+                      <span class="chip-sm">ICU <span class="material-icons">close</span></span>
+                    </div>
+                  </div>
+                  <span class="pht-eyebrow">Pending review · 24 items</span>
+                </div>
+                <div class="pht-actions">
+                  <div class="btn-group">
+                    <button class="btn-group-item">Approve</button>
+                    <button class="btn-group-item">Reject</button>
+                    <button class="btn-group-item">Export</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 5. Best Practices -->
+    <section class="section">
+      <h2 class="section-title"><span class="material-icons">rule</span>Best Practices</h2>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title" style="color: var(--color-success-main)">Do</div>
+          <div class="card-content">
+            <ul style="padding-left: 16px; margin: 0; font-size: 13px; line-height: 1.6;">
+              <li>Use <strong>full</strong> as the default for list/grid views — breadcrumb + chips provide important context</li>
+              <li>Use <strong>default</strong> for simple utility pages without deep navigation</li>
+              <li>Keep page title to the entity name — avoid verbs (use "Shift Scheduler", not "Manage Shifts")</li>
+              <li>Put the primary action in ButtonGroup, secondary in SingleButton</li>
+              <li>Use indicator only when the entity has a meaningful status affecting the whole page</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title" style="color: var(--color-error-main)">Don't</div>
+          <div class="card-content">
+            <ul style="padding-left: 16px; margin: 0; font-size: 13px; line-height: 1.6;">
+              <li>Don't put more than 4 chips in the title row — truncate with "+N More"</li>
+              <li>Don't use more than one toolbar per page</li>
+              <li>Don't put destructive actions (Delete, Archive) in the toolbar — move to a confirmation modal flow</li>
+              <li>Don't omit eyebrow text on complex pages — it provides orientation for new users</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Technical Specifications -->
+    <section class="section">
+      <h2 class="section-title"><span class="material-icons">straighten</span>Technical Specifications</h2>
+      <table class="property-table">
+        <thead><tr><th>Property</th><th>Value</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td>Min height (top bar)</td><td>68px</td><td>Figma node extracted</td></tr>
+          <tr><td>Padding</td><td>16px</td><td>Figma node extracted</td></tr>
+          <tr><td>Gap (content row)</td><td>16px</td><td>Figma node extracted</td></tr>
+          <tr><td>Title font</td><td>20px / 500 / 24px lh (H6)</td><td>Figma node extracted</td></tr>
+          <tr><td>Eyebrow font</td><td>12px / 400 / text.secondary</td><td>Figma node extracted</td></tr>
+          <tr><td>Status indicator width</td><td>80px</td><td>Figma node extracted</td></tr>
+          <tr><td>Status indicator bg</td><td>primary.main (#2196F3)</td><td>Figma node extracted</td></tr>
+          <tr><td>Status label font</td><td>12px / 400 / white</td><td>Figma node extracted</td></tr>
+          <tr><td>Border</td><td>1px solid border.default (#E0E0E0)</td><td>Figma node extracted</td></tr>
+          <tr><td>Border radius</td><td>4px</td><td>Design token</td></tr>
+          <tr><td>Breadcrumb height</td><td>40px</td><td>Breadcrumb component</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+</body>
+</html>

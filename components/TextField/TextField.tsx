@@ -57,7 +57,7 @@ export const TextField: React.FC<TextFieldProps> = ({
       case 'error':
         return tokens.colors.error.main;  // #DB4537
       case 'focus':
-        return tokens.colors.border.focus;  // #64B5F6
+        return tokens.colors.components.border.focus;  // #64B5F6
       default:
         return tokens.colors.components.input.enabledBorder;  // #9E9E9E
     }
@@ -104,7 +104,7 @@ export const TextField: React.FC<TextFieldProps> = ({
               : tokens.colors.components.input.hoverBorder,
           },
           '&.Mui-focused fieldset': {
-            borderColor: tokens.colors.border.focus,
+            borderColor: tokens.colors.components.border.focus,
             borderWidth: '2px',
           },
           '&.Mui-disabled': {

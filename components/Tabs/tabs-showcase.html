@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tabs - TRIO WFS Design System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="../../design-system-shell.css">
+  <style>
+    /* ── Tabs component ───────────────────────────────────────────── */
+    .tabs-bar {
+      display: flex;
+      align-items: flex-end;
+      border-bottom: 1px solid var(--color-secondary-outline);
+      background: var(--color-background-paper);
+      overflow-x: auto;
+      gap: 0;
+    }
+
+    .tab {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-xs);
+      height: 40px;
+      padding: 0 var(--spacing-md);
+      font-family: var(--font-family);
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      white-space: nowrap;
+      border: none;
+      background: transparent;
+      flex-shrink: 0;
+      transition: color 150ms;
+    }
+    .tab:hover {
+      color: var(--color-text-primary);
+      background: rgba(0,0,0,0.04);
+    }
+    .tab.active {
+      color: var(--color-primary-main);
+      font-weight: 500;
+    }
+    /* Top indicator on active tab */
+    .tab.active::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--color-primary-main);
+      border-radius: 0 0 2px 2px;
+    }
+    .tab.disabled {
+      color: var(--color-text-disabled);
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+    .tab .material-icons {
+      font-size: 18px;
+    }
+
+    /* Scroll variant — add arrow buttons */
+    .tabs-scrollable {
+      display: flex;
+      align-items: flex-end;
+      border-bottom: 1px solid var(--color-secondary-outline);
+      background: var(--color-background-paper);
+    }
+    .tabs-scroll-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 40px;
+      border: none;
+      background: transparent;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .tabs-scroll-btn:hover { background: rgba(0,0,0,0.04); }
+    .tabs-scroll-inner {
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+      flex: 1;
+    }
+
+    /* Demo panel */
+    .demo-panel {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-lg);
+      margin-bottom: var(--spacing-md);
+    }
+    .demo-panel + .demo-label {
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      margin-bottom: var(--spacing-md);
+    }
+
+    /* Tab content placeholder */
+    .tab-content {
+      padding: var(--spacing-md) 0;
+      font-size: 14px;
+      color: var(--color-text-secondary);
+    }
+
+    /* Best practices */
+    .bp-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-md);
+    }
+    .bp-card {
+      border-radius: var(--border-radius);
+      padding: var(--spacing-md);
+      border: 1px solid transparent;
+    }
+    .bp-card.do {
+      background: var(--color-success-light);
+      border-color: var(--color-success-main);
+    }
+    .bp-card.dont {
+      background: var(--color-error-light);
+      border-color: var(--color-error-main);
+    }
+    .bp-label {
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: var(--spacing-sm);
+    }
+    .bp-card.do .bp-label { color: var(--color-success-dark); }
+    .bp-card.dont .bp-label { color: var(--color-error-dark); }
+    .bp-card p { font-size: 13px; color: var(--color-text-primary); line-height: 1.5; }
+  </style>
+  <script src="../../design-system-nav.js"></script>
+</head>
+<body>
+  <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
+  <main class="main-content">
+
+    <div class="page-header">
+      <h1 class="page-title">Tabs</h1>
+      <p class="page-description">Horizontal navigation that switches between related content panels on the same page.</p>
+    </div>
+
+    <!-- ── 1. Overview ─────────────────────────────────────────────── -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">info</span>
+        Overview
+      </h2>
+      <p class="section-description">
+        Tabs organize content into discrete sections. The active tab is visually indicated
+        by a 2px primary-blue bar at the top of the tab, and the label shifts to medium
+        weight blue. Inactive tabs use secondary gray text. Use tabs when users need to
+        switch between a small number of related views without leaving the page.
+      </p>
+      <div class="demo-panel">
+        <div class="tabs-bar" id="overview-tabs">
+          <button class="tab active" onclick="setActive('overview-tabs', this)">Overview</button>
+          <button class="tab" onclick="setActive('overview-tabs', this)">Details</button>
+          <button class="tab" onclick="setActive('overview-tabs', this)">History</button>
+          <button class="tab" onclick="setActive('overview-tabs', this)">Settings</button>
+        </div>
+        <div class="tab-content">Content for the selected tab appears here.</div>
+      </div>
+    </section>
+
+    <!-- ── 2. Variants ─────────────────────────────────────────────── -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">view_week</span>
+        Variants
+      </h2>
+      <p class="section-description">
+        Four scroll variants control whether arrow buttons appear when tabs overflow the container.
+      </p>
+
+      <!-- Tab Group -->
+      <div class="prop-row">
+        <div class="prop-label">Tab Group <span class="badge badge-default">Default</span></div>
+        <div class="prop-value">No scroll arrows. All tabs visible. Use when tab count fits the container.</div>
+      </div>
+      <div class="demo-panel">
+        <div class="tabs-bar" id="v-group">
+          <button class="tab active" onclick="setActive('v-group', this)">Submissions</button>
+          <button class="tab" onclick="setActive('v-group', this)">Credentials</button>
+          <button class="tab" onclick="setActive('v-group', this)">Timecards</button>
+          <button class="tab" onclick="setActive('v-group', this)">Notes</button>
+        </div>
+      </div>
+
+      <!-- Left Scroll -->
+      <div class="prop-row">
+        <div class="prop-label">Left Scroll</div>
+        <div class="prop-value">Left arrow only — for end-of-list navigation.</div>
+      </div>
+      <div class="demo-panel">
+        <div class="tabs-scrollable">
+          <button class="tabs-scroll-btn"><span class="material-icons" style="font-size:18px">chevron_left</span></button>
+          <div class="tabs-scroll-inner" id="v-left">
+            <button class="tab active" onclick="setActive('v-left', this)">Submissions</button>
+            <button class="tab" onclick="setActive('v-left', this)">Credentials</button>
+            <button class="tab" onclick="setActive('v-left', this)">Timecards</button>
+            <button class="tab" onclick="setActive('v-left', this)">Notes</button>
+            <button class="tab" onclick="setActive('v-left', this)">Shifts</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Scroll -->
+      <div class="prop-row">
+        <div class="prop-label">Right Scroll</div>
+        <div class="prop-value">Right arrow only — for beginning-of-list navigation.</div>
+      </div>
+      <div class="demo-panel">
+        <div class="tabs-scrollable">
+          <div class="tabs-scroll-inner" id="v-right">
+            <button class="tab active" onclick="setActive('v-right', this)">Submissions</button>
+            <button class="tab" onclick="setActive('v-right', this)">Credentials</button>
+            <button class="tab" onclick="setActive('v-right', this)">Timecards</button>
+            <button class="tab" onclick="setActive('v-right', this)">Notes</button>
+            <button class="tab" onclick="setActive('v-right', this)">Shifts</button>
+          </div>
+          <button class="tabs-scroll-btn"><span class="material-icons" style="font-size:18px">chevron_right</span></button>
+        </div>
+      </div>
+
+      <!-- Left and Right Scroll -->
+      <div class="prop-row">
+        <div class="prop-label">Left and Right Scroll</div>
+        <div class="prop-value">Both arrows — use when many tabs may overflow the container.</div>
+      </div>
+      <div class="demo-panel">
+        <div class="tabs-scrollable">
+          <button class="tabs-scroll-btn"><span class="material-icons" style="font-size:18px">chevron_left</span></button>
+          <div class="tabs-scroll-inner" id="v-both">
+            <button class="tab active" onclick="setActive('v-both', this)">Submissions</button>
+            <button class="tab" onclick="setActive('v-both', this)">Credentials</button>
+            <button class="tab" onclick="setActive('v-both', this)">Timecards</button>
+            <button class="tab" onclick="setActive('v-both', this)">Notes</button>
+            <button class="tab" onclick="setActive('v-both', this)">Shifts</button>
+            <button class="tab" onclick="setActive('v-both', this)">Documents</button>
+          </div>
+          <button class="tabs-scroll-btn"><span class="material-icons" style="font-size:18px">chevron_right</span></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 3. States ───────────────────────────────────────────────── -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">toggle_on</span>
+        States
+      </h2>
+      <p class="section-description">Each tab can be in one of three states.</p>
+
+      <div class="demo-panel">
+        <div class="tabs-bar">
+          <button class="tab active">Active</button>
+          <button class="tab">Inactive</button>
+          <button class="tab disabled">Disabled</button>
+        </div>
+      </div>
+
+      <div class="prop-table">
+        <div class="prop-row">
+          <div class="prop-label">Active</div>
+          <div class="prop-value">Primary blue label, medium weight, 2px blue indicator at top.</div>
+        </div>
+        <div class="prop-row">
+          <div class="prop-label">Inactive</div>
+          <div class="prop-value">Secondary gray label (#757575), regular weight, no indicator.</div>
+        </div>
+        <div class="prop-row">
+          <div class="prop-label">Hover</div>
+          <div class="prop-value">Background shifts to action-hover (rgba 0,0,0,0.04), label darkens slightly.</div>
+        </div>
+        <div class="prop-row">
+          <div class="prop-label">Disabled</div>
+          <div class="prop-value">Disabled gray label (#9E9E9E), not interactive, cursor not-allowed.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 4. With Icons ───────────────────────────────────────────── -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">add_photo_alternate</span>
+        With Icons
+      </h2>
+      <p class="section-description">
+        Individual tabs support an optional left icon, right icon, or both.
+        Icons scale with the tab height — 18px by default.
+      </p>
+      <div class="demo-panel">
+        <div class="tabs-bar" id="icon-tabs">
+          <button class="tab active" onclick="setActive('icon-tabs', this)">
+            <span class="material-icons">person</span>Profile
+          </button>
+          <button class="tab" onclick="setActive('icon-tabs', this)">
+            <span class="material-icons">assignment</span>Orders
+          </button>
+          <button class="tab" onclick="setActive('icon-tabs', this)">
+            Documents<span class="material-icons">attach_file</span>
+          </button>
+          <button class="tab" onclick="setActive('icon-tabs', this)">
+            <span class="material-icons">schedule</span>Schedule<span class="material-icons" style="font-size:14px;margin-left:2px;color:var(--color-warning-main)">circle</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 5. Best Practices ──────────────────────────────────────── -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">thumb_up</span>
+        Best Practices
+      </h2>
+      <div class="bp-grid">
+        <div class="bp-card do">
+          <div class="bp-label">✓ Do</div>
+          <p>Use tabs for parallel content sections where only one is visible at a time — worker profile sections, order detail views.</p>
+        </div>
+        <div class="bp-card dont">
+          <div class="bp-label">✗ Don't</div>
+          <p>Don't use tabs for sequential workflows (use a stepper) or for content that must all be seen together.</p>
+        </div>
+        <div class="bp-card do">
+          <div class="bp-label">✓ Do</div>
+          <p>Keep tab labels short (1–2 words). Use title case. The active state makes the selection clear without needing long labels.</p>
+        </div>
+        <div class="bp-card dont">
+          <div class="bp-label">✗ Don't</div>
+          <p>Don't exceed 8 tabs. Beyond 8, consider a secondary navigation or grouping. Cognitive load increases significantly.</p>
+        </div>
+        <div class="bp-card do">
+          <div class="bp-label">✓ Do</div>
+          <p>Use scroll variants when the number of tabs is variable or context-dependent (e.g., user-configured views).</p>
+        </div>
+        <div class="bp-card dont">
+          <div class="bp-label">✗ Don't</div>
+          <p>Don't put tabs inside modals unless absolutely necessary. Modals have limited height — tabs can make content harder to scan.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 6. Technical Specifications ───────────────────────────── -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">straighten</span>
+        Technical Specifications
+      </h2>
+      <table class="spec-table">
+        <thead>
+          <tr><th>Property</th><th>Value</th><th>Source</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Tab height</td><td>40px</td><td>Figma node 3868:51864</td></tr>
+          <tr><td>Active indicator</td><td>2px top border, primary.main (#2196F3)</td><td>Figma node 3868:51827</td></tr>
+          <tr><td>Tab font</td><td>14px / Regular (400) — body2</td><td>Figma typography token</td></tr>
+          <tr><td>Active tab font</td><td>14px / Medium (500), color: primary.main</td><td>Figma node 3868:51827</td></tr>
+          <tr><td>Inactive tab color</td><td>#757575 — text.secondary</td><td>Figma node 3868:51827</td></tr>
+          <tr><td>Disabled tab color</td><td>#9E9E9E — text.disabled</td><td>Figma node 3868:51827</td></tr>
+          <tr><td>Tab padding</td><td>0 16px (horizontal)</td><td>Extracted from Figma</td></tr>
+          <tr><td>Bottom border</td><td>1px solid #E0E0E0 — components.divider</td><td>Figma node 3868:51864</td></tr>
+          <tr><td>Scroll button width</td><td>32px</td><td>MUI standard</td></tr>
+          <tr><td>Max tabs (Figma)</td><td>8 (tab1–tab8 booleans)</td><td>Figma component variants</td></tr>
+          <tr><td>Icon size</td><td>18px</td><td>Extracted from Figma</td></tr>
+          <tr><td>Icon–label gap</td><td>4px (spacing.xs)</td><td>Figma node 3868:51827</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+
+  <script>
+    function setActive(groupId, clickedTab) {
+      const container = document.getElementById(groupId);
+      if (!container) return;
+      container.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      clickedTab.classList.add('active');
+    }
+  </script>
+</body>
+</html>

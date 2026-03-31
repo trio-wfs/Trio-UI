@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Alert - TRIO WFS Design System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+  <link rel="stylesheet" href="../../design-system-shell.css">
+  <style>
+    .alert-demo {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-md);
+      max-width: 640px;
+    }
+
+    /* Base alert */
+    .alert {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--spacing-md);
+      padding: var(--spacing-md);
+      border-radius: var(--border-radius);
+      font-family: var(--font-family);
+      position: relative;
+    }
+
+    .alert-icon {
+      font-size: 24px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .alert-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .alert-title {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 24px;
+      margin: 0;
+    }
+
+    .alert-description {
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 18px;
+    }
+
+    .alert-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-xs);
+      flex-shrink: 0;
+    }
+
+    .alert-action-btn {
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 18px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0 var(--spacing-sm);
+      font-family: var(--font-family);
+      color: inherit;
+    }
+
+    .alert-close {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: inherit;
+      display: flex;
+      align-items: center;
+      padding: 4px;
+      border-radius: 50%;
+    }
+
+    .alert-close .material-icons { font-size: 16px; }
+
+    /* Standard variant */
+    .alert-standard-default   { background: var(--color-primary-light);  color: var(--color-primary-dark); }
+    .alert-standard-error     { background: var(--color-error-light);    color: var(--color-error-dark); }
+    .alert-standard-warning   { background: var(--color-warning-light);  color: var(--color-warning-dark); }
+    .alert-standard-success   { background: var(--color-success-light);  color: var(--color-success-dark); }
+
+    /* Contained variant */
+    .alert-contained-default  { background: var(--color-primary-main);   color: #fff; }
+    .alert-contained-error    { background: var(--color-error-main);     color: #fff; }
+    .alert-contained-warning  { background: var(--color-warning-main);   color: #fff; }
+    .alert-contained-success  { background: var(--color-success-main);   color: #fff; }
+
+    /* Outline variant */
+    .alert-outline-default  { background: transparent; color: var(--color-primary-main);  border: 1px solid var(--color-primary-main); }
+    .alert-outline-error    { background: transparent; color: var(--color-error-dark);    border: 1px solid var(--color-error-main); }
+    .alert-outline-warning  { background: transparent; color: var(--color-warning-dark);  border: 1px solid var(--color-warning-main); }
+    .alert-outline-success  { background: transparent; color: var(--color-success-dark);  border: 1px solid var(--color-success-main); }
+
+    .variant-group { margin-bottom: var(--spacing-xl); }
+    .variant-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: var(--spacing-sm);
+    }
+  </style>
+  <script src="../../design-system-nav.js"></script>
+</head>
+<body>
+  <aside class="sidebar"></aside>
+  <main class="main-content">
+
+    <div class="page-header">
+      <h1 class="page-title">Alert</h1>
+      <p class="page-description">Alerts communicate important messages to users — informational, success, warning, or error — with optional actions and dismiss controls.</p>
+    </div>
+
+    <!-- 1. Overview -->
+    <section class="section">
+      <h2 class="section-title"><span class="material-icons">info</span>Overview</h2>
+      <p class="section-description">Use alerts to surface system messages, validation results, or status updates. Always pair with a clear title and concise description. In clinical workflows, alert severity directly communicates patient safety risk — use error and warning sparingly and intentionally.</p>
+    </section>
+
+    <!-- 2. Variants -->
+    <section class="section">
+      <h2 class="section-title"><span class="material-icons">palette</span>Variants</h2>
+      <p class="section-description">Three visual styles — standard (tinted background), contained (filled), and outline (bordered).</p>
+
+      <div class="variant-group">
+        <div class="variant-label">Standard</div>
+        <div class="alert-demo">
+          <div class="alert alert-standard-default">
+            <span class="material-icons-outlined alert-icon">info</span>
+            <div class="alert-body"><div class="alert-title">Title</div><div class="alert-description">Description text providing additional context about this alert.</div></div>
+            <div class="alert-actions"><button class="alert-action-btn">Action Label</button><button class="alert-close"><span class="material-icons">close</span></button></div>
+          </div>
+          <div class="alert alert-standard-error">
+            <span class="material-icons-outlined alert-icon">error_outline</span>
+            <div class="alert-body"><div class="alert-title">Title</div><div class="alert-description">Description text providing additional context about this alert.</div></div>
+            <div class="alert-actions"><button class="alert-action-btn">Action Label</button><button class="alert-close"><span class="material-icons">close</span></button></div>
+          </div>
+          <div class="alert alert-standard-warning">
+            <span class="material-icons-outlined alert-icon">warning_amber</span>
+            <div class="alert-body"><div class="alert-title">Title</div><div class="alert-description">Description text providing additional context about this alert.</div></div>
+            <div class="alert-actions"><button class="alert-action-btn">Action Label</button><button class="alert-close"><span class="material-icons">close</span></button></div>
+          </div>
+          <div class="alert alert-standard-success">
+            <span class="material-icons-outlined alert-icon">check_circle_outline</span>
+            <div class="alert-body"><div class="alert-title">Title</div><div class="alert-description">Description text providing additional context about this alert.</div></div>
+            <div class="alert-actions"><button class="alert-action-btn">Action Label</button><button class="alert-close"><span class="material-icons">close</span></button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Contained</div>
+        <div class="alert-demo">
+          <div class="alert alert-contained-default">
+            <span class="material-icons-outlined alert-icon">info</span>
+            <div class="alert-body"><div class="alert-title">Title</div><div class="alert-description">Description text providing additional context.</div></div>
+            <div class="alert-actions"><button class="alert-action-btn">Action Label</button><button class="alert-close"><span class="material-icons">close</span></button></div>
+          </div>
+          <div class="alert alert-contained-error">
+            <span class="material-icons-outlined alert-icon">error_outline</span>
+            <div class="alert-body"><div class="alert-title">Title</div><div class="alert-description">Description text providing additional context.</div></div>
+            <div class="alert-actions"><button class="alert-action-btn">Action Label</button><button class="alert-close"><span class="material-icons">close</span></button></div>
+          </div>
+          <div class="alert alert-contained-warning">
+            <span class="material-icons-outlined alert-icon">warning_amber</span>
+            <div class="alert-body"><div class="alert-title">Title</div><div class="alert-description">Description text providing additional context.</div></div>
+            <div class="alert-actions"><button class="alert-action-btn">Action Label</button><button class="alert-close"><span class="material-icons">close</span></button></div>
+          </div>
+          <div class="alert alert-contained-success">
+            <span class="material-icons-outlined alert-icon">check_circle_outline</span>
+            <div class="alert-body"><div class="alert-title">Title</div><div class="alert-description">Description text providing additional context.</div></div>
+            <div class="alert-actions"><button class="alert-action-btn">Action Label</button><button class="alert-close"><span class="material-icons">close</span></button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Outline</div>
+        <div class="alert-demo">
+          <div class="alert alert-outline-default">
+            <span class="material-icons-outlined alert-icon">info</span>
+            <div class="alert-body"><div class="alert-title">Title</div><div class="alert-description">Description text providing additional context.</div></div>
+            <div class="alert-actions"><button class="alert-action-btn">Action Label</button><button class="alert-close"><span class="material-icons">close</span></button></div>
+          </div>
+          <div class="alert alert-outline-error">
+            <span class="material-icons-outlined alert-icon">error_outline</span>
+            <div class="alert-body"><div class="alert-title">Title</div><div class="alert-description">Description text providing additional context.</div></div>
+            <div class="alert-actions"><button class="alert-action-btn">Action Label</button><button class="alert-close"><span class="material-icons">close</span></button></div>
+          </div>
+          <div class="alert alert-outline-warning">
+            <span class="material-icons-outlined alert-icon">warning_amber</span>
+            <div class="alert-body"><div class="alert-title">Title</div><div class="alert-description">Description text providing additional context.</div></div>
+            <div class="alert-actions"><button class="alert-action-btn">Action Label</button><button class="alert-close"><span class="material-icons">close</span></button></div>
+          </div>
+          <div class="alert alert-outline-success">
+            <span class="material-icons-outlined alert-icon">check_circle_outline</span>
+            <div class="alert-body"><div class="alert-title">Title</div><div class="alert-description">Description text providing additional context.</div></div>
+            <div class="alert-actions"><button class="alert-action-btn">Action Label</button><button class="alert-close"><span class="material-icons">close</span></button></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. States -->
+    <section class="section">
+      <h2 class="section-title"><span class="material-icons">toggle_on</span>Boolean Controls</h2>
+      <p class="section-description">Each part of the alert is independently toggleable via props.</p>
+      <div class="alert-demo">
+        <div class="alert alert-standard-default">
+          <span class="material-icons-outlined alert-icon">info</span>
+          <div class="alert-body"><div class="alert-title">Title only</div></div>
+        </div>
+        <div class="alert alert-standard-default">
+          <span class="material-icons-outlined alert-icon">info</span>
+          <div class="alert-body"><div class="alert-description">Description only, no title.</div></div>
+        </div>
+        <div class="alert alert-standard-default">
+          <span class="material-icons-outlined alert-icon">info</span>
+          <div class="alert-body"><div class="alert-title">Title</div><div class="alert-description">With close only.</div></div>
+          <div class="alert-actions"><button class="alert-close"><span class="material-icons">close</span></button></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Best Practices -->
+    <section class="section">
+      <h2 class="section-title"><span class="material-icons">rule</span>Best Practices</h2>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title" style="color: var(--color-success-main)">Do</div>
+          <div class="card-content">
+            <ul style="padding-left: 16px; margin: 0; font-size: 13px; line-height: 1.6;">
+              <li>Use <strong>error</strong> only for blocking issues that require immediate action</li>
+              <li>Keep titles short — 4 words or fewer</li>
+              <li>Pair every alert with a clear action or dismiss path</li>
+              <li>Use <strong>standard</strong> variant as the default — it's the least visually disruptive</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title" style="color: var(--color-error-main)">Don't</div>
+          <div class="card-content">
+            <ul style="padding-left: 16px; margin: 0; font-size: 13px; line-height: 1.6;">
+              <li>Don't use <strong>contained</strong> for low-priority messages — it demands full attention</li>
+              <li>Don't stack multiple alerts of the same severity</li>
+              <li>Don't use alerts for empty states or loading states</li>
+              <li>Don't rely on color alone — always include an icon and text</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Color Semantics -->
+    <section class="section">
+      <h2 class="section-title"><span class="material-icons">color_lens</span>Color Semantics</h2>
+      <div class="grid-2">
+        <div class="card"><div class="card-title">Default (Blue)</div><div class="card-content">Informational messages. No action required. Use for system status, tips, or guidance.</div></div>
+        <div class="card"><div class="card-title">Error (Red)</div><div class="card-content">Something failed or is blocked. Requires user action before proceeding. Use sparingly.</div></div>
+        <div class="card"><div class="card-title">Warning (Orange)</div><div class="card-content">Potential issue — non-blocking. User should be aware but can proceed. Use for expiring credentials, approaching limits.</div></div>
+        <div class="card"><div class="card-title">Success (Green)</div><div class="card-content">Positive confirmation. Action completed successfully. Auto-dismiss after 3–5 seconds when possible.</div></div>
+      </div>
+    </section>
+
+    <!-- 6. Technical Specifications -->
+    <section class="section">
+      <h2 class="section-title"><span class="material-icons">straighten</span>Technical Specifications</h2>
+      <table class="property-table">
+        <thead><tr><th>Property</th><th>Value</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td>Padding</td><td>16px</td><td>Figma node extracted</td></tr>
+          <tr><td>Border radius</td><td>4px</td><td>Figma node extracted</td></tr>
+          <tr><td>Leading icon size</td><td>24px</td><td>Figma node extracted</td></tr>
+          <tr><td>Close icon size</td><td>16px</td><td>Figma node extracted</td></tr>
+          <tr><td>Title font</td><td>14px / 500 / 24px lh</td><td>Figma node extracted</td></tr>
+          <tr><td>Description font</td><td>12px / 400 / 18px lh</td><td>Figma node extracted</td></tr>
+          <tr><td>Action label font</td><td>12px / 400 / 18px lh</td><td>Figma node extracted</td></tr>
+          <tr><td>MUI base</td><td>@mui/material/Alert</td><td>Implementation</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+</body>
+</html>

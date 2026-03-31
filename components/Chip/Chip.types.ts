@@ -89,7 +89,7 @@ export const defaultChipProps: Partial<ChipProps> = {
   color: 'default',
   variant: 'contained',
   disabled: false,
-  iconLeft: true,
-  iconRight: true,
+  iconLeft: false,
+  iconRight: false,
   label: 'Label',
 };

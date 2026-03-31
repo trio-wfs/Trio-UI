@@ -438,7 +438,7 @@ const styles = {
     gap: 8,
     boxSizing: 'border-box' as const,
     overflow: 'hidden',
-    fontFamily: "'Roboto', sans-serif",
+    fontFamily: "Roboto, sans-serif",
   },
 
   // Label row — 24px height, flex row

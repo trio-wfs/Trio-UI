@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modal - TRIO WFS Design System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="../../design-system-shell.css">
+  <style>
+    .demo-row {
+      display: flex;
+      gap: var(--spacing-md);
+      flex-wrap: wrap;
+      padding: var(--spacing-lg);
+      background: var(--color-background-default);
+      border-radius: var(--border-radius);
+      margin-bottom: var(--spacing-md);
+    }
+
+    .size-note {
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      margin-top: var(--spacing-xs);
+    }
+
+    /* Modal overlay */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 280px; /* offset past the fixed sidebar */
+      width: calc(100% - 280px);
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-container {
+      background: var(--color-background-paper);
+      border-radius: var(--border-radius);
+      box-shadow: 0 5px 40px rgba(0, 0, 0, 0.16);
+      max-height: 90vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      animation: slideUp 300ms ease-out;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .modal-header {
+      padding: 16px 40px;
+      background: var(--color-primary-main);
+      border-radius: var(--border-radius) var(--border-radius) 0 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header-text { display: flex; flex-direction: column; gap: 2px; }
+
+    .modal-header h2 {
+      font-size: 20px;
+      font-weight: 500;
+      color: #fff;
+      margin: 0;
+    }
+
+    .modal-header-eyebrow {
+      font-size: 14px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+      border-radius: var(--border-radius);
+    }
+
+    .modal-close:hover { background: rgba(255,255,255,0.12); }
+
+    .modal-body {
+      padding: 40px;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .modal-footer {
+      padding: 16px 40px;
+      min-height: 68px;
+      border-top: 1px solid var(--color-secondary-outline);
+      display: flex;
+      gap: var(--spacing-lg);
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .modal-sm { width: 500px; }
+    .modal-lg { width: 900px; }
+
+    /* ── Spacing diagram styles (mirrored from design-tokens-spacing.html) ── */
+    .ld-frame {
+      border: 1px solid #E0E0E0;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      margin-bottom: var(--spacing-xl);
+      background: #fff;
+    }
+    .ld-browser-bar {
+      background: #F5F5F5;
+      border-bottom: 1px solid #E0E0E0;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .ld-dots { display: flex; gap: 5px; }
+    .ld-dot  { width: 10px; height: 10px; border-radius: 50%; background: #E0E0E0; }
+    .ld-dot:nth-child(1) { background: #FF5F56; }
+    .ld-dot:nth-child(2) { background: #FFBD2E; }
+    .ld-dot:nth-child(3) { background: #27C93F; }
+    .ld-url-bar {
+      flex: 1;
+      max-width: 280px;
+      background: #fff;
+      border: 1px solid #E0E0E0;
+      border-radius: 10px;
+      padding: 3px 12px;
+      font-size: 11px;
+      color: #9E9E9E;
+    }
+    .ld-modal-scene {
+      background: rgba(33,150,243,0.04);
+      border: 1px solid #E0E0E0;
+      border-radius: 4px;
+      padding: var(--spacing-lg);
+      display: flex;
+      gap: var(--spacing-xl);
+      margin-bottom: var(--spacing-lg);
+      flex-wrap: wrap;
+    }
+    .ld-modal-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--spacing-sm);
+    }
+    .ld-modal-size-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+    }
+    .ld-modal-box {
+      background: #fff;
+      border: 1px solid #E0E0E0;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .ld-modal-box--lg { width: 360px; }
+    .ld-modal-box--sm { width: 220px; }
+    .ld-modal-titlebar {
+      background: #FAFAFA;
+      border-bottom: 1px solid #E0E0E0;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      font-weight: 500;
+      color: #424242;
+    }
+    .ld-modal-x {
+      width: 14px; height: 14px;
+      background: #E0E0E0;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 9px; color: #9E9E9E;
+    }
+    .ld-modal-content {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      position: relative;
+    }
+    .ld-modal-field-mock {
+      background: #F5F5F5;
+      border: 1px solid #E0E0E0;
+      border-radius: 3px;
+      height: 24px;
+    }
+    .ld-modal-fields-row {
+      display: flex;
+      gap: 8px;
+    }
+    .ld-modal-fields-row .ld-modal-field-mock { flex: 1; }
+    .ld-modal-text-mock {
+      background: #F5F5F5;
+      border: 1px solid #E0E0E0;
+      border-radius: 3px;
+      height: 48px;
+    }
+    .ld-modal-footer {
+      background: #FAFAFA;
+      border-top: 1px solid #E0E0E0;
+      padding: 8px 12px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 6px;
+    }
+    .ld-modal-btn {
+      height: 24px;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      font-size: 10px;
+      font-weight: 500;
+      padding: 0 10px;
+    }
+    .ld-modal-btn--ghost  { background: #F5F5F5; color: #757575; border: 1px solid #E0E0E0; }
+    .ld-modal-btn--primary { background: #2196F3; color: #fff; }
+    .ld-modal-padding-note {
+      position: absolute;
+      font-size: 9px;
+      font-weight: 600;
+      background: #FCF1E0;
+      color: #E17109;
+      border: 1px solid #E17109;
+      border-radius: 3px;
+      padding: 1px 4px;
+    }
+    .ld-modal-padding-note.top    { top: 4px; left: 50%; transform: translateX(-50%); }
+    .ld-modal-padding-note.left   { top: 50%; left: 4px; transform: translateY(-50%); }
+    .ld-modal-padding-note.right  { top: 50%; right: 4px; transform: translateY(-50%); }
+    .ld-modal-padding-note.bottom { bottom: 4px; left: 50%; transform: translateX(-50%); }
+    .ld-annotation-row {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      flex-wrap: wrap;
+      margin-top: var(--spacing-sm);
+    }
+    .ld-annotation-badge {
+      background: #FCF1E0;
+      border: 1px solid #E17109;
+      border-radius: 3px;
+      padding: 2px 6px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #E17109;
+    }
+    .ld-block {
+      border-radius: 3px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 5px 8px;
+      font-size: 10px;
+      font-weight: 500;
+      overflow: hidden;
+      position: relative;
+    }
+    .ld-span-pill {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(0,0,0,0.12);
+      border-radius: 8px;
+      padding: 1px 5px;
+      font-size: 9px;
+      font-weight: 600;
+      align-self: flex-start;
+    }
+    .ld-c12 { flex: 12; } .ld-c8 { flex: 8; } .ld-c6 { flex: 6; } .ld-c4 { flex: 4; }
+    .ld-theme-breadcrumb { background:#E8EAF6; color:#3949AB; border:1px dashed #9FA8DA; height:22px; justify-content:center; flex-direction:row; align-items:center; gap:6px; }
+    .ld-theme-main     { background:#E8F5E9; color:#1B5E20; border:1px solid #A5D6A7; }
+    .ld-theme-side     { background:#FFF8E1; color:#E65100; border:1px solid #FFE082; }
+    .ld-theme-full     { background:#F3E5F5; color:#4A148C; border:1px solid #CE93D8; }
+    .ld-theme-equal    { background:#FCE4EC; color:#880E4F; border:1px solid #F48FB1; }
+
+    /* Inline preview wrapper — shows modal card in-page without overlay */
+    .modal-preview {
+      background: var(--color-background-default);
+      padding: var(--spacing-xl);
+      border-radius: var(--border-radius);
+      margin-bottom: var(--spacing-md);
+      display: flex;
+      align-items: flex-start;
+      overflow-x: auto;
+    }
+
+    /* Inline form styles for demo content */
+    .form-group { margin-bottom: var(--spacing-md); }
+    .form-group:last-child { margin-bottom: 0; }
+
+    .form-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--color-text-primary);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: var(--border-radius);
+      font-size: 14px;
+      font-family: var(--font-family);
+      transition: border-color 200ms;
+      box-sizing: border-box;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--color-primary-main);
+      box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.1);
+    }
+
+    /* Reuse shell btn styles */
+    .btn {
+      padding: 8px 22px;
+      border-radius: var(--border-radius);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      font-family: var(--font-family);
+      transition: background 200ms;
+    }
+    .btn-primary { background: var(--color-primary-main); color: #fff; }
+    .btn-primary:hover { background: var(--color-primary-dark); }
+    .btn-secondary { background: transparent; color: var(--color-primary-main); border: none; }
+    .btn-secondary:hover { background: var(--color-primary-light); }
+  </style>
+  <script src="../../design-system-nav.js"></script>
+</head>
+<body>
+  <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
+
+  <main class="main-content">
+    <div class="page-header">
+      <h1 class="page-title">Modal</h1>
+      <p class="page-description">Two fixed sizes for dialogs, confirmations, and forms. Overlay blocks background interaction with 50% black scrim.</p>
+    </div>
+
+    <!-- Small Modal -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">crop_portrait</span>
+        Small Modal — 500px
+      </h2>
+      <p class="section-description">Use for confirmations, alerts, simple forms, and single-step actions.</p>
+      <div class="modal-preview">
+        <div class="modal-container modal-sm">
+          <div class="modal-header">
+            <div class="modal-header-text"><h2>Sign In</h2></div>
+            <button class="modal-close" disabled style="cursor:default">
+              <span class="material-icons">close</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label class="form-label">Email Address</label>
+              <input type="email" class="form-input" placeholder="name@company.com">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Password</label>
+              <input type="password" class="form-input" placeholder="••••••••">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary">Cancel</button>
+            <button class="btn btn-primary">Sign In</button>
+          </div>
+        </div>
+      </div>
+      <div class="demo-row">
+        <button class="btn btn-primary" onclick="openModal('modal-sm')">Open Interactive</button>
+      </div>
+      <div class="prop-table">
+        <div class="prop-row"><span class="prop-name">Width</span><span class="prop-value">500px</span></div>
+        <div class="prop-row"><span class="prop-name">Header padding</span><span class="prop-value">16px top/bottom · 40px left/right</span></div>
+        <div class="prop-row"><span class="prop-name">Body padding</span><span class="prop-value">40px all sides</span></div>
+        <div class="prop-row"><span class="prop-name">Footer padding</span><span class="prop-value">16px top/bottom · 40px left/right</span></div>
+      </div>
+    </section>
+
+    <!-- Large Modal -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">crop_landscape</span>
+        Large Modal — 900px
+      </h2>
+      <p class="section-description">Use for multi-field forms, data entry, complex workflows, and feature-level dialogs.</p>
+      <div class="modal-preview">
+        <div class="modal-container modal-lg">
+          <div class="modal-header">
+            <div class="modal-header-text">
+              <h2>Create New User</h2>
+              <span class="modal-header-eyebrow">Workforce Management · User Administration</span>
+            </div>
+            <button class="modal-close" disabled style="cursor:default">
+              <span class="material-icons">close</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label class="form-label">Full Name</label>
+              <input type="text" class="form-input" placeholder="John Doe">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email Address</label>
+              <input type="email" class="form-input" placeholder="john@company.com">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Password</label>
+              <input type="password" class="form-input" placeholder="••••••••">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Confirm Password</label>
+              <input type="password" class="form-input" placeholder="••••••••">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary">Cancel</button>
+            <button class="btn btn-primary">Create User</button>
+          </div>
+        </div>
+      </div>
+      <div class="demo-row">
+        <button class="btn btn-primary" onclick="openModal('modal-lg')">Open Interactive</button>
+      </div>
+      <div class="prop-table">
+        <div class="prop-row"><span class="prop-name">Width</span><span class="prop-value">900px</span></div>
+        <div class="prop-row"><span class="prop-name">Header padding</span><span class="prop-value">16px top/bottom · 40px left/right</span></div>
+        <div class="prop-row"><span class="prop-name">Body padding</span><span class="prop-value">40px all sides</span></div>
+        <div class="prop-row"><span class="prop-name">Footer padding</span><span class="prop-value">16px top/bottom · 40px left/right</span></div>
+      </div>
+    </section>
+
+    <!-- Spacing Guidelines -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">straighten</span>
+        Spacing Guidelines
+      </h2>
+      <p class="section-description">
+        Both sizes use 40px internal padding on all sides with a 16px gutter between content columns. The 12-column grid inside a modal scales to the modal's content width.
+      </p>
+
+      <!-- Token badges -->
+      <div style="display:flex; gap:12px; flex-wrap:wrap; margin-bottom:var(--spacing-xl);">
+        <div style="background:var(--color-background-default);border:1px solid var(--color-secondary-outline);border-radius:4px;padding:10px 16px;font-size:13px;">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin-bottom:3px;">Large Modal</div>
+          <div style="font-weight:500;color:var(--color-primary-main);">900px</div>
+        </div>
+        <div style="background:var(--color-background-default);border:1px solid var(--color-secondary-outline);border-radius:4px;padding:10px 16px;font-size:13px;">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin-bottom:3px;">Small Modal</div>
+          <div style="font-weight:500;color:var(--color-primary-main);">500px</div>
+        </div>
+        <div style="background:var(--color-background-default);border:1px solid var(--color-secondary-outline);border-radius:4px;padding:10px 16px;font-size:13px;">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin-bottom:3px;">Internal Padding</div>
+          <div style="font-weight:500;color:var(--color-primary-main);">40px all sides</div>
+        </div>
+        <div style="background:var(--color-background-default);border:1px solid var(--color-secondary-outline);border-radius:4px;padding:10px 16px;font-size:13px;">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin-bottom:3px;">Internal Gutter</div>
+          <div style="font-weight:500;color:var(--color-primary-main);">16px</div>
+        </div>
+      </div>
+
+      <!-- Size comparison diagram -->
+      <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin-bottom:var(--spacing-sm);">Modal Size Comparison</div>
+
+      <div class="ld-modal-scene">
+        <!-- Large -->
+        <div class="ld-modal-wrap">
+          <div class="ld-modal-size-label">Large — 900px</div>
+          <div class="ld-modal-box ld-modal-box--lg">
+            <div class="ld-modal-titlebar">
+              <span>Modal Title</span>
+              <div class="ld-modal-x">×</div>
+            </div>
+            <div class="ld-modal-content" style="position:relative;">
+              <div class="ld-modal-padding-note top">40px</div>
+              <div class="ld-modal-padding-note left">40px</div>
+              <div class="ld-modal-padding-note right">40px</div>
+              <div class="ld-modal-fields-row">
+                <div class="ld-modal-field-mock"></div>
+                <div class="ld-modal-field-mock"></div>
+              </div>
+              <div class="ld-modal-fields-row">
+                <div class="ld-modal-field-mock"></div>
+                <div class="ld-modal-field-mock"></div>
+              </div>
+              <div class="ld-modal-text-mock"></div>
+              <div class="ld-modal-fields-row">
+                <div class="ld-modal-field-mock"></div>
+                <div class="ld-modal-field-mock"></div>
+                <div class="ld-modal-field-mock"></div>
+              </div>
+              <div class="ld-modal-padding-note bottom">40px</div>
+            </div>
+            <div class="ld-modal-footer">
+              <div class="ld-modal-btn ld-modal-btn--ghost">Cancel</div>
+              <div class="ld-modal-btn ld-modal-btn--primary">Save</div>
+            </div>
+          </div>
+          <div style="font-size:11px;color:var(--color-text-secondary);margin-top:4px;">Complex forms, multi-section content, data entry</div>
+        </div>
+
+        <!-- Small -->
+        <div class="ld-modal-wrap">
+          <div class="ld-modal-size-label">Small — 500px</div>
+          <div class="ld-modal-box ld-modal-box--sm">
+            <div class="ld-modal-titlebar">
+              <span>Confirm Action</span>
+              <div class="ld-modal-x">×</div>
+            </div>
+            <div class="ld-modal-content" style="position:relative;">
+              <div class="ld-modal-padding-note top">40px</div>
+              <div class="ld-modal-padding-note left">40px</div>
+              <div class="ld-modal-padding-note right">40px</div>
+              <div class="ld-modal-field-mock"></div>
+              <div class="ld-modal-text-mock" style="height:36px;"></div>
+              <div class="ld-modal-field-mock"></div>
+              <div class="ld-modal-padding-note bottom">40px</div>
+            </div>
+            <div class="ld-modal-footer">
+              <div class="ld-modal-btn ld-modal-btn--ghost">Cancel</div>
+              <div class="ld-modal-btn ld-modal-btn--primary">Confirm</div>
+            </div>
+          </div>
+          <div style="font-size:11px;color:var(--color-text-secondary);margin-top:4px;">Confirmations, simple forms, single-field entry</div>
+        </div>
+      </div>
+
+      <!-- Grid hierarchy diagram -->
+      <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin-bottom:var(--spacing-sm);">Large Modal — Internal Grid Hierarchy</div>
+
+      <div class="ld-frame" style="margin-bottom:var(--spacing-md);">
+        <div class="ld-browser-bar">
+          <div class="ld-dots">
+            <div class="ld-dot"></div><div class="ld-dot"></div><div class="ld-dot"></div>
+          </div>
+          <div class="ld-url-bar">localhost:8888 / workers/add</div>
+        </div>
+        <div style="background:rgba(0,0,0,0.28);display:flex;align-items:center;justify-content:center;padding:24px;min-height:340px;">
+          <div style="background:#fff;border-radius:4px;box-shadow:0 8px 32px rgba(0,0,0,0.28);width:100%;max-width:640px;overflow:hidden;">
+            <div style="background:#FAFAFA;border-bottom:1px solid #E0E0E0;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;">
+              <span style="font-size:13px;font-weight:500;color:#212121;">Add Worker</span>
+              <div style="width:16px;height:16px;background:#E0E0E0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;color:#9E9E9E;">×</div>
+            </div>
+            <div style="padding:16px 20px;display:flex;flex-direction:column;gap:6px;position:relative;">
+              <div style="position:absolute;inset:0;padding:0 20px;pointer-events:none;display:flex;gap:4px;opacity:0.06;">
+                <div style="flex:1;background:#2196F3;"></div><div style="flex:1;background:#2196F3;"></div>
+                <div style="flex:1;background:#2196F3;"></div><div style="flex:1;background:#2196F3;"></div>
+                <div style="flex:1;background:#2196F3;"></div><div style="flex:1;background:#2196F3;"></div>
+                <div style="flex:1;background:#2196F3;"></div><div style="flex:1;background:#2196F3;"></div>
+                <div style="flex:1;background:#2196F3;"></div><div style="flex:1;background:#2196F3;"></div>
+                <div style="flex:1;background:#2196F3;"></div><div style="flex:1;background:#2196F3;"></div>
+              </div>
+              <div style="display:flex;gap:5px;">
+                <div class="ld-block ld-theme-breadcrumb ld-c12" style="height:20px;font-size:10px;">Section Header <span class="ld-span-pill">12 cols</span></div>
+              </div>
+              <div style="display:flex;gap:5px;">
+                <div class="ld-block ld-theme-equal ld-c6" style="height:32px;font-size:10px;">First Name <span class="ld-span-pill">6</span></div>
+                <div class="ld-block ld-theme-equal ld-c6" style="height:32px;font-size:10px;">Last Name <span class="ld-span-pill">6</span></div>
+              </div>
+              <div style="display:flex;gap:5px;">
+                <div class="ld-block ld-theme-main ld-c8" style="height:32px;font-size:10px;">Email Address <span class="ld-span-pill">8</span></div>
+                <div class="ld-block ld-theme-side ld-c4" style="height:32px;font-size:10px;">Role <span class="ld-span-pill">4</span></div>
+              </div>
+              <div style="display:flex;gap:5px;">
+                <div class="ld-block ld-c4" style="height:32px;font-size:10px;background:#F3E5F5;color:#4A148C;border:1px solid #CE93D8;">Department <span class="ld-span-pill">4</span></div>
+                <div class="ld-block ld-c4" style="height:32px;font-size:10px;background:#F3E5F5;color:#4A148C;border:1px solid #CE93D8;">Start Date <span class="ld-span-pill">4</span></div>
+                <div class="ld-block ld-c4" style="height:32px;font-size:10px;background:#F3E5F5;color:#4A148C;border:1px solid #CE93D8;">Pay Rate <span class="ld-span-pill">4</span></div>
+              </div>
+              <div style="display:flex;gap:5px;">
+                <div class="ld-block ld-theme-full ld-c12" style="height:44px;font-size:10px;">Notes / Description <span class="ld-span-pill">12 cols</span></div>
+              </div>
+            </div>
+            <div style="background:#FAFAFA;border-top:1px solid #E0E0E0;padding:10px 20px;display:flex;align-items:center;justify-content:flex-end;gap:8px;">
+              <div style="height:24px;background:#F5F5F5;border:1px solid #E0E0E0;border-radius:3px;display:flex;align-items:center;padding:0 12px;font-size:11px;color:#757575;">Cancel</div>
+              <div style="height:24px;background:#2196F3;border-radius:3px;display:flex;align-items:center;padding:0 12px;font-size:11px;color:#fff;font-weight:500;">Save Worker</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ld-annotation-row">
+        <span class="ld-annotation-badge">40px</span> modal internal padding (all sides)
+        <span style="margin-left:12px;" class="ld-annotation-badge">16px</span> gutter between form field columns
+        <span style="margin-left:12px;" class="ld-annotation-badge">6px</span> gap between field rows
+      </div>
+    </section>
+
+    <!-- Height & Scrolling -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">height</span>
+        Height &amp; Scrolling
+      </h2>
+      <p class="section-description">
+        Modals do not have a fixed height. The height is driven by the content inside — short forms produce short modals, long forms produce tall ones. The modal will expand until it reaches the limit of the browser window, then stop and scroll internally.
+      </p>
+
+      <!-- Key rules cards -->
+      <div class="grid-2" style="margin-bottom:var(--spacing-lg);">
+        <div class="card">
+          <div class="card-title">The viewport is the browser window</div>
+          <div class="card-content">The modal has no awareness of your screen resolution or monitor size. Its available height is exactly the height of the open browser window at the moment the modal appears. If the user has a short window, the modal has less room. If they have a tall window, the modal has more.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Max-height caps at 90% of the window</div>
+          <div class="card-content">The modal will never grow taller than 90vh — 90% of the browser window height. This leaves a visible gap at the top and bottom so the user always knows they're in a modal layer, not a full page. The remaining 10% is breathing room, not wasted space.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Header and footer are always visible</div>
+          <div class="card-content">No matter how long the form is, the blue header (title + close button) and the toolbar footer (Cancel + Save) are anchored in place. They do not scroll with the content. The user can always dismiss or save without scrolling to the top or bottom.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Only the body scrolls</div>
+          <div class="card-content">When a form is taller than the available space, only the middle content area scrolls. Think of it like a sandwich — the top slice (header) and bottom slice (footer) stay put, and only the filling moves. Engineers implement this with <code>overflow-y: auto</code> on the body region only.</div>
+        </div>
+      </div>
+
+      <!-- Visual diagram: short modal vs tall modal in same viewport -->
+      <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin-bottom:var(--spacing-sm);">Short Form vs. Long Form — Same Browser Window</div>
+
+      <div style="display:flex;gap:var(--spacing-lg);flex-wrap:wrap;margin-bottom:var(--spacing-lg);">
+
+        <!-- Short form — modal shorter than viewport -->
+        <div style="flex:1;min-width:280px;">
+          <div style="font-size:12px;font-weight:500;color:var(--color-text-secondary);margin-bottom:var(--spacing-xs);text-align:center;">Short form — modal fits in window</div>
+          <div class="ld-frame" style="margin-bottom:0;">
+            <div class="ld-browser-bar">
+              <div class="ld-dots"><div class="ld-dot"></div><div class="ld-dot"></div><div class="ld-dot"></div></div>
+              <div class="ld-url-bar">localhost:8888 / shifts</div>
+            </div>
+            <!-- Viewport area -->
+            <div style="background:rgba(0,0,0,0.28);display:flex;align-items:center;justify-content:center;padding:20px;min-height:360px;position:relative;">
+              <!-- Viewport height label -->
+              <div style="position:absolute;left:6px;top:20px;bottom:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;">
+                <div style="width:1px;flex:1;background:rgba(255,255,255,0.4);"></div>
+                <div style="font-size:9px;color:rgba(255,255,255,0.7);writing-mode:vertical-rl;text-orientation:mixed;white-space:nowrap;letter-spacing:.05em;font-weight:500;">BROWSER WINDOW HEIGHT</div>
+                <div style="width:1px;flex:1;background:rgba(255,255,255,0.4);"></div>
+              </div>
+              <!-- Modal -->
+              <div style="background:#fff;border-radius:4px;box-shadow:0 8px 32px rgba(0,0,0,0.32);width:100%;max-width:380px;overflow:hidden;">
+                <!-- Header — sticky -->
+                <div style="background:#2196F3;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;">
+                  <div>
+                    <div style="font-size:12px;font-weight:500;color:#fff;">Confirm Shift Assignment</div>
+                  </div>
+                  <div style="width:14px;height:14px;background:rgba(255,255,255,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;">×</div>
+                </div>
+                <!-- Body — short, no scroll needed -->
+                <div style="padding:16px;display:flex;flex-direction:column;gap:8px;">
+                  <div style="background:#F5F5F5;border:1px solid #E0E0E0;border-radius:3px;height:28px;"></div>
+                  <div style="background:#F5F5F5;border:1px solid #E0E0E0;border-radius:3px;height:28px;"></div>
+                  <div style="background:#F5F5F5;border:1px solid #E0E0E0;border-radius:3px;height:48px;"></div>
+                </div>
+                <!-- Footer — sticky -->
+                <div style="background:#fff;border-top:1px solid #E0E0E0;padding:10px 16px;display:flex;justify-content:flex-end;gap:10px;align-items:center;">
+                  <div style="font-size:10px;color:#2196F3;font-weight:500;">Cancel</div>
+                  <div style="background:#2196F3;border-radius:3px;padding:4px 12px;font-size:10px;color:#fff;font-weight:500;">Confirm</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="font-size:11px;color:var(--color-text-secondary);margin-top:var(--spacing-xs);">Modal is shorter than the window. No scrolling needed. Header and footer sit at their natural positions.</div>
+        </div>
+
+        <!-- Long form — modal hits 90vh and scrolls -->
+        <div style="flex:1;min-width:280px;">
+          <div style="font-size:12px;font-weight:500;color:var(--color-text-secondary);margin-bottom:var(--spacing-xs);text-align:center;">Long form — modal hits 90vh, body scrolls</div>
+          <div class="ld-frame" style="margin-bottom:0;">
+            <div class="ld-browser-bar">
+              <div class="ld-dots"><div class="ld-dot"></div><div class="ld-dot"></div><div class="ld-dot"></div></div>
+              <div class="ld-url-bar">localhost:8888 / workers/add</div>
+            </div>
+            <!-- Viewport area -->
+            <div style="background:rgba(0,0,0,0.28);display:flex;align-items:center;justify-content:center;padding:20px;min-height:360px;position:relative;">
+              <!-- Viewport height label -->
+              <div style="position:absolute;left:6px;top:20px;bottom:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;">
+                <div style="width:1px;flex:1;background:rgba(255,255,255,0.4);"></div>
+                <div style="font-size:9px;color:rgba(255,255,255,0.7);writing-mode:vertical-rl;text-orientation:mixed;white-space:nowrap;letter-spacing:.05em;font-weight:500;">BROWSER WINDOW HEIGHT</div>
+                <div style="width:1px;flex:1;background:rgba(255,255,255,0.4);"></div>
+              </div>
+              <!-- 90vh cap indicator lines -->
+              <div style="position:absolute;left:20px;right:20px;top:20px;height:1px;background:rgba(255,200,0,0.6);border-top:1px dashed rgba(255,200,0,0.8);"></div>
+              <div style="position:absolute;left:20px;right:20px;bottom:20px;height:1px;background:rgba(255,200,0,0.6);border-top:1px dashed rgba(255,200,0,0.8);"></div>
+              <div style="position:absolute;right:24px;top:24px;font-size:8px;color:rgba(255,220,0,1);font-weight:600;background:rgba(0,0,0,0.4);padding:1px 4px;border-radius:2px;">90vh limit</div>
+              <!-- Modal at max height -->
+              <div style="background:#fff;border-radius:4px;box-shadow:0 8px 32px rgba(0,0,0,0.32);width:100%;max-width:380px;overflow:hidden;display:flex;flex-direction:column;max-height:calc(100% - 0px);height:300px;">
+                <!-- Header — anchored top -->
+                <div style="background:#2196F3;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+                  <div>
+                    <div style="font-size:12px;font-weight:500;color:#fff;">Add New Worker</div>
+                    <div style="font-size:10px;color:rgba(255,255,255,0.8);">Workforce Management</div>
+                  </div>
+                  <div style="width:14px;height:14px;background:rgba(255,255,255,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;">×</div>
+                </div>
+                <!-- Sticky label -->
+                <div style="background:#E3F2FD;border-bottom:1px solid #BBDEFB;padding:3px 16px;font-size:9px;color:#1565C0;font-weight:600;letter-spacing:.04em;flex-shrink:0;">▲ HEADER ALWAYS VISIBLE — DOES NOT SCROLL</div>
+                <!-- Body — scrollable -->
+                <div style="flex:1;overflow-y:auto;padding:12px 16px;display:flex;flex-direction:column;gap:6px;position:relative;">
+                  <div style="font-size:9px;font-weight:600;color:var(--color-text-secondary);letter-spacing:.05em;margin-bottom:2px;">↕ THIS AREA SCROLLS</div>
+                  <div style="background:#F5F5F5;border:1px solid #E0E0E0;border-radius:3px;height:24px;"></div>
+                  <div style="background:#F5F5F5;border:1px solid #E0E0E0;border-radius:3px;height:24px;"></div>
+                  <div style="background:#F5F5F5;border:1px solid #E0E0E0;border-radius:3px;height:24px;"></div>
+                  <div style="background:#F5F5F5;border:1px solid #E0E0E0;border-radius:3px;height:24px;"></div>
+                  <div style="background:#F5F5F5;border:1px solid #E0E0E0;border-radius:3px;height:40px;"></div>
+                  <div style="background:#F5F5F5;border:1px solid #E0E0E0;border-radius:3px;height:24px;"></div>
+                  <div style="background:#F5F5F5;border:1px solid #E0E0E0;border-radius:3px;height:24px;"></div>
+                  <!-- Scroll fade indicator -->
+                  <div style="position:sticky;bottom:0;height:20px;background:linear-gradient(to bottom,rgba(255,255,255,0),rgba(255,255,255,0.9));pointer-events:none;"></div>
+                </div>
+                <!-- Sticky label -->
+                <div style="background:#E3F2FD;border-top:1px solid #BBDEFB;padding:3px 16px;font-size:9px;color:#1565C0;font-weight:600;letter-spacing:.04em;flex-shrink:0;">▼ FOOTER ALWAYS VISIBLE — DOES NOT SCROLL</div>
+                <!-- Footer — anchored bottom -->
+                <div style="background:#fff;border-top:1px solid #E0E0E0;padding:10px 16px;display:flex;justify-content:flex-end;gap:10px;align-items:center;flex-shrink:0;">
+                  <div style="font-size:10px;color:#2196F3;font-weight:500;">Cancel</div>
+                  <div style="background:#2196F3;border-radius:3px;padding:4px 12px;font-size:10px;color:#fff;font-weight:500;">Save Worker</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="font-size:11px;color:var(--color-text-secondary);margin-top:var(--spacing-xs);">Form is taller than 90vh. The modal locks at the limit. Only the middle body region scrolls — header and footer never move.</div>
+        </div>
+
+      </div>
+
+      <div class="ld-annotation-row">
+        <span class="ld-annotation-badge">90vh</span> maximum modal height — always leaves a visible gap around the modal
+        <span style="margin-left:12px;" class="ld-annotation-badge">flex-shrink: 0</span> applied to header and footer so they never compress
+        <span style="margin-left:12px;" class="ld-annotation-badge">overflow-y: auto</span> applied to body only — scroll is contained to the middle region
+      </div>
+    </section>
+
+    <!-- Behavior -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">settings</span>
+        Behavior
+      </h2>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Dismiss</div>
+          <div class="card-content">Close via X button, Cancel button, clicking the scrim, or pressing <code>Escape</code>.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Scrim</div>
+          <div class="card-content">Black at 50% opacity. Blocks all interaction with background content.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Animation</div>
+          <div class="card-content">Slides up 20px with fade-in over 300ms on open. No exit animation.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Max height</div>
+          <div class="card-content">90vh with internal scroll on the body region only.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Small Modal -->
+  <div id="modal-sm" class="modal-overlay">
+    <div class="modal-container modal-sm">
+      <div class="modal-header">
+        <div class="modal-header-text"><h2>Sign In</h2></div>
+        <button class="modal-close" onclick="closeModal('modal-sm')">
+          <span class="material-icons">close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-input" placeholder="name@company.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" class="form-input" placeholder="••••••••">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('modal-sm')">Cancel</button>
+        <button class="btn btn-primary" onclick="closeModal('modal-sm')">Sign In</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Large Modal -->
+  <div id="modal-lg" class="modal-overlay">
+    <div class="modal-container modal-lg">
+      <div class="modal-header">
+        <div class="modal-header-text">
+          <h2>Create New User</h2>
+          <span class="modal-header-eyebrow">Workforce Management · User Administration</span>
+        </div>
+        <button class="modal-close" onclick="closeModal('modal-lg')">
+          <span class="material-icons">close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <input type="text" class="form-input" placeholder="John Doe">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-input" placeholder="john@company.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" class="form-input" placeholder="••••••••">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Confirm Password</label>
+          <input type="password" class="form-input" placeholder="••••••••">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('modal-lg')">Cancel</button>
+        <button class="btn btn-primary" onclick="closeModal('modal-lg')">Create User</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openModal(id) { document.getElementById(id).classList.add('active'); }
+    function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+
+    document.querySelectorAll('.modal-overlay').forEach(overlay => {
+      overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(overlay.id); });
+    });
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal-overlay.active').forEach(m => closeModal(m.id));
+      }
+    });
+  </script>
+</body>
+</html>

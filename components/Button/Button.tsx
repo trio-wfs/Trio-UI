@@ -148,8 +148,9 @@ export const Button: React.FC<ButtonProps> = ({
           boxShadow: 'none',
         },
       }}
+      startIcon={startIcon}
+      endIcon={endIcon}
     >
-      {/* TODO: Icon support when Material Icons are integrated */}
       {children || label}
     </MuiButton>
   );

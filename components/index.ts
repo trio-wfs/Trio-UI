@@ -29,6 +29,7 @@ export { RadioGroup } from './RadioGroup/RadioGroup';
 export { SearchBar } from './SearchBar/SearchBar';
 export { Select } from './Select/Select';
 export { SplitButton } from './SplitButton/SplitButton';
+export { Stepper } from './Stepper/Stepper';
 export { Switch } from './Switch/Switch';
 export { Tabs } from './Tabs/Tabs';
 export { TextField } from './TextField/TextField';
@@ -147,6 +148,8 @@ export type {
   SplitButtonColor,
   SplitButtonProps,
 } from './SplitButton/SplitButton.types';
+
+export type { StepperProps } from './Stepper/Stepper.types';
 
 export type {
   SwitchState,

@@ -104,6 +104,12 @@ export const tokens = {
       divider: '#E0E0E0',
     },
 
+    // Data Visualization Colors
+    // Complementary to the primary blue palette — used in metric bars, stepper indicators
+    dataViz: {
+      teal: '#37636b',
+    },
+
     // Base Colors
     base: {
       black: '#000000',

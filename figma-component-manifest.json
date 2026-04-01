@@ -333,6 +333,13 @@
       "description": ""
     },
     {
+      "name": "Stepper",
+      "nodeId": "7448:1953",
+      "type": "component_set",
+      "variants": ["Wizard"],
+      "description": "Horizontal wizard progress bar — shows completed, active, and upcoming steps"
+    },
+    {
       "name": "Select",
       "nodeId": "2433:8481",
       "type": "component_set",

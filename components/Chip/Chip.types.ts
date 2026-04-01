@@ -1,3 +1,5 @@
+import React from 'react';
+
 /**
  * Chip Component Types
  *
@@ -64,9 +66,9 @@ export interface ChipProps {
   variant?: ChipVariant;
   disabled?: boolean;
 
-  // Boolean Properties (from Figma)
-  iconLeft?: boolean;   // check icon — left side
-  iconRight?: boolean;  // cancel/X icon — right side, triggers onDelete
+  // Icon Properties — pass any MUI icon element, or omit for no icon
+  iconLeft?: React.ReactNode;
+  iconRight?: React.ReactNode;
 
   // Text Properties (from Figma)
   label?: string;
@@ -89,7 +91,7 @@ export const defaultChipProps: Partial<ChipProps> = {
   color: 'default',
   variant: 'contained',
   disabled: false,
-  iconLeft: false,
-  iconRight: false,
+  iconLeft: undefined,
+  iconRight: undefined,
   label: 'Label',
 };

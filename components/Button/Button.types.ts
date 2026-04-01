@@ -9,7 +9,7 @@
  * DO NOT modify variant options unless Figma is updated.
  */
 
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 
 /**
  * Button Size
@@ -73,9 +73,9 @@ export interface ButtonProps {
   state?: ButtonState;
   variant?: ButtonVariant;
 
-  // Boolean Properties (from Figma)
-  startIcon?: boolean;
-  endIcon?: boolean;
+  // Icon Properties — pass any MUI icon element, or omit for no icon
+  startIcon?: React.ReactNode;
+  endIcon?: React.ReactNode;
 
   // Text Properties (from Figma)
   label?: string;
@@ -101,8 +101,8 @@ export const defaultButtonProps: Partial<ButtonProps> = {
   color: 'primary',
   state: 'default',
   variant: 'contained',
-  startIcon: false,
-  endIcon: true,
+  startIcon: undefined,
+  endIcon: undefined,
   label: 'Button',
   type: 'button',
 };

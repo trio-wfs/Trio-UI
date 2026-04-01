@@ -33,6 +33,7 @@ const DS_NAV = {
     { label: 'Search Bar',    icon: 'search',                 href: 'components/SearchBar/search-bar-showcase.html' },
     { label: 'Select',        icon: 'arrow_drop_down_circle', href: 'components/Select/select-showcase.html' },
     { label: 'Split Button',  icon: 'call_split',             href: 'components/SplitButton/split-button-showcase.html' },
+    { label: 'Stepper',       icon: 'linear_scale',           href: 'components/Stepper/stepper-showcase.html' },
     { label: 'Switch',        icon: 'toggle_on',              href: 'components/Switch/switch-showcase.html' },
     { label: 'Tabs',          icon: 'tab',                    href: 'components/Tabs/tabs-showcase.html' },
     { label: 'Text Field',    icon: 'text_fields',            href: 'components/TextField/text-field-showcase.html' },

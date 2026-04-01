@@ -61,8 +61,6 @@
 
 import React from 'react';
 import { Chip as MuiChip } from '@mui/material';
-import CheckIcon from '@mui/icons-material/Check';
-import CancelIcon from '@mui/icons-material/Cancel';
 import { ChipProps, defaultChipProps } from './Chip.types';
 import { tokens } from '../../design-tokens/tokens';
 
@@ -157,8 +155,8 @@ export const Chip: React.FC<ChipProps> = ({
     <MuiChip
       label={label}
       variant={muiVariant}
-      icon={iconLeft ? <CheckIcon /> : undefined}
-      deleteIcon={iconRight ? <CancelIcon /> : undefined}
+      icon={iconLeft ? <span>{iconLeft}</span> : undefined}
+      deleteIcon={iconRight ? <span>{iconRight}</span> : undefined}
       onDelete={iconRight ? (onDelete ?? (() => {})) : undefined}
       onClick={onClick}
       disabled={disabled}

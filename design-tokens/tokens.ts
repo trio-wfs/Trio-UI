@@ -31,9 +31,9 @@ export const tokens = {
 
     // Semantic Colors (urgency indicators)
     success: {
-      main: '#2e7d32',
+      main: '#388e3c',   // Figma: color/semantic/feedback/success/background/default
       light: '#E8F5E9',
-      dark: '#1b5e20',
+      dark: '#2e7d32',   // Figma: pressed state
       contrastText: '#FFFFFF',
     },
     info: {
@@ -57,17 +57,18 @@ export const tokens = {
 
     // Text Colors
     text: {
-      primary: '#212121',
-      secondary: '#757575',
-      disabled: 'rgba(0, 0, 0, 0.4)',
+      primary: '#212121',                  // Figma: color/semantic/text/primary
+      secondary: 'rgba(0, 0, 0, 0.6)',    // Figma: color/semantic/text/secondary (#00000099)
+      disabled: 'rgba(0, 0, 0, 0.4)',     // Figma: text/disabled (#00000066)
       inverse: '#FFFFFF',
     },
 
     // Background Colors
+    // Layer order: default (page canvas) → secondary (content wrapper) → paper (components)
     background: {
-      default: '#F5F5F5',  // Canvas/Page background
-      paper: '#FFFFFF',    // Foreground containers and modals
-      secondary: '#FAFAFA',
+      default: '#F5F5F5',    // Page canvas — entire browser background
+      secondary: '#FAFAFA',  // Content wrapper below header — 16px padding, groups all page components
+      paper: '#FFFFFF',      // All cards, panels, containers — no elevation, border stroke only
       accent: '#E4F7FD',
     },
 
@@ -282,9 +283,10 @@ export const tokens = {
   /**
    * Shadows / Elevation
    */
+  // Shadows — only use for modals, menus, popovers, breadcrumbs. Never on cards or paper containers.
   shadows: {
     none: 'none',
-    sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+    sm: '0px 2px 4px rgba(0, 0, 0, 0.075)',  // Figma: Shadows/01. Small
     md: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
     lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
     xl: '0 20px 25px -5px rgba(0, 0, 0, 0.1)',

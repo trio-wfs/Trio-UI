@@ -35,7 +35,6 @@ const meta: Meta<typeof Tabs> = {
   },
   args: {
     tabs: defaultTabs,
-    activeIndex: 0,
     variant: 'Tab Group',
   },
   decorators: [

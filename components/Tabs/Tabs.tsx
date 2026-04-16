@@ -11,23 +11,29 @@
  *   MuiTabs root itself.
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Tabs as MuiTabs, Tab as MuiTab, Box } from '@mui/material';
 import { TabsProps, defaultTabsProps } from './Tabs.types';
 import { tokens } from '../../design-tokens/tokens';
 
 export const Tabs: React.FC<TabsProps> = ({
   tabs,
-  activeIndex = defaultTabsProps.activeIndex!,
+  activeIndex,
   onChange,
   variant = defaultTabsProps.variant!,
 }) => {
+  const isControlled = activeIndex !== undefined;
+  const [internalIndex, setInternalIndex] = useState(0);
+  const currentIndex = isControlled ? activeIndex : internalIndex;
   const isScrollable = variant !== 'Tab Group';
 
   return (
     <MuiTabs
-      value={activeIndex}
-      onChange={(_, newValue) => onChange?.(newValue)}
+      value={currentIndex}
+      onChange={(_, newValue) => {
+        if (!isControlled) setInternalIndex(newValue);
+        onChange?.(newValue);
+      }}
       variant={isScrollable ? 'scrollable' : 'standard'}
       scrollButtons={isScrollable ? 'auto' : false}
     >

@@ -29,12 +29,16 @@ export const Switch: React.FC<SwitchProps> = ({
   ...ariaProps
 }) => {
   const isDisabled = Boolean(disabled);
-  const isChecked = checked !== undefined ? checked : state === 'on';
+  const isControlled = checked !== undefined || state === 'on';
   const muiLabelPlacement = labelPlacement === 'left' ? 'start' : labelPlacement === 'top' ? 'top' : 'end';
+
+  const checkedProps = isControlled
+    ? { checked: checked !== undefined ? checked : true }
+    : {};
 
   const switchElement = (
     <MuiSwitch
-      checked={isChecked}
+      {...checkedProps}
       onChange={onChange}
       disabled={isDisabled}
       name={name}

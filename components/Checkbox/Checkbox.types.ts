@@ -80,7 +80,6 @@ export interface CheckboxProps {
 
 export const defaultCheckboxProps: Partial<CheckboxProps> = {
   color: 'primary',
-  checked: false,
   disabled: false,
   indeterminate: false,
 };

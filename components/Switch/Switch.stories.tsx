@@ -14,10 +14,8 @@ const meta: Meta<typeof Switch> = {
     label: { control: 'text' },
   },
   args: {
-    state: 'off',
     labelPlacement: 'right',
     disabled: false,
-    checked: false,
     label: 'Enable notifications',
   },
 };

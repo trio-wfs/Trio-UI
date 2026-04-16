@@ -83,5 +83,4 @@ export const defaultSwitchProps: Partial<SwitchProps> = {
   state: 'off',
   labelPlacement: 'right',
   disabled: false,
-  checked: false,
 };

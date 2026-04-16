@@ -32,9 +32,11 @@ export const Checkbox: React.FC<CheckboxProps> = ({
 }) => {
   const muiColor = color === 'error' ? 'error' : 'primary';
 
+  const checkedProps = checked !== undefined ? { checked } : {};
+
   const checkboxElement = (
     <MuiCheckbox
-      checked={checked}
+      {...checkedProps}
       disabled={disabled}
       indeterminate={indeterminate}
       onChange={onChange}

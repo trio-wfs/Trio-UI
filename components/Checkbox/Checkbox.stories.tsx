@@ -15,7 +15,6 @@ const meta: Meta<typeof Checkbox> = {
   },
   args: {
     color: 'primary',
-    checked: false,
     disabled: false,
     indeterminate: false,
     label: 'Checkbox label',

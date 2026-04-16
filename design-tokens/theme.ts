@@ -805,47 +805,56 @@ const themeOptions: ThemeOptions = {
     },
 
     // MuiSwitch — migrated 2026-04-15
-    // Figma track: 28x16px, thumb: 12px. Primary color for "on" state via theme.
+    // Figma track: 28x16px, thumb: 12px, 2px padding, pill radius.
+    // Off: white bg + rgba(0,0,0,0.3) border. On: primary blue bg.
+    // Disabled off: rgba(0,0,0,0.08) bg, no border.
     MuiSwitch: {
       styleOverrides: {
         root: {
-          width: '28px',
-          height: '16px',
+          width: 28,
+          height: 16,
           padding: 0,
-          '& .MuiSwitch-switchBase': {
-            padding: 0,
-            margin: '2px',
-            transitionDuration: '300ms',
-            '&.Mui-checked': {
-              transform: 'translateX(14px)',
-              color: tokens.colors.base.white,
-              '& + .MuiSwitch-track': {
-                backgroundColor: tokens.colors.primary.main,
-                opacity: 1,
-                border: 0,
-              },
-              '&.Mui-disabled + .MuiSwitch-track': {
-                opacity: 0.5,
-              },
-            },
-            '&.Mui-disabled .MuiSwitch-thumb': {
-              color: tokens.colors.action.disabled,
+          overflow: 'visible',
+          display: 'inline-flex',
+        },
+        switchBase: {
+          padding: 2,
+          '&.Mui-checked': {
+            transform: 'translateX(12px)',
+            color: tokens.colors.base.white,
+            '& + .MuiSwitch-track': {
+              backgroundColor: tokens.colors.primary.main,
+              opacity: 1,
+              border: 'none',
             },
             '&.Mui-disabled + .MuiSwitch-track': {
-              opacity: 0.3,
+              backgroundColor: tokens.colors.primary.main,
+              opacity: 0.5,
             },
           },
-          '& .MuiSwitch-thumb': {
-            boxSizing: 'border-box',
-            width: '12px',
-            height: '12px',
+          '&.Mui-disabled': {
+            '& .MuiSwitch-thumb': {
+              color: '#BDBDBD',
+            },
+            '& + .MuiSwitch-track': {
+              backgroundColor: 'rgba(0, 0, 0, 0.08)',
+              opacity: 1,
+              border: 'none',
+            },
           },
-          '& .MuiSwitch-track': {
-            borderRadius: '8px',
-            backgroundColor: tokens.colors.action.disabled,
-            opacity: 1,
-            transition: 'background-color 300ms',
-          },
+        },
+        thumb: {
+          boxSizing: 'border-box',
+          width: 12,
+          height: 12,
+          boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.2)',
+        },
+        track: {
+          borderRadius: 999,
+          backgroundColor: tokens.colors.base.white,
+          border: '1px solid rgba(0, 0, 0, 0.3)',
+          opacity: 1,
+          transition: 'background-color 300ms, border 300ms',
         },
       },
     },

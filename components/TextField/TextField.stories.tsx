@@ -23,7 +23,6 @@ const meta: Meta<typeof TextField> = {
     inputFill: false,
     label: 'Facility name',
     placeholder: 'Enter facility name',
-    value: '',
   },
   decorators: [
     (Story) => (

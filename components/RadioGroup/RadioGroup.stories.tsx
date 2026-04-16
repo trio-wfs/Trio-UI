@@ -30,7 +30,6 @@ const meta: Meta<typeof RadioGroup> = {
     error: false,
     label: 'Shift preference',
     options: shiftOptions,
-    value: 'day',
   },
 };
 

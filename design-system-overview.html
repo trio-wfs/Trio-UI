@@ -39,6 +39,25 @@
       margin: 0 auto;
     }
 
+    @keyframes drift1 {
+      0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.9; }
+      33% { transform: translate(80px, -40px) scale(1.15); opacity: 1; }
+      66% { transform: translate(-50px, 30px) scale(0.9); opacity: 0.8; }
+    }
+    @keyframes drift2 {
+      0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.85; }
+      33% { transform: translate(-60px, 50px) scale(0.88); opacity: 1; }
+      66% { transform: translate(40px, -60px) scale(1.12); opacity: 0.75; }
+    }
+    @keyframes drift3 {
+      0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.9; }
+      50% { transform: translate(70px, 30px) scale(1.1); opacity: 1; }
+    }
+    @keyframes drift4 {
+      0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.85; }
+      50% { transform: translate(-50px, -40px) scale(0.9); opacity: 1; }
+    }
+
     .hero::before,
     .hero::after {
       content: '';
@@ -54,6 +73,7 @@
       right: -100px;
       background: radial-gradient(circle, rgba(0, 174, 239, 0.45) 0%, rgba(0, 174, 239, 0.15) 45%, transparent 70%);
       filter: blur(90px);
+      animation: drift1 20s ease-in-out infinite;
     }
 
     .hero::after {
@@ -63,6 +83,7 @@
       left: -80px;
       background: radial-gradient(circle, rgba(141, 198, 63, 0.4) 0%, rgba(141, 198, 63, 0.12) 45%, transparent 70%);
       filter: blur(90px);
+      animation: drift2 25s ease-in-out infinite;
     }
 
     .hero-blobs {
@@ -82,6 +103,7 @@
       background: radial-gradient(circle, rgba(0, 174, 239, 0.2) 0%, rgba(0, 174, 239, 0.05) 50%, transparent 70%);
       border-radius: 50%;
       filter: blur(70px);
+      animation: drift3 30s ease-in-out infinite;
     }
 
     .hero-blobs::after {
@@ -94,6 +116,7 @@
       background: radial-gradient(ellipse, rgba(141, 198, 63, 0.18) 0%, rgba(141, 198, 63, 0.04) 50%, transparent 70%);
       border-radius: 50%;
       filter: blur(70px);
+      animation: drift4 22s ease-in-out infinite;
     }
 
     .hero-brand {
@@ -202,7 +225,7 @@
       border: 1px solid var(--color-secondary-outline);
       border-radius: var(--border-radius);
       padding: var(--spacing-lg);
-      border-left: none;
+      border-left: 1px solid var(--color-secondary-outline);
     }
 
     .card .card-icon {

@@ -1,0 +1,206 @@
+/**
+ * TRIO/UI Design Tokens — CSS Custom Properties
+ * Source of Truth: Figma Variables → tokens.ts → this file
+ *
+ * Import in your project:
+ *   @import 'trio-tokens.css';
+ *
+ * Or link directly:
+ *   <link rel="stylesheet" href="trio-tokens.css">
+ *
+ * All values are extracted from Figma. Do not modify directly.
+ * Changes must come from Figma and be re-exported.
+ */
+
+:root {
+
+  /* ============================================================
+     COLORS
+     ============================================================ */
+
+  /* Primary (Blue) — Save/Update actions only */
+  --trio-color-primary: #2196F3;
+  --trio-color-primary-light: #E3F2FD;
+  --trio-color-primary-dark: #1976D2;
+  --trio-color-primary-contrast: #FFFFFF;
+  --trio-color-primary-selected: rgba(33, 150, 243, 0.12);
+
+  /* Secondary — Edit actions, neutral surfaces */
+  --trio-color-secondary: #F5F5F5;
+  --trio-color-secondary-dark: #616161;
+  --trio-color-secondary-outline: #E0E0E0;
+  --trio-color-secondary-contrast: #616161;
+
+  /* Success */
+  --trio-color-success: #388E3C;
+  --trio-color-success-light: #E8F5E9;
+  --trio-color-success-dark: #2E7D32;
+  --trio-color-success-contrast: #FFFFFF;
+
+  /* Info */
+  --trio-color-info: #54AFCA;
+  --trio-color-info-light: #E4F7FD;
+  --trio-color-info-dark: #4B9AB0;
+  --trio-color-info-contrast: #FFFFFF;
+
+  /* Warning */
+  --trio-color-warning: #E17109;
+  --trio-color-warning-light: #FCF1E0;
+  --trio-color-warning-dark: #DA6207;
+  --trio-color-warning-contrast: #FFFFFF;
+
+  /* Error */
+  --trio-color-error: #DB4537;
+  --trio-color-error-light: #FBEAED;
+  --trio-color-error-dark: #BB3430;
+  --trio-color-error-contrast: #FFFFFF;
+
+  /* Text */
+  --trio-color-text-primary: #212121;
+  --trio-color-text-secondary: rgba(0, 0, 0, 0.6);
+  --trio-color-text-disabled: rgba(0, 0, 0, 0.4);
+  --trio-color-text-inverse: #FFFFFF;
+
+  /* Backgrounds */
+  --trio-bg-default: #F5F5F5;
+  --trio-bg-secondary: #FAFAFA;
+  --trio-bg-paper: #FFFFFF;
+  --trio-bg-accent: #E4F7FD;
+
+  /* Actions / States */
+  --trio-action-active: rgba(0, 0, 0, 0.32);
+  --trio-action-hover: rgba(0, 0, 0, 0.04);
+  --trio-action-selected: rgba(0, 0, 0, 0.08);
+  --trio-action-focus: rgba(0, 0, 0, 0.12);
+  --trio-action-disabled: rgba(0, 0, 0, 0.12);
+  --trio-action-disabled-bg: rgba(0, 0, 0, 0.12);
+
+  /* Components */
+  --trio-icon-default: #424242;
+  --trio-icon-disabled: #9E9E9E;
+  --trio-icon-inverse: #FFFFFF;
+  --trio-border-default: #E0E0E0;
+  --trio-border-focus: #64B5F6;
+  --trio-border-focus-shadow: rgba(66, 165, 245, 0.18);
+  --trio-input-border: #9E9E9E;
+  --trio-input-border-hover: #616161;
+  --trio-input-border-disabled: #E0E0E0;
+  --trio-backdrop: rgba(0, 0, 0, 0.5);
+  --trio-divider: #E0E0E0;
+
+  /* Base */
+  --trio-black: #000000;
+  --trio-white: #FFFFFF;
+
+
+  /* ============================================================
+     TYPOGRAPHY
+     ============================================================ */
+
+  --trio-font-family: 'Roboto', sans-serif;
+
+  /* Font Sizes */
+  --trio-font-size-xxs: 11px;
+  --trio-font-size-xs: 12px;
+  --trio-font-size-sm: 14px;
+  --trio-font-size-md: 16px;
+  --trio-font-size-lg: 18px;
+  --trio-font-size-xl: 20px;
+  --trio-font-size-xxl: 24px;
+
+  /* Font Weights */
+  --trio-font-weight-light: 300;
+  --trio-font-weight-regular: 400;
+  --trio-font-weight-medium: 500;
+  --trio-font-weight-bold: 700;
+
+  /* Type Scale — Headings */
+  --trio-h5-size: 24px;
+  --trio-h5-weight: 500;
+  --trio-h5-line-height: 28px;
+
+  --trio-h6-size: 20px;
+  --trio-h6-weight: 500;
+  --trio-h6-line-height: 24px;
+
+  /* Type Scale — Body */
+  --trio-body1-size: 16px;
+  --trio-body1-weight: 400;
+  --trio-body1-line-height: 24px;
+
+  --trio-body2-size: 14px;
+  --trio-body2-weight: 400;
+  --trio-body2-line-height: 21px;
+
+  /* Type Scale — Utility */
+  --trio-caption-size: 12px;
+  --trio-caption-weight: 400;
+  --trio-caption-line-height: 18px;
+
+  --trio-overline-size: 11px;
+  --trio-overline-weight: 500;
+  --trio-overline-line-height: 16px;
+
+  /* Type Scale — Buttons */
+  --trio-button-sm-size: 12px;
+  --trio-button-md-size: 14px;
+  --trio-button-lg-size: 16px;
+
+
+  /* ============================================================
+     SPACING (8px grid)
+     ============================================================ */
+
+  --trio-space-none: 0;
+  --trio-space-xs: 4px;    /* Within components only */
+  --trio-space-sm: 8px;    /* Base unit */
+  --trio-space-mid: 12px;
+  --trio-space-md: 16px;
+  --trio-space-lg: 24px;
+  --trio-space-xl: 32px;
+  --trio-space-xxl: 40px;
+
+
+  /* ============================================================
+     BORDER RADIUS
+     ============================================================ */
+
+  --trio-radius-none: 0;
+  --trio-radius-sm: 2px;
+  --trio-radius-default: 4px;
+  --trio-radius-full: 999px;
+
+
+  /* ============================================================
+     SHADOWS (modals, menus, popovers only — never on cards)
+     ============================================================ */
+
+  --trio-shadow-none: none;
+  --trio-shadow-sm: 0px 2px 4px rgba(0, 0, 0, 0.075);
+  --trio-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --trio-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --trio-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+
+
+  /* ============================================================
+     Z-INDEX
+     ============================================================ */
+
+  --trio-z-drawer: 1200;
+  --trio-z-modal: 1300;
+  --trio-z-snackbar: 1400;
+  --trio-z-tooltip: 1500;
+
+
+  /* ============================================================
+     LAYOUT
+     ============================================================ */
+
+  --trio-grid-columns: 12;
+  --trio-grid-gutter: 16px;
+  --trio-grid-margin: 16px;
+  --trio-modal-width-lg: 900px;
+  --trio-modal-width-sm: 500px;
+  --trio-modal-padding: 40px;
+  --trio-drawer-width: 400px;
+}

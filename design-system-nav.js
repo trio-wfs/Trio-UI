@@ -113,6 +113,12 @@ function renderNav(currentHref) {
         : templatesSection
       }
     </nav>
+    <div class="sidebar-footer">
+      <a href="${root}design-tokens/trio-tokens.css" download="trio-tokens.css" class="sidebar-download">
+        <span class="material-icons-outlined">download</span>
+        Download Tokens
+      </a>
+    </div>
   `;
 
   const sidebar = document.querySelector('.sidebar') || document.querySelector('aside');

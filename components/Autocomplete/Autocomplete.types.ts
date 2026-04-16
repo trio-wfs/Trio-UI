@@ -2,14 +2,11 @@
  * Autocomplete Component Types
  *
  * SOURCE OF TRUTH: Figma component "Autocomplete" (node: 2381:6441)
- * Cache: ~/.openclaw/shared-data/figma-specs/autocomplete.json
  *
  * These types are DIRECTLY MAPPED from Figma componentPropertyDefinitions.
  * DO NOT add properties that don't exist in Figma.
  * DO NOT modify variant options unless Figma is updated.
  */
-
-import { ReactNode } from 'react';
 
 /**
  * Autocomplete State
@@ -68,6 +65,9 @@ export interface AutocompleteProps {
   // Boolean properties (from Figma)
   disabled?: boolean;
   required?: boolean;
+
+  // Multi-select: max chips shown before "+N more" truncation (default: 5)
+  limitTags?: number;
 
   // Standard React props
   className?: string;

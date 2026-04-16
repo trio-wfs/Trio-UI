@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Button — TRIO WFS Design System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="design-system-shell.css">
+  <style>
+
+    /* ─── PAGE HEADER ─────────────────────────────────────────── */
+
+    .page-header {
+      padding: 32px 40px 24px;
+      border-bottom: 1px solid var(--color-secondary-outline);
+      background: var(--color-background-default);
+      margin-bottom: 0;
+    }
+
+    .page-header-inner,
+    .section-nav-inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .page-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      margin-bottom: 12px;
+    }
+
+    .page-breadcrumb a {
+      color: var(--color-text-secondary);
+      text-decoration: none;
+    }
+
+    .page-breadcrumb a:hover {
+      color: var(--color-primary-main);
+    }
+
+    .page-breadcrumb .material-icons {
+      font-size: 14px;
+    }
+
+    .page-title {
+      font-size: 24px;
+      font-weight: 500;
+      color: var(--color-text-primary);
+      margin-bottom: 6px;
+    }
+
+    .page-description {
+      font-size: 14px;
+      color: var(--color-text-secondary);
+      margin-bottom: 16px;
+      max-width: 600px;
+      line-height: 1.5;
+    }
+
+    .page-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .meta-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 10px;
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 999px;
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      background: var(--color-background-paper);
+      text-decoration: none;
+    }
+
+    .meta-chip .material-icons {
+      font-size: 13px;
+    }
+
+    .meta-chip.status-live {
+      border-color: var(--color-success-main);
+      color: var(--color-success-main);
+      background: var(--color-success-light);
+    }
+
+    .meta-chip.figma-link:hover {
+      border-color: var(--color-primary-main);
+      color: var(--color-primary-main);
+    }
+
+    /* ─── SECTION NAV ─────────────────────────────────────────── */
+
+    .section-nav {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      padding: 0 40px;
+      background: var(--color-background-paper);
+      border-bottom: 1px solid var(--color-secondary-outline);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .section-nav-item {
+      padding: 12px 16px;
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .section-nav-item:hover {
+      color: var(--color-text-primary);
+    }
+
+    .section-nav-item.active {
+      color: var(--color-primary-main);
+      font-weight: 500;
+      border-bottom-color: var(--color-primary-main);
+    }
+
+    /* ─── CONTENT WRAPPER ─────────────────────────────────────── */
+
+    .content-wrapper {
+      padding: 24px 40px 64px;
+      background: #FAFAFA;
+      min-height: calc(100vh - 130px);
+    }
+
+    .content-inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    /* ─── SECTIONS ────────────────────────────────────────────── */
+
+    .ds-section {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: var(--border-radius);
+      margin-bottom: 32px;
+      overflow: hidden;
+    }
+
+    .section-header {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--color-secondary-outline);
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-text-secondary);
+      margin-bottom: 2px;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--color-text-primary);
+    }
+
+    .section-body {
+      padding: 24px;
+    }
+
+    /* ─── OVERVIEW ────────────────────────────────────────────── */
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .overview-card {
+      padding: 16px;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--color-secondary-outline);
+    }
+
+    .overview-card-title {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    .overview-card-title .material-icons {
+      font-size: 16px;
+    }
+
+    .overview-card.use .overview-card-title { color: var(--color-success-main); }
+    .overview-card.dont .overview-card-title { color: var(--color-error-main); }
+
+    .overview-card ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .overview-card ul li {
+      font-size: 13px;
+      color: var(--color-text-secondary);
+      padding: 4px 0;
+      line-height: 1.4;
+      display: flex;
+      gap: 8px;
+    }
+
+    .overview-card ul li::before {
+      content: '—';
+      color: var(--color-secondary-outline);
+      flex-shrink: 0;
+    }
+
+    /* ─── VARIANT CANVAS ──────────────────────────────────────── */
+
+    .variant-canvas {
+      display: flex;
+      align-items: flex-end;
+      gap: 32px;
+      flex-wrap: wrap;
+      padding: 8px 0;
+    }
+
+    .variant-item {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .variant-item-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--color-text-secondary);
+      text-transform: uppercase;
+    }
+
+    .variant-divider {
+      width: 1px;
+      height: 40px;
+      background: var(--color-secondary-outline);
+      align-self: flex-end;
+    }
+
+    /* ─── STATES GRID ─────────────────────────────────────────── */
+
+    .states-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .states-table th {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--color-text-secondary);
+      padding: 0 0 12px 0;
+      text-align: left;
+      border-bottom: 1px solid var(--color-secondary-outline);
+    }
+
+    .states-table th:first-child {
+      width: 120px;
+    }
+
+    .states-table td {
+      padding: 16px 0;
+      vertical-align: middle;
+      border-bottom: 1px solid #F5F5F5;
+    }
+
+    .states-table td:first-child {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+    }
+
+    .states-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* ─── PROPS TABLE ─────────────────────────────────────────── */
+
+    .props-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .props-table thead th {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--color-text-secondary);
+      padding: 0 16px 12px 0;
+      text-align: left;
+      border-bottom: 1px solid var(--color-secondary-outline);
+    }
+
+    .props-table thead th:last-child { padding-right: 0; }
+
+    .props-table tbody td {
+      padding: 11px 16px 11px 0;
+      vertical-align: top;
+      border-bottom: 1px solid #F5F5F5;
+      color: var(--color-text-primary);
+      line-height: 1.4;
+    }
+
+    .props-table tbody td:last-child { padding-right: 0; }
+
+    .props-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .prop-name {
+      font-family: 'Roboto Mono', 'Courier New', monospace;
+      font-size: 12px;
+      color: var(--color-primary-main);
+      background: var(--color-primary-light);
+      padding: 2px 6px;
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+
+    .prop-type {
+      font-family: 'Roboto Mono', 'Courier New', monospace;
+      font-size: 12px;
+      color: var(--color-secondary-dark);
+      white-space: nowrap;
+    }
+
+    .prop-default {
+      font-family: 'Roboto Mono', 'Courier New', monospace;
+      font-size: 12px;
+      color: var(--color-text-secondary);
+    }
+
+    .prop-desc {
+      color: var(--color-text-secondary);
+      font-size: 13px;
+    }
+
+    /* ─── USAGE / DO DON'T ────────────────────────────────────── */
+
+    .usage-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .usage-card {
+      border-radius: var(--border-radius);
+      border: 1px solid var(--color-secondary-outline);
+      overflow: hidden;
+    }
+
+    .usage-card-bar {
+      height: 4px;
+    }
+
+    .usage-card.do .usage-card-bar { background: var(--color-success-main); }
+    .usage-card.dont .usage-card-bar { background: var(--color-error-main); }
+
+    .usage-card-inner {
+      padding: 16px;
+    }
+
+    .usage-card-tag {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .usage-card.do .usage-card-tag { color: var(--color-success-main); }
+    .usage-card.dont .usage-card-tag { color: var(--color-error-main); }
+
+    .usage-card-demo {
+      background: #FAFAFA;
+      border-radius: var(--border-radius);
+      padding: 20px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      min-height: 72px;
+    }
+
+    .usage-card-text {
+      font-size: 13px;
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+    }
+
+    /* ─── SPECS TABLE ─────────────────────────────────────────── */
+
+    .specs-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .specs-table thead th {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--color-text-secondary);
+      padding: 0 24px 12px 0;
+      text-align: left;
+      border-bottom: 1px solid var(--color-secondary-outline);
+    }
+
+    .specs-table tbody td {
+      padding: 10px 24px 10px 0;
+      border-bottom: 1px solid #F5F5F5;
+      vertical-align: top;
+      color: var(--color-text-primary);
+    }
+
+    .specs-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .specs-table .token-ref {
+      font-family: 'Roboto Mono', 'Courier New', monospace;
+      font-size: 12px;
+      color: var(--color-secondary-dark);
+    }
+
+    /* ─── DEMO BUTTONS ────────────────────────────────────────── */
+
+    .demo-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 16px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.15s, box-shadow 0.15s;
+      letter-spacing: 0;
+    }
+
+    .demo-btn .material-icons { font-size: 18px; }
+
+    /* Contained */
+    .demo-btn-contained {
+      background: var(--color-primary-main);
+      color: #FFFFFF;
+    }
+    .demo-btn-contained:hover {
+      background: var(--color-primary-dark);
+    }
+
+    /* Outlined */
+    .demo-btn-outlined {
+      background: transparent;
+      color: var(--color-primary-main);
+      border: 1px solid var(--color-primary-main);
+    }
+    .demo-btn-outlined:hover {
+      background: rgba(33, 150, 243, 0.04);
+    }
+
+    /* Text */
+    .demo-btn-text {
+      background: transparent;
+      color: var(--color-primary-main);
+      padding: 6px 8px;
+    }
+    .demo-btn-text:hover {
+      background: rgba(33, 150, 243, 0.04);
+    }
+
+    /* Small */
+    .demo-btn-sm {
+      padding: 4px 10px;
+      font-size: 12px;
+    }
+
+    /* Disabled */
+    .demo-btn-disabled {
+      opacity: 0.38;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    /* Destructive */
+    .demo-btn-destructive {
+      background: var(--color-error-main);
+      color: #FFFFFF;
+    }
+
+    /* Focus ring */
+    .demo-btn-focus {
+      outline: 2px solid var(--color-primary-main);
+      outline-offset: 2px;
+    }
+
+    /* Neutral/secondary */
+    .demo-btn-neutral {
+      background: transparent;
+      color: var(--color-text-primary);
+      border: 1px solid var(--color-secondary-outline);
+    }
+
+    /* ─── OVERRIDE SHELL MAIN-CONTENT PADDING ─────────────────── */
+    .main-content {
+      padding: 0;
+    }
+
+  </style>
+</head>
+<body>
+
+<aside class="sidebar"></aside>
+
+<main class="main-content">
+
+  <!-- ─── PAGE HEADER ──────────────────────────────────────────── -->
+  <div class="page-header">
+  <div class="page-header-inner">
+    <div class="page-breadcrumb">
+      <a href="#">Components</a>
+      <span class="material-icons">chevron_right</span>
+      <span>Button</span>
+    </div>
+    <h1 class="page-title">Button</h1>
+    <p class="page-description">Triggers an action or event such as saving data, opening a dialog, or navigating to another page. Buttons communicate what action will occur when a user interacts with them.</p>
+    <div class="page-meta">
+      <span class="meta-chip"><span class="material-icons">category</span>Atomic</span>
+      <a class="meta-chip figma-link" href="#" target="_blank"><span class="material-icons">open_in_new</span>Figma</a>
+      <span class="meta-chip status-live"><span class="material-icons">check_circle</span>Production</span>
+    </div>
+  </div><!-- /page-header-inner -->
+  </div>
+
+  <!-- ─── SECTION NAV ───────────────────────────────────────────── -->
+  <nav class="section-nav">
+  <div class="section-nav-inner">
+    <a href="#overview" class="section-nav-item active">Overview</a>
+    <a href="#variants" class="section-nav-item">Variants</a>
+    <a href="#states" class="section-nav-item">States</a>
+    <a href="#usage" class="section-nav-item">Usage</a>
+    <a href="#props" class="section-nav-item">Props</a>
+    <a href="#specs" class="section-nav-item">Specs</a>
+  </div><!-- /section-nav-inner -->
+  </nav>
+
+  <!-- ─── CONTENT ───────────────────────────────────────────────── -->
+  <div class="content-wrapper">
+  <div class="content-inner">
+
+    <!-- OVERVIEW -->
+    <section id="overview" class="ds-section">
+      <div class="section-header">
+        <div class="section-label">Overview</div>
+        <div class="section-title">When to use</div>
+      </div>
+      <div class="section-body">
+        <div class="overview-grid">
+          <div class="overview-card use">
+            <div class="overview-card-title">
+              <span class="material-icons">check_circle</span>
+              Use a button when
+            </div>
+            <ul>
+              <li>A user needs to take an action — save, submit, confirm, or navigate</li>
+              <li>The action is the primary or secondary focus of the current context</li>
+              <li>You need to clearly communicate what happens when the user clicks</li>
+              <li>An action needs a visual affordance that stands out from surrounding content</li>
+            </ul>
+          </div>
+          <div class="overview-card dont">
+            <div class="overview-card-title">
+              <span class="material-icons">cancel</span>
+              Do not use a button when
+            </div>
+            <ul>
+              <li>The action is inline within a sentence — use a text link instead</li>
+              <li>You need to navigate to an external URL in a paragraph context</li>
+              <li>The button would compete with a primary action on the same surface</li>
+              <li>You need more than three buttons in a single action group</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VARIANTS -->
+    <section id="variants" class="ds-section">
+      <div class="section-header">
+        <div class="section-label">Variants</div>
+        <div class="section-title">Emphasis hierarchy</div>
+      </div>
+      <div class="section-body">
+
+        <div class="variant-canvas" style="margin-bottom: 32px;">
+          <div class="variant-item">
+            <span class="variant-item-label">Contained</span>
+            <button class="demo-btn demo-btn-contained">Save changes</button>
+          </div>
+          <div class="variant-divider"></div>
+          <div class="variant-item">
+            <span class="variant-item-label">Outlined</span>
+            <button class="demo-btn demo-btn-outlined">Cancel</button>
+          </div>
+          <div class="variant-divider"></div>
+          <div class="variant-item">
+            <span class="variant-item-label">Text</span>
+            <button class="demo-btn demo-btn-text">Learn more</button>
+          </div>
+          <div class="variant-divider"></div>
+          <div class="variant-item">
+            <span class="variant-item-label">Destructive</span>
+            <button class="demo-btn demo-btn-destructive">Delete record</button>
+          </div>
+          <div class="variant-divider"></div>
+          <div class="variant-item">
+            <span class="variant-item-label">Neutral</span>
+            <button class="demo-btn demo-btn-neutral">Export</button>
+          </div>
+        </div>
+
+        <div class="variant-canvas">
+          <div class="variant-item">
+            <span class="variant-item-label">With leading icon</span>
+            <button class="demo-btn demo-btn-contained"><span class="material-icons">add</span>Add shift</button>
+          </div>
+          <div class="variant-divider"></div>
+          <div class="variant-item">
+            <span class="variant-item-label">With trailing icon</span>
+            <button class="demo-btn demo-btn-outlined">Export<span class="material-icons">download</span></button>
+          </div>
+          <div class="variant-divider"></div>
+          <div class="variant-item">
+            <span class="variant-item-label">Size — md</span>
+            <button class="demo-btn demo-btn-contained">Save changes</button>
+          </div>
+          <div class="variant-divider"></div>
+          <div class="variant-item">
+            <span class="variant-item-label">Size — sm</span>
+            <button class="demo-btn demo-btn-contained demo-btn-sm">Save changes</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- STATES -->
+    <section id="states" class="ds-section">
+      <div class="section-header">
+        <div class="section-label">States</div>
+        <div class="section-title">Interactive states across variants</div>
+      </div>
+      <div class="section-body">
+        <table class="states-table">
+          <thead>
+            <tr>
+              <th>State</th>
+              <th>Contained</th>
+              <th>Outlined</th>
+              <th>Text</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Default</td>
+              <td><button class="demo-btn demo-btn-contained">Label</button></td>
+              <td><button class="demo-btn demo-btn-outlined">Label</button></td>
+              <td><button class="demo-btn demo-btn-text">Label</button></td>
+            </tr>
+            <tr>
+              <td>Hover</td>
+              <td><button class="demo-btn demo-btn-contained" style="background:#1976D2;">Label</button></td>
+              <td><button class="demo-btn demo-btn-outlined" style="background:rgba(33,150,243,0.04);">Label</button></td>
+              <td><button class="demo-btn demo-btn-text" style="background:rgba(33,150,243,0.04);">Label</button></td>
+            </tr>
+            <tr>
+              <td>Focus</td>
+              <td><button class="demo-btn demo-btn-contained demo-btn-focus">Label</button></td>
+              <td><button class="demo-btn demo-btn-outlined demo-btn-focus">Label</button></td>
+              <td><button class="demo-btn demo-btn-text demo-btn-focus">Label</button></td>
+            </tr>
+            <tr>
+              <td>Disabled</td>
+              <td><button class="demo-btn demo-btn-contained demo-btn-disabled">Label</button></td>
+              <td><button class="demo-btn demo-btn-outlined demo-btn-disabled">Label</button></td>
+              <td><button class="demo-btn demo-btn-text demo-btn-disabled">Label</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- USAGE / DO DON'T -->
+    <section id="usage" class="ds-section">
+      <div class="section-header">
+        <div class="section-label">Usage</div>
+        <div class="section-title">Do and don't</div>
+      </div>
+      <div class="section-body">
+        <div class="usage-grid">
+
+          <div class="usage-card do">
+            <div class="usage-card-bar"></div>
+            <div class="usage-card-inner">
+              <div class="usage-card-tag">✓ Do</div>
+              <div class="usage-card-demo">
+                <button class="demo-btn demo-btn-contained">Save changes</button>
+                <button class="demo-btn demo-btn-outlined">Discard</button>
+              </div>
+              <p class="usage-card-text">Use one contained button per context. Pair it with an outlined or text button for secondary actions. This creates a clear visual hierarchy.</p>
+            </div>
+          </div>
+
+          <div class="usage-card dont">
+            <div class="usage-card-bar"></div>
+            <div class="usage-card-inner">
+              <div class="usage-card-tag">✗ Don't</div>
+              <div class="usage-card-demo">
+                <button class="demo-btn demo-btn-contained">Save</button>
+                <button class="demo-btn demo-btn-contained">Submit</button>
+                <button class="demo-btn demo-btn-contained">Confirm</button>
+              </div>
+              <p class="usage-card-text">Don't use multiple contained buttons side by side. Every button competing for attention means none of them stand out.</p>
+            </div>
+          </div>
+
+          <div class="usage-card do">
+            <div class="usage-card-bar"></div>
+            <div class="usage-card-inner">
+              <div class="usage-card-tag">✓ Do</div>
+              <div class="usage-card-demo">
+                <button class="demo-btn demo-btn-contained"><span class="material-icons">add</span>Add shift</button>
+              </div>
+              <p class="usage-card-text">Use action-oriented labels that describe exactly what happens. Pair icons with labels for clarity on primary actions.</p>
+            </div>
+          </div>
+
+          <div class="usage-card dont">
+            <div class="usage-card-bar"></div>
+            <div class="usage-card-inner">
+              <div class="usage-card-tag">✗ Don't</div>
+              <div class="usage-card-demo">
+                <button class="demo-btn demo-btn-contained">Click here</button>
+                <button class="demo-btn demo-btn-contained" style="margin-left:8px">OK</button>
+              </div>
+              <p class="usage-card-text">Don't use vague labels like "Click here", "OK", or "Submit" without context. Labels should describe the outcome, not the gesture.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- PROPS -->
+    <section id="props" class="ds-section">
+      <div class="section-header">
+        <div class="section-label">Props</div>
+        <div class="section-title">Component API</div>
+      </div>
+      <div class="section-body">
+        <table class="props-table">
+          <thead>
+            <tr>
+              <th style="width:160px">Prop</th>
+              <th style="width:200px">Type</th>
+              <th style="width:120px">Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="prop-name">variant</span></td>
+              <td><span class="prop-type">'contained' | 'outlined' | 'text' | 'destructive' | 'neutral'</span></td>
+              <td><span class="prop-default">'contained'</span></td>
+              <td class="prop-desc">Controls visual emphasis and intent. Use contained for primary actions only.</td>
+            </tr>
+            <tr>
+              <td><span class="prop-name">size</span></td>
+              <td><span class="prop-type">'md' | 'sm'</span></td>
+              <td><span class="prop-default">'md'</span></td>
+              <td class="prop-desc">Controls button height and font size. md is default for most contexts.</td>
+            </tr>
+            <tr>
+              <td><span class="prop-name">startIcon</span></td>
+              <td><span class="prop-type">ReactNode</span></td>
+              <td><span class="prop-default">—</span></td>
+              <td class="prop-desc">Icon placed before the label. Use Material Icons only.</td>
+            </tr>
+            <tr>
+              <td><span class="prop-name">endIcon</span></td>
+              <td><span class="prop-type">ReactNode</span></td>
+              <td><span class="prop-default">—</span></td>
+              <td class="prop-desc">Icon placed after the label. Useful for directional actions like Export.</td>
+            </tr>
+            <tr>
+              <td><span class="prop-name">disabled</span></td>
+              <td><span class="prop-type">boolean</span></td>
+              <td><span class="prop-default">false</span></td>
+              <td class="prop-desc">Prevents interaction. Renders at 38% opacity. Do not use to hide unavailable actions — remove them instead.</td>
+            </tr>
+            <tr>
+              <td><span class="prop-name">onClick</span></td>
+              <td><span class="prop-type">() => void</span></td>
+              <td><span class="prop-default">—</span></td>
+              <td class="prop-desc">Handler called when the button is clicked.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SPECS -->
+    <section id="specs" class="ds-section">
+      <div class="section-header">
+        <div class="section-label">Specs</div>
+        <div class="section-title">Tokens and values</div>
+      </div>
+      <div class="section-body">
+        <table class="specs-table">
+          <thead>
+            <tr>
+              <th style="width:180px">Property</th>
+              <th style="width:120px">Value</th>
+              <th>Token</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Height — md</td>
+              <td>36px</td>
+              <td><span class="token-ref">—</span></td>
+              <td>Extracted from Figma. padding: 6px top/bottom + 24px line-height</td>
+            </tr>
+            <tr>
+              <td>Height — sm</td>
+              <td>28px</td>
+              <td><span class="token-ref">—</span></td>
+              <td>Extracted from Figma</td>
+            </tr>
+            <tr>
+              <td>Padding — md</td>
+              <td>6px 16px</td>
+              <td><span class="token-ref">spacing.sm / spacing.md</span></td>
+              <td>Vertical 6px (exception), horizontal 16px</td>
+            </tr>
+            <tr>
+              <td>Padding — sm</td>
+              <td>4px 10px</td>
+              <td><span class="token-ref">spacing.xs / —</span></td>
+              <td>10px horizontal is Figma-extracted, not a standard token</td>
+            </tr>
+            <tr>
+              <td>Font size — md</td>
+              <td>14px</td>
+              <td><span class="token-ref">typography.fontSize.sm</span></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Font size — sm</td>
+              <td>12px</td>
+              <td><span class="token-ref">typography.fontSize.xs</span></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Border radius</td>
+              <td>4px</td>
+              <td><span class="token-ref">borderRadius.default</span></td>
+              <td>Standard for all interactive controls</td>
+            </tr>
+            <tr>
+              <td>Contained bg</td>
+              <td>#2196F3</td>
+              <td><span class="token-ref">colors.primary.main</span></td>
+              <td>Save / Update actions only</td>
+            </tr>
+            <tr>
+              <td>Contained bg — hover</td>
+              <td>#1976D2</td>
+              <td><span class="token-ref">colors.primary.dark</span></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Disabled opacity</td>
+              <td>38%</td>
+              <td><span class="token-ref">—</span></td>
+              <td>Applied to all variants when disabled</td>
+            </tr>
+            <tr>
+              <td>Icon size</td>
+              <td>18px</td>
+              <td><span class="token-ref">—</span></td>
+              <td>Material Icons, extracted from Figma</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </div><!-- /content-inner -->
+  </div><!-- /content-wrapper -->
+</main>
+
+<script src="design-system-nav.js"></script>
+<script>
+  // Highlight active section nav item on scroll
+  const sections = document.querySelectorAll('.ds-section');
+  const navItems = document.querySelectorAll('.section-nav-item');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navItems.forEach(item => item.classList.remove('active'));
+        const activeItem = document.querySelector(`.section-nav-item[href="#${entry.target.id}"]`);
+        if (activeItem) activeItem.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>

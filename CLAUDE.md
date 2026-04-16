@@ -6,7 +6,7 @@ The shared component library and design token reference for all TRIO WFS product
 Built as a static HTML reference site + React/TypeScript component implementations.
 Source of truth for all UI decisions across the TRIO WFS platform.
 
-**Project path:** `/Users/jesses/Projects/Trio/ahtg-design-system`
+**Project path:** `/Users/jesses/Projects/Trio/Trio-UI`
 **Localhost:** `python3 -m http.server 8080` from project root → http://localhost:8080
 
 ---
@@ -24,8 +24,8 @@ Cached specs in `figma-specs/` are available as offline reference but may be sta
 
 ## Component Status
 
-**12 components live** (have showcase pages + TSX):
-Autocomplete, Button, ButtonGroup, Checkbox, Chip, Menu, MetricCard, Modal, RadioGroup, Select, Switch, TextField
+**24 components live** (have showcase pages + TSX):
+Alert, Autocomplete, Badge, Breadcrumb, Button, ButtonGroup, ButtonIcon, Checkbox, Chip, Chart, Menu, MetricCard, Modal, NavigationVertical, PageHeaderToolbar, RadioGroup, SearchBar, Select, SplitButton, Switch, Tabs, TextField, ToggleButton, Tooltip
 
 **Token pages live:**
 Colors, Typography, Spacing
@@ -107,6 +107,8 @@ Every component showcase MUST:
 - Roboto font only, max H5 for page headers
 - Primary blue (#2196F3) = Save/Update actions only
 - Desktop-first — no responsive/mobile considerations
+
+**Before producing any UI output, read `PAGE_ARCHITECTURE.md`** — it defines page layer order, elevation rules, header variants, background hierarchy, and color usage. These rules apply to all TRIO WFS projects.
 
 ---
 

@@ -2,14 +2,11 @@
  * TextField Component Types
  *
  * SOURCE OF TRUTH: Figma component "text-field"
- * Cache: ~/.openclaw/shared-data/figma-specs/text-field.json
  *
  * These types are DIRECTLY MAPPED from Figma componentPropertyDefinitions.
  * DO NOT add properties that don't exist in Figma.
  * DO NOT modify variant options unless Figma is updated.
  */
-
-import { ReactNode } from 'react';
 
 /**
  * TextField type variants from Figma
@@ -20,11 +17,6 @@ export type TextFieldType = 'single-line' | 'multi-line';
  * TextField state variants from Figma
  */
 export type TextFieldState = 'default' | 'error' | 'focus';
-
-/**
- * TextField disabled variants from Figma
- */
-export type TextFieldDisabled = 'no' | 'yes';
 
 export interface TextFieldProps {
   // ========================================
@@ -45,28 +37,16 @@ export interface TextFieldProps {
 
   /**
    * Whether the field is disabled
-   * @default 'no'
+   * @default false
    */
-  disabled?: TextFieldDisabled;
+  disabled?: boolean;
 
   // ========================================
   // BOOLEAN Properties (from Figma)
   // ========================================
 
   /**
-   * Show label above input
-   * @default true
-   */
-  label?: boolean;
-
-  /**
    * Show helper text below input
-   * @default false
-   */
-  helpText?: boolean;
-
-  /**
-   * Show icon on right side
    * @default false
    */
   iconRight?: boolean;
@@ -93,27 +73,27 @@ export interface TextFieldProps {
    * Show input adornment
    * @default false
    */
-  adormentInput?: boolean;
+  adornmentInput?: boolean;
 
   // ========================================
-  // TEXT Properties (from Figma)
+  // TEXT / React Props
   // ========================================
+
+  /**
+   * Label text — renders above the input in segmented style
+   */
+  label?: string;
 
   /**
    * Placeholder text
    * @default 'Placeholder'
    */
-  placeholderLabel?: string;
+  placeholder?: string;
 
   /**
-   * Input content
-   * @default '|'
+   * Helper or error text below the input
    */
-  inputContent?: string;
-
-  // ========================================
-  // Standard React Props
-  // ========================================
+  helperText?: string;
 
   /**
    * Input value (controlled)
@@ -124,16 +104,6 @@ export interface TextFieldProps {
    * Change handler
    */
   onChange?: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-
-  /**
-   * Label text content
-   */
-  labelText?: string;
-
-  /**
-   * Helper text content
-   */
-  helperText?: string;
 
   /**
    * Custom class name
@@ -149,14 +119,11 @@ export interface TextFieldProps {
 export const defaultTextFieldProps: Partial<TextFieldProps> = {
   type: 'single-line',
   state: 'default',
-  disabled: 'no',
-  label: true,
-  helpText: false,
+  disabled: false,
   iconRight: false,
   iconSupport: false,
   inputFill: false,
   chipContent: false,
-  adormentInput: false,
-  placeholderLabel: 'Placeholder',
-  inputContent: '|',
+  adornmentInput: false,
+  placeholder: 'Placeholder',
 };

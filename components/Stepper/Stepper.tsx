@@ -11,7 +11,7 @@ export function Stepper({ steps, activeStep, className }: StepperProps) {
       className={className}
       sx={{
         borderBottom: `1px solid ${tokens.colors.components.border.default}`,
-        py: `${tokens.spacing.md}px`,
+        py: `${tokens.spacing.sm}px`,
         display: 'flex',
         justifyContent: 'center',
         width: '100%',
@@ -38,8 +38,8 @@ export function Stepper({ steps, activeStep, className }: StepperProps) {
                 {/* Step circle */}
                 <Box
                   sx={{
-                    width: 24,
-                    height: 24,
+                    width: 20,
+                    height: 20,
                     borderRadius: `${tokens.borderRadius.full}px`,
                     display: 'flex',
                     alignItems: 'center',
@@ -74,9 +74,9 @@ export function Stepper({ steps, activeStep, className }: StepperProps) {
                 {/* Step label */}
                 <Typography
                   sx={{
-                    fontSize: `${tokens.typography.fontSize.sm}px`,
+                    fontSize: `${tokens.typography.button.sm.fontSize}px`,
                     fontWeight: tokens.typography.fontWeight.regular,
-                    lineHeight: '20px',
+                    lineHeight: `${tokens.typography.button.sm.lineHeight}px`,
                     fontFamily: tokens.typography.fontFamily,
                     color: isCompleted || isActive
                       ? tokens.colors.text.primary
@@ -97,7 +97,7 @@ export function Stepper({ steps, activeStep, className }: StepperProps) {
                     borderRadius: `${tokens.borderRadius.full}px`,
                     backgroundColor: isCompleted
                       ? tokens.colors.dataViz.teal
-                      : tokens.colors.components.border.default,
+                      : 'rgba(0,0,0,0.1)',
                     mx: `${tokens.spacing.sm}px`,
                   }}
                 />

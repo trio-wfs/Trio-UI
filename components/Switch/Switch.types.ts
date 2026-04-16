@@ -2,7 +2,6 @@
  * Switch Component Types
  *
  * SOURCE OF TRUTH: Figma component "Switch" (node: 2433:9802)
- * Cache: ~/.openclaw/shared-data/figma-specs/switch.json
  *
  * These types are DIRECTLY MAPPED from Figma componentPropertyDefinitions.
  * DO NOT add properties that don't exist in Figma.
@@ -16,7 +15,6 @@ import { ReactNode } from 'react';
  */
 export type SwitchState = 'off' | 'on';
 export type SwitchLabelPlacement = 'left' | 'right' | 'top';
-export type SwitchDisabled = 'no' | 'yes';
 
 export interface SwitchProps {
   // ========================================
@@ -37,9 +35,9 @@ export interface SwitchProps {
 
   /**
    * Disabled state
-   * @default 'no'
+   * @default false
    */
-  disabled?: SwitchDisabled;
+  disabled?: boolean;
 
   // ========================================
   // React Props (not from Figma)
@@ -84,6 +82,6 @@ export interface SwitchProps {
 export const defaultSwitchProps: Partial<SwitchProps> = {
   state: 'off',
   labelPlacement: 'right',
-  disabled: 'no',
+  disabled: false,
   checked: false,
 };

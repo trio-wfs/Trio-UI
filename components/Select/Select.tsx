@@ -4,21 +4,17 @@
  * SOURCE OF TRUTH: Figma component "Select" (node: 2433:8481)
  * Design System: AHTG Desktop SaaS
  *
+ * Theme migration (2026-04-15):
+ * - InputLabel typography/layout now inherited from MuiFormLabel + MuiInputLabel theme.
+ * - FormHelperText typography now inherited from MuiFormHelperText theme.
+ * - Trigger styling is intentionally kept inline — Select uses a custom <div>
+ *   (not MuiOutlinedInput) because the dropdown uses our Menu component, and
+ *   the visual state (default/focus/error/disabled) is driven by the `state` prop.
+ *
  * EXTRACTED VALUES FROM FIGMA:
  * - Input height: 36px (uses TextField single-line instance)
- * - Total height with label: 58px (from .absoluteBoundingBox.height)
- * - Width: 256px default (from .absoluteBoundingBox.width)
- * - States: default, focus, disabled, error, selected (from variantOptions)
- * - Type: open, closed (from variantOptions)
- * - Uses text-field component internally (type: single-line)
- * - Dropdown uses custom Menu component (not system dropdown)
- *
- * CRITICAL RULES:
- * - All colors from tokens.ts (NO hardcoded hex values)
- * - All spacing from tokens.ts (8px system)
- * - All typography from tokens.ts
- * - Desktop-only (no responsive/mobile)
- * - Material Icons only
+ * - Width: 256px default
+ * - Uses custom Menu component (not system dropdown)
  */
 
 import React, { useState, useRef } from 'react';
@@ -63,13 +59,7 @@ export const Select: React.FC<SelectProps> = ({
   };
 
   const handleMenuItemClick = (optionValue: string) => {
-    if (onChange) {
-      // Create synthetic event
-      const syntheticEvent = {
-        target: { value: optionValue },
-      } as React.ChangeEvent<{ value: string }>;
-      onChange(syntheticEvent as any);
-    }
+    onChange?.(optionValue);
     setOpen(false);
   };
 
@@ -89,31 +79,9 @@ export const Select: React.FC<SelectProps> = ({
       error={hasError}
       disabled={isDisabled}
       className={className}
-      sx={{
-        fontFamily: tokens.typography.fontFamily,
-      }}
     >
       {label && (
-        <InputLabel
-          shrink
-          sx={{
-            fontSize: `${tokens.typography.fontSize.xs}px`,
-            fontWeight: tokens.typography.fontWeight.medium,
-            color: hasError
-              ? tokens.colors.error.main
-              : isFocused
-              ? tokens.colors.primary.main
-              : tokens.colors.text.primary,
-            '&.Mui-disabled': {
-              color: tokens.colors.text.disabled,
-            },
-            position: 'relative',
-            transform: 'none',
-            marginBottom: `${tokens.spacing.xs}px`,
-          }}
-        >
-          {label}
-        </InputLabel>
+        <InputLabel shrink>{label}</InputLabel>
       )}
       <div
         ref={anchorRef}
@@ -184,19 +152,7 @@ export const Select: React.FC<SelectProps> = ({
         width={anchorRef.current?.offsetWidth}
       />
 
-      {helperText && (
-        <FormHelperText
-          sx={{
-            fontSize: `${tokens.typography.fontSize.xs}px`,
-            color: hasError ? tokens.colors.error.main : tokens.colors.text.secondary,
-            marginLeft: 0,
-            marginTop: `${tokens.spacing.xs}px`,
-            fontFamily: tokens.typography.fontFamily,
-          }}
-        >
-          {helperText}
-        </FormHelperText>
-      )}
+      {helperText && <FormHelperText>{helperText}</FormHelperText>}
     </FormControl>
   );
 };

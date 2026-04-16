@@ -2,7 +2,6 @@
  * Menu Component Types
  *
  * SOURCE OF TRUTH: Figma component "menu" (node: 4505:3795)
- * Cache: ~/.openclaw/shared-data/figma-specs/menu.json
  *
  * These types are DIRECTLY MAPPED from Figma componentPropertyDefinitions.
  * DO NOT add properties that don't exist in Figma.

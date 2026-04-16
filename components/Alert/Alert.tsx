@@ -2,23 +2,17 @@
  * Alert Component
  *
  * SOURCE OF TRUTH: Figma component "Alert" (node: 2063:3499)
- * File: PjAYuPDr8IA1ccwiAjFkSD
  *
- * EXTRACTED VALUES:
- * Padding: 16px | Border radius: 4px | Icon: 24px | Close icon: 16px
- * Gap between sections: 20px | Inner gap: 16px
- * Title: 14px/500/24px | Description/Action: 12px/400/18px
+ * Theme migration (2026-04-15):
+ * - Root chrome (padding, radius, icon/message layout) + the 12-combo
+ *   color matrix (variant × severity) live in theme at components.MuiAlert.
+ * - AlertTitle typography lives in theme at components.MuiAlertTitle.
+ * - Description is now a Typography variant="caption" — our theme's caption
+ *   is 12/400/18px which matches the Figma description spec exactly, so we
+ *   don't need inline styles.
  *
- * Variant → MUI mapping:
- *   standard  → MUI 'standard'
- *   contained → MUI 'filled'
- *   outline   → MUI 'outlined'
- *
- * Severity → MUI mapping:
- *   default   → MUI 'info' with primary color overrides
- *   error     → MUI 'error'
- *   warning   → MUI 'warning'
- *   success   → MUI 'success'
+ * This component is now a thin wrapper: it maps our Figma variant/severity
+ * names to MUI equivalents and renders the action/close slot.
  */
 
 import React from 'react';
@@ -26,16 +20,9 @@ import MuiAlert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
-import { tokens } from '../../design-tokens/tokens';
-import {
-  AlertProps,
-  AlertVariant,
-  AlertSeverity,
-  defaultAlertProps,
-} from './Alert.types';
-
-// ─── Token Maps ───────────────────────────────────────────────────────────────
+import { AlertProps, defaultAlertProps } from './Alert.types';
 
 const severityToMui = {
   default: 'info',
@@ -50,78 +37,33 @@ const variantToMui = {
   outline: 'outlined',
 } as const;
 
-// Per-severity sx overrides to match Figma exactly
-// "default" severity uses primary colors, not MUI's info colors
-function getSeveritySx(variant: AlertVariant, severity: AlertSeverity) {
-  if (severity !== 'default') return {};
-
-  if (variant === 'standard') {
-    return {
-      backgroundColor: tokens.colors.primary.light,       // #E3F2FD
-      color: tokens.colors.primary.dark,                   // #1976D2
-      '& .MuiAlert-icon': { color: tokens.colors.primary.dark },
-    };
-  }
-  if (variant === 'contained') {
-    return {
-      backgroundColor: tokens.colors.primary.main,        // #2196F3
-      color: tokens.colors.primary.contrastText,           // #FFFFFF
-      '& .MuiAlert-icon': { color: tokens.colors.primary.contrastText },
-    };
-  }
-  if (variant === 'outline') {
-    return {
-      backgroundColor: 'transparent',
-      color: tokens.colors.primary.main,                   // #2196F3
-      borderColor: tokens.colors.primary.main,
-      '& .MuiAlert-icon': { color: tokens.colors.primary.main },
-    };
-  }
-  return {};
-}
-
-// ─── Component ────────────────────────────────────────────────────────────────
-
 export const Alert: React.FC<AlertProps> = ({
   variant = defaultAlertProps.variant,
   severity = defaultAlertProps.severity,
-  title = defaultAlertProps.title,
-  description = defaultAlertProps.description,
-  actionBtn = defaultAlertProps.actionBtn,
+  title,
+  description,
+  actionLabel,
   close = defaultAlertProps.close,
-  titleText = defaultAlertProps.titleText,
-  descriptionText = defaultAlertProps.descriptionText,
-  actionLabel = defaultAlertProps.actionLabel,
   onClose,
   onAction,
   children,
   className,
 }) => {
-  const muiVariant = variantToMui[variant!];
-  const muiSeverity = severityToMui[severity!];
-  const severitySx = getSeveritySx(variant!, severity!);
+  const hasAction = Boolean(actionLabel || close);
 
   return (
     <MuiAlert
       className={className}
-      variant={muiVariant}
-      severity={muiSeverity}
+      variant={variantToMui[variant!]}
+      severity={severityToMui[severity!]}
       action={
-        actionBtn || close ? (
-          <React.Fragment>
-            {actionBtn && (
+        hasAction ? (
+          <>
+            {actionLabel && (
               <Button
                 size="small"
                 onClick={onAction}
-                sx={{
-                  fontSize: tokens.typography.fontSize.xs,    // 12px
-                  fontWeight: tokens.typography.fontWeight.regular,
-                  lineHeight: '18px',
-                  textTransform: 'none',
-                  color: 'inherit',
-                  minWidth: 'unset',
-                  px: `${tokens.spacing.sm}px`,
-                }}
+                sx={{ color: 'inherit', minWidth: 'unset' }}
               >
                 {actionLabel}
               </Button>
@@ -130,50 +72,21 @@ export const Alert: React.FC<AlertProps> = ({
               <IconButton
                 size="small"
                 onClick={onClose}
-                sx={{
-                  color: 'inherit',
-                  p: `${tokens.spacing.xs}px`,
-                  '& .MuiSvgIcon-root': { fontSize: 16 },
-                }}
+                sx={{ color: 'inherit', '& .MuiSvgIcon-root': { fontSize: 16 } }}
                 aria-label="Close alert"
               >
                 <CloseIcon />
               </IconButton>
             )}
-          </React.Fragment>
+          </>
         ) : undefined
       }
-      sx={{
-        borderRadius: `${tokens.borderRadius.default}px`,    // 4px
-        padding: `${tokens.spacing.md}px`,                   // 16px
-        fontFamily: tokens.typography.fontFamily,
-        '& .MuiAlert-icon': { fontSize: 24 },
-        '& .MuiAlert-message': { gap: `${tokens.spacing.sm}px` },
-        ...severitySx,
-      }}
     >
-      {title && (
-        <AlertTitle
-          sx={{
-            fontSize: tokens.typography.fontSize.sm,         // 14px
-            fontWeight: tokens.typography.fontWeight.medium, // 500
-            lineHeight: '24px',
-            margin: 0,
-          }}
-        >
-          {titleText}
-        </AlertTitle>
-      )}
-      {description && (
-        <span
-          style={{
-            fontSize: tokens.typography.fontSize.xs,         // 12px
-            fontWeight: tokens.typography.fontWeight.regular, // 400
-            lineHeight: '18px',
-          }}
-        >
-          {children ?? descriptionText}
-        </span>
+      {title && <AlertTitle>{title}</AlertTitle>}
+      {(description || children) && (
+        <Typography variant="caption" component="div">
+          {children ?? description}
+        </Typography>
       )}
     </MuiAlert>
   );

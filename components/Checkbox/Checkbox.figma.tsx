@@ -7,18 +7,9 @@ figma.connect(Checkbox, 'https://www.figma.com/design/PjAYuPDr8IA1ccwiAjFkSD?nod
       primary: 'primary',
       error: 'error',
     }),
-    checked: figma.enum('checked', {
-      true: true,
-      false: false,
-    }),
-    disabled: figma.enum('disabled', {
-      true: true,
-      false: false,
-    }),
-    indeterminate: figma.enum('indeterminate', {
-      true: true,
-      false: false,
-    }),
+    checked: figma.boolean('checked'),
+    disabled: figma.boolean('disabled'),
+    indeterminate: figma.boolean('indeterminate'),
   },
   example: ({ color, checked, disabled, indeterminate }) => (
     <Checkbox

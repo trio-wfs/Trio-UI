@@ -35,6 +35,7 @@ export { Tabs } from './Tabs/Tabs';
 export { TextField } from './TextField/TextField';
 export { ToggleButton } from './ToggleButton/ToggleButton';
 export { Tooltip } from './Tooltip/Tooltip';
+export { Chart } from './Chart/Chart';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -186,7 +187,12 @@ export type {
   TooltipProps,
 } from './Tooltip/Tooltip.types';
 
+export type { ChartProps } from './Chart/Chart.types';
+
 // ─── Design Tokens ───────────────────────────────────────────────────────────
 
 export { tokens } from '../design-tokens/tokens';
 export type { Tokens } from '../design-tokens/tokens';
+
+export { trioAgChartsTheme, trioChartPalette, MATERIAL_ICON_SVG } from '../design-tokens/agChartsTheme';
+export type { TrioAgChartsTheme } from '../design-tokens/agChartsTheme';

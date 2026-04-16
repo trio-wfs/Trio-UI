@@ -47,7 +47,7 @@ Extracted from `componentPropertyDefinitions`:
 
 ## Design Tokens Used
 
-All values reference `~/.openclaw/shared-data/design-tokens/tokens.ts`:
+All values reference `design-tokens/tokens.ts`:
 
 ### Colors
 - **Primary:** `tokens.colors.primary.main` (#2196F3)
@@ -375,10 +375,10 @@ Test all combinations:
 
 ## References
 
-- **Figma Spec**: `~/.openclaw/shared-data/figma-specs/button.json`
-- **Design Tokens**: `~/.openclaw/shared-data/design-tokens/tokens.ts`
-- **Component Manifest**: `~/.openclaw/shared-data/figma-component-manifest.json`
-- **AHTG Design System**: See `DESIGN_AGENT.md` for complete rules
+- **Figma Spec**: Use `mcp__figma__get_design_context` with node ID from `figma-component-manifest.json`
+- **Design Tokens**: `design-tokens/tokens.ts`
+- **Component Manifest**: `figma-component-manifest.json`
+- **Design System Rules**: `CLAUDE.md`, `PAGE_ARCHITECTURE.md`
 
 ---
 

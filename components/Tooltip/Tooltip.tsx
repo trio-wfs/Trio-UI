@@ -3,41 +3,16 @@
  *
  * SOURCE OF TRUTH: Figma node 490:88 (file: PjAYuPDr8IA1ccwiAjFkSD)
  *
- * Hover tooltip with:
- *   - Black (#000) background, white text
- *   - 14px / Medium (500) typography
- *   - Directional arrow pointer
- *   - 4px 8px padding, 4px border radius
- *   - position: top | bottom | left | right | none
- *     "none" disables the tooltip entirely
+ * Theme migration (2026-04-15):
+ * - The styled() factory is gone. All tooltip/arrow styling lives in theme
+ *   at components.MuiTooltip, and arrow is a defaultProp (always on for TRIO).
+ * - This component is now just a thin wrapper that maps our `position` prop
+ *   to MUI's `placement` and supports position="none" (no tooltip).
  */
 
 import React from 'react';
-import { Tooltip as MuiTooltip, tooltipClasses } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { Tooltip as MuiTooltip } from '@mui/material';
 import { TooltipProps, defaultTooltipProps } from './Tooltip.types';
-import { tokens } from '../../design-tokens/tokens';
-
-const StyledTooltip = styled(
-  ({ className, ...props }: React.ComponentProps<typeof MuiTooltip>) => (
-    <MuiTooltip {...props} classes={{ popper: className }} />
-  )
-)({
-  [`& .${tooltipClasses.tooltip}`]: {
-    backgroundColor: tokens.colors.base.black,
-    color: tokens.colors.base.white,
-    fontFamily: tokens.typography.fontFamily,
-    fontSize: tokens.typography.fontSize.sm,  // 14px
-    fontWeight: tokens.typography.fontWeight.medium, // 500
-    lineHeight: `${tokens.typography.body2.lineHeight}px`,
-    padding: `${tokens.spacing.xs}px ${tokens.spacing.sm}px`, // 4px 8px
-    borderRadius: tokens.borderRadius.default,
-    boxShadow: tokens.shadows.md,
-  },
-  [`& .${tooltipClasses.arrow}`]: {
-    color: tokens.colors.base.black,
-  },
-});
 
 export const Tooltip: React.FC<TooltipProps> = ({
   title,
@@ -49,9 +24,9 @@ export const Tooltip: React.FC<TooltipProps> = ({
   }
 
   return (
-    <StyledTooltip title={title} placement={position} arrow>
+    <MuiTooltip title={title} placement={position}>
       {children}
-    </StyledTooltip>
+    </MuiTooltip>
   );
 };
 

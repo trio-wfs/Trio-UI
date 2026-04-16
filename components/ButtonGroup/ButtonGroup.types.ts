@@ -2,7 +2,6 @@
  * ButtonGroup Component Types
  *
  * SOURCE OF TRUTH: Figma component "buttonGroup" (node: 2172:9605)
- * Cache: ~/.openclaw/shared-data/figma-specs/buttongroup.json
  *
  * These types are DIRECTLY MAPPED from Figma componentPropertyDefinitions.
  * DO NOT add properties that don't exist in Figma.

@@ -91,19 +91,12 @@ export const ButtonIcon: React.FC<ButtonIconProps> = ({
 
   if (!badge) return button;
 
+  // Badge typography/sizing now inherits from the global MuiBadge theme override.
   return (
     <Badge
       badgeContent={badgeCount}
       color="error"
       variant={badgeCount !== undefined ? 'standard' : 'dot'}
-      sx={{
-        '& .MuiBadge-badge': {
-          fontSize: `${tokens.typography.fontSize.xxs}px`,
-          height: 16,
-          minWidth: 16,
-          borderRadius: `${tokens.borderRadius.full}px`,
-        },
-      }}
     >
       {button}
     </Badge>

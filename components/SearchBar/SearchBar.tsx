@@ -8,10 +8,12 @@
  *   type = Right → search button on the right
  *   type = Both  → search buttons on both sides
  *
- * Sizes map to MUI TextField sizes:
- *   Small  → small  (height ~32px)
- *   Medium → medium (height ~40px, Figma default)
- *   Large  → medium with extra padding (~48px)
+ * Theme migration (2026-04-15):
+ * - Dropped the `fieldset` borderColor overrides (enabled, hover, focused, disabled) —
+ *   all inherited from the MuiTextField theme now.
+ * - Migrated deprecated `InputProps` → MUI v9 `slotProps.input`.
+ * - Kept: dynamic per-size height/fontSize, corner-radius carve-outs when
+ *   joined with support buttons, and the extra focus box-shadow ring (unique to SearchBar).
  */
 
 import React from 'react';
@@ -27,9 +29,9 @@ const sizeHeightMap = {
 };
 
 const sizeFontMap = {
-  Small: tokens.typography.fontSize.xs,   // 12px
-  Medium: tokens.typography.fontSize.sm,  // 14px
-  Large: tokens.typography.fontSize.md,   // 16px
+  Small: tokens.typography.fontSize.xs,
+  Medium: tokens.typography.fontSize.sm,
+  Large: tokens.typography.fontSize.md,
 };
 
 export const SearchBar: React.FC<SearchBarProps> = ({
@@ -69,7 +71,6 @@ export const SearchBar: React.FC<SearchBarProps> = ({
         opacity: disabled ? 0.6 : 1,
       }}
     >
-      {/* Left support button */}
       {showLeft && (
         <IconButton
           onClick={disabled ? undefined : onSearch}
@@ -86,7 +87,6 @@ export const SearchBar: React.FC<SearchBarProps> = ({
         </IconButton>
       )}
 
-      {/* Text field */}
       <TextField
         value={value}
         placeholder={placeholder}
@@ -95,52 +95,41 @@ export const SearchBar: React.FC<SearchBarProps> = ({
         onKeyDown={(e) => e.key === 'Enter' && onSearch?.()}
         variant="outlined"
         size={size === 'Small' ? 'small' : 'medium'}
-        InputProps={{
-          // When type is Right or Both, show a search icon adornment on the right
-          endAdornment: showRight ? (
-            <InputAdornment position="end">
-              <IconButton
-                onClick={disabled ? undefined : onSearch}
-                disabled={disabled}
-                size="small"
-                aria-label="Search"
-                edge="end"
-                sx={{ color: tokens.colors.components.icon.default }}
-              >
-                <SearchIcon sx={{ fontSize: size === 'Large' ? 22 : 18 }} />
-              </IconButton>
-            </InputAdornment>
-          ) : undefined,
-          sx: {
-            height,
-            fontSize,
-            fontFamily: tokens.typography.fontFamily,
-            borderRadius: showLeft || showRight ? 0 : `${tokens.borderRadius.default}px`,
-            borderTopLeftRadius: showLeft ? 0 : undefined,
-            borderBottomLeftRadius: showLeft ? 0 : undefined,
-            borderTopRightRadius: showRight ? 0 : undefined,
-            borderBottomRightRadius: showRight ? 0 : undefined,
-            backgroundColor: tokens.colors.background.paper,
-            '& fieldset': {
-              borderColor: tokens.colors.components.input.enabledBorder,
-              borderRadius: 'inherit',
-            },
-            '&:hover fieldset': {
-              borderColor: disabled ? undefined : tokens.colors.components.input.hoverBorder,
-            },
-            '&.Mui-focused fieldset': {
-              borderColor: tokens.colors.components.border.focus,
-              boxShadow: `0 0 0 3px ${tokens.colors.components.border.focusShadow}`,
-            },
-            '&.Mui-disabled fieldset': {
-              borderColor: tokens.colors.components.input.disabledBorder,
+        slotProps={{
+          input: {
+            endAdornment: showRight ? (
+              <InputAdornment position="end">
+                <IconButton
+                  onClick={disabled ? undefined : onSearch}
+                  disabled={disabled}
+                  size="small"
+                  aria-label="Search"
+                  edge="end"
+                  sx={{ color: tokens.colors.components.icon.default }}
+                >
+                  <SearchIcon sx={{ fontSize: size === 'Large' ? 22 : 18 }} />
+                </IconButton>
+              </InputAdornment>
+            ) : undefined,
+            sx: {
+              height,
+              fontSize,
+              borderRadius: showLeft || showRight ? 0 : `${tokens.borderRadius.default}px`,
+              borderTopLeftRadius: showLeft ? 0 : undefined,
+              borderBottomLeftRadius: showLeft ? 0 : undefined,
+              borderTopRightRadius: showRight ? 0 : undefined,
+              borderBottomRightRadius: showRight ? 0 : undefined,
+              '& fieldset': { borderRadius: 'inherit' },
+              // SearchBar-specific focus ring (extra box-shadow not in the TextField theme)
+              '&.Mui-focused fieldset': {
+                boxShadow: `0 0 0 3px ${tokens.colors.components.border.focusShadow}`,
+              },
             },
           },
         }}
         sx={{ minWidth: 200 }}
       />
 
-      {/* Right support button — only when type=Right (no endAdornment overlap) */}
       {type === 'Right' && (
         <IconButton
           onClick={disabled ? undefined : onSearch}

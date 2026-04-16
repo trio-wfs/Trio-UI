@@ -2,22 +2,17 @@
  * RadioGroup Component Types
  *
  * SOURCE OF TRUTH: Figma component "Radio-Group" (node: 5382:7056)
- * Cache: ~/.openclaw/shared-data/figma-specs/radio-group.json
  *
  * These types are DIRECTLY MAPPED from Figma componentPropertyDefinitions.
  * DO NOT add properties that don't exist in Figma.
  * DO NOT modify variant options unless Figma is updated.
  */
 
-import { ReactNode } from 'react';
 
 /**
  * RadioGroup variant types from Figma
  */
 export type RadioGroupColor = 'primary' | 'default' | 'error';
-export type RadioGroupChecked = 'false' | 'true';
-export type RadioGroupDisabled = 'false' | 'true';
-export type RadioGroupHover = 'off' | 'on';
 
 export interface RadioOption {
   value: string;

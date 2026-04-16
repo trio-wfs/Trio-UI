@@ -9,8 +9,8 @@ figma.connect(Button, 'https://www.figma.com/design/PjAYuPDr8IA1ccwiAjFkSD?node-
       text: 'text',
     }),
     size: figma.enum('size', {
-      md: 'md',
-      sm: 'sm',
+      medium: 'medium',
+      small: 'small',
     }),
     color: figma.enum('color', {
       primary: 'primary',
@@ -20,17 +20,12 @@ figma.connect(Button, 'https://www.figma.com/design/PjAYuPDr8IA1ccwiAjFkSD?node-
       error: 'error',
       info: 'info',
     }),
-    disabled: figma.enum('state', {
-      disabled: true,
-      default: false,
-      hover: false,
-      active: false,
-      loading: false,
-    }),
+    disabled: figma.enum('disabled?', { yes: true, no: false }),
+    loading: figma.enum('loading?', { yes: true, no: false }),
     label: figma.string('label'),
   },
-  example: ({ variant, size, color, disabled, label }) => (
-    <Button variant={variant} size={size} color={color} disabled={disabled}>
+  example: ({ variant, size, color, disabled, loading, label }) => (
+    <Button variant={variant} size={size} color={color} disabled={disabled} loading={loading}>
       {label}
     </Button>
   ),

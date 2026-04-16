@@ -197,7 +197,7 @@ These rules are non-negotiable. Components are built to enforce them — do not 
 | Text primary | `#212121` |
 | Text secondary | `#757575` |
 | Border | `#E0E0E0` |
-| Success | `#4CAF50` |
+| Success | `#388e3c` |
 | Warning | `#E17109` |
 | Error | `#DB4537` |
 
@@ -208,6 +208,8 @@ These rules are non-negotiable. Components are built to enforce them — do not 
 **Layout** — Desktop-first. 12-column grid, 16px gutters. Modals: 900px / 500px. Drawers: 400px.
 
 Full token reference: `design-tokens/tokens.ts`
+
+For page-level composition rules (layer order, elevation, header variants, color hierarchy): `PAGE_ARCHITECTURE.md`
 
 ---
 

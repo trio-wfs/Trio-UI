@@ -2,7 +2,6 @@
  * MetricCard Component Types
  *
  * SOURCE OF TRUTH: Figma component "Metric_Card" (node: 3787:29023)
- * Cache: ~/.openclaw/shared-data/figma-specs/metric_card.json
  *
  * These types are DIRECTLY MAPPED from Figma componentPropertyDefinitions.
  * DO NOT add properties that don't exist in Figma.

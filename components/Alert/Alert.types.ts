@@ -36,16 +36,13 @@ export interface AlertProps {
   variant?: AlertVariant;
   severity?: AlertSeverity;
 
-  // BOOLEAN properties (from Figma, all default true)
-  title?: boolean;
-  description?: boolean;
-  actionBtn?: boolean;
-  close?: boolean;
-
-  // TEXT properties (from Figma)
-  titleText?: string;
-  descriptionText?: string;
+  // Content — rendered when provided
+  title?: string;
+  description?: string;
   actionLabel?: string;
+
+  // Close button toggle
+  close?: boolean;
 
   // Event handlers
   onClose?: () => void;
@@ -60,11 +57,5 @@ export interface AlertProps {
 export const defaultAlertProps: Partial<AlertProps> = {
   variant: 'standard',
   severity: 'default',
-  title: true,
-  description: true,
-  actionBtn: true,
-  close: true,
-  titleText: 'Title',
-  descriptionText: 'Description',
-  actionLabel: 'Action Label',
+  close: false,
 };

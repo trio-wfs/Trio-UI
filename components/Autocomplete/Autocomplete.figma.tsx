@@ -12,10 +12,7 @@ figma.connect(Autocomplete, 'https://www.figma.com/design/PjAYuPDr8IA1ccwiAjFkSD
       focus: 'focus',
       error: 'error',
     }),
-    disabled: figma.enum('disabled', {
-      yes: true,
-      no: false,
-    }),
+    disabled: figma.boolean('disabled'),
   },
   example: ({ type, state, disabled }) => (
     <Autocomplete

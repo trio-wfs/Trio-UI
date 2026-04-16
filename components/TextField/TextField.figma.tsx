@@ -12,18 +12,15 @@ figma.connect(TextField, 'https://www.figma.com/design/PjAYuPDr8IA1ccwiAjFkSD?no
       error: 'error',
       focus: 'focus',
     }),
-    disabled: figma.enum('disabled', {
-      yes: 'yes',
-      no: 'no',
-    }),
+    disabled: figma.boolean('disabled'),
   },
   example: ({ type, state, disabled }) => (
     <TextField
       type={type}
       state={state}
       disabled={disabled}
-      labelText="Label"
-      placeholderLabel="Placeholder"
+      label="Label"
+      placeholder="Placeholder"
     />
   ),
 })

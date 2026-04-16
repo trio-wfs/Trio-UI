@@ -2,22 +2,16 @@
  * Modal Component
  *
  * SOURCE OF TRUTH: AHTG Design System spec (Figma-confirmed)
- * Design System: AHTG Desktop SaaS
  *
- * SIZES:
- * - sm: 500px width
- * - lg: 900px width (max 900px, min 500px)
+ * Theme migration (2026-04-15):
+ * - Footer buttons now use our design system `<Button>` component instead of
+ *   hand-styled `<Box component="button">` — they inherit the MuiButton theme
+ *   (padding, radius, color × variant matrix, focus ring, disabled state).
+ * - Title/eyebrow Typography now use `variant="h6"` and `variant="body2"`
+ *   (our theme maps these to the correct Figma values).
  *
- * PADDING:
- * - Header: 40px L/R, 16px T/B
- * - Content: 40px L/R, 24px T/B
- * - Footer: 40px L/R, 16px T/B
- *
- * CRITICAL RULES:
- * - All colors from tokens.ts (NO hardcoded hex values)
- * - Scrim: rgba(0,0,0,0.5) via tokens.colors.components.backdrop.fill
- * - Desktop-only (no responsive/mobile)
- * - Material Icons only
+ * SIZES: sm 500px | lg 900px (min 500, max 900)
+ * PADDING: Header 40 L/R × 16 T/B | Content 40 L/R × 24 T/B | Footer 40 L/R × 16 T/B
  */
 
 import React from 'react';
@@ -29,6 +23,7 @@ import {
   Typography,
 } from '@mui/material';
 import { ModalProps, defaultModalProps } from './Modal.types';
+import { Button } from '../Button/Button';
 import { tokens } from '../../design-tokens/tokens';
 
 const WIDTH: Record<'sm' | 'lg', { width: number; minWidth: number }> = {
@@ -53,12 +48,6 @@ export const Modal: React.FC<ModalProps> = ({
   'aria-label': ariaLabel,
 }) => {
   const isDestructive = variant === 'destructive';
-  const confirmColor = isDestructive
-    ? tokens.colors.error.main
-    : tokens.colors.primary.main;
-  const confirmDark = isDestructive
-    ? tokens.colors.error.dark
-    : tokens.colors.primary.dark;
 
   return (
     <MuiModal
@@ -104,28 +93,11 @@ export const Modal: React.FC<ModalProps> = ({
           }}
         >
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-            <Typography
-              sx={{
-                fontFamily: tokens.typography.fontFamily,
-                fontSize: tokens.typography.h6.fontSize,
-                fontWeight: tokens.typography.h6.fontWeight,
-                lineHeight: `${tokens.typography.h6.lineHeight}px`,
-                color: tokens.colors.base.white,
-              }}
-            >
+            <Typography variant="h6" sx={{ color: tokens.colors.base.white }}>
               {title}
             </Typography>
             {eyebrowText && (
-              <Typography
-                sx={{
-                  fontFamily: tokens.typography.fontFamily,
-                  fontSize: tokens.typography.body2.fontSize,
-                  fontWeight: tokens.typography.body2.fontWeight,
-                  lineHeight: `${tokens.typography.body2.lineHeight}px`,
-                  color: tokens.colors.base.white,
-                  opacity: 0.85,
-                }}
-              >
+              <Typography variant="body2" sx={{ color: tokens.colors.base.white, opacity: 0.85 }}>
                 {eyebrowText}
               </Typography>
             )}
@@ -138,9 +110,7 @@ export const Modal: React.FC<ModalProps> = ({
             sx={{
               color: tokens.colors.base.white,
               padding: `${tokens.spacing.xs}px`,
-              '&:hover': {
-                backgroundColor: 'rgba(255,255,255,0.12)',
-              },
+              '&:hover': { backgroundColor: 'rgba(255,255,255,0.12)' },
             }}
           >
             <span className="material-icons" style={{ fontSize: 20 }}>close</span>
@@ -175,58 +145,17 @@ export const Modal: React.FC<ModalProps> = ({
               flexShrink: 0,
             }}
           >
-            {/* Cancel — text/primary (blue text, no border) */}
-            <Box
-              component="button"
-              onClick={onClose}
-              sx={{
-                fontFamily: tokens.typography.fontFamily,
-                fontSize: tokens.typography.button.md.fontSize,
-                fontWeight: tokens.typography.button.md.fontWeight,
-                height: 38,
-                padding: `${tokens.spacing.sm}px ${tokens.spacing.lg}px`,
-                backgroundColor: 'transparent',
-                color: tokens.colors.primary.main,
-                border: 'none',
-                borderRadius: `${tokens.borderRadius.default}px`,
-                cursor: 'pointer',
-                textTransform: 'none',
-                '&:hover': {
-                  backgroundColor: tokens.colors.primary.light,
-                },
-              }}
-            >
+            <Button variant="text" color="primary" onClick={onClose}>
               {cancelLabel}
-            </Box>
-
-            {/* Confirm — primary or destructive contained */}
-            <Box
-              component="button"
-              onClick={onConfirm}
+            </Button>
+            <Button
+              variant="contained"
+              color={isDestructive ? 'error' : 'primary'}
               disabled={confirmDisabled}
-              sx={{
-                fontFamily: tokens.typography.fontFamily,
-                fontSize: tokens.typography.button.md.fontSize,
-                fontWeight: tokens.typography.button.md.fontWeight,
-                height: 38,
-                padding: `${tokens.spacing.sm}px ${tokens.spacing.lg}px`,
-                backgroundColor: confirmDisabled
-                  ? tokens.colors.action.disabledBackground
-                  : confirmColor,
-                color: confirmDisabled
-                  ? tokens.colors.text.disabled
-                  : tokens.colors.base.white,
-                border: 'none',
-                borderRadius: `${tokens.borderRadius.default}px`,
-                cursor: confirmDisabled ? 'not-allowed' : 'pointer',
-                textTransform: 'none',
-                '&:hover': {
-                  backgroundColor: confirmDisabled ? undefined : confirmDark,
-                },
-              }}
+              onClick={onConfirm}
             >
               {confirmLabel}
-            </Box>
+            </Button>
           </Box>
         )}
       </Box>

@@ -16,37 +16,24 @@ figma.connect(PageHeaderToolbar, 'https://www.figma.com/design/PjAYuPDr8IA1ccwiA
       full: 'full',
       NewCanvas: 'NewCanvas',
     }),
-    breadcrumb: figma.boolean('Breadcrumb'),
-    buttonGroup: figma.boolean('Button Group'),
-    chips: figma.boolean('Chips'),
-    showEyebrow: figma.boolean('Eyebrow Text2'),
-    indicator: figma.boolean('Indicator'),
-    inputTextField: figma.boolean('Input Text Field'),
     pageTitleText: figma.string('Page Title Text'),
     eyebrowText: figma.string('Eyebrow Text'),
-    singleButton: figma.boolean('Single Button'),
   },
-  example: ({ variant, breadcrumb, buttonGroup, chips, showEyebrow, indicator, pageTitleText, eyebrowText, singleButton }) => (
+  example: ({ variant, pageTitleText, eyebrowText }) => (
     <PageHeaderToolbar
       variant={variant}
       pageTitleText={pageTitleText}
-      showEyebrow={showEyebrow}
       eyebrowText={eyebrowText}
-      indicator={indicator}
-      chips={chips}
       chipItems={
         <>
           <Chip size="sm" color="default" variant="contained" label="Tag 1" />
           <Chip size="sm" color="default" variant="contained" label="Tag 2" />
         </>
       }
-      singleButton={singleButton}
-      singleButtonContent={<Button variant="contained" color="secondary" size="md">Single</Button>}
-      buttonGroup={buttonGroup}
+      singleButtonContent={<Button variant="contained" color="secondary" size="medium">Single</Button>}
       buttonGroupContent={
-        <ButtonGroup variant="contained" color="secondary" size="md" orientation="horizontal" />
+        <ButtonGroup variant="contained" color="secondary" size="medium" orientation="horizontal" />
       }
-      breadcrumb={breadcrumb}
       breadcrumbContent={
         <Breadcrumb
           state="breadcrumb"

@@ -2,23 +2,17 @@
  * Checkbox Component Types
  *
  * SOURCE OF TRUTH: Figma component "Checkbox" (node: 2425:7975)
- * Cache: ~/.openclaw/shared-data/figma-specs/checkbox.json
  *
  * These types are DIRECTLY MAPPED from Figma componentPropertyDefinitions.
  * DO NOT add properties that don't exist in Figma.
  * DO NOT modify variant options unless Figma is updated.
  */
 
-import { ReactNode } from 'react';
 
 /**
  * Checkbox variant types from Figma
  */
 export type CheckboxColor = 'primary' | 'error';
-export type CheckboxChecked = 'true' | 'false';
-export type CheckboxDisabled = 'false' | 'true';
-export type CheckboxIndeterminate = 'false' | 'true';
-export type CheckboxHover = 'off' | 'on';
 
 export interface CheckboxProps {
   // ========================================

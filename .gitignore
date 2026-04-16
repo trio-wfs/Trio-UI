@@ -3,3 +3,4 @@ node_modules/
 figma-specs/
 figma-cache/
 *.local
+debug-storybook.log

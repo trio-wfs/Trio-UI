@@ -5,6 +5,11 @@
  *
  * Navigation path strip. Two states: 'breadcrumb' (/ divider) and 'Links' (| divider).
  * Right side supports an optional record count and an actions slot (typically ToggleButton).
+ *
+ * Theme migration (2026-04-15):
+ * - Inline Typography sx replaced with `variant="caption"` (12/400/18 matches Figma)
+ *   for all path items and record count. Divider character uses `variant="body1"`
+ *   (16/400) with secondary-text color override.
  */
 
 import React from 'react';
@@ -39,7 +44,6 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({
         {links.map((link, i) => (
           <Box key={i} sx={{ display: 'flex', alignItems: 'center', gap: `${tokens.spacing.sm}px`, flexShrink: 0 }}>
             {link.selected ? (
-              /* Selected item — dark text with blue bottom underline */
               <Box
                 sx={{
                   display: 'flex',
@@ -48,32 +52,19 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({
                   borderBottom: `2px solid ${tokens.colors.primary.main}`,
                 }}
               >
-                <Typography
-                  sx={{
-                    fontSize: tokens.typography.fontSize.xs,
-                    fontWeight: tokens.typography.fontWeight.regular,
-                    color: tokens.colors.text.primary,
-                    fontFamily: tokens.typography.fontFamily,
-                    whiteSpace: 'nowrap',
-                    lineHeight: `${tokens.typography.caption.lineHeight}px`,
-                  }}
-                >
+                <Typography variant="caption" sx={{ whiteSpace: 'nowrap' }}>
                   {link.label}
                 </Typography>
               </Box>
             ) : (
-              /* Default link — blue, clickable */
               <Typography
+                variant="caption"
                 component={link.href ? 'a' : 'span'}
                 href={link.href}
                 sx={{
-                  fontSize: tokens.typography.fontSize.xs,
-                  fontWeight: tokens.typography.fontWeight.regular,
                   color: tokens.colors.primary.main,
-                  fontFamily: tokens.typography.fontFamily,
                   textDecoration: 'none',
                   whiteSpace: 'nowrap',
-                  lineHeight: `${tokens.typography.caption.lineHeight}px`,
                   cursor: link.href ? 'pointer' : 'default',
                   '&:hover': link.href ? { textDecoration: 'underline' } : {},
                 }}
@@ -82,17 +73,8 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({
               </Typography>
             )}
 
-            {/* Divider — shown after every item except the last */}
             {i < links.length - 1 && (
-              <Typography
-                sx={{
-                  fontSize: tokens.typography.fontSize.md,
-                  color: tokens.colors.text.secondary,
-                  fontFamily: tokens.typography.fontFamily,
-                  lineHeight: `${tokens.typography.body1.lineHeight}px`,
-                  flexShrink: 0,
-                }}
-              >
+              <Typography variant="body1" sx={{ color: tokens.colors.text.secondary, flexShrink: 0 }}>
                 {divider}
               </Typography>
             )}
@@ -104,15 +86,7 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({
       {(showNumberIndicator || actions) && (
         <Box sx={{ display: 'flex', alignItems: 'center', gap: `${tokens.spacing.md}px`, flexShrink: 0 }}>
           {showNumberIndicator && (
-            <Typography
-              sx={{
-                fontSize: tokens.typography.fontSize.xs,
-                fontWeight: tokens.typography.fontWeight.regular,
-                color: tokens.colors.text.secondary,
-                fontFamily: tokens.typography.fontFamily,
-                whiteSpace: 'nowrap',
-              }}
-            >
+            <Typography variant="caption" sx={{ color: tokens.colors.text.secondary, whiteSpace: 'nowrap' }}>
               {recordCount !== undefined ? recordCount : '###'}
             </Typography>
           )}

@@ -14,46 +14,27 @@ export interface PageHeaderToolbarProps {
 
   // ── Title area ──────────────────────────────────────────────
   pageTitleText: string;
-  /** Small icons rendered inline next to the title */
-  showIcons?: boolean;
+  /** Small icons rendered inline next to the title — shown when provided */
   titleIcons?: React.ReactNode;
 
-  // ── Eyebrow (support text below title) ──────────────────────
-  showEyebrow?: boolean;
+  // ── Eyebrow (support text below title) — shown when provided ─
   eyebrowText?: string;
 
-  // ── Chip tags (full variant only) ───────────────────────────
-  chips?: boolean;
-  /** Rendered Chip elements — pass <Chip /> components directly */
+  // ── Chip tags (full variant only) — shown when provided ──────
   chipItems?: React.ReactNode;
 
-  // ── Status indicator (left color bar) ───────────────────────
-  indicator?: boolean;
+  // ── Status indicator (left color bar) — shown when provided ──
   indicatorLabel?: string;
 
-  // ── Right-side actions ───────────────────────────────────────
-  singleButton?: boolean;
-  /** Rendered Button element */
+  // ── Right-side actions — each shown when provided ────────────
   singleButtonContent?: React.ReactNode;
-  buttonGroup?: boolean;
-  /** Rendered ButtonGroup element */
   buttonGroupContent?: React.ReactNode;
-  inputTextField?: boolean;
-  /** Rendered TextField element */
   inputTextFieldContent?: React.ReactNode;
 
-  // ── Breadcrumb strip (full / NewCanvas only) ─────────────────
-  breadcrumb?: boolean;
-  /** Rendered Breadcrumb element */
+  // ── Breadcrumb strip (full / NewCanvas only) — shown when provided ─
   breadcrumbContent?: React.ReactNode;
 }
 
 export const defaultPageHeaderToolbarProps: Partial<PageHeaderToolbarProps> = {
   variant: 'full',
-  showEyebrow: true,
-  chips: true,
-  indicator: false,
-  singleButton: true,
-  buttonGroup: true,
-  breadcrumb: true,
 };

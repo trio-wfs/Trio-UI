@@ -4,22 +4,13 @@
  * SOURCE OF TRUTH: Figma component "text-field"
  * Design System: AHTG Desktop SaaS
  *
- * EXTRACTED VALUES FROM FIGMA:
- * - Single-line height: 36px (from .absoluteBoundingBox.height)
- * - Multi-line height: 90px (from .absoluteBoundingBox.height)
- * - Padding: 8px left/right, 4px top/bottom (from .children[0].padding*)
- * - Border colors:
- *   - default: #9E9E9E (from .strokes[0].color)
- *   - error: #DB4537 (from .strokes[0].color)
- *   - focus: #64B5F6 (from .strokes[0].color)
- * - Background: Transparent (from .fills[0])
- *
- * CRITICAL RULES:
- * - All colors from tokens.ts (NO hardcoded hex values)
- * - All spacing from tokens.ts (8px system, 4px exception within component)
- * - All typography from tokens.ts
- * - Desktop-only (no responsive/mobile)
- * - Material Icons only
+ * Theme migration (2026-04-15):
+ * - Static chrome (padding, borders, heights, colors, input/label/helper
+ *   typography, disabled/error states via MUI class selectors) lives in
+ *   design-tokens/theme.ts under components.MuiTextField.styleOverrides.
+ * - Remaining dynamic styling here:
+ *   - `state="focus"` — force the focused look without real focus (showcase feature)
+ *   - `inputFill` prop — swap input background to background.secondary
  */
 
 import React from 'react';
@@ -31,128 +22,60 @@ export const TextField: React.FC<TextFieldProps> = ({
   type = defaultTextFieldProps.type,
   state = defaultTextFieldProps.state,
   disabled = defaultTextFieldProps.disabled,
-  label = defaultTextFieldProps.label,
-  helpText = defaultTextFieldProps.helpText,
+  label,
+  helperText,
   iconRight = defaultTextFieldProps.iconRight,
   iconSupport = defaultTextFieldProps.iconSupport,
   inputFill = defaultTextFieldProps.inputFill,
   chipContent = defaultTextFieldProps.chipContent,
-  adormentInput = defaultTextFieldProps.adormentInput,
-  placeholderLabel = defaultTextFieldProps.placeholderLabel,
-  inputContent = defaultTextFieldProps.inputContent,
+  adornmentInput = defaultTextFieldProps.adornmentInput,
+  placeholder = defaultTextFieldProps.placeholder,
   value,
   onChange,
-  labelText = 'Label',
-  helperText: helperTextProp = 'Helper text',
   className,
   ...ariaProps
 }) => {
-  const isDisabled = disabled === 'yes';
   const hasError = state === 'error';
-  const isFocused = state === 'focus';
-
-  // Map Figma state to border colors (extracted from Figma)
-  const getBorderColor = () => {
-    switch (state) {
-      case 'error':
-        return tokens.colors.error.main;  // #DB4537
-      case 'focus':
-        return tokens.colors.components.border.focus;  // #64B5F6
-      default:
-        return tokens.colors.components.input.enabledBorder;  // #9E9E9E
-    }
-  };
-
-  // Extracted dimensions from Figma
-  const getHeight = () => {
-    return type === 'single-line' ? 36 : 90;  // Actual Figma values
-  };
+  const isForcedFocus = state === 'focus';
 
   return (
     <MuiTextField
+      variant="outlined"
       multiline={type === 'multi-line'}
       rows={type === 'multi-line' ? 4 : undefined}
-      placeholder={placeholderLabel}
-      value={value || inputContent}
+      placeholder={placeholder}
+      value={value}
       onChange={onChange}
-      disabled={isDisabled}
+      disabled={disabled}
       error={hasError}
-      label={label ? labelText : undefined}
-      helperText={helpText ? helperTextProp : undefined}
-      variant="outlined"
+      label={label}
+      helperText={helperText}
+      slotProps={{
+        inputLabel: { shrink: true },
+        input: { notched: false },
+      }}
       className={className}
       {...ariaProps}
       sx={{
-        fontFamily: tokens.typography.fontFamily,
-        width: '100%',
-        '& .MuiOutlinedInput-root': {
-          height: getHeight(),
-          padding: '4px 8px',  // Actual Figma padding: top/bottom=4px, left/right=8px
-          backgroundColor: inputFill
-            ? tokens.colors.background.secondary
-            : tokens.colors.background.paper,
-          borderRadius: `${tokens.borderRadius.default}px`,
-          fontFamily: tokens.typography.fontFamily,
-          fontSize: `${tokens.typography.fontSize.sm}px`,
-          '& fieldset': {
-            borderColor: getBorderColor(),
-            borderWidth: '1px',
-          },
-          '&:hover fieldset': {
-            borderColor: isFocused
-              ? getBorderColor()
-              : tokens.colors.components.input.hoverBorder,
-          },
-          '&.Mui-focused fieldset': {
+        // Dynamic: force focused appearance without real focus (design showcase).
+        ...(isForcedFocus && {
+          '& .MuiOutlinedInput-root fieldset': {
             borderColor: tokens.colors.components.border.focus,
             borderWidth: '2px',
           },
-          '&.Mui-disabled': {
-            backgroundColor: tokens.colors.action.disabledBackground,
-            '& fieldset': {
-              borderColor: tokens.colors.components.input.disabledBorder,
-            },
+          '& .MuiOutlinedInput-root:hover fieldset': {
+            borderColor: tokens.colors.components.border.focus,
           },
-        },
-        '& .MuiOutlinedInput-input': {
-          color: tokens.colors.text.primary,
-          fontSize: `${tokens.typography.fontSize.sm}px`,
-          fontWeight: tokens.typography.fontWeight.regular,
-          lineHeight: '20px',
-          padding: 0,
-          '&::placeholder': {
-            color: tokens.colors.text.disabled,
-            opacity: 1,
-          },
-          '&.Mui-disabled': {
-            color: tokens.colors.text.disabled,
-            WebkitTextFillColor: tokens.colors.text.disabled,
-          },
-        },
-        '& .MuiInputLabel-root': {
-          fontSize: `${tokens.typography.fontSize.xs}px`,
-          fontWeight: tokens.typography.fontWeight.medium,
-          color: tokens.colors.text.primary,
-          transform: 'none',
-          position: 'relative',
-          marginBottom: `${tokens.spacing.sm}px`,
-          '&.Mui-focused': {
+          '& .MuiInputLabel-root': {
             color: tokens.colors.primary.main,
           },
-          '&.Mui-error': {
-            color: tokens.colors.error.main,
+        }),
+        // Dynamic: alternate input fill
+        ...(inputFill && {
+          '& .MuiOutlinedInput-root': {
+            backgroundColor: tokens.colors.background.secondary,
           },
-          '&.Mui-disabled': {
-            color: tokens.colors.text.disabled,
-          },
-        },
-        '& .MuiFormHelperText-root': {
-          fontSize: `${tokens.typography.fontSize.xs}px`,
-          color: hasError ? tokens.colors.error.main : tokens.colors.text.secondary,
-          marginLeft: 0,
-          marginTop: `${tokens.spacing.xs}px`,
-          fontFamily: tokens.typography.fontFamily,
-        },
+        }),
       }}
     />
   );

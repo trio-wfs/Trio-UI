@@ -8,10 +8,7 @@ figma.connect(RadioGroup, 'https://www.figma.com/design/PjAYuPDr8IA1ccwiAjFkSD?n
       default: 'default',
       error: 'error',
     }),
-    disabled: figma.enum('disabled', {
-      true: true,
-      false: false,
-    }),
+    disabled: figma.boolean('disabled'),
   },
   example: ({ color, disabled }) => (
     <RadioGroup

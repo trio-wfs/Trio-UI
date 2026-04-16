@@ -7,15 +7,10 @@ figma.connect(Switch, 'https://www.figma.com/design/PjAYuPDr8IA1ccwiAjFkSD?node-
       on: 'on',
       off: 'off',
     }),
-    disabled: figma.enum('disabled', {
-      yes: 'yes',
-      no: 'no',
-    }),
   },
-  example: ({ state, disabled }) => (
+  example: ({ state }) => (
     <Switch
       state={state}
-      disabled={disabled}
       labelPlacement="right"
       label="Label"
     />

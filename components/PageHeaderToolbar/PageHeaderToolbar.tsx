@@ -7,8 +7,9 @@
  * chip tags, status indicator, right-side actions, and an optional Breadcrumb
  * strip below. Three variants control the overall structure.
  *
- * Action areas (buttons, chips, breadcrumb) accept ReactNode slots so each
- * consuming page can compose in the correct configured instances.
+ * Theme migration (2026-04-15):
+ * - Inline Typography sx replaced with `variant="h6|body2|caption"` —
+ *   Figma specs already match theme variants exactly.
  */
 
 import React from 'react';
@@ -19,45 +20,34 @@ import { tokens } from '../../design-tokens/tokens';
 export const PageHeaderToolbar: React.FC<PageHeaderToolbarProps> = ({
   variant = defaultPageHeaderToolbarProps.variant,
   pageTitleText,
-  showIcons = false,
   titleIcons,
-  showEyebrow = defaultPageHeaderToolbarProps.showEyebrow,
   eyebrowText,
-  chips = defaultPageHeaderToolbarProps.chips,
   chipItems,
-  indicator = defaultPageHeaderToolbarProps.indicator,
-  indicatorLabel = 'OPEN',
-  singleButton = defaultPageHeaderToolbarProps.singleButton,
+  indicatorLabel,
   singleButtonContent,
-  buttonGroup = defaultPageHeaderToolbarProps.buttonGroup,
   buttonGroupContent,
-  inputTextField = false,
   inputTextFieldContent,
-  breadcrumb = defaultPageHeaderToolbarProps.breadcrumb,
   breadcrumbContent,
 }) => {
   const isFull = variant === 'full';
   const isNewCanvas = variant === 'NewCanvas';
   const isDefault = variant === 'default';
-  const showBreadcrumb = (isFull || isNewCanvas) && breadcrumb;
-
-  const wrapperSx = {
-    display: 'flex',
-    flexDirection: 'column',
-    width: '100%',
-    borderRadius: `${tokens.borderRadius.default}px`,
-    ...(isDefault && {
-      backgroundColor: tokens.colors.background.paper,
-      border: `1px solid ${tokens.colors.components.border.default}`,
-    }),
-    ...((isFull) && {
-      backgroundColor: tokens.colors.background.paper,
-      border: `1px solid ${tokens.colors.components.border.default}`,
-    }),
-  };
+  const showBreadcrumb = (isFull || isNewCanvas) && !!breadcrumbContent;
+  const withBorder = isDefault || isFull;
 
   return (
-    <Box sx={wrapperSx}>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%',
+        borderRadius: `${tokens.borderRadius.default}px`,
+        ...(withBorder && {
+          backgroundColor: tokens.colors.background.paper,
+          border: `1px solid ${tokens.colors.components.border.default}`,
+        }),
+      }}
+    >
       {/* ── Top bar ─────────────────────────────────────────── */}
       <Box
         sx={{
@@ -70,7 +60,7 @@ export const PageHeaderToolbar: React.FC<PageHeaderToolbarProps> = ({
         }}
       >
         {/* Status indicator */}
-        {indicator && (
+        {indicatorLabel && (
           <Box
             sx={{
               display: 'flex',
@@ -82,15 +72,7 @@ export const PageHeaderToolbar: React.FC<PageHeaderToolbarProps> = ({
               flexShrink: 0,
             }}
           >
-            <Typography
-              sx={{
-                fontSize: tokens.typography.fontSize.xs,
-                fontWeight: tokens.typography.fontWeight.regular,
-                color: tokens.colors.base.white,
-                fontFamily: tokens.typography.fontFamily,
-                letterSpacing: '0.5px',
-              }}
-            >
+            <Typography variant="caption" sx={{ color: tokens.colors.base.white, letterSpacing: '0.5px' }}>
               {indicatorLabel}
             </Typography>
           </Box>
@@ -108,31 +90,14 @@ export const PageHeaderToolbar: React.FC<PageHeaderToolbarProps> = ({
           }}
         >
           {/* Title + chips + eyebrow */}
-          <Box
-            sx={{
-              display: 'flex',
-              flex: 1,
-              flexDirection: 'column',
-              gap: `${tokens.spacing.sm}px`,
-              minWidth: 0,
-            }}
-          >
+          <Box sx={{ display: 'flex', flex: 1, flexDirection: 'column', gap: `${tokens.spacing.sm}px`, minWidth: 0 }}>
             {/* Title row */}
             <Box sx={{ display: 'flex', alignItems: 'center', gap: '4px', flexWrap: 'wrap' }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                <Typography
-                  sx={{
-                    fontSize: tokens.typography.fontSize.xl,
-                    fontWeight: tokens.typography.fontWeight.medium,
-                    color: tokens.colors.text.primary,
-                    fontFamily: tokens.typography.fontFamily,
-                    lineHeight: `${tokens.typography.h6.lineHeight}px`,
-                    whiteSpace: 'nowrap',
-                  }}
-                >
+                <Typography variant="h6" sx={{ whiteSpace: 'nowrap' }}>
                   {pageTitleText}
                 </Typography>
-                {showIcons && titleIcons && (
+                {titleIcons && (
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
                     {titleIcons}
                   </Box>
@@ -140,48 +105,30 @@ export const PageHeaderToolbar: React.FC<PageHeaderToolbarProps> = ({
               </Box>
 
               {/* Chips (full variant only) */}
-              {isFull && chips && chipItems && (
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    alignItems: 'center',
-                    gap: `${tokens.spacing.sm}px`,
-                  }}
-                >
+              {isFull && chipItems && (
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: `${tokens.spacing.sm}px` }}>
                   {chipItems}
                 </Box>
               )}
             </Box>
 
             {/* Eyebrow text */}
-            {showEyebrow && eyebrowText && (
-              <Typography
-                sx={{
-                  fontSize: tokens.typography.fontSize.xs,
-                  fontWeight: tokens.typography.fontWeight.regular,
-                  color: tokens.colors.text.secondary,
-                  fontFamily: tokens.typography.fontFamily,
-                  lineHeight: `${tokens.typography.caption.lineHeight}px`,
-                  whiteSpace: 'nowrap',
-                }}
-              >
+            {eyebrowText && (
+              <Typography variant="caption" sx={{ color: tokens.colors.text.secondary, whiteSpace: 'nowrap' }}>
                 {eyebrowText}
               </Typography>
             )}
           </Box>
 
           {/* Right-side actions */}
-          {inputTextField && inputTextFieldContent && inputTextFieldContent}
-          {singleButton && singleButtonContent && singleButtonContent}
-          {buttonGroup && buttonGroupContent && buttonGroupContent}
+          {inputTextFieldContent}
+          {singleButtonContent}
+          {buttonGroupContent}
         </Box>
       </Box>
 
       {/* ── Breadcrumb strip ────────────────────────────────── */}
-      {showBreadcrumb && breadcrumbContent && (
-        <Box>{breadcrumbContent}</Box>
-      )}
+      {showBreadcrumb && breadcrumbContent && <Box>{breadcrumbContent}</Box>}
     </Box>
   );
 };

@@ -14,22 +14,19 @@ figma.connect(Alert, 'https://www.figma.com/design/PjAYuPDr8IA1ccwiAjFkSD?node-i
       warning: 'warning',
       success: 'success',
     }),
-    title: figma.boolean('title'),
-    description: figma.boolean('description'),
-    actionBtn: figma.boolean('action-btn'),
+    title: figma.boolean('title', { true: 'Title', false: undefined }),
+    description: figma.boolean('description', { true: 'Description text providing additional context.', false: undefined }),
+    actionLabel: figma.boolean('action-btn', { true: 'Action Label', false: undefined }),
     close: figma.boolean('close'),
   },
-  example: ({ variant, severity, title, description, actionBtn, close }) => (
+  example: ({ variant, severity, title, description, actionLabel, close }) => (
     <Alert
       variant={variant}
       severity={severity}
       title={title}
       description={description}
-      actionBtn={actionBtn}
+      actionLabel={actionLabel}
       close={close}
-      titleText="Title"
-      descriptionText="Description text providing additional context."
-      actionLabel="Action Label"
     />
   ),
 })

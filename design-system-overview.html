@@ -6,34 +6,148 @@
   <title>Overview - TRIO WFS Design System</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
   <link rel="stylesheet" href="design-system-shell.css">
   <style>
-.hero {
-      background: linear-gradient(135deg, var(--color-primary-main) 0%, var(--color-primary-dark) 100%);
-      color: white;
-      padding: 60px var(--spacing-xl);
-      border-radius: var(--border-radius);
-      margin-bottom: var(--spacing-xl);
+    /* Full-width wrapper, secondary canvas */
+    .main-content {
+      background: var(--color-background-secondary);
+      min-height: 100vh;
+      padding: 0;
     }
 
-    .hero h1 {
-      font-size: 48px;
-      font-weight: 300;
+    /* Content centered with max-width */
+    .content-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 var(--spacing-xxl) var(--spacing-xxl);
+    }
+
+    /* ── Hero with nebula blobs ── */
+    .hero {
+      background: #FFFFFF;
+      color: var(--color-text-primary);
+      padding: 60px var(--spacing-xxl);
+      margin-bottom: var(--spacing-xl);
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--color-secondary-outline);
+    }
+
+    .hero-content {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero::before {
+      width: 800px;
+      height: 700px;
+      top: -150px;
+      right: -100px;
+      background: radial-gradient(circle, rgba(0, 174, 239, 0.45) 0%, rgba(0, 174, 239, 0.15) 45%, transparent 70%);
+      filter: blur(90px);
+    }
+
+    .hero::after {
+      width: 750px;
+      height: 650px;
+      bottom: -180px;
+      left: -80px;
+      background: radial-gradient(circle, rgba(141, 198, 63, 0.4) 0%, rgba(141, 198, 63, 0.12) 45%, transparent 70%);
+      filter: blur(90px);
+    }
+
+    .hero-blobs {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .hero-blobs::before {
+      content: '';
+      position: absolute;
+      width: 600px;
+      height: 500px;
+      bottom: -60px;
+      left: 25%;
+      background: radial-gradient(circle, rgba(0, 174, 239, 0.2) 0%, rgba(0, 174, 239, 0.05) 50%, transparent 70%);
+      border-radius: 50%;
+      filter: blur(70px);
+    }
+
+    .hero-blobs::after {
+      content: '';
+      position: absolute;
+      width: 500px;
+      height: 400px;
+      top: -80px;
+      left: 35%;
+      background: radial-gradient(ellipse, rgba(141, 198, 63, 0.18) 0%, rgba(141, 198, 63, 0.04) 50%, transparent 70%);
+      border-radius: 50%;
+      filter: blur(70px);
+    }
+
+    .hero-brand {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-md);
+      position: relative;
+      z-index: 1;
       margin-bottom: var(--spacing-md);
     }
 
-    .hero p {
-      font-size: 18px;
-      opacity: 0.95;
+    .hero-logo {
+      width: 56px;
+      height: 58px;
+      flex-shrink: 0;
+    }
+
+    .hero-brand-text h1 {
+      font-size: 42px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      margin: 0;
+      line-height: 1.1;
+    }
+
+    .hero-separator {
+      font-weight: 300;
+      color: var(--color-secondary-outline);
+      margin: 0 2px;
+    }
+
+    .hero-ui {
+      font-weight: 300;
+      letter-spacing: 0.12em;
+    }
+
+    .hero-label {
+      font-size: 16px;
+      color: var(--color-text-secondary);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    .hero > p {
+      font-size: 14px;
+      color: var(--color-text-secondary);
       line-height: 1.6;
       max-width: 700px;
+      position: relative;
+      z-index: 1;
     }
 
-    .principle-card {
-      border-left: 4px solid var(--color-primary-main);
-      padding-left: var(--spacing-lg);
-    }
-
+    /* ── Stats row ── */
     .stats {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -62,6 +176,63 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
+
+    /* ── Section overrides — transparent on secondary canvas ── */
+    .section {
+      background: transparent;
+      border-radius: 0;
+      padding: 0;
+      margin-bottom: 0;
+      padding-bottom: var(--spacing-xl);
+    }
+
+    .section + .section {
+      border-top: 1px solid var(--color-secondary-outline);
+      padding-top: var(--spacing-xl);
+    }
+
+    .section-title .material-icons-outlined {
+      font-size: 18px;
+      color: var(--color-primary-main);
+    }
+
+    /* ── Cards — paper white, icon on top, no left border, no gray ── */
+    .card {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-lg);
+      border-left: none;
+    }
+
+    .card .card-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: var(--border-radius);
+      background: var(--color-primary-light);
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .card .card-icon .material-icons-outlined {
+      font-size: 20px;
+      color: var(--color-primary-main);
+    }
+
+    .card .card-title {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: var(--spacing-sm);
+      color: var(--color-text-primary);
+    }
+
+    .card .card-content {
+      font-size: 13px;
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+    }
   </style>
   <script src="design-system-nav.js"></script>
 </head>
@@ -70,12 +241,22 @@
 
   <main class="main-content">
     <div class="hero">
-      <h1>TRIO WFS Design System</h1>
-      <p>
-        A comprehensive design system for desktop SaaS applications. Built on Material Design principles with customized components, design tokens, and patterns that ensure consistency, accessibility, and efficiency across all TRIO WFS products.
-      </p>
+      <div class="hero-blobs"></div>
+      <div class="hero-content">
+        <div class="hero-brand">
+          <img src="assets/trio-icon.svg" alt="TRIO" class="hero-logo" />
+          <div class="hero-brand-text">
+            <h1>TRIO<span class="hero-separator">/</span><span class="hero-ui">UI</span></h1>
+            <p class="hero-label">Design System</p>
+          </div>
+        </div>
+        <p style="font-size: 14px; color: var(--color-text-secondary); line-height: 1.6; max-width: 700px; position: relative; z-index: 1;">
+          A comprehensive design system for desktop SaaS applications. Built on Material Design principles with customized components, design tokens, and patterns for consistency across all TRIO products.
+        </p>
+      </div>
     </div>
 
+    <div class="content-wrap">
     <div class="stats">
       <div class="stat-card">
         <div class="stat-number" id="stat-built">–</div>
@@ -97,47 +278,39 @@
 
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">stars</span>
+        <span class="material-icons-outlined">stars</span>
         Design Principles
       </h2>
       <p class="section-description">
-        Our design system is built on core principles that guide every decision, from component design to implementation patterns.
+        Core principles that guide every decision, from component design to implementation patterns.
       </p>
       <div class="grid-2">
-        <div class="card principle-card">
-          <div class="card-title">
-            <span class="material-icons">verified</span>
-            Figma as Source of Truth
-          </div>
+        <div class="card">
+          <div class="card-icon"><span class="material-icons-outlined">verified</span></div>
+          <div class="card-title">Figma as Source of Truth</div>
           <div class="card-content">
-            Every component is built by extracting actual values from Figma component instances. No assumptions, no interpretations—just pixel-perfect accuracy. Design tokens define what exists; Figma instances define how to apply them.
+            Every component is built by extracting actual values from Figma. No assumptions, no interpretations — just pixel-perfect accuracy.
           </div>
         </div>
-        <div class="card principle-card">
-          <div class="card-title">
-            <span class="material-icons">desktop_windows</span>
-            Desktop-First
-          </div>
+        <div class="card">
+          <div class="card-icon"><span class="material-icons-outlined">desktop_windows</span></div>
+          <div class="card-title">Desktop-First</div>
           <div class="card-content">
-            Designed exclusively for desktop SaaS applications. No responsive breakpoints, no mobile considerations. This focused approach allows for optimal desktop experiences without compromise.
+            Designed exclusively for desktop SaaS. No responsive breakpoints, no mobile. Focused on optimal desktop experiences.
           </div>
         </div>
-        <div class="card principle-card">
-          <div class="card-title">
-            <span class="material-icons">accessibility</span>
-            Accessibility Built-In
-          </div>
+        <div class="card">
+          <div class="card-icon"><span class="material-icons-outlined">accessibility</span></div>
+          <div class="card-title">Accessibility Built-In</div>
           <div class="card-content">
-            All components meet WCAG 2.1 AA standards with proper focus states, keyboard navigation, screen reader support, and minimum touch targets of 32px.
+            WCAG 2.1 AA with proper focus states, keyboard navigation, screen reader support, and 32px minimum touch targets.
           </div>
         </div>
-        <div class="card principle-card">
-          <div class="card-title">
-            <span class="material-icons">speed</span>
-            Consistency & Efficiency
-          </div>
+        <div class="card">
+          <div class="card-icon"><span class="material-icons-outlined">speed</span></div>
+          <div class="card-title">Consistency & Efficiency</div>
           <div class="card-content">
-            Standardized patterns reduce decision fatigue. The 8px spacing system, semantic color rules, and predictable component behavior create a cohesive experience across all products.
+            8px spacing system, semantic color rules, and predictable component behavior reduce decision fatigue across products.
           </div>
         </div>
       </div>
@@ -145,41 +318,35 @@
 
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">architecture</span>
+        <span class="material-icons-outlined">architecture</span>
         System Architecture
       </h2>
       <p class="section-description">
-        The design system is organized in layers, from foundational design tokens to complex patterns and templates.
+        Organized in layers — from foundational design tokens to complex patterns and templates.
       </p>
       <div class="grid-3">
         <div class="card">
-          <div class="card-title">
-            <span class="material-icons">category</span>
-            Foundation Layer
-          </div>
+          <div class="card-icon"><span class="material-icons-outlined">category</span></div>
+          <div class="card-title">Foundation Layer</div>
           <div class="card-content">
             <strong>Design Tokens</strong><br>
-            Colors, typography, spacing, and shapes extracted from Figma Variables. These are the atomic building blocks used across all components.
+            Colors, typography, spacing, and shapes extracted from Figma Variables. The atomic building blocks.
           </div>
         </div>
         <div class="card">
-          <div class="card-title">
-            <span class="material-icons">widgets</span>
-            Component Layer
-          </div>
+          <div class="card-icon"><span class="material-icons-outlined">widgets</span></div>
+          <div class="card-title">Component Layer</div>
           <div class="card-content">
             <strong id="arch-built">–</strong> components built<br>
-            Atomic to organism-level components built from design tokens. Each component extracts implementation values directly from Figma.
+            Atomic to organism-level, each extracting values directly from Figma.
           </div>
         </div>
         <div class="card">
-          <div class="card-title">
-            <span class="material-icons">view_quilt</span>
-            Pattern Layer
-          </div>
+          <div class="card-icon"><span class="material-icons-outlined">view_quilt</span></div>
+          <div class="card-title">Pattern Layer</div>
           <div class="card-content">
             <strong>Workflows & Templates</strong><br>
-            Forms, navigation, search, and data display patterns that combine components into complete user experiences.
+            Forms, navigation, search, and data display patterns that combine components.
           </div>
         </div>
       </div>
@@ -187,44 +354,50 @@
 
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">rule</span>
+        <span class="material-icons-outlined">rule</span>
         Core Rules
       </h2>
       <div class="grid-2">
         <div class="card">
+          <div class="card-icon"><span class="material-icons-outlined">grid_on</span></div>
           <div class="card-title">Spacing System</div>
           <div class="card-content">
-            <strong>8px base grid</strong> for all layout spacing. Exception: 4px for related content <em>within</em> components. Never break the grid for arbitrary values.
+            <strong>8px base grid</strong> for all layout. 4px exception within components. Never break the grid.
           </div>
         </div>
         <div class="card">
+          <div class="card-icon"><span class="material-icons-outlined">text_fields</span></div>
           <div class="card-title">Typography</div>
           <div class="card-content">
-            <strong>Roboto only</strong>, max H5 for page headers. Font sizes from 11px-24px scale. Desktop-optimized line heights.
+            <strong>Roboto only</strong>, max H5 for page headers. 11px–24px scale. Desktop-optimized line heights.
           </div>
         </div>
         <div class="card">
+          <div class="card-icon"><span class="material-icons-outlined">palette</span></div>
           <div class="card-title">Color Semantics</div>
           <div class="card-content">
-            <strong>Primary blue (#2196F3)</strong> for Save/Update only. Secondary for Edit. Error for Delete. Info for read-only. Background (#F5F5F5) for canvas, Paper (white) for containers.
+            <strong>Primary blue (#2196F3)</strong> = Save/Update only. Secondary = Edit. Error = Delete. #F5F5F5 canvas, white containers.
           </div>
         </div>
         <div class="card">
+          <div class="card-icon"><span class="material-icons-outlined">emoji_symbols</span></div>
           <div class="card-title">Icons</div>
           <div class="card-content">
-            <strong>Material Icons only</strong>. No custom icon sets. Icons reinforce action meaning but should not replace clear text labels.
+            <strong>Material Icons only</strong>. No custom sets. Icons reinforce meaning but never replace text labels.
           </div>
         </div>
         <div class="card">
+          <div class="card-icon"><span class="material-icons-outlined">table_chart</span></div>
           <div class="card-title">Data Tables</div>
           <div class="card-content">
-            <strong>AG Grid for all tables</strong>. No custom table implementations. Consistent sorting, filtering, and pagination across products.
+            <strong>AG Grid for all tables</strong>. No custom implementations. Consistent sorting, filtering, pagination.
           </div>
         </div>
         <div class="card">
+          <div class="card-icon"><span class="material-icons-outlined">grid_view</span></div>
           <div class="card-title">Layout</div>
           <div class="card-content">
-            <strong>12-column flex grid</strong> with 16px margins and gutters. Modals use 6-8 columns with 40px gutters and 16px margins.
+            <strong>12-column grid</strong>, 16px gutters. Modals: 6–8 columns, 40px internal padding.
           </div>
         </div>
       </div>
@@ -232,7 +405,7 @@
 
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">build</span>
+        <span class="material-icons-outlined">build</span>
         Implementation Workflow
       </h2>
       <p class="section-description">
@@ -240,27 +413,31 @@
       </p>
       <div class="grid-2">
         <div class="card">
-          <div class="card-title">Step 1: Extract Properties</div>
+          <div class="card-icon"><span class="material-icons-outlined">looks_one</span></div>
+          <div class="card-title">Extract Properties</div>
           <div class="card-content">
-            Read <code>componentPropertyDefinitions</code> from cached Figma spec. Extract VARIANT, BOOLEAN, and TEXT properties. Map to TypeScript interfaces.
+            Read componentPropertyDefinitions from Figma. Extract VARIANT, BOOLEAN, and TEXT properties. Map to TypeScript interfaces.
           </div>
         </div>
         <div class="card">
-          <div class="card-title">Step 2: Load Design Tokens</div>
+          <div class="card-icon"><span class="material-icons-outlined">looks_two</span></div>
+          <div class="card-title">Load Design Tokens</div>
           <div class="card-content">
-            Import design tokens to understand available colors, spacing values, typography options, and shapes.
+            Import design tokens for available colors, spacing, typography, and shapes.
           </div>
         </div>
         <div class="card">
-          <div class="card-title">Step 3: Extract Actual Values</div>
+          <div class="card-icon"><span class="material-icons-outlined">looks_3</span></div>
+          <div class="card-title">Extract Actual Values</div>
           <div class="card-content">
-            <strong>CRITICAL:</strong> Extract padding, dimensions, fills, strokes from actual Figma component instances. Never assume based on tokens.
+            Extract padding, dimensions, fills, strokes from actual Figma instances. Never assume from tokens alone.
           </div>
         </div>
         <div class="card">
-          <div class="card-title">Step 4: Implement</div>
+          <div class="card-icon"><span class="material-icons-outlined">looks_4</span></div>
+          <div class="card-title">Implement</div>
           <div class="card-content">
-            Build component using extracted values. Reference design tokens for colors/typography, but use actual extracted measurements.
+            Build using extracted values. Reference tokens for colors/typography, use actual measurements for sizing.
           </div>
         </div>
       </div>
@@ -268,56 +445,52 @@
 
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">widgets</span>
+        <span class="material-icons-outlined">widgets</span>
         Built Components
       </h2>
       <p class="section-description">
         All components currently in the library. Updates automatically as new components are added.
       </p>
       <div class="grid-3" id="component-gallery">
-        <!-- Populated dynamically from DS_NAV.components -->
+        <!-- Populated dynamically from DS_NAV -->
       </div>
     </section>
 
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">rocket_launch</span>
+        <span class="material-icons-outlined">rocket_launch</span>
         Getting Started
       </h2>
       <div class="grid-3">
         <div class="card">
-          <div class="card-title">
-            <span class="material-icons">palette</span>
-            Explore Design Tokens
-          </div>
+          <div class="card-icon"><span class="material-icons-outlined">palette</span></div>
+          <div class="card-title">Explore Design Tokens</div>
           <div class="card-content">
-            Start with Colors, Typography, and Spacing to understand the foundational building blocks of the system.
+            Start with Colors, Typography, and Spacing to understand the foundational building blocks.
           </div>
         </div>
         <div class="card">
-          <div class="card-title">
-            <span class="material-icons">smart_button</span>
-            Browse Components
-          </div>
+          <div class="card-icon"><span class="material-icons-outlined">smart_button</span></div>
+          <div class="card-title">Browse Components</div>
           <div class="card-content">
-            View the Button component as the golden template. All components follow this structure and documentation pattern.
+            View Button as the golden template. All components follow this structure and documentation pattern.
           </div>
         </div>
         <div class="card">
-          <div class="card-title">
-            <span class="material-icons">code</span>
-            Build New Components
-          </div>
+          <div class="card-icon"><span class="material-icons-outlined">code</span></div>
+          <div class="card-title">Build New Components</div>
           <div class="card-content">
-            Use <code>/build-component</code> skill to generate new components following the extraction workflow automatically.
+            Use <code>/build-component</code> to generate new components following the extraction workflow.
           </div>
         </div>
       </div>
     </section>
+    </div><!-- /content-wrap -->
   </main>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const count = DS_NAV.components.length;
+      const allComponents = [...DS_NAV.mui, ...DS_NAV.custom, ...DS_NAV.dataviz];
+      const count = allComponents.length;
 
       // Update stat cards
       document.getElementById('stat-built').textContent = count;
@@ -325,13 +498,11 @@
 
       // Render component gallery
       const gallery = document.getElementById('component-gallery');
-      gallery.innerHTML = DS_NAV.components.map(c => `
+      gallery.innerHTML = allComponents.map(c => `
         <a href="${c.href}" class="card" style="text-decoration:none; color:inherit; cursor:pointer;">
-          <div class="card-title">
-            <span class="material-icons">${c.icon}</span>
-            ${c.label}
-          </div>
-          <div class="card-content" style="font-size:12px; color:var(--color-text-secondary);">
+          <div class="card-icon"><span class="material-icons-outlined">${c.icon}</span></div>
+          <div class="card-title">${c.label}</div>
+          <div class="card-content" style="font-size:12px;">
             View specs, variants, and usage
           </div>
         </a>

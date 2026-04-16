@@ -2,11 +2,102 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Page Header Toolbar - TRIO WFS Design System</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
   <link rel="stylesheet" href="../../design-system-shell.css">
   <style>
+
+    /* ============================================================
+       TEMPLATE OVERRIDE — CONTINUOUS CANVAS
+       ============================================================ */
+    .main-content {
+      background: var(--color-background-secondary);
+      min-height: 100vh;
+    }
+
+    .section {
+      background: transparent;
+      border-radius: 0;
+      padding: 0;
+      margin-bottom: 0;
+      padding-bottom: var(--spacing-xl);
+    }
+
+    .section + .section {
+      border-top: 1px solid var(--color-secondary-outline);
+      padding-top: var(--spacing-xl);
+    }
+
+    /* ── Section title icons ── */
+    .section-title .material-icons-outlined,
+    .section-title .material-icons {
+      font-size: 18px;
+    }
+
+    /* ── Tables: paper + border ── */
+    .section .property-table {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .section .property-table th {
+      background: var(--color-background-paper);
+    }
+
+    /* ── Cards: paper ── */
+    .card {
+      background: var(--color-background-paper);
+    }
+
+    /* ── Card illustrations for Do/Don't ── */
+    .card-illustration {
+      background: var(--color-background-secondary, #FAFAFA);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      padding: var(--spacing-md);
+      margin-bottom: var(--spacing-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 80px;
+      position: relative;
+    }
+    .card-illustration-label {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      font-size: 9px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 2px 6px;
+      border-radius: 999px;
+    }
+    .do-card .card-illustration-label {
+      background: var(--color-success-light, #E8F5E9);
+      color: var(--color-success-main);
+    }
+    .dont-card .card-illustration-label {
+      background: var(--color-error-light, #FBEAED);
+      color: var(--color-error-main);
+    }
+    .card-illustration-wrong::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 16px;
+      right: 16px;
+      height: 2px;
+      background: var(--color-error-main);
+      opacity: 0.4;
+      transform: rotate(-3deg);
+    }
+
+    /* ── Demo containers: paper + border ── */
     .demo-stack {
       display: flex;
       flex-direction: column;
@@ -192,7 +283,7 @@
     }
     .split-btn-icon .material-icons { font-size: 16px; }
 
-    /* Inline button group (3-up) — matches ButtonGroup component exactly */
+    /* Inline button group */
     .btn-group {
       display: inline-flex;
       border-radius: var(--border-radius);
@@ -302,23 +393,111 @@
   <script src="../../design-system-nav.js"></script>
 </head>
 <body>
-  <aside class="sidebar"></aside>
+  <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
   <main class="main-content">
 
-    <div class="page-header">
+    <!-- PAGE HEADER -->
+    <header class="page-header">
       <h1 class="page-title">Page Header Toolbar</h1>
-      <p class="page-description">The top-of-page toolbar used across all TRIO WFS list and detail views. Contains the page title, optional chips and eyebrow, right-side actions, and an optional Breadcrumb strip.</p>
-    </div>
+      <p class="page-subtitle">The top-of-page toolbar used across all TRIO WFS list and detail views. Contains the page title, optional chips and eyebrow, right-side actions, and an optional Breadcrumb strip.</p>
+      <div class="component-meta">
+        <span><span class="material-icons-outlined" style="font-size: 14px;">category</span> Custom Component</span>
+        <a href="#" class="meta-link"><span class="material-icons-outlined" style="font-size: 14px;">menu_book</span> Storybook</a>
+        <a href="#" class="meta-link"><span class="material-icons-outlined" style="font-size: 14px;">design_services</span> Zeplin</a>
+        <span><span class="material-icons-outlined" style="font-size: 14px;">verified</span> Production Ready</span>
+      </div>
+    </header>
 
-    <!-- 1. Overview -->
+    <!-- OVERVIEW -->
     <section class="section">
-      <h2 class="section-title"><span class="material-icons">info</span>Overview</h2>
-      <p class="section-description">The Page Header Toolbar is a white card that anchors every page. The <strong>full</strong> variant includes the complete set of elements — title, chip tags, eyebrow text, action buttons, and a Breadcrumb strip with ToggleButton. The <strong>default</strong> variant strips it back to title + buttons only. <strong>NewCanvas</strong> is identical to full but without the outer card border — used when the toolbar is embedded inside another surface.</p>
+      <h2 class="section-title">
+        <span class="material-icons-outlined">info</span>
+        Overview
+      </h2>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">psychology</span>
+            Purpose
+          </div>
+          <div class="card-content">
+            The Page Header Toolbar is a white card that anchors every page. It provides title, context (eyebrow, chips), and page-level actions in a consistent layout across all views.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">priority_high</span>
+            Variants
+          </div>
+          <div class="card-content">
+            The <strong>full</strong> variant includes title, chips, eyebrow, actions, and breadcrumb strip. The <strong>default</strong> strips it back to title + buttons only. <strong>NewCanvas</strong> removes the outer card border.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">accessibility</span>
+            Accessibility
+          </div>
+          <div class="card-content">
+            Uses semantic header elements and ARIA labels. Breadcrumb links are keyboard-navigable. Action buttons follow the standard focus ring pattern.
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- 2. Variants -->
+    <!-- USAGE GUIDELINES -->
     <section class="section">
-      <h2 class="section-title"><span class="material-icons">palette</span>Variants</h2>
+      <h2 class="section-title">
+        <span class="material-icons-outlined">rule</span>
+        Usage Guidelines
+      </h2>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">check_circle</span>
+            When to Use
+          </div>
+          <div class="card-illustration">
+            <span class="card-illustration-label">Correct</span>
+            <div style="font-size: 12px; color: var(--color-text-primary); text-align: center;">Title + Actions + Breadcrumb on every list/detail page</div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Use <strong>full</strong> as the default for list/grid views — breadcrumb + chips provide important context</li>
+              <li>Use <strong>default</strong> for simple utility pages without deep navigation</li>
+              <li>Keep page title to the entity name — avoid verbs (use "Shift Scheduler", not "Manage Shifts")</li>
+              <li>Put the primary action in ButtonGroup, secondary in SingleButton</li>
+              <li>Use indicator only when the entity has a meaningful status affecting the whole page</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">cancel</span>
+            When NOT to Use
+          </div>
+          <div class="card-illustration card-illustration-wrong">
+            <span class="card-illustration-label">Incorrect</span>
+            <div style="font-size: 12px; color: var(--color-text-secondary); text-align: center;">Multiple toolbars or destructive actions in toolbar</div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Don't put more than 4 chips in the title row — truncate with "+N More"</li>
+              <li>Don't use more than one toolbar per page</li>
+              <li>Don't put destructive actions (Delete, Archive) in the toolbar — move to a confirmation modal flow</li>
+              <li>Don't omit eyebrow text on complex pages — it provides orientation for new users</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VARIANTS -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">widgets</span>
+        Variants
+      </h2>
 
       <div class="demo-stack">
 
@@ -441,38 +620,40 @@
           </div>
         </div>
 
-      </div>
-    </section>
-
-    <!-- 3. Status Indicator -->
-    <section class="section">
-      <h2 class="section-title"><span class="material-icons">label_important</span>Status Indicator</h2>
-      <p class="section-description">An optional 80px left-side color bar communicates a page-level status (e.g. OPEN, CLOSED, PENDING). Used on detail pages where the entity has a primary status that affects all actions.</p>
-      <div class="pht" style="max-width: 720px;">
-        <div class="pht-top">
-          <div class="pht-indicator"><span>OPEN</span></div>
-          <div class="pht-content">
-            <div class="pht-title-area">
-              <div class="pht-title-row">
-                <span class="pht-title">Shift #20481 — ICU Night</span>
-              </div>
-              <span class="pht-eyebrow">Memorial Hospital · ICU · RN · Nights</span>
-            </div>
-            <div class="pht-actions">
-              <div class="btn-group">
-                <button class="btn-group-item">Edit</button>
-                <button class="btn-group-item">Close</button>
-                <button class="btn-group-item">Cancel</button>
+        <!-- Status Indicator -->
+        <div>
+          <div class="demo-label">With Status Indicator</div>
+          <div class="pht" style="max-width: 720px;">
+            <div class="pht-top">
+              <div class="pht-indicator"><span>OPEN</span></div>
+              <div class="pht-content">
+                <div class="pht-title-area">
+                  <div class="pht-title-row">
+                    <span class="pht-title">Shift #20481 — ICU Night</span>
+                  </div>
+                  <span class="pht-eyebrow">Memorial Hospital · ICU · RN · Nights</span>
+                </div>
+                <div class="pht-actions">
+                  <div class="btn-group">
+                    <button class="btn-group-item">Edit</button>
+                    <button class="btn-group-item">Close</button>
+                    <button class="btn-group-item">Cancel</button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
+
       </div>
     </section>
 
-    <!-- 4. Boolean Controls -->
+    <!-- STATES -->
     <section class="section">
-      <h2 class="section-title"><span class="material-icons">tune</span>Boolean Controls</h2>
+      <h2 class="section-title">
+        <span class="material-icons-outlined">toggle_on</span>
+        States
+      </h2>
       <p class="section-description">Every section of the toolbar is independently toggleable via props.</p>
       <div class="demo-stack">
 
@@ -490,7 +671,7 @@
           </div>
         </div>
 
-        <!-- Title + eyebrow, no chips, no actions -->
+        <!-- Title + eyebrow -->
         <div>
           <div class="demo-label">Title + eyebrow</div>
           <div class="pht">
@@ -536,14 +717,20 @@
       </div>
     </section>
 
-    <!-- 5. Best Practices -->
+    <!-- BEST PRACTICES -->
     <section class="section">
-      <h2 class="section-title"><span class="material-icons">rule</span>Best Practices</h2>
+      <h2 class="section-title">
+        <span class="material-icons-outlined">recommend</span>
+        Best Practices
+      </h2>
       <div class="grid-2">
-        <div class="card">
-          <div class="card-title" style="color: var(--color-success-main)">Do</div>
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">check_circle</span>
+            Do
+          </div>
           <div class="card-content">
-            <ul style="padding-left: 16px; margin: 0; font-size: 13px; line-height: 1.6;">
+            <ul>
               <li>Use <strong>full</strong> as the default for list/grid views — breadcrumb + chips provide important context</li>
               <li>Use <strong>default</strong> for simple utility pages without deep navigation</li>
               <li>Keep page title to the entity name — avoid verbs (use "Shift Scheduler", not "Manage Shifts")</li>
@@ -552,10 +739,13 @@
             </ul>
           </div>
         </div>
-        <div class="card">
-          <div class="card-title" style="color: var(--color-error-main)">Don't</div>
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">cancel</span>
+            Don't
+          </div>
           <div class="card-content">
-            <ul style="padding-left: 16px; margin: 0; font-size: 13px; line-height: 1.6;">
+            <ul>
               <li>Don't put more than 4 chips in the title row — truncate with "+N More"</li>
               <li>Don't use more than one toolbar per page</li>
               <li>Don't put destructive actions (Delete, Archive) in the toolbar — move to a confirmation modal flow</li>
@@ -566,9 +756,12 @@
       </div>
     </section>
 
-    <!-- 6. Technical Specifications -->
+    <!-- TECHNICAL SPECIFICATIONS -->
     <section class="section">
-      <h2 class="section-title"><span class="material-icons">straighten</span>Technical Specifications</h2>
+      <h2 class="section-title">
+        <span class="material-icons-outlined">construction</span>
+        Technical Specifications
+      </h2>
       <table class="property-table">
         <thead><tr><th>Property</th><th>Value</th><th>Source</th></tr></thead>
         <tbody>

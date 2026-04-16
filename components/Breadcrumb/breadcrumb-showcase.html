@@ -2,16 +2,114 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Breadcrumb - TRIO WFS Design System</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
   <link rel="stylesheet" href="../../design-system-shell.css">
   <style>
+
+    /* ============================================================
+       TEMPLATE OVERRIDE — CONTINUOUS CANVAS
+       ============================================================ */
+    .main-content {
+      background: var(--color-background-secondary);
+      min-height: 100vh;
+    }
+
+    .section {
+      background: transparent;
+      border-radius: 0;
+      padding: 0;
+      margin-bottom: 0;
+      padding-bottom: var(--spacing-xl);
+    }
+
+    .section + .section {
+      border-top: 1px solid var(--color-secondary-outline);
+      padding-top: var(--spacing-xl);
+    }
+
+    /* ── Section title icons ── */
+    .section-title .material-icons-outlined,
+    .section-title .material-icons {
+      font-size: 18px;
+    }
+
+    /* ── Tables: paper + border ── */
+    .section .property-table {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .section .property-table th {
+      background: var(--color-background-paper);
+    }
+
+    /* ── Cards: paper ── */
+    .card {
+      background: var(--color-background-paper);
+    }
+
+    /* ── Card illustrations for Do/Don't ── */
+    .card-illustration {
+      background: var(--color-background-secondary, #FAFAFA);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      padding: var(--spacing-md);
+      margin-bottom: var(--spacing-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 80px;
+      position: relative;
+    }
+    .card-illustration-label {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      font-size: 9px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 2px 6px;
+      border-radius: 999px;
+    }
+    .do-card .card-illustration-label {
+      background: var(--color-success-light, #E8F5E9);
+      color: var(--color-success-main);
+    }
+    .dont-card .card-illustration-label {
+      background: var(--color-error-light, #FBEAED);
+      color: var(--color-error-main);
+    }
+    .card-illustration-wrong::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 16px;
+      right: 16px;
+      height: 2px;
+      background: var(--color-error-main);
+      opacity: 0.4;
+      transform: rotate(-3deg);
+    }
+
+    /* ── Demo containers: paper + border ── */
     .demo-stack {
       display: flex;
       flex-direction: column;
       gap: var(--spacing-sm);
       max-width: 720px;
+    }
+
+    .demo-container {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-lg);
     }
 
     .demo-label {
@@ -64,7 +162,7 @@
       color: var(--color-text-primary);
       white-space: nowrap;
       font-family: var(--font-family);
-      line-height: 38px; /* fills 40px height minus 2px border */
+      line-height: 38px;
       border-bottom: 2px solid var(--color-primary-main);
     }
 
@@ -117,52 +215,198 @@
   <script src="../../design-system-nav.js"></script>
 </head>
 <body>
-  <aside class="sidebar"></aside>
+  <!-- LEFT NAVIGATION -->
+  <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
+
+  <!-- MAIN CONTENT -->
   <main class="main-content">
-
-    <div class="page-header">
+    <!-- PAGE HEADER -->
+    <header class="page-header">
       <h1 class="page-title">Breadcrumb</h1>
-      <p class="page-description">Navigation path strip showing the user's location within a hierarchy. Sits between the Page Header Toolbar and the main content area. Supports an optional record count and action buttons on the right.</p>
-    </div>
+      <p class="page-subtitle">
+        Navigation path strip showing the user's location within a hierarchy. Sits between the Page Header Toolbar and the main content area. Supports an optional record count and action buttons on the right.
+      </p>
+      <div class="component-meta">
+        <span><span class="material-icons-outlined" style="font-size: 14px;">category</span> Atomic Component</span>
+        <a href="#" class="meta-link"><span class="material-icons-outlined" style="font-size: 14px;">menu_book</span> Storybook</a>
+        <a href="#" class="meta-link"><span class="material-icons-outlined" style="font-size: 14px;">design_services</span> Zeplin</a>
+        <span><span class="material-icons-outlined" style="font-size: 14px;">verified</span> Production Ready</span>
+      </div>
+    </header>
 
-    <!-- 1. Overview -->
+    <!-- OVERVIEW -->
     <section class="section">
-      <h2 class="section-title"><span class="material-icons">info</span>Overview</h2>
-      <p class="section-description">The Breadcrumb is a 40px-tall strip with a light gray background. It renders an ordered list of navigation links with the current page shown in dark text with a blue bottom underline. Two states differ in divider character. The right side optionally shows a record count and a ToggleButton strip (filter/export/reset).</p>
+      <h2 class="section-title">
+        <span class="material-icons-outlined">info</span>
+        Overview
+      </h2>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">psychology</span>
+            Purpose
+          </div>
+          <div class="card-content">
+            The Breadcrumb is a 40px-tall strip with a light gray background. It renders an ordered list of navigation links showing the user's current location within the application hierarchy.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">tune</span>
+            Configuration
+          </div>
+          <div class="card-content">
+            Two divider styles — <strong>breadcrumb</strong> uses <code>/</code> and <strong>Links</strong> uses <code>|</code>. The right side optionally shows a record count and a ToggleButton strip for filter/export/reset actions.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">accessibility</span>
+            Accessibility
+          </div>
+          <div class="card-content">
+            The current page is displayed in dark text with a blue bottom underline, clearly distinguishing it from clickable ancestor links. Uses semantic navigation landmarks.
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- 2. States -->
+    <!-- USAGE GUIDELINES -->
     <section class="section">
-      <h2 class="section-title"><span class="material-icons">toggle_on</span>States</h2>
-      <p class="section-description">Two divider styles — <strong>breadcrumb</strong> uses <code>/</code>, <strong>Links</strong> uses <code>|</code>.</p>
+      <h2 class="section-title">
+        <span class="material-icons-outlined">rule</span>
+        Usage Guidelines
+      </h2>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">check_circle</span>
+            When to Use
+          </div>
+          <div class="card-illustration">
+            <span class="card-illustration-label">Correct</span>
+            <div class="breadcrumb" style="width: 100%;">
+              <div class="breadcrumb-links">
+                <div class="breadcrumb-item">
+                  <a class="bc-link" href="#">Facilities</a>
+                  <span class="bc-divider">/</span>
+                </div>
+                <div class="breadcrumb-item">
+                  <a class="bc-link" href="#">Memorial Hospital</a>
+                  <span class="bc-divider">/</span>
+                </div>
+                <div class="breadcrumb-item">
+                  <span class="bc-selected">Open Shifts</span>
+                </div>
+              </div>
+              <div class="breadcrumb-right">
+                <span class="bc-count">1,284 records</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Showing hierarchical navigation within the application</li>
+              <li>Pages that are 2+ levels deep in the information architecture</li>
+              <li>List or table views where a record count is helpful</li>
+              <li>Pages with filter/export/reset toolbar actions</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">cancel</span>
+            When NOT to Use
+          </div>
+          <div class="card-illustration card-illustration-wrong">
+            <span class="card-illustration-label">Incorrect</span>
+            <div class="breadcrumb" style="width: 100%;">
+              <div class="breadcrumb-links">
+                <div class="breadcrumb-item">
+                  <a class="bc-link" href="#">Home</a>
+                  <span class="bc-divider">/</span>
+                </div>
+                <div class="breadcrumb-item">
+                  <a class="bc-link" href="#">Section A</a>
+                  <span class="bc-divider">/</span>
+                </div>
+                <div class="breadcrumb-item">
+                  <a class="bc-link" href="#">Sub A</a>
+                  <span class="bc-divider">/</span>
+                </div>
+                <div class="breadcrumb-item">
+                  <a class="bc-link" href="#">Sub B</a>
+                  <span class="bc-divider">/</span>
+                </div>
+                <div class="breadcrumb-item">
+                  <a class="bc-link" href="#">Sub C</a>
+                  <span class="bc-divider">/</span>
+                </div>
+                <div class="breadcrumb-item">
+                  <a class="bc-link" href="#">Sub D</a>
+                  <span class="bc-divider">/</span>
+                </div>
+                <div class="breadcrumb-item">
+                  <a class="bc-link" href="#">Sub E</a>
+                  <span class="bc-divider">/</span>
+                </div>
+                <div class="breadcrumb-item">
+                  <span class="bc-selected">Current</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Don't exceed 6-7 path segments — truncate middle items with ellipsis</li>
+              <li>Don't use for step-by-step wizard navigation — use a Stepper</li>
+              <li>Don't put non-navigation actions in the breadcrumb strip</li>
+              <li>Don't use on top-level pages with no parent hierarchy</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VARIANTS -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">widgets</span>
+        Variants
+      </h2>
+      <p class="section-description">
+        Two divider styles — <strong>breadcrumb</strong> uses <code>/</code>, <strong>Links</strong> uses <code>|</code>. Use breadcrumb as the default; Links for tab-style navigation.
+      </p>
 
       <div class="demo-stack">
         <div>
           <div class="demo-label">Breadcrumb (/ divider)</div>
-          <div class="breadcrumb">
-            <div class="breadcrumb-links">
-              <div class="breadcrumb-item">
-                <a class="bc-link" href="#">Parent</a>
-                <span class="bc-divider">/</span>
+          <div class="demo-container">
+            <div class="breadcrumb">
+              <div class="breadcrumb-links">
+                <div class="breadcrumb-item">
+                  <a class="bc-link" href="#">Parent</a>
+                  <span class="bc-divider">/</span>
+                </div>
+                <div class="breadcrumb-item">
+                  <a class="bc-link" href="#">Child</a>
+                  <span class="bc-divider">/</span>
+                </div>
+                <div class="breadcrumb-item">
+                  <a class="bc-link" href="#">Child</a>
+                  <span class="bc-divider">/</span>
+                </div>
+                <div class="breadcrumb-item">
+                  <span class="bc-selected">Selected Page</span>
+                </div>
               </div>
-              <div class="breadcrumb-item">
-                <a class="bc-link" href="#">Child</a>
-                <span class="bc-divider">/</span>
-              </div>
-              <div class="breadcrumb-item">
-                <a class="bc-link" href="#">Child</a>
-                <span class="bc-divider">/</span>
-              </div>
-              <div class="breadcrumb-item">
-                <span class="bc-selected">Selected Page</span>
-              </div>
-            </div>
-            <div class="breadcrumb-right">
-              <span class="bc-count">1,284 records</span>
-              <div class="toggle-strip">
-                <button class="toggle-slot"><span class="material-icons">filter_alt_off</span></button>
-                <button class="toggle-slot"><span class="material-icons">file_download</span></button>
-                <button class="toggle-slot"><span class="material-icons">restart_alt</span></button>
+              <div class="breadcrumb-right">
+                <span class="bc-count">1,284 records</span>
+                <div class="toggle-strip">
+                  <button class="toggle-slot"><span class="material-icons">filter_alt_off</span></button>
+                  <button class="toggle-slot"><span class="material-icons">file_download</span></button>
+                  <button class="toggle-slot"><span class="material-icons">restart_alt</span></button>
+                </div>
               </div>
             </div>
           </div>
@@ -170,30 +414,32 @@
 
         <div>
           <div class="demo-label">Links (| divider)</div>
-          <div class="breadcrumb">
-            <div class="breadcrumb-links">
-              <div class="breadcrumb-item">
-                <a class="bc-link" href="#">Parent</a>
-                <span class="bc-divider">|</span>
+          <div class="demo-container">
+            <div class="breadcrumb">
+              <div class="breadcrumb-links">
+                <div class="breadcrumb-item">
+                  <a class="bc-link" href="#">Parent</a>
+                  <span class="bc-divider">|</span>
+                </div>
+                <div class="breadcrumb-item">
+                  <a class="bc-link" href="#">Child</a>
+                  <span class="bc-divider">|</span>
+                </div>
+                <div class="breadcrumb-item">
+                  <a class="bc-link" href="#">Child</a>
+                  <span class="bc-divider">|</span>
+                </div>
+                <div class="breadcrumb-item">
+                  <span class="bc-selected">Selected Link</span>
+                </div>
               </div>
-              <div class="breadcrumb-item">
-                <a class="bc-link" href="#">Child</a>
-                <span class="bc-divider">|</span>
-              </div>
-              <div class="breadcrumb-item">
-                <a class="bc-link" href="#">Child</a>
-                <span class="bc-divider">|</span>
-              </div>
-              <div class="breadcrumb-item">
-                <span class="bc-selected">Selected Link</span>
-              </div>
-            </div>
-            <div class="breadcrumb-right">
-              <span class="bc-count">842 records</span>
-              <div class="toggle-strip">
-                <button class="toggle-slot"><span class="material-icons">filter_alt_off</span></button>
-                <button class="toggle-slot"><span class="material-icons">file_download</span></button>
-                <button class="toggle-slot"><span class="material-icons">restart_alt</span></button>
+              <div class="breadcrumb-right">
+                <span class="bc-count">842 records</span>
+                <div class="toggle-strip">
+                  <button class="toggle-slot"><span class="material-icons">filter_alt_off</span></button>
+                  <button class="toggle-slot"><span class="material-icons">file_download</span></button>
+                  <button class="toggle-slot"><span class="material-icons">restart_alt</span></button>
+                </div>
               </div>
             </div>
           </div>
@@ -201,22 +447,29 @@
       </div>
     </section>
 
-    <!-- 3. Boolean Controls -->
+    <!-- STATES (Boolean Controls) -->
     <section class="section">
-      <h2 class="section-title"><span class="material-icons">tune</span>Boolean Controls</h2>
-      <p class="section-description">Record count and actions slot are independently toggleable.</p>
+      <h2 class="section-title">
+        <span class="material-icons-outlined">toggle_on</span>
+        States
+      </h2>
+      <p class="section-description">
+        Record count and actions slot are independently toggleable. The breadcrumb adapts to show only the elements that are enabled.
+      </p>
 
       <div class="demo-stack">
         <div>
           <div class="demo-label">No right-side content</div>
-          <div class="breadcrumb">
-            <div class="breadcrumb-links">
-              <div class="breadcrumb-item">
-                <a class="bc-link" href="#">Parent</a>
-                <span class="bc-divider">/</span>
-              </div>
-              <div class="breadcrumb-item">
-                <span class="bc-selected">Current Page</span>
+          <div class="demo-container">
+            <div class="breadcrumb">
+              <div class="breadcrumb-links">
+                <div class="breadcrumb-item">
+                  <a class="bc-link" href="#">Parent</a>
+                  <span class="bc-divider">/</span>
+                </div>
+                <div class="breadcrumb-item">
+                  <span class="bc-selected">Current Page</span>
+                </div>
               </div>
             </div>
           </div>
@@ -224,39 +477,43 @@
 
         <div>
           <div class="demo-label">Count only (no toggle)</div>
-          <div class="breadcrumb">
-            <div class="breadcrumb-links">
-              <div class="breadcrumb-item">
-                <a class="bc-link" href="#">Parent</a>
-                <span class="bc-divider">/</span>
+          <div class="demo-container">
+            <div class="breadcrumb">
+              <div class="breadcrumb-links">
+                <div class="breadcrumb-item">
+                  <a class="bc-link" href="#">Parent</a>
+                  <span class="bc-divider">/</span>
+                </div>
+                <div class="breadcrumb-item">
+                  <span class="bc-selected">Current Page</span>
+                </div>
               </div>
-              <div class="breadcrumb-item">
-                <span class="bc-selected">Current Page</span>
+              <div class="breadcrumb-right">
+                <span class="bc-count">512 records</span>
               </div>
-            </div>
-            <div class="breadcrumb-right">
-              <span class="bc-count">512 records</span>
             </div>
           </div>
         </div>
 
         <div>
           <div class="demo-label">Toggle only (no count)</div>
-          <div class="breadcrumb">
-            <div class="breadcrumb-links">
-              <div class="breadcrumb-item">
-                <a class="bc-link" href="#">Parent</a>
-                <span class="bc-divider">/</span>
+          <div class="demo-container">
+            <div class="breadcrumb">
+              <div class="breadcrumb-links">
+                <div class="breadcrumb-item">
+                  <a class="bc-link" href="#">Parent</a>
+                  <span class="bc-divider">/</span>
+                </div>
+                <div class="breadcrumb-item">
+                  <span class="bc-selected">Current Page</span>
+                </div>
               </div>
-              <div class="breadcrumb-item">
-                <span class="bc-selected">Current Page</span>
-              </div>
-            </div>
-            <div class="breadcrumb-right">
-              <div class="toggle-strip">
-                <button class="toggle-slot"><span class="material-icons">filter_alt_off</span></button>
-                <button class="toggle-slot"><span class="material-icons">file_download</span></button>
-                <button class="toggle-slot"><span class="material-icons">restart_alt</span></button>
+              <div class="breadcrumb-right">
+                <div class="toggle-strip">
+                  <button class="toggle-slot"><span class="material-icons">filter_alt_off</span></button>
+                  <button class="toggle-slot"><span class="material-icons">file_download</span></button>
+                  <button class="toggle-slot"><span class="material-icons">restart_alt</span></button>
+                </div>
               </div>
             </div>
           </div>
@@ -264,14 +521,37 @@
       </div>
     </section>
 
-    <!-- 4. Best Practices -->
+    <!-- BEST PRACTICES -->
     <section class="section">
-      <h2 class="section-title"><span class="material-icons">rule</span>Best Practices</h2>
+      <h2 class="section-title">
+        <span class="material-icons-outlined">recommend</span>
+        Best Practices
+      </h2>
       <div class="grid-2">
-        <div class="card">
-          <div class="card-title" style="color: var(--color-success-main)">Do</div>
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">check_circle</span>
+            Do
+          </div>
+          <div class="card-illustration">
+            <span class="card-illustration-label">Correct</span>
+            <div class="breadcrumb" style="width: 100%;">
+              <div class="breadcrumb-links">
+                <div class="breadcrumb-item">
+                  <a class="bc-link" href="#">Facilities</a>
+                  <span class="bc-divider">/</span>
+                </div>
+                <div class="breadcrumb-item">
+                  <span class="bc-selected">Shifts</span>
+                </div>
+              </div>
+              <div class="breadcrumb-right">
+                <span class="bc-count">256 records</span>
+              </div>
+            </div>
+          </div>
           <div class="card-content">
-            <ul style="padding-left: 16px; margin: 0; font-size: 13px; line-height: 1.6;">
+            <ul>
               <li>Always mark exactly one item as <code>selected</code> — the current page</li>
               <li>Keep link labels short — use the page/section name only</li>
               <li>Use the <code>/</code> state as default; <code>|</code> for tab-style navigation</li>
@@ -279,37 +559,82 @@
             </ul>
           </div>
         </div>
-        <div class="card">
-          <div class="card-title" style="color: var(--color-error-main)">Don't</div>
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">cancel</span>
+            Don't
+          </div>
+          <div class="card-illustration card-illustration-wrong">
+            <span class="card-illustration-label">Incorrect</span>
+            <div class="breadcrumb" style="width: 100%;">
+              <div class="breadcrumb-links">
+                <div class="breadcrumb-item">
+                  <a class="bc-link" href="#">A</a>
+                  <span class="bc-divider">/</span>
+                </div>
+                <div class="breadcrumb-item">
+                  <a class="bc-link" href="#">B</a>
+                  <span class="bc-divider">/</span>
+                </div>
+                <div class="breadcrumb-item">
+                  <a class="bc-link" href="#">C</a>
+                  <span class="bc-divider">/</span>
+                </div>
+                <div class="breadcrumb-item">
+                  <a class="bc-link" href="#">D</a>
+                  <span class="bc-divider">/</span>
+                </div>
+                <div class="breadcrumb-item">
+                  <a class="bc-link" href="#">E</a>
+                  <span class="bc-divider">/</span>
+                </div>
+                <div class="breadcrumb-item">
+                  <a class="bc-link" href="#">F</a>
+                  <span class="bc-divider">/</span>
+                </div>
+                <div class="breadcrumb-item">
+                  <span class="bc-selected">G</span>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="card-content">
-            <ul style="padding-left: 16px; margin: 0; font-size: 13px; line-height: 1.6;">
-              <li>Don't exceed 6–7 path segments — truncate middle items with ellipsis</li>
-              <li>Don't put non-navigation actions in the breadcrumb strip (filter belongs in ToggleButton, not a standalone button)</li>
+            <ul>
+              <li>Don't exceed 6-7 path segments — truncate middle items with ellipsis</li>
+              <li>Don't put non-navigation actions in the breadcrumb strip</li>
               <li>Don't use breadcrumb for step-by-step wizard navigation — use a Stepper</li>
+              <li>Don't use single-letter or ambiguous labels</li>
             </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 5. Technical Specifications -->
+    <!-- TECHNICAL SPECIFICATIONS -->
     <section class="section">
-      <h2 class="section-title"><span class="material-icons">straighten</span>Technical Specifications</h2>
+      <h2 class="section-title">
+        <span class="material-icons-outlined">construction</span>
+        Technical Specifications
+      </h2>
+      <p class="section-description">
+        All values extracted from Figma component instances.
+      </p>
+
       <table class="property-table">
         <thead><tr><th>Property</th><th>Value</th><th>Source</th></tr></thead>
         <tbody>
-          <tr><td>Height</td><td>40px</td><td>Figma node extracted</td></tr>
-          <tr><td>Padding (horizontal)</td><td>16px</td><td>Figma node extracted</td></tr>
-          <tr><td>Background</td><td>#FAFAFA (background.secondary)</td><td>Figma node extracted</td></tr>
+          <tr><td>Height</td><td><code>40px</code></td><td>Figma node extracted</td></tr>
+          <tr><td>Padding (horizontal)</td><td><code>16px</code></td><td>Figma node extracted</td></tr>
+          <tr><td>Background</td><td><code>#FAFAFA</code> (background.secondary)</td><td>Figma node extracted</td></tr>
           <tr><td>Link font</td><td>12px / 400 / primary blue</td><td>Figma node extracted</td></tr>
           <tr><td>Selected font</td><td>12px / 400 / text.primary</td><td>Figma node extracted</td></tr>
           <tr><td>Selected underline</td><td>2px solid primary.main</td><td>Figma node extracted</td></tr>
-          <tr><td>Divider (breadcrumb)</td><td>/  — 16px, text.secondary</td><td>Figma node extracted</td></tr>
-          <tr><td>Divider (Links)</td><td>|  — 16px, text.secondary</td><td>Figma node extracted</td></tr>
-          <tr><td>Gap between items</td><td>8px</td><td>Figma node extracted</td></tr>
-          <tr><td>Gap (right side)</td><td>16px</td><td>Figma node extracted</td></tr>
+          <tr><td>Divider (breadcrumb)</td><td><code>/</code> — 16px, text.secondary</td><td>Figma node extracted</td></tr>
+          <tr><td>Divider (Links)</td><td><code>|</code> — 16px, text.secondary</td><td>Figma node extracted</td></tr>
+          <tr><td>Gap between items</td><td><code>8px</code></td><td>Figma node extracted</td></tr>
+          <tr><td>Gap (right side)</td><td><code>16px</code></td><td>Figma node extracted</td></tr>
           <tr><td>Count font</td><td>12px / 400 / text.secondary</td><td>Figma node extracted</td></tr>
-          <tr><td>Border radius</td><td>4px</td><td>Design token</td></tr>
+          <tr><td>Border radius</td><td><code>4px</code></td><td>Design token</td></tr>
         </tbody>
       </table>
     </section>

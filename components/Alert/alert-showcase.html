@@ -2,17 +2,115 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Alert - TRIO WFS Design System</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
   <link rel="stylesheet" href="../../design-system-shell.css">
   <style>
+
+    /* ============================================================
+       TEMPLATE OVERRIDE — CONTINUOUS CANVAS
+       ============================================================ */
+    .main-content {
+      background: var(--color-background-secondary);
+      min-height: 100vh;
+    }
+
+    .section {
+      background: transparent;
+      border-radius: 0;
+      padding: 0;
+      margin-bottom: 0;
+      padding-bottom: var(--spacing-xl);
+    }
+
+    .section + .section {
+      border-top: 1px solid var(--color-secondary-outline);
+      padding-top: var(--spacing-xl);
+    }
+
+    /* ── Section title icons ── */
+    .section-title .material-icons-outlined {
+      font-size: 18px;
+      color: var(--color-primary-main);
+    }
+
+    /* ── Tables: paper + border ── */
+    .section .property-table {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .section .property-table th {
+      background: var(--color-background-paper);
+      border-bottom: 1px solid var(--color-secondary-outline);
+    }
+    .section .property-table td {
+      border-bottom: 1px solid var(--color-secondary-outline);
+    }
+
+    /* ── Cards: paper ── */
+    .card {
+      background: var(--color-background-paper);
+    }
+
+    /* ── Card illustrations for Do/Don't ── */
+    .card-illustration {
+      background: var(--color-background-secondary, #FAFAFA);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      padding: var(--spacing-md);
+      margin-bottom: var(--spacing-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 80px;
+      position: relative;
+    }
+    .card-illustration-label {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      font-size: 9px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 2px 6px;
+      border-radius: 999px;
+    }
+    .do-card .card-illustration-label {
+      background: #E8F5E9;
+      color: var(--color-success-main);
+    }
+    .dont-card .card-illustration-label {
+      background: #FBEAED;
+      color: var(--color-error-main);
+    }
+    .card-illustration-wrong::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 16px;
+      right: 16px;
+      height: 2px;
+      background: var(--color-error-main);
+      opacity: 0.4;
+      transform: rotate(-3deg);
+    }
+
+    /* ── Alert demo containers ── */
     .alert-demo {
       display: flex;
       flex-direction: column;
       gap: var(--spacing-md);
       max-width: 640px;
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      padding: var(--spacing-lg);
     }
 
     /* Base alert */
@@ -111,27 +209,149 @@
       letter-spacing: 0.5px;
       margin-bottom: var(--spacing-sm);
     }
+
+    /* ── Mini alert for card illustrations ── */
+    .alert-mini {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-family: var(--font-family);
+      font-size: 11px;
+      width: 100%;
+      max-width: 320px;
+    }
+    .alert-mini .material-icons-outlined { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+    .alert-mini-title { font-weight: 500; font-size: 12px; }
+    .alert-mini-desc { font-size: 11px; opacity: 0.85; }
+
   </style>
   <script src="../../design-system-nav.js"></script>
 </head>
 <body>
-  <aside class="sidebar"></aside>
+  <!-- LEFT NAVIGATION -->
+  <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
+
+  <!-- MAIN CONTENT -->
   <main class="main-content">
-
-    <div class="page-header">
+    <!-- PAGE HEADER -->
+    <header class="page-header">
       <h1 class="page-title">Alert</h1>
-      <p class="page-description">Alerts communicate important messages to users — informational, success, warning, or error — with optional actions and dismiss controls.</p>
-    </div>
+      <p class="page-subtitle">
+        Alerts communicate important messages to users — informational, success, warning, or error — with optional actions and dismiss controls. In clinical workflows, alert severity directly communicates patient safety risk.
+      </p>
+      <div class="component-meta">
+        <span><span class="material-icons-outlined" style="font-size: 14px;">category</span> Atomic Component</span>
+        <a href="#" class="meta-link"><span class="material-icons-outlined" style="font-size: 14px;">menu_book</span> Storybook</a>
+        <a href="#" class="meta-link"><span class="material-icons-outlined" style="font-size: 14px;">design_services</span> Zeplin</a>
+        <span><span class="material-icons-outlined" style="font-size: 14px;">verified</span> Production Ready</span>
+      </div>
+    </header>
 
-    <!-- 1. Overview -->
+    <!-- OVERVIEW -->
     <section class="section">
-      <h2 class="section-title"><span class="material-icons">info</span>Overview</h2>
-      <p class="section-description">Use alerts to surface system messages, validation results, or status updates. Always pair with a clear title and concise description. In clinical workflows, alert severity directly communicates patient safety risk — use error and warning sparingly and intentionally.</p>
+      <h2 class="section-title">
+        <span class="material-icons-outlined">info</span>
+        Overview
+      </h2>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">psychology</span>
+            Purpose
+          </div>
+          <div class="card-content">
+            Alerts surface system messages, validation results, or status updates. They pair a clear title with a concise description to communicate urgency and required action.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">priority_high</span>
+            Severity Hierarchy
+          </div>
+          <div class="card-content">
+            Use error for blocking issues, warning for caution, success for confirmations, and info for general guidance. Standard variant is the default — contained demands full attention.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">accessibility</span>
+            Accessibility
+          </div>
+          <div class="card-content">
+            All alerts include semantic icons, proper ARIA roles, and keyboard-accessible dismiss controls. Never rely on color alone — always include icon and text.
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- 2. Variants -->
+    <!-- USAGE GUIDELINES -->
     <section class="section">
-      <h2 class="section-title"><span class="material-icons">palette</span>Variants</h2>
+      <h2 class="section-title">
+        <span class="material-icons-outlined">rule</span>
+        Usage Guidelines
+      </h2>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">check_circle</span>
+            When to Use
+          </div>
+          <div class="card-illustration">
+            <span class="card-illustration-label">Correct</span>
+            <div class="alert-mini alert-standard-error" style="flex-direction: row;">
+              <span class="material-icons-outlined">error_outline</span>
+              <div><div class="alert-mini-title">Credential Expired</div><div class="alert-mini-desc">RN license expired 3 days ago. Update required.</div></div>
+            </div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Surfacing validation errors after form submission</li>
+              <li>Confirming successful save, update, or submission</li>
+              <li>Warning about expiring credentials or approaching limits</li>
+              <li>Communicating system status or maintenance notices</li>
+              <li>Blocking actions that require resolution before proceeding</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">cancel</span>
+            When NOT to Use
+          </div>
+          <div class="card-illustration card-illustration-wrong">
+            <span class="card-illustration-label">Incorrect</span>
+            <div style="display: flex; flex-direction: column; gap: 4px; width: 100%; max-width: 320px;">
+              <div class="alert-mini alert-contained-error" style="flex-direction: row;">
+                <span class="material-icons-outlined">error_outline</span>
+                <div><div class="alert-mini-title">No shifts found</div></div>
+              </div>
+              <div class="alert-mini alert-contained-warning" style="flex-direction: row;">
+                <span class="material-icons-outlined">warning_amber</span>
+                <div><div class="alert-mini-title">Loading data...</div></div>
+              </div>
+            </div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Empty states — use dedicated empty state components instead</li>
+              <li>Loading or progress indicators — use skeletons or spinners</li>
+              <li>Inline field validation — use helper text on the input</li>
+              <li>Marketing or promotional messages</li>
+              <li>Stacking multiple alerts of the same severity</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VARIANTS -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">widgets</span>
+        Variants
+      </h2>
       <p class="section-description">Three visual styles — standard (tinted background), contained (filled), and outline (bordered).</p>
 
       <div class="variant-group">
@@ -213,9 +433,12 @@
       </div>
     </section>
 
-    <!-- 3. States -->
+    <!-- STATES -->
     <section class="section">
-      <h2 class="section-title"><span class="material-icons">toggle_on</span>Boolean Controls</h2>
+      <h2 class="section-title">
+        <span class="material-icons-outlined">toggle_on</span>
+        States
+      </h2>
       <p class="section-description">Each part of the alert is independently toggleable via props.</p>
       <div class="alert-demo">
         <div class="alert alert-standard-default">
@@ -234,64 +457,198 @@
       </div>
     </section>
 
-    <!-- 4. Best Practices -->
+    <!-- BEST PRACTICES -->
     <section class="section">
-      <h2 class="section-title"><span class="material-icons">rule</span>Best Practices</h2>
+      <h2 class="section-title">
+        <span class="material-icons-outlined">recommend</span>
+        Best Practices
+      </h2>
       <div class="grid-2">
-        <div class="card">
-          <div class="card-title" style="color: var(--color-success-main)">Do</div>
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">check_circle</span>
+            Do
+          </div>
+          <div class="card-illustration">
+            <span class="card-illustration-label">Correct</span>
+            <div class="alert-mini alert-standard-success" style="flex-direction: row;">
+              <span class="material-icons-outlined">check_circle_outline</span>
+              <div><div class="alert-mini-title">Shift Confirmed</div><div class="alert-mini-desc">RN assigned to Unit 4B — 7a-7p.</div></div>
+            </div>
+          </div>
           <div class="card-content">
-            <ul style="padding-left: 16px; margin: 0; font-size: 13px; line-height: 1.6;">
+            <ul>
               <li>Use <strong>error</strong> only for blocking issues that require immediate action</li>
               <li>Keep titles short — 4 words or fewer</li>
               <li>Pair every alert with a clear action or dismiss path</li>
-              <li>Use <strong>standard</strong> variant as the default — it's the least visually disruptive</li>
+              <li>Use <strong>standard</strong> variant as the default — least visually disruptive</li>
+              <li>Auto-dismiss success alerts after 3-5 seconds when possible</li>
+              <li>Include an icon that reinforces the severity level</li>
             </ul>
           </div>
         </div>
-        <div class="card">
-          <div class="card-title" style="color: var(--color-error-main)">Don't</div>
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">cancel</span>
+            Don't
+          </div>
+          <div class="card-illustration card-illustration-wrong">
+            <span class="card-illustration-label">Incorrect</span>
+            <div style="display: flex; flex-direction: column; gap: 4px; width: 100%; max-width: 320px;">
+              <div class="alert-mini alert-contained-default" style="flex-direction: row;">
+                <span class="material-icons-outlined">info</span>
+                <div><div class="alert-mini-title">Welcome back!</div></div>
+              </div>
+              <div class="alert-mini alert-contained-default" style="flex-direction: row;">
+                <span class="material-icons-outlined">info</span>
+                <div><div class="alert-mini-title">Tip: Try our new feature</div></div>
+              </div>
+            </div>
+          </div>
           <div class="card-content">
-            <ul style="padding-left: 16px; margin: 0; font-size: 13px; line-height: 1.6;">
+            <ul>
               <li>Don't use <strong>contained</strong> for low-priority messages — it demands full attention</li>
               <li>Don't stack multiple alerts of the same severity</li>
               <li>Don't use alerts for empty states or loading states</li>
               <li>Don't rely on color alone — always include an icon and text</li>
+              <li>Don't use alerts for marketing or promotional messages</li>
+              <li>Don't leave persistent alerts without a dismiss mechanism</li>
             </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 5. Color Semantics -->
+    <!-- COLOR SEMANTICS -->
     <section class="section">
-      <h2 class="section-title"><span class="material-icons">color_lens</span>Color Semantics</h2>
-      <div class="grid-2">
-        <div class="card"><div class="card-title">Default (Blue)</div><div class="card-content">Informational messages. No action required. Use for system status, tips, or guidance.</div></div>
-        <div class="card"><div class="card-title">Error (Red)</div><div class="card-content">Something failed or is blocked. Requires user action before proceeding. Use sparingly.</div></div>
-        <div class="card"><div class="card-title">Warning (Orange)</div><div class="card-content">Potential issue — non-blocking. User should be aware but can proceed. Use for expiring credentials, approaching limits.</div></div>
-        <div class="card"><div class="card-title">Success (Green)</div><div class="card-content">Positive confirmation. Action completed successfully. Auto-dismiss after 3–5 seconds when possible.</div></div>
-      </div>
-    </section>
+      <h2 class="section-title">
+        <span class="material-icons-outlined">palette</span>
+        Color Semantics
+      </h2>
+      <p class="section-description">
+        Alert colors communicate urgency and action consequence. Follow these semantic rules consistently across the application.
+      </p>
 
-    <!-- 6. Technical Specifications -->
-    <section class="section">
-      <h2 class="section-title"><span class="material-icons">straighten</span>Technical Specifications</h2>
       <table class="property-table">
-        <thead><tr><th>Property</th><th>Value</th><th>Source</th></tr></thead>
+        <thead>
+          <tr>
+            <th>Color</th>
+            <th>When to Use</th>
+            <th>Healthcare Context</th>
+            <th>Visual</th>
+          </tr>
+        </thead>
         <tbody>
-          <tr><td>Padding</td><td>16px</td><td>Figma node extracted</td></tr>
-          <tr><td>Border radius</td><td>4px</td><td>Figma node extracted</td></tr>
-          <tr><td>Leading icon size</td><td>24px</td><td>Figma node extracted</td></tr>
-          <tr><td>Close icon size</td><td>16px</td><td>Figma node extracted</td></tr>
-          <tr><td>Title font</td><td>14px / 500 / 24px lh</td><td>Figma node extracted</td></tr>
-          <tr><td>Description font</td><td>12px / 400 / 18px lh</td><td>Figma node extracted</td></tr>
-          <tr><td>Action label font</td><td>12px / 400 / 18px lh</td><td>Figma node extracted</td></tr>
-          <tr><td>MUI base</td><td>@mui/material/Alert</td><td>Implementation</td></tr>
+          <tr>
+            <td><code>default</code> (Blue)</td>
+            <td>Informational messages. No action required.</td>
+            <td>System status, tips, guidance</td>
+            <td>
+              <div class="alert alert-standard-default" style="padding: 8px; font-size: 11px;">
+                <span class="material-icons-outlined" style="font-size: 18px;">info</span>
+                <div class="alert-body"><div class="alert-title" style="font-size: 12px;">Info</div></div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><code>error</code> (Red)</td>
+            <td>Something failed or is blocked. Requires user action.</td>
+            <td>Failed submission, expired credential, compliance block</td>
+            <td>
+              <div class="alert alert-standard-error" style="padding: 8px; font-size: 11px;">
+                <span class="material-icons-outlined" style="font-size: 18px;">error_outline</span>
+                <div class="alert-body"><div class="alert-title" style="font-size: 12px;">Error</div></div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><code>warning</code> (Orange)</td>
+            <td>Potential issue — non-blocking. User should be aware.</td>
+            <td>Expiring credentials, approaching limits</td>
+            <td>
+              <div class="alert alert-standard-warning" style="padding: 8px; font-size: 11px;">
+                <span class="material-icons-outlined" style="font-size: 18px;">warning_amber</span>
+                <div class="alert-body"><div class="alert-title" style="font-size: 12px;">Warning</div></div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><code>success</code> (Green)</td>
+            <td>Positive confirmation. Action completed successfully.</td>
+            <td>Shift confirmed, credential approved, submission accepted</td>
+            <td>
+              <div class="alert alert-standard-success" style="padding: 8px; font-size: 11px;">
+                <span class="material-icons-outlined" style="font-size: 18px;">check_circle_outline</span>
+                <div class="alert-body"><div class="alert-title" style="font-size: 12px;">Success</div></div>
+              </div>
+            </td>
+          </tr>
         </tbody>
       </table>
     </section>
 
+    <!-- TECHNICAL SPECIFICATIONS -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">construction</span>
+        Technical Specifications
+      </h2>
+      <p class="section-description">
+        All values extracted from Figma component specifications.
+      </p>
+
+      <table class="property-table">
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Value</th>
+            <th>Source</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Padding</td>
+            <td><code>16px</code></td>
+            <td>Figma node extracted</td>
+          </tr>
+          <tr>
+            <td>Border Radius</td>
+            <td><code>4px</code></td>
+            <td>Figma node extracted</td>
+          </tr>
+          <tr>
+            <td>Leading Icon Size</td>
+            <td><code>24px</code></td>
+            <td>Figma node extracted</td>
+          </tr>
+          <tr>
+            <td>Close Icon Size</td>
+            <td><code>16px</code></td>
+            <td>Figma node extracted</td>
+          </tr>
+          <tr>
+            <td>Title Typography</td>
+            <td>Roboto <code>14px</code>, weight <code>500</code>, line-height <code>24px</code></td>
+            <td>Figma node extracted</td>
+          </tr>
+          <tr>
+            <td>Description Typography</td>
+            <td>Roboto <code>12px</code>, weight <code>400</code>, line-height <code>18px</code></td>
+            <td>Figma node extracted</td>
+          </tr>
+          <tr>
+            <td>Action Label Typography</td>
+            <td>Roboto <code>12px</code>, weight <code>400</code>, line-height <code>18px</code></td>
+            <td>Figma node extracted</td>
+          </tr>
+          <tr>
+            <td>MUI Base</td>
+            <td><code>@mui/material/Alert</code></td>
+            <td>Implementation</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
   </main>
 </body>
 </html>

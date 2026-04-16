@@ -2,17 +2,112 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Toggle Button - TRIO WFS Design System</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
   <link rel="stylesheet" href="../../design-system-shell.css">
   <style>
+
+    /* ============================================================
+       TEMPLATE OVERRIDE — CONTINUOUS CANVAS
+       ============================================================ */
+    .main-content {
+      background: var(--color-background-secondary);
+      min-height: 100vh;
+    }
+
+    .section {
+      background: transparent;
+      border-radius: 0;
+      padding: 0;
+      margin-bottom: 0;
+      padding-bottom: var(--spacing-xl);
+    }
+
+    .section + .section {
+      border-top: 1px solid var(--color-secondary-outline);
+      padding-top: var(--spacing-xl);
+    }
+
+    /* ── Section title icons ── */
+    .section-title .material-icons-outlined,
+    .section-title .material-icons {
+      font-size: 18px;
+    }
+
+    /* ── Tables: paper + border ── */
+    .section .property-table {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .section .property-table th {
+      background: var(--color-background-paper);
+    }
+
+    /* ── Cards: paper ── */
+    .card {
+      background: var(--color-background-paper);
+    }
+
+    /* ── Card illustrations for Do/Don't ── */
+    .card-illustration {
+      background: var(--color-background-secondary, #FAFAFA);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      padding: var(--spacing-md);
+      margin-bottom: var(--spacing-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 80px;
+      position: relative;
+    }
+    .card-illustration-label {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      font-size: 9px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 2px 6px;
+      border-radius: 999px;
+    }
+    .do-card .card-illustration-label {
+      background: var(--color-success-light, #E8F5E9);
+      color: var(--color-success-main);
+    }
+    .dont-card .card-illustration-label {
+      background: var(--color-error-light, #FBEAED);
+      color: var(--color-error-main);
+    }
+    .card-illustration-wrong::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 16px;
+      right: 16px;
+      height: 2px;
+      background: var(--color-error-main);
+      opacity: 0.4;
+      transform: rotate(-3deg);
+    }
+
+    /* ── Demo containers: paper + border ── */
     .demo-row {
       display: flex;
       align-items: center;
       gap: var(--spacing-xl);
       flex-wrap: wrap;
-      margin-bottom: var(--spacing-lg);
+      padding: var(--spacing-lg);
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: var(--border-radius);
+      margin-bottom: var(--spacing-md);
     }
 
     .demo-col {
@@ -80,71 +175,113 @@
   <script src="../../design-system-nav.js"></script>
 </head>
 <body>
-  <aside class="sidebar"></aside>
+  <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
   <main class="main-content">
 
-    <div class="page-header">
+    <!-- PAGE HEADER -->
+    <header class="page-header">
       <h1 class="page-title">Toggle Button</h1>
-      <p class="page-description">A grouped strip of 3–8 icon buttons sharing a single primary-color border. Used in toolbars and breadcrumb bars for compact view or action switching.</p>
-    </div>
+      <p class="page-subtitle">A grouped strip of 3–8 icon buttons sharing a single primary-color border. Used in toolbars and breadcrumb bars for compact view or action switching.</p>
+      <div class="component-meta">
+        <span><span class="material-icons-outlined" style="font-size: 14px;">category</span> Atomic Component</span>
+        <a href="#" class="meta-link"><span class="material-icons-outlined" style="font-size: 14px;">menu_book</span> Storybook</a>
+        <a href="#" class="meta-link"><span class="material-icons-outlined" style="font-size: 14px;">design_services</span> Zeplin</a>
+        <span><span class="material-icons-outlined" style="font-size: 14px;">verified</span> Production Ready</span>
+      </div>
+    </header>
 
-    <!-- 1. Overview -->
+    <!-- OVERVIEW -->
     <section class="section">
-      <h2 class="section-title"><span class="material-icons">info</span>Overview</h2>
-      <p class="section-description">ToggleButton groups 3–8 ButtonIcon slots into a visually unified strip. The shared blue border signals that the buttons belong to the same control group. Each slot is independently clickable; an <code>active</code> prop highlights the selected option with a light primary fill. Primary use: the view-toggle cluster at the right end of the Breadcrumb bar in the Page Header Toolbar.</p>
-    </section>
-
-    <!-- 2. Sizes -->
-    <section class="section">
-      <h2 class="section-title"><span class="material-icons">straighten</span>Sizes</h2>
-      <p class="section-description">Two sizes matching ButtonIcon — sm (24px slots) for compact toolbars, md (36px slots) for larger contexts.</p>
-      <div class="demo-row">
-        <div class="demo-col">
-          <div class="toggle-strip">
-            <button class="toggle-slot toggle-slot-sm"><span class="material-icons">filter_alt_off</span></button>
-            <button class="toggle-slot toggle-slot-sm"><span class="material-icons">file_download</span></button>
-            <button class="toggle-slot toggle-slot-sm"><span class="material-icons">restart_alt</span></button>
+      <h2 class="section-title">
+        <span class="material-icons-outlined">info</span>
+        Overview
+      </h2>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">psychology</span>
+            Purpose
           </div>
-          <span class="demo-col-label">sm — 24px</span>
+          <div class="card-content">
+            ToggleButton groups 3–8 ButtonIcon slots into a visually unified strip. The shared blue border signals that the buttons belong to the same control group.
+          </div>
         </div>
-        <div class="demo-col">
-          <div class="toggle-strip">
-            <button class="toggle-slot toggle-slot-md"><span class="material-icons">filter_alt_off</span></button>
-            <button class="toggle-slot toggle-slot-md"><span class="material-icons">file_download</span></button>
-            <button class="toggle-slot toggle-slot-md"><span class="material-icons">restart_alt</span></button>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">priority_high</span>
+            Primary Use
           </div>
-          <span class="demo-col-label">md — 36px</span>
+          <div class="card-content">
+            The view-toggle cluster at the right end of the Breadcrumb bar in the Page Header Toolbar. Each slot is independently clickable; an <code>active</code> prop highlights the selected option.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">accessibility</span>
+            Accessibility
+          </div>
+          <div class="card-content">
+            Each slot requires an <code>aria-label</code>. Use role="group" on the container. Active state is communicated via aria-pressed="true".
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- 3. Active State -->
+    <!-- USAGE GUIDELINES -->
     <section class="section">
-      <h2 class="section-title"><span class="material-icons">toggle_on</span>Active State</h2>
-      <p class="section-description">Pass <code>active: true</code> on a slot to highlight the currently selected option.</p>
-      <div class="demo-row">
-        <div class="demo-col">
-          <div class="toggle-strip">
-            <button class="toggle-slot toggle-slot-sm toggle-slot-active"><span class="material-icons">table_rows</span></button>
-            <button class="toggle-slot toggle-slot-sm"><span class="material-icons">view_list</span></button>
-            <button class="toggle-slot toggle-slot-sm"><span class="material-icons">calendar_today</span></button>
+      <h2 class="section-title">
+        <span class="material-icons-outlined">rule</span>
+        Usage Guidelines
+      </h2>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">check_circle</span>
+            When to Use
           </div>
-          <span class="demo-col-label">First active (Table view)</span>
+          <div class="card-illustration">
+            <span class="card-illustration-label">Correct</span>
+            <div class="toggle-strip">
+              <button class="toggle-slot toggle-slot-sm toggle-slot-active"><span class="material-icons">filter_alt_off</span></button>
+              <button class="toggle-slot toggle-slot-sm"><span class="material-icons">file_download</span></button>
+              <button class="toggle-slot toggle-slot-sm"><span class="material-icons">restart_alt</span></button>
+            </div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Use 3 buttons as the default — filter, export, reset is the standard TRIO WFS pattern</li>
+              <li>Always mark one slot as <code>active</code> when used for view switching</li>
+              <li>Use <strong>sm</strong> in the breadcrumb bar and compact toolbars</li>
+              <li>Provide <code>aria-label</code> on every slot</li>
+            </ul>
+          </div>
         </div>
-        <div class="demo-col">
-          <div class="toggle-strip">
-            <button class="toggle-slot toggle-slot-sm"><span class="material-icons">table_rows</span></button>
-            <button class="toggle-slot toggle-slot-sm"><span class="material-icons">view_list</span></button>
-            <button class="toggle-slot toggle-slot-sm toggle-slot-active"><span class="material-icons">calendar_today</span></button>
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">cancel</span>
+            When NOT to Use
           </div>
-          <span class="demo-col-label">Third active (Calendar view)</span>
+          <div class="card-illustration card-illustration-wrong">
+            <span class="card-illustration-label">Incorrect</span>
+            <div style="font-size: 12px; color: var(--color-text-secondary); text-align: center;">6+ buttons in a single strip</div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Don't exceed 5 buttons — use a Menu or overflow pattern instead</li>
+              <li>Don't mix ToggleButton with standalone ButtonIcon in the same toolbar strip</li>
+              <li>Don't use for unrelated actions — slots should share a common theme</li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- 4. Button Count -->
+    <!-- VARIANTS (Button Count) -->
     <section class="section">
-      <h2 class="section-title"><span class="material-icons">tag</span>Button Count</h2>
+      <h2 class="section-title">
+        <span class="material-icons-outlined">widgets</span>
+        Variants
+      </h2>
       <p class="section-description">Figma supports 3–8 slots (button-3 through button-8). Keep to 3 in most cases — more than 5 gets visually dense.</p>
       <div class="demo-row">
         <div class="demo-col">
@@ -177,37 +314,104 @@
       </div>
     </section>
 
-    <!-- 5. In Context -->
+    <!-- SIZES -->
     <section class="section">
-      <h2 class="section-title"><span class="material-icons">view_in_ar</span>In Context</h2>
-      <p class="section-description">How ToggleButton appears at the right end of the Breadcrumb bar, alongside the record count indicator.</p>
-      <div style="background: var(--color-background-secondary); display: flex; align-items: center; justify-content: space-between; padding: 0 var(--spacing-md); height: 40px; border-radius: var(--border-radius); max-width: 640px;">
-        <div style="display: flex; align-items: center; gap: var(--spacing-sm); font-size: 12px; color: var(--color-primary-main);">
-          <span>Parent</span>
-          <span style="color: var(--color-text-secondary); font-size: 16px;">/</span>
-          <span>Child</span>
-          <span style="color: var(--color-text-secondary); font-size: 16px;">/</span>
-          <span style="color: var(--color-text-primary); border-bottom: 2px solid var(--color-primary-main); line-height: 40px;">Selected</span>
-        </div>
-        <div style="display: flex; align-items: center; gap: var(--spacing-md);">
-          <span style="font-size: 12px; color: var(--color-text-secondary);">### records</span>
+      <h2 class="section-title">
+        <span class="material-icons-outlined">straighten</span>
+        Sizes
+      </h2>
+      <p class="section-description">Two sizes matching ButtonIcon — sm (24px slots) for compact toolbars, md (36px slots) for larger contexts.</p>
+      <div class="demo-row">
+        <div class="demo-col">
           <div class="toggle-strip">
             <button class="toggle-slot toggle-slot-sm"><span class="material-icons">filter_alt_off</span></button>
             <button class="toggle-slot toggle-slot-sm"><span class="material-icons">file_download</span></button>
             <button class="toggle-slot toggle-slot-sm"><span class="material-icons">restart_alt</span></button>
           </div>
+          <span class="demo-col-label">sm — 24px</span>
+        </div>
+        <div class="demo-col">
+          <div class="toggle-strip">
+            <button class="toggle-slot toggle-slot-md"><span class="material-icons">filter_alt_off</span></button>
+            <button class="toggle-slot toggle-slot-md"><span class="material-icons">file_download</span></button>
+            <button class="toggle-slot toggle-slot-md"><span class="material-icons">restart_alt</span></button>
+          </div>
+          <span class="demo-col-label">md — 36px</span>
         </div>
       </div>
     </section>
 
-    <!-- 6. Best Practices -->
+    <!-- STATES -->
     <section class="section">
-      <h2 class="section-title"><span class="material-icons">rule</span>Best Practices</h2>
+      <h2 class="section-title">
+        <span class="material-icons-outlined">toggle_on</span>
+        States
+      </h2>
+      <p class="section-description">Pass <code>active: true</code> on a slot to highlight the currently selected option.</p>
+      <div class="demo-row">
+        <div class="demo-col">
+          <div class="toggle-strip">
+            <button class="toggle-slot toggle-slot-sm toggle-slot-active"><span class="material-icons">table_rows</span></button>
+            <button class="toggle-slot toggle-slot-sm"><span class="material-icons">view_list</span></button>
+            <button class="toggle-slot toggle-slot-sm"><span class="material-icons">calendar_today</span></button>
+          </div>
+          <span class="demo-col-label">First active (Table view)</span>
+        </div>
+        <div class="demo-col">
+          <div class="toggle-strip">
+            <button class="toggle-slot toggle-slot-sm"><span class="material-icons">table_rows</span></button>
+            <button class="toggle-slot toggle-slot-sm"><span class="material-icons">view_list</span></button>
+            <button class="toggle-slot toggle-slot-sm toggle-slot-active"><span class="material-icons">calendar_today</span></button>
+          </div>
+          <span class="demo-col-label">Third active (Calendar view)</span>
+        </div>
+      </div>
+
+      <!-- In Context -->
+      <div class="variant-group" style="margin-top: var(--spacing-lg);">
+        <div class="variant-label">In Context — Breadcrumb bar placement</div>
+        <div style="background: var(--color-background-secondary); display: flex; align-items: center; justify-content: space-between; padding: 0 var(--spacing-md); height: 40px; border-radius: var(--border-radius); max-width: 640px; border: 1px solid var(--color-secondary-outline);">
+          <div style="display: flex; align-items: center; gap: var(--spacing-sm); font-size: 12px; color: var(--color-primary-main);">
+            <span>Parent</span>
+            <span style="color: var(--color-text-secondary); font-size: 16px;">/</span>
+            <span>Child</span>
+            <span style="color: var(--color-text-secondary); font-size: 16px;">/</span>
+            <span style="color: var(--color-text-primary); border-bottom: 2px solid var(--color-primary-main); line-height: 40px;">Selected</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: var(--spacing-md);">
+            <span style="font-size: 12px; color: var(--color-text-secondary);">### records</span>
+            <div class="toggle-strip">
+              <button class="toggle-slot toggle-slot-sm"><span class="material-icons">filter_alt_off</span></button>
+              <button class="toggle-slot toggle-slot-sm"><span class="material-icons">file_download</span></button>
+              <button class="toggle-slot toggle-slot-sm"><span class="material-icons">restart_alt</span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BEST PRACTICES -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">recommend</span>
+        Best Practices
+      </h2>
       <div class="grid-2">
-        <div class="card">
-          <div class="card-title" style="color: var(--color-success-main)">Do</div>
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">check_circle</span>
+            Do
+          </div>
+          <div class="card-illustration">
+            <span class="card-illustration-label">Correct</span>
+            <div class="toggle-strip">
+              <button class="toggle-slot toggle-slot-sm toggle-slot-active"><span class="material-icons">filter_alt_off</span></button>
+              <button class="toggle-slot toggle-slot-sm"><span class="material-icons">file_download</span></button>
+              <button class="toggle-slot toggle-slot-sm"><span class="material-icons">restart_alt</span></button>
+            </div>
+          </div>
           <div class="card-content">
-            <ul style="padding-left: 16px; margin: 0; font-size: 13px; line-height: 1.6;">
+            <ul>
               <li>Use 3 buttons as the default — filter, export, reset is the standard TRIO WFS pattern</li>
               <li>Always mark one slot as <code>active</code> when used for view switching</li>
               <li>Use <strong>sm</strong> in the breadcrumb bar and compact toolbars</li>
@@ -215,10 +419,24 @@
             </ul>
           </div>
         </div>
-        <div class="card">
-          <div class="card-title" style="color: var(--color-error-main)">Don't</div>
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">cancel</span>
+            Don't
+          </div>
+          <div class="card-illustration card-illustration-wrong">
+            <span class="card-illustration-label">Incorrect</span>
+            <div class="toggle-strip">
+              <button class="toggle-slot toggle-slot-sm"><span class="material-icons">table_rows</span></button>
+              <button class="toggle-slot toggle-slot-sm"><span class="material-icons">view_list</span></button>
+              <button class="toggle-slot toggle-slot-sm"><span class="material-icons">calendar_today</span></button>
+              <button class="toggle-slot toggle-slot-sm"><span class="material-icons">bar_chart</span></button>
+              <button class="toggle-slot toggle-slot-sm"><span class="material-icons">pie_chart</span></button>
+              <button class="toggle-slot toggle-slot-sm"><span class="material-icons">show_chart</span></button>
+            </div>
+          </div>
           <div class="card-content">
-            <ul style="padding-left: 16px; margin: 0; font-size: 13px; line-height: 1.6;">
+            <ul>
               <li>Don't exceed 5 buttons — use a Menu or overflow pattern instead</li>
               <li>Don't mix ToggleButton with standalone ButtonIcon in the same toolbar strip</li>
               <li>Don't use for unrelated actions — slots should share a common theme</li>
@@ -228,14 +446,17 @@
       </div>
     </section>
 
-    <!-- 7. Technical Specifications -->
+    <!-- TECHNICAL SPECIFICATIONS -->
     <section class="section">
-      <h2 class="section-title"><span class="material-icons">straighten</span>Technical Specifications</h2>
+      <h2 class="section-title">
+        <span class="material-icons-outlined">construction</span>
+        Technical Specifications
+      </h2>
       <table class="property-table">
         <thead><tr><th>Property</th><th>Value</th><th>Source</th></tr></thead>
         <tbody>
-          <tr><td>Slot size — sm</td><td>24 × 24px</td><td>Figma node extracted</td></tr>
-          <tr><td>Slot size — md</td><td>36 × 36px</td><td>Figma node extracted</td></tr>
+          <tr><td>Slot size — sm</td><td>24 x 24px</td><td>Figma node extracted</td></tr>
+          <tr><td>Slot size — md</td><td>36 x 36px</td><td>Figma node extracted</td></tr>
           <tr><td>Icon size — sm</td><td>16px</td><td>Figma node extracted</td></tr>
           <tr><td>Icon size — md</td><td>24px</td><td>Figma node extracted</td></tr>
           <tr><td>Border color</td><td>primary.main (#2196F3)</td><td>Figma node extracted</td></tr>

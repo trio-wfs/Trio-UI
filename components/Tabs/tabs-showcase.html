@@ -2,11 +2,110 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tabs - TRIO WFS Design System</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
   <link rel="stylesheet" href="../../design-system-shell.css">
   <style>
+
+    /* ============================================================
+       TEMPLATE OVERRIDE — CONTINUOUS CANVAS
+       ============================================================ */
+    .main-content {
+      background: var(--color-background-secondary);
+      min-height: 100vh;
+    }
+
+    .section {
+      background: transparent;
+      border-radius: 0;
+      padding: 0;
+      margin-bottom: 0;
+      padding-bottom: var(--spacing-xl);
+    }
+
+    .section + .section {
+      border-top: 1px solid var(--color-secondary-outline);
+      padding-top: var(--spacing-xl);
+    }
+
+    /* ── Section title icons ── */
+    .section-title .material-icons-outlined,
+    .section-title .material-icons {
+      font-size: 18px;
+    }
+
+    /* ── Tables: paper + border ── */
+    .section .property-table {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .section .property-table th {
+      background: var(--color-background-paper);
+    }
+
+    /* ── Cards: paper ── */
+    .card {
+      background: var(--color-background-paper);
+    }
+
+    /* ── Demo containers: paper ── */
+    .demo-panel {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      padding: var(--spacing-lg);
+      margin-bottom: var(--spacing-md);
+    }
+
+    /* ── Card illustrations for Do/Don't ── */
+    .card-illustration {
+      background: var(--color-background-secondary, #FAFAFA);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      padding: var(--spacing-md);
+      margin-bottom: var(--spacing-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 80px;
+      position: relative;
+    }
+    .card-illustration-label {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      font-size: 9px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 2px 6px;
+      border-radius: 999px;
+    }
+    .do-card .card-illustration-label {
+      background: var(--color-success-light, #E8F5E9);
+      color: var(--color-success-main);
+    }
+    .dont-card .card-illustration-label {
+      background: var(--color-error-light, #FBEAED);
+      color: var(--color-error-main);
+    }
+    .card-illustration-wrong::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 16px;
+      right: 16px;
+      height: 2px;
+      background: var(--color-error-main);
+      opacity: 0.4;
+      transform: rotate(-3deg);
+    }
+
     /* ── Tabs component ───────────────────────────────────────────── */
     .tabs-bar {
       display: flex;
@@ -59,7 +158,8 @@
       cursor: not-allowed;
       pointer-events: none;
     }
-    .tab .material-icons {
+    .tab .material-icons,
+    .tab .material-icons-outlined {
       font-size: 18px;
     }
 
@@ -90,20 +190,6 @@
       flex: 1;
     }
 
-    /* Demo panel */
-    .demo-panel {
-      background: var(--color-background-paper);
-      border: 1px solid var(--color-secondary-outline);
-      border-radius: var(--border-radius);
-      padding: var(--spacing-lg);
-      margin-bottom: var(--spacing-md);
-    }
-    .demo-panel + .demo-label {
-      font-size: 12px;
-      color: var(--color-text-secondary);
-      margin-bottom: var(--spacing-md);
-    }
-
     /* Tab content placeholder */
     .tab-content {
       padding: var(--spacing-md) 0;
@@ -111,74 +197,132 @@
       color: var(--color-text-secondary);
     }
 
-    /* Best practices */
-    .bp-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--spacing-md);
-    }
-    .bp-card {
-      border-radius: var(--border-radius);
-      padding: var(--spacing-md);
-      border: 1px solid transparent;
-    }
-    .bp-card.do {
-      background: var(--color-success-light);
-      border-color: var(--color-success-main);
-    }
-    .bp-card.dont {
-      background: var(--color-error-light);
-      border-color: var(--color-error-main);
-    }
-    .bp-label {
-      font-size: 11px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: var(--spacing-sm);
-    }
-    .bp-card.do .bp-label { color: var(--color-success-dark); }
-    .bp-card.dont .bp-label { color: var(--color-error-dark); }
-    .bp-card p { font-size: 13px; color: var(--color-text-primary); line-height: 1.5; }
   </style>
   <script src="../../design-system-nav.js"></script>
 </head>
 <body>
+  <!-- LEFT NAVIGATION -->
   <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
+
+  <!-- MAIN CONTENT -->
   <main class="main-content">
-
-    <div class="page-header">
+    <!-- PAGE HEADER -->
+    <header class="page-header">
       <h1 class="page-title">Tabs</h1>
-      <p class="page-description">Horizontal navigation that switches between related content panels on the same page.</p>
-    </div>
+      <p class="page-subtitle">
+        Horizontal navigation that switches between related content panels on the same page. Use tabs when users need to switch between a small number of related views without leaving the page.
+      </p>
+      <div class="component-meta">
+        <span><span class="material-icons-outlined" style="font-size: 14px;">category</span> Navigation Component</span>
+        <a href="#" class="meta-link"><span class="material-icons-outlined" style="font-size: 14px;">menu_book</span> Storybook</a>
+        <a href="#" class="meta-link"><span class="material-icons-outlined" style="font-size: 14px;">design_services</span> Zeplin</a>
+        <span><span class="material-icons-outlined" style="font-size: 14px;">verified</span> Production Ready</span>
+      </div>
+    </header>
 
-    <!-- ── 1. Overview ─────────────────────────────────────────────── -->
+    <!-- OVERVIEW -->
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">info</span>
+        <span class="material-icons-outlined">info</span>
         Overview
       </h2>
-      <p class="section-description">
-        Tabs organize content into discrete sections. The active tab is visually indicated
-        by a 2px primary-blue bar at the top of the tab, and the label shifts to medium
-        weight blue. Inactive tabs use secondary gray text. Use tabs when users need to
-        switch between a small number of related views without leaving the page.
-      </p>
-      <div class="demo-panel">
-        <div class="tabs-bar" id="overview-tabs">
-          <button class="tab active" onclick="setActive('overview-tabs', this)">Overview</button>
-          <button class="tab" onclick="setActive('overview-tabs', this)">Details</button>
-          <button class="tab" onclick="setActive('overview-tabs', this)">History</button>
-          <button class="tab" onclick="setActive('overview-tabs', this)">Settings</button>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">psychology</span>
+            Purpose
+          </div>
+          <div class="card-content">
+            Tabs organize content into discrete sections. The active tab is indicated by a 2px primary-blue bar at the top and a medium-weight blue label. Use for parallel content sections where only one is visible at a time.
+          </div>
         </div>
-        <div class="tab-content">Content for the selected tab appears here.</div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">tune</span>
+            Anatomy
+          </div>
+          <div class="card-content">
+            Each tab is 40px tall with 16px horizontal padding. Active state uses primary blue label (500 weight) with a 2px top indicator. Inactive tabs use secondary gray (#757575). Supports optional left/right icons at 18px.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">accessibility</span>
+            Accessibility
+          </div>
+          <div class="card-content">
+            Keyboard accessible with Arrow keys to navigate between tabs. Uses ARIA role="tablist" and role="tab" semantics. Disabled tabs show not-allowed cursor and are excluded from focus order.
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- ── 2. Variants ─────────────────────────────────────────────── -->
+    <!-- USAGE GUIDELINES -->
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">view_week</span>
+        <span class="material-icons-outlined">rule</span>
+        Usage Guidelines
+      </h2>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">check_circle</span>
+            When to Use
+          </div>
+          <div class="card-illustration">
+            <span class="card-illustration-label">Correct</span>
+            <div style="width: 100%;">
+              <div class="tabs-bar" style="border-radius: 4px 4px 0 0;">
+                <button class="tab active">Profile</button>
+                <button class="tab">Credentials</button>
+                <button class="tab">History</button>
+              </div>
+            </div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Parallel content sections where only one is visible at a time</li>
+              <li>Worker profile sections, order detail views</li>
+              <li>When users need to compare related but separate data sets</li>
+              <li>Keep tab count between 2 and 8</li>
+              <li>Use scroll variants when tab count is variable</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">cancel</span>
+            When NOT to Use
+          </div>
+          <div class="card-illustration card-illustration-wrong">
+            <span class="card-illustration-label">Incorrect</span>
+            <div style="width: 100%;">
+              <div class="tabs-bar" style="border-radius: 4px 4px 0 0;">
+                <button class="tab active">Step 1</button>
+                <button class="tab">Step 2</button>
+                <button class="tab">Step 3</button>
+                <button class="tab">Step 4</button>
+              </div>
+            </div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Don't use for sequential workflows (use a Stepper instead)</li>
+              <li>Don't use when all content must be visible at once</li>
+              <li>Don't exceed 8 tabs — use secondary navigation or grouping</li>
+              <li>Don't put tabs inside modals unless absolutely necessary</li>
+              <li>Don't use long labels — keep to 1-2 words in title case</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VARIANTS -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">widgets</span>
         Variants
       </h2>
       <p class="section-description">
@@ -186,201 +330,287 @@
       </p>
 
       <!-- Tab Group -->
-      <div class="prop-row">
-        <div class="prop-label">Tab Group <span class="badge badge-default">Default</span></div>
-        <div class="prop-value">No scroll arrows. All tabs visible. Use when tab count fits the container.</div>
-      </div>
-      <div class="demo-panel">
-        <div class="tabs-bar" id="v-group">
-          <button class="tab active" onclick="setActive('v-group', this)">Submissions</button>
-          <button class="tab" onclick="setActive('v-group', this)">Credentials</button>
-          <button class="tab" onclick="setActive('v-group', this)">Timecards</button>
-          <button class="tab" onclick="setActive('v-group', this)">Notes</button>
+      <div class="variant-group">
+        <div class="variant-label">Tab Group <span class="badge badge-default">Default</span></div>
+        <div class="demo-panel" style="padding: 0;">
+          <div class="tabs-bar" id="v-group">
+            <button class="tab active" onclick="setActive('v-group', this)">Submissions</button>
+            <button class="tab" onclick="setActive('v-group', this)">Credentials</button>
+            <button class="tab" onclick="setActive('v-group', this)">Timecards</button>
+            <button class="tab" onclick="setActive('v-group', this)">Notes</button>
+          </div>
         </div>
       </div>
 
       <!-- Left Scroll -->
-      <div class="prop-row">
-        <div class="prop-label">Left Scroll</div>
-        <div class="prop-value">Left arrow only — for end-of-list navigation.</div>
-      </div>
-      <div class="demo-panel">
-        <div class="tabs-scrollable">
-          <button class="tabs-scroll-btn"><span class="material-icons" style="font-size:18px">chevron_left</span></button>
-          <div class="tabs-scroll-inner" id="v-left">
-            <button class="tab active" onclick="setActive('v-left', this)">Submissions</button>
-            <button class="tab" onclick="setActive('v-left', this)">Credentials</button>
-            <button class="tab" onclick="setActive('v-left', this)">Timecards</button>
-            <button class="tab" onclick="setActive('v-left', this)">Notes</button>
-            <button class="tab" onclick="setActive('v-left', this)">Shifts</button>
+      <div class="variant-group">
+        <div class="variant-label">Left Scroll</div>
+        <div class="demo-panel" style="padding: 0;">
+          <div class="tabs-scrollable">
+            <button class="tabs-scroll-btn"><span class="material-icons-outlined" style="font-size:18px">chevron_left</span></button>
+            <div class="tabs-scroll-inner" id="v-left">
+              <button class="tab active" onclick="setActive('v-left', this)">Submissions</button>
+              <button class="tab" onclick="setActive('v-left', this)">Credentials</button>
+              <button class="tab" onclick="setActive('v-left', this)">Timecards</button>
+              <button class="tab" onclick="setActive('v-left', this)">Notes</button>
+              <button class="tab" onclick="setActive('v-left', this)">Shifts</button>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- Right Scroll -->
-      <div class="prop-row">
-        <div class="prop-label">Right Scroll</div>
-        <div class="prop-value">Right arrow only — for beginning-of-list navigation.</div>
-      </div>
-      <div class="demo-panel">
-        <div class="tabs-scrollable">
-          <div class="tabs-scroll-inner" id="v-right">
-            <button class="tab active" onclick="setActive('v-right', this)">Submissions</button>
-            <button class="tab" onclick="setActive('v-right', this)">Credentials</button>
-            <button class="tab" onclick="setActive('v-right', this)">Timecards</button>
-            <button class="tab" onclick="setActive('v-right', this)">Notes</button>
-            <button class="tab" onclick="setActive('v-right', this)">Shifts</button>
+      <div class="variant-group">
+        <div class="variant-label">Right Scroll</div>
+        <div class="demo-panel" style="padding: 0;">
+          <div class="tabs-scrollable">
+            <div class="tabs-scroll-inner" id="v-right">
+              <button class="tab active" onclick="setActive('v-right', this)">Submissions</button>
+              <button class="tab" onclick="setActive('v-right', this)">Credentials</button>
+              <button class="tab" onclick="setActive('v-right', this)">Timecards</button>
+              <button class="tab" onclick="setActive('v-right', this)">Notes</button>
+              <button class="tab" onclick="setActive('v-right', this)">Shifts</button>
+            </div>
+            <button class="tabs-scroll-btn"><span class="material-icons-outlined" style="font-size:18px">chevron_right</span></button>
           </div>
-          <button class="tabs-scroll-btn"><span class="material-icons" style="font-size:18px">chevron_right</span></button>
         </div>
       </div>
 
       <!-- Left and Right Scroll -->
-      <div class="prop-row">
-        <div class="prop-label">Left and Right Scroll</div>
-        <div class="prop-value">Both arrows — use when many tabs may overflow the container.</div>
-      </div>
-      <div class="demo-panel">
-        <div class="tabs-scrollable">
-          <button class="tabs-scroll-btn"><span class="material-icons" style="font-size:18px">chevron_left</span></button>
-          <div class="tabs-scroll-inner" id="v-both">
-            <button class="tab active" onclick="setActive('v-both', this)">Submissions</button>
-            <button class="tab" onclick="setActive('v-both', this)">Credentials</button>
-            <button class="tab" onclick="setActive('v-both', this)">Timecards</button>
-            <button class="tab" onclick="setActive('v-both', this)">Notes</button>
-            <button class="tab" onclick="setActive('v-both', this)">Shifts</button>
-            <button class="tab" onclick="setActive('v-both', this)">Documents</button>
+      <div class="variant-group">
+        <div class="variant-label">Left and Right Scroll</div>
+        <div class="demo-panel" style="padding: 0;">
+          <div class="tabs-scrollable">
+            <button class="tabs-scroll-btn"><span class="material-icons-outlined" style="font-size:18px">chevron_left</span></button>
+            <div class="tabs-scroll-inner" id="v-both">
+              <button class="tab active" onclick="setActive('v-both', this)">Submissions</button>
+              <button class="tab" onclick="setActive('v-both', this)">Credentials</button>
+              <button class="tab" onclick="setActive('v-both', this)">Timecards</button>
+              <button class="tab" onclick="setActive('v-both', this)">Notes</button>
+              <button class="tab" onclick="setActive('v-both', this)">Shifts</button>
+              <button class="tab" onclick="setActive('v-both', this)">Documents</button>
+            </div>
+            <button class="tabs-scroll-btn"><span class="material-icons-outlined" style="font-size:18px">chevron_right</span></button>
           </div>
-          <button class="tabs-scroll-btn"><span class="material-icons" style="font-size:18px">chevron_right</span></button>
+        </div>
+      </div>
+
+      <!-- With Icons -->
+      <div class="variant-group">
+        <div class="variant-label">With Icons</div>
+        <div class="demo-panel" style="padding: 0;">
+          <div class="tabs-bar" id="icon-tabs">
+            <button class="tab active" onclick="setActive('icon-tabs', this)">
+              <span class="material-icons-outlined">person</span>Profile
+            </button>
+            <button class="tab" onclick="setActive('icon-tabs', this)">
+              <span class="material-icons-outlined">assignment</span>Orders
+            </button>
+            <button class="tab" onclick="setActive('icon-tabs', this)">
+              Documents<span class="material-icons-outlined">attach_file</span>
+            </button>
+            <button class="tab" onclick="setActive('icon-tabs', this)">
+              <span class="material-icons-outlined">schedule</span>Schedule<span class="material-icons-outlined" style="font-size:14px;margin-left:2px;color:var(--color-warning-main)">circle</span>
+            </button>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ── 3. States ───────────────────────────────────────────────── -->
+    <!-- STATES -->
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">toggle_on</span>
+        <span class="material-icons-outlined">toggle_on</span>
         States
       </h2>
-      <p class="section-description">Each tab can be in one of three states.</p>
+      <p class="section-description">
+        Each tab can be in one of three states. All state values are extracted directly from Figma specifications.
+      </p>
 
-      <div class="demo-panel">
+      <div class="demo-panel" style="padding: 0;">
         <div class="tabs-bar">
           <button class="tab active">Active</button>
-          <button class="tab">Inactive</button>
+          <button class="tab">Inactive (Hover Me)</button>
           <button class="tab disabled">Disabled</button>
         </div>
       </div>
 
-      <div class="prop-table">
-        <div class="prop-row">
-          <div class="prop-label">Active</div>
-          <div class="prop-value">Primary blue label, medium weight, 2px blue indicator at top.</div>
-        </div>
-        <div class="prop-row">
-          <div class="prop-label">Inactive</div>
-          <div class="prop-value">Secondary gray label (#757575), regular weight, no indicator.</div>
-        </div>
-        <div class="prop-row">
-          <div class="prop-label">Hover</div>
-          <div class="prop-value">Background shifts to action-hover (rgba 0,0,0,0.04), label darkens slightly.</div>
-        </div>
-        <div class="prop-row">
-          <div class="prop-label">Disabled</div>
-          <div class="prop-value">Disabled gray label (#9E9E9E), not interactive, cursor not-allowed.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── 4. With Icons ───────────────────────────────────────────── -->
-    <section class="section">
-      <h2 class="section-title">
-        <span class="material-icons">add_photo_alternate</span>
-        With Icons
-      </h2>
-      <p class="section-description">
-        Individual tabs support an optional left icon, right icon, or both.
-        Icons scale with the tab height — 18px by default.
-      </p>
-      <div class="demo-panel">
-        <div class="tabs-bar" id="icon-tabs">
-          <button class="tab active" onclick="setActive('icon-tabs', this)">
-            <span class="material-icons">person</span>Profile
-          </button>
-          <button class="tab" onclick="setActive('icon-tabs', this)">
-            <span class="material-icons">assignment</span>Orders
-          </button>
-          <button class="tab" onclick="setActive('icon-tabs', this)">
-            Documents<span class="material-icons">attach_file</span>
-          </button>
-          <button class="tab" onclick="setActive('icon-tabs', this)">
-            <span class="material-icons">schedule</span>Schedule<span class="material-icons" style="font-size:14px;margin-left:2px;color:var(--color-warning-main)">circle</span>
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── 5. Best Practices ──────────────────────────────────────── -->
-    <section class="section">
-      <h2 class="section-title">
-        <span class="material-icons">thumb_up</span>
-        Best Practices
-      </h2>
-      <div class="bp-grid">
-        <div class="bp-card do">
-          <div class="bp-label">✓ Do</div>
-          <p>Use tabs for parallel content sections where only one is visible at a time — worker profile sections, order detail views.</p>
-        </div>
-        <div class="bp-card dont">
-          <div class="bp-label">✗ Don't</div>
-          <p>Don't use tabs for sequential workflows (use a stepper) or for content that must all be seen together.</p>
-        </div>
-        <div class="bp-card do">
-          <div class="bp-label">✓ Do</div>
-          <p>Keep tab labels short (1–2 words). Use title case. The active state makes the selection clear without needing long labels.</p>
-        </div>
-        <div class="bp-card dont">
-          <div class="bp-label">✗ Don't</div>
-          <p>Don't exceed 8 tabs. Beyond 8, consider a secondary navigation or grouping. Cognitive load increases significantly.</p>
-        </div>
-        <div class="bp-card do">
-          <div class="bp-label">✓ Do</div>
-          <p>Use scroll variants when the number of tabs is variable or context-dependent (e.g., user-configured views).</p>
-        </div>
-        <div class="bp-card dont">
-          <div class="bp-label">✗ Don't</div>
-          <p>Don't put tabs inside modals unless absolutely necessary. Modals have limited height — tabs can make content harder to scan.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── 6. Technical Specifications ───────────────────────────── -->
-    <section class="section">
-      <h2 class="section-title">
-        <span class="material-icons">straighten</span>
-        Technical Specifications
-      </h2>
-      <table class="spec-table">
+      <table class="property-table" style="margin-top: var(--spacing-md);">
         <thead>
-          <tr><th>Property</th><th>Value</th><th>Source</th></tr>
+          <tr>
+            <th>State</th>
+            <th>Appearance</th>
+            <th>Behavior</th>
+          </tr>
         </thead>
         <tbody>
-          <tr><td>Tab height</td><td>40px</td><td>Figma node 3868:51864</td></tr>
-          <tr><td>Active indicator</td><td>2px top border, primary.main (#2196F3)</td><td>Figma node 3868:51827</td></tr>
-          <tr><td>Tab font</td><td>14px / Regular (400) — body2</td><td>Figma typography token</td></tr>
-          <tr><td>Active tab font</td><td>14px / Medium (500), color: primary.main</td><td>Figma node 3868:51827</td></tr>
-          <tr><td>Inactive tab color</td><td>#757575 — text.secondary</td><td>Figma node 3868:51827</td></tr>
-          <tr><td>Disabled tab color</td><td>#9E9E9E — text.disabled</td><td>Figma node 3868:51827</td></tr>
-          <tr><td>Tab padding</td><td>0 16px (horizontal)</td><td>Extracted from Figma</td></tr>
-          <tr><td>Bottom border</td><td>1px solid #E0E0E0 — components.divider</td><td>Figma node 3868:51864</td></tr>
-          <tr><td>Scroll button width</td><td>32px</td><td>MUI standard</td></tr>
-          <tr><td>Max tabs (Figma)</td><td>8 (tab1–tab8 booleans)</td><td>Figma component variants</td></tr>
-          <tr><td>Icon size</td><td>18px</td><td>Extracted from Figma</td></tr>
-          <tr><td>Icon–label gap</td><td>4px (spacing.xs)</td><td>Figma node 3868:51827</td></tr>
+          <tr>
+            <td>Active</td>
+            <td><code>#2196F3</code> label, medium weight (500), 2px blue indicator at top</td>
+            <td>Shows selected content panel</td>
+          </tr>
+          <tr>
+            <td>Inactive</td>
+            <td><code>#757575</code> label, regular weight (400), no indicator</td>
+            <td>Clickable, shows hover state on mouse over</td>
+          </tr>
+          <tr>
+            <td>Hover</td>
+            <td>Background <code>rgba(0,0,0,0.04)</code>, label darkens slightly</td>
+            <td>Visual feedback on mouse over</td>
+          </tr>
+          <tr>
+            <td>Disabled</td>
+            <td><code>#9E9E9E</code> label, cursor not-allowed</td>
+            <td>Not interactive, excluded from focus order</td>
+          </tr>
         </tbody>
       </table>
     </section>
 
+    <!-- BEST PRACTICES -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">recommend</span>
+        Best Practices
+      </h2>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">check_circle</span>
+            Do
+          </div>
+          <div class="card-illustration">
+            <span class="card-illustration-label">Correct</span>
+            <div style="width: 100%;">
+              <div class="tabs-bar" style="border-radius: 4px 4px 0 0;">
+                <button class="tab active">Submissions</button>
+                <button class="tab">Credentials</button>
+                <button class="tab">Timecards</button>
+              </div>
+              <div style="padding: 8px 16px; font-size: 12px; color: var(--color-text-secondary);">Content panel for selected tab</div>
+            </div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Use for parallel content sections where only one is visible at a time</li>
+              <li>Keep tab labels short (1-2 words) in title case</li>
+              <li>Use scroll variants when tab count is variable or context-dependent</li>
+              <li>Place tabs at the top of the content area they control</li>
+              <li>Use icons only when they add clarity to the label</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">cancel</span>
+            Don't
+          </div>
+          <div class="card-illustration card-illustration-wrong">
+            <span class="card-illustration-label">Incorrect</span>
+            <div style="width: 100%;">
+              <div class="tabs-bar" style="border-radius: 4px 4px 0 0;">
+                <button class="tab active">Step 1: Enter Info</button>
+                <button class="tab">Step 2: Review</button>
+                <button class="tab">Step 3: Confirm</button>
+              </div>
+            </div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Don't use for sequential workflows — use a Stepper instead</li>
+              <li>Don't exceed 8 tabs — cognitive load increases significantly</li>
+              <li>Don't put tabs inside modals unless absolutely necessary</li>
+              <li>Don't use for content that must all be seen together</li>
+              <li>Don't use long, descriptive tab labels — keep them scannable</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TECHNICAL SPECIFICATIONS -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">construction</span>
+        Technical Specifications
+      </h2>
+      <p class="section-description">
+        All values extracted from Figma component instances (node: 3868:51864).
+      </p>
+
+      <table class="property-table">
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Value</th>
+            <th>Source</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Tab height</td>
+            <td><code>40px</code></td>
+            <td>Figma node 3868:51864</td>
+          </tr>
+          <tr>
+            <td>Active indicator</td>
+            <td><code>2px</code> top border, primary.main (#2196F3)</td>
+            <td>Figma node 3868:51827</td>
+          </tr>
+          <tr>
+            <td>Tab font</td>
+            <td>Roboto <code>14px</code> / Regular (400) — body2</td>
+            <td>Figma typography token</td>
+          </tr>
+          <tr>
+            <td>Active tab font</td>
+            <td>Roboto <code>14px</code> / Medium (500), color: primary.main</td>
+            <td>Figma node 3868:51827</td>
+          </tr>
+          <tr>
+            <td>Inactive tab color</td>
+            <td><code>#757575</code> — text.secondary</td>
+            <td>Figma node 3868:51827</td>
+          </tr>
+          <tr>
+            <td>Disabled tab color</td>
+            <td><code>#9E9E9E</code> — text.disabled</td>
+            <td>Figma node 3868:51827</td>
+          </tr>
+          <tr>
+            <td>Tab padding</td>
+            <td><code>0 16px</code> (horizontal)</td>
+            <td>Extracted from Figma</td>
+          </tr>
+          <tr>
+            <td>Bottom border</td>
+            <td><code>1px</code> solid #E0E0E0 — components.divider</td>
+            <td>Figma node 3868:51864</td>
+          </tr>
+          <tr>
+            <td>Scroll button width</td>
+            <td><code>32px</code></td>
+            <td>MUI standard</td>
+          </tr>
+          <tr>
+            <td>Max tabs (Figma)</td>
+            <td><code>8</code> (tab1-tab8 booleans)</td>
+            <td>Figma component variants</td>
+          </tr>
+          <tr>
+            <td>Icon size</td>
+            <td><code>18px</code></td>
+            <td>Extracted from Figma</td>
+          </tr>
+          <tr>
+            <td>Icon-label gap</td>
+            <td><code>4px</code> (spacing.xs)</td>
+            <td>Figma node 3868:51827</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
   </main>
 
   <script>

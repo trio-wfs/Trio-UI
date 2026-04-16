@@ -2,13 +2,113 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Stepper - TRIO WFS Design System</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
   <link rel="stylesheet" href="../../design-system-shell.css">
   <style>
-    --color-data-viz-teal: #37636b;
 
+    /* ============================================================
+       TEMPLATE OVERRIDE — CONTINUOUS CANVAS
+       ============================================================ */
+    .main-content {
+      background: var(--color-background-secondary);
+      min-height: 100vh;
+    }
+
+    .section {
+      background: transparent;
+      border-radius: 0;
+      padding: 0;
+      margin-bottom: 0;
+      padding-bottom: var(--spacing-xl);
+    }
+
+    .section + .section {
+      border-top: 1px solid var(--color-secondary-outline);
+      padding-top: var(--spacing-xl);
+    }
+
+    /* ── Section title icons ── */
+    .section-title .material-icons-outlined,
+    .section-title .material-icons {
+      font-size: 18px;
+    }
+
+    /* ── Tables: paper + border ── */
+    .section .property-table,
+    .section .spec-table {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .section .property-table th,
+    .section .spec-table th {
+      background: var(--color-background-paper);
+    }
+
+    /* ── Cards: paper ── */
+    .card {
+      background: var(--color-background-paper);
+    }
+
+    /* ── Card illustrations for Do/Don't ── */
+    .card-illustration {
+      background: var(--color-background-secondary, #FAFAFA);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      padding: var(--spacing-md);
+      margin-bottom: var(--spacing-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 80px;
+      position: relative;
+    }
+    .card-illustration-label {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      font-size: 9px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 2px 6px;
+      border-radius: 999px;
+    }
+    .do-card .card-illustration-label {
+      background: var(--color-success-light, #E8F5E9);
+      color: var(--color-success-main);
+    }
+    .dont-card .card-illustration-label {
+      background: var(--color-error-light, #FBEAED);
+      color: var(--color-error-main);
+    }
+    .card-illustration-wrong::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 16px;
+      right: 16px;
+      height: 2px;
+      background: var(--color-error-main);
+      opacity: 0.4;
+      transform: rotate(-3deg);
+    }
+
+    /* ── Demo containers: paper + border ── */
+    .demo-area {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-xl);
+      margin-bottom: var(--spacing-md);
+    }
+
+    /* Stepper component */
     .stepper-bar {
       display: flex;
       align-items: center;
@@ -126,98 +226,201 @@
       color: var(--color-text-secondary);
       margin-bottom: 4px;
     }
+
+    /* Spec table */
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .spec-table th {
+      background: var(--color-secondary-main);
+      padding: var(--spacing-sm) var(--spacing-md);
+      text-align: left;
+      font-weight: 500;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 2px solid var(--color-secondary-outline);
+    }
+    .spec-table td {
+      padding: var(--spacing-sm) var(--spacing-md);
+      border-bottom: 1px solid var(--color-secondary-outline);
+      vertical-align: top;
+    }
+    .spec-table tr:last-child td { border-bottom: none; }
   </style>
   <script src="../../design-system-nav.js"></script>
 </head>
 <body>
-  <aside class="sidebar"></aside>
+  <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
   <main class="main-content">
 
-    <div class="page-header">
+    <!-- PAGE HEADER -->
+    <header class="page-header">
       <h1 class="page-title">Stepper</h1>
-      <p class="page-description">A horizontal progress bar that shows position within a multi-step workflow, with completed, active, and upcoming states per step.</p>
-    </div>
+      <p class="page-subtitle">A horizontal progress bar that shows position within a multi-step workflow, with completed, active, and upcoming states per step.</p>
+      <div class="component-meta">
+        <span><span class="material-icons-outlined" style="font-size: 14px;">category</span> Custom Component</span>
+        <a href="#" class="meta-link"><span class="material-icons-outlined" style="font-size: 14px;">menu_book</span> Storybook</a>
+        <a href="#" class="meta-link"><span class="material-icons-outlined" style="font-size: 14px;">design_services</span> Zeplin</a>
+        <span><span class="material-icons-outlined" style="font-size: 14px;">verified</span> Production Ready</span>
+      </div>
+    </header>
 
-    <!-- 1. Overview -->
+    <!-- OVERVIEW -->
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">info</span>
+        <span class="material-icons-outlined">info</span>
         Overview
       </h2>
-      <p class="section-description">
-        Use the Stepper when a task requires completing a defined sequence of steps — onboarding flows, multi-page wizards, or staged configuration workflows. It keeps users oriented by showing how many steps exist, which they've completed, and where they are now.
-      </p>
-      <ul style="font-family: 'Roboto', sans-serif; font-size: 14px; color: var(--color-text-primary); line-height: 1.6; padding-left: 20px;">
-        <li>Always show all steps upfront — do not reveal steps progressively</li>
-        <li>Keep step labels short (1–3 words) — they must not wrap</li>
-        <li>Desktop-first — the bar spans the full page width</li>
-      </ul>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">psychology</span>
+            Purpose
+          </div>
+          <div class="card-content">
+            Use the Stepper when a task requires completing a defined sequence of steps — onboarding flows, multi-page wizards, or staged configuration workflows. It keeps users oriented.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">priority_high</span>
+            Key Rules
+          </div>
+          <div class="card-content">
+            Always show all steps upfront — do not reveal steps progressively. Keep step labels short (1–3 words). Desktop-first — the bar spans the full page width.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">accessibility</span>
+            Accessibility
+          </div>
+          <div class="card-content">
+            Each step has ARIA labels indicating its state (completed, current, upcoming). Connectors are decorative. Steps use role="listitem" within a role="list" container.
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- 2. Step States -->
+    <!-- USAGE GUIDELINES -->
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">radio_button_checked</span>
-        Step States
+        <span class="material-icons-outlined">rule</span>
+        Usage Guidelines
       </h2>
-      <p class="section-description">Each step can be in one of three states.</p>
-
-      <div class="state-row">
-
-        <!-- Completed -->
-        <div class="state-item">
-          <div class="step" style="padding: 8px 16px; background: var(--color-background-paper); border: 1px solid var(--color-border-default); border-radius: 4px;">
-            <div class="step-circle">
-              <span class="material-icons" style="font-size: 16px; color: #37636b;">check</span>
-            </div>
-            <span class="step-label completed">Worker Details</span>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">check_circle</span>
+            When to Use
           </div>
-          <span class="label">Completed</span>
-        </div>
-
-        <!-- Active -->
-        <div class="state-item">
-          <div class="step" style="padding: 8px 16px; background: var(--color-background-paper); border: 1px solid var(--color-border-default); border-radius: 4px;">
-            <div class="step-circle active">
-              <span class="step-number active">2</span>
+          <div class="card-illustration">
+            <span class="card-illustration-label">Correct</span>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <div class="step-circle active" style="width:20px;height:20px;"><span class="step-number active" style="font-size:10px;">1</span></div>
+              <div style="width:40px;height:2px;background:#37636b;border-radius:999px;"></div>
+              <div class="step-circle active" style="width:20px;height:20px;"><span class="step-number active" style="font-size:10px;">2</span></div>
+              <div style="width:40px;height:2px;background:var(--color-border-default);border-radius:999px;"></div>
+              <div class="step-circle" style="width:20px;height:20px;"><span class="step-number upcoming" style="font-size:10px;">3</span></div>
             </div>
-            <span class="step-label active">API Key</span>
           </div>
-          <span class="label">Active (current step)</span>
-        </div>
-
-        <!-- Upcoming -->
-        <div class="state-item">
-          <div class="step" style="padding: 8px 16px; background: var(--color-background-paper); border: 1px solid var(--color-border-default); border-radius: 4px;">
-            <div class="step-circle">
-              <span class="step-number upcoming">3</span>
-            </div>
-            <span class="step-label upcoming">Policies</span>
+          <div class="card-content">
+            <ul>
+              <li>Show all steps upfront — never hide upcoming steps</li>
+              <li>Keep step labels to 1–3 words so they don't wrap</li>
+              <li>Place the stepper at the top of the page, above the form content</li>
+              <li>Use a consistent step count throughout a single flow</li>
+            </ul>
           </div>
-          <span class="label">Upcoming</span>
         </div>
-
-      </div>
-
-      <!-- Connector states -->
-      <p style="font-family: 'Roboto', sans-serif; font-size: 14px; font-weight: 500; color: var(--color-text-primary); margin: 16px 0 8px;">Connectors</p>
-      <div class="state-row">
-        <div class="state-item">
-          <div style="width: 120px; height: 2px; border-radius: 999px; background: #37636b;"></div>
-          <span class="label">Completed</span>
-        </div>
-        <div class="state-item">
-          <div style="width: 120px; height: 2px; border-radius: 999px; background: var(--color-border-default);"></div>
-          <span class="label">Upcoming</span>
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">cancel</span>
+            When NOT to Use
+          </div>
+          <div class="card-illustration card-illustration-wrong">
+            <span class="card-illustration-label">Incorrect</span>
+            <div style="font-size: 12px; color: var(--color-text-secondary); text-align: center;">8+ steps or non-linear flows</div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Don't use more than 7 steps — consider consolidating</li>
+              <li>Don't use the stepper for non-linear or optional flows</li>
+              <li>Don't make steps clickable to jump backwards without validation</li>
+              <li>Don't use for single-page forms — the overhead isn't warranted</li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- 3. Progress Examples -->
+    <!-- VARIANTS (Step States) -->
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">linear_scale</span>
-        Progress Examples
+        <span class="material-icons-outlined">widgets</span>
+        Variants
+      </h2>
+      <p class="section-description">Each step can be in one of three states. Connectors between steps are either completed (teal) or upcoming (gray).</p>
+
+      <div class="demo-area">
+        <div class="state-row">
+          <!-- Completed -->
+          <div class="state-item">
+            <div class="step" style="padding: 8px 16px; background: var(--color-background-paper); border: 1px solid var(--color-border-default); border-radius: 4px;">
+              <div class="step-circle">
+                <span class="material-icons" style="font-size: 16px; color: #37636b;">check</span>
+              </div>
+              <span class="step-label completed">Worker Details</span>
+            </div>
+            <span class="label">Completed</span>
+          </div>
+
+          <!-- Active -->
+          <div class="state-item">
+            <div class="step" style="padding: 8px 16px; background: var(--color-background-paper); border: 1px solid var(--color-border-default); border-radius: 4px;">
+              <div class="step-circle active">
+                <span class="step-number active">2</span>
+              </div>
+              <span class="step-label active">API Key</span>
+            </div>
+            <span class="label">Active (current step)</span>
+          </div>
+
+          <!-- Upcoming -->
+          <div class="state-item">
+            <div class="step" style="padding: 8px 16px; background: var(--color-background-paper); border: 1px solid var(--color-border-default); border-radius: 4px;">
+              <div class="step-circle">
+                <span class="step-number upcoming">3</span>
+              </div>
+              <span class="step-label upcoming">Policies</span>
+            </div>
+            <span class="label">Upcoming</span>
+          </div>
+        </div>
+
+        <!-- Connector states -->
+        <p style="font-family: 'Roboto', sans-serif; font-size: 14px; font-weight: 500; color: var(--color-text-primary); margin: 16px 0 8px;">Connectors</p>
+        <div class="state-row">
+          <div class="state-item">
+            <div style="width: 120px; height: 2px; border-radius: 999px; background: #37636b;"></div>
+            <span class="label">Completed</span>
+          </div>
+          <div class="state-item">
+            <div style="width: 120px; height: 2px; border-radius: 999px; background: var(--color-border-default);"></div>
+            <span class="label">Upcoming</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATES (Progress Examples) -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">toggle_on</span>
+        States
       </h2>
       <p class="section-description">5-step wizard at each stage of completion.</p>
 
@@ -344,41 +547,67 @@
           </div>
         </div>
       </div>
-
     </section>
 
-    <!-- 4. Best Practices -->
+    <!-- BEST PRACTICES -->
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">tips_and_updates</span>
+        <span class="material-icons-outlined">recommend</span>
         Best Practices
       </h2>
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
-        <div>
-          <p style="font-family:'Roboto',sans-serif; font-size:14px; font-weight:500; color:#2e7d32; margin-bottom:8px;">✓ Do</p>
-          <ul style="font-family:'Roboto',sans-serif; font-size:14px; color:var(--color-text-primary); line-height:1.8; padding-left:20px; margin:0;">
-            <li>Show all steps upfront — never hide upcoming steps</li>
-            <li>Keep step labels to 1–3 words so they don't wrap</li>
-            <li>Place the stepper at the top of the page, above the form content</li>
-            <li>Use a consistent step count throughout a single flow</li>
-          </ul>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">check_circle</span>
+            Do
+          </div>
+          <div class="card-illustration">
+            <span class="card-illustration-label">Correct</span>
+            <div style="display: flex; align-items: center; gap: 4px; font-size: 11px;">
+              <div class="step-circle" style="width:18px;height:18px;"><span class="material-icons" style="font-size:12px;color:#37636b;">check</span></div>
+              <span style="color: var(--color-text-primary);">Details</span>
+              <div style="width:24px;height:2px;background:#37636b;border-radius:999px;"></div>
+              <div class="step-circle active" style="width:18px;height:18px;"><span class="step-number active" style="font-size:9px;">2</span></div>
+              <span style="color: var(--color-text-primary);">Config</span>
+              <div style="width:24px;height:2px;background:var(--color-border-default);border-radius:999px;"></div>
+              <div class="step-circle" style="width:18px;height:18px;"><span class="step-number upcoming" style="font-size:9px;">3</span></div>
+              <span style="color: rgba(0,0,0,0.4);">Review</span>
+            </div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Show all steps upfront — never hide upcoming steps</li>
+              <li>Keep step labels to 1–3 words so they don't wrap</li>
+              <li>Place the stepper at the top of the page, above the form content</li>
+              <li>Use a consistent step count throughout a single flow</li>
+            </ul>
+          </div>
         </div>
-        <div>
-          <p style="font-family:'Roboto',sans-serif; font-size:14px; font-weight:500; color:#DB4537; margin-bottom:8px;">✗ Don't</p>
-          <ul style="font-family:'Roboto',sans-serif; font-size:14px; color:var(--color-text-primary); line-height:1.8; padding-left:20px; margin:0;">
-            <li>Don't use more than 7 steps — consider consolidating</li>
-            <li>Don't use the stepper for non-linear or optional flows</li>
-            <li>Don't make steps clickable to jump backwards without validation</li>
-            <li>Don't use for single-page forms — the overhead isn't warranted</li>
-          </ul>
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">cancel</span>
+            Don't
+          </div>
+          <div class="card-illustration card-illustration-wrong">
+            <span class="card-illustration-label">Incorrect</span>
+            <div style="font-size: 12px; color: var(--color-text-secondary); text-align: center;">8+ steps in a single stepper</div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Don't use more than 7 steps — consider consolidating</li>
+              <li>Don't use the stepper for non-linear or optional flows</li>
+              <li>Don't make steps clickable to jump backwards without validation</li>
+              <li>Don't use for single-page forms — the overhead isn't warranted</li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- 5. Technical Specifications -->
+    <!-- TECHNICAL SPECIFICATIONS -->
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">straighten</span>
+        <span class="material-icons-outlined">construction</span>
         Technical Specifications
       </h2>
       <table class="spec-table">
@@ -389,7 +618,7 @@
           <tr><td>Container padding</td><td>16px top/bottom</td><td>Figma node 7448:1953</td></tr>
           <tr><td>Bottom border</td><td>1px solid #E0E0E0</td><td>Figma node 7448:1953</td></tr>
           <tr><td>Inner max-width</td><td>1027px</td><td>Figma node 7448:1953</td></tr>
-          <tr><td>Step circle size</td><td>24×24px</td><td>Figma — all step variants</td></tr>
+          <tr><td>Step circle size</td><td>24x24px</td><td>Figma — all step variants</td></tr>
           <tr><td>Step circle radius</td><td>999px (full pill)</td><td>Figma — rounded circle</td></tr>
           <tr><td>Active circle fill</td><td>#37636b (tokens.colors.dataViz.teal)</td><td>Figma — primary/900</td></tr>
           <tr><td>Check icon size</td><td>16px</td><td>Figma — check component</td></tr>
@@ -398,11 +627,11 @@
           <tr><td>Step label font</td><td>Roboto Regular, 14px/20px</td><td>Figma — body2 variant</td></tr>
           <tr><td>Active/completed label color</td><td>#212121 (text.primary)</td><td>Figma</td></tr>
           <tr><td>Upcoming label/number color</td><td>rgba(0,0,0,0.4) (text.disabled)</td><td>Figma</td></tr>
-          <tr><td>Circle ↔ label gap</td><td>8px</td><td>Figma — var(--sm, 8px)</td></tr>
+          <tr><td>Circle to label gap</td><td>8px</td><td>Figma — var(--sm, 8px)</td></tr>
           <tr><td>Connector height</td><td>2px</td><td>Figma</td></tr>
           <tr><td>Connector border-radius</td><td>999px</td><td>Figma</td></tr>
           <tr><td>Completed connector color</td><td>#37636b (tokens.colors.dataViz.teal)</td><td>Figma — info/900</td></tr>
-          <tr><td>Upcoming connector color</td><td>#E0E0E0 (components.border.default)</td><td>Figma — stepper/connector (#bdbdbd approx.)</td></tr>
+          <tr><td>Upcoming connector color</td><td>#E0E0E0 (components.border.default)</td><td>Figma</td></tr>
           <tr><td>Connector margin</td><td>8px left/right</td><td>Figma</td></tr>
         </tbody>
       </table>

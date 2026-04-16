@@ -6,17 +6,102 @@
   <title>Metric Card - TRIO WFS Design System</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
   <link rel="stylesheet" href="../../design-system-shell.css">
   <style>
 
+    /* ============================================================
+       TEMPLATE OVERRIDE — CONTINUOUS CANVAS
+       ============================================================ */
+    .main-content {
+      background: var(--color-background-secondary);
+      min-height: 100vh;
+    }
 
-    
+    .section {
+      background: transparent;
+      border-radius: 0;
+      padding: 0;
+      margin-bottom: 0;
+      padding-bottom: var(--spacing-xl);
+    }
 
-    
+    .section + .section {
+      border-top: 1px solid var(--color-secondary-outline);
+      padding-top: var(--spacing-xl);
+    }
 
-    /* DEMO AREA */
+    /* ── Section title icons ── */
+    .section-title .material-icons-outlined,
+    .section-title .material-icons {
+      font-size: 18px;
+    }
+
+    /* ── Tables: paper + border ── */
+    .section .property-table,
+    .section .spec-table {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .section .property-table th,
+    .section .spec-table th {
+      background: var(--color-background-paper);
+    }
+
+    /* ── Cards: paper ── */
+    .card {
+      background: var(--color-background-paper);
+    }
+
+    /* ── Card illustrations for Do/Don't ── */
+    .card-illustration {
+      background: var(--color-background-secondary, #FAFAFA);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      padding: var(--spacing-md);
+      margin-bottom: var(--spacing-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 80px;
+      position: relative;
+    }
+    .card-illustration-label {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      font-size: 9px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 2px 6px;
+      border-radius: 999px;
+    }
+    .do-card .card-illustration-label {
+      background: var(--color-success-light, #E8F5E9);
+      color: var(--color-success-main);
+    }
+    .dont-card .card-illustration-label {
+      background: var(--color-error-light, #FBEAED);
+      color: var(--color-error-main);
+    }
+    .card-illustration-wrong::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 16px;
+      right: 16px;
+      height: 2px;
+      background: var(--color-error-main);
+      opacity: 0.4;
+      transform: rotate(-3deg);
+    }
+
+    /* ── Demo containers: paper + border ── */
     .demo-area {
-      background: var(--color-background-default);
+      background: var(--color-background-paper);
       border: 1px solid var(--color-secondary-outline);
       border-radius: var(--border-radius);
       padding: var(--spacing-xl);
@@ -231,9 +316,9 @@
       text-align: center;
     }
 
-    .mc-value--lg { font-size: 34px; line-height: 41px; } /* 1–2 cols */
-    .mc-value--md { font-size: 24px; line-height: 28px; } /* 3 cols */
-    .mc-value--sm { font-size: 16px; line-height: 24px; } /* list / grouped-sub */
+    .mc-value--lg { font-size: 34px; line-height: 41px; }
+    .mc-value--md { font-size: 24px; line-height: 28px; }
+    .mc-value--sm { font-size: 16px; line-height: 24px; }
 
     /* Metric sub-label */
     .mc-sub-label {
@@ -407,7 +492,7 @@
       text-overflow: ellipsis;
       text-align: center;
     }
-  
+
   </style>
   <script src="../../design-system-nav.js"></script>
 </head>
@@ -429,22 +514,23 @@
         available width with 16px gaps between them.
       </p>
       <div class="component-meta">
-        <span><span class="material-icons" style="font-size: 14px;">category</span> Custom Component</span>
-        <span><span class="material-icons" style="font-size: 14px;">link</span> Figma: 3787:29023</span>
-        <span><span class="material-icons" style="font-size: 14px;">verified</span> Production Ready</span>
+        <span><span class="material-icons-outlined" style="font-size: 14px;">category</span> Custom Component</span>
+        <a href="#" class="meta-link"><span class="material-icons-outlined" style="font-size: 14px;">menu_book</span> Storybook</a>
+        <a href="#" class="meta-link"><span class="material-icons-outlined" style="font-size: 14px;">design_services</span> Zeplin</a>
+        <span><span class="material-icons-outlined" style="font-size: 14px;">verified</span> Production Ready</span>
       </div>
     </header>
 
     <!-- OVERVIEW -->
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">info</span>
+        <span class="material-icons-outlined">info</span>
         Overview
       </h2>
       <div class="grid-3">
         <div class="card">
           <div class="card-title">
-            <span class="material-icons" style="color: var(--color-primary-main);">bar_chart</span>
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">bar_chart</span>
             Purpose
           </div>
           <div class="card-content">
@@ -455,7 +541,7 @@
         </div>
         <div class="card">
           <div class="card-title">
-            <span class="material-icons" style="color: var(--color-primary-main);">palette</span>
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">palette</span>
             Color System
           </div>
           <div class="card-content">
@@ -466,7 +552,7 @@
         </div>
         <div class="card">
           <div class="card-title">
-            <span class="material-icons" style="color: var(--color-primary-main);">grid_view</span>
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">grid_view</span>
             Layout Rules
           </div>
           <div class="card-content">
@@ -481,14 +567,31 @@
     <!-- USAGE GUIDELINES -->
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">rule</span>
+        <span class="material-icons-outlined">rule</span>
         Usage Guidelines
       </h2>
       <div class="grid-2">
         <div class="card do-card">
           <div class="card-title">
-            <span class="material-icons">check_circle</span>
+            <span class="material-icons-outlined">check_circle</span>
             When to Use
+          </div>
+          <div class="card-illustration">
+            <span class="card-illustration-label">Correct</span>
+            <div class="metric-group" style="width: 100%;">
+              <div class="metric-card-wrapper">
+                <div class="metric-card" style="height: 70px; padding: 8px;">
+                  <div class="mc-label-row"><div class="mc-label-left"><span class="material-icons mc-label-icon" style="font-size:12px;">schedule</span><span class="mc-label-text" style="font-size:11px;">Hours</span></div></div>
+                  <div class="mc-metrics"><div class="mc-row"><div class="mc-col"><span class="mc-value" style="font-size:18px;color:#37636B">2,840</span></div></div></div>
+                </div>
+              </div>
+              <div class="metric-card-wrapper">
+                <div class="metric-card" style="height: 70px; padding: 8px;">
+                  <div class="mc-label-row"><div class="mc-label-left"><span class="material-icons mc-label-icon" style="font-size:12px;">people</span><span class="mc-label-text" style="font-size:11px;">Workers</span></div></div>
+                  <div class="mc-metrics"><div class="mc-row"><div class="mc-col"><span class="mc-value" style="font-size:18px;color:#37636B">147</span></div></div></div>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="card-content">
             <ul>
@@ -503,8 +606,12 @@
         </div>
         <div class="card dont-card">
           <div class="card-title">
-            <span class="material-icons">cancel</span>
+            <span class="material-icons-outlined">cancel</span>
             When NOT to Use
+          </div>
+          <div class="card-illustration card-illustration-wrong">
+            <span class="card-illustration-label">Incorrect</span>
+            <div style="font-size: 12px; color: var(--color-text-secondary); text-align: center;">Single standalone card without context</div>
           </div>
           <div class="card-content">
             <ul>
@@ -520,124 +627,10 @@
       </div>
     </section>
 
-    <!-- DATA VIZ COLOR PALETTE -->
+    <!-- VARIANTS — Metric Count -->
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">palette</span>
-        Data Visualization Color Palette
-      </h2>
-      <p class="section-description">
-        The info tone scale is the primary color family for all Metric Card data. Segments
-        are assigned by position (900 = first, 700 = second, 500 = third, 300 = fourth).
-        Semantic overrides replace a metric's color entirely and ascend 500 → 700 → 900.
-      </p>
-
-      <div class="variant-group">
-        <div class="variant-label">Primary Data Viz — Info Scale (default)</div>
-        <div class="color-row">
-          <div class="color-swatch">
-            <div class="swatch" style="background:#37636B"></div>
-            <span>info/900</span>
-            <span>#37636B</span>
-            <span style="font-size:10px;color:#9e9e9e;">1st metric</span>
-          </div>
-          <div class="color-swatch">
-            <div class="swatch" style="background:#4B9AB0"></div>
-            <span>info/700</span>
-            <span>#4B9AB0</span>
-            <span style="font-size:10px;color:#9e9e9e;">2nd metric</span>
-          </div>
-          <div class="color-swatch">
-            <div class="swatch" style="background:#5BBFDE"></div>
-            <span>info/500</span>
-            <span>#5BBFDE</span>
-            <span style="font-size:10px;color:#9e9e9e;">3rd metric</span>
-          </div>
-          <div class="color-swatch">
-            <div class="swatch" style="background:#6FD3ED"></div>
-            <span>info/300</span>
-            <span>#6FD3ED</span>
-            <span style="font-size:10px;color:#9e9e9e;">4th metric</span>
-          </div>
-          <div class="color-swatch">
-            <div class="swatch" style="background:#EEEEEE;border:1px solid #e0e0e0;"></div>
-            <span>sec/200</span>
-            <span>#EEEEEE</span>
-            <span style="font-size:10px;color:#9e9e9e;">bar bg</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="variant-group">
-        <div class="variant-label">Semantic Urgency — Error (500 → 700 → 900)</div>
-        <div class="color-row">
-          <div class="color-swatch">
-            <div class="swatch" style="background:#DB4537"></div>
-            <span>error/500</span>
-            <span>#DB4537</span>
-          </div>
-          <div class="color-swatch">
-            <div class="swatch" style="background:#BB3430"></div>
-            <span>error/700</span>
-            <span>#BB3430</span>
-          </div>
-          <div class="color-swatch">
-            <div class="swatch" style="background:#A0241E"></div>
-            <span>error/900</span>
-            <span>#A0241E</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="variant-group">
-        <div class="variant-label">Semantic Urgency — Warning (500 → 700 → 900)</div>
-        <div class="color-row">
-          <div class="color-swatch">
-            <div class="swatch" style="background:#EB8B0C"></div>
-            <span>warn/500</span>
-            <span>#EB8B0C</span>
-          </div>
-          <div class="color-swatch">
-            <div class="swatch" style="background:#E17109"></div>
-            <span>warn/700</span>
-            <span>#E17109</span>
-          </div>
-          <div class="color-swatch">
-            <div class="swatch" style="background:#E65100"></div>
-            <span>warn/900</span>
-            <span>#E65100</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="variant-group">
-        <div class="variant-label">Semantic Urgency — Success (500 → 700 → 900)</div>
-        <div class="color-row">
-          <div class="color-swatch">
-            <div class="swatch" style="background:#4CAF50"></div>
-            <span>succ/500</span>
-            <span>#4CAF50</span>
-          </div>
-          <div class="color-swatch">
-            <div class="swatch" style="background:#388E3C"></div>
-            <span>succ/700</span>
-            <span>#388E3C</span>
-          </div>
-          <div class="color-swatch">
-            <div class="swatch" style="background:#1B5E20"></div>
-            <span>succ/900</span>
-            <span>#1B5E20</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================================
-         VARIANTS — 1, 2, 3, 4 METRIC VALUES
-         ============================================================ -->
-    <section class="section">
-      <h2 class="section-title">
-        <span class="material-icons">widgets</span>
+        <span class="material-icons-outlined">widgets</span>
         Metric Count Variants
       </h2>
       <p class="section-description">
@@ -974,12 +967,10 @@
       </div>
     </section>
 
-    <!-- ============================================================
-         FOOTER VARIANTS
-         ============================================================ -->
+    <!-- FOOTER VARIANTS -->
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">view_headline</span>
+        <span class="material-icons-outlined">view_headline</span>
         Footer Variants
       </h2>
       <p class="section-description">
@@ -1028,7 +1019,6 @@
               </div>
             </div>
             <div class="metric-card-wrapper" style="min-width:170px;max-width:280px;">
-              <!-- Narrow width demo -->
               <div class="metric-card">
                 <div class="mc-label-row">
                   <div class="mc-label-left">
@@ -1279,12 +1269,10 @@
       </div>
     </section>
 
-    <!-- ============================================================
-         GROUPED LAYOUT
-         ============================================================ -->
+    <!-- GROUPED LAYOUT -->
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">view_sidebar</span>
+        <span class="material-icons-outlined">view_sidebar</span>
         Grouped Layout
       </h2>
       <p class="section-description">
@@ -1375,13 +1363,11 @@
       </div>
     </section>
 
-    <!-- ============================================================
-         SEMANTIC COLOR OVERRIDES
-         ============================================================ -->
+    <!-- STATES (Semantic Color Overrides) -->
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">error_outline</span>
-        Semantic Color Overrides
+        <span class="material-icons-outlined">toggle_on</span>
+        States
       </h2>
       <p class="section-description">
         Any metric can be assigned a semantic color override (error, warning, success) for
@@ -1539,12 +1525,10 @@
       </div>
     </section>
 
-    <!-- ============================================================
-         LABEL ICON VARIANTS
-         ============================================================ -->
+    <!-- LABEL ICON VARIANTS -->
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">label</span>
+        <span class="material-icons-outlined">label</span>
         Label Icon Variants
       </h2>
       <p class="section-description">
@@ -1677,14 +1661,175 @@
       </div>
     </section>
 
-    <!-- ============================================================
-         SPECS TABLE
-         ============================================================ -->
+    <!-- BEST PRACTICES -->
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">straighten</span>
-        Specifications
+        <span class="material-icons-outlined">recommend</span>
+        Best Practices
       </h2>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">check_circle</span>
+            Do
+          </div>
+          <div class="card-illustration">
+            <span class="card-illustration-label">Correct</span>
+            <div style="font-size: 12px; color: var(--color-text-primary); text-align: center;">Use groups of 2+ cards with consistent footer styles</div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Always use cards in groups of 2 or more</li>
+              <li>Use consistent footer style within a card group</li>
+              <li>Apply semantic colors only when urgency signaling is needed</li>
+              <li>Keep labels short — they truncate at minimum width (170px)</li>
+              <li>Use bar footer for proportional data, icons for status indicators</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">cancel</span>
+            Don't
+          </div>
+          <div class="card-illustration card-illustration-wrong">
+            <span class="card-illustration-label">Incorrect</span>
+            <div style="font-size: 12px; color: var(--color-text-secondary); text-align: center;">Mixing footer styles within the same group</div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Don't use a single standalone card without context</li>
+              <li>Don't mix footer styles within the same card group</li>
+              <li>Don't use more than 4 metrics — switch to a table</li>
+              <li>Don't mix info and semantic colors randomly</li>
+              <li>Don't use for trend data — use Chart component instead</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COLOR SEMANTICS -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">palette</span>
+        Color Semantics
+      </h2>
+      <p class="section-description">
+        The info tone scale is the primary color family for all Metric Card data. Segments
+        are assigned by position (900 = first, 700 = second, 500 = third, 300 = fourth).
+        Semantic overrides replace a metric's color entirely and ascend 500 → 700 → 900.
+      </p>
+
+      <div class="variant-group">
+        <div class="variant-label">Primary Data Viz — Info Scale (default)</div>
+        <div class="color-row">
+          <div class="color-swatch">
+            <div class="swatch" style="background:#37636B"></div>
+            <span>info/900</span>
+            <span>#37636B</span>
+            <span style="font-size:10px;color:#9e9e9e;">1st metric</span>
+          </div>
+          <div class="color-swatch">
+            <div class="swatch" style="background:#4B9AB0"></div>
+            <span>info/700</span>
+            <span>#4B9AB0</span>
+            <span style="font-size:10px;color:#9e9e9e;">2nd metric</span>
+          </div>
+          <div class="color-swatch">
+            <div class="swatch" style="background:#5BBFDE"></div>
+            <span>info/500</span>
+            <span>#5BBFDE</span>
+            <span style="font-size:10px;color:#9e9e9e;">3rd metric</span>
+          </div>
+          <div class="color-swatch">
+            <div class="swatch" style="background:#6FD3ED"></div>
+            <span>info/300</span>
+            <span>#6FD3ED</span>
+            <span style="font-size:10px;color:#9e9e9e;">4th metric</span>
+          </div>
+          <div class="color-swatch">
+            <div class="swatch" style="background:#EEEEEE;border:1px solid #e0e0e0;"></div>
+            <span>sec/200</span>
+            <span>#EEEEEE</span>
+            <span style="font-size:10px;color:#9e9e9e;">bar bg</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Semantic Urgency — Error (500 → 700 → 900)</div>
+        <div class="color-row">
+          <div class="color-swatch">
+            <div class="swatch" style="background:#DB4537"></div>
+            <span>error/500</span>
+            <span>#DB4537</span>
+          </div>
+          <div class="color-swatch">
+            <div class="swatch" style="background:#BB3430"></div>
+            <span>error/700</span>
+            <span>#BB3430</span>
+          </div>
+          <div class="color-swatch">
+            <div class="swatch" style="background:#A0241E"></div>
+            <span>error/900</span>
+            <span>#A0241E</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Semantic Urgency — Warning (500 → 700 → 900)</div>
+        <div class="color-row">
+          <div class="color-swatch">
+            <div class="swatch" style="background:#EB8B0C"></div>
+            <span>warn/500</span>
+            <span>#EB8B0C</span>
+          </div>
+          <div class="color-swatch">
+            <div class="swatch" style="background:#E17109"></div>
+            <span>warn/700</span>
+            <span>#E17109</span>
+          </div>
+          <div class="color-swatch">
+            <div class="swatch" style="background:#E65100"></div>
+            <span>warn/900</span>
+            <span>#E65100</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Semantic Urgency — Success (500 → 700 → 900)</div>
+        <div class="color-row">
+          <div class="color-swatch">
+            <div class="swatch" style="background:#4CAF50"></div>
+            <span>succ/500</span>
+            <span>#4CAF50</span>
+          </div>
+          <div class="color-swatch">
+            <div class="swatch" style="background:#388E3C"></div>
+            <span>succ/700</span>
+            <span>#388E3C</span>
+          </div>
+          <div class="color-swatch">
+            <div class="swatch" style="background:#1B5E20"></div>
+            <span>succ/900</span>
+            <span>#1B5E20</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TECHNICAL SPECIFICATIONS -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">construction</span>
+        Technical Specifications
+      </h2>
+      <p class="section-description">
+        All values extracted from Figma component instances (node: 3787:29023)
+      </p>
       <div class="card" style="padding: 0; overflow: hidden;">
         <table class="spec-table">
           <thead>
@@ -1720,14 +1865,9 @@
           </tbody>
         </table>
       </div>
-    </section>
 
-    <!-- PROPS TABLE -->
-    <section class="section">
-      <h2 class="section-title">
-        <span class="material-icons">code</span>
-        Component API
-      </h2>
+      <!-- Component API sub-section -->
+      <h3 style="font-size: 16px; font-weight: 500; color: var(--color-text-primary); margin-top: var(--spacing-xl); margin-bottom: var(--spacing-md);">Component API</h3>
       <div class="card" style="padding: 0; overflow: hidden;">
         <table class="spec-table">
           <thead>

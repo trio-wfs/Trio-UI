@@ -2,12 +2,130 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Navigation Vertical - TRIO WFS Design System</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
   <link rel="stylesheet" href="../../design-system-shell.css">
   <style>
-    /* ── Nav component ────────────────────────────────────────────── */
+
+    /* ============================================================
+       TEMPLATE OVERRIDE — CONTINUOUS CANVAS
+       ============================================================ */
+    .main-content {
+      background: var(--color-background-secondary);
+      min-height: 100vh;
+    }
+
+    .section {
+      background: transparent;
+      border-radius: 0;
+      padding: 0;
+      margin-bottom: 0;
+      padding-bottom: var(--spacing-xl);
+    }
+
+    .section + .section {
+      border-top: 1px solid var(--color-secondary-outline);
+      padding-top: var(--spacing-xl);
+    }
+
+    /* ── Section title icons ── */
+    .section-title .material-icons-outlined,
+    .section-title .material-icons {
+      font-size: 18px;
+    }
+
+    /* ── Tables: paper + border ── */
+    .section .property-table,
+    .section .spec-table {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .section .property-table th,
+    .section .spec-table th {
+      background: var(--color-background-paper);
+    }
+
+    /* ── Cards: paper ── */
+    .card {
+      background: var(--color-background-paper);
+    }
+
+    /* ── Card illustrations for Do/Don't ── */
+    .card-illustration {
+      background: var(--color-background-secondary, #FAFAFA);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      padding: var(--spacing-md);
+      margin-bottom: var(--spacing-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 80px;
+      position: relative;
+    }
+    .card-illustration-label {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      font-size: 9px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 2px 6px;
+      border-radius: 999px;
+    }
+    .do-card .card-illustration-label {
+      background: var(--color-success-light, #E8F5E9);
+      color: var(--color-success-main);
+    }
+    .dont-card .card-illustration-label {
+      background: var(--color-error-light, #FBEAED);
+      color: var(--color-error-main);
+    }
+    .card-illustration-wrong::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 16px;
+      right: 16px;
+      height: 2px;
+      background: var(--color-error-main);
+      opacity: 0.4;
+      transform: rotate(-3deg);
+    }
+
+    /* ── Demo containers: paper + border ── */
+    .demo-panel {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-lg);
+      margin-bottom: var(--spacing-md);
+    }
+    .demo-row {
+      display: flex;
+      gap: var(--spacing-xl);
+      flex-wrap: wrap;
+    }
+    .demo-col {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-sm);
+    }
+    .demo-label {
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── Nav component ── */
     .nav-demo {
       width: 260px;
       background: var(--color-background-paper);
@@ -36,9 +154,7 @@
       text-align: left;
       transition: background 150ms, color 150ms;
     }
-    .nav-item:hover {
-      background: #FAFAFA;
-    }
+    .nav-item:hover { background: #FAFAFA; }
     .nav-item.selected {
       background: #2196F31F;
       color: var(--color-primary-dark);
@@ -126,54 +242,28 @@
       color: var(--color-primary-dark);
     }
 
-    /* Demo layout */
-    .demo-panel {
-      background: var(--color-background-paper);
-      border: 1px solid var(--color-secondary-outline);
-      border-radius: var(--border-radius);
-      padding: var(--spacing-lg);
-      margin-bottom: var(--spacing-md);
+    /* Spec table */
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
     }
-    .demo-row {
-      display: flex;
-      gap: var(--spacing-xl);
-      flex-wrap: wrap;
-    }
-    .demo-col {
-      display: flex;
-      flex-direction: column;
-      gap: var(--spacing-sm);
-    }
-    .demo-label {
-      font-size: 11px;
-      color: var(--color-text-secondary);
+    .spec-table th {
+      background: var(--color-secondary-main);
+      padding: var(--spacing-sm) var(--spacing-md);
+      text-align: left;
       font-weight: 500;
+      font-size: 12px;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.05em;
+      border-bottom: 2px solid var(--color-secondary-outline);
     }
-
-    /* Best practices */
-    .bp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-md); }
-    .bp-card { border-radius: var(--border-radius); padding: var(--spacing-md); border: 1px solid transparent; }
-    .bp-card.do { background: var(--color-success-light); border-color: var(--color-success-main); }
-    .bp-card.dont { background: var(--color-error-light); border-color: var(--color-error-main); }
-    .bp-label { font-size: 11px; font-weight: 500; text-transform: uppercase; margin-bottom: var(--spacing-sm); }
-    .bp-card.do .bp-label { color: var(--color-success-dark); }
-    .bp-card.dont .bp-label { color: var(--color-error-dark); }
-    .bp-card p { font-size: 13px; line-height: 1.5; }
-
-    /* Anatomy callouts */
-    .anatomy-wrap {
-      position: relative;
-      display: inline-flex;
-      gap: 80px;
-      align-items: flex-start;
-      padding: var(--spacing-xl);
+    .spec-table td {
+      padding: var(--spacing-sm) var(--spacing-md);
+      border-bottom: 1px solid var(--color-secondary-outline);
+      vertical-align: top;
     }
-    .callout-line {
-      position: absolute;
-      border-top: 1px dashed var(--color-secondary-outline);
-    }
+    .spec-table tr:last-child td { border-bottom: none; }
   </style>
   <script src="../../design-system-nav.js"></script>
 </head>
@@ -181,21 +271,54 @@
   <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
   <main class="main-content">
 
-    <div class="page-header">
+    <!-- PAGE HEADER -->
+    <header class="page-header">
       <h1 class="page-title">Navigation Vertical</h1>
-      <p class="page-description">The primary left-sidebar navigation used across all TRIO WFS desktop views.</p>
-    </div>
+      <p class="page-subtitle">The primary left-sidebar navigation used across all TRIO WFS desktop views.</p>
+      <div class="component-meta">
+        <span><span class="material-icons-outlined" style="font-size: 14px;">category</span> Custom Component</span>
+        <a href="#" class="meta-link"><span class="material-icons-outlined" style="font-size: 14px;">menu_book</span> Storybook</a>
+        <a href="#" class="meta-link"><span class="material-icons-outlined" style="font-size: 14px;">design_services</span> Zeplin</a>
+        <span><span class="material-icons-outlined" style="font-size: 14px;">verified</span> Production Ready</span>
+      </div>
+    </header>
 
-    <!-- ── 1. Overview ─────────────────────────────────────────────── -->
+    <!-- OVERVIEW -->
     <section class="section">
-      <h2 class="section-title"><span class="material-icons">info</span>Overview</h2>
-      <p class="section-description">
-        NavigationVertical is the persistent left-rail navigation. It holds primary section links
-        with icons, supports expandable sub-navigation, and includes an optional settings section
-        at the bottom with a distinct selected style (left border instead of background fill).
-        Width is fixed at 260px.
-      </p>
-      <div class="demo-panel">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">info</span>
+        Overview
+      </h2>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">psychology</span>
+            Purpose
+          </div>
+          <div class="card-content">
+            NavigationVertical is the persistent left-rail navigation. It holds primary section links with icons, supports expandable sub-navigation, and includes an optional settings section at the bottom.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">priority_high</span>
+            Layout
+          </div>
+          <div class="card-content">
+            Width is fixed at 260px. Primary items use icon + label + optional chevron. Settings section uses a distinct left-border selected style instead of background fill.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">accessibility</span>
+            Accessibility
+          </div>
+          <div class="card-content">
+            All nav items are keyboard-navigable buttons. Expandable items toggle aria-expanded. Settings items are visually differentiated from primary nav for quick scanning.
+          </div>
+        </div>
+      </div>
+      <div class="demo-panel" style="margin-top: var(--spacing-md);">
         <div class="nav-demo" id="overview-nav">
           <button class="nav-item selected" onclick="selectNav('overview-nav', this)">
             <span class="material-icons nav-icon">dashboard</span>
@@ -227,9 +350,141 @@
       </div>
     </section>
 
-    <!-- ── 2. States ───────────────────────────────────────────────── -->
+    <!-- USAGE GUIDELINES -->
     <section class="section">
-      <h2 class="section-title"><span class="material-icons">toggle_on</span>Item States</h2>
+      <h2 class="section-title">
+        <span class="material-icons-outlined">rule</span>
+        Usage Guidelines
+      </h2>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">check_circle</span>
+            When to Use
+          </div>
+          <div class="card-illustration">
+            <span class="card-illustration-label">Correct</span>
+            <div style="font-size: 12px; color: var(--color-text-primary); text-align: center;">Icon + short label for every primary item</div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Always include a left icon for primary nav items — critical for scanability</li>
+              <li>Keep primary nav labels short — 1 or 2 words maximum</li>
+              <li>Auto-expand the active parent item on page load</li>
+              <li>Use settings section for configuration pages only</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">cancel</span>
+            When NOT to Use
+          </div>
+          <div class="card-illustration card-illustration-wrong">
+            <span class="card-illustration-label">Incorrect</span>
+            <div style="font-size: 12px; color: var(--color-text-secondary); text-align: center;">Nested 3+ levels deep</div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Don't use settings-style items (left border) for primary navigation</li>
+              <li>Don't nest sub-navigation more than one level deep</li>
+              <li>Don't put more than 8–10 primary items in the nav</li>
+              <li>Don't use for mobile — this is desktop-only</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VARIANTS — Expandable Items -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">widgets</span>
+        Variants
+      </h2>
+      <p class="section-description">
+        Items with sub-navigation show a 16px chevron on the right. Clicking toggles the chevron
+        direction and reveals sub-items indented 40px. The selected sub-item text turns primary.dark.
+      </p>
+      <div class="demo-panel">
+        <div class="demo-row">
+          <div class="demo-col">
+            <div class="demo-label">Collapsed</div>
+            <div class="nav-demo">
+              <button class="nav-item">
+                <span class="material-icons nav-icon">assignment</span>
+                <span class="nav-label">Orders</span>
+                <span class="material-icons nav-chevron">keyboard_arrow_down</span>
+              </button>
+            </div>
+          </div>
+          <div class="demo-col">
+            <div class="demo-label">Expanded — default</div>
+            <div class="nav-demo">
+              <button class="nav-item">
+                <span class="material-icons nav-icon">assignment</span>
+                <span class="nav-label">Orders</span>
+                <span class="material-icons nav-chevron">keyboard_arrow_up</span>
+              </button>
+              <div class="nav-subitems">
+                <button class="nav-subitem">Open Orders</button>
+                <button class="nav-subitem">Filled Orders</button>
+                <button class="nav-subitem">Cancelled</button>
+              </div>
+            </div>
+          </div>
+          <div class="demo-col">
+            <div class="demo-label">Expanded — with selection</div>
+            <div class="nav-demo">
+              <button class="nav-item selected">
+                <span class="material-icons nav-icon">assignment</span>
+                <span class="nav-label">Orders</span>
+                <span class="material-icons nav-chevron">keyboard_arrow_up</span>
+              </button>
+              <div class="nav-subitems">
+                <button class="nav-subitem selected">Open Orders</button>
+                <button class="nav-subitem">Filled Orders</button>
+                <button class="nav-subitem">Cancelled</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Settings Section -->
+      <div class="variant-group" style="margin-top: var(--spacing-lg);">
+        <div class="variant-label">Settings Section — left border selected style</div>
+        <div class="demo-panel">
+          <div class="demo-row">
+            <div class="demo-col">
+              <div class="demo-label">Default</div>
+              <div style="width: 260px; padding: var(--spacing-sm);">
+                <button class="nav-settings-item">Program Details</button>
+              </div>
+            </div>
+            <div class="demo-col">
+              <div class="demo-label">Hover</div>
+              <div style="width: 260px; padding: var(--spacing-sm);">
+                <button class="nav-settings-item" style="background: rgba(0,0,0,0.04);">Program Details</button>
+              </div>
+            </div>
+            <div class="demo-col">
+              <div class="demo-label">Selected</div>
+              <div style="width: 260px; padding: var(--spacing-sm);">
+                <button class="nav-settings-item selected">Program Details</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATES -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">toggle_on</span>
+        States
+      </h2>
       <p class="section-description">Each nav item has three interactive states.</p>
       <div class="demo-panel">
         <div class="demo-row">
@@ -279,95 +534,12 @@
       </div>
     </section>
 
-    <!-- ── 3. Expandable / Sub-navigation ─────────────────────────── -->
+    <!-- FULL NAV EXAMPLE -->
     <section class="section">
-      <h2 class="section-title"><span class="material-icons">unfold_more</span>Expandable Items</h2>
-      <p class="section-description">
-        Items with sub-navigation show a 16px chevron on the right. Clicking toggles the chevron
-        direction and reveals sub-items indented 40px. The selected sub-item text turns primary.dark.
-      </p>
-      <div class="demo-panel">
-        <div class="demo-row">
-          <div class="demo-col">
-            <div class="demo-label">Collapsed</div>
-            <div class="nav-demo">
-              <button class="nav-item">
-                <span class="material-icons nav-icon">assignment</span>
-                <span class="nav-label">Orders</span>
-                <span class="material-icons nav-chevron">keyboard_arrow_down</span>
-              </button>
-            </div>
-          </div>
-          <div class="demo-col">
-            <div class="demo-label">Expanded — default</div>
-            <div class="nav-demo">
-              <button class="nav-item">
-                <span class="material-icons nav-icon">assignment</span>
-                <span class="nav-label">Orders</span>
-                <span class="material-icons nav-chevron">keyboard_arrow_up</span>
-              </button>
-              <div class="nav-subitems">
-                <button class="nav-subitem">Open Orders</button>
-                <button class="nav-subitem">Filled Orders</button>
-                <button class="nav-subitem">Cancelled</button>
-              </div>
-            </div>
-          </div>
-          <div class="demo-col">
-            <div class="demo-label">Expanded — with selection</div>
-            <div class="nav-demo">
-              <button class="nav-item selected">
-                <span class="material-icons nav-icon">assignment</span>
-                <span class="nav-label">Orders</span>
-                <span class="material-icons nav-chevron">keyboard_arrow_up</span>
-              </button>
-              <div class="nav-subitems">
-                <button class="nav-subitem selected">Open Orders</button>
-                <button class="nav-subitem">Filled Orders</button>
-                <button class="nav-subitem">Cancelled</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── 4. Settings Section ────────────────────────────────────── -->
-    <section class="section">
-      <h2 class="section-title"><span class="material-icons">settings</span>Settings Section</h2>
-      <p class="section-description">
-        The optional settings section appears at the bottom of the nav, separated by a divider.
-        These items have no icons and use a distinct selected style — a 3px left border in
-        primary.dark instead of a background fill. This visually differentiates configuration
-        navigation from primary content navigation.
-      </p>
-      <div class="demo-panel">
-        <div class="demo-row">
-          <div class="demo-col">
-            <div class="demo-label">Default</div>
-            <div style="width: 260px; padding: var(--spacing-sm);">
-              <button class="nav-settings-item">Program Details</button>
-            </div>
-          </div>
-          <div class="demo-col">
-            <div class="demo-label">Hover</div>
-            <div style="width: 260px; padding: var(--spacing-sm);">
-              <button class="nav-settings-item" style="background: rgba(0,0,0,0.04);">Program Details</button>
-            </div>
-          </div>
-          <div class="demo-col">
-            <div class="demo-label">Selected</div>
-            <div style="width: 260px; padding: var(--spacing-sm);">
-              <button class="nav-settings-item selected">Program Details</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── 5. Full Nav Example ─────────────────────────────────────── -->
-    <section class="section">
-      <h2 class="section-title"><span class="material-icons">view_sidebar</span>Full Navigation Example</h2>
+      <h2 class="section-title">
+        <span class="material-icons-outlined">view_sidebar</span>
+        Full Navigation Example
+      </h2>
       <p class="section-description">
         A realistic TRIO WFS sidebar with primary sections, one expanded item, and the settings section.
       </p>
@@ -420,40 +592,48 @@
       </div>
     </section>
 
-    <!-- ── 6. Best Practices ──────────────────────────────────────── -->
+    <!-- BEST PRACTICES -->
     <section class="section">
-      <h2 class="section-title"><span class="material-icons">thumb_up</span>Best Practices</h2>
-      <div class="bp-grid">
-        <div class="bp-card do">
-          <div class="bp-label">✓ Do</div>
-          <p>Always include a left icon for primary nav items. Icons are critical for scanability in time-pressured clinical environments.</p>
+      <h2 class="section-title">
+        <span class="material-icons-outlined">recommend</span>
+        Best Practices
+      </h2>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">check_circle</span>
+            Do
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Always include a left icon for primary nav items — icons are critical for scanability in time-pressured clinical environments</li>
+              <li>Keep primary nav labels short — 1 or 2 words maximum. The 260px width is tight with an icon, label, and chevron</li>
+              <li>Auto-expand the active parent item on page load so users can see where they are in the hierarchy immediately</li>
+            </ul>
+          </div>
         </div>
-        <div class="bp-card dont">
-          <div class="bp-label">✗ Don't</div>
-          <p>Don't use settings-style items (left border) for primary navigation. The two patterns are visually distinct for a reason — settings is lower priority.</p>
-        </div>
-        <div class="bp-card do">
-          <div class="bp-label">✓ Do</div>
-          <p>Keep primary nav labels short — 1 or 2 words maximum. The 260px width is tight with an icon, label, and chevron.</p>
-        </div>
-        <div class="bp-card dont">
-          <div class="bp-label">✗ Don't</div>
-          <p>Don't nest sub-navigation more than one level deep. If you need deeper hierarchy, reconsider the information architecture.</p>
-        </div>
-        <div class="bp-card do">
-          <div class="bp-label">✓ Do</div>
-          <p>Auto-expand the active parent item on page load so users can see where they are in the hierarchy immediately.</p>
-        </div>
-        <div class="bp-card dont">
-          <div class="bp-label">✗ Don't</div>
-          <p>Don't put more than 8–10 primary items in the nav. If sections grow beyond this, consider grouping or a secondary navigation pattern.</p>
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">cancel</span>
+            Don't
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Don't use settings-style items (left border) for primary navigation — the two patterns are visually distinct for a reason</li>
+              <li>Don't nest sub-navigation more than one level deep — if you need deeper hierarchy, reconsider the IA</li>
+              <li>Don't put more than 8–10 primary items in the nav — consider grouping or a secondary navigation pattern</li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ── 7. Technical Specifications ───────────────────────────── -->
+    <!-- TECHNICAL SPECIFICATIONS -->
     <section class="section">
-      <h2 class="section-title"><span class="material-icons">straighten</span>Technical Specifications</h2>
+      <h2 class="section-title">
+        <span class="material-icons-outlined">construction</span>
+        Technical Specifications
+      </h2>
       <table class="spec-table">
         <thead><tr><th>Property</th><th>Value</th><th>Source</th></tr></thead>
         <tbody>

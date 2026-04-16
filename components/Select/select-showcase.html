@@ -6,35 +6,107 @@
   <title>Select - TRIO WFS Design System</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
   <link rel="stylesheet" href="../../design-system-shell.css">
   <style>
 
-.meta-item {
-      display: flex;
-      align-items: center;
-      gap: 4px;
+    /* ============================================================
+       TEMPLATE OVERRIDE — CONTINUOUS CANVAS
+       ============================================================ */
+    .main-content {
+      background: var(--color-background-secondary);
+      min-height: 100vh;
     }
 
-    .meta-item .material-icons {
-      font-size: 16px;
+    .section {
+      background: transparent;
+      border-radius: 0;
+      padding: 0;
+      margin-bottom: 0;
+      padding-bottom: var(--spacing-xl);
     }
 
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: var(--spacing-lg);
-      margin-bottom: var(--spacing-lg);
+    .section + .section {
+      border-top: 1px solid var(--color-secondary-outline);
+      padding-top: var(--spacing-xl);
     }
 
+    /* ── Section title icons ── */
+    .section-title .material-icons-outlined,
+    .section-title .material-icons {
+      font-size: 18px;
+    }
+
+    /* ── Tables: paper + border ── */
+    .section .property-table {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .section .property-table th {
+      background: var(--color-background-paper);
+    }
+
+    /* ── Cards: paper ── */
+    .card {
+      background: var(--color-background-paper);
+    }
+
+    /* ── Demo rows: paper ── */
     .select-row {
       display: flex;
       flex-wrap: wrap;
       gap: var(--spacing-lg);
       align-items: flex-start;
-      background: var(--color-background-paper);
       padding: var(--spacing-lg);
+      background: var(--color-background-paper);
       border-radius: var(--border-radius);
       border: 1px solid var(--color-secondary-outline);
+    }
+
+    /* ── Card illustrations for Do/Don't ── */
+    .card-illustration {
+      background: var(--color-background-secondary, #FAFAFA);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      padding: var(--spacing-md);
+      margin-bottom: var(--spacing-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 80px;
+      position: relative;
+    }
+    .card-illustration-label {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      font-size: 9px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 2px 6px;
+      border-radius: 999px;
+    }
+    .do-card .card-illustration-label {
+      background: var(--color-success-light, #E8F5E9);
+      color: var(--color-success-main);
+    }
+    .dont-card .card-illustration-label {
+      background: var(--color-error-light, #FBEAED);
+      color: var(--color-error-main);
+    }
+    .card-illustration-wrong::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 16px;
+      right: 16px;
+      height: 2px;
+      background: var(--color-error-main);
+      opacity: 0.4;
+      transform: rotate(-3deg);
     }
 
     /* SELECT STYLES - Uses custom Menu component */
@@ -46,7 +118,7 @@
 
     .select-control {
       position: relative;
-      height: 36px; /* Matches TextField single-line */
+      height: 36px;
     }
 
     .select-input {
@@ -169,78 +241,6 @@
       color: var(--color-error-main);
     }
 
-    .do-dont-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-      gap: var(--spacing-lg);
-      margin-bottom: var(--spacing-lg);
-    }
-
-    .do-card,
-
-    .do-card-title, .dont-card-title {
-      font-size: 16px;
-      font-weight: 500;
-      margin-bottom: var(--spacing-sm);
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-sm);
-    }
-
-    .do-card-title {
-      color: var(--color-success-main);
-    }
-
-    .dont-card-title {
-      color: var(--color-error-main);
-    }
-
-    .do-card-title .material-icons,
-    .dont-card-title .material-icons {
-      font-size: 20px;
-    }
-
-    .spec-table {
-      width: 100%;
-      background: var(--color-background-paper);
-      border: 1px solid var(--color-secondary-outline);
-      border-radius: var(--border-radius);
-      border-collapse: collapse;
-      margin-top: var(--spacing-lg);
-    }
-
-    .spec-table th,
-    .spec-table td {
-      padding: var(--spacing-md);
-      text-align: left;
-      border-bottom: 1px solid var(--color-secondary-outline);
-    }
-
-    .spec-table th {
-      font-weight: 500;
-      background-color: var(--color-background-default);
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--color-text-secondary);
-    }
-
-    .spec-table td {
-      font-size: 14px;
-    }
-
-    .spec-table code {
-      background-color: var(--color-background-default);
-      padding: 2px 6px;
-      border-radius: 3px;
-      font-size: 12px;
-      font-family: 'Courier New', monospace;
-    }
-
-    .spec-table tr:last-child td {
-      border-bottom: none;
-    }
-  
   </style>
   <script src="../../design-system-nav.js"></script>
 </head>
@@ -257,66 +257,45 @@
         Allows users to choose a single option from a dropdown list. Use when you have 5 or more options that would clutter the interface as radio buttons.
       </p>
       <div class="component-meta">
-        <div class="meta-item">
-          <span class="material-icons">category</span>
-          <span>Form Control</span>
-        </div>
-        <div class="meta-item">
-          <span class="material-icons">link</span>
-          <span>Figma: Select (2433:8481)</span>
-        </div>
-        <div class="meta-item">
-          <span class="material-icons">check_circle</span>
-          <span>Production Ready</span>
-        </div>
+        <span><span class="material-icons-outlined" style="font-size: 14px;">category</span> Form Control</span>
+        <a href="#" class="meta-link"><span class="material-icons-outlined" style="font-size: 14px;">menu_book</span> Storybook</a>
+        <a href="#" class="meta-link"><span class="material-icons-outlined" style="font-size: 14px;">design_services</span> Zeplin</a>
+        <span><span class="material-icons-outlined" style="font-size: 14px;">verified</span> Production Ready</span>
       </div>
     </header>
 
     <!-- OVERVIEW -->
     <section class="section">
-      <h2 class="section-title">Overview</h2>
-      <div class="card-grid">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">info</span>
+        Overview
+      </h2>
+      <div class="grid-3">
         <div class="card">
           <div class="card-title">
-            <span class="material-icons">info</span>
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">psychology</span>
             Purpose
           </div>
           <div class="card-content">
-            Select dropdowns let users choose one option from many. Use when:
-            <ul>
-              <li>You have 5 or more options</li>
-              <li>Space is limited (dropdown saves space)</li>
-              <li>Options are well-known (countries, states, etc.)</li>
-            </ul>
+            Select dropdowns let users choose one option from many. Use when you have 5 or more options, space is limited, or options are well-known (countries, states, etc.).
           </div>
         </div>
-
         <div class="card">
           <div class="card-title">
-            <span class="material-icons">tune</span>
-            States
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">tune</span>
+            Anatomy
           </div>
           <div class="card-content">
-            <strong>State:</strong> default, focus, disabled, error, selected<br>
-            <strong>Type:</strong> open, closed<br>
-            <strong>Input Height:</strong> 36px (TextField single-line)<br>
-            <strong>Min Width:</strong> 256px<br>
-            <strong>Dropdown:</strong> Uses custom Menu component
+            Built from a TextField input with a dropdown icon and a custom Menu component. States include default, focus, disabled, error, and selected. Input height: 36px, min width: 256px.
           </div>
         </div>
-
         <div class="card">
           <div class="card-title">
-            <span class="material-icons">accessibility</span>
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">accessibility</span>
             Accessibility
           </div>
           <div class="card-content">
-            <ul>
-              <li>Keyboard accessible (Arrow keys to navigate, Enter to select)</li>
-              <li>Always include a visible label</li>
-              <li>Use helper text for additional context</li>
-              <li>Provide clear error messages for validation</li>
-            </ul>
+            Keyboard accessible with Arrow keys to navigate and Enter to select. Always include a visible label and use helper text for additional context. Provide clear error messages for validation.
           </div>
         </div>
       </div>
@@ -325,14 +304,26 @@
     <!-- USAGE GUIDELINES -->
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">rule</span>
+        <span class="material-icons-outlined">rule</span>
         Usage Guidelines
       </h2>
       <div class="grid-2">
         <div class="card do-card">
           <div class="card-title">
-            <span class="material-icons">check_circle</span>
+            <span class="material-icons-outlined">check_circle</span>
             When to Use
+          </div>
+          <div class="card-illustration">
+            <span class="card-illustration-label">Correct</span>
+            <div class="select-wrapper" style="min-width: 200px;">
+              <label class="select-label">Priority Level</label>
+              <div class="select-control">
+                <div class="select-input">
+                  <span>High</span>
+                  <span class="material-icons select-icon">arrow_drop_down</span>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="card-content">
             <ul>
@@ -347,8 +338,20 @@
 
         <div class="card dont-card">
           <div class="card-title">
-            <span class="material-icons">cancel</span>
+            <span class="material-icons-outlined">cancel</span>
             When NOT to Use
+          </div>
+          <div class="card-illustration card-illustration-wrong">
+            <span class="card-illustration-label">Incorrect</span>
+            <div class="select-wrapper" style="min-width: 200px;">
+              <label class="select-label">Gender</label>
+              <div class="select-control">
+                <div class="select-input">
+                  <span>Select</span>
+                  <span class="material-icons select-icon">arrow_drop_down</span>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="card-content">
             <ul>
@@ -363,15 +366,18 @@
       </div>
     </section>
 
-    <!-- STATE VARIANTS -->
+    <!-- VARIANTS -->
     <section class="section">
-      <h2 class="section-title">States</h2>
+      <h2 class="section-title">
+        <span class="material-icons-outlined">widgets</span>
+        Variants
+      </h2>
       <p class="section-description">
-        Select inputs have multiple states extracted from Figma specifications.
+        Select supports different configurations to accommodate various form contexts. The dropdown uses the custom Menu component for consistent styling across the application.
       </p>
 
       <div class="variant-group">
-        <div class="variant-label">Default</div>
+        <div class="variant-label">Default - With placeholder</div>
         <div class="select-row">
           <div class="select-wrapper">
             <label class="select-label">Country</label>
@@ -412,6 +418,36 @@
           </div>
         </div>
       </div>
+    </section>
+
+    <!-- STATES -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">toggle_on</span>
+        States
+      </h2>
+      <p class="section-description">
+        Select inputs have multiple interactive states to provide visual feedback. All state values are extracted directly from Figma specifications.
+      </p>
+
+      <div class="variant-group">
+        <div class="variant-label">Default & Hover</div>
+        <div class="select-row">
+          <div class="select-wrapper">
+            <label class="select-label">Country</label>
+            <div class="select-control">
+              <div class="select-input" onclick="toggleMenu(this)">
+                <span>Hover to see state change</span>
+                <span class="material-icons select-icon">arrow_drop_down</span>
+              </div>
+              <div class="select-menu">
+                <div class="select-menu-item" onclick="selectOption(this, 'United States')">United States</div>
+                <div class="select-menu-item" onclick="selectOption(this, 'Canada')">Canada</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div class="variant-group">
         <div class="variant-label">Error - Validation failure</div>
@@ -424,7 +460,6 @@
                 <span class="material-icons select-icon">arrow_drop_down</span>
               </div>
               <div class="select-menu">
-                <div class="select-menu-item" onclick="selectOption(this, 'Select an option')">Select an option</div>
                 <div class="select-menu-item" onclick="selectOption(this, 'Option 1')">Option 1</div>
                 <div class="select-menu-item" onclick="selectOption(this, 'Option 2')">Option 2</div>
               </div>
@@ -452,61 +487,69 @@
 
     <!-- BEST PRACTICES -->
     <section class="section">
-      <h2 class="section-title">Best Practices</h2>
-      <div class="do-dont-grid">
-        <div class="do-card">
-          <div class="do-card-title">
-            <span class="material-icons">check_circle</span>
+      <h2 class="section-title">
+        <span class="material-icons-outlined">recommend</span>
+        Best Practices
+      </h2>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">check_circle</span>
             Do
           </div>
-          <div class="card-content">
-            <strong>Logical Grouping:</strong><br>
-            <div style="margin-top: 8px;">
-              <div class="select-wrapper">
-                <label class="select-label">Priority Level</label>
-                <div class="select-control">
-                  <div class="select-input" onclick="toggleMenu(this)">
-                    <span>Select priority</span>
-                    <span class="material-icons select-icon">arrow_drop_down</span>
-                  </div>
-                  <div class="select-menu">
-                    <div class="select-menu-item" onclick="selectOption(this, 'Select priority')">Select priority</div>
-                    <div class="select-menu-item" onclick="selectOption(this, 'Low')">Low</div>
-                    <div class="select-menu-item" onclick="selectOption(this, 'Medium')">Medium</div>
-                    <div class="select-menu-item" onclick="selectOption(this, 'High')">High</div>
-                    <div class="select-menu-item" onclick="selectOption(this, 'Urgent')">Urgent</div>
-                  </div>
+          <div class="card-illustration">
+            <span class="card-illustration-label">Correct</span>
+            <div class="select-wrapper" style="min-width: 200px;">
+              <label class="select-label">Priority Level</label>
+              <div class="select-control">
+                <div class="select-input" onclick="toggleMenu(this)">
+                  <span>Select priority</span>
+                  <span class="material-icons select-icon">arrow_drop_down</span>
+                </div>
+                <div class="select-menu">
+                  <div class="select-menu-item" onclick="selectOption(this, 'Low')">Low</div>
+                  <div class="select-menu-item" onclick="selectOption(this, 'Medium')">Medium</div>
+                  <div class="select-menu-item" onclick="selectOption(this, 'High')">High</div>
+                  <div class="select-menu-item" onclick="selectOption(this, 'Urgent')">Urgent</div>
                 </div>
               </div>
             </div>
-            <p style="margin-top: 8px; font-size: 12px;">Options sorted by logical order (severity)</p>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Sort options in a logical order (severity, alphabetical, frequency)</li>
+              <li>Always include a visible label above the select</li>
+              <li>Use helper text to guide complex selections</li>
+              <li>Provide a meaningful placeholder (not just "Select")</li>
+              <li>Pre-select a default when one option is clearly most common</li>
+            </ul>
           </div>
         </div>
-
-        <div class="dont-card">
-          <div class="dont-card-title">
-            <span class="material-icons">cancel</span>
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">cancel</span>
             Don't
           </div>
-          <div class="card-content">
-            <strong>Too Few Options:</strong><br>
-            <div style="margin-top: 8px;">
-              <div class="select-wrapper">
-                <label class="select-label">Gender</label>
-                <div class="select-control">
-                  <div class="select-input" onclick="toggleMenu(this)">
-                    <span>Select</span>
-                    <span class="material-icons select-icon">arrow_drop_down</span>
-                  </div>
-                  <div class="select-menu">
-                    <div class="select-menu-item" onclick="selectOption(this, 'Select')">Select</div>
-                    <div class="select-menu-item" onclick="selectOption(this, 'Male')">Male</div>
-                    <div class="select-menu-item" onclick="selectOption(this, 'Female')">Female</div>
-                  </div>
+          <div class="card-illustration card-illustration-wrong">
+            <span class="card-illustration-label">Incorrect</span>
+            <div class="select-wrapper" style="min-width: 200px;">
+              <label class="select-label">Gender</label>
+              <div class="select-control">
+                <div class="select-input">
+                  <span>Select</span>
+                  <span class="material-icons select-icon">arrow_drop_down</span>
                 </div>
               </div>
             </div>
-            <p style="margin-top: 8px; font-size: 12px;">Don't use Select for only 2-3 options - use Radio buttons instead</p>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Don't use Select for only 2-3 options — use Radio buttons instead</li>
+              <li>Don't use vague placeholders like "Select" or "Choose"</li>
+              <li>Don't hide critical information behind a dropdown</li>
+              <li>Don't use for triggering actions (use Button or Menu)</li>
+              <li>Don't nest select dropdowns inside each other</li>
+            </ul>
           </div>
         </div>
       </div>
@@ -514,86 +557,77 @@
 
     <!-- TECHNICAL SPECIFICATIONS -->
     <section class="section">
-      <h2 class="section-title">Technical Specifications</h2>
+      <h2 class="section-title">
+        <span class="material-icons-outlined">construction</span>
+        Technical Specifications
+      </h2>
       <p class="section-description">
         All values extracted from Figma component instances (node: 2433:8481).
       </p>
 
-      <table class="spec-table">
+      <table class="property-table">
         <thead>
           <tr>
             <th>Property</th>
             <th>Value</th>
-            <th>Figma Source</th>
-            <th>Notes</th>
+            <th>Source</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>Input height</td>
-            <td>36px</td>
+            <td><code>36px</code></td>
             <td>TextField single-line instance</td>
-            <td>Select uses TextField component internally</td>
           </tr>
           <tr>
             <td>Total height (with label)</td>
-            <td>~58px</td>
-            <td><code>.absoluteBoundingBox.height</code></td>
-            <td>Includes label above input</td>
+            <td><code>~58px</code></td>
+            <td>.absoluteBoundingBox.height</td>
           </tr>
           <tr>
             <td>Default width</td>
-            <td>256px</td>
-            <td><code>.absoluteBoundingBox.width</code></td>
-            <td>Minimum recommended width</td>
+            <td><code>256px</code></td>
+            <td>.absoluteBoundingBox.width</td>
           </tr>
           <tr>
             <td>States</td>
-            <td>default, focus, disabled, error, selected</td>
-            <td><code>componentPropertyDefinitions.state.variantOptions</code></td>
-            <td>All state variants from Figma</td>
+            <td><code>default, focus, disabled, error, selected</code></td>
+            <td>componentPropertyDefinitions.state.variantOptions</td>
           </tr>
           <tr>
             <td>Type</td>
-            <td>open, closed</td>
-            <td><code>componentPropertyDefinitions.type.variantOptions</code></td>
-            <td>Dropdown open/closed states</td>
+            <td><code>open, closed</code></td>
+            <td>componentPropertyDefinitions.type.variantOptions</td>
           </tr>
           <tr>
             <td>Dropdown component</td>
-            <td>Custom Menu</td>
+            <td><code>Custom Menu</code></td>
             <td>Menu component (node: 4505:3795)</td>
-            <td>Uses design system Menu instead of system dropdown</td>
           </tr>
           <tr>
             <td>Border (default)</td>
-            <td>#9E9E9E</td>
-            <td><code>tokens.colors.components.input.enabledBorder</code></td>
-            <td>Default border color</td>
+            <td><code>#9E9E9E</code></td>
+            <td>tokens.colors.components.input.enabledBorder</td>
           </tr>
           <tr>
             <td>Border (focus)</td>
-            <td>#64B5F6 (2px)</td>
-            <td><code>tokens.colors.border.focus</code></td>
-            <td>Focus state with thicker border</td>
+            <td><code>#64B5F6</code> (2px)</td>
+            <td>tokens.colors.border.focus</td>
           </tr>
           <tr>
             <td>Border (error)</td>
-            <td>#DB4537</td>
-            <td><code>tokens.colors.error.main</code></td>
-            <td>Error validation state</td>
+            <td><code>#DB4537</code></td>
+            <td>tokens.colors.error.main</td>
           </tr>
           <tr>
             <td>Padding</td>
-            <td>0 40px 0 16px</td>
+            <td><code>0 40px 0 16px</code></td>
             <td>Internal spacing</td>
-            <td>Right padding for dropdown icon</td>
           </tr>
           <tr>
             <td>Typography</td>
-            <td>14px Roboto Regular</td>
-            <td><code>tokens.typography.fontSize.sm</code></td>
-            <td>For option text</td>
+            <td>Roboto <code>14px</code>, weight <code>400</code></td>
+            <td>tokens.typography.fontSize.sm</td>
           </tr>
         </tbody>
       </table>

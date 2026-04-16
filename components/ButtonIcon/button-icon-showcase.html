@@ -2,17 +2,111 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Button Icon - TRIO WFS Design System</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
   <link rel="stylesheet" href="../../design-system-shell.css">
   <style>
+
+    /* ============================================================
+       TEMPLATE OVERRIDE — CONTINUOUS CANVAS
+       ============================================================ */
+    .main-content {
+      background: var(--color-background-secondary);
+      min-height: 100vh;
+    }
+
+    .section {
+      background: transparent;
+      border-radius: 0;
+      padding: 0;
+      margin-bottom: 0;
+      padding-bottom: var(--spacing-xl);
+    }
+
+    .section + .section {
+      border-top: 1px solid var(--color-secondary-outline);
+      padding-top: var(--spacing-xl);
+    }
+
+    /* ── Section title icons ── */
+    .section-title .material-icons-outlined,
+    .section-title .material-icons {
+      font-size: 18px;
+    }
+
+    /* ── Tables: paper + border ── */
+    .section .property-table {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .section .property-table th {
+      background: var(--color-background-paper);
+    }
+
+    /* ── Cards: paper ── */
+    .card {
+      background: var(--color-background-paper);
+    }
+
+    /* ── Card illustrations for Do/Don't ── */
+    .card-illustration {
+      background: var(--color-background-secondary, #FAFAFA);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      padding: var(--spacing-md);
+      margin-bottom: var(--spacing-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 80px;
+      position: relative;
+    }
+    .card-illustration-label {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      font-size: 9px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 2px 6px;
+      border-radius: 999px;
+    }
+    .do-card .card-illustration-label {
+      background: var(--color-success-light, #E8F5E9);
+      color: var(--color-success-main);
+    }
+    .dont-card .card-illustration-label {
+      background: var(--color-error-light, #FBEAED);
+      color: var(--color-error-main);
+    }
+    .card-illustration-wrong::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 16px;
+      right: 16px;
+      height: 2px;
+      background: var(--color-error-main);
+      opacity: 0.4;
+      transform: rotate(-3deg);
+    }
+
+    /* ── Demo rows: paper + border ── */
     .demo-row {
       display: flex;
       align-items: center;
       gap: var(--spacing-lg);
       flex-wrap: wrap;
+      padding: var(--spacing-lg);
+      background: var(--color-background-paper);
+      border-radius: var(--border-radius);
+      border: 1px solid var(--color-secondary-outline);
       margin-bottom: var(--spacing-lg);
     }
 
@@ -142,28 +236,129 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
+
   </style>
   <script src="../../design-system-nav.js"></script>
 </head>
 <body>
-  <aside class="sidebar"></aside>
+  <!-- LEFT NAVIGATION -->
+  <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
+
+  <!-- MAIN CONTENT -->
   <main class="main-content">
-
-    <div class="page-header">
+    <!-- PAGE HEADER -->
+    <header class="page-header">
       <h1 class="page-title">Button Icon</h1>
-      <p class="page-description">Icon-only buttons for compact actions where the icon alone communicates the intent. Use sparingly — prefer labeled buttons when the action isn't immediately obvious.</p>
-    </div>
+      <p class="page-subtitle">
+        Icon-only buttons for compact actions where the icon alone communicates the intent. Use sparingly — prefer labeled buttons when the action isn't immediately obvious.
+      </p>
+      <div class="component-meta">
+        <span><span class="material-icons-outlined" style="font-size: 14px;">category</span> Atomic Component</span>
+        <a href="#" class="meta-link"><span class="material-icons-outlined" style="font-size: 14px;">menu_book</span> Storybook</a>
+        <a href="#" class="meta-link"><span class="material-icons-outlined" style="font-size: 14px;">design_services</span> Zeplin</a>
+        <span><span class="material-icons-outlined" style="font-size: 14px;">verified</span> Production Ready</span>
+      </div>
+    </header>
 
-    <!-- 1. Overview -->
+    <!-- OVERVIEW -->
     <section class="section">
-      <h2 class="section-title"><span class="material-icons">info</span>Overview</h2>
-      <p class="section-description">ButtonIcon wraps MUI IconButton with TRIO WFS design tokens. Use when space is constrained and the icon is unambiguous — toolbars, toggle groups, and inline table actions. Always provide an <code>aria-label</code> for accessibility. Supports a badge overlay for notification counts.</p>
+      <h2 class="section-title">
+        <span class="material-icons-outlined">info</span>
+        Overview
+      </h2>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">psychology</span>
+            Purpose
+          </div>
+          <div class="card-content">
+            ButtonIcon wraps MUI IconButton with TRIO WFS design tokens. Use when space is constrained and the icon is unambiguous — toolbars, toggle groups, and inline table actions.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">tune</span>
+            Variants
+          </div>
+          <div class="card-content">
+            Two visual styles: <strong>contained</strong> (filled background) and <strong>ghost</strong> (transparent, with hover ripple). Each supports primary and secondary color schemes, plus sm and md sizes.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">accessibility</span>
+            Accessibility
+          </div>
+          <div class="card-content">
+            Always provide an <code>aria-label</code> for accessibility. Supports a badge overlay for notification counts. Pair with Tooltip for discoverability.
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- 2. Variants -->
+    <!-- USAGE GUIDELINES -->
     <section class="section">
-      <h2 class="section-title"><span class="material-icons">palette</span>Variants</h2>
-      <p class="section-description">Two visual styles: <strong>contained</strong> (filled background) and <strong>ghost</strong> (transparent, with hover ripple).</p>
+      <h2 class="section-title">
+        <span class="material-icons-outlined">rule</span>
+        Usage Guidelines
+      </h2>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">check_circle</span>
+            When to Use
+          </div>
+          <div class="card-illustration">
+            <span class="card-illustration-label">Correct</span>
+            <div style="display: flex; gap: 8px; align-items: center;">
+              <button class="icon-btn icon-btn-sm icon-btn-ghost-primary"><span class="material-icons">edit</span></button>
+              <button class="icon-btn icon-btn-sm icon-btn-ghost-primary"><span class="material-icons">more_vert</span></button>
+            </div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Compact toolbars and action bars</li>
+              <li>Inline table row actions (edit, delete, more)</li>
+              <li>Toggle groups using ToggleButton strip</li>
+              <li>When the icon is universally recognized (edit, delete, close)</li>
+              <li>Notification indicators with badge overlays</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">cancel</span>
+            When NOT to Use
+          </div>
+          <div class="card-illustration card-illustration-wrong">
+            <span class="card-illustration-label">Incorrect</span>
+            <div style="display: flex; gap: 8px; align-items: center;">
+              <button class="icon-btn icon-btn-md icon-btn-contained-primary"><span class="material-icons">send</span></button>
+              <button class="icon-btn icon-btn-md icon-btn-contained-primary"><span class="material-icons">star</span></button>
+            </div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Don't use icon-only buttons for primary page actions — use a labeled Button</li>
+              <li>Don't use ambiguous icons without a tooltip</li>
+              <li>Don't mix contained and ghost styles in the same toolbar strip</li>
+              <li>Don't use badge counts above 99 — truncate to "99+"</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VARIANTS -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">widgets</span>
+        Variants
+      </h2>
+      <p class="section-description">
+        Two visual styles: <strong>contained</strong> (filled background) and <strong>ghost</strong> (transparent, with hover ripple). Each supports primary and secondary color schemes.
+      </p>
 
       <div class="variant-group">
         <div class="variant-label">Contained — Primary</div>
@@ -244,82 +439,114 @@
       </div>
     </section>
 
-    <!-- 3. Badge -->
+    <!-- STATES -->
     <section class="section">
-      <h2 class="section-title"><span class="material-icons">notifications</span>Badge Overlay</h2>
-      <p class="section-description">An optional red badge overlays the top-right corner — dot-only for presence, count for quantity.</p>
-      <div class="demo-row">
-        <div class="state-col">
-          <div class="badge-wrapper">
-            <button class="icon-btn icon-btn-md icon-btn-contained-secondary"><span class="material-icons">notifications</span></button>
-            <span class="badge-dot"></span>
+      <h2 class="section-title">
+        <span class="material-icons-outlined">toggle_on</span>
+        States
+      </h2>
+      <p class="section-description">
+        ButtonIcon supports badge overlays and contextual toolbar groupings — the primary use cases in TRIO WFS.
+      </p>
+
+      <div class="variant-group">
+        <div class="variant-label">Badge Overlay</div>
+        <div class="demo-row">
+          <div class="state-col">
+            <div class="badge-wrapper">
+              <button class="icon-btn icon-btn-md icon-btn-contained-secondary"><span class="material-icons">notifications</span></button>
+              <span class="badge-dot"></span>
+            </div>
+            <span class="state-col-label">Dot</span>
           </div>
-          <span class="state-col-label">Dot</span>
+          <div class="state-col">
+            <div class="badge-wrapper">
+              <button class="icon-btn icon-btn-md icon-btn-contained-secondary"><span class="material-icons">notifications</span></button>
+              <span class="badge-count">3</span>
+            </div>
+            <span class="state-col-label">Count</span>
+          </div>
+          <div class="state-col">
+            <div class="badge-wrapper">
+              <button class="icon-btn icon-btn-md icon-btn-contained-primary"><span class="material-icons">filter_alt</span></button>
+              <span class="badge-count">12</span>
+            </div>
+            <span class="state-col-label">Count (Primary)</span>
+          </div>
+          <div class="state-col">
+            <div class="badge-wrapper">
+              <button class="icon-btn icon-btn-sm icon-btn-contained-secondary"><span class="material-icons">notifications</span></button>
+              <span class="badge-count">5</span>
+            </div>
+            <span class="state-col-label">sm + Count</span>
+          </div>
         </div>
-        <div class="state-col">
-          <div class="badge-wrapper">
-            <button class="icon-btn icon-btn-md icon-btn-contained-secondary"><span class="material-icons">notifications</span></button>
-            <span class="badge-count">3</span>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">In Context — Toolbar Groupings</div>
+        <div class="demo-row">
+          <!-- Inline toolbar strip -->
+          <div style="display: flex; border: 1px solid var(--color-primary-main); border-radius: var(--border-radius); overflow: hidden;">
+            <button class="icon-btn icon-btn-sm icon-btn-ghost-primary" style="border-radius: 0; border-right: 1px solid var(--color-primary-main)"><span class="material-icons" style="font-size:16px">filter_alt_off</span></button>
+            <button class="icon-btn icon-btn-sm icon-btn-ghost-primary" style="border-radius: 0; border-right: 1px solid var(--color-primary-main)"><span class="material-icons" style="font-size:16px">file_download</span></button>
+            <button class="icon-btn icon-btn-sm icon-btn-ghost-primary" style="border-radius: 0;"><span class="material-icons" style="font-size:16px">restart_alt</span></button>
           </div>
-          <span class="state-col-label">Count</span>
-        </div>
-        <div class="state-col">
-          <div class="badge-wrapper">
-            <button class="icon-btn icon-btn-md icon-btn-contained-primary"><span class="material-icons">filter_alt</span></button>
-            <span class="badge-count">12</span>
+          <!-- Standalone in a table row -->
+          <div style="display: flex; align-items: center; gap: 4px; padding: 4px 8px; background: var(--color-background-paper); border: 1px solid var(--color-secondary-outline); border-radius: var(--border-radius);">
+            <span style="font-size: 13px; color: var(--color-text-primary); margin-right: 8px;">Worker Name</span>
+            <button class="icon-btn icon-btn-sm icon-btn-ghost-primary"><span class="material-icons" style="font-size:16px">edit</span></button>
+            <button class="icon-btn icon-btn-sm icon-btn-ghost-primary"><span class="material-icons" style="font-size:16px">more_vert</span></button>
           </div>
-          <span class="state-col-label">Count (Primary)</span>
-        </div>
-        <div class="state-col">
-          <div class="badge-wrapper">
-            <button class="icon-btn icon-btn-sm icon-btn-contained-secondary"><span class="material-icons">notifications</span></button>
-            <span class="badge-count">5</span>
-          </div>
-          <span class="state-col-label">sm + Count</span>
         </div>
       </div>
     </section>
 
-    <!-- 4. In Context -->
+    <!-- BEST PRACTICES -->
     <section class="section">
-      <h2 class="section-title"><span class="material-icons">view_in_ar</span>In Context</h2>
-      <p class="section-description">How ButtonIcon appears in toolbar groupings — the primary use case in TRIO WFS.</p>
-      <div class="demo-row">
-        <!-- Inline toolbar strip (simulating toggleButton) -->
-        <div style="display: flex; border: 1px solid var(--color-primary-main); border-radius: var(--border-radius); overflow: hidden;">
-          <button class="icon-btn icon-btn-sm icon-btn-ghost-primary" style="border-radius: 0; border-right: 1px solid var(--color-primary-main)"><span class="material-icons" style="font-size:16px">filter_alt_off</span></button>
-          <button class="icon-btn icon-btn-sm icon-btn-ghost-primary" style="border-radius: 0; border-right: 1px solid var(--color-primary-main)"><span class="material-icons" style="font-size:16px">file_download</span></button>
-          <button class="icon-btn icon-btn-sm icon-btn-ghost-primary" style="border-radius: 0;"><span class="material-icons" style="font-size:16px">restart_alt</span></button>
-        </div>
-        <!-- Standalone in a table row -->
-        <div style="display: flex; align-items: center; gap: 4px; padding: 4px 8px; background: var(--color-background-paper); border: 1px solid var(--color-secondary-outline); border-radius: var(--border-radius);">
-          <span style="font-size: 13px; color: var(--color-text-primary); margin-right: 8px;">Worker Name</span>
-          <button class="icon-btn icon-btn-sm icon-btn-ghost-primary"><span class="material-icons" style="font-size:16px">edit</span></button>
-          <button class="icon-btn icon-btn-sm icon-btn-ghost-primary"><span class="material-icons" style="font-size:16px">more_vert</span></button>
-        </div>
-      </div>
-    </section>
-
-    <!-- 5. Best Practices -->
-    <section class="section">
-      <h2 class="section-title"><span class="material-icons">rule</span>Best Practices</h2>
+      <h2 class="section-title">
+        <span class="material-icons-outlined">recommend</span>
+        Best Practices
+      </h2>
       <div class="grid-2">
-        <div class="card">
-          <div class="card-title" style="color: var(--color-success-main)">Do</div>
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">check_circle</span>
+            Do
+          </div>
+          <div class="card-illustration">
+            <span class="card-illustration-label">Correct</span>
+            <div style="display: flex; gap: 4px; align-items: center;">
+              <button class="icon-btn icon-btn-sm icon-btn-ghost-primary"><span class="material-icons" style="font-size:16px">edit</span></button>
+              <button class="icon-btn icon-btn-sm icon-btn-ghost-primary"><span class="material-icons" style="font-size:16px">verified_user</span></button>
+              <button class="icon-btn icon-btn-sm icon-btn-ghost-primary"><span class="material-icons" style="font-size:16px">more_vert</span></button>
+            </div>
+          </div>
           <div class="card-content">
-            <ul style="padding-left: 16px; margin: 0; font-size: 13px; line-height: 1.6;">
+            <ul>
               <li>Always provide an <code>aria-label</code></li>
               <li>Use <strong>ghost</strong> for inline/table actions — least disruptive</li>
               <li>Use <strong>contained primary</strong> for toolbar toggles and high-visibility actions</li>
-              <li>Use <strong>contained secondary</strong> as the default toolbar button when multiple actions are equal weight</li>
+              <li>Use <strong>contained secondary</strong> as the default toolbar button</li>
               <li>Group related icon buttons into a toggle strip using ToggleButton</li>
             </ul>
           </div>
         </div>
-        <div class="card">
-          <div class="card-title" style="color: var(--color-error-main)">Don't</div>
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">cancel</span>
+            Don't
+          </div>
+          <div class="card-illustration card-illustration-wrong">
+            <span class="card-illustration-label">Incorrect</span>
+            <div style="display: flex; gap: 4px; align-items: center;">
+              <button class="icon-btn icon-btn-md icon-btn-contained-primary"><span class="material-icons">send</span></button>
+              <button class="icon-btn icon-btn-md icon-btn-ghost-primary"><span class="material-icons">star</span></button>
+              <button class="icon-btn icon-btn-md icon-btn-contained-secondary"><span class="material-icons">help</span></button>
+            </div>
+          </div>
           <div class="card-content">
-            <ul style="padding-left: 16px; margin: 0; font-size: 13px; line-height: 1.6;">
+            <ul>
               <li>Don't use icon-only buttons for primary page actions — use a labeled Button instead</li>
               <li>Don't use ambiguous icons without a tooltip</li>
               <li>Don't mix contained and ghost styles in the same toolbar strip</li>
@@ -330,25 +557,31 @@
       </div>
     </section>
 
-    <!-- 6. Technical Specifications -->
+    <!-- TECHNICAL SPECIFICATIONS -->
     <section class="section">
-      <h2 class="section-title"><span class="material-icons">straighten</span>Technical Specifications</h2>
+      <h2 class="section-title">
+        <span class="material-icons-outlined">construction</span>
+        Technical Specifications
+      </h2>
+      <p class="section-description">
+        All values extracted from Figma component instances.
+      </p>
+
       <table class="property-table">
         <thead><tr><th>Property</th><th>Value</th><th>Source</th></tr></thead>
         <tbody>
-          <tr><td>Size sm — button</td><td>24 × 24px</td><td>Figma node extracted</td></tr>
-          <tr><td>Size sm — icon</td><td>16px</td><td>Figma node extracted</td></tr>
-          <tr><td>Size md — button</td><td>36 × 36px</td><td>Figma node extracted</td></tr>
-          <tr><td>Size md — icon</td><td>24px</td><td>Figma node extracted</td></tr>
-          <tr><td>Border radius (contained)</td><td>4px</td><td>Design token</td></tr>
-          <tr><td>Border radius (ghost)</td><td>999px (circle)</td><td>Figma node extracted</td></tr>
-          <tr><td>Badge size</td><td>16 × 16px</td><td>Figma node extracted</td></tr>
-          <tr><td>Badge font</td><td>11px / 500</td><td>Design token</td></tr>
+          <tr><td>Size sm — button</td><td><code>24 x 24px</code></td><td>Figma node extracted</td></tr>
+          <tr><td>Size sm — icon</td><td><code>16px</code></td><td>Figma node extracted</td></tr>
+          <tr><td>Size md — button</td><td><code>36 x 36px</code></td><td>Figma node extracted</td></tr>
+          <tr><td>Size md — icon</td><td><code>24px</code></td><td>Figma node extracted</td></tr>
+          <tr><td>Border radius (contained)</td><td><code>4px</code></td><td>Design token</td></tr>
+          <tr><td>Border radius (ghost)</td><td><code>999px</code> (circle)</td><td>Figma node extracted</td></tr>
+          <tr><td>Badge size</td><td><code>16 x 16px</code></td><td>Figma node extracted</td></tr>
+          <tr><td>Badge font</td><td><code>11px / 500</code></td><td>Design token</td></tr>
           <tr><td>MUI base</td><td>@mui/material/IconButton</td><td>Implementation</td></tr>
         </tbody>
       </table>
     </section>
-
   </main>
 </body>
 </html>

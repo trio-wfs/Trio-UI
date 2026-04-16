@@ -2,16 +2,113 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Badge - TRIO WFS Design System</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
   <link rel="stylesheet" href="../../design-system-shell.css">
   <style>
+
+    /* ============================================================
+       TEMPLATE OVERRIDE — CONTINUOUS CANVAS
+       ============================================================ */
+    .main-content {
+      background: var(--color-background-secondary);
+      min-height: 100vh;
+    }
+
+    .section {
+      background: transparent;
+      border-radius: 0;
+      padding: 0;
+      margin-bottom: 0;
+      padding-bottom: var(--spacing-xl);
+    }
+
+    .section + .section {
+      border-top: 1px solid var(--color-secondary-outline);
+      padding-top: var(--spacing-xl);
+    }
+
+    /* ── Section title icons ── */
+    .section-title .material-icons-outlined,
+    .section-title .material-icons {
+      font-size: 18px;
+    }
+
+    /* ── Tables: paper + border ── */
+    .section .property-table,
+    .section .spec-table {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .section .property-table th,
+    .section .spec-table th {
+      background: var(--color-background-paper);
+    }
+
+    /* ── Cards: paper ── */
+    .card {
+      background: var(--color-background-paper);
+    }
+
+    /* ── Card illustrations for Do/Don't ── */
+    .card-illustration {
+      background: var(--color-background-secondary, #FAFAFA);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      padding: var(--spacing-md);
+      margin-bottom: var(--spacing-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 80px;
+      position: relative;
+    }
+    .card-illustration-label {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      font-size: 9px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 2px 6px;
+      border-radius: 999px;
+    }
+    .do-card .card-illustration-label {
+      background: var(--color-success-light, #E8F5E9);
+      color: var(--color-success-main);
+    }
+    .dont-card .card-illustration-label {
+      background: var(--color-error-light, #FBEAED);
+      color: var(--color-error-main);
+    }
+    .card-illustration-wrong::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 16px;
+      right: 16px;
+      height: 2px;
+      background: var(--color-error-main);
+      opacity: 0.4;
+      transform: rotate(-3deg);
+    }
+
+    /* ── Demo rows: paper ── */
     .badge-demo {
       display: flex;
       flex-wrap: wrap;
       gap: var(--spacing-xl);
       align-items: center;
+      padding: var(--spacing-lg);
+      background: var(--color-background-paper);
+      border-radius: var(--border-radius);
+      border: 1px solid var(--color-secondary-outline);
     }
 
     .badge-item {
@@ -51,14 +148,12 @@
       border-radius: 999px;
     }
 
-    /* Default type: 16px height, pill */
     .badge-default {
       height: 16px;
       min-width: 16px;
       padding: 0 4px;
     }
 
-    /* Dot type: 8px diameter */
     .badge-dot {
       height: 8px;
       width: 8px;
@@ -85,27 +180,163 @@
       justify-content: center;
       color: var(--color-icon-default);
     }
+
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .spec-table th,
+    .spec-table td {
+      padding: var(--spacing-md);
+      text-align: left;
+      border-bottom: 1px solid var(--color-secondary-outline);
+    }
+    .spec-table th {
+      font-weight: 500;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--color-text-secondary);
+    }
+    .spec-table td {
+      font-size: 14px;
+    }
+    .spec-table tr:last-child td {
+      border-bottom: none;
+    }
+
   </style>
   <script src="../../design-system-nav.js"></script>
 </head>
 <body>
-  <aside class="sidebar"></aside>
+  <!-- LEFT NAVIGATION -->
+  <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
+
+  <!-- MAIN CONTENT -->
   <main class="main-content">
 
-    <div class="page-header">
+    <!-- PAGE HEADER -->
+    <header class="page-header">
       <h1 class="page-title">Badge</h1>
-      <p class="page-description">Badges are small status indicators anchored to an element — used to show counts, notifications, or state without interrupting the user's flow.</p>
-    </div>
+      <p class="page-subtitle">
+        Badges are small status indicators anchored to an element — used to show counts, notifications, or state without interrupting the user's flow.
+      </p>
+      <div class="component-meta">
+        <span><span class="material-icons-outlined" style="font-size: 14px;">category</span> Atomic Component</span>
+        <a href="#" class="meta-link"><span class="material-icons-outlined" style="font-size: 14px;">menu_book</span> Storybook</a>
+        <a href="#" class="meta-link"><span class="material-icons-outlined" style="font-size: 14px;">design_services</span> Zeplin</a>
+        <span><span class="material-icons-outlined" style="font-size: 14px;">verified</span> Production Ready</span>
+      </div>
+    </header>
 
-    <!-- 1. Overview -->
+    <!-- OVERVIEW -->
     <section class="section">
-      <h2 class="section-title"><span class="material-icons">info</span>Overview</h2>
-      <p class="section-description">Use the default type to show numeric counts (unread messages, pending items). Use the dot type as a simple presence indicator when the count isn't meaningful. In VMS workflows, badges commonly appear on nav items, icons, and list items to signal pending credentialing, timecard, or submission activity.</p>
+      <h2 class="section-title">
+        <span class="material-icons-outlined">info</span>
+        Overview
+      </h2>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">psychology</span>
+            Purpose
+          </div>
+          <div class="card-content">
+            Badges signal pending activity or counts without interrupting the user. In VMS workflows, they commonly appear on nav items, icons, and list items to indicate pending credentialing, timecard, or submission activity.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">swap_horiz</span>
+            Types
+          </div>
+          <div class="card-content">
+            <strong>Default</strong> — shows numeric counts (unread messages, pending items). 16px height pill shape.<br>
+            <strong>Dot</strong> — simple presence indicator when count isn't meaningful. 8px diameter.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">accessibility</span>
+            Accessibility
+          </div>
+          <div class="card-content">
+            Badges use aria-label to announce counts to screen readers. Color alone does not convey meaning — pair with contextual text for assistive technology users.
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- 2. Colors -->
+    <!-- USAGE GUIDELINES -->
     <section class="section">
-      <h2 class="section-title"><span class="material-icons">palette</span>Colors — Default Type</h2>
+      <h2 class="section-title">
+        <span class="material-icons-outlined">rule</span>
+        Usage Guidelines
+      </h2>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">check_circle</span>
+            When to Use
+          </div>
+          <div class="card-illustration">
+            <span class="card-illustration-label">Correct</span>
+            <div style="display: flex; gap: 32px; align-items: center;">
+              <div class="badge-anchor">
+                <div class="icon-anchor"><span class="material-icons">notifications</span></div>
+                <div class="badge badge-default badge-error">3</div>
+              </div>
+              <div class="badge-anchor">
+                <div class="icon-anchor"><span class="material-icons">mail</span></div>
+                <div class="badge badge-dot badge-primary"></div>
+              </div>
+            </div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Use <strong>error</strong> color for expired credentials, overdue timecards</li>
+              <li>Use <strong>primary</strong> for general counts (pending submissions, new messages)</li>
+              <li>Cap displayed counts at 99+ for large numbers</li>
+              <li>Use <strong>dot</strong> when the user needs to notice activity, not count it</li>
+              <li>Anchor badges to icons or avatar elements</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">cancel</span>
+            When NOT to Use
+          </div>
+          <div class="card-illustration card-illustration-wrong">
+            <span class="card-illustration-label">Incorrect</span>
+            <div style="display: flex; gap: 32px; align-items: center;">
+              <div style="position: relative; display: inline-flex;">
+                <span style="font-size: 14px; color: var(--color-text-primary);">Total Items</span>
+                <div class="badge badge-default badge-primary" style="position: static; margin-left: 8px;">42</div>
+              </div>
+            </div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Don't use badges for decorative purposes</li>
+              <li>Don't place a badge on text — anchor to icons or avatar elements</li>
+              <li>Don't mix badge colors arbitrarily — color must communicate severity</li>
+              <li>Don't use badges as standalone status labels (use Chip instead)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VARIANTS — COLORS DEFAULT TYPE -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">widgets</span>
+        Variants — Default Type
+      </h2>
+      <p class="section-description">
+        Default badges show numeric counts with a pill-shaped background. All 6 semantic colors are available.
+      </p>
       <div class="badge-demo">
         <div class="badge-item">
           <div class="badge-anchor">
@@ -152,9 +383,12 @@
       </div>
     </section>
 
-    <!-- 3. Dot Type -->
+    <!-- VARIANTS — DOT TYPE -->
     <section class="section">
-      <h2 class="section-title"><span class="material-icons">fiber_manual_record</span>Dot Type</h2>
+      <h2 class="section-title">
+        <span class="material-icons-outlined">fiber_manual_record</span>
+        Variants — Dot Type
+      </h2>
       <p class="section-description">Use when presence matters but count doesn't.</p>
       <div class="badge-demo">
         <div class="badge-item">
@@ -188,52 +422,230 @@
       </div>
     </section>
 
-    <!-- 4. Best Practices -->
+    <!-- STATES -->
     <section class="section">
-      <h2 class="section-title"><span class="material-icons">rule</span>Best Practices</h2>
+      <h2 class="section-title">
+        <span class="material-icons-outlined">toggle_on</span>
+        States
+      </h2>
+      <p class="section-description">
+        Badges are passive indicators and do not have interactive states. They update reactively based on data changes (count changes, presence toggles).
+      </p>
+      <div class="badge-demo">
+        <div class="badge-item">
+          <div class="badge-anchor">
+            <div class="icon-anchor"><span class="material-icons">notifications</span></div>
+            <div class="badge badge-default badge-error">1</div>
+          </div>
+          <div class="badge-item-label">Single Digit</div>
+        </div>
+        <div class="badge-item">
+          <div class="badge-anchor">
+            <div class="icon-anchor"><span class="material-icons">notifications</span></div>
+            <div class="badge badge-default badge-error">12</div>
+          </div>
+          <div class="badge-item-label">Double Digit</div>
+        </div>
+        <div class="badge-item">
+          <div class="badge-anchor">
+            <div class="icon-anchor"><span class="material-icons">notifications</span></div>
+            <div class="badge badge-default badge-error">99+</div>
+          </div>
+          <div class="badge-item-label">Overflow</div>
+        </div>
+        <div class="badge-item">
+          <div class="badge-anchor">
+            <div class="icon-anchor"><span class="material-icons">notifications</span></div>
+            <div class="badge badge-dot badge-error"></div>
+          </div>
+          <div class="badge-item-label">Dot</div>
+        </div>
+        <div class="badge-item">
+          <div class="badge-anchor">
+            <div class="icon-anchor"><span class="material-icons">notifications</span></div>
+          </div>
+          <div class="badge-item-label">No Badge</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BEST PRACTICES -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">recommend</span>
+        Best Practices
+      </h2>
       <div class="grid-2">
-        <div class="card">
-          <div class="card-title" style="color: var(--color-success-main)">Do</div>
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">check_circle</span>
+            Do
+          </div>
+          <div class="card-illustration">
+            <span class="card-illustration-label">Correct</span>
+            <div style="display: flex; gap: 32px; align-items: center;">
+              <div class="badge-anchor">
+                <div class="icon-anchor"><span class="material-icons">assignment_late</span></div>
+                <div class="badge badge-default badge-error">5</div>
+              </div>
+              <div class="badge-anchor">
+                <div class="icon-anchor"><span class="material-icons">inbox</span></div>
+                <div class="badge badge-default badge-primary">12</div>
+              </div>
+            </div>
+          </div>
           <div class="card-content">
-            <ul style="padding-left: 16px; margin: 0; font-size: 13px; line-height: 1.6;">
-              <li>Use <strong>error</strong> color for expired credentials, overdue timecards</li>
-              <li>Use <strong>primary</strong> for general counts (pending submissions, new messages)</li>
+            <ul>
+              <li>Use <strong>error</strong> for urgent items (expired credentials, overdue timecards)</li>
+              <li>Use <strong>primary</strong> for general activity counts</li>
               <li>Cap displayed counts at 99+ for large numbers</li>
-              <li>Use <strong>dot</strong> when the user needs to notice activity, not count it</li>
+              <li>Use <strong>dot</strong> when presence matters more than count</li>
+              <li>Clear badges when the user has addressed the pending items</li>
             </ul>
           </div>
         </div>
-        <div class="card">
-          <div class="card-title" style="color: var(--color-error-main)">Don't</div>
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">cancel</span>
+            Don't
+          </div>
+          <div class="card-illustration card-illustration-wrong">
+            <span class="card-illustration-label">Incorrect</span>
+            <div style="display: flex; gap: 24px; align-items: center;">
+              <div class="badge-anchor">
+                <div class="icon-anchor"><span class="material-icons">notifications</span></div>
+                <div class="badge badge-default badge-primary">0</div>
+              </div>
+              <div class="badge-anchor">
+                <div class="icon-anchor"><span class="material-icons">notifications</span></div>
+                <div class="badge badge-default badge-success">4</div>
+              </div>
+              <div class="badge-anchor">
+                <div class="icon-anchor"><span class="material-icons">notifications</span></div>
+                <div class="badge badge-default badge-warning">4</div>
+              </div>
+            </div>
+          </div>
           <div class="card-content">
-            <ul style="padding-left: 16px; margin: 0; font-size: 13px; line-height: 1.6;">
+            <ul>
+              <li>Don't show a badge with count 0 — remove it entirely</li>
               <li>Don't use badges for decorative purposes</li>
-              <li>Don't place a badge on text — anchor to icons or avatar elements</li>
               <li>Don't mix badge colors arbitrarily — color must communicate severity</li>
+              <li>Don't place a badge on text — anchor to icons or avatar elements</li>
             </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 5. Color Semantics -->
+    <!-- COLOR SEMANTICS -->
     <section class="section">
-      <h2 class="section-title"><span class="material-icons">color_lens</span>Color Semantics</h2>
-      <div class="grid-3">
-        <div class="card"><div class="card-title">Primary</div><div class="card-content">General activity counts — new submissions, unread messages.</div></div>
-        <div class="card"><div class="card-title">Error</div><div class="card-content">Urgent items requiring action — expired documents, overdue timecards.</div></div>
-        <div class="card"><div class="card-title">Warning</div><div class="card-content">Items approaching a deadline or threshold.</div></div>
-        <div class="card"><div class="card-title">Success</div><div class="card-content">Completed or verified items — use sparingly.</div></div>
-        <div class="card"><div class="card-title">Info</div><div class="card-content">Neutral informational counts.</div></div>
-        <div class="card"><div class="card-title">Secondary</div><div class="card-content">De-emphasized counts — inactive or archived items.</div></div>
-      </div>
+      <h2 class="section-title">
+        <span class="material-icons-outlined">palette</span>
+        Color Semantics
+      </h2>
+      <p class="section-description">
+        Badge colors communicate severity and type of pending activity in VMS workflows.
+      </p>
+
+      <table class="property-table">
+        <thead>
+          <tr>
+            <th>Color</th>
+            <th>When to Use</th>
+            <th>Example</th>
+            <th>Visual</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>primary</code></td>
+            <td>General activity counts</td>
+            <td>New submissions, unread messages</td>
+            <td>
+              <div class="badge-anchor" style="position:static; display:inline-flex;">
+                <div class="icon-anchor" style="width:32px;height:32px;"><span class="material-icons" style="font-size:18px;">mail</span></div>
+                <div class="badge badge-default badge-primary" style="top:-4px;right:-4px;">3</div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><code>error</code></td>
+            <td>Urgent items requiring action</td>
+            <td>Expired documents, overdue timecards</td>
+            <td>
+              <div class="badge-anchor" style="position:static; display:inline-flex;">
+                <div class="icon-anchor" style="width:32px;height:32px;"><span class="material-icons" style="font-size:18px;">assignment_late</span></div>
+                <div class="badge badge-default badge-error" style="top:-4px;right:-4px;">5</div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><code>warning</code></td>
+            <td>Items approaching a deadline</td>
+            <td>Credentials expiring soon</td>
+            <td>
+              <div class="badge-anchor" style="position:static; display:inline-flex;">
+                <div class="icon-anchor" style="width:32px;height:32px;"><span class="material-icons" style="font-size:18px;">schedule</span></div>
+                <div class="badge badge-default badge-warning" style="top:-4px;right:-4px;">2</div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><code>success</code></td>
+            <td>Completed or verified items</td>
+            <td>Approved timecards — use sparingly</td>
+            <td>
+              <div class="badge-anchor" style="position:static; display:inline-flex;">
+                <div class="icon-anchor" style="width:32px;height:32px;"><span class="material-icons" style="font-size:18px;">verified</span></div>
+                <div class="badge badge-default badge-success" style="top:-4px;right:-4px;">1</div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><code>info</code></td>
+            <td>Neutral informational counts</td>
+            <td>Available shifts, total open orders</td>
+            <td>
+              <div class="badge-anchor" style="position:static; display:inline-flex;">
+                <div class="icon-anchor" style="width:32px;height:32px;"><span class="material-icons" style="font-size:18px;">info</span></div>
+                <div class="badge badge-default badge-info" style="top:-4px;right:-4px;">8</div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><code>secondary</code></td>
+            <td>De-emphasized counts</td>
+            <td>Inactive or archived items</td>
+            <td>
+              <div class="badge-anchor" style="position:static; display:inline-flex;">
+                <div class="icon-anchor" style="width:32px;height:32px;"><span class="material-icons" style="font-size:18px;">inventory_2</span></div>
+                <div class="badge badge-default badge-secondary" style="top:-4px;right:-4px;">4</div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </section>
 
-    <!-- 6. Technical Specifications -->
+    <!-- TECHNICAL SPECIFICATIONS -->
     <section class="section">
-      <h2 class="section-title"><span class="material-icons">straighten</span>Technical Specifications</h2>
+      <h2 class="section-title">
+        <span class="material-icons-outlined">construction</span>
+        Technical Specifications
+      </h2>
+      <p class="section-description">
+        All values extracted from Figma component specifications.
+      </p>
+
       <table class="spec-table">
-        <thead><tr><th>Property</th><th>Value</th><th>Source</th></tr></thead>
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Value</th>
+            <th>Source</th>
+          </tr>
+        </thead>
         <tbody>
           <tr><td>Default height</td><td>16px</td><td>Figma node extracted</td></tr>
           <tr><td>Default min-width</td><td>16px</td><td>Figma node extracted</td></tr>

@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>[Component Name] - TRIO/UI Design System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+  <link rel="stylesheet" href="design-system-shell.css">
+  <style>
+    /* ============================================================
+       TEMPLATE OVERRIDE — CONTINUOUS CANVAS
+       Removes "boxy" card-per-section feel. Main content is one
+       white surface; sections separated by spacing + dividers.
+       ============================================================ */
+
+    /* Canvas is background.secondary (#FAFAFA) — containers within are paper white */
+    .main-content {
+      background: var(--color-background-secondary);
+      min-height: 100vh;
+    }
+
+    /* Sections are transparent on the gray canvas — no boxing */
+    .section {
+      background: transparent;
+      border-radius: 0;
+      padding: 0;
+      margin-bottom: 0;
+      padding-bottom: var(--spacing-xl);
+    }
+
+    /* Divider between sections */
+    .section + .section {
+      border-top: 1px solid var(--color-secondary-outline);
+      padding-top: var(--spacing-xl);
+    }
+
+    /* ── Section title: consistent treatment ── */
+    /* h2: 20px/500, primary icon, always same pattern */
+    .section-title {
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--color-text-primary);
+      margin-bottom: var(--spacing-md);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+    }
+    .section-title .material-icons,
+    .section-title .material-icons-outlined {
+      font-size: 18px;
+      color: var(--color-primary-main);
+    }
+
+    /* ── Section description: consistent ── */
+    .section-description {
+      font-size: 14px;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+      margin-bottom: var(--spacing-lg);
+      max-width: 720px;
+    }
+
+    /* ── Demo containers are paper white on the gray canvas ── */
+    .demo-surface {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      padding: var(--spacing-lg);
+      display: flex;
+      gap: var(--spacing-md);
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    /* ── Variant groups ── */
+    .variant-group {
+      margin-bottom: var(--spacing-lg);
+    }
+    .variant-group:last-child {
+      margin-bottom: 0;
+    }
+    .variant-label {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: var(--spacing-sm);
+    }
+
+    /* ── Cards: paper white on gray canvas ── */
+    .card {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      padding: var(--spacing-md);
+    }
+
+    /* ── Tables: paper white with outline ── */
+    .section .property-table {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .section .property-table th {
+      background: var(--color-background-paper);
+      border-bottom: 1px solid var(--color-secondary-outline);
+    }
+    .section .property-table td {
+      border-bottom: 1px solid var(--color-secondary-outline);
+    }
+
+    /* ── Demo placeholders ── */
+    .demo-placeholder {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 38px;
+      padding: 0 16px;
+      border-radius: 4px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      cursor: default;
+    }
+    .demo-primary { background: #2196F3; color: #FFFFFF; }
+    .demo-secondary { background: #F5F5F5; color: #212121; border: 1px solid #E0E0E0; }
+    .demo-success { background: #4CAF50; color: #FFFFFF; }
+    .demo-error { background: #DB4537; color: #FFFFFF; }
+    .demo-warning { background: #E17109; color: #FFFFFF; }
+    .demo-disabled { background: #EEEEEE; color: #9E9E9E; }
+
+    /* ── Anatomy frame (from TextField — shared pattern) ── */
+    .anatomy-frame {
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .anatomy-bar {
+      background: var(--color-background-paper);
+      border-bottom: 1px solid var(--color-secondary-outline);
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+    }
+    .anatomy-bar .material-icons { font-size: 14px; color: var(--color-primary-main); }
+    .anatomy-bar-tag {
+      margin-left: auto;
+      font-size: 10px;
+      background: rgba(33,150,243,0.08);
+      color: var(--color-primary-main);
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      border: 1px solid rgba(33,150,243,0.2);
+    }
+
+    /* ── Live diagram frame (from Modal — browser chrome) ── */
+    .ld-frame {
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .ld-browser-bar {
+      background: var(--color-background-paper);
+      border-bottom: 1px solid var(--color-secondary-outline);
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .ld-dots { display: flex; gap: 4px; }
+    .ld-dot { width: 8px; height: 8px; border-radius: 999px; background: #E0E0E0; }
+    .ld-dot:nth-child(1) { background: #FF5F56; }
+    .ld-dot:nth-child(2) { background: #FFBD2E; }
+    .ld-dot:nth-child(3) { background: #27C93F; }
+    .ld-url-bar {
+      flex: 1;
+      max-width: 280px;
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 999px;
+      padding: 3px 12px;
+      font-size: 11px;
+      color: #9E9E9E;
+    }
+
+    /* ── Annotation badges (spacing callouts) ── */
+    .annotation-row {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      flex-wrap: wrap;
+      margin-top: var(--spacing-md);
+    }
+    .annotation-badge {
+      background: #FCF1E0;
+      border: 1px solid #E17109;
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: 11px;
+      font-weight: 500;
+      color: #E17109;
+    }
+
+    /* ── Visual illustration inside Do/Don't cards ── */
+    .card-illustration {
+      background: var(--color-background-secondary);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      padding: var(--spacing-md);
+      margin-bottom: var(--spacing-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 80px;
+      position: relative;
+    }
+    .card-illustration-label {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      font-size: 9px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 2px 6px;
+      border-radius: 999px;
+    }
+    .do-card .card-illustration-label {
+      background: var(--color-success-light, #E8F5E9);
+      color: var(--color-success-main);
+    }
+    .dont-card .card-illustration-label {
+      background: var(--color-error-light, #FBEAED);
+      color: var(--color-error-main);
+    }
+    /* Strikethrough overlay on don't illustrations */
+    .card-illustration-wrong::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 16px;
+      right: 16px;
+      height: 2px;
+      background: var(--color-error-main);
+      opacity: 0.4;
+      transform: rotate(-3deg);
+    }
+
+    /* ── Optional badge ── */
+    .optional-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--color-text-secondary);
+      background: var(--color-background-default);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 999px;
+      padding: 2px 8px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    /* ── Template annotations (remove from real pages) ── */
+    .template-note {
+      background: rgba(33, 150, 243, 0.04);
+      border-left: 3px solid var(--color-primary-main);
+      padding: 12px 16px;
+      margin-top: var(--spacing-md);
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+    }
+    .template-note strong {
+      color: var(--color-primary-main);
+      font-weight: 500;
+    }
+    .template-note code {
+      background: rgba(33, 150, 243, 0.08);
+      padding: 1px 4px;
+      border-radius: 3px;
+      font-size: 11px;
+    }
+
+    /* ── Modal demo (inline preview) ── */
+    .modal-preview {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      padding: var(--spacing-xl);
+      display: flex;
+      justify-content: center;
+      overflow-x: auto;
+    }
+    .modal-container {
+      background: var(--color-background-paper);
+      border-radius: 4px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .modal-sm { width: 500px; }
+    .modal-lg { width: 900px; }
+    .modal-header {
+      padding: 16px 40px;
+      background: var(--color-primary-main);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .modal-header h3 {
+      font-size: 20px;
+      font-weight: 500;
+      color: #FFFFFF;
+      margin: 0;
+    }
+    .modal-close-icon {
+      color: rgba(255,255,255,0.8);
+      font-size: 20px;
+      cursor: pointer;
+    }
+    .modal-body {
+      padding: 40px;
+    }
+    .modal-footer {
+      padding: 16px 40px;
+      border-top: 1px solid var(--color-secondary-outline);
+      display: flex;
+      justify-content: flex-end;
+      gap: var(--spacing-md);
+    }
+  </style>
+  <script src="design-system-nav.js"></script>
+</head>
+<body>
+  <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
+
+  <main class="main-content">
+
+    <!-- ============================================================
+         PAGE HEADER
+         ============================================================ -->
+    <header class="page-header">
+      <h1 class="page-title">[Component Name]</h1>
+      <p class="page-subtitle">
+        What this component does and when to use it.
+      </p>
+      <div class="component-meta">
+        <span><span class="material-icons-outlined" style="font-size: 14px;">category</span> Atomic Component</span>
+        <a href="#" class="meta-link"><span class="material-icons-outlined" style="font-size: 14px;">menu_book</span> Storybook</a>
+        <a href="#" class="meta-link"><span class="material-icons-outlined" style="font-size: 14px;">design_services</span> Zeplin</a>
+        <span><span class="material-icons-outlined" style="font-size: 14px;">verified</span> Production Ready</span>
+      </div>
+    </header>
+
+    <div class="template-note">
+      <strong>Page Header</strong> — h1 at 32px/400. Subtitle is one short sentence.
+      Meta chips: component type, Storybook link, Zeplin link, status. Same on every page.
+    </div>
+
+
+    <!-- ============================================================
+         1. OVERVIEW
+         ============================================================ -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">info</span>
+        Overview
+      </h2>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: #2196F3;">psychology</span>
+            Purpose
+          </div>
+          <div class="card-content">
+            What problem does this component solve? Why does it exist?
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: #2196F3;">priority_high</span>
+            Visual Hierarchy
+          </div>
+          <div class="card-content">
+            Where does this sit in the visual hierarchy? What attention level should it demand?
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: #2196F3;">accessibility</span>
+            Accessibility
+          </div>
+          <div class="card-content">
+            Keyboard support, ARIA attributes, focus management, screen reader behavior.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="template-note">
+      <strong>Section 1: Overview</strong> — Always three cards: Purpose, Visual Hierarchy, Accessibility.
+      Icon: <code>info</code>. Cards use <code>grid-3</code>. Keep each to 2-3 sentences.
+    </div>
+
+
+    <!-- ============================================================
+         2. USAGE GUIDELINES
+         ============================================================ -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">rule</span>
+        Usage Guidelines
+      </h2>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">check_circle</span>
+            When to Use
+          </div>
+          <!-- Visual illustration — shows correct usage in context -->
+          <div class="card-illustration">
+            <span class="card-illustration-label">Correct</span>
+            <div style="display: flex; gap: 8px; align-items: center;">
+              <div class="demo-placeholder demo-secondary" style="height: 32px; font-size: 12px;">Cancel</div>
+              <div class="demo-placeholder demo-primary" style="height: 32px; font-size: 12px;">Save Changes</div>
+            </div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Specific scenario where this component is the right choice</li>
+              <li>Domain-specific example (e.g., "Displaying shift fill status")</li>
+              <li>4-6 concrete items</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">cancel</span>
+            When NOT to Use
+          </div>
+          <!-- Visual illustration — shows incorrect usage -->
+          <div class="card-illustration card-illustration-wrong">
+            <span class="card-illustration-label">Incorrect</span>
+            <div style="display: flex; gap: 8px; align-items: center;">
+              <div class="demo-placeholder demo-primary" style="height: 32px; font-size: 12px;">Cancel</div>
+              <div class="demo-placeholder demo-primary" style="height: 32px; font-size: 12px;">Save</div>
+              <div class="demo-placeholder demo-primary" style="height: 32px; font-size: 12px;">Delete</div>
+            </div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Wrong use case — always name the alternative component</li>
+              <li>Common misuse pattern specific to TRIO</li>
+              <li>4-6 concrete items</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="template-note">
+      <strong>Section 2: Usage Guidelines</strong> — Icon: <code>rule</code>.
+      Do/Don't cards in <code>grid-2</code>. Each card can include a <code>card-illustration</code>
+      above the text list showing a visual example. The Don't illustration uses
+      <code>card-illustration-wrong</code> for the strikethrough overlay. Illustrations are optional
+      per card — include when a visual makes the rule clearer than text alone.
+    </div>
+
+
+    <!-- ============================================================
+         3. VARIANTS
+         ============================================================ -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">widgets</span>
+        Variants
+      </h2>
+      <p class="section-description">
+        Brief explanation of the variant system — what they communicate and when to pick each one.
+      </p>
+
+      <div class="variant-group">
+        <div class="variant-label">Variant A (Primary Use Case)</div>
+        <div class="demo-surface">
+          <div class="demo-placeholder demo-primary">Example A</div>
+          <div class="demo-placeholder demo-secondary">Example B</div>
+          <div class="demo-placeholder demo-success">Example C</div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Variant B (Secondary Use Case)</div>
+        <div class="demo-surface">
+          <div class="demo-placeholder demo-secondary">Example A</div>
+          <div class="demo-placeholder demo-secondary">Example B</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="template-note">
+      <strong>Section 3: Variants</strong> — Icon: <code>widgets</code>.
+      Live examples sit on <code>demo-surface</code> (gray background).
+      Only show variants that exist in Figma — never invent.
+    </div>
+
+
+    <!-- ============================================================
+         4. SIZES (optional)
+         ============================================================ -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">straighten</span>
+        Sizes
+        <span class="optional-badge">If applicable</span>
+      </h2>
+      <p class="section-description">
+        Size options with pixel heights. Include when to use each.
+      </p>
+
+      <div class="variant-group">
+        <div class="variant-label">Medium (Default) — 38px</div>
+        <div class="demo-surface">
+          <div class="demo-placeholder demo-primary">Medium</div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Small — 32px</div>
+        <div class="demo-surface">
+          <div class="demo-placeholder demo-primary" style="height: 32px; font-size: 13px;">Small</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="template-note">
+      <strong>Section 4: Sizes</strong> — Icon: <code>straighten</code>.
+      Skip entirely if no size property in Figma.
+    </div>
+
+
+    <!-- ============================================================
+         5. STATES
+         ============================================================ -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">toggle_on</span>
+        States
+      </h2>
+      <p class="section-description">
+        Interactive and visual states. Show each with a live example.
+      </p>
+
+      <div class="variant-group">
+        <div class="variant-label">Default</div>
+        <div class="demo-surface">
+          <div class="demo-placeholder demo-primary">Default</div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Hover</div>
+        <div class="demo-surface">
+          <div class="demo-placeholder" style="background: #1976D2; color: #FFFFFF;">Hovered</div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Disabled</div>
+        <div class="demo-surface">
+          <div class="demo-placeholder demo-disabled">Disabled</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="template-note">
+      <strong>Section 5: States</strong> — Icon: <code>toggle_on</code>.
+      Always Default + Hover + Disabled at minimum. Add Focus, Error, Loading, Active as relevant.
+      This replaces the old "Boolean Controls" naming.
+    </div>
+
+
+    <!-- ============================================================
+         5b. ANATOMY / DIAGRAMS (optional — complex components)
+         Sits inside or after States for components that need it.
+         ============================================================ -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">biotech</span>
+        Component Anatomy
+        <span class="optional-badge">Complex components</span>
+      </h2>
+      <p class="section-description">
+        Exact dimensions, padding, and typography extracted from Figma.
+        Use for components where spacing relationships aren't obvious from the live examples alone.
+      </p>
+
+      <!-- Example: TextField-style anatomy diagram -->
+      <div class="anatomy-frame">
+        <div class="anatomy-bar">
+          <span class="material-icons-outlined">text_fields</span>
+          type=single-line &nbsp;·&nbsp; state=default &nbsp;·&nbsp; disabled=no
+          <span class="anatomy-bar-tag">255 × 58 px</span>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: center; padding: 32px 40px; background: #F8FAFC; min-height: 160px;">
+          <div style="display: flex; flex-direction: column; gap: 4px; width: 280px;">
+            <div style="height: 18px; display: flex; align-items: center;">
+              <span style="font-size: 12px; color: #212121;">Label</span>
+            </div>
+            <div style="height: 36px; border: 1px solid #9E9E9E; border-radius: 4px; display: flex; align-items: center; padding: 4px 8px; background: #fff;">
+              <span style="font-size: 14px; color: #BDBDBD;">Placeholder</span>
+            </div>
+            <div style="height: 18px; display: flex; align-items: center;">
+              <span style="font-size: 12px; color: #757575;">Help text</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="annotation-row">
+        <span class="annotation-badge">18px</span> label height
+        <span class="annotation-badge">4px</span> gap
+        <span class="annotation-badge">36px</span> input height
+        <span class="annotation-badge">4px</span> gap
+        <span class="annotation-badge">18px</span> help text
+      </div>
+    </section>
+
+    <div class="template-note">
+      <strong>Anatomy / Diagrams</strong> — Icon: <code>biotech</code>.
+      Use for TextField, Modal, PageHeaderToolbar, NavigationVertical, etc.
+      The <code>anatomy-frame</code> pattern has a header bar + canvas.
+      The <code>ld-frame</code> pattern (browser chrome) is for modal/page-level diagrams.
+      Both patterns are reusable — extend as needed for new complex components.
+    </div>
+
+
+    <!-- ============================================================
+         5c. INTERACTIVE DEMO (optional — Modal, Drawer, etc.)
+         ============================================================ -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">touch_app</span>
+        Interactive Demo
+        <span class="optional-badge">If applicable</span>
+      </h2>
+      <p class="section-description">
+        Live, clickable demos for components with overlay behavior (Modal, Drawer, Tooltip).
+        Show inline preview + "Open Interactive" button that triggers the real overlay.
+      </p>
+
+      <!-- Inline modal preview -->
+      <div class="variant-group">
+        <div class="variant-label">Small Modal — 500px</div>
+        <div class="modal-preview">
+          <div class="modal-container modal-sm" style="max-width: 100%;">
+            <div class="modal-header">
+              <h3>Confirm Action</h3>
+              <span class="material-icons modal-close-icon">close</span>
+            </div>
+            <div class="modal-body" style="padding: 32px 40px;">
+              <div style="display: flex; flex-direction: column; gap: 16px;">
+                <div style="height: 36px; border: 1px solid #E0E0E0; border-radius: 4px; background: #FAFAFA;"></div>
+                <div style="height: 36px; border: 1px solid #E0E0E0; border-radius: 4px; background: #FAFAFA;"></div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <div class="demo-placeholder demo-secondary" style="height: 32px; font-size: 13px;">Cancel</div>
+              <div class="demo-placeholder demo-primary" style="height: 32px; font-size: 13px;">Save</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Spacing diagram -->
+      <div class="variant-group">
+        <div class="variant-label">Spacing Guidelines</div>
+        <div class="ld-frame">
+          <div class="ld-browser-bar">
+            <div class="ld-dots"><div class="ld-dot"></div><div class="ld-dot"></div><div class="ld-dot"></div></div>
+            <div class="ld-url-bar">localhost:8888 / workers/add</div>
+          </div>
+          <div style="background: rgba(0,0,0,0.28); display: flex; align-items: center; justify-content: center; padding: 24px; min-height: 200px;">
+            <div style="background: #fff; border-radius: 4px; box-shadow: 0 8px 32px rgba(0,0,0,0.28); width: 100%; max-width: 420px; overflow: hidden;">
+              <div style="background: #FAFAFA; border-bottom: 1px solid #E0E0E0; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between;">
+                <span style="font-size: 12px; font-weight: 500; color: #212121;">Modal Title</span>
+                <div style="width: 14px; height: 14px; background: #E0E0E0; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-size: 9px; color: #9E9E9E;">×</div>
+              </div>
+              <div style="padding: 16px; display: flex; flex-direction: column; gap: 6px;">
+                <div style="display: flex; gap: 6px;">
+                  <div style="flex: 1; height: 24px; background: #F5F5F5; border: 1px solid #E0E0E0; border-radius: 4px;"></div>
+                  <div style="flex: 1; height: 24px; background: #F5F5F5; border: 1px solid #E0E0E0; border-radius: 4px;"></div>
+                </div>
+                <div style="height: 24px; background: #F5F5F5; border: 1px solid #E0E0E0; border-radius: 4px;"></div>
+                <div style="height: 40px; background: #F5F5F5; border: 1px solid #E0E0E0; border-radius: 4px;"></div>
+              </div>
+              <div style="background: #FAFAFA; border-top: 1px solid #E0E0E0; padding: 8px 16px; display: flex; justify-content: flex-end; gap: 6px;">
+                <div style="height: 24px; background: #F5F5F5; border: 1px solid #E0E0E0; border-radius: 4px; padding: 0 10px; font-size: 10px; display: flex; align-items: center; color: #757575;">Cancel</div>
+                <div style="height: 24px; background: #2196F3; border-radius: 4px; padding: 0 10px; font-size: 10px; display: flex; align-items: center; color: #fff;">Save</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="annotation-row">
+          <span class="annotation-badge">40px</span> internal padding
+          <span class="annotation-badge">16px</span> column gutter
+          <span class="annotation-badge">90vh</span> max height
+        </div>
+      </div>
+    </section>
+
+    <div class="template-note">
+      <strong>Interactive Demo</strong> — Icon: <code>touch_app</code>.
+      For Modal, Drawer, Tooltip — anything with overlay behavior.
+      Show inline preview + interactive button. Include spacing diagrams using <code>ld-frame</code>.
+    </div>
+
+
+    <!-- ============================================================
+         6. BEST PRACTICES
+         ============================================================ -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">recommend</span>
+        Best Practices
+      </h2>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">check_circle</span>
+            Do
+          </div>
+          <!-- Visual: correct label specificity -->
+          <div class="card-illustration">
+            <span class="card-illustration-label">Correct</span>
+            <div style="display: flex; flex-direction: column; gap: 8px; width: 100%;">
+              <div style="display: flex; gap: 8px; justify-content: flex-end;">
+                <div class="demo-placeholder demo-secondary" style="height: 32px; font-size: 12px;">Cancel</div>
+                <div class="demo-placeholder demo-error" style="height: 32px; font-size: 12px;">Reject Submission</div>
+              </div>
+              <div style="font-size: 10px; color: #757575; text-align: right;">Specific labels — user knows what will happen</div>
+            </div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Concrete, actionable guidance — not generic platitudes</li>
+              <li>TRIO-domain-specific advice when relevant</li>
+              <li>Accessibility guidance (keyboard, screen reader)</li>
+              <li>Visual hierarchy guidance</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">cancel</span>
+            Don't
+          </div>
+          <!-- Visual: vague labels -->
+          <div class="card-illustration card-illustration-wrong">
+            <span class="card-illustration-label">Incorrect</span>
+            <div style="display: flex; flex-direction: column; gap: 8px; width: 100%;">
+              <div style="display: flex; gap: 8px; justify-content: flex-end;">
+                <div class="demo-placeholder demo-secondary" style="height: 32px; font-size: 12px;">No</div>
+                <div class="demo-placeholder demo-primary" style="height: 32px; font-size: 12px;">OK</div>
+              </div>
+              <div style="font-size: 10px; color: #757575; text-align: right;">Vague labels — user doesn't know the consequence</div>
+            </div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Specific anti-pattern with explanation</li>
+              <li>Common mistake people make with this component</li>
+              <li>Misuse that creates patient safety or compliance risk</li>
+              <li>Performance or UX pitfalls</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="template-note">
+      <strong>Section 6: Best Practices</strong> — Icon: <code>recommend</code>.
+      Same <code>card-illustration</code> pattern as Usage Guidelines. Use when a visual
+      makes the rule more tangible — e.g., showing correct vs vague button labels,
+      proper spacing vs cramped layouts, right color usage vs wrong.
+      Illustrations are optional per card — not every rule needs one.
+    </div>
+
+
+    <!-- ============================================================
+         7. COLOR SEMANTICS (optional)
+         ============================================================ -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">palette</span>
+        Color Semantics
+        <span class="optional-badge">If applicable</span>
+      </h2>
+      <p class="section-description">
+        What each color communicates in context. Colors are functional, not decorative.
+      </p>
+
+      <table class="property-table">
+        <thead>
+          <tr>
+            <th>Color</th>
+            <th>When to Use</th>
+            <th>TRIO Example</th>
+            <th>Visual</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>primary</code></td>
+            <td>Save or Update operations only</td>
+            <td>Save shift template, Update worker profile</td>
+            <td><div class="demo-placeholder demo-primary" style="height: 32px; font-size: 13px;">Save</div></td>
+          </tr>
+          <tr>
+            <td><code>success</code></td>
+            <td>Positive confirmation</td>
+            <td>Approve submission, Confirm placement</td>
+            <td><div class="demo-placeholder demo-success" style="height: 32px; font-size: 13px;">Approve</div></td>
+          </tr>
+          <tr>
+            <td><code>error</code></td>
+            <td>Destructive or irreversible</td>
+            <td>Reject submission, Cancel order</td>
+            <td><div class="demo-placeholder demo-error" style="height: 32px; font-size: 13px;">Reject</div></td>
+          </tr>
+          <tr>
+            <td><code>warning</code></td>
+            <td>Caution required</td>
+            <td>Expiring credential, Override rate</td>
+            <td><div class="demo-placeholder demo-warning" style="height: 32px; font-size: 13px;">Override</div></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <div class="template-note">
+      <strong>Section 7: Color Semantics</strong> — Icon: <code>palette</code>.
+      Only for components with color variants. Always include the "TRIO Example" column.
+    </div>
+
+
+    <!-- ============================================================
+         8. TECHNICAL SPECIFICATIONS
+         ============================================================ -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">construction</span>
+        Technical Specifications
+      </h2>
+      <p class="section-description">
+        All values extracted from Figma component spec (node: [node-id]). Implementation-ready values with token paths.
+      </p>
+
+      <table class="property-table">
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Value</th>
+            <th>Token</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Height</td>
+            <td><code>38px</code></td>
+            <td><span class="token-path">—</span></td>
+          </tr>
+          <tr>
+            <td>Padding</td>
+            <td><code>8px 16px</code></td>
+            <td><span class="token-path">spacing.sm / spacing.md</span></td>
+          </tr>
+          <tr>
+            <td>Border Radius</td>
+            <td><code>4px</code></td>
+            <td><span class="token-path">borderRadius.default</span></td>
+          </tr>
+          <tr>
+            <td>Font Size</td>
+            <td><code>14px</code></td>
+            <td><span class="token-path">fontSize.sm</span></td>
+          </tr>
+          <tr>
+            <td>Font Weight</td>
+            <td><code>400</code></td>
+            <td><span class="token-path">fontWeight.regular</span></td>
+          </tr>
+          <tr>
+            <td>MUI Base</td>
+            <td colspan="2"><code>@mui/material/[ComponentName]</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <div class="template-note">
+      <strong>Section 8: Technical Specifications</strong> — Icon: <code>construction</code>.
+      Always the last section. Three columns: Property, Value, Token.
+      MUI base component is always the last row.
+    </div>
+
+
+    <!-- ============================================================
+         TEMPLATE REFERENCE (remove from real pages)
+         ============================================================ -->
+    <section class="section" style="margin-top: 32px;">
+      <h2 class="section-title">
+        <span class="material-icons-outlined" style="color: #2196F3;">summarize</span>
+        Template Reference
+      </h2>
+
+      <table class="property-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Section</th>
+            <th>Icon</th>
+            <th>Required</th>
+            <th>Content Pattern</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>—</td><td><strong>Page Header</strong></td><td>—</td><td>Always</td><td>h1 + subtitle + meta chips</td></tr>
+          <tr><td>1</td><td><strong>Overview</strong></td><td><code>info</code></td><td>Always</td><td>3 cards: Purpose / Hierarchy / Accessibility</td></tr>
+          <tr><td>2</td><td><strong>Usage Guidelines</strong></td><td><code>rule</code></td><td>Always</td><td>Do/Don't cards</td></tr>
+          <tr><td>3</td><td><strong>Variants</strong></td><td><code>widgets</code></td><td>Always</td><td>Live examples on <code>demo-surface</code></td></tr>
+          <tr><td>4</td><td><strong>Sizes</strong></td><td><code>straighten</code></td><td>If applicable</td><td>Each size with pixel height</td></tr>
+          <tr><td>5</td><td><strong>States</strong></td><td><code>toggle_on</code></td><td>Always</td><td>Default + Hover + Disabled minimum</td></tr>
+          <tr><td>5b</td><td><strong>Anatomy</strong></td><td><code>biotech</code></td><td>Complex only</td><td><code>anatomy-frame</code> or <code>ld-frame</code></td></tr>
+          <tr><td>5c</td><td><strong>Interactive Demo</strong></td><td><code>touch_app</code></td><td>Overlays only</td><td>Inline preview + trigger button</td></tr>
+          <tr><td>6</td><td><strong>Best Practices</strong></td><td><code>recommend</code></td><td>Always</td><td>Do/Don't for <em>how</em> to use well</td></tr>
+          <tr><td>7</td><td><strong>Color Semantics</strong></td><td><code>palette</code></td><td>If applicable</td><td>Table with TRIO examples</td></tr>
+          <tr><td>8</td><td><strong>Technical Specs</strong></td><td><code>construction</code></td><td>Always</td><td>Property / Value / Token table</td></tr>
+        </tbody>
+      </table>
+
+      <div style="margin-top: 24px; font-size: 13px; color: #757575; line-height: 1.6;">
+        <strong style="color: #212121;">Typography rules for section headers:</strong><br>
+        h1 — 32px / 400 (page title only, once per page)<br>
+        h2 — 20px / 500 + primary-colored Material Icon (all section titles)<br>
+        variant-label — 11px / 500 uppercase (subsection labels within a section)<br>
+        section-description — 14px / 400 secondary (intro paragraph, max-width 720px)
+      </div>
+    </section>
+
+  </main>
+</body>
+</html>

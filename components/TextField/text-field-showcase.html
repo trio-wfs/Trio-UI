@@ -6,8 +6,108 @@
   <title>TextField - TRIO WFS Design System</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
   <link rel="stylesheet" href="../../design-system-shell.css">
   <style>
+
+    /* ============================================================
+       TEMPLATE OVERRIDE — CONTINUOUS CANVAS
+       ============================================================ */
+    .main-content {
+      background: var(--color-background-secondary);
+      min-height: 100vh;
+    }
+
+    .section {
+      background: transparent;
+      border-radius: 0;
+      padding: 0;
+      margin-bottom: 0;
+      padding-bottom: var(--spacing-xl);
+    }
+
+    .section + .section {
+      border-top: 1px solid var(--color-secondary-outline);
+      padding-top: var(--spacing-xl);
+    }
+
+    /* ── Section title icons ── */
+    .section-title .material-icons-outlined,
+    .section-title .material-icons {
+      font-size: 18px;
+    }
+
+    /* ── Tables: paper + border ── */
+    .section .property-table {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .section .property-table th {
+      background: var(--color-background-paper);
+    }
+
+    /* ── Cards: paper ── */
+    .card {
+      background: var(--color-background-paper);
+    }
+
+    /* ── Demo rows: paper ── */
+    .input-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: var(--spacing-lg);
+      padding: var(--spacing-lg);
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: var(--border-radius);
+    }
+
+    /* ── Card illustrations for Do/Don't ── */
+    .card-illustration {
+      background: var(--color-background-secondary, #FAFAFA);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      padding: var(--spacing-md);
+      margin-bottom: var(--spacing-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 80px;
+      position: relative;
+    }
+    .card-illustration-label {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      font-size: 9px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 2px 6px;
+      border-radius: 999px;
+    }
+    .do-card .card-illustration-label {
+      background: var(--color-success-light, #E8F5E9);
+      color: var(--color-success-main);
+    }
+    .dont-card .card-illustration-label {
+      background: var(--color-error-light, #FBEAED);
+      color: var(--color-error-main);
+    }
+    .card-illustration-wrong::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 16px;
+      right: 16px;
+      height: 2px;
+      background: var(--color-error-main);
+      opacity: 0.4;
+      transform: rotate(-3deg);
+    }
+
     /* ── Spec annotation colors ─────────────────────────── */
     :root {
       --ann:           #2196F3;
@@ -38,7 +138,7 @@
       font-weight: 500;
       color: var(--color-text-secondary);
     }
-    .anatomy-bar .material-icons { font-size: 14px; color: var(--ann); }
+    .anatomy-bar .material-icons-outlined { font-size: 14px; color: var(--ann); }
     .anatomy-bar-tag {
       margin-left: auto;
       font-size: 10px;
@@ -338,41 +438,6 @@
       padding: 1px 5px; border-radius: 3px; font-weight: 600;
     }
 
-    /* Token table */
-    .token-table { width: 100%; border-collapse: collapse; font-size: 12px; }
-    .token-table th {
-      text-align: left; font-size: 10px; font-weight: 600;
-      text-transform: uppercase; letter-spacing: .06em;
-      color: var(--color-text-secondary); padding: 6px 12px;
-      border-bottom: 2px solid var(--color-secondary-outline);
-      background: var(--color-background-default);
-    }
-    .token-table td { padding: 8px 12px; border-bottom: 1px solid var(--color-secondary-outline); vertical-align: middle; }
-    .token-table tr:last-child td { border-bottom: none; }
-    .token-table tr:hover td { background: #FAFAFA; }
-    .tt-swatch {
-      width: 14px; height: 14px; border-radius: 3px;
-      border: 1px solid rgba(0,0,0,0.1);
-      display: inline-block; vertical-align: middle; margin-right: 5px;
-    }
-    .tt-token {
-      font-family: 'Courier New', monospace; font-size: 10px;
-      background: var(--ann-light); color: var(--ann);
-      padding: 1px 5px; border-radius: 3px; font-weight: 600;
-    }
-    .tt-hex { font-family: 'Courier New', monospace; font-size: 11px; color: var(--color-text-secondary); }
-    .tt-desc { font-size: 11px; color: var(--color-text-secondary); }
-
-    .input-row {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: var(--spacing-lg);
-      padding: var(--spacing-lg);
-      background: var(--color-background-paper);
-      border: 1px solid var(--color-secondary-outline);
-      border-radius: var(--border-radius);
-    }
-
     /* TextField Styles - Extracted from Figma */
     .text-input {
       font-family: var(--font-family);
@@ -442,36 +507,40 @@
     .helper-text-error {
       color: var(--color-error-main);
     }
-  
+
   </style>
   <script src="../../design-system-nav.js"></script>
 </head>
 <body>
+  <!-- LEFT NAVIGATION -->
     <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
 
+  <!-- MAIN CONTENT -->
   <main class="main-content">
+    <!-- PAGE HEADER -->
     <header class="page-header">
       <h1 class="page-title">TextField</h1>
       <p class="page-subtitle">
         Text fields let users enter and edit text. They typically appear in forms and dialogs. Text fields provide a single-line or multi-line input for freeform data entry.
       </p>
       <div class="component-meta">
-        <span><span class="material-icons" style="font-size: 14px;">category</span> Atomic Component</span>
-        <span><span class="material-icons" style="font-size: 14px;">link</span> Figma: text-field</span>
-        <span><span class="material-icons" style="font-size: 14px;">verified</span> Production Ready</span>
+        <span><span class="material-icons-outlined" style="font-size: 14px;">category</span> Atomic Component</span>
+        <a href="#" class="meta-link"><span class="material-icons-outlined" style="font-size: 14px;">menu_book</span> Storybook</a>
+        <a href="#" class="meta-link"><span class="material-icons-outlined" style="font-size: 14px;">design_services</span> Zeplin</a>
+        <span><span class="material-icons-outlined" style="font-size: 14px;">verified</span> Production Ready</span>
       </div>
     </header>
 
     <!-- OVERVIEW -->
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">info</span>
+        <span class="material-icons-outlined">info</span>
         Overview
       </h2>
       <div class="grid-3">
         <div class="card">
           <div class="card-title">
-            <span class="material-icons" style="color: var(--color-primary-main);">psychology</span>
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">psychology</span>
             Purpose
           </div>
           <div class="card-content">
@@ -480,7 +549,7 @@
         </div>
         <div class="card">
           <div class="card-title">
-            <span class="material-icons" style="color: var(--color-primary-main);">priority_high</span>
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">priority_high</span>
             States
           </div>
           <div class="card-content">
@@ -489,7 +558,7 @@
         </div>
         <div class="card">
           <div class="card-title">
-            <span class="material-icons" style="color: var(--color-primary-main);">accessibility</span>
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">accessibility</span>
             Accessibility
           </div>
           <div class="card-content">
@@ -502,14 +571,22 @@
     <!-- USAGE GUIDELINES -->
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">rule</span>
+        <span class="material-icons-outlined">rule</span>
         Usage Guidelines
       </h2>
       <div class="grid-2">
         <div class="card do-card">
           <div class="card-title">
-            <span class="material-icons">check_circle</span>
+            <span class="material-icons-outlined">check_circle</span>
             When to Use
+          </div>
+          <div class="card-illustration">
+            <span class="card-illustration-label">Correct</span>
+            <div style="display: flex; flex-direction: column; gap: 4px; width: 200px;">
+              <span style="font-size: 12px; color: var(--color-text-primary);">Patient Name</span>
+              <div style="height: 30px; border: 1px solid #9E9E9E; border-radius: 4px; padding: 4px 8px; display: flex; align-items: center; font-size: 12px; color: #BDBDBD; background: #fff;">e.g. Jane Smith</div>
+              <span style="font-size: 11px; color: var(--color-text-secondary);">Enter full legal name</span>
+            </div>
           </div>
           <div class="card-content">
             <ul>
@@ -524,8 +601,16 @@
         </div>
         <div class="card dont-card">
           <div class="card-title">
-            <span class="material-icons">cancel</span>
+            <span class="material-icons-outlined">cancel</span>
             When NOT to Use
+          </div>
+          <div class="card-illustration card-illustration-wrong">
+            <span class="card-illustration-label">Incorrect</span>
+            <div style="display: flex; flex-direction: column; gap: 4px; width: 200px;">
+              <span style="font-size: 12px; color: var(--color-text-primary);">Status</span>
+              <div style="height: 30px; border: 1px solid #9E9E9E; border-radius: 4px; padding: 4px 8px; display: flex; align-items: center; font-size: 12px; color: var(--color-text-primary); background: #fff;">Active</div>
+              <span style="font-size: 11px; color: var(--color-text-secondary);">Use Select for predefined options</span>
+            </div>
           </div>
           <div class="card-content">
             <ul>
@@ -541,11 +626,11 @@
       </div>
     </section>
 
-    <!-- TYPE VARIANTS -->
+    <!-- VARIANTS -->
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">widgets</span>
-        Type Variants
+        <span class="material-icons-outlined">widgets</span>
+        Variants
       </h2>
       <p class="section-description">
         Text fields come in two types: single-line for short entries and multi-line for longer content. Heights are extracted from Figma: 36px (single-line), 90px (multi-line).
@@ -574,10 +659,10 @@
       </div>
     </section>
 
-    <!-- STATE VARIANTS -->
+    <!-- STATES -->
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">toggle_on</span>
+        <span class="material-icons-outlined">toggle_on</span>
         States
       </h2>
       <p class="section-description">
@@ -627,123 +712,13 @@
       </div>
     </section>
 
-    <!-- BEST PRACTICES -->
-    <section class="section">
-      <h2 class="section-title">
-        <span class="material-icons">recommend</span>
-        Best Practices
-      </h2>
-      <div class="grid-2">
-        <div class="card do-card">
-          <div class="card-title">
-            <span class="material-icons">check_circle</span>
-            Do
-          </div>
-          <div class="card-content">
-            <ul>
-              <li>Always include a clear, descriptive label</li>
-              <li>Use helper text for additional context</li>
-              <li>Show error messages clearly and specifically</li>
-              <li>Keep single-line inputs for short data</li>
-              <li>Provide clear placeholder examples</li>
-              <li>Use appropriate input types (email, tel, etc.)</li>
-            </ul>
-          </div>
-        </div>
-        <div class="card dont-card">
-          <div class="card-title">
-            <span class="material-icons">cancel</span>
-            Don't
-          </div>
-          <div class="card-content">
-            <ul>
-              <li>Use placeholder as the only label</li>
-              <li>Make required fields unclear</li>
-              <li>Show generic error messages</li>
-              <li>Use multi-line for short inputs</li>
-              <li>Disable without explanation</li>
-              <li>Make inputs too narrow for expected content</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SPECIFICATIONS -->
-    <section class="section">
-      <h2 class="section-title">
-        <span class="material-icons">construction</span>
-        Technical Specifications
-      </h2>
-      <p class="section-description">
-        All values extracted from Figma component instances
-      </p>
-
-      <table class="property-table">
-        <thead>
-          <tr>
-            <th>Property</th>
-            <th>Value</th>
-            <th>Source</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Height (Single-Line)</td>
-            <td><code>36px</code></td>
-            <td>.absoluteBoundingBox.height</td>
-          </tr>
-          <tr>
-            <td>Height (Multi-Line)</td>
-            <td><code>90px</code></td>
-            <td>.absoluteBoundingBox.height</td>
-          </tr>
-          <tr>
-            <td>Padding</td>
-            <td><code>8px left/right, 4px top/bottom</code></td>
-            <td>.children[0].padding*</td>
-          </tr>
-          <tr>
-            <td>Border Radius</td>
-            <td><code>4px</code></td>
-            <td>.children[0].cornerRadius</td>
-          </tr>
-          <tr>
-            <td>Typography</td>
-            <td>Roboto <code>14px</code>, weight <code>400</code></td>
-            <td>.style.fontSize, .style.fontWeight</td>
-          </tr>
-          <tr>
-            <td>Border (Default)</td>
-            <td><code>#9E9E9E</code> 1px</td>
-            <td>.children[0].strokes[0].color</td>
-          </tr>
-          <tr>
-            <td>Border (Error)</td>
-            <td><code>#DB4537</code> 1px</td>
-            <td>.children[0].strokes[0].color</td>
-          </tr>
-          <tr>
-            <td>Border (Focus)</td>
-            <td><code>#64B5F6</code> 2px</td>
-            <td>.children[0].strokes[0].color</td>
-          </tr>
-          <tr>
-            <td>Background</td>
-            <td>Transparent (White)</td>
-            <td>.children[0].fills[0]</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-
     <!-- ══════════════════════════════════════════════════════
-         COMPONENT SPEC · ANATOMY
+         COMPONENT ANATOMY
     ═══════════════════════════════════════════════════════ -->
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">biotech</span>
-        Component Spec · Anatomy
+        <span class="material-icons-outlined">biotech</span>
+        Component Anatomy
       </h2>
       <p class="section-description">
         Exact dimensions, padding, and typography extracted from the Figma source — single-line, default state.
@@ -751,7 +726,7 @@
 
       <div class="anatomy-frame">
         <div class="anatomy-bar">
-          <span class="material-icons">text_fields</span>
+          <span class="material-icons-outlined">text_fields</span>
           type=single-line &nbsp;·&nbsp; state=default &nbsp;·&nbsp; disabled=no
           <span class="anatomy-bar-tag">255 × 58 px</span>
         </div>
@@ -781,7 +756,7 @@
 
               <div class="tf-input-box">
                 <span class="tf-placeholder-text">Placeholder</span>
-                <span class="material-icons tf-icon-right">search</span>
+                <span class="material-icons-outlined tf-icon-right">search</span>
                 <div class="v-pad-marker v-pad-marker--top">
                   <div class="v-pad-dot"></div>
                   <div class="v-pad-label">4px</div>
@@ -869,11 +844,11 @@
     </section>
 
     <!-- ══════════════════════════════════════════════════════
-         COMPONENT SPEC · STATES & BORDERS
+         STATE VARIANTS
     ═══════════════════════════════════════════════════════ -->
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">compare_arrows</span>
+        <span class="material-icons-outlined">compare_arrows</span>
         State Variants
       </h2>
 
@@ -944,46 +919,179 @@
       </div>
     </section>
 
-    <!-- ══════════════════════════════════════════════════════
-         COMPONENT SPEC · TOKEN REFERENCE
-    ═══════════════════════════════════════════════════════ -->
+    <!-- BEST PRACTICES -->
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">data_object</span>
-        Token Reference
+        <span class="material-icons-outlined">recommend</span>
+        Best Practices
       </h2>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">check_circle</span>
+            Do
+          </div>
+          <div class="card-illustration">
+            <span class="card-illustration-label">Correct</span>
+            <div style="display: flex; flex-direction: column; gap: 4px; width: 200px;">
+              <span style="font-size: 12px; color: var(--color-text-primary);">Email Address</span>
+              <div style="height: 30px; border: 1px solid #9E9E9E; border-radius: 4px; padding: 4px 8px; display: flex; align-items: center; font-size: 12px; color: var(--color-text-primary); background: #fff;">jane@hospital.org</div>
+              <span style="font-size: 11px; color: var(--color-text-secondary);">Work email preferred</span>
+            </div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Always include a clear, descriptive label</li>
+              <li>Use helper text for additional context</li>
+              <li>Show error messages clearly and specifically</li>
+              <li>Keep single-line inputs for short data</li>
+              <li>Provide clear placeholder examples</li>
+              <li>Use appropriate input types (email, tel, etc.)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">cancel</span>
+            Don't
+          </div>
+          <div class="card-illustration card-illustration-wrong">
+            <span class="card-illustration-label">Incorrect</span>
+            <div style="display: flex; flex-direction: column; gap: 4px; width: 200px;">
+              <div style="height: 30px; border: 1px solid #9E9E9E; border-radius: 4px; padding: 4px 8px; display: flex; align-items: center; font-size: 12px; color: #BDBDBD; background: #fff;">Enter your email...</div>
+            </div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Use placeholder as the only label</li>
+              <li>Make required fields unclear</li>
+              <li>Show generic error messages</li>
+              <li>Use multi-line for short inputs</li>
+              <li>Disable without explanation</li>
+              <li>Make inputs too narrow for expected content</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
 
-      <table class="token-table">
+    <!-- TECHNICAL SPECIFICATIONS -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">construction</span>
+        Technical Specifications
+      </h2>
+      <p class="section-description">
+        All values extracted from Figma component instances
+      </p>
+
+      <table class="property-table">
         <thead>
           <tr>
             <th>Property</th>
             <th>Value</th>
             <th>Token</th>
-            <th>Notes</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td><strong>Input height</strong></td><td>36px</td><td><span class="tt-token">—</span></td><td class="tt-desc">Single-line. Multi-line: 90px</td></tr>
-          <tr><td><strong>Full height (label + input + help)</strong></td><td>80px</td><td><span class="tt-token">—</span></td><td class="tt-desc">18 + 4 + 36 + 4 + 18</td></tr>
-          <tr><td><strong>Horizontal padding</strong></td><td>8px</td><td><span class="tt-token">spacing.sm</span></td><td class="tt-desc">Left and right inside input box</td></tr>
-          <tr><td><strong>Vertical padding</strong></td><td>4px</td><td><span class="tt-token">spacing.xs</span></td><td class="tt-desc">Top and bottom inside input box</td></tr>
-          <tr><td><strong>Label → input gap</strong></td><td>4px</td><td><span class="tt-token">spacing.xs</span></td><td class="tt-desc">itemSpacing on root frame</td></tr>
-          <tr><td><strong>Input → help text gap</strong></td><td>4px</td><td><span class="tt-token">spacing.xs</span></td><td class="tt-desc">itemSpacing on root frame</td></tr>
-          <tr><td><strong>Label font</strong></td><td>12px / 400</td><td><span class="tt-token">fontSize.xs</span></td><td class="tt-desc">lineHeight 18px</td></tr>
-          <tr><td><strong>Input font</strong></td><td>14px / 400</td><td><span class="tt-token">fontSize.sm</span></td><td class="tt-desc">Value and placeholder</td></tr>
-          <tr><td><strong>Help text font</strong></td><td>12px / 400</td><td><span class="tt-token">fontSize.xs</span></td><td class="tt-desc">lineHeight 18px</td></tr>
-          <tr><td><strong>Label color</strong></td><td><span class="tt-swatch" style="background:#212121;"></span><span class="tt-hex">#212121</span></td><td><span class="tt-token">text.primary</span></td><td class="tt-desc">Error state: error.main</td></tr>
-          <tr><td><strong>Placeholder color</strong></td><td><span class="tt-swatch" style="background:#BDBDBD;"></span><span class="tt-hex">#BDBDBD</span></td><td><span class="tt-token">action.disabled</span></td><td class="tt-desc"></td></tr>
-          <tr><td><strong>Help text color</strong></td><td><span class="tt-swatch" style="background:#757575;"></span><span class="tt-hex">#757575</span></td><td><span class="tt-token">text.secondary</span></td><td class="tt-desc">Error state: error.main</td></tr>
-          <tr><td><strong>Border · default</strong></td><td><span class="tt-swatch" style="background:#9E9E9E;"></span><span class="tt-hex">#9E9E9E</span></td><td><span class="tt-token">input.enabledBorder</span></td><td class="tt-desc">1px solid</td></tr>
-          <tr><td><strong>Border · focus</strong></td><td><span class="tt-swatch" style="background:#64B5F6;"></span><span class="tt-hex">#64B5F6</span></td><td><span class="tt-token">border.focus</span></td><td class="tt-desc">2px solid</td></tr>
-          <tr><td><strong>Border · error</strong></td><td><span class="tt-swatch" style="background:#DB4537;"></span><span class="tt-hex">#DB4537</span></td><td><span class="tt-token">error.main</span></td><td class="tt-desc">1px solid</td></tr>
-          <tr><td><strong>Border · disabled</strong></td><td><span class="tt-swatch" style="background:#BDBDBD;"></span><span class="tt-hex">#BDBDBD</span></td><td><span class="tt-token">input.disabledBorder</span></td><td class="tt-desc">1px solid, bg: #EEEEEE</td></tr>
-          <tr><td><strong>Border radius</strong></td><td>4px</td><td><span class="tt-token">borderRadius.default</span></td><td class="tt-desc"></td></tr>
+          <tr>
+            <td>Input Height (Single-Line)</td>
+            <td><code>36px</code></td>
+            <td><code>--</code></td>
+          </tr>
+          <tr>
+            <td>Input Height (Multi-Line)</td>
+            <td><code>90px</code></td>
+            <td><code>--</code></td>
+          </tr>
+          <tr>
+            <td>Full Height (label + input + help)</td>
+            <td><code>80px</code> (18 + 4 + 36 + 4 + 18)</td>
+            <td><code>--</code></td>
+          </tr>
+          <tr>
+            <td>Horizontal Padding</td>
+            <td><code>8px</code></td>
+            <td><code>spacing.sm</code></td>
+          </tr>
+          <tr>
+            <td>Vertical Padding</td>
+            <td><code>4px</code></td>
+            <td><code>spacing.xs</code></td>
+          </tr>
+          <tr>
+            <td>Label → Input Gap</td>
+            <td><code>4px</code></td>
+            <td><code>spacing.xs</code></td>
+          </tr>
+          <tr>
+            <td>Input → Help Text Gap</td>
+            <td><code>4px</code></td>
+            <td><code>spacing.xs</code></td>
+          </tr>
+          <tr>
+            <td>Border Radius</td>
+            <td><code>4px</code></td>
+            <td><code>borderRadius.default</code></td>
+          </tr>
+          <tr>
+            <td>Label Typography</td>
+            <td>Roboto <code>12px</code> / 400, line-height 18px</td>
+            <td><code>fontSize.xs</code></td>
+          </tr>
+          <tr>
+            <td>Input Typography</td>
+            <td>Roboto <code>14px</code> / 400</td>
+            <td><code>fontSize.sm</code></td>
+          </tr>
+          <tr>
+            <td>Help Text Typography</td>
+            <td>Roboto <code>12px</code> / 400, line-height 18px</td>
+            <td><code>fontSize.xs</code></td>
+          </tr>
+          <tr>
+            <td>Label Color</td>
+            <td><code>#212121</code></td>
+            <td><code>text.primary</code></td>
+          </tr>
+          <tr>
+            <td>Placeholder Color</td>
+            <td><code>#BDBDBD</code></td>
+            <td><code>action.disabled</code></td>
+          </tr>
+          <tr>
+            <td>Help Text Color</td>
+            <td><code>#757575</code></td>
+            <td><code>text.secondary</code></td>
+          </tr>
+          <tr>
+            <td>Border (Default)</td>
+            <td><code>#9E9E9E</code> 1px solid</td>
+            <td><code>input.enabledBorder</code></td>
+          </tr>
+          <tr>
+            <td>Border (Focus)</td>
+            <td><code>#64B5F6</code> 2px solid</td>
+            <td><code>border.focus</code></td>
+          </tr>
+          <tr>
+            <td>Border (Error)</td>
+            <td><code>#DB4537</code> 1px solid</td>
+            <td><code>error.main</code></td>
+          </tr>
+          <tr>
+            <td>Border (Disabled)</td>
+            <td><code>#BDBDBD</code> 1px solid, bg: #EEEEEE</td>
+            <td><code>input.disabledBorder</code></td>
+          </tr>
+          <tr>
+            <td>Background</td>
+            <td>Transparent (White)</td>
+            <td><code>--</code></td>
+          </tr>
         </tbody>
       </table>
     </section>
-
   </main>
 </body>
 </html>

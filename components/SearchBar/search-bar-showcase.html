@@ -2,14 +2,128 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Search Bar - TRIO WFS Design System</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
   <link rel="stylesheet" href="../../design-system-shell.css">
   <style>
-    /* ── SearchBar component ──────────────────────────────────────── */
 
-    /* Shared input reset */
+    /* ============================================================
+       TEMPLATE OVERRIDE — CONTINUOUS CANVAS
+       ============================================================ */
+    .main-content {
+      background: var(--color-background-secondary);
+      min-height: 100vh;
+    }
+
+    .section {
+      background: transparent;
+      border-radius: 0;
+      padding: 0;
+      margin-bottom: 0;
+      padding-bottom: var(--spacing-xl);
+    }
+
+    .section + .section {
+      border-top: 1px solid var(--color-secondary-outline);
+      padding-top: var(--spacing-xl);
+    }
+
+    /* ── Section title icons ── */
+    .section-title .material-icons-outlined,
+    .section-title .material-icons {
+      font-size: 18px;
+    }
+
+    /* ── Tables: paper + border ── */
+    .section .property-table,
+    .section .spec-table {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .section .property-table th,
+    .section .spec-table th {
+      background: var(--color-background-paper);
+    }
+
+    /* ── Cards: paper ── */
+    .card {
+      background: var(--color-background-paper);
+    }
+
+    /* ── Card illustrations for Do/Don't ── */
+    .card-illustration {
+      background: var(--color-background-secondary, #FAFAFA);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      padding: var(--spacing-md);
+      margin-bottom: var(--spacing-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 80px;
+      position: relative;
+    }
+    .card-illustration-label {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      font-size: 9px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 2px 6px;
+      border-radius: 999px;
+    }
+    .do-card .card-illustration-label {
+      background: var(--color-success-light, #E8F5E9);
+      color: var(--color-success-main);
+    }
+    .dont-card .card-illustration-label {
+      background: var(--color-error-light, #FBEAED);
+      color: var(--color-error-main);
+    }
+    .card-illustration-wrong::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 16px;
+      right: 16px;
+      height: 2px;
+      background: var(--color-error-main);
+      opacity: 0.4;
+      transform: rotate(-3deg);
+    }
+
+    /* ── Demo containers: paper + border ── */
+    .demo-panel {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-md);
+      margin-bottom: var(--spacing-md);
+    }
+    .demo-row {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-lg);
+      flex-wrap: wrap;
+    }
+    .demo-label {
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      width: 60px;
+      flex-shrink: 0;
+    }
+
+    /* ── SearchBar component ── */
     .sb-input {
       border: 1px solid #9E9E9E;
       background: #fff;
@@ -34,7 +148,6 @@
       cursor: not-allowed;
     }
 
-    /* Support button */
     .sb-support {
       display: flex;
       align-items: center;
@@ -48,7 +161,6 @@
     .sb-support:hover { background: rgba(0,0,0,0.08); }
     .sb-support:disabled { background: var(--color-disabled-bg); color: var(--color-text-disabled); cursor: not-allowed; }
 
-    /* Sizes */
     .sb-sm { height: 32px; font-size: 12px; }
     .sb-sm .sb-support { width: 32px; }
     .sb-sm .sb-input { font-size: 12px; }
@@ -61,59 +173,44 @@
     .sb-lg .sb-support { width: 48px; }
     .sb-lg .sb-input { font-size: 16px; }
 
-    /* Container */
     .search-bar {
       display: inline-flex;
       align-items: stretch;
       border-radius: var(--border-radius);
       overflow: hidden;
     }
-    /* Left type: support btn has right border folded into input's left border */
     .search-bar.left .sb-support { border-right: none; border-radius: var(--border-radius) 0 0 var(--border-radius); }
     .search-bar.left .sb-input  { border-radius: 0 var(--border-radius) var(--border-radius) 0; }
 
-    /* Right type */
     .search-bar.right .sb-support { border-left: none; border-radius: 0 var(--border-radius) var(--border-radius) 0; }
     .search-bar.right .sb-input   { border-radius: var(--border-radius) 0 0 var(--border-radius); }
 
-    /* Both type */
     .search-bar.both .sb-support:first-child { border-right: none; border-radius: var(--border-radius) 0 0 var(--border-radius); }
     .search-bar.both .sb-support:last-child  { border-left: none; border-radius: 0 var(--border-radius) var(--border-radius) 0; }
     .search-bar.both .sb-input { border-radius: 0; }
 
-    /* Demo panels */
-    .demo-panel {
-      background: var(--color-background-paper);
-      border: 1px solid var(--color-secondary-outline);
-      border-radius: var(--border-radius);
-      padding: var(--spacing-lg);
-      display: flex;
-      flex-direction: column;
-      gap: var(--spacing-md);
-      margin-bottom: var(--spacing-md);
+    /* Spec table */
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
     }
-    .demo-row {
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-lg);
-      flex-wrap: wrap;
+    .spec-table th {
+      background: var(--color-secondary-main);
+      padding: var(--spacing-sm) var(--spacing-md);
+      text-align: left;
+      font-weight: 500;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 2px solid var(--color-secondary-outline);
     }
-    .demo-label {
-      font-size: 11px;
-      color: var(--color-text-secondary);
-      width: 60px;
-      flex-shrink: 0;
+    .spec-table td {
+      padding: var(--spacing-sm) var(--spacing-md);
+      border-bottom: 1px solid var(--color-secondary-outline);
+      vertical-align: top;
     }
-
-    /* Best practices */
-    .bp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-md); }
-    .bp-card { border-radius: var(--border-radius); padding: var(--spacing-md); border: 1px solid transparent; }
-    .bp-card.do { background: var(--color-success-light); border-color: var(--color-success-main); }
-    .bp-card.dont { background: var(--color-error-light); border-color: var(--color-error-main); }
-    .bp-label { font-size: 11px; font-weight: 500; text-transform: uppercase; margin-bottom: var(--spacing-sm); }
-    .bp-card.do .bp-label { color: var(--color-success-dark); }
-    .bp-card.dont .bp-label { color: var(--color-error-dark); }
-    .bp-card p { font-size: 13px; line-height: 1.5; }
+    .spec-table tr:last-child td { border-bottom: none; }
   </style>
   <script src="../../design-system-nav.js"></script>
 </head>
@@ -121,23 +218,54 @@
   <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
   <main class="main-content">
 
-    <div class="page-header">
+    <!-- PAGE HEADER -->
+    <header class="page-header">
       <h1 class="page-title">Search Bar</h1>
-      <p class="page-description">A text input with an attached search icon button — used to filter lists, grids, or page content.</p>
-    </div>
+      <p class="page-subtitle">A text input with an attached search icon button — used to filter lists, grids, or page content.</p>
+      <div class="component-meta">
+        <span><span class="material-icons-outlined" style="font-size: 14px;">category</span> Custom Component</span>
+        <a href="#" class="meta-link"><span class="material-icons-outlined" style="font-size: 14px;">menu_book</span> Storybook</a>
+        <a href="#" class="meta-link"><span class="material-icons-outlined" style="font-size: 14px;">design_services</span> Zeplin</a>
+        <span><span class="material-icons-outlined" style="font-size: 14px;">verified</span> Production Ready</span>
+      </div>
+    </header>
 
-    <!-- ── 1. Overview ─────────────────────────────────────────────── -->
+    <!-- OVERVIEW -->
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">info</span>
+        <span class="material-icons-outlined">info</span>
         Overview
       </h2>
-      <p class="section-description">
-        SearchBar wraps a TextField with one or two support button segments containing a
-        search icon. The button visually attaches to the input, forming a single compound
-        control. Pressing Enter or clicking the search button triggers the <code>onSearch</code> callback.
-      </p>
-      <div class="demo-panel" style="align-items: flex-start;">
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">psychology</span>
+            Purpose
+          </div>
+          <div class="card-content">
+            SearchBar wraps a TextField with one or two support button segments containing a search icon. The button visually attaches to the input, forming a single compound control.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">priority_high</span>
+            Behavior
+          </div>
+          <div class="card-content">
+            Pressing Enter or clicking the search button triggers the <code>onSearch</code> callback. Three type variants control button placement: left, right, or both.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">accessibility</span>
+            Accessibility
+          </div>
+          <div class="card-content">
+            Input has proper ARIA labels. Focus ring uses the standard blue outline. Disabled state prevents interaction on both input and button.
+          </div>
+        </div>
+      </div>
+      <div class="demo-panel" style="align-items: flex-start; margin-top: var(--spacing-md);">
         <div class="search-bar left sb-md">
           <button class="sb-support"><span class="material-icons" style="font-size:18px">search</span></button>
           <input class="sb-input" type="text" placeholder="Search workers, shifts, orders...">
@@ -145,11 +273,59 @@
       </div>
     </section>
 
-    <!-- ── 2. Type Variants ────────────────────────────────────────── -->
+    <!-- USAGE GUIDELINES -->
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">view_week</span>
-        Type
+        <span class="material-icons-outlined">rule</span>
+        Usage Guidelines
+      </h2>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">check_circle</span>
+            When to Use
+          </div>
+          <div class="card-illustration">
+            <span class="card-illustration-label">Correct</span>
+            <div class="search-bar left sb-sm" style="width: 220px;">
+              <button class="sb-support"><span class="material-icons" style="font-size:16px">search</span></button>
+              <input class="sb-input" type="text" placeholder="Search workers...">
+            </div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Use the Medium size by default</li>
+              <li>Reserve Small for dense toolbars (e.g., inline grid filters)</li>
+              <li>Reserve Large for primary page-level search</li>
+              <li>Provide a clear placeholder that tells the user what is searchable</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">cancel</span>
+            When NOT to Use
+          </div>
+          <div class="card-illustration card-illustration-wrong">
+            <span class="card-illustration-label">Incorrect</span>
+            <div style="font-size: 12px; color: var(--color-text-secondary); text-align: center;">Using SearchBar for navigation</div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Don't use SearchBar for navigation or routing — it's a filter control</li>
+              <li>Don't use the Both type unless there's a clear reason for dual triggers</li>
+              <li>Don't use for global/site-wide search — use the App Bar search field instead</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VARIANTS (Type) -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">widgets</span>
+        Variants
       </h2>
       <p class="section-description">
         The <code>type</code> prop controls which side(s) have the support button.
@@ -178,27 +354,12 @@
           </div>
         </div>
       </div>
-
-      <div class="prop-table">
-        <div class="prop-row">
-          <div class="prop-label">Left</div>
-          <div class="prop-value">Search button on the left of the input. Most common pattern.</div>
-        </div>
-        <div class="prop-row">
-          <div class="prop-label">Right</div>
-          <div class="prop-value">Search button on the right. Use when the input should lead visually (e.g., prominent search bars).</div>
-        </div>
-        <div class="prop-row">
-          <div class="prop-label">Both</div>
-          <div class="prop-value">Search buttons on both sides. Use when the search context could be triggered from either direction.</div>
-        </div>
-      </div>
     </section>
 
-    <!-- ── 3. Sizes ────────────────────────────────────────────────── -->
+    <!-- SIZES -->
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">format_size</span>
+        <span class="material-icons-outlined">straighten</span>
         Sizes
       </h2>
       <p class="section-description">Three sizes match the broader form input scale.</p>
@@ -227,10 +388,10 @@
       </div>
     </section>
 
-    <!-- ── 4. States ───────────────────────────────────────────────── -->
+    <!-- STATES -->
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">toggle_on</span>
+        <span class="material-icons-outlined">toggle_on</span>
         States
       </h2>
       <div class="demo-panel">
@@ -258,36 +419,59 @@
       </div>
     </section>
 
-    <!-- ── 5. Best Practices ──────────────────────────────────────── -->
+    <!-- BEST PRACTICES -->
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">thumb_up</span>
+        <span class="material-icons-outlined">recommend</span>
         Best Practices
       </h2>
-      <div class="bp-grid">
-        <div class="bp-card do">
-          <div class="bp-label">✓ Do</div>
-          <p>Use the Medium size by default. Reserve Small for dense toolbars (e.g., inline grid filters) and Large for primary page-level search.</p>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">check_circle</span>
+            Do
+          </div>
+          <div class="card-illustration">
+            <span class="card-illustration-label">Correct</span>
+            <div class="search-bar left sb-md" style="width: 280px;">
+              <button class="sb-support"><span class="material-icons" style="font-size:18px">search</span></button>
+              <input class="sb-input" type="text" placeholder="Search workers, shifts...">
+            </div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Use the Medium size by default. Reserve Small for dense toolbars and Large for primary page-level search.</li>
+              <li>Provide a clear placeholder that tells the user what is searchable: "Search workers, shifts, or orders..." is better than just "Search".</li>
+            </ul>
+          </div>
         </div>
-        <div class="bp-card dont">
-          <div class="bp-label">✗ Don't</div>
-          <p>Don't use SearchBar for navigation or routing. It's a filter control, not a site-wide search. For global search, use the App Bar search field.</p>
-        </div>
-        <div class="bp-card do">
-          <div class="bp-label">✓ Do</div>
-          <p>Provide a clear placeholder that tells the user what is searchable: "Search workers, shifts, or orders…" is better than just "Search".</p>
-        </div>
-        <div class="bp-card dont">
-          <div class="bp-label">✗ Don't</div>
-          <p>Don't use the Both type unless there's a clear reason for dual triggers. Left is the standard pattern across TRIO WFS.</p>
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">cancel</span>
+            Don't
+          </div>
+          <div class="card-illustration card-illustration-wrong">
+            <span class="card-illustration-label">Incorrect</span>
+            <div class="search-bar both sb-md" style="width: 280px;">
+              <button class="sb-support"><span class="material-icons" style="font-size:18px">search</span></button>
+              <input class="sb-input" type="text" placeholder="Search...">
+              <button class="sb-support"><span class="material-icons" style="font-size:18px">search</span></button>
+            </div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Don't use SearchBar for navigation or routing. It's a filter control, not a site-wide search.</li>
+              <li>Don't use the Both type unless there's a clear reason for dual triggers. Left is the standard pattern across TRIO WFS.</li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ── 6. Technical Specifications ───────────────────────────── -->
+    <!-- TECHNICAL SPECIFICATIONS -->
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">straighten</span>
+        <span class="material-icons-outlined">construction</span>
         Technical Specifications
       </h2>
       <table class="spec-table">

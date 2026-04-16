@@ -68,7 +68,7 @@ function renderNav(currentHref) {
     const itemFile = item.href.split('/').pop();
     const isActive = path.endsWith(itemFile) || (currentHref && currentHref === item.href);
     return `<a href="${fullHref}" class="nav-item${isActive ? ' active' : ''}">
-      <span class="material-icons">${item.icon}</span>${item.label}
+      <span class="material-icons-outlined">${item.icon}</span>${item.label}
     </a>`;
   }
 
@@ -80,8 +80,13 @@ function renderNav(currentHref) {
 
   const html = `
     <div class="sidebar-header">
-      <h1>TRIO WFS</h1>
-      <p>Design System</p>
+      <div class="sidebar-brand">
+        <img src="${root}assets/trio-icon.svg" alt="TRIO" class="sidebar-logo" />
+        <div class="sidebar-brand-text">
+          <h1>TRIO<span class="brand-separator">/</span><span class="brand-ui">UI</span></h1>
+          <p>Design System</p>
+        </div>
+      </div>
     </div>
     <nav>
       <div class="nav-section">

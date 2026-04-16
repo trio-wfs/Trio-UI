@@ -6,12 +6,98 @@
   <title>Chip - TRIO WFS Design System</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
   <link rel="stylesheet" href="../../design-system-shell.css">
   <style>
 
+    /* ============================================================
+       TEMPLATE OVERRIDE — CONTINUOUS CANVAS
+       ============================================================ */
+    .main-content {
+      background: var(--color-background-secondary);
+      min-height: 100vh;
+    }
 
-    
+    .section {
+      background: transparent;
+      border-radius: 0;
+      padding: 0;
+      margin-bottom: 0;
+      padding-bottom: var(--spacing-xl);
+    }
 
+    .section + .section {
+      border-top: 1px solid var(--color-secondary-outline);
+      padding-top: var(--spacing-xl);
+    }
+
+    /* ── Section title icons ── */
+    .section-title .material-icons-outlined,
+    .section-title .material-icons {
+      font-size: 18px;
+    }
+
+    /* ── Tables: paper + border ── */
+    .section .property-table {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .section .property-table th {
+      background: var(--color-background-paper);
+    }
+
+    /* ── Cards: paper ── */
+    .card {
+      background: var(--color-background-paper);
+    }
+
+    /* ── Card illustrations for Do/Don't ── */
+    .card-illustration {
+      background: var(--color-background-secondary, #FAFAFA);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      padding: var(--spacing-md);
+      margin-bottom: var(--spacing-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 80px;
+      position: relative;
+    }
+    .card-illustration-label {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      font-size: 9px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 2px 6px;
+      border-radius: 999px;
+    }
+    .do-card .card-illustration-label {
+      background: var(--color-success-light, #E8F5E9);
+      color: var(--color-success-main);
+    }
+    .dont-card .card-illustration-label {
+      background: var(--color-error-light, #FBEAED);
+      color: var(--color-error-main);
+    }
+    .card-illustration-wrong::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 16px;
+      right: 16px;
+      height: 2px;
+      background: var(--color-error-main);
+      opacity: 0.4;
+      transform: rotate(-3deg);
+    }
+
+    /* ── Demo rows: paper ── */
     .chip-row {
       display: flex;
       gap: var(--spacing-md);
@@ -27,7 +113,6 @@
       background: #424242;
     }
 
-    /* SIZE COMPARISON ROW */
     .size-row {
       display: flex;
       gap: var(--spacing-md);
@@ -38,15 +123,6 @@
       border: 1px solid var(--color-secondary-outline);
     }
 
-    
-
-    /* DIVIDER */
-    .divider {
-      height: 1px;
-      background: var(--color-secondary-outline);
-      margin: var(--spacing-xl) 0;
-    }
-
     /* ========================================
        CHIP COMPONENT STYLES
        Extracted from Figma MCP — 2026-02-17
@@ -54,15 +130,6 @@
        fileKey: PjAYuPDr8IA1ccwiAjFkSD
        ======================================== */
 
-    /*
-      Base chip:
-        height:        32px (md) / 24px (sm)
-        padding:       0 4px               [0 vertical — flex+height handles it; 4px horizontal]
-        border-radius: 999px                [pill]
-        font:          Roboto 400 12px/12px
-        icon-left:     16px × 16px
-        icon-right:    24px × 24px
-    */
     .chip {
       display: inline-flex;
       align-items: center;
@@ -86,7 +153,6 @@
       user-select: none;
     }
 
-    /* Hover state layer — rgba(0,0,0,0.04) overlay */
     .chip::after {
       content: "";
       position: absolute;
@@ -101,17 +167,9 @@
       background-color: var(--action-hover);
     }
 
-    /* SIZE: md — height 32px */
-    .chip-md {
-      height: 32px;
-    }
+    .chip-md { height: 32px; }
+    .chip-sm { height: 24px; }
 
-    /* SIZE: sm — height 24px */
-    .chip-sm {
-      height: 24px;
-    }
-
-    /* ICON LEFT — 16px × 16px (check icon, Figma: size-[16px]) */
     .chip .chip-icon-left {
       font-size: 16px;
       width: 16px;
@@ -123,7 +181,6 @@
       color: inherit;
     }
 
-    /* ICON RIGHT — 24px × 24px (delete/cancel icon, Figma: size-[24px]) */
     .chip .chip-icon-right {
       font-size: 20px;
       width: 24px;
@@ -143,89 +200,22 @@
     }
 
     /* ── CONTAINED VARIANT ── */
-
-    /* default contained: bg #F5F5F5, text #212121 */
-    .chip-default-contained {
-      background-color: var(--color-secondary-main);
-      color: var(--color-text-primary);
-    }
-
-    /* primary contained: bg #2196F3, text #FFFFFF */
-    .chip-primary-contained {
-      background-color: var(--color-primary-main);
-      color: #FFFFFF;
-    }
-
-    /* error contained: bg #DB4537, text #FFFFFF */
-    .chip-error-contained {
-      background-color: var(--color-error-main);
-      color: #FFFFFF;
-    }
-
-    /* info contained: bg #5BBFDE, text #FFFFFF */
-    .chip-info-contained {
-      background-color: var(--color-info-main);
-      color: #FFFFFF;
-    }
-
-    /* warning contained: bg #E17109, text #FFFFFF */
-    .chip-warning-contained {
-      background-color: var(--color-warning-main);
-      color: #FFFFFF;
-    }
-
-    /* success contained: bg #4CAF50, text #FFFFFF */
-    .chip-success-contained {
-      background-color: var(--color-success-main);
-      color: #FFFFFF;
-    }
+    .chip-default-contained { background-color: var(--color-secondary-main); color: var(--color-text-primary); }
+    .chip-primary-contained { background-color: var(--color-primary-main); color: #FFFFFF; }
+    .chip-error-contained { background-color: var(--color-error-main); color: #FFFFFF; }
+    .chip-info-contained { background-color: var(--color-info-main); color: #FFFFFF; }
+    .chip-warning-contained { background-color: var(--color-warning-main); color: #FFFFFF; }
+    .chip-success-contained { background-color: var(--color-success-main); color: #FFFFFF; }
 
     /* ── OUTLINE VARIANT ── */
-
-    /* default outline: border #E0E0E0, text #212121 */
-    .chip-default-outline {
-      background-color: transparent;
-      color: var(--color-text-primary);
-      border: 1px solid var(--color-secondary-outline);
-    }
-
-    /* primary outline: border #2196F3, text #2196F3 */
-    .chip-primary-outline {
-      background-color: transparent;
-      color: var(--color-primary-main);
-      border: 1px solid var(--color-primary-main);
-    }
-
-    /* error outline: border #DB4537, text #DB4537 */
-    .chip-error-outline {
-      background-color: transparent;
-      color: var(--color-error-main);
-      border: 1px solid var(--color-error-main);
-    }
-
-    /* info outline: border #5BBFDE, text #5BBFDE */
-    .chip-info-outline {
-      background-color: transparent;
-      color: var(--color-info-main);
-      border: 1px solid var(--color-info-main);
-    }
-
-    /* warning outline: border #E17109, text #E17109 */
-    .chip-warning-outline {
-      background-color: transparent;
-      color: var(--color-warning-main);
-      border: 1px solid var(--color-warning-main);
-    }
-
-    /* success outline: border #4CAF50, text #4CAF50 */
-    .chip-success-outline {
-      background-color: transparent;
-      color: var(--color-success-main);
-      border: 1px solid var(--color-success-main);
-    }
+    .chip-default-outline { background-color: transparent; color: var(--color-text-primary); border: 1px solid var(--color-secondary-outline); }
+    .chip-primary-outline { background-color: transparent; color: var(--color-primary-main); border: 1px solid var(--color-primary-main); }
+    .chip-error-outline { background-color: transparent; color: var(--color-error-main); border: 1px solid var(--color-error-main); }
+    .chip-info-outline { background-color: transparent; color: var(--color-info-main); border: 1px solid var(--color-info-main); }
+    .chip-warning-outline { background-color: transparent; color: var(--color-warning-main); border: 1px solid var(--color-warning-main); }
+    .chip-success-outline { background-color: transparent; color: var(--color-success-main); border: 1px solid var(--color-success-main); }
 
     /* ── DISABLED STATE ── */
-    /* bg rgba(0,0,0,0.07), text #9E9E9E */
     .chip-disabled {
       background-color: var(--color-disabled-bg) !important;
       color: var(--color-text-disabled) !important;
@@ -241,113 +231,135 @@
       pointer-events: none;
     }
 
-    /* Figma spec annotation */
-    .figma-spec {
-      background: #F3F0FF;
-      border: 1px solid #7C4DFF;
-      border-radius: var(--border-radius);
-      padding: var(--spacing-md);
-      font-size: 12px;
-      color: #4A148C;
-      margin-bottom: var(--spacing-lg);
-      display: flex;
-      align-items: flex-start;
-      gap: var(--spacing-sm);
-    }
-
-    .figma-spec .material-icons {
-      font-size: 16px;
-      margin-top: 1px;
-      flex-shrink: 0;
-    }
-  
   </style>
   <script src="../../design-system-nav.js"></script>
 </head>
 <body>
 
   <!-- LEFT NAVIGATION -->
-    <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
+  <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
 
   <!-- MAIN CONTENT -->
   <main class="main-content">
 
     <!-- PAGE HEADER -->
-    <div class="page-header">
+    <header class="page-header">
       <h1 class="page-title">Chip</h1>
       <p class="page-subtitle">
         Chips help people enter information, make selections, filter content, or trigger actions.
         They are compact elements that represent an attribute, text, entity, or action.
       </p>
       <div class="component-meta">
-        <span><span class="material-icons" style="font-size:14px">hub</span> Figma Node: 1512:8352</span>
-        <span><span class="material-icons" style="font-size:14px">straighten</span> Sizes: md (32px), sm (24px)</span>
-        <span><span class="material-icons" style="font-size:14px">palette</span> 6 colors × 2 variants</span>
-        <span><span class="material-icons" style="font-size:14px">verified</span> MCP Live Data — 2026-02-17</span>
+        <span><span class="material-icons-outlined" style="font-size: 14px;">category</span> Atomic Component</span>
+        <a href="#" class="meta-link"><span class="material-icons-outlined" style="font-size: 14px;">menu_book</span> Storybook</a>
+        <a href="#" class="meta-link"><span class="material-icons-outlined" style="font-size: 14px;">design_services</span> Zeplin</a>
+        <span><span class="material-icons-outlined" style="font-size: 14px;">verified</span> Production Ready</span>
       </div>
-    </div>
+    </header>
 
-    <!-- FIGMA SOURCE NOTE -->
-    <div class="figma-spec">
-      <span class="material-icons">verified</span>
-      <span>
-        <strong>Live Figma Source:</strong> Values extracted directly from Figma via MCP on 2026-02-17.
-        File: <code>PjAYuPDr8IA1ccwiAjFkSD</code> — Node: <code>1512:8352</code>.
-        Height md=32px, sm=24px · Padding 4px · Gap 4px · Border-radius 999px · Font 12px/12px Roboto 400.
-      </span>
-    </div>
-
-    <!-- ═══════════════════════════════════════════
-         SECTION 1 — SIZES
-         ═══════════════════════════════════════════ -->
-    <div class="section">
-      <div class="section-title">
-        <span class="material-icons">straighten</span>
-        Sizes
-      </div>
-      <p class="section-description">
-        Two sizes available. Icons are optional — size only affects height.
-      </p>
-
-      <div class="variant-group">
-        <div class="variant-label">md — 32px height (default)</div>
-        <div class="size-row">
-          <div class="chip chip-md chip-default-contained">
-            <span class="chip-label">Label</span>
+    <!-- OVERVIEW -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">info</span>
+        Overview
+      </h2>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">psychology</span>
+            Purpose
           </div>
-          <div class="chip chip-md chip-primary-contained">
-            <span class="chip-label">Label</span>
+          <div class="card-content">
+            Chips represent compact pieces of information such as filter tags, categories, selections, or status indicators. They make dense data scannable in VMS workflows.
           </div>
-          <div class="chip chip-md chip-default-outline">
-            <span class="chip-label">Label</span>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">layers</span>
+            Variants
+          </div>
+          <div class="card-content">
+            <strong>Contained</strong> — solid background fill for high emphasis.<br>
+            <strong>Outline</strong> — transparent bg with colored border for lower emphasis.<br>
+            6 semantic colors available in each variant.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">accessibility</span>
+            Accessibility
+          </div>
+          <div class="card-content">
+            Chips support keyboard interaction for selection and deletion. The cancel icon on removable chips is focusable and labeled for screen readers. Min touch target is 24px (sm).
           </div>
         </div>
       </div>
+    </section>
 
-      <div class="variant-group">
-        <div class="variant-label">sm — 24px height</div>
-        <div class="size-row">
-          <div class="chip chip-sm chip-default-contained">
-            <span class="chip-label">Label</span>
+    <!-- USAGE GUIDELINES -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">rule</span>
+        Usage Guidelines
+      </h2>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">check_circle</span>
+            When to Use
           </div>
-          <div class="chip chip-sm chip-primary-contained">
-            <span class="chip-label">Label</span>
+          <div class="card-illustration">
+            <span class="card-illustration-label">Correct</span>
+            <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+              <div class="chip chip-sm chip-success-contained"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Verified</span></div>
+              <div class="chip chip-sm chip-warning-contained"><span class="chip-label">Pending</span></div>
+              <div class="chip chip-sm chip-default-outline"><span class="chip-label">RN</span><span class="material-icons chip-icon-right">cancel</span></div>
+            </div>
           </div>
-          <div class="chip chip-sm chip-default-outline">
-            <span class="chip-label">Label</span>
+          <div class="card-content">
+            <ul>
+              <li>Use chips for filter tags, categories, and selection states</li>
+              <li>Use <strong>default</strong> color for neutral informational chips</li>
+              <li>Use <strong>primary</strong> to indicate active/selected state</li>
+              <li>Use semantic colors (error, warning, success) for status feedback</li>
+              <li>Use the cancel icon (iconRight) when the chip can be removed</li>
+              <li>Use the check icon (iconLeft) to confirm a selected state</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">cancel</span>
+            When NOT to Use
+          </div>
+          <div class="card-illustration card-illustration-wrong">
+            <span class="card-illustration-label">Incorrect</span>
+            <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+              <div class="chip chip-sm chip-primary-contained"><span class="chip-label">Save Changes</span></div>
+              <div class="chip chip-sm chip-error-contained"><span class="chip-label">Delete All</span></div>
+              <div class="chip chip-sm chip-success-contained"><span class="chip-label">Submit</span></div>
+            </div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Don't use chips as primary navigation elements (use tabs or buttons)</li>
+              <li>Don't use <strong>primary</strong> blue for general labels — reserve for selected state</li>
+              <li>Don't use more than 3 semantic color types in one view</li>
+              <li>Don't use chips as standalone call-to-action buttons</li>
+              <li>Don't truncate chip labels — chips should be concise by design</li>
+            </ul>
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- ═══════════════════════════════════════════
-         SECTION 2 — VARIANTS
-         ═══════════════════════════════════════════ -->
-    <div class="section">
-      <div class="section-title">
-        <span class="material-icons">layers</span>
+    <!-- VARIANTS -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">widgets</span>
         Variants
-      </div>
+      </h2>
       <p class="section-description">
         <strong>Contained</strong> uses a solid background fill.
         <strong>Outline</strong> uses a transparent background with a colored border.
@@ -376,16 +388,43 @@
           <div class="chip chip-md chip-success-outline"><span class="chip-label">Success</span></div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- ═══════════════════════════════════════════
-         SECTION 3 — STATES
-         ═══════════════════════════════════════════ -->
-    <div class="section">
-      <div class="section-title">
-        <span class="material-icons">toggle_on</span>
-        States
+    <!-- SIZES -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">straighten</span>
+        Sizes
+      </h2>
+      <p class="section-description">
+        Two sizes available. Icons are optional — size only affects height.
+      </p>
+
+      <div class="variant-group">
+        <div class="variant-label">md — 32px height (default)</div>
+        <div class="size-row">
+          <div class="chip chip-md chip-default-contained"><span class="chip-label">Label</span></div>
+          <div class="chip chip-md chip-primary-contained"><span class="chip-label">Label</span></div>
+          <div class="chip chip-md chip-default-outline"><span class="chip-label">Label</span></div>
+        </div>
       </div>
+
+      <div class="variant-group">
+        <div class="variant-label">sm — 24px height</div>
+        <div class="size-row">
+          <div class="chip chip-sm chip-default-contained"><span class="chip-label">Label</span></div>
+          <div class="chip chip-sm chip-primary-contained"><span class="chip-label">Label</span></div>
+          <div class="chip chip-sm chip-default-outline"><span class="chip-label">Label</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATES -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">toggle_on</span>
+        States
+      </h2>
       <p class="section-description">
         Hover applies an <code>rgba(0,0,0,0.04)</code> overlay (state-layer from Figma).
         Disabled uses <code>rgba(0,0,0,0.07)</code> background and <code>#9E9E9E</code> text.
@@ -423,16 +462,14 @@
           <div class="chip chip-md chip-disabled"><span class="chip-label">Success</span></div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- ═══════════════════════════════════════════
-         SECTION 4 — ICON COMBINATIONS
-         ═══════════════════════════════════════════ -->
-    <div class="section">
-      <div class="section-title">
-        <span class="material-icons">tune</span>
+    <!-- ICON COMBINATIONS -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">tune</span>
         Icon Combinations
-      </div>
+      </h2>
       <p class="section-description">
         Both icons are optional. The left icon (<code>check</code>) signals selection/confirmation.
         The right icon (<code>cancel</code>) triggers deletion/removal.
@@ -496,156 +533,172 @@
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- ═══════════════════════════════════════════
-         SECTION 5 — COLOR MATRIX
-         ═══════════════════════════════════════════ -->
-    <div class="section">
-      <div class="section-title">
-        <span class="material-icons">grid_view</span>
-        Full Color Matrix
-      </div>
-      <p class="section-description">
-        All 6 colors × 2 variants, md size.
-      </p>
-
-      <table style="border-collapse:collapse; font-size:13px; width:100%;">
-        <thead>
-          <tr>
-            <th style="padding:8px 16px; text-align:left; background:var(--color-background-default); border-bottom:2px solid var(--color-secondary-outline); font-weight:500; color:var(--color-text-secondary);">Color</th>
-            <th style="padding:8px 16px; text-align:left; background:var(--color-background-default); border-bottom:2px solid var(--color-secondary-outline); font-weight:500; color:var(--color-text-secondary);">Contained</th>
-            <th style="padding:8px 16px; text-align:left; background:var(--color-background-default); border-bottom:2px solid var(--color-secondary-outline); font-weight:500; color:var(--color-text-secondary);">Outline</th>
-            <th style="padding:8px 16px; text-align:left; background:var(--color-background-default); border-bottom:2px solid var(--color-secondary-outline); font-weight:500; color:var(--color-text-secondary);">Contained Disabled</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style="padding:12px 16px; border-bottom:1px solid var(--color-secondary-outline); font-weight:500;">default</td>
-            <td style="padding:12px 16px; border-bottom:1px solid var(--color-secondary-outline);">
-              <div class="chip chip-md chip-default-contained"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Default</span><span class="material-icons chip-icon-right">cancel</span></div>
-            </td>
-            <td style="padding:12px 16px; border-bottom:1px solid var(--color-secondary-outline);">
-              <div class="chip chip-md chip-default-outline"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Default</span><span class="material-icons chip-icon-right">cancel</span></div>
-            </td>
-            <td style="padding:12px 16px; border-bottom:1px solid var(--color-secondary-outline);">
-              <div class="chip chip-md chip-disabled"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Default</span><span class="material-icons chip-icon-right">cancel</span></div>
-            </td>
-          </tr>
-          <tr>
-            <td style="padding:12px 16px; border-bottom:1px solid var(--color-secondary-outline); font-weight:500;">primary</td>
-            <td style="padding:12px 16px; border-bottom:1px solid var(--color-secondary-outline);">
-              <div class="chip chip-md chip-primary-contained"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Primary</span><span class="material-icons chip-icon-right">cancel</span></div>
-            </td>
-            <td style="padding:12px 16px; border-bottom:1px solid var(--color-secondary-outline);">
-              <div class="chip chip-md chip-primary-outline"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Primary</span><span class="material-icons chip-icon-right">cancel</span></div>
-            </td>
-            <td style="padding:12px 16px; border-bottom:1px solid var(--color-secondary-outline);">
-              <div class="chip chip-md chip-disabled"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Primary</span><span class="material-icons chip-icon-right">cancel</span></div>
-            </td>
-          </tr>
-          <tr>
-            <td style="padding:12px 16px; border-bottom:1px solid var(--color-secondary-outline); font-weight:500;">error</td>
-            <td style="padding:12px 16px; border-bottom:1px solid var(--color-secondary-outline);">
-              <div class="chip chip-md chip-error-contained"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Error</span><span class="material-icons chip-icon-right">cancel</span></div>
-            </td>
-            <td style="padding:12px 16px; border-bottom:1px solid var(--color-secondary-outline);">
-              <div class="chip chip-md chip-error-outline"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Error</span><span class="material-icons chip-icon-right">cancel</span></div>
-            </td>
-            <td style="padding:12px 16px; border-bottom:1px solid var(--color-secondary-outline);">
-              <div class="chip chip-md chip-disabled"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Error</span><span class="material-icons chip-icon-right">cancel</span></div>
-            </td>
-          </tr>
-          <tr>
-            <td style="padding:12px 16px; border-bottom:1px solid var(--color-secondary-outline); font-weight:500;">warning</td>
-            <td style="padding:12px 16px; border-bottom:1px solid var(--color-secondary-outline);">
-              <div class="chip chip-md chip-warning-contained"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Warning</span><span class="material-icons chip-icon-right">cancel</span></div>
-            </td>
-            <td style="padding:12px 16px; border-bottom:1px solid var(--color-secondary-outline);">
-              <div class="chip chip-md chip-warning-outline"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Warning</span><span class="material-icons chip-icon-right">cancel</span></div>
-            </td>
-            <td style="padding:12px 16px; border-bottom:1px solid var(--color-secondary-outline);">
-              <div class="chip chip-md chip-disabled"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Warning</span><span class="material-icons chip-icon-right">cancel</span></div>
-            </td>
-          </tr>
-          <tr>
-            <td style="padding:12px 16px; border-bottom:1px solid var(--color-secondary-outline); font-weight:500;">info</td>
-            <td style="padding:12px 16px; border-bottom:1px solid var(--color-secondary-outline);">
-              <div class="chip chip-md chip-info-contained"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Info</span><span class="material-icons chip-icon-right">cancel</span></div>
-            </td>
-            <td style="padding:12px 16px; border-bottom:1px solid var(--color-secondary-outline);">
-              <div class="chip chip-md chip-info-outline"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Info</span><span class="material-icons chip-icon-right">cancel</span></div>
-            </td>
-            <td style="padding:12px 16px; border-bottom:1px solid var(--color-secondary-outline);">
-              <div class="chip chip-md chip-disabled"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Info</span><span class="material-icons chip-icon-right">cancel</span></div>
-            </td>
-          </tr>
-          <tr>
-            <td style="padding:12px 16px; font-weight:500;">success</td>
-            <td style="padding:12px 16px;">
-              <div class="chip chip-md chip-success-contained"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Success</span><span class="material-icons chip-icon-right">cancel</span></div>
-            </td>
-            <td style="padding:12px 16px;">
-              <div class="chip chip-md chip-success-outline"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Success</span><span class="material-icons chip-icon-right">cancel</span></div>
-            </td>
-            <td style="padding:12px 16px;">
-              <div class="chip chip-md chip-disabled"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Success</span><span class="material-icons chip-icon-right">cancel</span></div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- USAGE GUIDELINES -->
+    <!-- BEST PRACTICES -->
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">rule</span>
-        Usage Guidelines
+        <span class="material-icons-outlined">recommend</span>
+        Best Practices
       </h2>
       <div class="grid-2">
         <div class="card do-card">
           <div class="card-title">
-            <span class="material-icons">check_circle</span>
-            When to Use
+            <span class="material-icons-outlined">check_circle</span>
+            Do
+          </div>
+          <div class="card-illustration">
+            <span class="card-illustration-label">Correct</span>
+            <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+              <div class="chip chip-sm chip-default-outline"><span class="chip-label">RN</span><span class="material-icons chip-icon-right">cancel</span></div>
+              <div class="chip chip-sm chip-default-outline"><span class="chip-label">CNA</span><span class="material-icons chip-icon-right">cancel</span></div>
+              <div class="chip chip-sm chip-primary-contained"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Active</span></div>
+            </div>
           </div>
           <div class="card-content">
             <ul>
-              <li>Use chips for filter tags, categories, and selection states</li>
-              <li>Use <strong>default</strong> color for neutral informational chips</li>
-              <li>Use <strong>primary</strong> to indicate active/selected state</li>
-              <li>Use semantic colors (error, warning, success) for status feedback</li>
-              <li>Use the cancel icon (iconRight) when the chip can be removed</li>
-              <li>Use the check icon (iconLeft) to confirm a selected state</li>
+              <li>Use consistent chip sizes within the same context</li>
+              <li>Use semantic colors purposefully — not decoratively</li>
+              <li>Keep labels concise (1-2 words ideal)</li>
+              <li>Use the cancel icon only when the chip is removable</li>
+              <li>Group related chips together with consistent spacing</li>
             </ul>
           </div>
         </div>
-
         <div class="card dont-card">
           <div class="card-title">
-            <span class="material-icons">cancel</span>
-            When NOT to Use
+            <span class="material-icons-outlined">cancel</span>
+            Don't
+          </div>
+          <div class="card-illustration card-illustration-wrong">
+            <span class="card-illustration-label">Incorrect</span>
+            <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+              <div class="chip chip-md chip-primary-contained"><span class="chip-label">Click to Save</span></div>
+              <div class="chip chip-sm chip-error-contained"><span class="chip-label">X</span></div>
+              <div class="chip chip-md chip-success-outline"><span class="chip-label">This is a very long chip label</span></div>
+            </div>
           </div>
           <div class="card-content">
             <ul>
-              <li>Don't use chips as primary navigation elements (use tabs or buttons)</li>
-              <li>Don't use <strong>primary</strong> blue for general labels — reserve for selected state</li>
+              <li>Don't use chips as call-to-action buttons</li>
+              <li>Don't mix chip sizes in the same row</li>
+              <li>Don't use long labels — keep them concise</li>
+              <li>Don't use primary blue for general labels — reserve for selected state</li>
               <li>Don't use more than 3 semantic color types in one view</li>
-              <li>Don't use chips as standalone call-to-action buttons</li>
-              <li>Don't truncate chip labels — chips should be concise by design</li>
             </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ═══════════════════════════════════════════
-         SECTION 7 — PROPS TABLE
-         ═══════════════════════════════════════════ -->
-    <div class="section">
-      <div class="section-title">
-        <span class="material-icons">code</span>
+    <!-- COLOR SEMANTICS -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">palette</span>
+        Color Semantics
+      </h2>
+      <p class="section-description">
+        All 6 colors x 2 variants, md size. Each color conveys specific meaning in VMS workflows.
+      </p>
+
+      <table class="property-table">
+        <thead>
+          <tr>
+            <th>Color</th>
+            <th>Contained</th>
+            <th>Outline</th>
+            <th>Disabled</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>default</strong></td>
+            <td><div class="chip chip-md chip-default-contained"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Default</span><span class="material-icons chip-icon-right">cancel</span></div></td>
+            <td><div class="chip chip-md chip-default-outline"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Default</span><span class="material-icons chip-icon-right">cancel</span></div></td>
+            <td><div class="chip chip-md chip-disabled"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Default</span><span class="material-icons chip-icon-right">cancel</span></div></td>
+          </tr>
+          <tr>
+            <td><strong>primary</strong></td>
+            <td><div class="chip chip-md chip-primary-contained"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Primary</span><span class="material-icons chip-icon-right">cancel</span></div></td>
+            <td><div class="chip chip-md chip-primary-outline"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Primary</span><span class="material-icons chip-icon-right">cancel</span></div></td>
+            <td><div class="chip chip-md chip-disabled"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Primary</span><span class="material-icons chip-icon-right">cancel</span></div></td>
+          </tr>
+          <tr>
+            <td><strong>error</strong></td>
+            <td><div class="chip chip-md chip-error-contained"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Error</span><span class="material-icons chip-icon-right">cancel</span></div></td>
+            <td><div class="chip chip-md chip-error-outline"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Error</span><span class="material-icons chip-icon-right">cancel</span></div></td>
+            <td><div class="chip chip-md chip-disabled"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Error</span><span class="material-icons chip-icon-right">cancel</span></div></td>
+          </tr>
+          <tr>
+            <td><strong>warning</strong></td>
+            <td><div class="chip chip-md chip-warning-contained"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Warning</span><span class="material-icons chip-icon-right">cancel</span></div></td>
+            <td><div class="chip chip-md chip-warning-outline"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Warning</span><span class="material-icons chip-icon-right">cancel</span></div></td>
+            <td><div class="chip chip-md chip-disabled"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Warning</span><span class="material-icons chip-icon-right">cancel</span></div></td>
+          </tr>
+          <tr>
+            <td><strong>info</strong></td>
+            <td><div class="chip chip-md chip-info-contained"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Info</span><span class="material-icons chip-icon-right">cancel</span></div></td>
+            <td><div class="chip chip-md chip-info-outline"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Info</span><span class="material-icons chip-icon-right">cancel</span></div></td>
+            <td><div class="chip chip-md chip-disabled"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Info</span><span class="material-icons chip-icon-right">cancel</span></div></td>
+          </tr>
+          <tr>
+            <td><strong>success</strong></td>
+            <td><div class="chip chip-md chip-success-contained"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Success</span><span class="material-icons chip-icon-right">cancel</span></div></td>
+            <td><div class="chip chip-md chip-success-outline"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Success</span><span class="material-icons chip-icon-right">cancel</span></div></td>
+            <td><div class="chip chip-md chip-disabled"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Success</span><span class="material-icons chip-icon-right">cancel</span></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- TECHNICAL SPECIFICATIONS -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">construction</span>
+        Technical Specifications
+      </h2>
+      <p class="section-description">
+        All values extracted from Figma via MCP (node: 1512:8352, file: PjAYuPDr8IA1ccwiAjFkSD)
+      </p>
+
+      <table class="property-table">
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Value</th>
+            <th>Figma Node</th>
+            <th>Token</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Height (md)</td><td>32px</td><td>2384:9253</td><td>--</td></tr>
+          <tr><td>Height (sm)</td><td>24px</td><td>5612:3236</td><td>--</td></tr>
+          <tr><td>Wrapper padding</td><td>4px all sides</td><td>5608:1244 (wrapper)</td><td>spacing.xs</td></tr>
+          <tr><td>Inner gap</td><td>4px</td><td>2384:9254 (label)</td><td>spacing.xs</td></tr>
+          <tr><td>Border radius</td><td>999px (pill)</td><td>5608:1244 (wrapper)</td><td>--</td></tr>
+          <tr><td>Icon size</td><td>24px x 24px</td><td>2384:9255, 2384:9257</td><td>--</td></tr>
+          <tr><td>Font size</td><td>12px</td><td>2384:9256</td><td>typography.button.sm.fontSize</td></tr>
+          <tr><td>Font weight</td><td>400 (Regular)</td><td>2384:9256</td><td>typography.button.sm.fontWeight</td></tr>
+          <tr><td>Line height</td><td>12px</td><td>2384:9256</td><td>typography.button.sm.lineHeight</td></tr>
+          <tr><td>Letter spacing</td><td>0px</td><td>2384:9256</td><td>--</td></tr>
+          <tr><td>Default bg (contained)</td><td>#F5F5F5</td><td>5608:1244</td><td>colors.secondary.main</td></tr>
+          <tr><td>Default text</td><td>#212121</td><td>2384:9256</td><td>colors.text.primary</td></tr>
+          <tr><td>Primary bg (contained)</td><td>#2196F3</td><td>5608:1398</td><td>colors.primary.main</td></tr>
+          <tr><td>Error bg (contained)</td><td>#DB4537</td><td>5608:2607</td><td>colors.error.main</td></tr>
+          <tr><td>Default outline border</td><td>#E0E0E0</td><td>5608:1372</td><td>colors.secondary.outline</td></tr>
+          <tr><td>Hover overlay</td><td>rgba(0,0,0,0.04)</td><td>5608:2548 (state-layer)</td><td>colors.action.hover</td></tr>
+          <tr><td>Disabled bg</td><td>rgba(0,0,0,0.07)</td><td>5608:1303</td><td>colors.action.disabled</td></tr>
+          <tr><td>Disabled text</td><td>#9E9E9E</td><td>5608:1306</td><td>colors.text.disabled</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- COMPONENT PROPS -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">code</span>
         Component Props
-      </div>
+      </h2>
       <p class="section-description">
         All props map directly to Figma componentPropertyDefinitions from node 1512:8352.
       </p>
@@ -666,7 +719,7 @@
             <td><code>'md' | 'sm'</code></td>
             <td><code>'md'</code></td>
             <td>size</td>
-            <td>Height: md=32px, sm=24px (extracted from Figma absoluteBoundingBox)</td>
+            <td>Height: md=32px, sm=24px</td>
           </tr>
           <tr>
             <td><code>color</code></td>
@@ -713,64 +766,20 @@
           <tr>
             <td><code>onClick</code></td>
             <td><code>() =&gt; void</code></td>
-            <td>—</td>
-            <td>—</td>
+            <td>--</td>
+            <td>--</td>
             <td>Click handler for the chip.</td>
           </tr>
           <tr>
             <td><code>onDelete</code></td>
             <td><code>() =&gt; void</code></td>
-            <td>—</td>
-            <td>—</td>
+            <td>--</td>
+            <td>--</td>
             <td>Called when the cancel (X) icon is clicked. Requires iconRight=true.</td>
           </tr>
         </tbody>
       </table>
-    </div>
-
-    <!-- ═══════════════════════════════════════════
-         SECTION 8 — EXTRACTED FIGMA VALUES
-         ═══════════════════════════════════════════ -->
-    <div class="section">
-      <div class="section-title">
-        <span class="material-icons">hub</span>
-        Figma Extracted Values Reference
-      </div>
-      <p class="section-description">
-        All values below were pulled live from Figma via MCP on 2026-02-17. No assumptions made.
-      </p>
-
-      <table class="property-table">
-        <thead>
-          <tr>
-            <th>Property</th>
-            <th>Value</th>
-            <th>Figma Node</th>
-            <th>Token</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>Height (md)</td><td>32px</td><td>2384:9253</td><td>—</td></tr>
-          <tr><td>Height (sm)</td><td>24px</td><td>5612:3236</td><td>—</td></tr>
-          <tr><td>Wrapper padding</td><td>4px all sides</td><td>5608:1244 (wrapper)</td><td>spacing.xs</td></tr>
-          <tr><td>Inner gap</td><td>4px</td><td>2384:9254 (label)</td><td>spacing.xs</td></tr>
-          <tr><td>Border radius</td><td>999px (pill)</td><td>5608:1244 (wrapper)</td><td>—</td></tr>
-          <tr><td>Icon size</td><td>24px × 24px</td><td>2384:9255, 2384:9257</td><td>—</td></tr>
-          <tr><td>Font size</td><td>12px</td><td>2384:9256</td><td>typography.button.sm.fontSize</td></tr>
-          <tr><td>Font weight</td><td>400 (Regular)</td><td>2384:9256</td><td>typography.button.sm.fontWeight</td></tr>
-          <tr><td>Line height</td><td>12px</td><td>2384:9256</td><td>typography.button.sm.lineHeight</td></tr>
-          <tr><td>Letter spacing</td><td>0px</td><td>2384:9256</td><td>—</td></tr>
-          <tr><td>Default bg (contained)</td><td>#F5F5F5</td><td>5608:1244</td><td>colors.secondary.main</td></tr>
-          <tr><td>Default text</td><td>#212121</td><td>2384:9256</td><td>colors.text.primary</td></tr>
-          <tr><td>Primary bg (contained)</td><td>#2196F3</td><td>5608:1398</td><td>colors.primary.main</td></tr>
-          <tr><td>Error bg (contained)</td><td>#DB4537</td><td>5608:2607</td><td>colors.error.main</td></tr>
-          <tr><td>Default outline border</td><td>#E0E0E0</td><td>5608:1372</td><td>colors.secondary.outline</td></tr>
-          <tr><td>Hover overlay</td><td>rgba(0,0,0,0.04)</td><td>5608:2548 (state-layer)</td><td>colors.action.hover</td></tr>
-          <tr><td>Disabled bg</td><td>rgba(0,0,0,0.07)</td><td>5608:1303</td><td>colors.action.disabled</td></tr>
-          <tr><td>Disabled text</td><td>#9E9E9E</td><td>5608:1306</td><td>colors.text.disabled</td></tr>
-        </tbody>
-      </table>
-    </div>
+    </section>
 
   </main>
 </body>

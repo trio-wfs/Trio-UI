@@ -6,11 +6,111 @@
   <title>Chart — TRIO WFS Design System</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
   <link rel="stylesheet" href="../../design-system-shell.css">
   <script src="https://cdn.jsdelivr.net/npm/ag-charts-community@13/dist/umd/ag-charts-community.min.js"></script>
 
   <style>
-    /* ── Color Vision Simulation bar ───────────────────────── */
+
+    /* ============================================================
+       TEMPLATE OVERRIDE — CONTINUOUS CANVAS
+       ============================================================ */
+    .main-content {
+      background: var(--color-background-secondary);
+      min-height: 100vh;
+    }
+
+    .section {
+      background: transparent;
+      border-radius: 0;
+      padding: 0;
+      margin-bottom: 0;
+      padding-bottom: var(--spacing-xl);
+    }
+
+    .section + .section {
+      border-top: 1px solid var(--color-secondary-outline);
+      padding-top: var(--spacing-xl);
+    }
+
+    /* ── Section title icons ── */
+    .section-title .material-icons-outlined,
+    .section-title .material-icons {
+      font-size: 18px;
+    }
+
+    /* ── Tables: paper + border ── */
+    .section .property-table,
+    .section .spec-table {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .section .property-table th,
+    .section .spec-table th {
+      background: var(--color-background-paper);
+    }
+
+    /* ── Cards: paper ── */
+    .card {
+      background: var(--color-background-paper);
+    }
+
+    /* ── Card illustrations for Do/Don't ── */
+    .card-illustration {
+      background: var(--color-background-secondary, #FAFAFA);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      padding: var(--spacing-md);
+      margin-bottom: var(--spacing-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 80px;
+      position: relative;
+    }
+    .card-illustration-label {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      font-size: 9px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 2px 6px;
+      border-radius: 999px;
+    }
+    .do-card .card-illustration-label {
+      background: var(--color-success-light, #E8F5E9);
+      color: var(--color-success-main);
+    }
+    .dont-card .card-illustration-label {
+      background: var(--color-error-light, #FBEAED);
+      color: var(--color-error-main);
+    }
+    .card-illustration-wrong::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 16px;
+      right: 16px;
+      height: 2px;
+      background: var(--color-error-main);
+      opacity: 0.4;
+      transform: rotate(-3deg);
+    }
+
+    /* ── Demo containers: paper + border ── */
+    .demo-area {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-xl);
+      margin-bottom: var(--spacing-md);
+    }
+
+    /* ── Color Vision Simulation bar ── */
     .cbvd-bar {
       display: flex;
       align-items: center;
@@ -65,19 +165,6 @@
     .cbvd-prevalence {
       font-size: 10px;
       opacity: 0.75;
-    }
-
-    /* Applied to all chart wrappers when a filter is active */
-    .cbvd-filtered {
-      filter: var(--cbvd-filter, none);
-    }
-
-    .demo-area {
-      background: var(--color-background-default);
-      border: 1px solid var(--color-secondary-outline);
-      border-radius: var(--border-radius);
-      padding: var(--spacing-xl);
-      margin-bottom: var(--spacing-md);
     }
 
     .chart-grid {
@@ -177,151 +264,145 @@
       padding: 2px 6px;
       border-radius: 3px;
     }
-
-    .do-dont-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--spacing-md);
-    }
-
-    .do-box, .dont-box {
-      border-radius: var(--border-radius);
-      padding: var(--spacing-md);
-    }
-
-    .do-box {
-      background: #E8F5E9;
-      border-left: 3px solid var(--color-success-main);
-    }
-
-    .dont-box {
-      background: var(--color-error-light);
-      border-left: 3px solid var(--color-error-main);
-    }
-
-    .do-box strong, .dont-box strong {
-      display: block;
-      font-size: 12px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: var(--spacing-sm);
-    }
-
-    .do-box strong { color: var(--color-success-main); }
-    .dont-box strong { color: var(--color-error-main); }
-
-    .do-box ul, .dont-box ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .do-box li, .dont-box li {
-      font-size: 13px;
-      color: var(--color-text-primary);
-      padding-left: var(--spacing-md);
-      position: relative;
-    }
-
-    .do-box li::before { content: '✓'; position: absolute; left: 0; color: var(--color-success-main); font-weight: 700; }
-    .dont-box li::before { content: '✕'; position: absolute; left: 0; color: var(--color-error-main); font-weight: 700; }
   </style>
 </head>
 <body>
 
-  <!-- Color blindness SVG filter definitions (Viénot / Brettel matrices) -->
+  <!-- Color blindness SVG filter definitions -->
   <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
     <defs>
-      <!-- Protanopia: red cone absent (~1% of males) -->
       <filter id="cbvd-protanopia" color-interpolation-filters="sRGB">
-        <feColorMatrix type="matrix" values="
-          0.567 0.433 0     0  0
-          0.558 0.442 0     0  0
-          0     0.242 0.758 0  0
-          0     0     0     1  0"/>
+        <feColorMatrix type="matrix" values="0.567 0.433 0 0 0 0.558 0.442 0 0 0 0 0.242 0.758 0 0 0 0 0 1 0"/>
       </filter>
-      <!-- Deuteranopia: green cone absent (~1% of males) -->
       <filter id="cbvd-deuteranopia" color-interpolation-filters="sRGB">
-        <feColorMatrix type="matrix" values="
-          0.625 0.375 0     0  0
-          0.7   0.3   0     0  0
-          0     0.3   0.7   0  0
-          0     0     0     1  0"/>
+        <feColorMatrix type="matrix" values="0.625 0.375 0 0 0 0.7 0.3 0 0 0 0 0.3 0.7 0 0 0 0 0 1 0"/>
       </filter>
-      <!-- Tritanopia: blue cone absent (rare, ~0.003%) -->
       <filter id="cbvd-tritanopia" color-interpolation-filters="sRGB">
-        <feColorMatrix type="matrix" values="
-          0.95  0.05  0     0  0
-          0     0.433 0.567 0  0
-          0     0.475 0.525 0  0
-          0     0     0     1  0"/>
+        <feColorMatrix type="matrix" values="0.95 0.05 0 0 0 0 0.433 0.567 0 0 0 0.475 0.525 0 0 0 0 0 1 0"/>
       </filter>
-      <!-- Protanomaly: red cone weak (~1% of males) -->
       <filter id="cbvd-protanomaly" color-interpolation-filters="sRGB">
-        <feColorMatrix type="matrix" values="
-          0.817 0.183 0     0  0
-          0.333 0.667 0     0  0
-          0     0.125 0.875 0  0
-          0     0     0     1  0"/>
+        <feColorMatrix type="matrix" values="0.817 0.183 0 0 0 0.333 0.667 0 0 0 0 0.125 0.875 0 0 0 0 0 1 0"/>
       </filter>
-      <!-- Deuteranomaly: green cone weak (~5% of males — most common) -->
       <filter id="cbvd-deuteranomaly" color-interpolation-filters="sRGB">
-        <feColorMatrix type="matrix" values="
-          0.8   0.2   0     0  0
-          0.258 0.742 0     0  0
-          0     0.142 0.858 0  0
-          0     0     0     1  0"/>
+        <feColorMatrix type="matrix" values="0.8 0.2 0 0 0 0.258 0.742 0 0 0 0 0.142 0.858 0 0 0 0 0 1 0"/>
       </filter>
-      <!-- Tritanomaly: blue cone weak (very rare) -->
       <filter id="cbvd-tritanomaly" color-interpolation-filters="sRGB">
-        <feColorMatrix type="matrix" values="
-          0.967 0.033 0     0  0
-          0     0.733 0.267 0  0
-          0     0.183 0.817 0  0
-          0     0     0     1  0"/>
+        <feColorMatrix type="matrix" values="0.967 0.033 0 0 0 0 0.733 0.267 0 0 0 0.183 0.817 0 0 0 0 0 1 0"/>
       </filter>
-      <!-- Achromatopsia: no color vision (very rare) -->
       <filter id="cbvd-achromatopsia" color-interpolation-filters="sRGB">
-        <feColorMatrix type="matrix" values="
-          0.299 0.587 0.114 0  0
-          0.299 0.587 0.114 0  0
-          0.299 0.587 0.114 0  0
-          0     0     0     1  0"/>
+        <feColorMatrix type="matrix" values="0.299 0.587 0.114 0 0 0.299 0.587 0.114 0 0 0.299 0.587 0.114 0 0 0 0 0 1 0"/>
       </filter>
     </defs>
   </svg>
 
-  <aside class="sidebar"></aside>
+  <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
 
   <main class="main-content">
-    <div class="page-header">
-      <h1>Chart</h1>
+    <!-- PAGE HEADER -->
+    <header class="page-header">
+      <h1 class="page-title">Chart</h1>
       <p class="page-subtitle">Data visualization powered by AG Charts, themed to TRIO design tokens.</p>
-    </div>
+      <div class="component-meta">
+        <span><span class="material-icons-outlined" style="font-size: 14px;">category</span> Data Visualization</span>
+        <a href="#" class="meta-link"><span class="material-icons-outlined" style="font-size: 14px;">menu_book</span> Storybook</a>
+        <a href="#" class="meta-link"><span class="material-icons-outlined" style="font-size: 14px;">design_services</span> Zeplin</a>
+        <span><span class="material-icons-outlined" style="font-size: 14px;">verified</span> Production Ready</span>
+      </div>
+    </header>
 
-    <!-- ── 1. Overview ─────────────────────────────────────────────────── -->
-    <section class="section-card">
-      <h2 class="section-title">Overview</h2>
-      <p style="font-size:14px; color:var(--color-text-secondary); margin-bottom:var(--spacing-md);">
-        The <code style="font-size:12px; background:var(--color-secondary-main); padding:2px 6px; border-radius:3px;">Chart</code> component wraps AG Charts with TRIO's extended 10-color palette,
-        Roboto typography, and Material-style icon SVGs applied via the AG Charts theming API.
-        Engineers import <code style="font-size:12px; background:var(--color-secondary-main); padding:2px 6px; border-radius:3px;">&lt;Chart options={...} /&gt;</code> — no theme configuration required.
-      </p>
-      <p style="font-size:14px; color:var(--color-text-secondary);">
-        Use for: fill rate trends, order volume, worker status distributions,
-        shift coverage, agency performance comparisons, and market rate analysis.
-      </p>
+    <!-- OVERVIEW -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">info</span>
+        Overview
+      </h2>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">psychology</span>
+            Purpose
+          </div>
+          <div class="card-content">
+            The <code>Chart</code> component wraps AG Charts with TRIO's extended 10-color palette, Roboto typography, and Material-style icon SVGs applied via the AG Charts theming API.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">priority_high</span>
+            Usage
+          </div>
+          <div class="card-content">
+            Engineers import <code>&lt;Chart options={...} /&gt;</code> — no theme configuration required. Use for fill rate trends, order volume, worker status distributions, and more.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">accessibility</span>
+            Accessibility
+          </div>
+          <div class="card-content">
+            Color vision simulation bar lets you preview all charts under 7 different color blindness conditions. The 10-color palette was chosen for maximum distinguishability.
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- ── 2. Live Chart Demos ─────────────────────────────────────────── -->
-    <section class="section-card">
-      <h2 class="section-title">Chart Types</h2>
-      <p style="font-size:12px; color:var(--color-text-secondary); margin-bottom:var(--spacing-md);">
-        All charts below are rendered live by AG Charts v13 using <code style="font-size:12px; background:var(--color-secondary-main); padding:2px 6px; border-radius:3px;">trioAgChartsTheme</code>. Hover to see tooltips.
+    <!-- USAGE GUIDELINES -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">rule</span>
+        Usage Guidelines
+      </h2>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">check_circle</span>
+            When to Use
+          </div>
+          <div class="card-illustration">
+            <span class="card-illustration-label">Correct</span>
+            <div style="font-size: 12px; color: var(--color-text-primary); text-align: center;">Bar for comparisons, Line for trends, Donut for proportions</div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Use <code>&lt;Chart&gt;</code> — never raw <code>&lt;AgCharts&gt;</code> — so the theme is always applied</li>
+              <li>Keep chart titles short and meaningful (14–16px, medium weight)</li>
+              <li>Use a legend when 3 or more series are present</li>
+              <li>Use bar/column for comparisons, line/area for trends, donut for proportions</li>
+              <li>Keep y-axis labels concise — use K/M suffixes for large numbers</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">cancel</span>
+            When NOT to Use
+          </div>
+          <div class="card-illustration card-illustration-wrong">
+            <span class="card-illustration-label">Incorrect</span>
+            <div style="font-size: 12px; color: var(--color-text-secondary); text-align: center;">Custom colors or pie charts</div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Don't set custom colors inline — use the TRIO palette from <code>trioChartPalette</code></li>
+              <li>Don't use more than 5–6 series in one chart — it becomes unreadable</li>
+              <li>Don't place charts inside a modal (900px large modal only if absolutely necessary)</li>
+              <li>Don't use pie charts — use donut instead (center label adds context)</li>
+              <li>Don't mix chart types for the same data type in the same view</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VARIANTS (Chart Types) -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">widgets</span>
+        Variants
+      </h2>
+      <p class="section-description">
+        All charts below are rendered live by AG Charts v13 using <code>trioAgChartsTheme</code>. Hover to see tooltips.
       </p>
 
       <div class="cbvd-bar">
@@ -337,68 +418,143 @@
       </div>
 
       <div class="chart-grid">
-
         <div class="chart-card">
           <h4>Bar — Fill Rate by Department</h4>
           <p>Stacked or grouped bars for comparing metrics across departments or time periods.</p>
           <div id="chart-bar" class="chart-container"></div>
         </div>
-
         <div class="chart-card">
           <h4>Line — Order Volume Over Time</h4>
           <p>Trends over time. Use for weekly/monthly volumes, submission rates, or SLA performance.</p>
           <div id="chart-line" class="chart-container"></div>
         </div>
-
         <div class="chart-card">
           <h4>Donut — Worker Status Distribution</h4>
           <p>Proportional breakdown. Use for status distributions, credentialing stages, or category splits.</p>
           <div id="chart-donut" class="chart-container"></div>
         </div>
-
         <div class="chart-card">
           <h4>Area — Shift Coverage Trend</h4>
           <p>Filled area for volume trends where cumulative context matters.</p>
           <div id="chart-area" class="chart-container"></div>
         </div>
-
         <div class="chart-card">
           <h4>Scatter — Bill Rate vs Fill Rate</h4>
           <p>Correlation between two numeric variables. Use to compare agency pricing against performance.</p>
           <div id="chart-scatter" class="chart-container"></div>
         </div>
-
         <div class="chart-card">
           <h4>Bubble — Rate / Fill Rate / Volume</h4>
           <p>Three-variable scatter. Bubble size encodes a third metric — here, submission volume.</p>
           <div id="chart-bubble" class="chart-container"></div>
         </div>
-
         <div class="chart-card">
           <h4>Combination — Submissions + Fill Rate</h4>
           <p>Bar + line on dual axes. Use when two related metrics have different scales.</p>
           <div id="chart-combo" class="chart-container"></div>
         </div>
-
       </div>
     </section>
 
-    <!-- ── 3. Multi-Series Example ────────────────────────────────────── -->
-    <section class="section-card">
-      <h2 class="section-title">Multi-Series — Agency Comparison</h2>
-      <p style="font-size:14px; color:var(--color-text-secondary); margin-bottom:var(--spacing-md);">
-        Multiple series pull from the palette in order. This example shows 5 agencies across 6 weeks
-        using colors 1–5.
+    <!-- MULTI-SERIES -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">stacked_bar_chart</span>
+        Multi-Series — Agency Comparison
+      </h2>
+      <p class="section-description">
+        Multiple series pull from the palette in order. This example shows 5 agencies across 6 weeks using colors 1–5.
       </p>
       <div class="demo-area">
         <div id="chart-multi" style="width:100%; height:320px;"></div>
       </div>
     </section>
 
-    <!-- ── 4. Data Viz Palette ─────────────────────────────────────────── -->
-    <section class="section-card">
-      <h2 class="section-title">Data Visualization Palette</h2>
-      <p style="font-size:14px; color:var(--color-text-secondary); margin-bottom:var(--spacing-lg);">
+    <!-- INTERACTION & LAYOUT PATTERNS -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">touch_app</span>
+        Interaction &amp; Layout Patterns
+      </h2>
+      <p class="section-description">
+        Stacking, labelling, interpolation, and crosshair — all Community tier. Hover any chart to explore interactions.
+      </p>
+
+      <div class="chart-grid">
+        <div class="chart-card">
+          <h4>Stacked Bar — Filled / Pending / Unfilled</h4>
+          <p>Use when the total and the composition both matter.</p>
+          <div id="chart-stacked-bar" class="chart-container"></div>
+        </div>
+        <div class="chart-card">
+          <h4>Normalized Stacked — Proportional View</h4>
+          <p>Same data normalized to 100%. Use when comparing proportions regardless of volume.</p>
+          <div id="chart-normalized-bar" class="chart-container"></div>
+        </div>
+        <div class="chart-card">
+          <h4>Bar — Data Labels</h4>
+          <p>Values rendered directly on bars. Use on dense dashboards where reading from the axis adds friction.</p>
+          <div id="chart-bar-labels" class="chart-container"></div>
+        </div>
+        <div class="chart-card">
+          <h4>Stacked Area — Agency Submission Volume</h4>
+          <p>Multiple filled areas stacked. Use to show individual contribution alongside the running total.</p>
+          <div id="chart-stacked-area" class="chart-container"></div>
+        </div>
+        <div class="chart-card">
+          <h4>Smooth Interpolation</h4>
+          <p>Curved line between data points. Use for biological or coverage trends.</p>
+          <div id="chart-smooth" class="chart-container"></div>
+        </div>
+        <div class="chart-card">
+          <h4>Step Interpolation</h4>
+          <p>Flat-then-jump between points. Use for scheduling or rate changes.</p>
+          <div id="chart-step" class="chart-container"></div>
+        </div>
+        <div class="chart-card" style="grid-column: span 2;">
+          <h4>Crosshair — Axis Tracking</h4>
+          <p>Vertical and horizontal crosshair lines snap to the nearest data point on hover.</p>
+          <div id="chart-crosshair" style="height:260px;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HORIZONTAL & PROGRESS BARS -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">align_horizontal_left</span>
+        Horizontal &amp; Progress Bars
+      </h2>
+      <p class="section-description">
+        Standard bar series with <code>direction: 'horizontal'</code> and <code>width: 10</code>. Long category labels read naturally left-to-right.
+      </p>
+
+      <div style="display:flex; flex-direction:column; gap:var(--spacing-md);">
+        <div class="chart-card">
+          <h4>Horizontal Bar — Fill Rate by Department</h4>
+          <p>Use when category labels are long or when ranking order is the primary story.</p>
+          <div id="chart-horiz-bar" style="height:220px;"></div>
+        </div>
+        <div class="chart-card">
+          <h4>Horizontal Stacked — Filled / Pending / Unfilled</h4>
+          <p>Same composition pattern rotated. Each row is a department's total order count.</p>
+          <div id="chart-horiz-stacked" style="height:220px;"></div>
+        </div>
+        <div class="chart-card">
+          <h4>Progress Fill — Credentialing Completion</h4>
+          <p>Two-series stacked horizontal: actual value + remaining. Each bar uses a palette color.</p>
+          <div id="chart-progress" style="height:220px;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COLOR SEMANTICS (Data Viz Palette) -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">palette</span>
+        Color Semantics
+      </h2>
+      <p class="section-description">
         10-color extended palette for TRIO WFS data visualization. Colors are assigned in order — series 1
         always gets color 1, series 2 gets color 2, and so on. If there are more series than colors, the
         palette repeats from the beginning.
@@ -407,120 +563,52 @@
       <div class="palette-grid" id="palette-swatches"></div>
     </section>
 
-    <!-- ── 5. Interaction & Layout Patterns ──────────────────────────── -->
-    <section class="section-card">
-      <h2 class="section-title">Interaction &amp; Layout Patterns</h2>
-      <p style="font-size:12px; color:var(--color-text-secondary); margin-bottom:var(--spacing-md);">
-        Stacking, labelling, interpolation, and crosshair — all Community tier. Hover any chart to explore interactions.
-      </p>
-
-      <div class="chart-grid">
-
-        <div class="chart-card">
-          <h4>Stacked Bar — Filled / Pending / Unfilled</h4>
-          <p>Use when the total and the composition both matter. Each bar is the total order count; segments show breakdown.</p>
-          <div id="chart-stacked-bar" class="chart-container"></div>
+    <!-- BEST PRACTICES -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">recommend</span>
+        Best Practices
+      </h2>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">check_circle</span>
+            Do
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Use <code>&lt;Chart&gt;</code> — never raw <code>&lt;AgCharts&gt;</code> — so the theme is always applied</li>
+              <li>Keep chart titles short and meaningful (14–16px, medium weight)</li>
+              <li>Use a legend when 3 or more series are present</li>
+              <li>Use bar/column for comparisons, line/area for trends, donut for proportions</li>
+              <li>Keep y-axis labels concise — use K/M suffixes for large numbers</li>
+            </ul>
+          </div>
         </div>
-
-        <div class="chart-card">
-          <h4>Normalized Stacked — Proportional View</h4>
-          <p>Same data as above, normalized to 100%. Use when comparing proportions across departments regardless of volume.</p>
-          <div id="chart-normalized-bar" class="chart-container"></div>
-        </div>
-
-        <div class="chart-card">
-          <h4>Bar — Data Labels</h4>
-          <p>Values rendered directly on bars. Use on dense dashboards where reading from the axis adds friction.</p>
-          <div id="chart-bar-labels" class="chart-container"></div>
-        </div>
-
-        <div class="chart-card">
-          <h4>Stacked Area — Agency Submission Volume</h4>
-          <p>Multiple filled areas stacked. Use to show individual contribution alongside the running total.</p>
-          <div id="chart-stacked-area" class="chart-container"></div>
-        </div>
-
-        <div class="chart-card">
-          <h4>Smooth Interpolation</h4>
-          <p>Curved line between data points. Use for biological or coverage trends where the transition is gradual.</p>
-          <div id="chart-smooth" class="chart-container"></div>
-        </div>
-
-        <div class="chart-card">
-          <h4>Step Interpolation</h4>
-          <p>Flat-then-jump between points. Use for scheduling, rate changes, or any value that holds until it changes.</p>
-          <div id="chart-step" class="chart-container"></div>
-        </div>
-
-        <div class="chart-card" style="grid-column: span 2;">
-          <h4>Crosshair — Axis Tracking</h4>
-          <p>Vertical and horizontal crosshair lines snap to the nearest data point on hover. Use on dense line charts where axis readback is hard.</p>
-          <div id="chart-crosshair" style="height:260px;"></div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ── 6. Horizontal & Progress Bars ──────────────────────────────── -->
-    <section class="section-card">
-      <h2 class="section-title">Horizontal &amp; Progress Bars</h2>
-      <p style="font-size:12px; color:var(--color-text-secondary); margin-bottom:var(--spacing-md);">
-        All three are standard bar series with <code style="font-size:11px; background:var(--color-secondary-main); padding:2px 5px; border-radius:3px;">direction: 'horizontal'</code> and <code style="font-size:11px; background:var(--color-secondary-main); padding:2px 5px; border-radius:3px;">width: 10</code>. Long category labels read naturally left-to-right.
-      </p>
-
-      <div style="display:flex; flex-direction:column; gap:var(--spacing-md);">
-
-        <div class="chart-card">
-          <h4>Horizontal Bar — Fill Rate by Department</h4>
-          <p>Use when category labels are long or when ranking order is the primary story.</p>
-          <div id="chart-horiz-bar" style="height:220px;"></div>
-        </div>
-
-        <div class="chart-card">
-          <h4>Horizontal Stacked — Filled / Pending / Unfilled</h4>
-          <p>Same composition pattern as the vertical stacked bar, rotated. Each row is a department's total order count.</p>
-          <div id="chart-horiz-stacked" style="height:220px;"></div>
-        </div>
-
-        <div class="chart-card">
-          <h4>Progress Fill — Credentialing Completion</h4>
-          <p>Two-series stacked horizontal: actual value + remaining. Each bar uses a palette color; the remainder is a neutral track.</p>
-          <div id="chart-progress" style="height:220px;"></div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ── 7. Best Practices ───────────────────────────────────────────── -->
-    <section class="section-card">
-      <h2 class="section-title">Best Practices</h2>
-      <div class="do-dont-grid">
-        <div class="do-box">
-          <strong>Do</strong>
-          <ul>
-            <li>Use <code style="font-size:11px;">&lt;Chart&gt;</code> — never raw <code style="font-size:11px;">&lt;AgCharts&gt;</code> — so the theme is always applied</li>
-            <li>Keep chart titles short and meaningful (14–16px, medium weight)</li>
-            <li>Use a legend when 3 or more series are present</li>
-            <li>Use bar/column for comparisons, line/area for trends, donut for proportions</li>
-            <li>Keep y-axis labels concise — use K/M suffixes for large numbers</li>
-          </ul>
-        </div>
-        <div class="dont-box">
-          <strong>Don't</strong>
-          <ul>
-            <li>Don't set custom colors inline — use the TRIO palette from <code style="font-size:11px;">trioChartPalette</code></li>
-            <li>Don't use more than 5–6 series in one chart — it becomes unreadable</li>
-            <li>Don't place charts inside a modal (900px large modal only if absolutely necessary)</li>
-            <li>Don't use pie charts — use donut instead (center label adds context)</li>
-            <li>Don't mix chart types for the same data type in the same view</li>
-          </ul>
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">cancel</span>
+            Don't
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Don't set custom colors inline — use the TRIO palette from <code>trioChartPalette</code></li>
+              <li>Don't use more than 5–6 series in one chart — it becomes unreadable</li>
+              <li>Don't place charts inside a modal (900px large modal only if absolutely necessary)</li>
+              <li>Don't use pie charts — use donut instead (center label adds context)</li>
+              <li>Don't mix chart types for the same data type in the same view</li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ── 6. Technical Specifications ───────────────────────────────── -->
-    <section class="section-card">
-      <h2 class="section-title">Technical Specifications</h2>
+    <!-- TECHNICAL SPECIFICATIONS -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">construction</span>
+        Technical Specifications
+      </h2>
       <table class="spec-table">
         <thead>
           <tr>
@@ -659,589 +747,63 @@
       AgCharts.create(opts);
     }
 
-    // ─── Bar Chart — Fill Rate by Department ───────────────────────────────────
-    observedChart({
-      container: document.getElementById('chart-bar'),
-      theme: trioTheme,
-      background: { fill: 'transparent' },
-      data: [
-        { dept: 'ICU',         fillRate: 87 },
-        { dept: 'Med/Surg',    fillRate: 72 },
-        { dept: 'ED',          fillRate: 91 },
-        { dept: 'OR',          fillRate: 65 },
-        { dept: 'Telemetry',   fillRate: 78 },
-        { dept: 'Pediatrics',  fillRate: 83 },
-      ],
-      series: [{
-        type: 'bar',
-        xKey: 'dept',
-        yKey: 'fillRate',
-        yName: 'Fill Rate %',
-        cornerRadius: 4,
-      }],
-      axes: [
-        { type: 'category', position: 'bottom' },
-        { type: 'number',   position: 'left', min: 0, max: 100, label: { formatter: ({ value }) => `${value}%` } },
-      ],
-      legend: { enabled: false },
-    });
+    // ─── Bar Chart ───────────────────────────────────────────────────────────
+    observedChart({ container: document.getElementById('chart-bar'), theme: trioTheme, background: { fill: 'transparent' }, data: [ { dept: 'ICU', fillRate: 87 }, { dept: 'Med/Surg', fillRate: 72 }, { dept: 'ED', fillRate: 91 }, { dept: 'OR', fillRate: 65 }, { dept: 'Telemetry', fillRate: 78 }, { dept: 'Pediatrics', fillRate: 83 }, ], series: [{ type: 'bar', xKey: 'dept', yKey: 'fillRate', yName: 'Fill Rate %', cornerRadius: 4 }], axes: [ { type: 'category', position: 'bottom' }, { type: 'number', position: 'left', min: 0, max: 100, label: { formatter: ({ value }) => `${value}%` } }, ], legend: { enabled: false } });
 
-    // ─── Line Chart — Order Volume Over Time ───────────────────────────────────
-    observedChart({
-      container: document.getElementById('chart-line'),
-      theme: trioTheme,
-      background: { fill: 'transparent' },
-      data: [
-        { week: 'Wk 1', submitted: 142, filled: 118 },
-        { week: 'Wk 2', submitted: 165, filled: 134 },
-        { week: 'Wk 3', submitted: 158, filled: 141 },
-        { week: 'Wk 4', submitted: 179, filled: 152 },
-        { week: 'Wk 5', submitted: 192, filled: 167 },
-        { week: 'Wk 6', submitted: 201, filled: 183 },
-      ],
-      series: [
-        { type: 'line', xKey: 'week', yKey: 'submitted', yName: 'Submitted', stroke: '#005F8A', marker: { enabled: true, fill: '#005F8A', stroke: '#005F8A' } },
-        { type: 'line', xKey: 'week', yKey: 'filled',    yName: 'Filled',    stroke: '#FF8321', marker: { enabled: true, fill: '#FF8321', stroke: '#FF8321' } },
-      ],
-      axes: [
-        { type: 'category', position: 'bottom' },
-        { type: 'number',   position: 'left', min: 0 },
-      ],
-      legend: { enabled: true, position: 'bottom' },
-    });
+    // ─── Line Chart ──────────────────────────────────────────────────────────
+    observedChart({ container: document.getElementById('chart-line'), theme: trioTheme, background: { fill: 'transparent' }, data: [ { week: 'Wk 1', submitted: 142, filled: 118 }, { week: 'Wk 2', submitted: 165, filled: 134 }, { week: 'Wk 3', submitted: 158, filled: 141 }, { week: 'Wk 4', submitted: 179, filled: 152 }, { week: 'Wk 5', submitted: 192, filled: 167 }, { week: 'Wk 6', submitted: 201, filled: 183 }, ], series: [ { type: 'line', xKey: 'week', yKey: 'submitted', yName: 'Submitted', stroke: '#005F8A', marker: { enabled: true, fill: '#005F8A', stroke: '#005F8A' } }, { type: 'line', xKey: 'week', yKey: 'filled', yName: 'Filled', stroke: '#FF8321', marker: { enabled: true, fill: '#FF8321', stroke: '#FF8321' } }, ], axes: [ { type: 'category', position: 'bottom' }, { type: 'number', position: 'left', min: 0 }, ], legend: { enabled: true, position: 'bottom' } });
 
-    // ─── Donut Chart — Worker Status Distribution ──────────────────────────────
-    observedChart({
-      container: document.getElementById('chart-donut'),
-      theme: trioTheme,
-      background: { fill: 'transparent' },
-      data: [
-        { status: 'Active',        count: 312 },
-        { status: 'Credentialing', count: 87  },
-        { status: 'Pending',       count: 54  },
-        { status: 'On Assignment', count: 198 },
-        { status: 'Inactive',      count: 41  },
-        { status: 'New',           count: 63  },
-        { status: 'Suspended',     count: 28  },
-        { status: 'Reviewing',     count: 45  },
-        { status: 'Approved',      count: 156 },
-        { status: 'Expired',       count: 33  },
-      ],
-      series: [{
-        type: 'donut',
-        calloutLabelKey: 'status',
-        angleKey: 'count',
-        innerRadiusRatio: 0.6,
-        calloutLabel: { enabled: false },
-        tooltip: { renderer: ({ datum, calloutLabelKey, angleKey }) =>
-          ({ content: `${datum[calloutLabelKey]}: ${datum[angleKey]}` }) },
-      }],
-      legend: { enabled: true, position: 'right' },
-    });
+    // ─── Donut Chart ─────────────────────────────────────────────────────────
+    observedChart({ container: document.getElementById('chart-donut'), theme: trioTheme, background: { fill: 'transparent' }, data: [ { status: 'Active', count: 312 }, { status: 'Credentialing', count: 87 }, { status: 'Pending', count: 54 }, { status: 'On Assignment', count: 198 }, { status: 'Inactive', count: 41 }, { status: 'New', count: 63 }, { status: 'Suspended', count: 28 }, { status: 'Reviewing', count: 45 }, { status: 'Approved', count: 156 }, { status: 'Expired', count: 33 }, ], series: [{ type: 'donut', calloutLabelKey: 'status', angleKey: 'count', innerRadiusRatio: 0.6, calloutLabel: { enabled: false }, tooltip: { renderer: ({ datum, calloutLabelKey, angleKey }) => ({ content: `${datum[calloutLabelKey]}: ${datum[angleKey]}` }) } }], legend: { enabled: true, position: 'right' } });
 
-    // ─── Area Chart — Shift Coverage Trend ────────────────────────────────────
-    observedChart({
-      container: document.getElementById('chart-area'),
-      theme: trioTheme,
-      background: { fill: 'transparent' },
-      data: [
-        { month: 'Oct', coverage: 71 },
-        { month: 'Nov', coverage: 74 },
-        { month: 'Dec', coverage: 68 },
-        { month: 'Jan', coverage: 76 },
-        { month: 'Feb', coverage: 81 },
-        { month: 'Mar', coverage: 84 },
-        { month: 'Apr', coverage: 87 },
-      ],
-      series: [{
-        type: 'area',
-        xKey: 'month',
-        yKey: 'coverage',
-        yName: 'Shift Coverage %',
-        stroke: '#2491B3',
-        fill: {
-          type: 'gradient',
-          colorStops: [
-            { color: '#2491B3', stop: 0 },
-            { color: 'rgba(36, 145, 179, 0)', stop: 1 },
-          ],
-          rotation: 180,
-        },
-        fillOpacity: 0.6,
-        marker: { enabled: true, size: 7, fill: '#2491B3', stroke: '#1A7594' },
-      }],
-      axes: [
-        { type: 'category', position: 'bottom' },
-        { type: 'number',   position: 'left', min: 50, max: 100, label: { formatter: ({ value }) => `${value}%` } },
-      ],
-      legend: { enabled: false },
-    });
+    // ─── Area Chart ──────────────────────────────────────────────────────────
+    observedChart({ container: document.getElementById('chart-area'), theme: trioTheme, background: { fill: 'transparent' }, data: [ { month: 'Oct', coverage: 71 }, { month: 'Nov', coverage: 74 }, { month: 'Dec', coverage: 68 }, { month: 'Jan', coverage: 76 }, { month: 'Feb', coverage: 81 }, { month: 'Mar', coverage: 84 }, { month: 'Apr', coverage: 87 }, ], series: [{ type: 'area', xKey: 'month', yKey: 'coverage', yName: 'Shift Coverage %', stroke: '#2491B3', fill: { type: 'gradient', colorStops: [ { color: '#2491B3', stop: 0 }, { color: 'rgba(36, 145, 179, 0)', stop: 1 } ], rotation: 180 }, fillOpacity: 0.6, marker: { enabled: true, size: 7, fill: '#2491B3', stroke: '#1A7594' } }], axes: [ { type: 'category', position: 'bottom' }, { type: 'number', position: 'left', min: 50, max: 100, label: { formatter: ({ value }) => `${value}%` } }, ], legend: { enabled: false } });
 
-    // ─── Multi-Series Bar — Agency Comparison ─────────────────────────────────
-    observedChart({
-      container: document.getElementById('chart-multi'),
-      theme: trioTheme,
-      background: { fill: 'transparent' },
-      data: [
-        { week: 'Wk 1', alpha: 88, beta: 74, gamma: 91, delta: 66, echo: 79 },
-        { week: 'Wk 2', alpha: 85, beta: 77, gamma: 88, delta: 71, echo: 82 },
-        { week: 'Wk 3', alpha: 90, beta: 80, gamma: 86, delta: 74, echo: 85 },
-        { week: 'Wk 4', alpha: 87, beta: 83, gamma: 92, delta: 78, echo: 81 },
-        { week: 'Wk 5', alpha: 93, beta: 79, gamma: 89, delta: 82, echo: 88 },
-        { week: 'Wk 6', alpha: 91, beta: 85, gamma: 94, delta: 80, echo: 90 },
-      ],
-      series: [
-        { type: 'bar', xKey: 'week', yKey: 'alpha', yName: 'Agency Alpha', cornerRadius: 4 },
-        { type: 'bar', xKey: 'week', yKey: 'beta',  yName: 'Agency Beta',  cornerRadius: 4 },
-        { type: 'bar', xKey: 'week', yKey: 'gamma', yName: 'Agency Gamma', cornerRadius: 4 },
-        { type: 'bar', xKey: 'week', yKey: 'delta', yName: 'Agency Delta', cornerRadius: 4 },
-        { type: 'bar', xKey: 'week', yKey: 'echo',  yName: 'Agency Echo',  cornerRadius: 4 },
-      ],
-      axes: [
-        { type: 'category', position: 'bottom' },
-        { type: 'number',   position: 'left', min: 0, max: 100, label: { formatter: ({ value }) => `${value}%` } },
-      ],
-      legend: { enabled: true, position: 'bottom' },
-    });
+    // ─── Multi-Series Bar ────────────────────────────────────────────────────
+    observedChart({ container: document.getElementById('chart-multi'), theme: trioTheme, background: { fill: 'transparent' }, data: [ { week: 'Wk 1', alpha: 88, beta: 74, gamma: 91, delta: 66, echo: 79 }, { week: 'Wk 2', alpha: 85, beta: 77, gamma: 88, delta: 71, echo: 82 }, { week: 'Wk 3', alpha: 90, beta: 80, gamma: 86, delta: 74, echo: 85 }, { week: 'Wk 4', alpha: 87, beta: 83, gamma: 92, delta: 78, echo: 81 }, { week: 'Wk 5', alpha: 93, beta: 79, gamma: 89, delta: 82, echo: 88 }, { week: 'Wk 6', alpha: 91, beta: 85, gamma: 94, delta: 80, echo: 90 }, ], series: [ { type: 'bar', xKey: 'week', yKey: 'alpha', yName: 'Agency Alpha', cornerRadius: 4 }, { type: 'bar', xKey: 'week', yKey: 'beta', yName: 'Agency Beta', cornerRadius: 4 }, { type: 'bar', xKey: 'week', yKey: 'gamma', yName: 'Agency Gamma', cornerRadius: 4 }, { type: 'bar', xKey: 'week', yKey: 'delta', yName: 'Agency Delta', cornerRadius: 4 }, { type: 'bar', xKey: 'week', yKey: 'echo', yName: 'Agency Echo', cornerRadius: 4 }, ], axes: [ { type: 'category', position: 'bottom' }, { type: 'number', position: 'left', min: 0, max: 100, label: { formatter: ({ value }) => `${value}%` } }, ], legend: { enabled: true, position: 'bottom' } });
 
-    // ─── Scatter — Bill Rate vs Fill Rate ─────────────────────────────────────
-    observedChart({
-      container: document.getElementById('chart-scatter'),
-      theme: trioTheme,
-      background: { fill: 'transparent' },
-      data: [
-        { agency: 'Alpha',   billRate: 38, fillRate: 91 },
-        { agency: 'Beta',    billRate: 44, fillRate: 74 },
-        { agency: 'Gamma',   billRate: 41, fillRate: 88 },
-        { agency: 'Delta',   billRate: 52, fillRate: 65 },
-        { agency: 'Echo',    billRate: 36, fillRate: 83 },
-        { agency: 'Foxtrot', billRate: 48, fillRate: 70 },
-        { agency: 'Gulf',    billRate: 40, fillRate: 86 },
-        { agency: 'Hotel',   billRate: 55, fillRate: 61 },
-        { agency: 'India',   billRate: 43, fillRate: 79 },
-        { agency: 'Juliet',  billRate: 39, fillRate: 90 },
-      ],
-      series: [{
-        type: 'scatter',
-        xKey: 'billRate',
-        yKey: 'fillRate',
-        labelKey: 'agency',
-        label: { enabled: false },
-        marker: { size: 10 },
-        itemStyler: ({ datum }) => {
-          const i = ['Alpha','Beta','Gamma','Delta','Echo','Foxtrot','Gulf','Hotel','India','Juliet'].indexOf(datum.agency);
-          return { fill: PALETTE_FILLS[i], stroke: PALETTE_STROKES[i] };
-        },
-        tooltip: { renderer: ({ datum }) =>
-          ({ title: datum.agency, content: `Bill rate: $${datum.billRate}/hr · Fill rate: ${datum.fillRate}%` }) },
-      }],
-      axes: [
-        { type: 'number', position: 'bottom', title: { text: 'Bill Rate ($/hr)' }, min: 30, max: 60 },
-        { type: 'number', position: 'left',   title: { text: 'Fill Rate %' },     min: 50, max: 100, label: { formatter: ({ value }) => `${value}%` } },
-      ],
-      legend: { enabled: false },
-    });
+    // ─── Scatter ─────────────────────────────────────────────────────────────
+    observedChart({ container: document.getElementById('chart-scatter'), theme: trioTheme, background: { fill: 'transparent' }, data: [ { agency: 'Alpha', billRate: 38, fillRate: 91 }, { agency: 'Beta', billRate: 44, fillRate: 74 }, { agency: 'Gamma', billRate: 41, fillRate: 88 }, { agency: 'Delta', billRate: 52, fillRate: 65 }, { agency: 'Echo', billRate: 36, fillRate: 83 }, { agency: 'Foxtrot', billRate: 48, fillRate: 70 }, { agency: 'Gulf', billRate: 40, fillRate: 86 }, { agency: 'Hotel', billRate: 55, fillRate: 61 }, { agency: 'India', billRate: 43, fillRate: 79 }, { agency: 'Juliet', billRate: 39, fillRate: 90 }, ], series: [{ type: 'scatter', xKey: 'billRate', yKey: 'fillRate', labelKey: 'agency', label: { enabled: false }, marker: { size: 10 }, itemStyler: ({ datum }) => { const i = ['Alpha','Beta','Gamma','Delta','Echo','Foxtrot','Gulf','Hotel','India','Juliet'].indexOf(datum.agency); return { fill: PALETTE_FILLS[i], stroke: PALETTE_STROKES[i] }; }, tooltip: { renderer: ({ datum }) => ({ title: datum.agency, content: `Bill rate: $${datum.billRate}/hr · Fill rate: ${datum.fillRate}%` }) } }], axes: [ { type: 'number', position: 'bottom', title: { text: 'Bill Rate ($/hr)' }, min: 30, max: 60 }, { type: 'number', position: 'left', title: { text: 'Fill Rate %' }, min: 50, max: 100, label: { formatter: ({ value }) => `${value}%` } }, ], legend: { enabled: false } });
 
-    // ─── Bubble — Rate / Fill Rate / Submission Volume ─────────────────────────
-    observedChart({
-      container: document.getElementById('chart-bubble'),
-      theme: trioTheme,
-      background: { fill: 'transparent' },
-      data: [
-        { agency: 'Alpha',   billRate: 38, fillRate: 91, volume: 210 },
-        { agency: 'Beta',    billRate: 44, fillRate: 74, volume: 145 },
-        { agency: 'Gamma',   billRate: 41, fillRate: 88, volume: 190 },
-        { agency: 'Delta',   billRate: 52, fillRate: 65, volume: 80  },
-        { agency: 'Echo',    billRate: 36, fillRate: 83, volume: 170 },
-        { agency: 'Foxtrot', billRate: 48, fillRate: 70, volume: 110 },
-        { agency: 'Gulf',    billRate: 40, fillRate: 86, volume: 160 },
-        { agency: 'Hotel',   billRate: 55, fillRate: 61, volume: 55  },
-      ],
-      series: [{
-        type: 'bubble',
-        xKey: 'billRate',
-        yKey: 'fillRate',
-        sizeKey: 'volume',
-        labelKey: 'agency',
-        label: { enabled: false },
-        marker: { maxSize: 40, minSize: 8 },
-        itemStyler: ({ datum }) => {
-          const i = ['Alpha','Beta','Gamma','Delta','Echo','Foxtrot','Gulf','Hotel'].indexOf(datum.agency);
-          return { fill: PALETTE_FILLS[i], stroke: PALETTE_STROKES[i] };
-        },
-        tooltip: { renderer: ({ datum }) =>
-          ({ title: datum.agency, content: `$${datum.billRate}/hr · ${datum.fillRate}% fill · ${datum.volume} submissions` }) },
-      }],
-      axes: [
-        { type: 'number', position: 'bottom', title: { text: 'Bill Rate ($/hr)' }, min: 30, max: 60 },
-        { type: 'number', position: 'left',   title: { text: 'Fill Rate %' },     min: 50, max: 100, label: { formatter: ({ value }) => `${value}%` } },
-      ],
-      legend: { enabled: false },
-    });
+    // ─── Bubble ──────────────────────────────────────────────────────────────
+    observedChart({ container: document.getElementById('chart-bubble'), theme: trioTheme, background: { fill: 'transparent' }, data: [ { agency: 'Alpha', billRate: 38, fillRate: 91, volume: 210 }, { agency: 'Beta', billRate: 44, fillRate: 74, volume: 145 }, { agency: 'Gamma', billRate: 41, fillRate: 88, volume: 190 }, { agency: 'Delta', billRate: 52, fillRate: 65, volume: 80 }, { agency: 'Echo', billRate: 36, fillRate: 83, volume: 170 }, { agency: 'Foxtrot', billRate: 48, fillRate: 70, volume: 110 }, { agency: 'Gulf', billRate: 40, fillRate: 86, volume: 160 }, { agency: 'Hotel', billRate: 55, fillRate: 61, volume: 55 }, ], series: [{ type: 'bubble', xKey: 'billRate', yKey: 'fillRate', sizeKey: 'volume', labelKey: 'agency', label: { enabled: false }, marker: { maxSize: 40, minSize: 8 }, itemStyler: ({ datum }) => { const i = ['Alpha','Beta','Gamma','Delta','Echo','Foxtrot','Gulf','Hotel'].indexOf(datum.agency); return { fill: PALETTE_FILLS[i], stroke: PALETTE_STROKES[i] }; }, tooltip: { renderer: ({ datum }) => ({ title: datum.agency, content: `$${datum.billRate}/hr · ${datum.fillRate}% fill · ${datum.volume} submissions` }) } }], axes: [ { type: 'number', position: 'bottom', title: { text: 'Bill Rate ($/hr)' }, min: 30, max: 60 }, { type: 'number', position: 'left', title: { text: 'Fill Rate %' }, min: 50, max: 100, label: { formatter: ({ value }) => `${value}%` } }, ], legend: { enabled: false } });
 
-    // ─── Combination — Submissions (bar) + Fill Rate (line) ───────────────────
-    observedChart({
-      container: document.getElementById('chart-combo'),
-      theme: trioTheme,
-      background: { fill: 'transparent' },
-      data: [
-        { week: 'Wk 1', submissions: 142, fillRate: 74 },
-        { week: 'Wk 2', submissions: 165, fillRate: 77 },
-        { week: 'Wk 3', submissions: 158, fillRate: 81 },
-        { week: 'Wk 4', submissions: 179, fillRate: 80 },
-        { week: 'Wk 5', submissions: 192, fillRate: 85 },
-        { week: 'Wk 6', submissions: 201, fillRate: 88 },
-      ],
-      series: [
-        {
-          type: 'bar',
-          xKey: 'week',
-          yKey: 'submissions',
-          yName: 'Submissions',
-          cornerRadius: 4,
-        },
-        {
-          type: 'line',
-          xKey: 'week',
-          yKey: 'fillRate',
-          yName: 'Fill Rate %',
-          stroke: '#D65498',
-          marker: { enabled: true, size: 5, fill: '#D65498', stroke: '#D65498' },
-        },
-      ],
-      axes: [
-        { type: 'category', position: 'bottom' },
-        { type: 'number',   position: 'left',  keys: ['submissions'], title: { text: 'Submissions' } },
-        { type: 'number',   position: 'right', keys: ['fillRate'],    title: { text: 'Fill Rate %' }, min: 0, max: 100, label: { formatter: ({ value }) => `${value}%` } },
-      ],
-      legend: { enabled: true, position: 'bottom' },
-    });
+    // ─── Combination ─────────────────────────────────────────────────────────
+    observedChart({ container: document.getElementById('chart-combo'), theme: trioTheme, background: { fill: 'transparent' }, data: [ { week: 'Wk 1', submissions: 142, fillRate: 74 }, { week: 'Wk 2', submissions: 165, fillRate: 77 }, { week: 'Wk 3', submissions: 158, fillRate: 81 }, { week: 'Wk 4', submissions: 179, fillRate: 80 }, { week: 'Wk 5', submissions: 192, fillRate: 85 }, { week: 'Wk 6', submissions: 201, fillRate: 88 }, ], series: [ { type: 'bar', xKey: 'week', yKey: 'submissions', yName: 'Submissions', cornerRadius: 4 }, { type: 'line', xKey: 'week', yKey: 'fillRate', yName: 'Fill Rate %', stroke: '#D65498', marker: { enabled: true, size: 5, fill: '#D65498', stroke: '#D65498' } }, ], axes: [ { type: 'category', position: 'bottom' }, { type: 'number', position: 'left', keys: ['submissions'], title: { text: 'Submissions' } }, { type: 'number', position: 'right', keys: ['fillRate'], title: { text: 'Fill Rate %' }, min: 0, max: 100, label: { formatter: ({ value }) => `${value}%` } }, ], legend: { enabled: true, position: 'bottom' } });
 
-    // ─── Shared data for stacked charts ──────────────────────────────────────
-    const stackData = [
-      { dept: 'ICU',       filled: 52, pending: 18, unfilled: 15 },
-      { dept: 'Med/Surg',  filled: 38, pending: 22, unfilled: 18 },
-      { dept: 'ED',        filled: 61, pending: 12, unfilled:  9 },
-      { dept: 'OR',        filled: 29, pending: 25, unfilled: 21 },
-      { dept: 'Telemetry', filled: 44, pending: 19, unfilled: 14 },
-      { dept: 'Peds',      filled: 35, pending: 21, unfilled: 12 },
-    ];
+    // ─── Stacked charts shared data ──────────────────────────────────────────
+    const stackData = [ { dept: 'ICU', filled: 52, pending: 18, unfilled: 15 }, { dept: 'Med/Surg', filled: 38, pending: 22, unfilled: 18 }, { dept: 'ED', filled: 61, pending: 12, unfilled: 9 }, { dept: 'OR', filled: 29, pending: 25, unfilled: 21 }, { dept: 'Telemetry', filled: 44, pending: 19, unfilled: 14 }, { dept: 'Peds', filled: 35, pending: 21, unfilled: 12 }, ];
+    const stackSeries = (normalized) => [ { type: 'bar', xKey: 'dept', yKey: 'filled', yName: 'Filled', stacked: true, cornerRadius: 4, ...(normalized ? { normalizedTo: 100 } : {}) }, { type: 'bar', xKey: 'dept', yKey: 'pending', yName: 'Pending', stacked: true, ...(normalized ? { normalizedTo: 100 } : {}) }, { type: 'bar', xKey: 'dept', yKey: 'unfilled', yName: 'Unfilled', stacked: true, ...(normalized ? { normalizedTo: 100 } : {}) }, ];
 
-    const stackSeries = (normalized) => [
-      { type: 'bar', xKey: 'dept', yKey: 'filled',   yName: 'Filled',   stacked: true, cornerRadius: 4, ...(normalized ? { normalizedTo: 100 } : {}) },
-      { type: 'bar', xKey: 'dept', yKey: 'pending',  yName: 'Pending',  stacked: true,                  ...(normalized ? { normalizedTo: 100 } : {}) },
-      { type: 'bar', xKey: 'dept', yKey: 'unfilled', yName: 'Unfilled', stacked: true,                  ...(normalized ? { normalizedTo: 100 } : {}) },
-    ];
+    observedChart({ container: document.getElementById('chart-stacked-bar'), theme: trioTheme, background: { fill: 'transparent' }, data: stackData, series: stackSeries(false), axes: [ { type: 'category', position: 'bottom' }, { type: 'number', position: 'left', label: { formatter: ({ value }) => `${value}` } }, ], legend: { enabled: true, position: 'bottom' } });
 
-    // ─── Stacked Bar ─────────────────────────────────────────────────────────
-    observedChart({
-      container: document.getElementById('chart-stacked-bar'),
-      theme: trioTheme,
-      background: { fill: 'transparent' },
-      data: stackData,
-      series: stackSeries(false),
-      axes: [
-        { type: 'category', position: 'bottom' },
-        { type: 'number',   position: 'left', label: { formatter: ({ value }) => `${value}` } },
-      ],
-      legend: { enabled: true, position: 'bottom' },
-    });
+    observedChart({ container: document.getElementById('chart-normalized-bar'), theme: trioTheme, background: { fill: 'transparent' }, data: stackData, series: stackSeries(true), axes: [ { type: 'category', position: 'bottom' }, { type: 'number', position: 'left', min: 0, max: 100, label: { formatter: ({ value }) => `${value}%` } }, ], legend: { enabled: true, position: 'bottom' } });
 
-    // ─── Normalized Stacked Bar ───────────────────────────────────────────────
-    observedChart({
-      container: document.getElementById('chart-normalized-bar'),
-      theme: trioTheme,
-      background: { fill: 'transparent' },
-      data: stackData,
-      series: stackSeries(true),
-      axes: [
-        { type: 'category', position: 'bottom' },
-        { type: 'number',   position: 'left', min: 0, max: 100, label: { formatter: ({ value }) => `${value}%` } },
-      ],
-      legend: { enabled: true, position: 'bottom' },
-    });
+    observedChart({ container: document.getElementById('chart-bar-labels'), theme: trioTheme, background: { fill: 'transparent' }, data: [ { dept: 'ICU', fillRate: 87 }, { dept: 'Med/Surg', fillRate: 72 }, { dept: 'ED', fillRate: 91 }, { dept: 'OR', fillRate: 65 }, { dept: 'Telemetry', fillRate: 78 }, { dept: 'Peds', fillRate: 83 }, ], series: [{ type: 'bar', xKey: 'dept', yKey: 'fillRate', yName: 'Fill Rate %', cornerRadius: 4, label: { enabled: true, placement: 'inside-end', spacing: 16, formatter: ({ value }) => `${value}%`, color: '#FFFFFF', fontFamily: 'Roboto, sans-serif', fontSize: 11, fontWeight: '500' } }], axes: [ { type: 'category', position: 'bottom' }, { type: 'number', position: 'left', min: 0, max: 100, label: { formatter: ({ value }) => `${value}%` } }, ], legend: { enabled: false } });
 
-    // ─── Bar with Data Labels ─────────────────────────────────────────────────
-    observedChart({
-      container: document.getElementById('chart-bar-labels'),
-      theme: trioTheme,
-      background: { fill: 'transparent' },
-      data: [
-        { dept: 'ICU',        fillRate: 87 },
-        { dept: 'Med/Surg',   fillRate: 72 },
-        { dept: 'ED',         fillRate: 91 },
-        { dept: 'OR',         fillRate: 65 },
-        { dept: 'Telemetry',  fillRate: 78 },
-        { dept: 'Peds',       fillRate: 83 },
-      ],
-      series: [{
-        type: 'bar',
-        xKey: 'dept',
-        yKey: 'fillRate',
-        yName: 'Fill Rate %',
-        cornerRadius: 4,
-        label: {
-          enabled: true,
-          placement: 'inside-end',
-          spacing: 16,
-          formatter: ({ value }) => `${value}%`,
-          color: '#FFFFFF',
-          fontFamily: 'Roboto, sans-serif',
-          fontSize: 11,
-          fontWeight: '500',
-        },
-      }],
-      axes: [
-        { type: 'category', position: 'bottom' },
-        { type: 'number',   position: 'left', min: 0, max: 100, label: { formatter: ({ value }) => `${value}%` } },
-      ],
-      legend: { enabled: false },
-    });
+    observedChart({ container: document.getElementById('chart-stacked-area'), theme: trioTheme, background: { fill: 'transparent' }, data: [ { week: 'Wk 1', alpha: 42, beta: 38, gamma: 35, delta: 27 }, { week: 'Wk 2', alpha: 48, beta: 41, gamma: 39, delta: 31 }, { week: 'Wk 3', alpha: 45, beta: 44, gamma: 37, delta: 29 }, { week: 'Wk 4', alpha: 53, beta: 46, gamma: 42, delta: 34 }, { week: 'Wk 5', alpha: 58, beta: 49, gamma: 45, delta: 37 }, { week: 'Wk 6', alpha: 61, beta: 52, gamma: 48, delta: 40 }, ], series: [ { type: 'area', xKey: 'week', yKey: 'alpha', yName: 'Alpha', stacked: true, fillOpacity: 0.7 }, { type: 'area', xKey: 'week', yKey: 'beta', yName: 'Beta', stacked: true, fillOpacity: 0.7 }, { type: 'area', xKey: 'week', yKey: 'gamma', yName: 'Gamma', stacked: true, fillOpacity: 0.7 }, { type: 'area', xKey: 'week', yKey: 'delta', yName: 'Delta', stacked: true, fillOpacity: 0.7 }, ], axes: [ { type: 'category', position: 'bottom' }, { type: 'number', position: 'left' }, ], legend: { enabled: true, position: 'bottom' } });
 
-    // ─── Stacked Area — Agency Submission Volume ──────────────────────────────
-    observedChart({
-      container: document.getElementById('chart-stacked-area'),
-      theme: trioTheme,
-      background: { fill: 'transparent' },
-      data: [
-        { week: 'Wk 1', alpha: 42, beta: 38, gamma: 35, delta: 27 },
-        { week: 'Wk 2', alpha: 48, beta: 41, gamma: 39, delta: 31 },
-        { week: 'Wk 3', alpha: 45, beta: 44, gamma: 37, delta: 29 },
-        { week: 'Wk 4', alpha: 53, beta: 46, gamma: 42, delta: 34 },
-        { week: 'Wk 5', alpha: 58, beta: 49, gamma: 45, delta: 37 },
-        { week: 'Wk 6', alpha: 61, beta: 52, gamma: 48, delta: 40 },
-      ],
-      series: [
-        { type: 'area', xKey: 'week', yKey: 'alpha', yName: 'Alpha', stacked: true, fillOpacity: 0.7 },
-        { type: 'area', xKey: 'week', yKey: 'beta',  yName: 'Beta',  stacked: true, fillOpacity: 0.7 },
-        { type: 'area', xKey: 'week', yKey: 'gamma', yName: 'Gamma', stacked: true, fillOpacity: 0.7 },
-        { type: 'area', xKey: 'week', yKey: 'delta', yName: 'Delta', stacked: true, fillOpacity: 0.7 },
-      ],
-      axes: [
-        { type: 'category', position: 'bottom' },
-        { type: 'number',   position: 'left' },
-      ],
-      legend: { enabled: true, position: 'bottom' },
-    });
+    const coverageData = [ { month: 'Oct', coverage: 71 }, { month: 'Nov', coverage: 74 }, { month: 'Dec', coverage: 68 }, { month: 'Jan', coverage: 76 }, { month: 'Feb', coverage: 81 }, { month: 'Mar', coverage: 84 }, { month: 'Apr', coverage: 87 }, ];
 
-    // ─── Smooth Interpolation ─────────────────────────────────────────────────
-    const coverageData = [
-      { month: 'Oct', coverage: 71 },
-      { month: 'Nov', coverage: 74 },
-      { month: 'Dec', coverage: 68 },
-      { month: 'Jan', coverage: 76 },
-      { month: 'Feb', coverage: 81 },
-      { month: 'Mar', coverage: 84 },
-      { month: 'Apr', coverage: 87 },
-    ];
+    observedChart({ container: document.getElementById('chart-smooth'), theme: trioTheme, background: { fill: 'transparent' }, data: coverageData, series: [{ type: 'line', xKey: 'month', yKey: 'coverage', yName: 'Coverage %', interpolation: { type: 'smooth', tension: 0.8 }, stroke: '#005F8A', marker: { enabled: true, size: 5, fill: '#005F8A', stroke: '#005F8A' } }], axes: [ { type: 'category', position: 'bottom' }, { type: 'number', position: 'left', min: 60, max: 100, label: { formatter: ({ value }) => `${value}%` } }, ], legend: { enabled: false } });
 
-    observedChart({
-      container: document.getElementById('chart-smooth'),
-      theme: trioTheme,
-      background: { fill: 'transparent' },
-      data: coverageData,
-      series: [{
-        type: 'line',
-        xKey: 'month',
-        yKey: 'coverage',
-        yName: 'Coverage %',
-        interpolation: { type: 'smooth', tension: 0.8 },
-        stroke: '#005F8A',
-        marker: { enabled: true, size: 5, fill: '#005F8A', stroke: '#005F8A' },
-      }],
-      axes: [
-        { type: 'category', position: 'bottom' },
-        { type: 'number',   position: 'left', min: 60, max: 100, label: { formatter: ({ value }) => `${value}%` } },
-      ],
-      legend: { enabled: false },
-    });
+    observedChart({ container: document.getElementById('chart-step'), theme: trioTheme, background: { fill: 'transparent' }, data: coverageData, series: [{ type: 'line', xKey: 'month', yKey: 'coverage', yName: 'Coverage %', interpolation: { type: 'step', position: 'end' }, stroke: '#7462AE', marker: { enabled: true, size: 5, fill: '#7462AE', stroke: '#7462AE' } }], axes: [ { type: 'category', position: 'bottom' }, { type: 'number', position: 'left', min: 60, max: 100, label: { formatter: ({ value }) => `${value}%` } }, ], legend: { enabled: false } });
 
-    // ─── Step Interpolation ───────────────────────────────────────────────────
-    observedChart({
-      container: document.getElementById('chart-step'),
-      theme: trioTheme,
-      background: { fill: 'transparent' },
-      data: coverageData,
-      series: [{
-        type: 'line',
-        xKey: 'month',
-        yKey: 'coverage',
-        yName: 'Coverage %',
-        interpolation: { type: 'step', position: 'end' },
-        stroke: '#7462AE',
-        marker: { enabled: true, size: 5, fill: '#7462AE', stroke: '#7462AE' },
-      }],
-      axes: [
-        { type: 'category', position: 'bottom' },
-        { type: 'number',   position: 'left', min: 60, max: 100, label: { formatter: ({ value }) => `${value}%` } },
-      ],
-      legend: { enabled: false },
-    });
+    observedChart({ container: document.getElementById('chart-crosshair'), theme: trioTheme, background: { fill: 'transparent' }, data: [ { week: 'Wk 1', submitted: 142, filled: 118, cancelled: 24 }, { week: 'Wk 2', submitted: 165, filled: 134, cancelled: 31 }, { week: 'Wk 3', submitted: 158, filled: 141, cancelled: 17 }, { week: 'Wk 4', submitted: 179, filled: 152, cancelled: 27 }, { week: 'Wk 5', submitted: 192, filled: 167, cancelled: 25 }, { week: 'Wk 6', submitted: 201, filled: 183, cancelled: 18 }, { week: 'Wk 7', submitted: 188, filled: 171, cancelled: 17 }, { week: 'Wk 8', submitted: 214, filled: 196, cancelled: 18 }, ], series: [ { type: 'line', xKey: 'week', yKey: 'submitted', yName: 'Submitted', stroke: '#005F8A', marker: { enabled: true, size: 5, fill: '#005F8A' } }, { type: 'line', xKey: 'week', yKey: 'filled', yName: 'Filled', stroke: '#17C76F', marker: { enabled: true, size: 5, fill: '#17C76F' } }, { type: 'line', xKey: 'week', yKey: 'cancelled', yName: 'Cancelled', stroke: '#FF6552', marker: { enabled: true, size: 5, fill: '#FF6552' } }, ], axes: [ { type: 'category', position: 'bottom', crosshair: { enabled: true, stroke: '#2196F3', strokeWidth: 1, strokeOpacity: 0.5, lineDash: [4, 4] } }, { type: 'number', position: 'left', min: 0, crosshair: { enabled: true, stroke: '#757575', strokeWidth: 1, strokeOpacity: 0.5, lineDash: [4, 4] } }, ], legend: { enabled: true, position: 'bottom' } });
 
-    // ─── Crosshair ────────────────────────────────────────────────────────────
-    observedChart({
-      container: document.getElementById('chart-crosshair'),
-      theme: trioTheme,
-      background: { fill: 'transparent' },
-      data: [
-        { week: 'Wk 1', submitted: 142, filled: 118, cancelled: 24 },
-        { week: 'Wk 2', submitted: 165, filled: 134, cancelled: 31 },
-        { week: 'Wk 3', submitted: 158, filled: 141, cancelled: 17 },
-        { week: 'Wk 4', submitted: 179, filled: 152, cancelled: 27 },
-        { week: 'Wk 5', submitted: 192, filled: 167, cancelled: 25 },
-        { week: 'Wk 6', submitted: 201, filled: 183, cancelled: 18 },
-        { week: 'Wk 7', submitted: 188, filled: 171, cancelled: 17 },
-        { week: 'Wk 8', submitted: 214, filled: 196, cancelled: 18 },
-      ],
-      series: [
-        { type: 'line', xKey: 'week', yKey: 'submitted', yName: 'Submitted', stroke: '#005F8A', marker: { enabled: true, size: 5, fill: '#005F8A' } },
-        { type: 'line', xKey: 'week', yKey: 'filled',    yName: 'Filled',    stroke: '#17C76F', marker: { enabled: true, size: 5, fill: '#17C76F' } },
-        { type: 'line', xKey: 'week', yKey: 'cancelled', yName: 'Cancelled', stroke: '#FF6552', marker: { enabled: true, size: 5, fill: '#FF6552' } },
-      ],
-      axes: [
-        {
-          type: 'category',
-          position: 'bottom',
-          crosshair: { enabled: true, stroke: '#2196F3', strokeWidth: 1, strokeOpacity: 0.5, lineDash: [4, 4] },
-        },
-        {
-          type: 'number',
-          position: 'left',
-          min: 0,
-          crosshair: { enabled: true, stroke: '#757575', strokeWidth: 1, strokeOpacity: 0.5, lineDash: [4, 4] },
-        },
-      ],
-      legend: { enabled: true, position: 'bottom' },
-    });
+    // ─── Horizontal charts ───────────────────────────────────────────────────
+    const horizData = [ { dept: 'ICU', fillRate: 87, remaining: 13 }, { dept: 'Med/Surg', fillRate: 72, remaining: 28 }, { dept: 'ED', fillRate: 91, remaining: 9 }, { dept: 'OR', fillRate: 65, remaining: 35 }, { dept: 'Telemetry', fillRate: 78, remaining: 22 }, { dept: 'Peds', fillRate: 83, remaining: 17 }, ];
+    const horizStackData = [ { dept: 'ICU', filled: 52, pending: 18, unfilled: 15 }, { dept: 'Med/Surg', filled: 38, pending: 22, unfilled: 18 }, { dept: 'ED', filled: 61, pending: 12, unfilled: 9 }, { dept: 'OR', filled: 29, pending: 25, unfilled: 21 }, { dept: 'Telemetry', filled: 44, pending: 19, unfilled: 14 }, { dept: 'Peds', filled: 35, pending: 21, unfilled: 12 }, ];
 
-    // ─── Horizontal & Progress Bar shared data ────────────────────────────────
-    const horizData = [
-      { dept: 'ICU',       fillRate: 87, remaining: 13 },
-      { dept: 'Med/Surg',  fillRate: 72, remaining: 28 },
-      { dept: 'ED',        fillRate: 91, remaining:  9 },
-      { dept: 'OR',        fillRate: 65, remaining: 35 },
-      { dept: 'Telemetry', fillRate: 78, remaining: 22 },
-      { dept: 'Peds',      fillRate: 83, remaining: 17 },
-    ];
+    observedChart({ container: document.getElementById('chart-horiz-bar'), theme: trioTheme, background: { fill: 'transparent' }, data: horizData, series: [{ type: 'bar', direction: 'horizontal', xKey: 'dept', yKey: 'fillRate', yName: 'Fill Rate %', width: 10, cornerRadius: 4, label: { enabled: true, placement: 'outside-end', spacing: 8, formatter: ({ value }) => `${value}%`, color: '#212121', fontFamily: 'Roboto, sans-serif', fontSize: 11 } }], axes: [ { type: 'number', position: 'bottom', min: 0, max: 100, label: { formatter: ({ value }) => `${value}%` } }, { type: 'category', position: 'left' }, ], legend: { enabled: false } });
 
-    const horizStackData = [
-      { dept: 'ICU',       filled: 52, pending: 18, unfilled: 15 },
-      { dept: 'Med/Surg',  filled: 38, pending: 22, unfilled: 18 },
-      { dept: 'ED',        filled: 61, pending: 12, unfilled:  9 },
-      { dept: 'OR',        filled: 29, pending: 25, unfilled: 21 },
-      { dept: 'Telemetry', filled: 44, pending: 19, unfilled: 14 },
-      { dept: 'Peds',      filled: 35, pending: 21, unfilled: 12 },
-    ];
+    observedChart({ container: document.getElementById('chart-horiz-stacked'), theme: trioTheme, background: { fill: 'transparent' }, data: horizStackData, series: [ { type: 'bar', direction: 'horizontal', xKey: 'dept', yKey: 'filled', yName: 'Filled', stacked: true, width: 10, cornerRadius: 4 }, { type: 'bar', direction: 'horizontal', xKey: 'dept', yKey: 'pending', yName: 'Pending', stacked: true, width: 10 }, { type: 'bar', direction: 'horizontal', xKey: 'dept', yKey: 'unfilled', yName: 'Unfilled', stacked: true, width: 10 }, ], axes: [ { type: 'number', position: 'bottom' }, { type: 'category', position: 'left' }, ], legend: { enabled: true, position: 'bottom' } });
 
-    const horizAxes = [
-      { type: 'number',   position: 'bottom' },
-      { type: 'category', position: 'left'   },
-    ];
-
-    // ─── Horizontal Bar ───────────────────────────────────────────────────────
-    observedChart({
-      container: document.getElementById('chart-horiz-bar'),
-      theme: trioTheme,
-      background: { fill: 'transparent' },
-      data: horizData,
-      series: [{
-        type: 'bar',
-        direction: 'horizontal',
-        xKey: 'dept',
-        yKey: 'fillRate',
-        yName: 'Fill Rate %',
-        width: 10,
-        cornerRadius: 4,
-        label: {
-          enabled: true,
-          placement: 'outside-end',
-          spacing: 8,
-          formatter: ({ value }) => `${value}%`,
-          color: '#212121',
-          fontFamily: 'Roboto, sans-serif',
-          fontSize: 11,
-        },
-      }],
-      axes: [
-        { type: 'number',   position: 'bottom', min: 0, max: 100, label: { formatter: ({ value }) => `${value}%` } },
-        { type: 'category', position: 'left' },
-      ],
-      legend: { enabled: false },
-    });
-
-    // ─── Horizontal Stacked Bar ───────────────────────────────────────────────
-    observedChart({
-      container: document.getElementById('chart-horiz-stacked'),
-      theme: trioTheme,
-      background: { fill: 'transparent' },
-      data: horizStackData,
-      series: [
-        { type: 'bar', direction: 'horizontal', xKey: 'dept', yKey: 'filled',   yName: 'Filled',   stacked: true, width: 10, cornerRadius: 4 },
-        { type: 'bar', direction: 'horizontal', xKey: 'dept', yKey: 'pending',  yName: 'Pending',  stacked: true, width: 10 },
-        { type: 'bar', direction: 'horizontal', xKey: 'dept', yKey: 'unfilled', yName: 'Unfilled', stacked: true, width: 10 },
-      ],
-      axes: [
-        { type: 'number',   position: 'bottom' },
-        { type: 'category', position: 'left'   },
-      ],
-      legend: { enabled: true, position: 'bottom' },
-    });
-
-    // ─── Progress Fill ────────────────────────────────────────────────────────
     const progressDepts = ['ICU','Med/Surg','ED','OR','Telemetry','Peds'];
-    observedChart({
-      container: document.getElementById('chart-progress'),
-      theme: trioTheme,
-      background: { fill: 'transparent' },
-      data: horizData,
-      series: [
-        {
-          type: 'bar',
-          direction: 'horizontal',
-          xKey: 'dept',
-          yKey: 'fillRate',
-          yName: 'Complete',
-          stacked: true,
-          width: 10,
-          cornerRadius: 4,
-          itemStyler: ({ datum }) => {
-            const i = progressDepts.indexOf(datum.dept);
-            return { fill: PALETTE_FILLS[i], stroke: PALETTE_STROKES[i] };
-          },
-          label: {
-            enabled: true,
-            placement: 'outside-end',
-            spacing: 8,
-            formatter: ({ value }) => `${value}%`,
-            color: '#212121',
-            fontFamily: 'Roboto, sans-serif',
-            fontSize: 11,
-          },
-        },
-        {
-          type: 'bar',
-          direction: 'horizontal',
-          xKey: 'dept',
-          yKey: 'remaining',
-          yName: 'Remaining',
-          stacked: true,
-          width: 10,
-          fill: '#EEEEEE',
-          stroke: '#EEEEEE',
-          showInLegend: false,
-        },
-      ],
-      axes: [
-        { type: 'number',   position: 'bottom', min: 0, max: 100, label: { enabled: false }, gridLine: { enabled: false } },
-        { type: 'category', position: 'left' },
-      ],
-      legend: { enabled: false },
-    });
+    observedChart({ container: document.getElementById('chart-progress'), theme: trioTheme, background: { fill: 'transparent' }, data: horizData, series: [ { type: 'bar', direction: 'horizontal', xKey: 'dept', yKey: 'fillRate', yName: 'Complete', stacked: true, width: 10, cornerRadius: 4, itemStyler: ({ datum }) => { const i = progressDepts.indexOf(datum.dept); return { fill: PALETTE_FILLS[i], stroke: PALETTE_STROKES[i] }; }, label: { enabled: true, placement: 'outside-end', spacing: 8, formatter: ({ value }) => `${value}%`, color: '#212121', fontFamily: 'Roboto, sans-serif', fontSize: 11 } }, { type: 'bar', direction: 'horizontal', xKey: 'dept', yKey: 'remaining', yName: 'Remaining', stacked: true, width: 10, fill: '#EEEEEE', stroke: '#EEEEEE', showInLegend: false }, ], axes: [ { type: 'number', position: 'bottom', min: 0, max: 100, label: { enabled: false }, gridLine: { enabled: false } }, { type: 'category', position: 'left' }, ], legend: { enabled: false } });
 
-    // ─── Color Vision Simulation ──────────────────────────────────────────────
-    // Targets every chart card + the multi-series demo area + the palette swatches
+    // ─── Color Vision Simulation ─────────────────────────────────────────────
     const cbvdTargets = () => document.querySelectorAll('.chart-card, .demo-area, #palette-swatches');
-
     document.querySelectorAll('.cbvd-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.cbvd-btn').forEach(b => b.classList.remove('active'));
@@ -1252,21 +814,11 @@
       });
     });
 
-    // ─── Palette Swatches ──────────────────────────────────────────────────────
-    const paletteLabels = [
-      '005F8A', '5677C1', '7462AE', 'A95CAB', 'D65498',
-      'F65479', 'FF6552', 'FF8321', '2491B3', '17C76F',
-    ];
-
+    // ─── Palette Swatches ────────────────────────────────────────────────────
+    const paletteLabels = [ '005F8A', '5677C1', '7462AE', 'A95CAB', 'D65498', 'F65479', 'FF6552', 'FF8321', '2491B3', '17C76F' ];
     const swatchContainer = document.getElementById('palette-swatches');
     paletteLabels.forEach((hex, i) => {
-      swatchContainer.innerHTML += `
-        <div class="palette-swatch">
-          <div class="swatch-color" style="background:#${hex}"></div>
-          <span class="swatch-index">${i + 1}</span>
-          <span class="swatch-label">#${hex}</span>
-        </div>
-      `;
+      swatchContainer.innerHTML += `<div class="palette-swatch"><div class="swatch-color" style="background:#${hex}"></div><span class="swatch-index">${i + 1}</span><span class="swatch-label">#${hex}</span></div>`;
     });
   </script>
 </body>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ContentContainer - TRIO WFS Design System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+  <link rel="stylesheet" href="../../design-system-shell.css">
+  <style>
+    .main-content {
+      background: var(--color-background-secondary);
+      min-height: 100vh;
+    }
+    .section {
+      background: transparent;
+      border-radius: 0;
+      padding: 0;
+      margin-bottom: 0;
+      padding-bottom: var(--spacing-xl);
+    }
+    .section + .section {
+      border-top: 1px solid var(--color-secondary-outline);
+      padding-top: var(--spacing-xl);
+    }
+    .section-title .material-icons-outlined { font-size: 18px; }
+
+    /* Demo containers */
+    .demo-row { display: flex; gap: 16px; margin-top: 16px; }
+    .demo-container {
+      background: #FFFFFF;
+      border: 1px solid #E0E0E0;
+      border-radius: 4px;
+      overflow: hidden;
+      flex: 1;
+    }
+    .demo-container-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #F5F5F5;
+      height: 48px;
+      padding-left: 16px;
+      padding-right: 8px;
+      border-bottom: 1px solid #E0E0E0;
+      font-family: 'Roboto', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: #212121;
+    }
+    .demo-container-body { padding: 16px; }
+    .demo-container-body p {
+      font-family: 'Roboto', sans-serif;
+      font-size: 14px;
+      color: #757575;
+      margin: 0;
+    }
+    .demo-container-flush .demo-container-body { padding: 0; }
+    .demo-kv {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid #E0E0E0;
+      font-family: 'Roboto', sans-serif;
+      font-size: 12px;
+    }
+    .demo-kv-label { color: #757575; }
+    .demo-kv-value { color: #212121; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <aside class="sidebar"></aside>
+  <main class="main-content">
+    <div class="page-header">
+      <h1>ContentContainer</h1>
+      <p class="component-description">
+        The standard paper surface for TRIO WFS page content.
+        White background (#FFFFFF), 1px border (#E0E0E0), 4px radius.
+        No shadows — ever. Use for every card, panel, and content section on a page.
+      </p>
+    </div>
+
+    <!-- Overview -->
+    <div class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">info</span> Overview
+      </h2>
+      <p style="font-family: Roboto; font-size: 14px; color: #757575; margin-top: 8px;">
+        ContentContainer is the building block for all page content. It provides a consistent
+        white surface with a gray header bar, 1px border, and 4px radius. Containers can nest
+        inside other containers for grouped content sections.
+      </p>
+    </div>
+
+    <!-- With Title -->
+    <div class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">title</span> With Title
+      </h2>
+      <div class="demo-row">
+        <div class="demo-container">
+          <div class="demo-container-header">Section Title</div>
+          <div class="demo-container-body">
+            <p>Content goes here with 16px padding on all sides.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Without Title -->
+    <div class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">crop_free</span> Without Title
+      </h2>
+      <div class="demo-row">
+        <div class="demo-container">
+          <div class="demo-container-body">
+            <p>No title bar — just padded content inside the bordered surface.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- With Key-Value Content -->
+    <div class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">list</span> Key-Value Content
+      </h2>
+      <div class="demo-row">
+        <div class="demo-container">
+          <div class="demo-container-header">Candidate</div>
+          <div class="demo-container-body">
+            <div class="demo-kv"><span class="demo-kv-label">Name</span><span class="demo-kv-value">Sarah Connor, RN</span></div>
+            <div class="demo-kv"><span class="demo-kv-label">License</span><span class="demo-kv-value">RN-4820193</span></div>
+            <div class="demo-kv"><span class="demo-kv-label">Specialty</span><span class="demo-kv-value">ICU / Critical Care</span></div>
+            <div class="demo-kv"><span class="demo-kv-label">Experience</span><span class="demo-kv-value">8 years</span></div>
+          </div>
+        </div>
+        <div class="demo-container">
+          <div class="demo-container-header">Financials</div>
+          <div class="demo-container-body">
+            <div class="demo-kv"><span class="demo-kv-label">Bill Rate</span><span class="demo-kv-value">$92.00/hr</span></div>
+            <div class="demo-kv"><span class="demo-kv-label">OT Rate</span><span class="demo-kv-value">$138.00/hr</span></div>
+            <div class="demo-kv"><span class="demo-kv-label">Est. Total</span><span class="demo-kv-value">$43,056</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Flush (No Padding) -->
+    <div class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">fullscreen</span> Flush Content (padding: 0)
+      </h2>
+      <p style="font-family: Roboto; font-size: 14px; color: #757575; margin: 8px 0;">
+        Set <code>padding={0}</code> for content that fills edge-to-edge, like AG Grid.
+      </p>
+      <div class="demo-row">
+        <div class="demo-container demo-container-flush">
+          <div class="demo-container-header">Tasks</div>
+          <div class="demo-container-body" style="padding:0; background: #FAFAFA; height: 120px; display: flex; align-items: center; justify-content: center;">
+            <span style="font-family: Roboto; font-size: 14px; color: #757575;">AG Grid would render here — edge-to-edge</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nested -->
+    <div class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">layers</span> Nested Containers
+      </h2>
+      <div class="demo-row">
+        <div class="demo-container">
+          <div class="demo-container-header">Parent Container</div>
+          <div class="demo-container-body">
+            <div class="demo-container" style="margin-bottom: 16px;">
+              <div class="demo-container-header">Nested Child A</div>
+              <div class="demo-container-body"><p>Child content with its own title bar.</p></div>
+            </div>
+            <div class="demo-container">
+              <div class="demo-container-header">Nested Child B</div>
+              <div class="demo-container-body"><p>Siblings stack with 16px gap between them.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Technical Specs -->
+    <div class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">code</span> Technical Specifications
+      </h2>
+      <table style="width:100%; border-collapse:collapse; font-family:Roboto; font-size:14px; margin-top:16px;">
+        <thead>
+          <tr style="border-bottom: 1px solid #E0E0E0;">
+            <th style="text-align:left; padding:8px 16px; font-weight:500; color:#757575;">Property</th>
+            <th style="text-align:left; padding:8px 16px; font-weight:500; color:#757575;">Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid #E0E0E0;"><td style="padding:8px 16px;">Background</td><td style="padding:8px 16px;">#FFFFFF (background.paper)</td></tr>
+          <tr style="border-bottom:1px solid #E0E0E0;"><td style="padding:8px 16px;">Border</td><td style="padding:8px 16px;">1px solid #E0E0E0</td></tr>
+          <tr style="border-bottom:1px solid #E0E0E0;"><td style="padding:8px 16px;">Border Radius</td><td style="padding:8px 16px;">4px (flush: 0)</td></tr>
+          <tr style="border-bottom:1px solid #E0E0E0;"><td style="padding:8px 16px;">Title Bar Height</td><td style="padding:8px 16px;">48px</td></tr>
+          <tr style="border-bottom:1px solid #E0E0E0;"><td style="padding:8px 16px;">Title Bar Background</td><td style="padding:8px 16px;">#F5F5F5 (background.default)</td></tr>
+          <tr style="border-bottom:1px solid #E0E0E0;"><td style="padding:8px 16px;">Title Font</td><td style="padding:8px 16px;">Subtitle2 — 14px / 500 / #212121</td></tr>
+          <tr style="border-bottom:1px solid #E0E0E0;"><td style="padding:8px 16px;">Content Padding</td><td style="padding:8px 16px;">16px (default), 0 (flush)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+  <script src="../../design-system-nav.js"></script>
+</body>
+</html>

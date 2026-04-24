@@ -44,14 +44,14 @@
  */
 
 import React from 'react';
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import TrendingUpIcon from '@mui/icons-material/TrendingUp';
-import TrendingDownIcon from '@mui/icons-material/TrendingDown';
-import RemoveIcon from '@mui/icons-material/Remove';
-import WarningAmberIcon from '@mui/icons-material/WarningAmber';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import ErrorIcon from '@mui/icons-material/Error';
-import ScheduleIcon from '@mui/icons-material/Schedule';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutlineOutlined';
+import TrendingUpIcon from '@mui/icons-material/TrendingUpOutlined';
+import TrendingDownIcon from '@mui/icons-material/TrendingDownOutlined';
+import RemoveIcon from '@mui/icons-material/RemoveOutlined';
+import WarningAmberIcon from '@mui/icons-material/WarningAmberOutlined';
+import CheckCircleIcon from '@mui/icons-material/CheckCircleOutlined';
+import ErrorIcon from '@mui/icons-material/ErrorOutlineOutlined';
+import ScheduleIcon from '@mui/icons-material/ScheduleOutlined';
 import {
   MetricCardProps,
   MetricItem,

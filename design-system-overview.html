@@ -258,6 +258,7 @@
     }
   </style>
   <script src="design-system-nav.js"></script>
+  <script src="design-system-changelog.js"></script>
 </head>
 <body>
     <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
@@ -298,6 +299,33 @@
         <div class="stat-label">Base Grid</div>
       </div>
     </div>
+
+    <!-- Recent Updates — compact changelog above the fold -->
+    <section class="section" style="padding-bottom: var(--spacing-lg);">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--spacing-md);">
+        <h2 class="section-title" style="margin-bottom: 0;">
+          <span class="material-icons-outlined">update</span>
+          Recent Updates
+        </h2>
+        <a href="changelog.html" style="font-size: 12px; color: var(--color-primary-main); text-decoration: none; display: flex; align-items: center; gap: 4px;">
+          View full changelog <span class="material-icons-outlined" style="font-size: 14px;">arrow_forward</span>
+        </a>
+      </div>
+      <div style="background: var(--color-background-paper); border: 1px solid var(--color-secondary-outline); border-radius: var(--border-radius); overflow: hidden;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+          <thead>
+            <tr style="border-bottom: 1px solid var(--color-secondary-outline);">
+              <th style="text-align: left; padding: 8px 16px; font-weight: 400; color: var(--color-text-secondary); width: 100px;">Date</th>
+              <th style="text-align: left; padding: 8px 16px; font-weight: 400; color: var(--color-text-secondary);">Update</th>
+              <th style="text-align: left; padding: 8px 16px; font-weight: 400; color: var(--color-text-secondary); width: 120px;">Type</th>
+            </tr>
+          </thead>
+          <tbody id="changelog-recent">
+            <!-- Populated by JS -->
+          </tbody>
+        </table>
+      </div>
+    </section>
 
     <section class="section">
       <h2 class="section-title">
@@ -594,6 +622,7 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       loadTokenPreview();
+      renderChangelog('changelog-recent', 5);
 
       const allComponents = [...DS_NAV.mui, ...DS_NAV.custom, ...DS_NAV.dataviz];
       const count = allComponents.length;

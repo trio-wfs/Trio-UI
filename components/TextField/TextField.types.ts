@@ -14,6 +14,13 @@
 export type TextFieldType = 'single-line' | 'multi-line';
 
 /**
+ * TextField size variants from Figma
+ * medium = 38px height (matches Button medium)
+ * small = 30px height (matches Button small), uses caption (12px) typography
+ */
+export type TextFieldSize = 'medium' | 'small';
+
+/**
  * TextField state variants from Figma
  */
 export type TextFieldState = 'default' | 'error' | 'focus';
@@ -28,6 +35,12 @@ export interface TextFieldProps {
    * @default 'single-line'
    */
   type?: TextFieldType;
+
+  /**
+   * Size of the text field — aligns with Button sizes for toolbar use
+   * @default 'medium'
+   */
+  size?: TextFieldSize;
 
   /**
    * Visual state of the field
@@ -118,6 +131,7 @@ export interface TextFieldProps {
 
 export const defaultTextFieldProps: Partial<TextFieldProps> = {
   type: 'single-line',
+  size: 'medium',
   state: 'default',
   disabled: false,
   iconRight: false,

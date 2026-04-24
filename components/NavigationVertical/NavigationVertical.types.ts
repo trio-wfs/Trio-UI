@@ -16,7 +16,7 @@ export interface NavSubItem {
 export interface NavItem {
   id: string;
   label: string;
-  /** MUI icon element — 20px, rendered on the left */
+  /** MUI icon element — 20px, outlined variant only */
   icon?: React.ReactNode;
   /** Whether this item supports expanding to show sub-items */
   expandable?: boolean;
@@ -29,25 +29,44 @@ export interface NavSettingsItem {
   label: string;
 }
 
+/** Figma variant: state */
+export type NavigationState = 'open' | 'closed';
+
 export interface NavigationVerticalProps {
   /** Primary nav items */
   items: NavItem[];
+  /** Figma variant: state — open (full width) or closed (icon rail) */
+  state?: NavigationState;
   /** Currently active item id */
   activeId?: string;
   /** Currently active sub-item id */
   activeSubId?: string;
   /** Called when a nav item or sub-item is clicked */
   onNavigate?: (itemId: string, subItemId?: string) => void;
-  /** Show the settings section at the bottom */
+  /** Figma variant: settings — show settings section */
   settings?: boolean;
   /** Settings section items */
   settingsItems?: NavSettingsItem[];
   /** Active settings item id */
   activeSettingsId?: string;
+  /** Figma variant: subSection — show the secondary slide-out panel */
+  subSection?: boolean;
+  /** Called when the collapse/expand toggle is clicked */
+  onToggleState?: () => void;
+  /** Title shown to the left of the hamburger toggle (open state only, subtitle2) */
+  title?: string;
+  /** Subtitle shown below the title (open state only, body2 secondary) */
+  subtitle?: string;
+  /** Show dropdown chevron next to the title */
+  titleDropdown?: boolean;
+  /** Called when the title area is clicked (e.g. program selector) */
+  onTitleClick?: () => void;
 }
 
 export const defaultNavigationVerticalProps: Partial<NavigationVerticalProps> = {
+  state: 'open',
   settings: false,
+  subSection: false,
   items: [],
   settingsItems: [],
 };

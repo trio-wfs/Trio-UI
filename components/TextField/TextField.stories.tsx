@@ -8,6 +8,7 @@ const meta: Meta<typeof TextField> = {
   tags: ['autodocs'],
   argTypes: {
     type: { control: 'select', options: ['single-line', 'multi-line'] },
+    size: { control: 'select', options: ['medium', 'small'] },
     state: { control: 'select', options: ['default', 'error', 'focus'] },
     disabled: { control: 'boolean' },
     inputFill: { control: 'boolean' },
@@ -18,6 +19,7 @@ const meta: Meta<typeof TextField> = {
   },
   args: {
     type: 'single-line',
+    size: 'medium',
     state: 'default',
     disabled: false,
     inputFill: false,
@@ -77,8 +79,48 @@ export const MultiLine: Story = {
   },
 };
 
+export const Small: Story = {
+  args: { size: 'small' },
+};
+
+export const SmallWithValue: Story = {
+  args: { size: 'small', value: 'Mercy Regional Hospital' },
+};
+
+export const SmallError: Story = {
+  args: {
+    size: 'small',
+    state: 'error',
+    value: 'Invalid value',
+    helperText: 'This field is required',
+  },
+};
+
+export const SmallDisabled: Story = {
+  args: { size: 'small', disabled: true, value: 'Read-only' },
+};
+
+export const SmallMultiLine: Story = {
+  args: {
+    size: 'small',
+    type: 'multi-line',
+    label: 'Notes',
+    placeholder: 'Add any additional notes…',
+  },
+};
+
 export const NoLabel: Story = {
   args: { label: undefined, placeholder: 'Search…' },
+};
+
+export const SizeComparison: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: 16, alignItems: 'flex-end' }}>
+      <TextField size="medium" label="Medium" placeholder="38px height" />
+      <TextField size="small" label="Small" placeholder="30px height" />
+    </div>
+  ),
+  decorators: [(Story) => <div style={{ width: 600 }}><Story /></div>],
 };
 
 export const Interactive: Story = {

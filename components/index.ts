@@ -20,7 +20,10 @@ export { ButtonGroup } from './ButtonGroup/ButtonGroup';
 export { ButtonIcon } from './ButtonIcon/ButtonIcon';
 export { Checkbox } from './Checkbox/Checkbox';
 export { Chip } from './Chip/Chip';
+export { ContentContainer } from './ContentContainer/ContentContainer';
+export { Footer } from './Footer/Footer';
 export { Menu } from './Menu/Menu';
+export { NavigationHeader } from './NavigationHeader/NavigationHeader';
 export { NavigationVertical } from './NavigationVertical/NavigationVertical';
 export { PageHeaderToolbar } from './PageHeaderToolbar/PageHeaderToolbar';
 export { MetricCard } from './MetricCard/MetricCard';
@@ -62,7 +65,6 @@ export type {
 export type {
   ButtonSize,
   ButtonColor,
-  ButtonState,
   ButtonVariant,
   ButtonProps,
 } from './Button/Button.types';
@@ -101,6 +103,21 @@ export type {
 } from './Chip/Chip.types';
 
 export type {
+  ContentContainerProps,
+} from './ContentContainer/ContentContainer.types';
+
+export type {
+  FooterLink,
+  FooterProps,
+} from './Footer/Footer.types';
+
+export type {
+  NavigationHeaderNavItem,
+  NavigationHeaderUser,
+  NavigationHeaderProps,
+} from './NavigationHeader/NavigationHeader.types';
+
+export type {
   PageHeaderToolbarVariant,
   PageHeaderToolbarProps,
 } from './PageHeaderToolbar/PageHeaderToolbar.types';
@@ -116,6 +133,7 @@ export type {
   NavItem,
   NavSubItem,
   NavSettingsItem,
+  NavigationState,
   NavigationVerticalProps,
 } from './NavigationVertical/NavigationVertical.types';
 
@@ -178,6 +196,7 @@ export type {
 
 export type {
   TextFieldType,
+  TextFieldSize,
   TextFieldState,
   TextFieldProps,
 } from './TextField/TextField.types';
@@ -196,3 +215,5 @@ export type { Tokens } from '../design-tokens/tokens';
 
 export { trioAgChartsTheme, trioChartPalette, MATERIAL_ICON_SVG } from '../design-tokens/agChartsTheme';
 export type { TrioAgChartsTheme } from '../design-tokens/agChartsTheme';
+
+export { trioTheme } from '../design-tokens/theme';

@@ -14,7 +14,7 @@ const meta: Meta<typeof ButtonGroup> = {
     fullWidth: { control: 'boolean' },
   },
   args: {
-    variant: 'outline',
+    variant: 'contained',
     size: 'sm',
     color: 'secondary',
     orientation: 'horizontal',
@@ -28,16 +28,24 @@ type Story = StoryObj<typeof ButtonGroup>;
 
 export const Default: Story = {};
 
-export const Contained: Story = {
-  args: { variant: 'contained', color: 'primary', buttons: ['Save', 'Save & Close', 'Cancel'] },
+export const ContainedMedium: Story = {
+  args: { variant: 'contained', size: 'md', color: 'secondary', buttons: ['Active', 'Pending', 'Archived'] },
 };
 
-export const MediumSize: Story = {
-  args: { size: 'md', buttons: ['Active', 'Pending', 'Archived'] },
+export const OutlinePrimary: Story = {
+  args: { variant: 'outline', size: 'sm', color: 'primary', buttons: ['Day', 'Week', 'Month'] },
+};
+
+export const OutlinePrimaryMedium: Story = {
+  args: { variant: 'outline', size: 'md', color: 'primary', buttons: ['Day', 'Week', 'Month'] },
 };
 
 export const Vertical: Story = {
   args: { orientation: 'vertical', buttons: ['Option A', 'Option B', 'Option C'] },
+};
+
+export const VerticalOutline: Story = {
+  args: { orientation: 'vertical', variant: 'outline', color: 'primary', buttons: ['Option A', 'Option B', 'Option C'] },
 };
 
 export const Interactive: Story = {
@@ -47,11 +55,11 @@ export const Interactive: Story = {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         <ButtonGroup
-          variant="outline"
+          variant="contained"
           size="sm"
+          color="secondary"
           buttons={labels}
           onButtonClick={labels.map((_, i) => () => setActive(i))}
-          disabledButtons={labels.map((_, i) => i === active)}
         />
         <div style={{ fontFamily: 'Roboto', fontSize: 14, color: '#212121' }}>
           Selected: <strong>{labels[active]}</strong>
@@ -59,4 +67,27 @@ export const Interactive: Story = {
       </div>
     );
   },
+};
+
+export const Matrix: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+      <div>
+        <div style={{ fontFamily: 'Roboto', fontSize: 12, color: 'rgba(0,0,0,0.6)', marginBottom: 8 }}>CONTAINED / SECONDARY / SM</div>
+        <ButtonGroup variant="contained" size="sm" color="secondary" buttons={['Button', 'Button', 'Button']} />
+      </div>
+      <div>
+        <div style={{ fontFamily: 'Roboto', fontSize: 12, color: 'rgba(0,0,0,0.6)', marginBottom: 8 }}>CONTAINED / SECONDARY / MD</div>
+        <ButtonGroup variant="contained" size="md" color="secondary" buttons={['Button', 'Button', 'Button']} />
+      </div>
+      <div>
+        <div style={{ fontFamily: 'Roboto', fontSize: 12, color: 'rgba(0,0,0,0.6)', marginBottom: 8 }}>OUTLINE / PRIMARY / SM</div>
+        <ButtonGroup variant="outline" size="sm" color="primary" buttons={['Button', 'Button', 'Button']} />
+      </div>
+      <div>
+        <div style={{ fontFamily: 'Roboto', fontSize: 12, color: 'rgba(0,0,0,0.6)', marginBottom: 8 }}>OUTLINE / PRIMARY / MD</div>
+        <ButtonGroup variant="outline" size="md" color="primary" buttons={['Button', 'Button', 'Button']} />
+      </div>
+    </div>
+  ),
 };

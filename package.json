@@ -2,9 +2,25 @@
   "name": "@trio-wfs/ui",
   "version": "1.0.0",
   "description": "TRIO WFS shared component library. React + MUI v5 components aligned to the Trio-UI design system.",
-  "main": "./components/index.ts",
-  "types": "./components/index.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "scripts": {
+    "build": "tsup",
+    "prepublishOnly": "npm run build",
     "figma:validate": "figma connect --token $(grep FIGMA_ACCESS_TOKEN .env | cut -d= -f2)",
     "figma:publish": "figma connect publish --token $(grep FIGMA_ACCESS_TOKEN .env | cut -d= -f2)",
     "storybook": "storybook dev -p 6006",
@@ -19,17 +35,18 @@
     "react-dom": ">=18.0.0"
   },
   "devDependencies": {
-    "@figma/code-connect": "^1.4.2",
-    "storybook": "^10.3.5",
-    "@storybook/react-vite": "^10.3.5",
     "@chromatic-com/storybook": "^5.1.2",
-    "@storybook/addon-vitest": "^10.3.5",
+    "@figma/code-connect": "^1.4.2",
     "@storybook/addon-a11y": "^10.3.5",
     "@storybook/addon-docs": "^10.3.5",
-    "vitest": "^4.1.4",
-    "playwright": "^1.59.1",
+    "@storybook/addon-vitest": "^10.3.5",
+    "@storybook/react-vite": "^10.3.5",
     "@vitest/browser-playwright": "^4.1.4",
-    "@vitest/coverage-v8": "^4.1.4"
+    "@vitest/coverage-v8": "^4.1.4",
+    "playwright": "^1.59.1",
+    "storybook": "^10.3.5",
+    "tsup": "^8.5.1",
+    "vitest": "^4.1.4"
   },
   "repository": {
     "type": "git",
@@ -46,6 +63,8 @@
   "license": "UNLICENSED",
   "dependencies": {
     "ag-charts-community": "^13.2.1",
-    "ag-charts-react": "^13.2.1"
+    "ag-charts-react": "^13.2.1",
+    "ag-grid-community": "^35.2.1",
+    "ag-grid-react": "^35.2.1"
   }
 }

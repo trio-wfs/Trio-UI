@@ -50,20 +50,24 @@ export const Alert: React.FC<AlertProps> = ({
   className,
 }) => {
   const hasAction = Boolean(actionLabel || close);
+  const muiSeverity = severityToMui[severity!];
+  const actionColor = muiSeverity === 'info' ? 'info' : muiSeverity;
 
   return (
     <MuiAlert
       className={className}
       variant={variantToMui[variant!]}
-      severity={severityToMui[severity!]}
+      severity={muiSeverity}
       action={
         hasAction ? (
           <>
             {actionLabel && (
               <Button
+                variant="text"
                 size="small"
+                color={actionColor}
                 onClick={onAction}
-                sx={{ color: 'inherit', minWidth: 'unset' }}
+                sx={{ minWidth: 'unset' }}
               >
                 {actionLabel}
               </Button>
@@ -71,8 +75,9 @@ export const Alert: React.FC<AlertProps> = ({
             {close && (
               <IconButton
                 size="small"
+                color={actionColor}
                 onClick={onClose}
-                sx={{ color: 'inherit', '& .MuiSvgIcon-root': { fontSize: 16 } }}
+                sx={{ '& .MuiSvgIcon-root': { fontSize: 16 } }}
                 aria-label="Close alert"
               >
                 <CloseIcon />

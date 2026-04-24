@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Footer - TRIO WFS Design System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+  <link rel="stylesheet" href="../../design-system-shell.css">
+  <style>
+    /* ============================================================
+       TEMPLATE OVERRIDE — CONTINUOUS CANVAS
+       ============================================================ */
+    .main-content {
+      background: var(--color-background-secondary);
+      min-height: 100vh;
+    }
+    .section {
+      background: transparent;
+      border-radius: 0;
+      padding: 0;
+      margin-bottom: 0;
+      padding-bottom: var(--spacing-xl);
+    }
+    .section + .section {
+      border-top: 1px solid var(--color-secondary-outline);
+      padding-top: var(--spacing-xl);
+    }
+    .section-title .material-icons-outlined {
+      font-size: 18px;
+    }
+    .section .property-table {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .section .property-table th {
+      background: var(--color-background-paper);
+    }
+
+    /* ── Footer demo ── */
+    .footer-demo {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      background: var(--color-background-default);
+      border-top: 1px solid var(--color-secondary-outline);
+      padding: var(--spacing-sm) var(--spacing-md);
+      position: sticky;
+      bottom: 0;
+      border-radius: 4px;
+      font-family: 'Roboto', sans-serif;
+    }
+    .footer-demo-left {
+      flex: 1;
+      font-size: 12px;
+      color: var(--color-text-primary);
+      letter-spacing: 0.4px;
+      line-height: 1.66;
+    }
+    .footer-demo-right {
+      flex: 1;
+      text-align: right;
+      font-size: 12px;
+      line-height: 1.66;
+    }
+    .footer-demo-right a {
+      color: var(--color-primary-main);
+      text-decoration: none;
+    }
+    .footer-demo-right a:hover {
+      text-decoration: underline;
+    }
+    .footer-demo-right .separator {
+      color: var(--color-text-primary);
+      margin: 0 var(--spacing-xs);
+    }
+  </style>
+  <script src="../../design-system-nav.js"></script>
+</head>
+<body>
+  <aside class="sidebar"><!-- nav injected --></aside>
+  <main class="main-content">
+    <div class="content-wrap">
+
+      <div class="page-header">
+        <h1 class="page-title">Footer</h1>
+        <p class="page-description">The application footer that sits at the bottom of every TRIO WFS page. Contains copyright information and legal links.</p>
+      </div>
+
+      <!-- ═══════════ 1. OVERVIEW ═══════════ -->
+      <section class="section">
+        <h2 class="section-title">
+          <span class="material-icons-outlined">info</span>
+          Overview
+        </h2>
+        <p class="section-description">
+          A simple, single-row footer. Copyright text is left-aligned, legal links are right-aligned and separated by a pipe character. The footer spans the full width of the page and uses the page canvas background color.
+        </p>
+
+        <!-- Live demo -->
+        <div style="margin-top: var(--spacing-md);">
+          <div class="footer-demo">
+            <div class="footer-demo-left">
+              &copy; 2017-2025 American Health Technology Group, LLC: Trio/Insight 25.4.0.0
+            </div>
+            <div class="footer-demo-right">
+              <a href="#">Terms of Use</a>
+              <span class="separator">|</span>
+              <a href="#">Privacy Policy</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════ 2. PLACEMENT ═══════════ -->
+      <section class="section">
+        <h2 class="section-title">
+          <span class="material-icons-outlined">view_agenda</span>
+          Page Placement
+        </h2>
+        <p class="section-description">
+          The footer always sits at the absolute bottom of the page, below all content. It is not sticky — it scrolls with the content. In the page layer stack it sits outside the content wrapper, directly on the page canvas.
+        </p>
+
+        <div style="background: var(--color-background-paper); border: 1px solid var(--color-secondary-outline); border-radius: 4px; padding: var(--spacing-lg); margin-top: var(--spacing-md);">
+          <div style="display: flex; flex-direction: column; gap: 0; background: var(--color-background-default); border-radius: 4px; overflow: hidden; min-height: 180px;">
+            <!-- Header placeholder -->
+            <div style="background: #607D8B; height: 24px; display: flex; align-items: center; padding: 0 var(--spacing-md);">
+              <span style="font-size: 10px; color: white;">NavigationHeader</span>
+            </div>
+            <!-- Content wrapper -->
+            <div style="background: var(--color-background-secondary); flex: 1; padding: var(--spacing-md);">
+              <div style="background: var(--color-background-paper); border: 1px solid var(--color-secondary-outline); border-radius: 4px; height: 80px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--color-text-secondary);">
+                Page content
+              </div>
+            </div>
+            <!-- Footer -->
+            <div style="background: var(--color-background-default); border-top: 1px solid #9E9E9E; padding: var(--spacing-xs) var(--spacing-md); display: flex; align-items: center;">
+              <span style="font-size: 10px; color: var(--color-text-secondary); flex: 1;">&copy; AHTG</span>
+              <span style="font-size: 10px; color: var(--color-primary-main);">Links</span>
+            </div>
+          </div>
+          <div style="font-size: 12px; color: var(--color-text-secondary); margin-top: var(--spacing-sm); font-style: italic;">
+            Footer sits on the page canvas (#F5F5F5), below the content wrapper (#FAFAFA).
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════ 3. TECHNICAL SPECS ═══════════ -->
+      <section class="section">
+        <h2 class="section-title">
+          <span class="material-icons-outlined">straighten</span>
+          Technical Specifications
+        </h2>
+
+        <table class="property-table">
+          <thead><tr><th>Property</th><th>Value</th><th>Token</th></tr></thead>
+          <tbody>
+            <tr><td>Background</td><td>#F5F5F5</td><td><code>background.default</code></td></tr>
+            <tr><td>Border</td><td>1px solid #E0E0E0 (top)</td><td><code>components.border.default</code></td></tr>
+            <tr><td>Horizontal padding</td><td>16px</td><td><code>spacing.md</code></td></tr>
+            <tr><td>Vertical padding</td><td>16px</td><td><code>spacing.md</code></td></tr>
+            <tr><td>Typography</td><td>Caption (12px / 400)</td><td><code>typography.caption</code></td></tr>
+            <tr><td>Letter spacing</td><td>0.4px</td><td>Fixed (Figma spec)</td></tr>
+            <tr><td>Line height</td><td>1.66</td><td>Fixed (Figma spec)</td></tr>
+            <tr><td>Text color (copyright)</td><td>#212121</td><td><code>text.primary</code></td></tr>
+            <tr><td>Link color</td><td>#2196F3</td><td><code>primary.main</code></td></tr>
+            <tr><td>Separator color</td><td>#212121</td><td><code>text.primary</code></td></tr>
+            <tr><td>Width</td><td>Full page width</td><td>100%</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ═══════════ 4. BEST PRACTICES ═══════════ -->
+      <section class="section">
+        <h2 class="section-title">
+          <span class="material-icons-outlined">lightbulb</span>
+          Best Practices
+        </h2>
+        <ul style="font-size: 14px; color: var(--color-text-primary); line-height: 1.8; padding-left: 20px;">
+          <li>The footer appears on every page — it is not conditional.</li>
+          <li>The footer is sticky — it stays fixed at the bottom of the viewport.</li>
+          <li>The top border uses the standard component border (#E0E0E0).</li>
+          <li>Copyright year and version number should be dynamically generated, not hardcoded.</li>
+          <li>Links open in the same tab by default. External links should open in a new tab.</li>
+        </ul>
+      </section>
+
+    </div>
+  </main>
+</body>
+</html>

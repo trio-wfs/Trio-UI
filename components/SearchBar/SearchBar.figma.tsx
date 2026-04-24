@@ -6,12 +6,10 @@ figma.connect(SearchBar, 'https://www.figma.com/design/PjAYuPDr8IA1ccwiAjFkSD?no
     size: figma.enum('Size', {
       Small: 'Small',
       'Medium Default': 'Medium',
-      Large: 'Large',
     }),
     type: figma.enum('Type', {
       Left: 'Left',
       Right: 'Right',
-      Both: 'Both',
     }),
   },
   example: ({ size, type }) => (

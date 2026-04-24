@@ -4,3 +4,5 @@ figma-specs/
 figma-cache/
 *.local
 debug-storybook.log
+dist/
+storybook-static/

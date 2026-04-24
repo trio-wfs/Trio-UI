@@ -13,6 +13,13 @@ const meta: Meta<typeof PageHeaderToolbar> = {
     pageTitleText: { control: 'text' },
     eyebrowText: { control: 'text' },
     indicatorLabel: { control: 'text' },
+    // ReactNode props — disable controls (not editable via panel)
+    singleButtonContent: { table: { disable: true } },
+    buttonGroupContent: { table: { disable: true } },
+    inputTextFieldContent: { table: { disable: true } },
+    chipItems: { table: { disable: true } },
+    titleIcons: { table: { disable: true } },
+    breadcrumbContent: { table: { disable: true } },
   },
   args: {
     variant: 'default',

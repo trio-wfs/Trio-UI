@@ -82,3 +82,24 @@ export const Interactive: Story = {
     );
   },
 };
+
+export const OnSecondaryBackground: Story = {
+  decorators: [
+    (Story) => (
+      <div style={{ width: 640, padding: 24, background: '#FAFAFA', borderRadius: 4 }}>
+        <Story />
+      </div>
+    ),
+  ],
+  render: () => {
+    const [active, setActive] = useState(0);
+    return (
+      <div>
+        <Tabs tabs={defaultTabs} activeIndex={active} onChange={setActive} surface="secondary" />
+        <div style={{ padding: 24, fontFamily: 'Roboto', color: '#212121' }}>
+          Content for <strong>{defaultTabs[active].label}</strong>
+        </div>
+      </div>
+    );
+  },
+};

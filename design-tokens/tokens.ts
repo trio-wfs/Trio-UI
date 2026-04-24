@@ -111,6 +111,12 @@ export const tokens = {
       teal: '#37636b',
     },
 
+    // Brand Colors
+    // Application-level brand surfaces — not for general component use
+    brand: {
+      headerStrip: '#607D8B', // Figma: materials/brand/trio/neutralaccent — top navigation bar
+    },
+
     // Base Colors
     base: {
       black: '#000000',

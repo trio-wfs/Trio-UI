@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Page Templates - TRIO/UI Design System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+  <link rel="stylesheet" href="design-system-shell.css">
+  <style>
+    .main-content {
+      background: var(--color-background-secondary);
+      min-height: 100vh;
+    }
+    .content-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: var(--spacing-lg) var(--spacing-xxl) var(--spacing-xxl);
+    }
+    .section {
+      background: transparent;
+      border-radius: 0;
+      padding: 0;
+      margin-bottom: 0;
+      padding-bottom: var(--spacing-xl);
+    }
+    .section + .section {
+      border-top: 1px solid var(--color-secondary-outline);
+      padding-top: var(--spacing-xl);
+    }
+    .section-title {
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--color-text-primary);
+      margin-bottom: var(--spacing-md);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+    }
+    .section-title .material-icons-outlined {
+      font-size: 18px;
+      color: var(--color-primary-main);
+    }
+    .section-description {
+      font-size: 14px;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+      margin-bottom: var(--spacing-lg);
+      max-width: 720px;
+    }
+
+    /* Page header */
+    .page-header {
+      margin-bottom: var(--spacing-lg);
+    }
+    .page-header h1 {
+      font-size: 20px;
+      font-weight: 500;
+      margin: 0 0 4px;
+    }
+    .page-header p {
+      font-size: 13px;
+      color: var(--color-text-secondary);
+      margin: 0;
+      line-height: 1.5;
+    }
+    .page-header .meta-links {
+      display: flex;
+      gap: 16px;
+      margin-top: 8px;
+    }
+    .page-header .meta-links a {
+      font-size: 12px;
+      color: var(--color-primary-main);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Diagram containers */
+    .diagram-surface {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      padding: var(--spacing-lg);
+      margin-bottom: var(--spacing-md);
+    }
+    .diagram-surface img {
+      width: 100%;
+      border-radius: 4px;
+      border: 1px solid var(--color-secondary-outline);
+    }
+    .diagram-caption {
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      margin-top: var(--spacing-sm);
+      font-style: italic;
+    }
+
+    /* Layer diagram */
+    .layer-diagram {
+      font-family: 'Roboto', monospace;
+      font-size: 12px;
+      line-height: 1.8;
+      padding: 24px;
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      overflow-x: auto;
+    }
+    .layer-diagram .layer {
+      border: 2px dashed;
+      padding: 12px 16px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+    .layer-diagram .layer-canvas { border-color: #9E9E9E; background: #F5F5F5; }
+    .layer-diagram .layer-wrapper { border-color: #BDBDBD; background: #FAFAFA; }
+    .layer-diagram .layer-paper { border-color: #E0E0E0; background: #FFFFFF; }
+    .layer-diagram .layer-label {
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .layer-diagram .layer-token {
+      font-size: 10px;
+      color: var(--color-text-secondary);
+      font-family: 'Courier New', monospace;
+    }
+
+    /* Rules table */
+    .rules-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .rules-table th {
+      text-align: left;
+      padding: 8px 16px;
+      font-weight: 400;
+      color: var(--color-text-secondary);
+      font-size: 12px;
+      background: var(--color-background-paper);
+      border-bottom: 1px solid var(--color-secondary-outline);
+    }
+    .rules-table td {
+      padding: 8px 16px;
+      border-bottom: 1px solid var(--color-secondary-outline);
+      color: var(--color-text-primary);
+    }
+    .rules-table tr:nth-child(even) td {
+      background: #FAFAFA;
+    }
+    .rules-table code {
+      font-size: 11px;
+      background: #F5F5F5;
+      padding: 2px 6px;
+      border-radius: 2px;
+      color: var(--color-text-primary);
+    }
+
+    /* Variant group */
+    .variant-group {
+      margin-bottom: var(--spacing-lg);
+    }
+    .variant-label {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: var(--spacing-sm);
+    }
+
+    /* Grid layouts for side-by-side diagrams */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-md);
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: var(--spacing-md);
+    }
+
+    /* Mini wireframe boxes */
+    .wireframe {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      padding: var(--spacing-md);
+    }
+    .wireframe-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--color-text-primary);
+      margin-bottom: var(--spacing-sm);
+    }
+    .wireframe-desc {
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+    }
+    .wireframe-box {
+      border: 1px dashed var(--color-secondary-outline);
+      border-radius: 4px;
+      padding: 8px;
+      font-size: 10px;
+      color: var(--color-text-secondary);
+      text-align: center;
+      background: #FAFAFA;
+    }
+  </style>
+  <script src="design-system-nav.js"></script>
+</head>
+<body>
+  <aside class="sidebar"><!-- nav injected --></aside>
+
+  <main class="main-content">
+    <div class="content-wrap">
+
+      <!-- Page Header -->
+      <div class="page-header">
+        <h1>Page Templates</h1>
+        <p>Foundational layout patterns for TRIO WFS pages. These templates define how headers, containers, tabs, and content areas compose together to form consistent page structures across the platform.</p>
+        <div class="meta-links">
+          <a href="https://www.figma.com/design/PjAYuPDr8IA1ccwiAjFkSD?node-id=5645-25183" target="_blank">
+            <span class="material-icons-outlined" style="font-size: 14px;">open_in_new</span>
+            Figma Templates
+          </a>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════════════════
+           1. PAGE ANATOMY
+           ═══════════════════════════════════════════════════════════ -->
+      <section class="section">
+        <h2 class="section-title">
+          <span class="material-icons-outlined">layers</span>
+          Page Anatomy
+        </h2>
+        <p class="section-description">
+          Every TRIO page is built from three background layers. Content nests inside these layers — never outside them. This hierarchy is non-negotiable.
+        </p>
+
+        <!-- Layer diagram -->
+        <div class="layer-diagram">
+          <div class="layer layer-canvas">
+            <div class="layer-label" style="color: #616161;">Page Canvas</div>
+            <div class="layer-token">background.default — #F5F5F5</div>
+            <div style="margin-top: 8px;">
+              <div style="background: #E0E0E0; height: 1px; margin-bottom: 8px;"></div>
+              <div style="font-size: 11px; color: #757575; margin-bottom: 8px;">Header Toolbar sits here (paper or transparent depending on variant)</div>
+              <div class="layer layer-wrapper">
+                <div class="layer-label" style="color: #757575;">Content Wrapper</div>
+                <div class="layer-token">background.secondary — #FAFAFA — 16px padding all sides</div>
+                <div style="display: flex; gap: 8px; margin-top: 12px;">
+                  <div class="layer layer-paper" style="flex: 1;">
+                    <div class="layer-label" style="color: #9E9E9E;">Paper Surface</div>
+                    <div class="layer-token">background.paper — #FFFFFF</div>
+                    <div class="layer-token">border: 1px solid #E0E0E0</div>
+                    <div class="layer-token">border-radius: 4px</div>
+                  </div>
+                  <div class="layer layer-paper" style="flex: 1;">
+                    <div class="layer-label" style="color: #9E9E9E;">Paper Surface</div>
+                    <div class="layer-token">Containers can nest inside containers</div>
+                  </div>
+                  <div class="layer layer-paper" style="flex: 0 0 180px;">
+                    <div class="layer-label" style="color: #9E9E9E;">Paper Surface</div>
+                    <div class="layer-token">Side rails, cards, panels</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <table class="rules-table" style="margin-top: 16px;">
+          <thead>
+            <tr>
+              <th>Layer</th>
+              <th>Token</th>
+              <th>Hex</th>
+              <th>Rule</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Page Canvas</td>
+              <td><code>background.default</code></td>
+              <td><code>#F5F5F5</code></td>
+              <td>Outermost background only. Nothing else uses this value.</td>
+            </tr>
+            <tr>
+              <td>Content Wrapper</td>
+              <td><code>background.secondary</code></td>
+              <td><code>#FAFAFA</code></td>
+              <td>Single wrapper below the header. 16px padding all sides.</td>
+            </tr>
+            <tr>
+              <td>Paper Surface</td>
+              <td><code>background.paper</code></td>
+              <td><code>#FFFFFF</code></td>
+              <td>All cards, panels, containers. Always with 1px solid #E0E0E0 border.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════════════
+           2. HEADER TOOLBAR VARIANTS
+           ═══════════════════════════════════════════════════════════ -->
+      <section class="section">
+        <h2 class="section-title">
+          <span class="material-icons-outlined">web_asset</span>
+          Header Toolbar Variants
+        </h2>
+        <p class="section-description">
+          The page header toolbar is one component with multiple configurations. Elements (breadcrumb, eyebrow, chips, actions, tabs) are toggled on/off per page need.
+        </p>
+
+        <div class="variant-group">
+          <div class="variant-label">Full — title + chips + eyebrow + breadcrumb row</div>
+          <div class="diagram-surface" style="padding: 0; overflow: hidden;">
+            <img src="https://www.figma.com/api/mcp/asset/full-header" alt="Full header toolbar variant" style="border: none; border-radius: 0;"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+            <div style="display: none; padding: 16px; background: #F5F5F5; font-size: 12px; color: #757575;">
+              <strong>Full variant</strong> — Paper background (#FFFFFF), 1px border, includes: page title (H6), inline chip tags, eyebrow text (caption), single button, button group, breadcrumb row with tab links, record count, and toggle button icons.
+            </div>
+          </div>
+        </div>
+
+        <div class="variant-group">
+          <div class="variant-label">Default — title + action buttons only</div>
+          <div class="diagram-surface" style="padding: 0; overflow: hidden;">
+            <div style="padding: 16px; background: #F5F5F5; font-size: 12px; color: #757575;">
+              <strong>Default variant</strong> — Paper background (#FFFFFF), 1px border. Minimal: page title (H6) left-aligned, button group right-aligned. No eyebrow, no chips, no breadcrumb row.
+            </div>
+          </div>
+        </div>
+
+        <div class="variant-group">
+          <div class="variant-label">NewCanvas — full content, no outer border</div>
+          <div class="diagram-surface" style="padding: 0; overflow: hidden;">
+            <div style="padding: 16px; background: #F5F5F5; font-size: 12px; color: #757575;">
+              <strong>NewCanvas variant</strong> — Transparent background, no border, no 16px padding. Sits directly on the #FAFAFA wrapper. Same elements as Full (eyebrow, actions, breadcrumb), but without the paper card container. Used on newer pages like Programs and Agency Performance.
+            </div>
+          </div>
+        </div>
+
+        <table class="rules-table" style="margin-top: 16px;">
+          <thead>
+            <tr>
+              <th>Element</th>
+              <th>Typography</th>
+              <th>Color</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Page title</td>
+              <td>H6 (20px, Medium 500)</td>
+              <td><code>text.primary</code></td>
+              <td>Always present</td>
+            </tr>
+            <tr>
+              <td>Eyebrow text</td>
+              <td>Caption (12px, Regular 400)</td>
+              <td><code>text.secondary</code></td>
+              <td>Below the title. Optional.</td>
+            </tr>
+            <tr>
+              <td>Chip tags</td>
+              <td>Button/sm (12px)</td>
+              <td>Default filled</td>
+              <td>Inline with title. Full variant only.</td>
+            </tr>
+            <tr>
+              <td>Status indicator</td>
+              <td>Caption (12px)</td>
+              <td>White on primary blue</td>
+              <td>Full-height left bar (OPEN, NEW, etc.)</td>
+            </tr>
+            <tr>
+              <td>Action buttons</td>
+              <td>—</td>
+              <td>Secondary contained</td>
+              <td>Right-aligned. Single button and/or button group.</td>
+            </tr>
+            <tr>
+              <td>Breadcrumb row</td>
+              <td>Caption (12px)</td>
+              <td><code>primary.main</code> links</td>
+              <td>Separated by "|". Below title area with top border.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="diagram-surface" style="margin-top: 16px; background: #FFF8E1; border-color: #FFE082;">
+          <p style="font-size: 13px; color: #212121; margin: 0;">
+            <strong>When breadcrumbs and tabs both appear:</strong> The breadcrumb header and tab row are separate components with visual spacing between them. They never stack directly against each other.
+          </p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════════════
+           3. CONTAINER COMPONENT
+           ═══════════════════════════════════════════════════════════ -->
+      <section class="section">
+        <h2 class="section-title">
+          <span class="material-icons-outlined">check_box_outline_blank</span>
+          Content Container
+        </h2>
+        <p class="section-description">
+          The <code>ContentContainer</code> is the standard paper surface used throughout TRIO. Every card, panel, and content section on a page uses this component.
+        </p>
+
+        <table class="rules-table">
+          <thead>
+            <tr>
+              <th>Property</th>
+              <th>Value</th>
+              <th>Token</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Background</td>
+              <td><code>#FFFFFF</code></td>
+              <td><code>background.paper</code></td>
+            </tr>
+            <tr>
+              <td>Border</td>
+              <td>1px solid <code>#E0E0E0</code></td>
+              <td><code>components.border.default</code></td>
+            </tr>
+            <tr>
+              <td>Border radius</td>
+              <td>4px</td>
+              <td><code>borderRadius.default</code></td>
+            </tr>
+            <tr>
+              <td>Padding</td>
+              <td>16px (default), 0px for flush grid content</td>
+              <td><code>spacing.md</code></td>
+            </tr>
+            <tr>
+              <td>Shadow</td>
+              <td>None — never</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td>Header bar height</td>
+              <td>48px</td>
+              <td>Fixed</td>
+            </tr>
+            <tr>
+              <td>Header bar background</td>
+              <td><code>#F5F5F5</code></td>
+              <td><code>background.default</code></td>
+            </tr>
+            <tr>
+              <td>Header typography</td>
+              <td>Subtitle2 (14px, Medium 500)</td>
+              <td>—</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="diagram-surface" style="margin-top: 16px;">
+          <p style="font-size: 13px; color: #212121; margin: 0 0 8px;"><strong>When to card vs. divider vs. group:</strong></p>
+          <ul style="font-size: 13px; color: #424242; line-height: 1.8; margin: 0; padding-left: 20px;">
+            <li>Two peer subsections stacked vertically — use a horizontal rule (<code>#E0E0E0</code>) between them</li>
+            <li>3+ related form fields that influence each other — wrap in a ContentContainer (no title needed)</li>
+            <li>User-assembled collection or group — becomes a ContentContainer</li>
+            <li>Containers can nest (e.g., cards inside a rail panel)</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════════════
+           4. DETAIL PAGE PATTERN
+           ═══════════════════════════════════════════════════════════ -->
+      <section class="section">
+        <h2 class="section-title">
+          <span class="material-icons-outlined">view_column</span>
+          Detail Page — Multi-Column Layout
+        </h2>
+        <p class="section-description">
+          The most common page pattern in TRIO. Used for Job details, Submission details, Candidate profiles, and Resource views. Content splits into columns within the content wrapper.
+        </p>
+
+        <!-- Mini wireframe diagram -->
+        <div class="diagram-surface">
+          <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+            <div class="wireframe-box" style="flex: 0 0 200px; min-height: 200px;">
+              <strong>Left Rail</strong><br><br>
+              Identity / Summary<br>
+              Key-value pairs<br>
+              ContentContainer with header
+            </div>
+            <div style="flex: 1; display: flex; flex-direction: column; gap: 8px;">
+              <div class="wireframe-box" style="min-height: 100px;">
+                <strong>Center Column</strong><br><br>
+                Main content — descriptions, grouped data sections, nested containers
+              </div>
+              <div class="wireframe-box" style="min-height: 80px;">
+                Stacked ContentContainers with section headers
+              </div>
+            </div>
+            <div class="wireframe-box" style="flex: 0 0 180px; min-height: 200px;">
+              <strong>Right Rail</strong><br><br>
+              Contextual info<br>
+              Relationship teams<br>
+              Shift details, rates
+            </div>
+          </div>
+          <div class="diagram-caption">Three-column detail layout. Columns adapt to the entity — not every page uses all three.</div>
+        </div>
+
+        <table class="rules-table" style="margin-top: 8px;">
+          <thead>
+            <tr>
+              <th>Column</th>
+              <th>Typical Width</th>
+              <th>Content</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Left rail</td>
+              <td>~240px fixed</td>
+              <td>Identity card — key-value pairs (label caption/secondary, value body2/primary) separated by #E0E0E0 borders</td>
+            </tr>
+            <tr>
+              <td>Center</td>
+              <td>Flexible (fills remaining)</td>
+              <td>Main content — descriptions, grouped data rows, nested ContentContainers. This is where density lives.</td>
+            </tr>
+            <tr>
+              <td>Right rail</td>
+              <td>~200px fixed</td>
+              <td>Contextual info — relationship teams, shift details, background checks, bill rates. Quick-reference data.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════════════
+           5. DETAIL PAGE WITH TABS
+           ═══════════════════════════════════════════════════════════ -->
+      <section class="section">
+        <h2 class="section-title">
+          <span class="material-icons-outlined">tab</span>
+          Detail Page — Tabbed Layout
+        </h2>
+        <p class="section-description">
+          When a detail page has multiple related views (Details, Tasks, Documents, Notes), tabs sit at the top of the content area. Each tab renders its own content layout below.
+        </p>
+
+        <div class="diagram-surface">
+          <div style="display: flex; flex-direction: column; gap: 0;">
+            <div class="wireframe-box" style="border-radius: 0; border-bottom: 2px solid #2196F3; display: flex; gap: 16px; padding: 8px 16px; background: #FFFFFF; justify-content: flex-start;">
+              <span style="color: #212121; font-weight: 500;">Details</span>
+              <span style="color: #757575;">Tasks</span>
+              <span style="color: #757575;">Documents</span>
+              <span style="color: #757575;">Notes</span>
+            </div>
+            <div style="display: flex; gap: 8px; margin-top: 8px;">
+              <div class="wireframe-box" style="flex: 0 0 200px; min-height: 140px;">Left Rail</div>
+              <div class="wireframe-box" style="flex: 1; min-height: 140px;">Center Content</div>
+              <div class="wireframe-box" style="flex: 0 0 180px; min-height: 140px;">Right Rail</div>
+            </div>
+          </div>
+          <div class="diagram-caption">Tabs sit directly on the wrapper. Content below follows the same column patterns. Tab overflow uses built-in scroll arrows — never wrap or truncate.</div>
+        </div>
+
+        <div class="diagram-surface" style="background: #FFF8E1; border-color: #FFE082;">
+          <p style="font-size: 13px; color: #212121; margin: 0;">
+            <strong>Tab + Breadcrumb rule:</strong> When both are present, the breadcrumb lives in the header toolbar above. Tabs sit below on the content wrapper. Visual spacing separates them — they never stack directly.
+          </p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════════════
+           6. GRID PAGE PATTERN
+           ═══════════════════════════════════════════════════════════ -->
+      <section class="section">
+        <h2 class="section-title">
+          <span class="material-icons-outlined">table_chart</span>
+          Grid Page — Data Tables
+        </h2>
+        <p class="section-description">
+          Grid pages display tabular data using AG Grid. They can appear as standalone pages or as tab content within a detail page. Multiple grids can stack vertically.
+        </p>
+
+        <div class="diagram-surface">
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div style="font-size: 14px; font-weight: 500; color: #212121;">Tasks</div>
+              <div class="wireframe-box" style="font-size: 11px; padding: 4px 12px;">Create Task</div>
+            </div>
+            <div style="font-size: 11px; color: #2196F3; display: flex; gap: 8px;">
+              <span>Active</span> | <span>Completed</span> | <span>Cancelled</span>
+            </div>
+            <div class="wireframe-box" style="min-height: 120px;">
+              AG Grid — 42px rows, zebra stripe, vertical + horizontal borders (#E0E0E0)<br>
+              Column filters always visible (disabled when not searchable)<br>
+              Infinite scroll — no pagination
+            </div>
+          </div>
+          <div class="diagram-caption">Section title (Subtitle1) + optional filter tabs + AG Grid. Grid fills container edge-to-edge (padding: 0).</div>
+        </div>
+
+        <table class="rules-table" style="margin-top: 8px;">
+          <thead>
+            <tr>
+              <th>Property</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Row height</td><td>42px — always</td></tr>
+            <tr><td>Zebra striping</td><td>Always on</td></tr>
+            <tr><td>Borders</td><td>Vertical + horizontal, <code>#E0E0E0</code></td></tr>
+            <tr><td>Header row</td><td>Paper background (#FFFFFF), Body2 text (14px, Regular)</td></tr>
+            <tr><td>Column filters</td><td>Always visible under each header (disabled when not searchable)</td></tr>
+            <tr><td>Scrolling</td><td>Infinite scroll / load-more. No pagination.</td></tr>
+            <tr><td>Horizontal overflow</td><td>Horizontal scroll when columns exceed container width</td></tr>
+            <tr><td>Empty state</td><td>"No rows to display" — centered, no icons</td></tr>
+            <tr><td>Status chips</td><td>Outlined semantic — multiple states visible at once</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════════════
+           7. HEADER + CONTENT RELATIONSHIP
+           ═══════════════════════════════════════════════════════════ -->
+      <section class="section">
+        <h2 class="section-title">
+          <span class="material-icons-outlined">view_agenda</span>
+          Full Page Assembly
+        </h2>
+        <p class="section-description">
+          How the pieces stack together to form a complete TRIO page.
+        </p>
+
+        <div class="diagram-surface">
+          <div style="display: flex; flex-direction: column; gap: 0; background: #F5F5F5; padding: 0; border-radius: 4px; overflow: hidden;">
+            <!-- Header toolbar -->
+            <div style="background: #FFFFFF; border: 1px solid #E0E0E0; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <div style="font-size: 14px; font-weight: 500; color: #212121;">Page Title</div>
+                <div style="font-size: 11px; color: #757575;">Eyebrow support text</div>
+              </div>
+              <div style="display: flex; gap: 4px;">
+                <div class="wireframe-box" style="padding: 4px 12px; font-size: 11px;">Action</div>
+                <div class="wireframe-box" style="padding: 4px 12px; font-size: 11px;">Action</div>
+              </div>
+            </div>
+            <!-- Breadcrumb row -->
+            <div style="background: #FFFFFF; border: 1px solid #E0E0E0; border-top: none; padding: 8px 16px; font-size: 11px; color: #2196F3;">
+              link | link | link | <span style="color: #212121; font-weight: 500;">Selected</span>
+            </div>
+            <!-- Content wrapper -->
+            <div style="background: #FAFAFA; padding: 16px;">
+              <!-- Tabs -->
+              <div style="display: flex; gap: 0; margin-bottom: 16px; border-bottom: 1px solid #E0E0E0;">
+                <div style="padding: 8px 16px; font-size: 12px; font-weight: 500; color: #212121; border-bottom: 2px solid #2196F3; margin-bottom: -1px; background: #FFFFFF; border-top-left-radius: 4px; border-top-right-radius: 4px; border-left: 1px solid #E0E0E0; border-right: 1px solid #E0E0E0;">Details</div>
+                <div style="padding: 8px 16px; font-size: 12px; color: #757575;">Tasks</div>
+                <div style="padding: 8px 16px; font-size: 12px; color: #757575;">Documents</div>
+              </div>
+              <!-- Content columns -->
+              <div style="display: flex; gap: 8px;">
+                <div style="flex: 0 0 180px; background: #FFFFFF; border: 1px solid #E0E0E0; border-radius: 4px; padding: 12px;">
+                  <div style="font-size: 11px; font-weight: 500; color: #212121; background: #F5F5F5; margin: -12px -12px 8px; padding: 8px 12px; border-bottom: 1px solid #E0E0E0; border-radius: 4px 4px 0 0;">Identity</div>
+                  <div style="font-size: 10px; color: #757575;">Key-value pairs</div>
+                </div>
+                <div style="flex: 1; display: flex; flex-direction: column; gap: 8px;">
+                  <div style="background: #FFFFFF; border: 1px solid #E0E0E0; border-radius: 4px; padding: 12px;">
+                    <div style="font-size: 11px; font-weight: 500; color: #212121; background: #F5F5F5; margin: -12px -12px 8px; padding: 8px 12px; border-bottom: 1px solid #E0E0E0; border-radius: 4px 4px 0 0;">Main Content</div>
+                    <div style="font-size: 10px; color: #757575;">Descriptions, grouped data</div>
+                  </div>
+                  <div style="background: #FFFFFF; border: 1px solid #E0E0E0; border-radius: 4px; padding: 12px;">
+                    <div style="font-size: 11px; font-weight: 500; color: #212121; background: #F5F5F5; margin: -12px -12px 8px; padding: 8px 12px; border-bottom: 1px solid #E0E0E0; border-radius: 4px 4px 0 0;">Section 2</div>
+                    <div style="font-size: 10px; color: #757575;">Nested containers</div>
+                  </div>
+                </div>
+                <div style="flex: 0 0 160px; background: #FFFFFF; border: 1px solid #E0E0E0; border-radius: 4px; padding: 12px;">
+                  <div style="font-size: 11px; font-weight: 500; color: #212121; background: #F5F5F5; margin: -12px -12px 8px; padding: 8px 12px; border-bottom: 1px solid #E0E0E0; border-radius: 4px 4px 0 0;">Context</div>
+                  <div style="font-size: 10px; color: #757575;">Side details</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="diagram-caption">Complete page: Header Toolbar (Full) → Breadcrumb row → Content Wrapper (#FAFAFA, 16px padding) → Tabs → Content containers.</div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════════════
+           8. SPACING & RESPONSIVE
+           ═══════════════════════════════════════════════════════════ -->
+      <section class="section">
+        <h2 class="section-title">
+          <span class="material-icons-outlined">straighten</span>
+          Spacing & Responsive Rules
+        </h2>
+        <p class="section-description">
+          Consistent spacing across all page layouts.
+        </p>
+
+        <table class="rules-table">
+          <thead>
+            <tr>
+              <th>Context</th>
+              <th>Spacing</th>
+              <th>Token</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Content wrapper padding</td><td>16px all sides</td><td><code>spacing.md</code></td></tr>
+            <tr><td>Between sibling containers</td><td>16px</td><td><code>spacing.md</code></td></tr>
+            <tr><td>Internal container padding</td><td>16px (or 0 for flush grids)</td><td><code>spacing.md</code></td></tr>
+            <tr><td>Container header height</td><td>48px</td><td>Fixed</td></tr>
+            <tr><td>Grid gutters</td><td>16px</td><td><code>spacing.md</code></td></tr>
+            <tr><td>Section breaks</td><td>24px</td><td><code>spacing.lg</code></td></tr>
+          </tbody>
+        </table>
+
+        <div class="diagram-surface" style="margin-top: 16px;">
+          <p style="font-size: 13px; color: #212121; margin: 0 0 8px;"><strong>Viewport rules:</strong></p>
+          <ul style="font-size: 13px; color: #424242; line-height: 1.8; margin: 0; padding-left: 20px;">
+            <li><strong>1440px</strong> — design target. All layouts built for this width.</li>
+            <li><strong>1724px</strong> — optimal experience. Designs should hold up here.</li>
+            <li><strong>Below 1440px</strong> — compromised view. Acceptable but not the priority. Grids scroll horizontally.</li>
+            <li><strong>Mobile</strong> — not considered unless explicitly asked. Desktop-first, always.</li>
+            <li><strong>Grid layout</strong> — 12-column, 16px gutters. MUI Grid or Box with flex.</li>
+          </ul>
+        </div>
+      </section>
+
+    </div><!-- /content-wrap -->
+  </main>
+</body>
+</html>

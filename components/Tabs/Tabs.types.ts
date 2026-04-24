@@ -17,6 +17,9 @@ export interface TabItem {
   disabled?: boolean;
 }
 
+/** Surface the tab bar sits on — controls selected tab bg + bottom border blend */
+export type TabsSurface = 'paper' | 'secondary';
+
 export interface TabsProps {
   /** Tab items to render (maps to tab1–tab8 boolean slots in Figma) */
   tabs: TabItem[];
@@ -26,9 +29,12 @@ export interface TabsProps {
   onChange?: (index: number) => void;
   /** Scroll variant from Figma */
   variant?: TabsVariant;
+  /** Surface color the tabs sit on. Selected tab matches this so the bottom border blends. */
+  surface?: TabsSurface;
 }
 
 export const defaultTabsProps: Partial<TabsProps> = {
   activeIndex: 0,
   variant: 'Tab Group',
+  surface: 'paper',
 };

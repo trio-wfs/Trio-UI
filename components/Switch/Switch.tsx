@@ -55,7 +55,7 @@ export const Switch: React.FC<SwitchProps> = ({
         labelPlacement={muiLabelPlacement}
         disabled={isDisabled}
         className={className}
-        sx={{ marginLeft: 0, marginRight: 0 }}
+        sx={{ marginLeft: 0, marginRight: 0, gap: 1 }}
       />
     );
   }

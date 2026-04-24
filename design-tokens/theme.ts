@@ -184,6 +184,13 @@ const themeOptions: ThemeOptions = {
           borderRadius: `${tokens.borderRadius.default}px`,
           boxShadow: 'none',
         },
+        // Icons in buttons — always 16x16
+        startIcon: {
+          '& > *:nth-of-type(1)': { fontSize: 16 },
+        },
+        endIcon: {
+          '& > *:nth-of-type(1)': { fontSize: 16 },
+        },
         sizeMedium: {
           padding: `${tokens.spacing.sm}px ${tokens.spacing.md}px`,
           fontSize: `${tokens.typography.button.md.fontSize}px`,
@@ -219,7 +226,7 @@ const themeOptions: ThemeOptions = {
           width: '100%',
           '& .MuiOutlinedInput-root': {
             padding: `${tokens.spacing.xs}px ${tokens.spacing.sm}px`,
-            backgroundColor: tokens.colors.background.paper,
+            backgroundColor: 'transparent',
             borderRadius: `${tokens.borderRadius.default}px`,
             fontFamily: tokens.typography.fontFamily,
             fontSize: `${tokens.typography.fontSize.sm}px`,
@@ -247,7 +254,7 @@ const themeOptions: ThemeOptions = {
           // Single-line uses minHeight so multi-select inputs (e.g. Autocomplete)
           // can grow with chips. Multi-line is fixed height per Figma spec.
           '& .MuiOutlinedInput-root:not(.MuiInputBase-multiline)': {
-            minHeight: '36px',
+            minHeight: '38px',
           },
           '& .MuiOutlinedInput-root.MuiInputBase-multiline': {
             height: '90px',
@@ -283,7 +290,7 @@ const themeOptions: ThemeOptions = {
         root: {
           position: 'relative',
           transform: 'none',
-          marginBottom: `${tokens.spacing.sm}px`,
+          marginBottom: `${tokens.spacing.xs}px`,
         },
       },
     },
@@ -332,11 +339,11 @@ const themeOptions: ThemeOptions = {
       styleOverrides: {
         root: {
           fontSize: `${tokens.typography.fontSize.xs}px`,
-          fontWeight: tokens.typography.fontWeight.medium,
+          fontWeight: tokens.typography.fontWeight.regular,
           color: tokens.colors.text.primary,
           marginBottom: `${tokens.spacing.sm}px`,
           '&.Mui-focused': {
-            color: tokens.colors.primary.main,
+            color: tokens.colors.text.primary,
           },
           '&.Mui-error': {
             color: tokens.colors.error.main,
@@ -614,13 +621,10 @@ const themeOptions: ThemeOptions = {
         root: {
           minHeight: 40,
           borderBottom: `1px solid ${tokens.colors.components.divider}`,
-          backgroundColor: tokens.colors.background.paper,
         },
+        // Hide the default indicator — we draw it manually on the selected tab
         indicator: {
-          top: 0,
-          bottom: 'auto',
-          height: 2,
-          backgroundColor: tokens.colors.primary.main,
+          display: 'none',
         },
         scrollButtons: {
           color: tokens.colors.text.secondary,
@@ -638,8 +642,19 @@ const themeOptions: ThemeOptions = {
           lineHeight: `${tokens.typography.body2.lineHeight}px`,
           textTransform: 'none',
           color: tokens.colors.text.secondary,
+          // Card-tab: selected tab overlaps the bottom HR by 1px
+          marginBottom: -1,
+          borderBottom: '1px solid transparent',
           '&.Mui-selected': {
-            color: tokens.colors.primary.main,
+            color: tokens.colors.text.primary,
+            backgroundColor: tokens.colors.background.paper,
+            borderLeft: `1px solid ${tokens.colors.components.divider}`,
+            borderRight: `1px solid ${tokens.colors.components.divider}`,
+            borderBottom: `1px solid ${tokens.colors.background.paper}`,
+            borderTopLeftRadius: `${tokens.borderRadius.default}px`,
+            borderTopRightRadius: `${tokens.borderRadius.default}px`,
+            // Blue indicator at top
+            boxShadow: `inset 0 2px 0 0 ${tokens.colors.primary.main}`,
           },
           '&.Mui-disabled': {
             color: tokens.colors.text.disabled,
@@ -680,9 +695,9 @@ const themeOptions: ThemeOptions = {
             backgroundColor: tokens.colors.action.hover,
           },
           '&.Mui-selected': {
-            backgroundColor: 'rgba(33, 150, 243, 0.08)',
+            backgroundColor: tokens.colors.action.selected,
             '&:hover': {
-              backgroundColor: 'rgba(33, 150, 243, 0.12)',
+              backgroundColor: tokens.colors.action.focus,
             },
           },
           '&.Mui-disabled': {
@@ -726,21 +741,7 @@ const themeOptions: ThemeOptions = {
           letterSpacing: 0,
           textTransform: 'none',
           boxShadow: 'none',
-          // Hover overlay (rgba(0,0,0,0.04)) via ::after pseudo-element
-          position: 'relative',
-          overflow: 'hidden',
-          '&::after': {
-            content: '""',
-            position: 'absolute',
-            inset: 0,
-            borderRadius: 'inherit',
-            backgroundColor: 'transparent',
-            transition: 'background-color 0.15s ease',
-            pointerEvents: 'none',
-          },
-          '&:hover::after': {
-            backgroundColor: tokens.colors.action.hover,
-          },
+          // Hover is handled per-color in Chip.tsx (semantic tints)
           '&:hover': {
             boxShadow: 'none',
           },
@@ -765,10 +766,10 @@ const themeOptions: ThemeOptions = {
           flexShrink: 0,
         },
         deleteIcon: {
-          width: 24,
-          height: 24,
-          fontSize: 20,
-          margin: 0,
+          width: 16,
+          height: 16,
+          fontSize: 16,
+          margin: `0 ${tokens.spacing.xs}px 0 0`,
           color: 'inherit',
           flexShrink: 0,
           '&:hover': {
@@ -819,22 +820,24 @@ const themeOptions: ThemeOptions = {
         },
         switchBase: {
           padding: 2,
+          color: tokens.colors.action.active,
           '&.Mui-checked': {
             transform: 'translateX(12px)',
             color: tokens.colors.base.white,
             '& + .MuiSwitch-track': {
               backgroundColor: tokens.colors.primary.main,
               opacity: 1,
-              border: 'none',
+              border: `1px solid ${tokens.colors.primary.main}`,
             },
             '&.Mui-disabled + .MuiSwitch-track': {
-              backgroundColor: tokens.colors.primary.main,
-              opacity: 0.5,
+              backgroundColor: 'rgba(0, 0, 0, 0.08)',
+              opacity: 1,
+              border: 'none',
             },
           },
           '&.Mui-disabled': {
             '& .MuiSwitch-thumb': {
-              color: '#BDBDBD',
+              color: tokens.colors.text.disabled,
             },
             '& + .MuiSwitch-track': {
               backgroundColor: 'rgba(0, 0, 0, 0.08)',
@@ -847,7 +850,7 @@ const themeOptions: ThemeOptions = {
           boxSizing: 'border-box',
           width: 12,
           height: 12,
-          boxShadow: '0px 1px 2px rgba(0, 0, 0, 0.2)',
+          boxShadow: 'none',
         },
         track: {
           borderRadius: 999,

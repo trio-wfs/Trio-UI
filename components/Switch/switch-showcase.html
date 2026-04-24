@@ -72,7 +72,7 @@
     .switch-label {
       display: inline-flex;
       align-items: center;
-      gap: var(--spacing-sm);
+      gap: 8px;
       cursor: pointer;
       font-family: var(--font-family);
       font-size: 14px;
@@ -91,15 +91,18 @@
       appearance: none;
       -webkit-appearance: none;
       -moz-appearance: none;
-      background-color: #9E9E9E;
-      border-radius: 8px;
+      background-color: white;
+      border: 1px solid rgba(0, 0, 0, 0.3);
+      border-radius: 999px;
       cursor: pointer;
-      transition: background-color 0.3s;
+      transition: background-color 0.3s, border-color 0.3s;
       outline: none;
+      box-sizing: border-box;
     }
 
     .switch-input:checked {
       background-color: var(--color-primary-main);
+      border-color: var(--color-primary-main);
     }
 
     .switch-input::before {
@@ -108,19 +111,25 @@
       width: 12px;
       height: 12px;
       border-radius: 50%;
-      background: white;
-      top: 2px;
-      left: 2px;
-      transition: transform 0.3s;
+      background: rgba(0, 0, 0, 0.32);
+      top: 1px;
+      left: 1px;
+      transition: transform 0.3s, background 0.3s;
     }
 
     .switch-input:checked::before {
-      transform: translateX(14px);
+      transform: translateX(12px);
+      background: white;
     }
 
     .switch-input:disabled {
       cursor: default;
-      opacity: 0.5;
+      background-color: rgba(0, 0, 0, 0.08);
+      border-color: transparent;
+    }
+
+    .switch-input:disabled::before {
+      background: #BDBDBD;
     }
 
     /* ── Card illustration (Do/Don't visuals) ── */
@@ -518,8 +527,8 @@
           </tr>
           <tr>
             <td>Track Color (Off)</td>
-            <td><code>#9E9E9E</code></td>
-            <td><span class="token-path">colors.action.disabled</span></td>
+            <td><code>#FFFFFF</code> + <code>rgba(0,0,0,0.3)</code> border</td>
+            <td><span class="token-path">base.white + semantic/border/input</span></td>
           </tr>
           <tr>
             <td>Track Color (On)</td>
@@ -527,9 +536,14 @@
             <td><span class="token-path">colors.primary.main</span></td>
           </tr>
           <tr>
-            <td>Thumb Color</td>
+            <td>Thumb Color (Off)</td>
+            <td><code>rgba(0,0,0,0.32)</code></td>
+            <td><span class="token-path">action.active</span></td>
+          </tr>
+          <tr>
+            <td>Thumb Color (On)</td>
             <td><code>#FFFFFF</code></td>
-            <td><span class="token-path">&mdash;</span></td>
+            <td><span class="token-path">base.white</span></td>
           </tr>
           <tr>
             <td>Border Radius (Track)</td>

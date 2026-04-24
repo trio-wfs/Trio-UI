@@ -28,7 +28,7 @@ import type { ChartProps } from './Chart.types';
 
 export const Chart: React.FC<ChartProps> = ({ options, style, className }) => {
   const mergedOptions: AgChartOptions = {
-    theme: trioAgChartsTheme,
+    theme: trioAgChartsTheme as any,
     background: { fill: 'transparent' },
     ...options,
   };

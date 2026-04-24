@@ -53,7 +53,7 @@ export const PageHeaderToolbar: React.FC<PageHeaderToolbarProps> = ({
         sx={{
           display: 'flex',
           alignItems: 'center',
-          minHeight: 68,
+          minHeight: 56,
           borderBottom: showBreadcrumb
             ? `1px solid ${tokens.colors.components.border.default}`
             : 'none',
@@ -90,7 +90,7 @@ export const PageHeaderToolbar: React.FC<PageHeaderToolbarProps> = ({
           }}
         >
           {/* Title + chips + eyebrow */}
-          <Box sx={{ display: 'flex', flex: 1, flexDirection: 'column', gap: `${tokens.spacing.sm}px`, minWidth: 0 }}>
+          <Box sx={{ display: 'flex', flex: 1, flexDirection: 'column', gap: `${tokens.spacing.xs}px`, minWidth: 0 }}>
             {/* Title row */}
             <Box sx={{ display: 'flex', alignItems: 'center', gap: '4px', flexWrap: 'wrap' }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: '4px' }}>

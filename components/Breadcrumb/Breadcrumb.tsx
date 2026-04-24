@@ -74,7 +74,7 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({
             )}
 
             {i < links.length - 1 && (
-              <Typography variant="body1" sx={{ color: tokens.colors.text.secondary, flexShrink: 0 }}>
+              <Typography variant="body1" sx={{ color: tokens.colors.components.border.default, flexShrink: 0 }}>
                 {divider}
               </Typography>
             )}

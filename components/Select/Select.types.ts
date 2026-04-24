@@ -16,6 +16,7 @@ export type SelectState = 'default' | 'focus' | 'disabled' | 'error' | 'selected
 export interface SelectOption {
   value: string;
   label: string;
+  disabled?: boolean;
 }
 
 export interface SelectProps {

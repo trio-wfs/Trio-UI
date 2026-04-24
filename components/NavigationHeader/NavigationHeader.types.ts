@@ -1,0 +1,58 @@
+/**
+ * NavigationHeader Component Types
+ * SOURCE OF TRUTH: Figma node 3868:49596 (file: PjAYuPDr8IA1ccwiAjFkSD)
+ * DO NOT add properties not in Figma. DO NOT modify variant options unless Figma changes.
+ *
+ * Two-row horizontal header: brand bar (top) + nav bar (bottom).
+ * Brand bar: TRIO logo, environment badge, search bar, user avatar + name.
+ * Nav bar: horizontal nav items with optional dropdown arrows + active indicator.
+ */
+
+import React from 'react';
+
+export interface NavigationHeaderNavItem {
+  /** Unique identifier */
+  id: string;
+  /** Display label — rendered uppercase */
+  label: string;
+  /** Whether this item has a dropdown menu */
+  hasDropdown?: boolean;
+  /** Click handler */
+  onClick?: () => void;
+}
+
+export interface NavigationHeaderUser {
+  /** User's full display name */
+  name: string;
+  /** Two-letter initials for avatar */
+  initials: string;
+  /** Avatar background color (MUI palette color) */
+  avatarColor?: string;
+}
+
+export interface NavigationHeaderProps {
+  /** Navigation items displayed in the bottom bar */
+  navItems: NavigationHeaderNavItem[];
+  /** ID of the currently active nav item */
+  activeItemId?: string;
+  /** User info for the right side of the brand bar */
+  user: NavigationHeaderUser;
+  /** Environment badge text (e.g. "TRIO WIP", "TRIO PROD") — hidden when empty */
+  badgeText?: string;
+  /** Search bar placeholder text */
+  searchPlaceholder?: string;
+  /** Logo image source — defaults to TRIO logo */
+  logoSrc?: string;
+  /** Callback when search is submitted */
+  onSearch?: (value: string) => void;
+  /** Callback when user dropdown is clicked */
+  onUserMenuClick?: () => void;
+  /** Callback when a nav item is clicked */
+  onNavItemClick?: (itemId: string) => void;
+}
+
+export const defaultNavigationHeaderProps: Partial<NavigationHeaderProps> = {
+  badgeText: '',
+  searchPlaceholder: 'Search Trio',
+  navItems: [],
+};

@@ -97,5 +97,5 @@ export const defaultButtonGroupProps: Partial<ButtonGroupProps> = {
   orientation: 'horizontal',
   buttons: ['Button 1', 'Button 2', 'Button 3'],
   fullWidth: false,
-  disableElevation: false,
+  disableElevation: true,
 };

@@ -21,11 +21,16 @@ export const Tabs: React.FC<TabsProps> = ({
   activeIndex,
   onChange,
   variant = defaultTabsProps.variant!,
+  surface = defaultTabsProps.surface!,
 }) => {
   const isControlled = activeIndex !== undefined;
   const [internalIndex, setInternalIndex] = useState(0);
   const currentIndex = isControlled ? activeIndex : internalIndex;
   const isScrollable = variant !== 'Tab Group';
+
+  const surfaceColor = surface === 'secondary'
+    ? tokens.colors.background.secondary
+    : tokens.colors.background.paper;
 
   return (
     <MuiTabs
@@ -41,6 +46,12 @@ export const Tabs: React.FC<TabsProps> = ({
         <MuiTab
           key={index}
           disabled={tab.disabled}
+          sx={{
+            '&.Mui-selected': {
+              backgroundColor: surfaceColor,
+              borderBottom: `1px solid ${surfaceColor}`,
+            },
+          }}
           label={
             <Box
               sx={{
@@ -50,13 +61,13 @@ export const Tabs: React.FC<TabsProps> = ({
               }}
             >
               {tab.leftIcon && (
-                <Box sx={{ display: 'flex', alignItems: 'center', fontSize: 18 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', fontSize: 16 }}>
                   {tab.leftIcon}
                 </Box>
               )}
               <span>{tab.label}</span>
               {tab.rightIcon && (
-                <Box sx={{ display: 'flex', alignItems: 'center', fontSize: 18 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', fontSize: 16 }}>
                   {tab.rightIcon}
                 </Box>
               )}

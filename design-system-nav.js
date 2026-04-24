@@ -10,6 +10,7 @@
 const DS_NAV = {
   foundation: [
     { label: 'Overview',    icon: 'home',        href: 'design-system-overview.html' },
+    { label: 'Changelog',   icon: 'update',       href: 'changelog.html' },
     { label: 'Colors',      icon: 'palette',      href: 'design-tokens-colors.html' },
     { label: 'Typography',  icon: 'text_fields',  href: 'design-tokens-typography.html' },
     { label: 'Spacing',     icon: 'space_bar',    href: 'design-tokens-spacing.html' },
@@ -39,7 +40,9 @@ const DS_NAV = {
 
   // Custom TRIO components — built specifically for TRIO WFS
   custom: [
+    { label: 'Footer',         icon: 'horizontal_rule', href: 'components/Footer/footer-showcase.html' },
     { label: 'Metric Card',   icon: 'dashboard',    href: 'components/MetricCard/metric-card-showcase.html' },
+    { label: 'Nav Header',    icon: 'web',          href: 'components/NavigationHeader/navigation-header-showcase.html' },
     { label: 'Nav Vertical',  icon: 'view_sidebar', href: 'components/NavigationVertical/navigation-vertical-showcase.html' },
     { label: 'Page Header',   icon: 'web_asset',    href: 'components/PageHeaderToolbar/page-header-toolbar-showcase.html' },
     { label: 'Search Bar',    icon: 'search',       href: 'components/SearchBar/search-bar-showcase.html' },
@@ -54,7 +57,7 @@ const DS_NAV = {
 
   // Page Templates — assembled layouts for common TRIO screens
   templates: [
-    // Coming soon — will be added as templates are designed
+    { label: 'Page Templates', icon: 'view_quilt', href: 'page-templates.html' },
   ],
 };
 

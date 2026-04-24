@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Changelog - TRIO WFS Design System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+  <link rel="stylesheet" href="design-system-shell.css">
+  <style>
+    .changelog-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .changelog-table thead tr {
+      border-bottom: 1px solid var(--color-secondary-outline);
+    }
+    .changelog-table th {
+      text-align: left;
+      padding: 8px 16px;
+      font-weight: 400;
+      color: var(--color-text-secondary);
+      font-size: 12px;
+    }
+    .changelog-table td {
+      padding: 8px 16px;
+      border-bottom: 1px solid var(--color-secondary-outline);
+    }
+    .changelog-table tr:nth-child(even) td {
+      background: #FAFAFA;
+    }
+    .changelog-table .col-date {
+      width: 100px;
+      color: var(--color-text-secondary);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .changelog-table .col-type {
+      width: 120px;
+    }
+  </style>
+  <script src="design-system-nav.js"></script>
+  <script src="design-system-changelog.js"></script>
+</head>
+<body>
+  <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
+
+  <main class="main-content">
+    <div class="page-header" style="padding: 24px 32px 16px;">
+      <h1 style="font-size: 20px; font-weight: 500; margin: 0 0 4px;">Changelog</h1>
+      <p style="font-size: 13px; color: var(--color-text-secondary); margin: 0;">All updates to the TRIO/UI Design System — components, tokens, guidelines, and infrastructure.</p>
+    </div>
+
+    <div style="max-width: 1100px; margin: 0 auto; padding: 0 32px 32px;">
+      <div style="background: var(--color-background-paper); border: 1px solid var(--color-secondary-outline); border-radius: var(--border-radius); overflow: hidden;">
+        <table class="changelog-table">
+          <thead>
+            <tr>
+              <th class="col-date">Date</th>
+              <th>Update</th>
+              <th class="col-type">Type</th>
+            </tr>
+          </thead>
+          <tbody id="changelog-full"></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      renderChangelog('changelog-full');
+    });
+  </script>
+</body>
+</html>

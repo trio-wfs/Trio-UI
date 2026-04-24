@@ -3,35 +3,42 @@
  *
  * SOURCE OF TRUTH: Figma node 492:653 (file: PjAYuPDr8IA1ccwiAjFkSD)
  *
- * A TextField with optional support button segment(s) containing a search icon.
- *   type = Left  → search button on the left
- *   type = Right → search button on the right
- *   type = Both  → search buttons on both sides
+ * Input + action button segment pattern. The support button shows
+ * a text label and an icon — making it reusable as a search,
+ * download, filter, or prompt trigger.
  *
- * Theme migration (2026-04-15):
- * - Dropped the `fieldset` borderColor overrides (enabled, hover, focused, disabled) —
- *   all inherited from the MuiTextField theme now.
- * - Migrated deprecated `InputProps` → MUI v9 `slotProps.input`.
- * - Kept: dynamic per-size height/fontSize, corner-radius carve-outs when
- *   joined with support buttons, and the extra focus box-shadow ring (unique to SearchBar).
+ * Uses TRIO TextField for the input portion.
+ * Sizes match TextField: Small = 30px, Medium = 38px.
+ *
+ * Text position within the support button:
+ *   Left button:  text | icon  (text before icon)
+ *   Right button: icon | text  (icon after text)
  */
 
 import React from 'react';
-import { Box, IconButton, InputAdornment, TextField } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import { TextField } from '../TextField/TextField';
 import { SearchBarProps, defaultSearchBarProps } from './SearchBar.types';
 import { tokens } from '../../design-tokens/tokens';
 
-const sizeHeightMap = {
-  Small: 32,
-  Medium: 40,
-  Large: 48,
-};
-
-const sizeFontMap = {
-  Small: tokens.typography.fontSize.xs,
-  Medium: tokens.typography.fontSize.sm,
-  Large: tokens.typography.fontSize.md,
+const SIZE_MAP = {
+  Small: {
+    height: 30,
+    fontSize: tokens.typography.fontSize.xs,    // 12px
+    lineHeight: '12px',
+    iconSize: 16,
+    py: '4px',
+    tfSize: 'small' as const,
+  },
+  Medium: {
+    height: 38,
+    fontSize: tokens.typography.fontSize.sm,    // 14px
+    lineHeight: '14px',
+    iconSize: 20,
+    py: '6px',
+    tfSize: 'medium' as const,
+  },
 };
 
 export const SearchBar: React.FC<SearchBarProps> = ({
@@ -42,24 +49,77 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   onChange,
   onSearch,
   disabled = false,
+  supportCopy = defaultSearchBarProps.supportCopy,
+  showIcon = defaultSearchBarProps.showIcon!,
+  icon,
 }) => {
-  const height = sizeHeightMap[size];
-  const fontSize = sizeFontMap[size];
-  const showLeft = type === 'Left' || type === 'Both';
-  const showRight = type === 'Right' || type === 'Both';
+  const s = SIZE_MAP[size];
+  const iconElement = icon || <SearchIcon sx={{ fontSize: s.iconSize }} />;
 
-  const supportButtonSx = {
-    width: height,
-    height,
-    borderRadius: 0,
-    backgroundColor: tokens.colors.secondary.main,
-    border: `1px solid ${tokens.colors.components.input.enabledBorder}`,
-    color: disabled ? tokens.colors.text.disabled : tokens.colors.components.icon.default,
-    '&:hover': {
-      backgroundColor: disabled ? undefined : tokens.colors.action.selected,
-    },
-    flexShrink: 0,
-  };
+  // Support button — text position depends on which side it's on
+  // Left button:  text | icon
+  // Right button: icon | text
+  const SupportButton: React.FC = () => (
+    <Box
+      component="button"
+      onClick={disabled ? undefined : onSearch}
+      disabled={disabled}
+      aria-label={supportCopy || 'Search'}
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '4px',
+        height: s.height,
+        px: `${tokens.spacing.sm}px`,
+        py: s.py,
+        backgroundColor: tokens.colors.secondary.main,
+        border: `1px solid ${tokens.colors.components.input.enabledBorder}`,
+        // Remove shared border between button and input
+        ...(type === 'Left' && { borderRight: 'none' }),
+        ...(type === 'Right' && { borderLeft: 'none' }),
+        borderRadius: 0,
+        color: disabled ? tokens.colors.text.disabled : tokens.colors.components.icon.default,
+        cursor: disabled ? 'not-allowed' : 'pointer',
+        flexShrink: 0,
+        '&:hover': {
+          backgroundColor: disabled ? undefined : tokens.colors.action.selected,
+        },
+      }}
+    >
+      {/* Left button: text first, then icon */}
+      {type === 'Left' && supportCopy && (
+        <Typography
+          sx={{
+            fontFamily: tokens.typography.fontFamily,
+            fontSize: s.fontSize,
+            fontWeight: tokens.typography.fontWeight.regular,
+            lineHeight: s.lineHeight,
+            color: disabled ? tokens.colors.text.disabled : tokens.colors.text.primary,
+            whiteSpace: 'nowrap',
+          }}
+        >
+          {supportCopy}
+        </Typography>
+      )}
+      {showIcon && iconElement}
+      {/* Right button: icon first, then text */}
+      {type === 'Right' && supportCopy && (
+        <Typography
+          sx={{
+            fontFamily: tokens.typography.fontFamily,
+            fontSize: s.fontSize,
+            fontWeight: tokens.typography.fontWeight.regular,
+            lineHeight: s.lineHeight,
+            color: disabled ? tokens.colors.text.disabled : tokens.colors.text.primary,
+            whiteSpace: 'nowrap',
+          }}
+        >
+          {supportCopy}
+        </Typography>
+      )}
+    </Box>
+  );
 
   return (
     <Box
@@ -71,80 +131,33 @@ export const SearchBar: React.FC<SearchBarProps> = ({
         opacity: disabled ? 0.6 : 1,
       }}
     >
-      {showLeft && (
-        <IconButton
-          onClick={disabled ? undefined : onSearch}
-          disabled={disabled}
-          aria-label="Search"
-          sx={{
-            ...supportButtonSx,
-            borderRight: 'none',
-            borderTopLeftRadius: `${tokens.borderRadius.default}px`,
-            borderBottomLeftRadius: `${tokens.borderRadius.default}px`,
-          }}
-        >
-          <SearchIcon sx={{ fontSize: size === 'Large' ? 22 : 18 }} />
-        </IconButton>
-      )}
+      {type === 'Left' && <SupportButton />}
 
-      <TextField
-        value={value}
-        placeholder={placeholder}
-        disabled={disabled}
-        onChange={(e) => onChange?.(e.target.value)}
-        onKeyDown={(e) => e.key === 'Enter' && onSearch?.()}
-        variant="outlined"
-        size={size === 'Small' ? 'small' : 'medium'}
-        slotProps={{
-          input: {
-            endAdornment: showRight ? (
-              <InputAdornment position="end">
-                <IconButton
-                  onClick={disabled ? undefined : onSearch}
-                  disabled={disabled}
-                  size="small"
-                  aria-label="Search"
-                  edge="end"
-                  sx={{ color: tokens.colors.components.icon.default }}
-                >
-                  <SearchIcon sx={{ fontSize: size === 'Large' ? 22 : 18 }} />
-                </IconButton>
-              </InputAdornment>
-            ) : undefined,
-            sx: {
-              height,
-              fontSize,
-              borderRadius: showLeft || showRight ? 0 : `${tokens.borderRadius.default}px`,
-              borderTopLeftRadius: showLeft ? 0 : undefined,
-              borderBottomLeftRadius: showLeft ? 0 : undefined,
-              borderTopRightRadius: showRight ? 0 : undefined,
-              borderBottomRightRadius: showRight ? 0 : undefined,
-              '& fieldset': { borderRadius: 'inherit' },
-              // SearchBar-specific focus ring (extra box-shadow not in the TextField theme)
-              '&.Mui-focused fieldset': {
-                boxShadow: `0 0 0 3px ${tokens.colors.components.border.focusShadow}`,
-              },
-            },
-          },
-        }}
-        sx={{ minWidth: 200 }}
-      />
-
-      {type === 'Right' && (
-        <IconButton
-          onClick={disabled ? undefined : onSearch}
+      {/* TRIO TextField — strip its radius so it sits flush in the assembly */}
+      <Box onKeyDown={(e: React.KeyboardEvent) => e.key === 'Enter' && onSearch?.()} sx={{
+        '& .MuiOutlinedInput-root': {
+          borderRadius: 0,
+          height: s.height,
+          minHeight: s.height,
+        },
+        '& .MuiOutlinedInput-root fieldset': {
+          borderRadius: 0,
+        },
+        '& .MuiOutlinedInput-root.Mui-focused fieldset': {
+          boxShadow: `0 0 0 3px ${tokens.colors.components.border.focusShadow}`,
+        },
+        minWidth: 180,
+      }}>
+        <TextField
+          size={s.tfSize}
+          placeholder={placeholder}
+          value={value}
+          onChange={(e) => onChange?.(e.target.value)}
           disabled={disabled}
-          aria-label="Search"
-          sx={{
-            ...supportButtonSx,
-            borderLeft: 'none',
-            borderTopRightRadius: `${tokens.borderRadius.default}px`,
-            borderBottomRightRadius: `${tokens.borderRadius.default}px`,
-          }}
-        >
-          <SearchIcon sx={{ fontSize: size === 'Large' ? 22 : 18 }} />
-        </IconButton>
-      )}
+        />
+      </Box>
+
+      {type === 'Right' && <SupportButton />}
     </Box>
   );
 };

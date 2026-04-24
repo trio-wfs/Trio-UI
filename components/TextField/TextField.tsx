@@ -20,6 +20,7 @@ import { tokens } from '../../design-tokens/tokens';
 
 export const TextField: React.FC<TextFieldProps> = ({
   type = defaultTextFieldProps.type,
+  size = defaultTextFieldProps.size,
   state = defaultTextFieldProps.state,
   disabled = defaultTextFieldProps.disabled,
   label,
@@ -37,12 +38,14 @@ export const TextField: React.FC<TextFieldProps> = ({
 }) => {
   const hasError = state === 'error';
   const isForcedFocus = state === 'focus';
+  const isSmall = size === 'small';
 
   return (
     <MuiTextField
       variant="outlined"
+      size={isSmall ? 'small' : 'medium'}
       multiline={type === 'multi-line'}
-      rows={type === 'multi-line' ? 4 : undefined}
+      rows={type === 'multi-line' ? (isSmall ? 3 : 4) : undefined}
       placeholder={placeholder}
       value={value}
       onChange={onChange}
@@ -57,6 +60,20 @@ export const TextField: React.FC<TextFieldProps> = ({
       className={className}
       {...ariaProps}
       sx={{
+        // Dynamic: size-driven overrides
+        ...(isSmall && {
+          '& .MuiOutlinedInput-root:not(.MuiInputBase-multiline)': {
+            minHeight: '30px',
+          },
+          '& .MuiOutlinedInput-root': {
+            padding: `${tokens.spacing.xs}px ${tokens.spacing.sm}px`,
+            fontSize: `${tokens.typography.fontSize.xs}px`,
+          },
+          '& .MuiOutlinedInput-input': {
+            fontSize: `${tokens.typography.fontSize.xs}px`,
+            lineHeight: '18px',
+          },
+        }),
         // Dynamic: force focused appearance without real focus (design showcase).
         ...(isForcedFocus && {
           '& .MuiOutlinedInput-root fieldset': {

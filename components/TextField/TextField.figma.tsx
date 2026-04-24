@@ -7,6 +7,10 @@ figma.connect(TextField, 'https://www.figma.com/design/PjAYuPDr8IA1ccwiAjFkSD?no
       'single-line': 'single-line',
       'multi-line': 'multi-line',
     }),
+    size: figma.enum('size', {
+      medium: 'medium',
+      small: 'small',
+    }),
     state: figma.enum('state', {
       default: 'default',
       error: 'error',
@@ -14,9 +18,10 @@ figma.connect(TextField, 'https://www.figma.com/design/PjAYuPDr8IA1ccwiAjFkSD?no
     }),
     disabled: figma.boolean('disabled'),
   },
-  example: ({ type, state, disabled }) => (
+  example: ({ type, size, state, disabled }) => (
     <TextField
       type={type}
+      size={size}
       state={state}
       disabled={disabled}
       label="Label"

@@ -160,22 +160,82 @@ Never use semantic colors for decorative purposes or general UI chrome.
 - **Spacing:** 4/8/12/16/24/32/40px only — no arbitrary values
 - **Modals:** 900px large, 500px small
 - **Drawer:** 400px standard width
-- **Icons:** `@mui/icons-material` only — no other icon libraries
+- **Icons:** `@mui/icons-material` Outlined only — no other icon libraries
+- **Icon size:** 16x16 in buttons and tabs — always. No exceptions.
 - **Data tables:** AG Grid only — never MUI X DataGrid
+- **PageHeaderToolbar:** title-to-eyebrow gap is 4px (`spacing.xs`)
+- **Footer:** sticky, 16px horizontal padding, 16px vertical padding on copy, `#E0E0E0` top border (standard component border, not input border)
+- **NavigationVertical:** never has a background color — always transparent
 
 ---
 
-## 8. Still Needs Definition
+## 8. Grid Page Patterns
+
+Two distinct patterns for data grids:
+
+### Standalone grid page
+
+The PageHeaderToolbar connects directly to the AG Grid — no content wrapper between them, no gap. They share one continuous border.
+
+```
+┌──────────────────────────────────────┐
+│  PageHeaderToolbar (default variant) │  ← border on all sides
+│  Title            [Create Task]      │
+├──────────────────────────────────────┤  ← shared border, no gap
+│  Active | Completed | Cancelled      │  ← filter tabs
+├──────────────────────────────────────┤
+│  Col 1  │  Col 2  │  Col 3  │ ...   │  ← AG Grid column headers
+│  [____] │  [____] │  [    ] │ ...   │  ← filter inputs (disabled if not searchable)
+│  data   │  data   │  data   │ ...   │  ← data rows (42px, zebra stripe)
+└──────────────────────────────────────┘
+```
+
+- Header's bottom border IS the grid's top border
+- Filter tabs sit between header and column headers
+- The whole assembly is one visual unit with shared `border: 1px solid #E0E0E0`
+- Reference: Figma node `5650:4810`
+
+### Grid inside a tab
+
+When a grid appears inside a tabbed section, the tab content area has 16px padding around it. The grid is wrapped in a ContentContainer.
+
+```
+┌──────────────────────────────────────┐
+│  PageHeaderToolbar                   │
+├──────────────────────────────────────┤
+│ Tabs: Details | Tasks | Documents    │  ← flush to wrapper edge
+│  ┌────────────────────────────────┐  │
+│  │  16px padding                  │  │  ← content area inside tab
+│  │  ┌──────────────────────────┐  │  │
+│  │  │ ContentContainer (grid)  │  │  │
+│  │  └──────────────────────────┘  │  │
+│  └────────────────────────────────┘  │
+└──────────────────────────────────────┘
+```
+
+---
+
+## 9. Tab Rules
+
+- Tabs sit **flush** on the content wrapper — no padding around them
+- Content below tabs gets 16px padding
+- Tabs with left icons are standard — use MUI outlined icons at 18px
+- The selected tab's bottom border matches the surface color (hides the HR line)
+- `surface="secondary"` when tabs sit on the `#FAFAFA` wrapper
+- `surface="paper"` when tabs sit on a `#FFFFFF` container
+
+---
+
+## 10. Still Needs Definition
 
 These need more specification before they become hard rules:
 
 - [ ] Page Header — full spec of each variant and when to use each
 - [ ] Modal behavior rules (when modal vs. drawer vs. inline expansion)
-- [ ] Specific tab row usage rules
 - [ ] Frameless header — exact spec
 - [ ] Full-width layout — exact spec for Digital Workers / AI pages
 
 ---
 
-*Last updated: 2026-04-07*
+*Last updated: 2026-04-22*
 *Source: Jesse Szygiel (Lead UX Designer, AHTG)*

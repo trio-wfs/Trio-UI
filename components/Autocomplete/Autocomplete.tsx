@@ -70,7 +70,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
 
   if (isMulti) {
     return (
-      <MuiAutocomplete
+      <MuiAutocomplete<AutocompleteOption, true, false, false>
         multiple
         limitTags={limitTags}
         options={options || []}
@@ -80,7 +80,8 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
         getOptionLabel={(option) => option.label}
         isOptionEqualToValue={(option, val) => option.value === val.value}
         className={className}
-        renderTags={(tagValue, getTagProps) =>
+        // @ts-expect-error — renderTags exists at runtime but removed from MUI v9 types
+        renderTags={(tagValue: AutocompleteOption[], getTagProps: any) =>
           tagValue.map((option, index) => (
             <Chip
               label={option.label}

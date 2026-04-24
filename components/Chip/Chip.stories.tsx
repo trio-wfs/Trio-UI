@@ -11,14 +11,14 @@ const meta: Meta<typeof Chip> = {
   component: Chip,
   tags: ['autodocs'],
   argTypes: {
-    size: { control: 'select', options: ['md', 'sm'] },
+    size: { control: 'select', options: ['small', 'medium'] },
     color: { control: 'select', options: ['default', 'primary', 'error', 'info', 'warning', 'success'] },
     variant: { control: 'select', options: ['contained', 'outline'] },
     disabled: { control: 'boolean' },
     label: { control: 'text' },
   },
   args: {
-    size: 'md',
+    size: 'medium',
     color: 'default',
     variant: 'contained',
     disabled: false,
@@ -40,7 +40,7 @@ export const Outlined: Story = {
 };
 
 export const Small: Story = {
-  args: { size: 'sm' },
+  args: { size: 'small' },
 };
 
 export const WithLeadingIcon: Story = {
@@ -78,8 +78,8 @@ export const AllColorsOutline: Story = {
 export const Sizes: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-      <Chip color="primary" size="md" label="Medium (32px)" />
-      <Chip color="primary" size="sm" label="Small (24px)" />
+      <Chip color="primary" size="medium" label="Medium (32px)" />
+      <Chip color="primary" size="small" label="Small (24px)" />
     </div>
   ),
 };

@@ -15,13 +15,13 @@ import React from 'react';
 /**
  * Chip Size
  * Figma property: "size"
- * Options: md (default), sm
+ * Options: medium (default), small
  *
  * Extracted dimensions:
  *   md: height 32px
  *   sm: height 24px
  */
-export type ChipSize = 'md' | 'sm';
+export type ChipSize = 'small' | 'medium';
 
 /**
  * Chip Color
@@ -87,7 +87,7 @@ export interface ChipProps {
  * Match Figma defaults
  */
 export const defaultChipProps: Partial<ChipProps> = {
-  size: 'md',
+  size: 'medium',
   color: 'default',
   variant: 'contained',
   disabled: false,

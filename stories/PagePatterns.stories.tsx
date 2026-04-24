@@ -283,7 +283,7 @@ export const PageAnatomy: StoryObj = {
             <ButtonGroup
               buttons={['Export', 'Edit']}
               variant="outline"
-              size="sm"
+              size="small"
               color="secondary"
             />
           }
@@ -426,9 +426,9 @@ const DetailsPageDemo: React.FC = () => {
           eyebrowText="Subtitle or secondary context"
           chipItems={
             <>
-              <TrioChip label="Tag A" color="default" size="sm" />
-              <TrioChip label="Tag B" color="default" size="sm" />
-              <TrioChip label="Tag C" color="info" size="sm" variant="outline" />
+              <TrioChip label="Tag A" color="default" size="small" />
+              <TrioChip label="Tag B" color="default" size="small" />
+              <TrioChip label="Tag C" color="info" size="small" variant="outline" />
             </>
           }
           indicatorLabel="OPEN"
@@ -436,7 +436,7 @@ const DetailsPageDemo: React.FC = () => {
             <ButtonGroup
               buttons={['Secondary', 'Tertiary']}
               variant="outline"
-              size="sm"
+              size="small"
               color="secondary"
             />
           }
@@ -610,7 +610,7 @@ const ModalInContextDemo: React.FC = () => {
             <ButtonGroup
               buttons={['500px Confirm', '900px Form']}
               variant="outline"
-              size="sm"
+              size="small"
               color="secondary"
             />
           }
@@ -862,7 +862,7 @@ export const NewCanvasPage: StoryObj = {
               <ButtonGroup
                 buttons={['Download', 'Filter']}
                 variant="outline"
-                size="sm"
+                size="small"
                 color="secondary"
               />
             }

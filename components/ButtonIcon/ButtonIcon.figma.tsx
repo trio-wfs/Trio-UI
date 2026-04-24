@@ -13,8 +13,8 @@ figma.connect(ButtonIcon, 'https://www.figma.com/design/PjAYuPDr8IA1ccwiAjFkSD?n
       secondary: 'secondary',
     }),
     size: figma.enum('size', {
-      sm: 'sm',
-      md: 'md',
+      sm: 'small',
+      md: 'medium',
     }),
     badge: figma.boolean('badge'),
   },

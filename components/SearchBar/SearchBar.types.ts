@@ -10,14 +10,14 @@
 import React from 'react';
 
 /** Small = 30px, Medium = 38px (matches TextField sizes) */
-export type SearchBarSize = 'Small' | 'Medium';
+export type SearchBarSize = 'small' | 'medium';
 
 /**
  * Which side has the support button
- * Left  = support button on the left of the input
- * Right = support button on the right of the input
+ * left  = support button on the left of the input
+ * right = support button on the right of the input
  */
-export type SearchBarType = 'Left' | 'Right';
+export type SearchBarType = 'left' | 'right';
 
 export interface SearchBarProps {
   /** Size preset — Small: 30px, Medium: 38px */
@@ -58,8 +58,8 @@ export interface SearchBarProps {
 }
 
 export const defaultSearchBarProps: Partial<SearchBarProps> = {
-  size: 'Medium',
-  type: 'Left',
+  size: 'medium',
+  type: 'left',
   placeholder: 'Placeholder',
   showIcon: true,
 };

@@ -12,7 +12,7 @@ const meta: Meta<typeof ToggleButton> = {
   component: ToggleButton,
   tags: ['autodocs'],
   argTypes: {
-    size: { control: 'select', options: ['sm', 'md'] },
+    size: { control: 'select', options: ['small', 'medium'] },
   },
 };
 
@@ -29,7 +29,7 @@ export const Default: Story = {
     ];
     return (
       <ToggleButton
-        size="sm"
+        size="small"
         buttons={options.map((opt, i) => ({
           icon: opt.icon,
           'aria-label': opt.label,
@@ -51,7 +51,7 @@ export const MediumSize: Story = {
     ];
     return (
       <ToggleButton
-        size="md"
+        size="medium"
         buttons={options.map((opt, i) => ({
           icon: opt.icon,
           'aria-label': opt.label,
@@ -68,7 +68,7 @@ export const FilterToggle: Story = {
     const [filtered, setFiltered] = useState(false);
     return (
       <ToggleButton
-        size="sm"
+        size="small"
         buttons={[
           {
             icon: filtered ? <FilterAltIcon /> : <FilterAltOffIcon />,

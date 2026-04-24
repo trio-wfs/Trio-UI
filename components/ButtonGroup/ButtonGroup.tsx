@@ -5,7 +5,7 @@
  * Design System: AHTG Desktop SaaS
  *
  * Theme migration (2026-04-15):
- * - Font, size-specific heights (sm=32, md=38) live in theme at MuiButtonGroup.
+ * - Font, size-specific heights (small=32, medium=38) live in theme at MuiButtonGroup.
  * - MUI's native ButtonGroup already handles adjacent border-radius sharing,
  *   so the explicit overrides were redundant — removed.
  * - Component only maps Figma size/variant names to MUI equivalents.
@@ -30,7 +30,7 @@ export const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(({
   disableElevation = defaultButtonGroupProps.disableElevation,
 }, ref) => {
   const displayButtons = (buttons || []).slice(0, 6);
-  const muiSize = size === 'sm' ? 'small' : 'medium';
+  const muiSize = size!;
   const muiVariant = variant === 'outline' ? 'outlined' : 'contained';
   const isHorizontal = orientation !== 'vertical';
 

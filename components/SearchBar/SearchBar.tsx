@@ -23,7 +23,7 @@ import { SearchBarProps, defaultSearchBarProps } from './SearchBar.types';
 import { tokens } from '../../design-tokens/tokens';
 
 const SIZE_MAP = {
-  Small: {
+  small: {
     height: 30,
     fontSize: tokens.typography.fontSize.xs,    // 12px
     lineHeight: '12px',
@@ -31,7 +31,7 @@ const SIZE_MAP = {
     py: '4px',
     tfSize: 'small' as const,
   },
-  Medium: {
+  medium: {
     height: 38,
     fontSize: tokens.typography.fontSize.sm,    // 14px
     lineHeight: '14px',
@@ -78,8 +78,8 @@ export const SearchBar = React.forwardRef<HTMLDivElement, SearchBarProps>(({
         backgroundColor: tokens.colors.secondary.main,
         border: `1px solid ${tokens.colors.components.input.enabledBorder}`,
         // Remove shared border between button and input
-        ...(type === 'Left' && { borderRight: 'none' }),
-        ...(type === 'Right' && { borderLeft: 'none' }),
+        ...(type === 'left' && { borderRight: 'none' }),
+        ...(type === 'right' && { borderLeft: 'none' }),
         borderRadius: 0,
         color: disabled ? tokens.colors.text.disabled : tokens.colors.components.icon.default,
         cursor: disabled ? 'not-allowed' : 'pointer',
@@ -90,7 +90,7 @@ export const SearchBar = React.forwardRef<HTMLDivElement, SearchBarProps>(({
       }}
     >
       {/* Left button: text first, then icon */}
-      {type === 'Left' && supportCopy && (
+      {type === 'left' && supportCopy && (
         <Typography
           sx={{
             fontFamily: tokens.typography.fontFamily,
@@ -106,7 +106,7 @@ export const SearchBar = React.forwardRef<HTMLDivElement, SearchBarProps>(({
       )}
       {showIcon && iconElement}
       {/* Right button: icon first, then text */}
-      {type === 'Right' && supportCopy && (
+      {type === 'right' && supportCopy && (
         <Typography
           sx={{
             fontFamily: tokens.typography.fontFamily,
@@ -135,7 +135,7 @@ export const SearchBar = React.forwardRef<HTMLDivElement, SearchBarProps>(({
         opacity: disabled ? 0.6 : 1,
       }}
     >
-      {type === 'Left' && <SupportButton />}
+      {type === 'left' && <SupportButton />}
 
       {/* TRIO TextField — strip its radius so it sits flush in the assembly */}
       <Box onKeyDown={(e: React.KeyboardEvent) => e.key === 'Enter' && onSearch?.()} sx={{
@@ -162,7 +162,7 @@ export const SearchBar = React.forwardRef<HTMLDivElement, SearchBarProps>(({
         />
       </Box>
 
-      {type === 'Right' && <SupportButton />}
+      {type === 'right' && <SupportButton />}
     </Box>
   );
 });

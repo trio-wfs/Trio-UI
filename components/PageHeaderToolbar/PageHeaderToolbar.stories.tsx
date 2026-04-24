@@ -60,9 +60,9 @@ export const Full: Story = {
     eyebrowText: 'Mercy Regional · ICU · Night shift',
     chipItems: (
       <>
-        <Chip label="Urgent" color="error" size="sm" />
-        <Chip label="Filled 4/6" color="success" size="sm" variant="outline" />
-        <Chip label="On hold" color="warning" size="sm" variant="outline" />
+        <Chip label="Urgent" color="error" size="small" />
+        <Chip label="Filled 4/6" color="success" size="small" variant="outline" />
+        <Chip label="On hold" color="warning" size="small" variant="outline" />
       </>
     ),
     singleButtonContent: <Button variant="contained" color="primary">Save changes</Button>,

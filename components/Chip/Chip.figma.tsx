@@ -4,8 +4,8 @@ import { Chip } from './Chip'
 figma.connect(Chip, 'https://www.figma.com/design/PjAYuPDr8IA1ccwiAjFkSD?node-id=1512-8352', {
   props: {
     size: figma.enum('size', {
-      md: 'md',
-      sm: 'sm',
+      md: 'medium',
+      sm: 'small',
     }),
     color: figma.enum('color', {
       default: 'default',

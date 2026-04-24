@@ -6,7 +6,7 @@
 
 import React from 'react';
 
-export type ToggleButtonSize = 'sm' | 'md';
+export type ToggleButtonSize = 'small' | 'medium';
 
 export interface ToggleButtonItem {
   /** MUI icon element, e.g. <FilterAltOffIcon /> */
@@ -18,12 +18,12 @@ export interface ToggleButtonItem {
 }
 
 export interface ToggleButtonProps {
-  /** sm = 24px slots, md = 36px slots */
+  /** small = 24px slots, medium = 36px slots */
   size?: ToggleButtonSize;
   /** 3–8 button definitions. Figma supports button-3 through button-8. */
   buttons: ToggleButtonItem[];
 }
 
 export const defaultToggleButtonProps: Partial<ToggleButtonProps> = {
-  size: 'sm',
+  size: 'small',
 };

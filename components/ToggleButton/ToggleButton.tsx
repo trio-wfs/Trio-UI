@@ -17,8 +17,8 @@ export const ToggleButton = React.forwardRef<HTMLDivElement, ToggleButtonProps>(
   size = defaultToggleButtonProps.size,
   buttons,
 }, ref) => {
-  const slotSize = size === 'sm' ? 24 : 36;
-  const iconSize = size === 'sm' ? 16 : 24;
+  const slotSize = size === 'small' ? 24 : 36;
+  const iconSize = size === 'small' ? 16 : 24;
 
   return (
     <Box

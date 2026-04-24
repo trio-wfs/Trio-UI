@@ -25,7 +25,7 @@ export const ButtonIcon = React.forwardRef<HTMLButtonElement, ButtonIconProps>((
   'aria-label': ariaLabel,
 }, ref) => {
   const sizeStyles =
-    size === 'sm'
+    size === 'small'
       ? { width: 24, height: 24, '& .MuiSvgIcon-root': { fontSize: 16 } }
       : { width: 36, height: 36, '& .MuiSvgIcon-root': { fontSize: 24 } };
 

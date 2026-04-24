@@ -14,7 +14,7 @@ import { ReactNode } from 'react';
  * ButtonGroup variant types from Figma
  */
 export type ButtonGroupVariant = 'contained' | 'outline';
-export type ButtonGroupSize = 'sm' | 'md';
+export type ButtonGroupSize = 'small' | 'medium';
 export type ButtonGroupColor = 'secondary' | 'primary';
 export type ButtonGroupOrientation = 'horizontal' | 'vertical';
 
@@ -31,7 +31,7 @@ export interface ButtonGroupProps {
 
   /**
    * Size of buttons in the group
-   * @default 'sm'
+   * @default 'small'
    */
   size?: ButtonGroupSize;
 
@@ -92,7 +92,7 @@ export interface ButtonGroupProps {
 
 export const defaultButtonGroupProps: Partial<ButtonGroupProps> = {
   variant: 'contained',
-  size: 'sm',
+  size: 'small',
   color: 'secondary',
   orientation: 'horizontal',
   buttons: ['Button 1', 'Button 2', 'Button 3'],

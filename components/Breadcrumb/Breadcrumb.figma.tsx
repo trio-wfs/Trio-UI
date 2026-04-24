@@ -25,7 +25,7 @@ figma.connect(Breadcrumb, 'https://www.figma.com/design/PjAYuPDr8IA1ccwiAjFkSD?n
       ]}
       actions={
         <ToggleButton
-          size="sm"
+          size="small"
           buttons={[
             { icon: <FilterAltOffIcon />, 'aria-label': 'Clear filters' },
             { icon: <FileDownloadIcon />, 'aria-label': 'Export' },

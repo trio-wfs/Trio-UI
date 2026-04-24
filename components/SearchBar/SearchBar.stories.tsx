@@ -8,16 +8,16 @@ const meta: Meta<typeof SearchBar> = {
   component: SearchBar,
   tags: ['autodocs'],
   argTypes: {
-    size: { control: 'select', options: ['Small', 'Medium'] },
-    type: { control: 'select', options: ['Left', 'Right'] },
+    size: { control: 'select', options: ['small', 'medium'] },
+    type: { control: 'select', options: ['left', 'right'] },
     disabled: { control: 'boolean' },
     placeholder: { control: 'text' },
     supportCopy: { control: 'text' },
     showIcon: { control: 'boolean' },
   },
   args: {
-    size: 'Medium',
-    type: 'Left',
+    size: 'medium',
+    type: 'left',
     placeholder: 'Placeholder',
     disabled: false,
     showIcon: true,
@@ -35,19 +35,19 @@ export const LeftMedium: Story = {
 // Left button — Small
 export const LeftSmall: Story = {
   name: 'Left — Small',
-  args: { size: 'Small' },
+  args: { size: 'small' },
 };
 
 // Right button — Medium
 export const RightMedium: Story = {
   name: 'Right — Medium',
-  args: { type: 'Right' },
+  args: { type: 'right' },
 };
 
 // Right button — Small
 export const RightSmall: Story = {
   name: 'Right — Small',
-  args: { type: 'Right', size: 'Small' },
+  args: { type: 'right', size: 'small' },
 };
 
 // Disabled
@@ -66,7 +66,7 @@ export const DownloadTrigger: Story = {
   name: 'As Download Trigger',
   args: {
     supportCopy: 'Download',
-    type: 'Right',
+    type: 'right',
     icon: <FileDownloadIcon />,
     placeholder: 'Enter filename…',
   },

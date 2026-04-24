@@ -167,8 +167,8 @@ export const NavigationHeader = React.forwardRef<HTMLDivElement, NavigationHeade
             },
           }}>
             <SearchBar
-              type="Left"
-              size="Small"
+              type="left"
+              size="small"
               placeholder={searchPlaceholder}
               value={searchValue}
               onChange={(val) => setSearchValue(val)}

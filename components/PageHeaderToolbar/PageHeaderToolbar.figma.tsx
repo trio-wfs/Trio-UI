@@ -26,8 +26,8 @@ figma.connect(PageHeaderToolbar, 'https://www.figma.com/design/PjAYuPDr8IA1ccwiA
       eyebrowText={eyebrowText}
       chipItems={
         <>
-          <Chip size="sm" color="default" variant="contained" label="Tag 1" />
-          <Chip size="sm" color="default" variant="contained" label="Tag 2" />
+          <Chip size="small" color="default" variant="contained" label="Tag 1" />
+          <Chip size="small" color="default" variant="contained" label="Tag 2" />
         </>
       }
       singleButtonContent={<Button variant="contained" color="secondary" size="medium">Single</Button>}
@@ -45,7 +45,7 @@ figma.connect(PageHeaderToolbar, 'https://www.figma.com/design/PjAYuPDr8IA1ccwiA
           ]}
           actions={
             <ToggleButton
-              size="sm"
+              size="small"
               buttons={[
                 { icon: <FilterAltOffIcon />, 'aria-label': 'Clear filters' },
                 { icon: <FileDownloadIcon />, 'aria-label': 'Export' },

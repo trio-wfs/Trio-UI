@@ -43,7 +43,7 @@ export const Chip = React.forwardRef<HTMLDivElement, ChipProps>(({
   ...ariaProps
 }, ref) => {
   const muiVariant = variant === 'outline' ? 'outlined' : 'filled';
-  const muiSize = size === 'sm' ? 'small' : 'medium';
+  const muiSize = size!;
 
   const colorMap: Record<string, { main: string; light: string; contrastText: string; outline: string }> = {
     default: {

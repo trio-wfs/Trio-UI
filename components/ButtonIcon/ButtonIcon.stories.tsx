@@ -13,7 +13,7 @@ const meta: Meta<typeof ButtonIcon> = {
   argTypes: {
     variant: { control: 'select', options: ['contained', 'ghost'] },
     color: { control: 'select', options: ['primary', 'secondary'] },
-    size: { control: 'select', options: ['sm', 'md'] },
+    size: { control: 'select', options: ['small', 'medium'] },
     badge: { control: 'boolean' },
     badgeCount: { control: 'number' },
     disabled: { control: 'boolean' },
@@ -21,7 +21,7 @@ const meta: Meta<typeof ButtonIcon> = {
   args: {
     variant: 'contained',
     color: 'primary',
-    size: 'md',
+    size: 'medium',
     badge: false,
     icon: <NotificationsIcon />,
     'aria-label': 'Notifications',
@@ -42,7 +42,7 @@ export const Secondary: Story = {
 };
 
 export const Small: Story = {
-  args: { size: 'sm', icon: <CloseIcon />, 'aria-label': 'Close' },
+  args: { size: 'small', icon: <CloseIcon />, 'aria-label': 'Close' },
 };
 
 export const WithDotBadge: Story = {
@@ -62,7 +62,7 @@ export const Matrix: Story = {
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, auto)', gap: 16, alignItems: 'center' }}>
       {(['contained', 'ghost'] as const).flatMap((variant) =>
         (['primary', 'secondary'] as const).flatMap((color) =>
-          (['md', 'sm'] as const).map((size) => (
+          (['medium', 'small'] as const).map((size) => (
             <ButtonIcon
               key={`${variant}-${color}-${size}`}
               variant={variant}

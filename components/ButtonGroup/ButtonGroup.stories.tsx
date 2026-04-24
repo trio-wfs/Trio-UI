@@ -8,14 +8,14 @@ const meta: Meta<typeof ButtonGroup> = {
   tags: ['autodocs'],
   argTypes: {
     variant: { control: 'select', options: ['contained', 'outline'] },
-    size: { control: 'select', options: ['sm', 'md'] },
+    size: { control: 'select', options: ['small', 'medium'] },
     color: { control: 'select', options: ['primary', 'secondary'] },
     orientation: { control: 'select', options: ['horizontal', 'vertical'] },
     fullWidth: { control: 'boolean' },
   },
   args: {
     variant: 'contained',
-    size: 'sm',
+    size: 'small',
     color: 'secondary',
     orientation: 'horizontal',
     buttons: ['Day', 'Week', 'Month'],
@@ -29,15 +29,15 @@ type Story = StoryObj<typeof ButtonGroup>;
 export const Default: Story = {};
 
 export const ContainedMedium: Story = {
-  args: { variant: 'contained', size: 'md', color: 'secondary', buttons: ['Active', 'Pending', 'Archived'] },
+  args: { variant: 'contained', size: 'medium', color: 'secondary', buttons: ['Active', 'Pending', 'Archived'] },
 };
 
 export const OutlinePrimary: Story = {
-  args: { variant: 'outline', size: 'sm', color: 'primary', buttons: ['Day', 'Week', 'Month'] },
+  args: { variant: 'outline', size: 'small', color: 'primary', buttons: ['Day', 'Week', 'Month'] },
 };
 
 export const OutlinePrimaryMedium: Story = {
-  args: { variant: 'outline', size: 'md', color: 'primary', buttons: ['Day', 'Week', 'Month'] },
+  args: { variant: 'outline', size: 'medium', color: 'primary', buttons: ['Day', 'Week', 'Month'] },
 };
 
 export const Vertical: Story = {
@@ -56,7 +56,7 @@ export const Interactive: Story = {
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         <ButtonGroup
           variant="contained"
-          size="sm"
+          size="small"
           color="secondary"
           buttons={labels}
           onButtonClick={labels.map((_, i) => () => setActive(i))}
@@ -74,19 +74,19 @@ export const Matrix: Story = {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
       <div>
         <div style={{ fontFamily: 'Roboto', fontSize: 12, color: 'rgba(0,0,0,0.6)', marginBottom: 8 }}>CONTAINED / SECONDARY / SM</div>
-        <ButtonGroup variant="contained" size="sm" color="secondary" buttons={['Button', 'Button', 'Button']} />
+        <ButtonGroup variant="contained" size="small" color="secondary" buttons={['Button', 'Button', 'Button']} />
       </div>
       <div>
         <div style={{ fontFamily: 'Roboto', fontSize: 12, color: 'rgba(0,0,0,0.6)', marginBottom: 8 }}>CONTAINED / SECONDARY / MD</div>
-        <ButtonGroup variant="contained" size="md" color="secondary" buttons={['Button', 'Button', 'Button']} />
+        <ButtonGroup variant="contained" size="medium" color="secondary" buttons={['Button', 'Button', 'Button']} />
       </div>
       <div>
         <div style={{ fontFamily: 'Roboto', fontSize: 12, color: 'rgba(0,0,0,0.6)', marginBottom: 8 }}>OUTLINE / PRIMARY / SM</div>
-        <ButtonGroup variant="outline" size="sm" color="primary" buttons={['Button', 'Button', 'Button']} />
+        <ButtonGroup variant="outline" size="small" color="primary" buttons={['Button', 'Button', 'Button']} />
       </div>
       <div>
         <div style={{ fontFamily: 'Roboto', fontSize: 12, color: 'rgba(0,0,0,0.6)', marginBottom: 8 }}>OUTLINE / PRIMARY / MD</div>
-        <ButtonGroup variant="outline" size="md" color="primary" buttons={['Button', 'Button', 'Button']} />
+        <ButtonGroup variant="outline" size="medium" color="primary" buttons={['Button', 'Button', 'Button']} />
       </div>
     </div>
   ),

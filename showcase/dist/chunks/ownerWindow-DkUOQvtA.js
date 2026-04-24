@@ -1,0 +1,1 @@
+import{n as e}from"./setRef-CG2OoUaQ.js";function t(e){let t=e.activeElement;for(;t?.shadowRoot?.activeElement!=null;)t=t.shadowRoot.activeElement;return t}var n=t;function r(t){return e(t).defaultView||window}export{n,t as r,r as t};

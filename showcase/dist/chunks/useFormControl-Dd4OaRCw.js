@@ -1,0 +1,1 @@
+import{a as e,n as t}from"./jsx-runtime-CvBdq97w.js";function n({props:e,states:t,muiFormControl:n}){return t.reduce((t,r)=>(t[r]=e[r],n&&e[r]===void 0&&(t[r]=n[r]),t),{})}var r=e(t(),1),i=r.createContext(void 0);function a(){return r.useContext(i)}export{i as n,n as r,a as t};

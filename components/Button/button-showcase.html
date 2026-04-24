@@ -108,264 +108,15 @@
       transform: rotate(-3deg);
     }
 
-    /* BUTTONS - Extracted from Figma */
-    .btn {
-      font-family: var(--font-family);
-      font-size: 14px;
-      font-weight: 400;
-      border: none;
-      border-radius: var(--border-radius);
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: all 0.2s ease;
-      text-transform: none;
-    }
-
-    .btn-md {
-      height: 38px;
-      padding: 12px;
-      min-width: 86px;
-    }
-
-    .btn-sm {
-      height: 32px;
-      padding: 8px;
-      min-width: 72px;
-    }
-
-    .btn .material-icons {
-      font-size: 18px;
-    }
-
-    .btn-primary-contained {
-      background-color: rgba(33, 150, 243, 1);
-      color: rgba(255, 255, 255, 1);
-    }
-
-    .btn-primary-contained:hover {
-      background-color: rgba(25, 118, 210, 1);
-    }
-
-    .btn-primary-outlined {
-      background-color: transparent;
-      color: rgba(33, 150, 243, 1);
-      border: 1px solid rgba(33, 150, 243, 1);
-    }
-
-    .btn-primary-outlined:hover {
-      background-color: rgba(33, 150, 243, 0.08);
-      color: rgba(25, 118, 210, 1);
-      border-color: rgba(25, 118, 210, 1);
-    }
-
-    .btn-primary-text {
-      background-color: transparent;
-      color: rgba(33, 150, 243, 1);
-    }
-
-    .btn-primary-text:hover {
-      background-color: rgba(33, 150, 243, 0.08);
-    }
-
-    .btn-secondary-contained {
-      background-color: var(--color-secondary-main);
-      color: var(--color-text-primary);
-      border: 1px solid var(--color-secondary-outline);
-    }
-
-    .btn-secondary-contained:hover {
-      box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.08);
-      border-color: var(--color-text-secondary);
-    }
-
-    .btn-secondary-outlined {
-      background-color: transparent;
-      color: var(--color-text-primary);
-      border: 1px solid var(--color-secondary-outline);
-    }
-
-    .btn-secondary-outlined:hover {
-      background-color: rgba(0, 0, 0, 0.04);
-      border-color: var(--color-text-secondary);
-    }
-
-    .btn-secondary-text {
-      background-color: transparent;
-      color: var(--color-text-primary);
-    }
-
-    .btn-secondary-text:hover {
-      background-color: rgba(0, 0, 0, 0.04);
-    }
-
-    .btn-success-contained {
-      background-color: var(--color-success-main);
-      color: white;
-    }
-
-    .btn-success-contained:hover {
-      background-color: #45a049;
-    }
-
-    .btn-success-outlined {
-      background-color: transparent;
-      color: var(--color-success-main);
-      border: 1px solid var(--color-success-main);
-    }
-
-    .btn-success-outlined:hover {
-      background-color: rgba(76, 175, 80, 0.08);
-    }
-
-    .btn-success-text {
-      background-color: transparent;
-      color: var(--color-success-main);
-    }
-
-    .btn-success-text:hover {
-      background-color: rgba(76, 175, 80, 0.04);
-    }
-
-    .btn-error-contained {
-      background-color: var(--color-error-main);
-      color: white;
-    }
-
-    .btn-error-contained:hover {
-      background-color: #c23d2f;
-    }
-
-    .btn-error-outlined {
-      background-color: transparent;
-      color: var(--color-error-main);
-      border: 1px solid var(--color-error-main);
-    }
-
-    .btn-error-outlined:hover {
-      background-color: rgba(219, 69, 55, 0.08);
-    }
-
-    .btn-error-text {
-      background-color: transparent;
-      color: var(--color-error-main);
-    }
-
-    .btn-error-text:hover {
-      background-color: rgba(219, 69, 55, 0.04);
-    }
-
-    .btn-warning-contained {
-      background-color: var(--color-warning-main);
-      color: white;
-    }
-
-    .btn-warning-contained:hover {
-      background-color: #c96308;
-    }
-
-    .btn-warning-outlined {
-      background-color: transparent;
-      color: var(--color-warning-main);
-      border: 1px solid var(--color-warning-main);
-    }
-
-    .btn-warning-outlined:hover {
-      background-color: rgba(225, 113, 9, 0.08);
-    }
-
-    .btn-warning-text {
-      background-color: transparent;
-      color: var(--color-warning-main);
-    }
-
-    .btn-warning-text:hover {
-      background-color: rgba(225, 113, 9, 0.04);
-    }
-
-    .btn-info-contained {
-      background-color: var(--color-info-main);
-      color: white;
-    }
-
-    .btn-info-contained:hover {
-      background-color: #4aa8c7;
-    }
-
-    .btn-info-outlined {
-      background-color: transparent;
-      color: var(--color-info-main);
-      border: 1px solid var(--color-info-main);
-    }
-
-    .btn-info-outlined:hover {
-      background-color: rgba(91, 191, 222, 0.08);
-    }
-
-    .btn-info-text {
-      background-color: transparent;
-      color: var(--color-info-main);
-    }
-
-    .btn-info-text:hover {
-      background-color: rgba(91, 191, 222, 0.04);
-    }
-
-    .btn:disabled {
-      cursor: not-allowed;
-      background-color: rgba(238, 238, 238, 1);
-      color: rgba(158, 158, 158, 1);
-      border-color: transparent;
-    }
-
-    .btn-outlined:disabled {
-      background-color: transparent;
-      color: rgba(158, 158, 158, 1);
-      border-color: rgba(224, 224, 224, 1);
-    }
-
-    .btn-text:disabled {
-      background-color: transparent;
-      color: rgba(158, 158, 158, 1);
-    }
-
-    .btn-loading {
-      position: relative;
-      color: transparent;
-      pointer-events: none;
-    }
-
-    .btn-loading::after {
-      content: "";
-      position: absolute;
-      width: 16px;
-      height: 16px;
-      top: 50%;
-      left: 50%;
-      margin-left: -8px;
-      margin-top: -8px;
-      border: 2px solid;
-      border-color: white transparent white transparent;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    /* DIVIDER */
-    .divider {
-      height: 1px;
-      background: var(--color-secondary-outline);
-      margin: var(--spacing-xl) 0;
+    /* React mount points display inline within demo rows */
+    [data-trio-component] {
+      display: inline-block;
+      white-space: nowrap;
     }
 
   </style>
   <script src="../../design-system-nav.js"></script>
+  <script type="module" src="../../showcase/dist/showcase.js"></script>
 </head>
 <body>
   <!-- LEFT NAVIGATION -->
@@ -424,46 +175,67 @@
       </div>
     </section>
 
-    <!-- WHEN TO USE / NOT USE -->
+    <!-- VARIANT ROLES -->
     <section class="section">
       <h2 class="section-title">
         <span class="material-icons-outlined">rule</span>
-        Usage Guidelines
+        Variant Roles
       </h2>
-      <div class="grid-2">
-        <div class="card do-card">
-          <div class="card-title">
-            <span class="material-icons-outlined">check_circle</span>
-            When to Use
-          </div>
-          <div class="card-content">
-            <ul>
-              <li>Submitting forms (Save, Update, Submit)</li>
-              <li>Confirming or canceling actions in dialogs</li>
-              <li>Navigating to a new page or view</li>
-              <li>Starting a workflow or process</li>
-              <li>Adding or creating new items</li>
-              <li>Destructive actions with clear labeling (Delete, Remove)</li>
-            </ul>
-          </div>
-        </div>
-        <div class="card dont-card">
-          <div class="card-title">
-            <span class="material-icons-outlined">cancel</span>
-            When NOT to Use
-          </div>
-          <div class="card-content">
-            <ul>
-              <li>Navigation between views (use tabs or links instead)</li>
-              <li>Displaying a list of options (use select or menu)</li>
-              <li>Toggling between states (use switch or checkbox)</li>
-              <li>Opening a dropdown menu (use select component)</li>
-              <li>More than 2 buttons in a small space (prioritize actions)</li>
-              <li>Generic "Click Here" labels (be specific about action)</li>
-            </ul>
-          </div>
-        </div>
-      </div>
+      <p class="section-description">
+        Each variant + color combination has a specific role. Choosing the right one communicates the weight and consequence of an action.
+      </p>
+
+      <table class="property-table">
+        <thead>
+          <tr>
+            <th style="width: 200px;">Button</th>
+            <th>Role</th>
+            <th>When to Use</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div data-trio-component="Button" data-trio-props='{"size":"small","color":"primary","variant":"contained","label":"Save"}'></div></td>
+            <td><strong>Primary commit action</strong></td>
+            <td>The "done" button. Save, Submit, Create, Confirm. Completes a flow or permanently changes state. <strong>Limit to one per page or modal.</strong> Medium size in modals/forms, small when nested in components.</td>
+          </tr>
+          <tr>
+            <td><div data-trio-component="Button" data-trio-props='{"size":"small","color":"secondary","variant":"contained","label":"Export"}'></div></td>
+            <td><strong>Workhorse action</strong></td>
+            <td>The default choice. Dropdowns, modal triggers, panel openers, downloads, exports. Actions without permanent consequences. Dominant in header toolbar button groups at medium size. If you need a button and aren't sure which, start here.</td>
+          </tr>
+          <tr>
+            <td><div data-trio-component="Button" data-trio-props='{"size":"small","color":"primary","variant":"outlined","label":"Download"}'></div></td>
+            <td><strong>Utility action</strong></td>
+            <td>Actionable but low-consequence operations: downloading a document, opening a secondary flow, filtering. Outlined primary gives it enough visual weight to signal "this does something" without competing with the commit button.</td>
+          </tr>
+          <tr>
+            <td><div data-trio-component="Button" data-trio-props='{"size":"small","color":"primary","variant":"text","label":"Cancel"}'></div></td>
+            <td><strong>Utilitarian / Cancel</strong></td>
+            <td>Low-emphasis page actions: open/close panels, expand/collapse accordions, Show More, Add Section. Pair with caret or plus icons. Also the correct choice for <strong>Cancel</strong> — always pair a primary text cancel with a primary contained submit.</td>
+          </tr>
+          <tr>
+            <td><div data-trio-component="Button" data-trio-props='{"size":"small","color":"error","variant":"contained","label":"Delete"}'></div></td>
+            <td><strong>Permanent destructive action</strong></td>
+            <td>Delete Permanently, Remove, Revoke Access. Use sparingly — the red should make someone pause. Reserve for actions that cannot be undone.</td>
+          </tr>
+          <tr>
+            <td><div data-trio-component="Button" data-trio-props='{"size":"small","color":"error","variant":"outlined","label":"Remove"}'></div></td>
+            <td><strong>Soft destructive action</strong></td>
+            <td>Remove from list, Unassign, Clear. The action is reversible or lower stakes than a permanent delete. Outlined reduces visual urgency while keeping the semantic warning.</td>
+          </tr>
+          <tr>
+            <td><div data-trio-component="Button" data-trio-props='{"size":"small","color":"success","variant":"contained","label":"Approve"}'></div></td>
+            <td><strong>Positive-reinforcement submit</strong></td>
+            <td>Approve, Activate, Publish. Final actions where the outcome is explicitly positive — approving a qualified worker for a shift, activating a configuration. Reinforces "this is a good thing."</td>
+          </tr>
+          <tr>
+            <td><div data-trio-component="Button" data-trio-props='{"size":"small","color":"warning","variant":"contained","label":"Archive"}'></div></td>
+            <td><strong>Consequential but reversible</strong></td>
+            <td>Archive, Deactivate, Force Sync. The user should think before proceeding, but the action can be undone. A step below error-red in severity.</td>
+          </tr>
+        </tbody>
+      </table>
     </section>
 
     <!-- VARIANTS -->
@@ -479,36 +251,75 @@
       <div class="variant-group">
         <div class="variant-label">Contained (High Emphasis)</div>
         <div class="button-row">
-          <button class="btn btn-md btn-primary-contained">Primary</button>
-          <button class="btn btn-md btn-secondary-contained">Secondary</button>
-          <button class="btn btn-md btn-success-contained">Success</button>
-          <button class="btn btn-md btn-error-contained">Error</button>
-          <button class="btn btn-md btn-warning-contained">Warning</button>
-          <button class="btn btn-md btn-info-contained">Info</button>
+          <div data-trio-component="Button" data-trio-props='{"variant":"contained","color":"primary","label":"Primary"}'></div>
+          <div data-trio-component="Button" data-trio-props='{"variant":"contained","color":"secondary","label":"Secondary"}'></div>
+          <div data-trio-component="Button" data-trio-props='{"variant":"contained","color":"success","label":"Success"}'></div>
+          <div data-trio-component="Button" data-trio-props='{"variant":"contained","color":"error","label":"Error"}'></div>
+          <div data-trio-component="Button" data-trio-props='{"variant":"contained","color":"warning","label":"Warning"}'></div>
+          <div data-trio-component="Button" data-trio-props='{"variant":"contained","color":"info","label":"Info"}'></div>
         </div>
       </div>
 
       <div class="variant-group">
         <div class="variant-label">Outlined (Medium Emphasis)</div>
         <div class="button-row">
-          <button class="btn btn-md btn-primary-outlined">Primary</button>
-          <button class="btn btn-md btn-secondary-outlined">Secondary</button>
-          <button class="btn btn-md btn-success-outlined">Success</button>
-          <button class="btn btn-md btn-error-outlined">Error</button>
-          <button class="btn btn-md btn-warning-outlined">Warning</button>
-          <button class="btn btn-md btn-info-outlined">Info</button>
+          <div data-trio-component="Button" data-trio-props='{"variant":"outlined","color":"primary","label":"Primary"}'></div>
+          <div data-trio-component="Button" data-trio-props='{"variant":"outlined","color":"secondary","label":"Secondary"}'></div>
+          <div data-trio-component="Button" data-trio-props='{"variant":"outlined","color":"success","label":"Success"}'></div>
+          <div data-trio-component="Button" data-trio-props='{"variant":"outlined","color":"error","label":"Error"}'></div>
+          <div data-trio-component="Button" data-trio-props='{"variant":"outlined","color":"warning","label":"Warning"}'></div>
+          <div data-trio-component="Button" data-trio-props='{"variant":"outlined","color":"info","label":"Info"}'></div>
         </div>
       </div>
 
       <div class="variant-group">
         <div class="variant-label">Text (Low Emphasis)</div>
         <div class="button-row">
-          <button class="btn btn-md btn-primary-text">Primary</button>
-          <button class="btn btn-md btn-secondary-text">Secondary</button>
-          <button class="btn btn-md btn-success-text">Success</button>
-          <button class="btn btn-md btn-error-text">Error</button>
-          <button class="btn btn-md btn-warning-text">Warning</button>
-          <button class="btn btn-md btn-info-text">Info</button>
+          <div data-trio-component="Button" data-trio-props='{"variant":"text","color":"primary","label":"Primary"}'></div>
+          <div data-trio-component="Button" data-trio-props='{"variant":"text","color":"secondary","label":"Secondary"}'></div>
+          <div data-trio-component="Button" data-trio-props='{"variant":"text","color":"success","label":"Success"}'></div>
+          <div data-trio-component="Button" data-trio-props='{"variant":"text","color":"error","label":"Error"}'></div>
+          <div data-trio-component="Button" data-trio-props='{"variant":"text","color":"warning","label":"Warning"}'></div>
+          <div data-trio-component="Button" data-trio-props='{"variant":"text","color":"info","label":"Info"}'></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ICONS -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">add_circle_outline</span>
+        Icons
+      </h2>
+      <p class="section-description">
+        Buttons support leading icons (startIcon), trailing icons (endIcon), or both. Icons reinforce the action meaning but should never replace a text label on primary actions.
+      </p>
+
+      <div class="variant-group">
+        <div class="variant-label">Start Icon (Leading)</div>
+        <div class="button-row">
+          <div data-trio-component="Button" data-trio-props='{"variant":"contained","color":"primary","label":"Create New","startIcon":"Add"}'></div>
+          <div data-trio-component="Button" data-trio-props='{"variant":"contained","color":"primary","label":"Save","startIcon":"Save"}'></div>
+          <div data-trio-component="Button" data-trio-props='{"variant":"contained","color":"error","label":"Delete","startIcon":"Delete"}'></div>
+          <div data-trio-component="Button" data-trio-props='{"variant":"contained","color":"secondary","label":"Edit","startIcon":"Edit"}'></div>
+          <div data-trio-component="Button" data-trio-props='{"variant":"outlined","color":"primary","label":"Download","startIcon":"Download"}'></div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">End Icon (Trailing)</div>
+        <div class="button-row">
+          <div data-trio-component="Button" data-trio-props='{"variant":"contained","color":"primary","label":"Send","endIcon":"Send"}'></div>
+          <div data-trio-component="Button" data-trio-props='{"variant":"contained","color":"primary","label":"Next","endIcon":"ArrowForward"}'></div>
+          <div data-trio-component="Button" data-trio-props='{"variant":"contained","color":"secondary","label":"Share","endIcon":"Share"}'></div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Both Icons</div>
+        <div class="button-row">
+          <div data-trio-component="Button" data-trio-props='{"variant":"contained","color":"primary","label":"Upload File","startIcon":"Upload","endIcon":"ArrowForward"}'></div>
+          <div data-trio-component="Button" data-trio-props='{"variant":"contained","color":"secondary","label":"Print Report","startIcon":"Print","endIcon":"Download"}'></div>
         </div>
       </div>
     </section>
@@ -526,24 +337,18 @@
       <div class="variant-group">
         <div class="variant-label">Medium (Default) - 38px height</div>
         <div class="button-row">
-          <button class="btn btn-md btn-primary-contained">
-            <span class="material-icons">add</span>
-            Create New
-          </button>
-          <button class="btn btn-md btn-primary-contained">Save Changes</button>
-          <button class="btn btn-md btn-secondary-outlined">Cancel</button>
+          <div data-trio-component="Button" data-trio-props='{"size":"medium","color":"primary","variant":"contained","label":"Create New","startIcon":"Add"}'></div>
+          <div data-trio-component="Button" data-trio-props='{"size":"medium","color":"primary","variant":"contained","label":"Save Changes"}'></div>
+          <div data-trio-component="Button" data-trio-props='{"size":"medium","color":"primary","variant":"text","label":"Cancel"}'></div>
         </div>
       </div>
 
       <div class="variant-group">
         <div class="variant-label">Small - 32px height</div>
         <div class="button-row">
-          <button class="btn btn-sm btn-primary-contained">
-            <span class="material-icons">add</span>
-            Add
-          </button>
-          <button class="btn btn-sm btn-primary-contained">Save</button>
-          <button class="btn btn-sm btn-secondary-outlined">Cancel</button>
+          <div data-trio-component="Button" data-trio-props='{"size":"small","color":"primary","variant":"contained","label":"Add","startIcon":"Add"}'></div>
+          <div data-trio-component="Button" data-trio-props='{"size":"small","color":"primary","variant":"contained","label":"Save"}'></div>
+          <div data-trio-component="Button" data-trio-props='{"size":"small","color":"primary","variant":"text","label":"Cancel"}'></div>
         </div>
       </div>
     </section>
@@ -561,26 +366,26 @@
       <div class="variant-group">
         <div class="variant-label">Default & Hover</div>
         <div class="button-row">
-          <button class="btn btn-md btn-primary-contained">Hover Me</button>
-          <button class="btn btn-md btn-primary-outlined">Hover Me</button>
-          <button class="btn btn-md btn-primary-text">Hover Me</button>
+          <div data-trio-component="Button" data-trio-props='{"variant":"contained","color":"primary","label":"Hover Me"}'></div>
+          <div data-trio-component="Button" data-trio-props='{"variant":"outlined","color":"primary","label":"Hover Me"}'></div>
+          <div data-trio-component="Button" data-trio-props='{"variant":"text","color":"primary","label":"Hover Me"}'></div>
         </div>
       </div>
 
       <div class="variant-group">
         <div class="variant-label">Disabled</div>
         <div class="button-row">
-          <button class="btn btn-md btn-primary-contained" disabled>Contained</button>
-          <button class="btn btn-md btn-primary-outlined btn-outlined" disabled>Outlined</button>
-          <button class="btn btn-md btn-primary-text btn-text" disabled>Text</button>
+          <div data-trio-component="Button" data-trio-props='{"variant":"contained","color":"primary","label":"Contained","disabled":true}'></div>
+          <div data-trio-component="Button" data-trio-props='{"variant":"outlined","color":"primary","label":"Outlined","disabled":true}'></div>
+          <div data-trio-component="Button" data-trio-props='{"variant":"text","color":"primary","label":"Text","disabled":true}'></div>
         </div>
       </div>
 
       <div class="variant-group">
         <div class="variant-label">Loading</div>
         <div class="button-row">
-          <button class="btn btn-md btn-primary-contained btn-loading">Processing</button>
-          <button class="btn btn-md btn-secondary-contained btn-loading">Loading</button>
+          <div data-trio-component="Button" data-trio-props='{"variant":"contained","color":"primary","label":"Processing","loading":true}'></div>
+          <div data-trio-component="Button" data-trio-props='{"variant":"contained","color":"secondary","label":"Loading","loading":true}'></div>
         </div>
       </div>
     </section>
@@ -600,18 +405,18 @@
           <div class="card-illustration">
             <span class="card-illustration-label">Correct</span>
             <div style="display: flex; gap: 8px; align-items: center;">
-              <button class="btn btn-sm btn-secondary-outlined">Cancel</button>
-              <button class="btn btn-sm btn-primary-contained">Save Changes</button>
+              <div data-trio-component="Button" data-trio-props='{"size":"small","color":"primary","variant":"text","label":"Cancel"}'></div>
+              <div data-trio-component="Button" data-trio-props='{"size":"small","color":"primary","variant":"contained","label":"Save Changes"}'></div>
             </div>
           </div>
           <div class="card-content">
             <ul>
-              <li>Use specific, action-oriented labels (Save, Delete, Create)</li>
-              <li>Limit to 1 primary button per section or dialog</li>
+              <li>One primary contained button per page or modal — this is the commit action</li>
+              <li>Pair text "Cancel" with primary contained submit — never contained cancel</li>
               <li>Place primary action on the right in button groups</li>
-              <li>Use icons only when they reinforce the action meaning</li>
-              <li>Maintain consistent button sizing throughout forms</li>
-              <li>Use Primary blue only for Save/Update actions</li>
+              <li>Use secondary outlined as your default utility button</li>
+              <li>Use semantic colors (error, success) sparingly to signal consequence</li>
+              <li>Medium size in modals/forms, small in tables and nested components</li>
             </ul>
           </div>
         </div>
@@ -623,20 +428,53 @@
           <div class="card-illustration card-illustration-wrong">
             <span class="card-illustration-label">Incorrect</span>
             <div style="display: flex; gap: 8px; align-items: center;">
-              <button class="btn btn-sm btn-primary-contained">Cancel</button>
-              <button class="btn btn-sm btn-primary-contained">Save</button>
-              <button class="btn btn-sm btn-primary-contained">Delete</button>
+              <div data-trio-component="Button" data-trio-props='{"size":"small","color":"secondary","variant":"contained","label":"Cancel"}'></div>
+              <div data-trio-component="Button" data-trio-props='{"size":"small","color":"primary","variant":"contained","label":"Save"}'></div>
+              <div data-trio-component="Button" data-trio-props='{"size":"small","color":"primary","variant":"contained","label":"Delete"}'></div>
             </div>
           </div>
           <div class="card-content">
             <ul>
-              <li>Use vague labels like "OK", "Click Here", or "Submit"</li>
-              <li>Place more than 3 buttons in a single button group</li>
-              <li>Use all caps text (use sentence case)</li>
+              <li>Use multiple primary contained buttons on the same page</li>
+              <li>Use secondary contained for Cancel — use text variant instead</li>
+              <li>Use secondary contained as a submit or completion mechanism</li>
+              <li>Use primary blue for Edit actions — use secondary outlined</li>
               <li>Mix button sizes in the same row or group</li>
-              <li>Use icons without labels in primary actions</li>
-              <li>Use Primary blue for Edit actions (use Secondary)</li>
+              <li>Use icons without labels on primary commit actions</li>
             </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Common Patterns -->
+      <h3 style="font-size: 14px; font-weight: 500; margin-top: var(--spacing-lg); margin-bottom: var(--spacing-md); color: var(--color-text-primary);">Common Patterns</h3>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title" style="font-size: 12px; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.5px;">Modal Footer</div>
+          <div class="card-illustration" style="min-height: 56px;">
+            <div style="display: flex; gap: 8px; align-items: center;">
+              <div data-trio-component="Button" data-trio-props='{"size":"medium","color":"primary","variant":"text","label":"Cancel"}'></div>
+              <div data-trio-component="Button" data-trio-props='{"size":"medium","color":"primary","variant":"contained","label":"Save Changes"}'></div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title" style="font-size: 12px; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.5px;">Destructive Confirmation</div>
+          <div class="card-illustration" style="min-height: 56px;">
+            <div style="display: flex; gap: 8px; align-items: center;">
+              <div data-trio-component="Button" data-trio-props='{"size":"medium","color":"primary","variant":"text","label":"Cancel"}'></div>
+              <div data-trio-component="Button" data-trio-props='{"size":"medium","color":"error","variant":"contained","label":"Delete Permanently"}'></div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title" style="font-size: 12px; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.5px;">Header Toolbar Group</div>
+          <div class="card-illustration" style="min-height: 56px;">
+            <div style="display: flex; gap: 8px; align-items: center;">
+              <div data-trio-component="Button" data-trio-props='{"size":"medium","color":"secondary","variant":"contained","label":"Export","startIcon":"Download"}'></div>
+              <div data-trio-component="Button" data-trio-props='{"size":"medium","color":"secondary","variant":"contained","label":"Filter","startIcon":"FilterList"}'></div>
+              <div data-trio-component="Button" data-trio-props='{"size":"medium","color":"secondary","variant":"contained","label":"Print","startIcon":"Print"}'></div>
+            </div>
           </div>
         </div>
       </div>
@@ -649,54 +487,68 @@
         Color Semantics
       </h2>
       <p class="section-description">
-        Button colors communicate meaning and action consequence. Follow these semantic rules consistently across the application.
+        Button colors communicate the weight and consequence of an action. Primary blue is reserved for commit actions. Semantic colors signal risk or reward. Secondary is the neutral default.
       </p>
 
       <table class="property-table">
         <thead>
           <tr>
             <th>Color</th>
+            <th>Consequence Level</th>
             <th>When to Use</th>
-            <th>Example Actions</th>
-            <th>Visual</th>
+            <th style="white-space: nowrap;">Contained</th>
+            <th style="white-space: nowrap;">Outlined</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td><code>primary</code></td>
-            <td>Save or Update operations only</td>
-            <td>Save, Update, Apply Changes</td>
-            <td><button class="btn btn-sm btn-primary-contained">Save</button></td>
+            <td>Permanent — commits state</td>
+            <td>Save, Submit, Create, Update. One per page/modal. The action that completes a flow.</td>
+            <td><div data-trio-component="Button" data-trio-props='{"size":"small","color":"primary","variant":"contained","label":"Save"}'></div></td>
+            <td><div data-trio-component="Button" data-trio-props='{"size":"small","color":"primary","variant":"outlined","label":"Save Draft"}'></div></td>
           </tr>
           <tr>
             <td><code>secondary</code></td>
-            <td>Edit actions and general navigation</td>
-            <td>Edit, Cancel, Close, Back</td>
-            <td><button class="btn btn-sm btn-secondary-contained">Edit</button></td>
+            <td>None — workhorse action</td>
+            <td>Contained: the default button — dropdowns, exports, filters, modal triggers, toolbar groups. Text: cancel, panel toggles, accordions.</td>
+            <td><div data-trio-component="Button" data-trio-props='{"size":"small","color":"secondary","variant":"contained","label":"Export"}'></div></td>
+            <td>—</td>
           </tr>
           <tr>
-            <td><code>success</code></td>
-            <td>Positive confirmation actions</td>
-            <td>Confirm, Approve, Activate</td>
-            <td><button class="btn btn-sm btn-success-contained">Approve</button></td>
+            <td><code>primary outlined</code></td>
+            <td>None — utility action</td>
+            <td>Low-consequence but actionable: downloading a file, opening a secondary flow, filtering. Enough visual weight to signal action without competing with the commit button.</td>
+            <td>—</td>
+            <td><div data-trio-component="Button" data-trio-props='{"size":"small","color":"primary","variant":"outlined","label":"Download"}'></div></td>
           </tr>
           <tr>
             <td><code>error</code></td>
-            <td>Destructive or irreversible actions</td>
-            <td>Delete, Remove, Deactivate</td>
-            <td><button class="btn btn-sm btn-error-contained">Delete</button></td>
+            <td>Permanent — destructive</td>
+            <td>Contained: permanent deletion, revoking access. Outlined: reversible removal (unassign, clear, remove from list).</td>
+            <td><div data-trio-component="Button" data-trio-props='{"size":"small","color":"error","variant":"contained","label":"Delete"}'></div></td>
+            <td><div data-trio-component="Button" data-trio-props='{"size":"small","color":"error","variant":"outlined","label":"Remove"}'></div></td>
+          </tr>
+          <tr>
+            <td><code>success</code></td>
+            <td>Permanent — positive outcome</td>
+            <td>Final actions with an explicitly positive result. Approve a worker placement, activate a configuration, publish a schedule. Reinforces "this is a good thing."</td>
+            <td><div data-trio-component="Button" data-trio-props='{"size":"small","color":"success","variant":"contained","label":"Approve"}'></div></td>
+            <td><div data-trio-component="Button" data-trio-props='{"size":"small","color":"success","variant":"outlined","label":"Activate"}'></div></td>
           </tr>
           <tr>
             <td><code>warning</code></td>
-            <td>Actions requiring caution</td>
-            <td>Archive, Deprecate, Force Update</td>
-            <td><button class="btn btn-sm btn-warning-contained">Archive</button></td>
+            <td>Reversible — needs thought</td>
+            <td>Consequential but undoable. Archive, deactivate, force sync. The user should pause, but the action isn't permanent.</td>
+            <td><div data-trio-component="Button" data-trio-props='{"size":"small","color":"warning","variant":"contained","label":"Archive"}'></div></td>
+            <td><div data-trio-component="Button" data-trio-props='{"size":"small","color":"warning","variant":"outlined","label":"Deactivate"}'></div></td>
           </tr>
           <tr>
             <td><code>info</code></td>
-            <td>Informational or help actions</td>
-            <td>Learn More, View Details, Help</td>
-            <td><button class="btn btn-sm btn-info-contained">Details</button></td>
+            <td>None — informational</td>
+            <td>Help, Learn More, View Details. Rarely used as a standalone action — typically appears in contextual help or onboarding.</td>
+            <td><div data-trio-component="Button" data-trio-props='{"size":"small","color":"info","variant":"contained","label":"Details"}'></div></td>
+            <td><div data-trio-component="Button" data-trio-props='{"size":"small","color":"info","variant":"outlined","label":"Learn More"}'></div></td>
           </tr>
         </tbody>
       </table>

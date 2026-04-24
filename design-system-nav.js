@@ -14,6 +14,8 @@ const DS_NAV = {
     { label: 'Colors',      icon: 'palette',      href: 'design-tokens-colors.html' },
     { label: 'Typography',  icon: 'text_fields',  href: 'design-tokens-typography.html' },
     { label: 'Spacing',     icon: 'space_bar',    href: 'design-tokens-spacing.html' },
+    { label: 'Downloads',   icon: 'download',     href: 'downloads.html' },
+    { label: 'Prototypes',  icon: 'science',      href: 'prototypes.html' },
   ],
 
   // MUI-based components — built on Material UI primitives

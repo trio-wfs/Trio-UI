@@ -1,0 +1,181 @@
+/**
+ * Showcase Mount — renders real React components into static HTML pages.
+ *
+ * Usage in any showcase HTML page:
+ *   <div data-trio-component="Button" data-trio-props='{"variant":"contained","color":"primary","label":"Save"}'></div>
+ *
+ * Include the built bundle:
+ *   <script type="module" src="../../showcase/dist/showcase.js"></script>
+ *
+ * Components render inside an MUI ThemeProvider with the TRIO theme,
+ * so they look identical to Storybook / production.
+ */
+
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import { ThemeProvider } from '@mui/material';
+import { trioTheme } from '../design-tokens/theme';
+
+// ─── Icon Registry ──────────────────────────────────────────────────────────
+// Maps string names (used in data-trio-props) to MUI icon components.
+// Add icons here as showcase pages need them.
+
+import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import SaveIcon from '@mui/icons-material/Save';
+import CloseIcon from '@mui/icons-material/Close';
+import SearchIcon from '@mui/icons-material/Search';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import DownloadIcon from '@mui/icons-material/Download';
+import UploadIcon from '@mui/icons-material/Upload';
+import RefreshIcon from '@mui/icons-material/Refresh';
+import SettingsIcon from '@mui/icons-material/Settings';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import CheckIcon from '@mui/icons-material/Check';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import SendIcon from '@mui/icons-material/Send';
+import PrintIcon from '@mui/icons-material/Print';
+import ShareIcon from '@mui/icons-material/Share';
+
+const iconRegistry: Record<string, React.ReactElement> = {
+  Add: <AddIcon />,
+  Edit: <EditIcon />,
+  Delete: <DeleteIcon />,
+  Save: <SaveIcon />,
+  Close: <CloseIcon />,
+  Search: <SearchIcon />,
+  FilterList: <FilterListIcon />,
+  Download: <DownloadIcon />,
+  Upload: <UploadIcon />,
+  Refresh: <RefreshIcon />,
+  Settings: <SettingsIcon />,
+  ArrowBack: <ArrowBackIcon />,
+  ArrowForward: <ArrowForwardIcon />,
+  Check: <CheckIcon />,
+  MoreVert: <MoreVertIcon />,
+  Visibility: <VisibilityIcon />,
+  ContentCopy: <ContentCopyIcon />,
+  Send: <SendIcon />,
+  Print: <PrintIcon />,
+  Share: <ShareIcon />,
+};
+
+// Resolve string icon names to React elements
+function resolveIcons(props: Record<string, any>): Record<string, any> {
+  const resolved = { ...props };
+  for (const key of ['startIcon', 'endIcon', 'icon']) {
+    if (typeof resolved[key] === 'string' && iconRegistry[resolved[key]]) {
+      resolved[key] = iconRegistry[resolved[key]];
+    }
+  }
+  return resolved;
+}
+
+// ─── Component Registry ─────────────────────────────────────────────────────
+// Lazy-loaded so pages only download what they use.
+
+const registry: Record<string, () => Promise<{ default: React.ComponentType<any> }>> = {
+  Alert:              () => import('../components/Alert/Alert').then(m => ({ default: m.Alert })),
+  Autocomplete:       () => import('../components/Autocomplete/Autocomplete').then(m => ({ default: m.Autocomplete })),
+  Badge:              () => import('../components/Badge/Badge').then(m => ({ default: m.Badge })),
+  Breadcrumb:         () => import('../components/Breadcrumb/Breadcrumb').then(m => ({ default: m.Breadcrumb })),
+  Button:             () => import('../components/Button/Button').then(m => ({ default: m.Button })),
+  ButtonGroup:        () => import('../components/ButtonGroup/ButtonGroup').then(m => ({ default: m.ButtonGroup })),
+  ButtonIcon:         () => import('../components/ButtonIcon/ButtonIcon').then(m => ({ default: m.ButtonIcon })),
+  Checkbox:           () => import('../components/Checkbox/Checkbox').then(m => ({ default: m.Checkbox })),
+  Chip:               () => import('../components/Chip/Chip').then(m => ({ default: m.Chip })),
+  ContentContainer:   () => import('../components/ContentContainer/ContentContainer').then(m => ({ default: m.ContentContainer })),
+  Footer:             () => import('../components/Footer/Footer').then(m => ({ default: m.Footer })),
+  Menu:               () => import('../components/Menu/Menu').then(m => ({ default: m.Menu })),
+  MetricCard:         () => import('../components/MetricCard/MetricCard').then(m => ({ default: m.MetricCard })),
+  Modal:              () => import('../components/Modal/Modal').then(m => ({ default: m.Modal })),
+  NavigationHeader:   () => import('../components/NavigationHeader/NavigationHeader').then(m => ({ default: m.NavigationHeader })),
+  NavigationVertical: () => import('../components/NavigationVertical/NavigationVertical').then(m => ({ default: m.NavigationVertical })),
+  PageHeaderToolbar:  () => import('../components/PageHeaderToolbar/PageHeaderToolbar').then(m => ({ default: m.PageHeaderToolbar })),
+  RadioGroup:         () => import('../components/RadioGroup/RadioGroup').then(m => ({ default: m.RadioGroup })),
+  SearchBar:          () => import('../components/SearchBar/SearchBar').then(m => ({ default: m.SearchBar })),
+  Select:             () => import('../components/Select/Select').then(m => ({ default: m.Select })),
+  SplitButton:        () => import('../components/SplitButton/SplitButton').then(m => ({ default: m.SplitButton })),
+  Stepper:            () => import('../components/Stepper/Stepper').then(m => ({ default: m.Stepper })),
+  Switch:             () => import('../components/Switch/Switch').then(m => ({ default: m.Switch })),
+  Tabs:               () => import('../components/Tabs/Tabs').then(m => ({ default: m.Tabs })),
+  TextField:          () => import('../components/TextField/TextField').then(m => ({ default: m.TextField })),
+  ToggleButton:       () => import('../components/ToggleButton/ToggleButton').then(m => ({ default: m.ToggleButton })),
+  Tooltip:            () => import('../components/Tooltip/Tooltip').then(m => ({ default: m.Tooltip })),
+  Chart:              () => import('../components/Chart/Chart').then(m => ({ default: m.Chart })),
+};
+
+// ─── Wrapper that loads + renders a single component ────────────────────────
+
+function LazyComponent({ name, props }: { name: string; props: Record<string, any> }) {
+  const [Component, setComponent] = React.useState<React.ComponentType<any> | null>(null);
+  const [error, setError] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    const loader = registry[name];
+    if (!loader) {
+      setError(`Unknown component: "${name}"`);
+      return;
+    }
+    loader()
+      .then(mod => setComponent(() => mod.default))
+      .catch(err => setError(err.message));
+  }, [name]);
+
+  if (error) {
+    return <div style={{ color: '#DB4537', fontSize: 12, padding: 8 }}>{error}</div>;
+  }
+  if (!Component) {
+    return null; // silent while loading — avoids flash
+  }
+  return <Component {...resolveIcons(props)} />;
+}
+
+// ─── Mount all [data-trio-component] elements on the page ───────────────────
+
+function mountAll() {
+  const targets = document.querySelectorAll<HTMLElement>('[data-trio-component]');
+  if (targets.length === 0) return;
+
+  targets.forEach(el => {
+    const name = el.dataset.trioComponent!;
+    let props: Record<string, any> = {};
+
+    // Parse props from data-trio-props JSON
+    if (el.dataset.trioProps) {
+      try {
+        props = JSON.parse(el.dataset.trioProps);
+      } catch (e) {
+        console.error(`[TRIO Showcase] Invalid JSON in data-trio-props for ${name}:`, e);
+      }
+    }
+
+    // Parse children from data-trio-children (simple text content)
+    if (el.dataset.trioChildren) {
+      props.children = el.dataset.trioChildren;
+    }
+
+    // Inline display style to prevent layout shift
+    if (!el.style.display) {
+      el.style.display = 'inline-block';
+    }
+
+    const root = createRoot(el);
+    root.render(
+      <ThemeProvider theme={trioTheme}>
+        <LazyComponent name={name} props={props} />
+      </ThemeProvider>
+    );
+  });
+}
+
+// Auto-mount on DOMContentLoaded
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', mountAll);
+} else {
+  mountAll();
+}

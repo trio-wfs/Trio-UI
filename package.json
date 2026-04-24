@@ -24,7 +24,8 @@
     "figma:validate": "figma connect --token $(grep FIGMA_ACCESS_TOKEN .env | cut -d= -f2)",
     "figma:publish": "figma connect publish --token $(grep FIGMA_ACCESS_TOKEN .env | cut -d= -f2)",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "build:showcase": "vite build --config vite.showcase.config.ts"
   },
   "peerDependencies": {
     "@emotion/react": ">=11.0.0",
@@ -41,6 +42,7 @@
     "@storybook/addon-docs": "^10.3.5",
     "@storybook/addon-vitest": "^10.3.5",
     "@storybook/react-vite": "^10.3.5",
+    "@vitejs/plugin-react": "^6.0.1",
     "@vitest/browser-playwright": "^4.1.4",
     "@vitest/coverage-v8": "^4.1.4",
     "playwright": "^1.59.1",

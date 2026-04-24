@@ -63,6 +63,16 @@ export interface CheckboxProps {
   className?: string;
 
   /**
+   * HTML id attribute
+   */
+  id?: string;
+
+  /**
+   * Whether the checkbox is required
+   */
+  required?: boolean;
+
+  /**
    * Input name attribute
    */
   name?: string;

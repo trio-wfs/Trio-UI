@@ -31,7 +31,7 @@ const WIDTH: Record<'sm' | 'lg', { width: number; minWidth: number }> = {
   lg: { width: 900, minWidth: 500 },
 };
 
-export const Modal: React.FC<ModalProps> = ({
+export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(({
   open,
   onClose,
   onConfirm,
@@ -46,7 +46,7 @@ export const Modal: React.FC<ModalProps> = ({
   confirmDisabled = defaultModalProps.confirmDisabled,
   className,
   'aria-label': ariaLabel,
-}) => {
+}, ref) => {
   const isDestructive = variant === 'destructive';
 
   return (
@@ -63,6 +63,7 @@ export const Modal: React.FC<ModalProps> = ({
     >
       {/* Paper */}
       <Box
+        ref={ref}
         className={className}
         sx={{
           position: 'absolute',
@@ -161,7 +162,7 @@ export const Modal: React.FC<ModalProps> = ({
       </Box>
     </MuiModal>
   );
-};
+});
 
 Modal.displayName = 'Modal';
 

@@ -14,16 +14,17 @@ import { Box, Typography } from '@mui/material';
 import { ContentContainerProps, defaultContentContainerProps } from './ContentContainer.types';
 import { tokens } from '../../design-tokens/tokens';
 
-export const ContentContainer: React.FC<ContentContainerProps> = ({
+export const ContentContainer = React.forwardRef<HTMLDivElement, ContentContainerProps>(({
   title,
   titleActions,
   padding = defaultContentContainerProps.padding,
   flush = defaultContentContainerProps.flush,
   children,
   sx,
-}) => {
+}, ref) => {
   return (
     <Box
+      ref={ref}
       sx={{
         backgroundColor: tokens.colors.background.paper,
         border: `1px solid ${tokens.colors.components.border.default}`,
@@ -70,7 +71,7 @@ export const ContentContainer: React.FC<ContentContainerProps> = ({
       </Box>
     </Box>
   );
-};
+});
 
 ContentContainer.displayName = 'ContentContainer';
 export default ContentContainer;

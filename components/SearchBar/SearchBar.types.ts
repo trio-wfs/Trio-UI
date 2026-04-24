@@ -49,6 +49,12 @@ export interface SearchBarProps {
 
   /** Custom icon — defaults to SearchIcon */
   icon?: React.ReactNode;
+
+  /** HTML name attribute */
+  name?: string;
+
+  /** HTML id attribute */
+  id?: string;
 }
 
 export const defaultSearchBarProps: Partial<SearchBarProps> = {

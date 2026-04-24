@@ -17,7 +17,7 @@ import { Button } from '../Button/Button';
 import { ButtonGroupProps, defaultButtonGroupProps } from './ButtonGroup.types';
 import { tokens } from '../../design-tokens/tokens';
 
-export const ButtonGroup: React.FC<ButtonGroupProps> = ({
+export const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(({
   variant = defaultButtonGroupProps.variant,
   size = defaultButtonGroupProps.size,
   color = defaultButtonGroupProps.color,
@@ -28,7 +28,7 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({
   className,
   fullWidth = defaultButtonGroupProps.fullWidth,
   disableElevation = defaultButtonGroupProps.disableElevation,
-}) => {
+}, ref) => {
   const displayButtons = (buttons || []).slice(0, 6);
   const muiSize = size === 'sm' ? 'small' : 'medium';
   const muiVariant = variant === 'outline' ? 'outlined' : 'contained';
@@ -44,6 +44,7 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({
 
   return (
     <MuiButtonGroup
+      ref={ref}
       variant={muiVariant}
       size={muiSize}
       color={color}
@@ -80,7 +81,7 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({
       ))}
     </MuiButtonGroup>
   );
-};
+});
 
 ButtonGroup.displayName = 'ButtonGroup';
 

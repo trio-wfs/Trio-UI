@@ -70,6 +70,16 @@ export interface AutocompleteProps {
   limitTags?: number;
 
   // Standard React props
+  /**
+   * HTML id attribute
+   */
+  id?: string;
+
+  /**
+   * HTML name attribute
+   */
+  name?: string;
+
   className?: string;
   'aria-label'?: string;
 }

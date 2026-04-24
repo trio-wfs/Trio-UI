@@ -26,7 +26,7 @@ import type { AgChartOptions } from 'ag-charts-community';
 import { trioAgChartsTheme } from '../../design-tokens/agChartsTheme';
 import type { ChartProps } from './Chart.types';
 
-export const Chart: React.FC<ChartProps> = ({ options, style, className }) => {
+export const Chart = React.forwardRef<HTMLDivElement, ChartProps>(({ options, style, className }, ref) => {
   const mergedOptions: AgChartOptions = {
     theme: trioAgChartsTheme as any,
     background: { fill: 'transparent' },
@@ -34,8 +34,10 @@ export const Chart: React.FC<ChartProps> = ({ options, style, className }) => {
   };
 
   return (
-    <div style={style} className={className}>
+    <div ref={ref} style={style} className={className}>
       <AgCharts options={mergedOptions} />
     </div>
   );
-};
+});
+
+Chart.displayName = 'Chart';

@@ -5,9 +5,10 @@ import CheckIcon from '@mui/icons-material/Check';
 import { tokens } from '../../design-tokens/tokens';
 import type { StepperProps } from './Stepper.types';
 
-export function Stepper({ steps, activeStep, className }: StepperProps) {
+export const Stepper = React.forwardRef<HTMLDivElement, StepperProps>(({ steps, activeStep, className }, ref) => {
   return (
     <Box
+      ref={ref}
       className={className}
       sx={{
         borderBottom: `1px solid ${tokens.colors.components.border.default}`,
@@ -108,7 +109,7 @@ export function Stepper({ steps, activeStep, className }: StepperProps) {
       </Box>
     </Box>
   );
-}
+});
 
 Stepper.displayName = 'Stepper';
 export default Stepper;

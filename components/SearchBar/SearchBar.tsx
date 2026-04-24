@@ -41,7 +41,7 @@ const SIZE_MAP = {
   },
 };
 
-export const SearchBar: React.FC<SearchBarProps> = ({
+export const SearchBar = React.forwardRef<HTMLDivElement, SearchBarProps>(({
   size = defaultSearchBarProps.size!,
   type = defaultSearchBarProps.type!,
   value = '',
@@ -52,7 +52,9 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   supportCopy = defaultSearchBarProps.supportCopy,
   showIcon = defaultSearchBarProps.showIcon!,
   icon,
-}) => {
+  name,
+  id,
+}, ref) => {
   const s = SIZE_MAP[size];
   const iconElement = icon || <SearchIcon sx={{ fontSize: s.iconSize }} />;
 
@@ -123,6 +125,8 @@ export const SearchBar: React.FC<SearchBarProps> = ({
 
   return (
     <Box
+      ref={ref}
+      id={id}
       sx={{
         display: 'inline-flex',
         alignItems: 'stretch',
@@ -154,13 +158,14 @@ export const SearchBar: React.FC<SearchBarProps> = ({
           value={value}
           onChange={(e) => onChange?.(e.target.value)}
           disabled={disabled}
+          name={name}
         />
       </Box>
 
       {type === 'Right' && <SupportButton />}
     </Box>
   );
-};
+});
 
 SearchBar.displayName = 'SearchBar';
 export default SearchBar;

@@ -16,7 +16,7 @@ import React from 'react';
 import { Switch as MuiSwitch, FormControlLabel } from '@mui/material';
 import { SwitchProps, defaultSwitchProps } from './Switch.types';
 
-export const Switch: React.FC<SwitchProps> = ({
+export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(({
   state = defaultSwitchProps.state,
   labelPlacement = defaultSwitchProps.labelPlacement,
   disabled = defaultSwitchProps.disabled,
@@ -24,10 +24,12 @@ export const Switch: React.FC<SwitchProps> = ({
   onChange,
   label,
   className,
+  id,
+  required,
   name,
   value,
   ...ariaProps
-}) => {
+}, ref) => {
   const isDisabled = Boolean(disabled);
   const isControlled = checked !== undefined || state === 'on';
   const muiLabelPlacement = labelPlacement === 'left' ? 'start' : labelPlacement === 'top' ? 'top' : 'end';
@@ -42,7 +44,10 @@ export const Switch: React.FC<SwitchProps> = ({
       onChange={onChange}
       disabled={isDisabled}
       name={name}
+      id={id}
+      required={required}
       value={value}
+      ref={ref}
       {...ariaProps}
     />
   );
@@ -61,7 +66,7 @@ export const Switch: React.FC<SwitchProps> = ({
   }
 
   return switchElement;
-};
+});
 
 Switch.displayName = 'Switch';
 

@@ -119,6 +119,21 @@ export interface TextFieldProps {
   onChange?: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 
   /**
+   * HTML name attribute
+   */
+  name?: string;
+
+  /**
+   * HTML id attribute
+   */
+  id?: string;
+
+  /**
+   * Whether the field is required
+   */
+  required?: boolean;
+
+  /**
    * Custom class name
    */
   className?: string;

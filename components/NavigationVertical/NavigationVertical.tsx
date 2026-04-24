@@ -57,7 +57,7 @@ const navItemBaseSx = {
   fontFamily: tokens.typography.fontFamily,
   color: tokens.colors.text.primary,
   '&:hover': {
-    backgroundColor: tokens.colors.background.secondary,
+    backgroundColor: tokens.colors.action.hover,
     color: tokens.colors.text.primary,
   },
 };
@@ -189,7 +189,7 @@ const SubNavItem: React.FC<{
       paddingBottom: `${tokens.spacing.sm}px`,
       color: isActive ? tokens.colors.primary.dark : tokens.colors.text.primary,
       '&:hover': {
-        backgroundColor: tokens.colors.background.secondary,
+        backgroundColor: tokens.colors.action.hover,
       },
     }}
   >
@@ -287,7 +287,7 @@ const SecondaryPanel: React.FC<{
 );
 
 // ── Main component ────────────────────────────────────────────────────────────
-export const NavigationVertical: React.FC<NavigationVerticalProps> = ({
+export const NavigationVertical = React.forwardRef<HTMLDivElement, NavigationVerticalProps>(({
   items = defaultNavigationVerticalProps.items!,
   state = defaultNavigationVerticalProps.state!,
   activeId,
@@ -302,7 +302,7 @@ export const NavigationVertical: React.FC<NavigationVerticalProps> = ({
   subtitle,
   titleDropdown,
   onTitleClick,
-}) => {
+}, ref) => {
   const [expandedIds, setExpandedIds] = useState<Set<string>>(
     () => new Set(activeId ? [activeId] : [])
   );
@@ -323,7 +323,7 @@ export const NavigationVertical: React.FC<NavigationVerticalProps> = ({
   const showSettingsPanel = subSection && settings && settingsItems.length > 0 && activeSettingsId;
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box ref={ref} sx={{ display: 'flex' }}>
       {/* ── Primary rail / sidebar ── */}
       <Box
         component="nav"
@@ -594,7 +594,7 @@ export const NavigationVertical: React.FC<NavigationVerticalProps> = ({
       )}
     </Box>
   );
-};
+});
 
 NavigationVertical.displayName = 'NavigationVertical';
 export default NavigationVertical;

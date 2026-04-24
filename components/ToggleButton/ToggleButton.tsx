@@ -13,15 +13,16 @@ import { Box, IconButton } from '@mui/material';
 import { ToggleButtonProps, defaultToggleButtonProps } from './ToggleButton.types';
 import { tokens } from '../../design-tokens/tokens';
 
-export const ToggleButton: React.FC<ToggleButtonProps> = ({
+export const ToggleButton = React.forwardRef<HTMLDivElement, ToggleButtonProps>(({
   size = defaultToggleButtonProps.size,
   buttons,
-}) => {
+}, ref) => {
   const slotSize = size === 'sm' ? 24 : 36;
   const iconSize = size === 'sm' ? 16 : 24;
 
   return (
     <Box
+      ref={ref}
       sx={{
         display: 'inline-flex',
         alignItems: 'center',
@@ -62,7 +63,7 @@ export const ToggleButton: React.FC<ToggleButtonProps> = ({
       ))}
     </Box>
   );
-};
+});
 
 ToggleButton.displayName = 'ToggleButton';
 export default ToggleButton;

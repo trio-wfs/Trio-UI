@@ -17,7 +17,7 @@ import { SplitButtonProps, defaultSplitButtonProps } from './SplitButton.types';
 import { Menu } from '../Menu/Menu';
 import { tokens } from '../../design-tokens/tokens';
 
-export const SplitButton: React.FC<SplitButtonProps> = ({
+export const SplitButton = React.forwardRef<HTMLDivElement, SplitButtonProps>(({
   label,
   color = defaultSplitButtonProps.color!,
   open = defaultSplitButtonProps.open!,
@@ -27,7 +27,7 @@ export const SplitButton: React.FC<SplitButtonProps> = ({
   anchorEl,
   startIcon,
   disabled = defaultSplitButtonProps.disabled!,
-}) => {
+}, ref) => {
   const arrowRef = useRef<HTMLButtonElement>(null);
 
   const isPrimary = color === 'primary';
@@ -67,6 +67,7 @@ export const SplitButton: React.FC<SplitButtonProps> = ({
     <>
       {/* ── Wrapper ───────────────────────────────────────────── */}
       <Box
+        ref={ref}
         sx={{
           display: 'inline-flex',
           alignItems: 'center',
@@ -165,7 +166,7 @@ export const SplitButton: React.FC<SplitButtonProps> = ({
       )}
     </>
   );
-};
+});
 
 SplitButton.displayName = 'SplitButton';
 export default SplitButton;

@@ -15,17 +15,18 @@ import React from 'react';
 import MuiBadge from '@mui/material/Badge';
 import { BadgeProps, defaultBadgeProps } from './Badge.types';
 
-export const Badge: React.FC<BadgeProps> = ({
+export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(({
   color = defaultBadgeProps.color,
   type = defaultBadgeProps.type,
   badgeContent = defaultBadgeProps.badgeContent,
   children,
   className,
-}) => {
+}, ref) => {
   const isDot = type === 'dot';
 
   return (
     <MuiBadge
+      ref={ref}
       className={className}
       color={color}
       variant={isDot ? 'dot' : 'standard'}
@@ -34,7 +35,7 @@ export const Badge: React.FC<BadgeProps> = ({
       {children}
     </MuiBadge>
   );
-};
+});
 
 Badge.displayName = 'Badge';
 export default Badge;

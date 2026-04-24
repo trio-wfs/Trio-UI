@@ -29,7 +29,7 @@ const hoverTints: Record<string, string> = {
   success: 'rgba(56, 142, 60, 0.05)',               // #388E3C0D
 };
 
-export const Chip: React.FC<ChipProps> = ({
+export const Chip = React.forwardRef<HTMLDivElement, ChipProps>(({
   size = defaultChipProps.size,
   color = defaultChipProps.color,
   variant = defaultChipProps.variant,
@@ -41,7 +41,7 @@ export const Chip: React.FC<ChipProps> = ({
   onDelete,
   className,
   ...ariaProps
-}) => {
+}, ref) => {
   const muiVariant = variant === 'outline' ? 'outlined' : 'filled';
   const muiSize = size === 'sm' ? 'small' : 'medium';
 
@@ -130,6 +130,7 @@ export const Chip: React.FC<ChipProps> = ({
 
   return (
     <MuiChip
+      ref={ref}
       label={label}
       size={muiSize}
       variant={muiVariant}
@@ -157,7 +158,7 @@ export const Chip: React.FC<ChipProps> = ({
       }}
     />
   );
-};
+});
 
 Chip.displayName = 'Chip';
 export default Chip;

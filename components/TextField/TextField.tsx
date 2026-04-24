@@ -18,7 +18,7 @@ import { TextField as MuiTextField } from '@mui/material';
 import { TextFieldProps, defaultTextFieldProps } from './TextField.types';
 import { tokens } from '../../design-tokens/tokens';
 
-export const TextField: React.FC<TextFieldProps> = ({
+export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(({
   type = defaultTextFieldProps.type,
   size = defaultTextFieldProps.size,
   state = defaultTextFieldProps.state,
@@ -33,9 +33,12 @@ export const TextField: React.FC<TextFieldProps> = ({
   placeholder = defaultTextFieldProps.placeholder,
   value,
   onChange,
+  name,
+  id,
+  required,
   className,
   ...ariaProps
-}) => {
+}, ref) => {
   const hasError = state === 'error';
   const isForcedFocus = state === 'focus';
   const isSmall = size === 'small';
@@ -53,6 +56,10 @@ export const TextField: React.FC<TextFieldProps> = ({
       error={hasError}
       label={label}
       helperText={helperText}
+      name={name}
+      id={id}
+      required={required}
+      inputRef={ref}
       slotProps={{
         inputLabel: { shrink: true },
         input: { notched: false },
@@ -96,7 +103,7 @@ export const TextField: React.FC<TextFieldProps> = ({
       }}
     />
   );
-};
+});
 
 TextField.displayName = 'TextField';
 

@@ -64,6 +64,16 @@ export interface SwitchProps {
   className?: string;
 
   /**
+   * HTML id attribute
+   */
+  id?: string;
+
+  /**
+   * Whether the switch is required
+   */
+  required?: boolean;
+
+  /**
    * Input name attribute
    */
   name?: string;

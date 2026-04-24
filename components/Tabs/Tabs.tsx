@@ -16,13 +16,13 @@ import { Tabs as MuiTabs, Tab as MuiTab, Box } from '@mui/material';
 import { TabsProps, defaultTabsProps } from './Tabs.types';
 import { tokens } from '../../design-tokens/tokens';
 
-export const Tabs: React.FC<TabsProps> = ({
+export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(({
   tabs,
   activeIndex,
   onChange,
   variant = defaultTabsProps.variant!,
   surface = defaultTabsProps.surface!,
-}) => {
+}, ref) => {
   const isControlled = activeIndex !== undefined;
   const [internalIndex, setInternalIndex] = useState(0);
   const currentIndex = isControlled ? activeIndex : internalIndex;
@@ -34,6 +34,7 @@ export const Tabs: React.FC<TabsProps> = ({
 
   return (
     <MuiTabs
+      ref={ref}
       value={currentIndex}
       onChange={(_, newValue) => {
         if (!isControlled) setInternalIndex(newValue);
@@ -77,7 +78,7 @@ export const Tabs: React.FC<TabsProps> = ({
       ))}
     </MuiTabs>
   );
-};
+});
 
 Tabs.displayName = 'Tabs';
 export default Tabs;

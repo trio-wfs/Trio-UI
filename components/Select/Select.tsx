@@ -24,7 +24,7 @@ import { tokens } from '../../design-tokens/tokens';
 import { Menu } from '../Menu/Menu';
 import { MenuItem } from '../Menu/Menu.types';
 
-export const Select: React.FC<SelectProps> = ({
+export const Select = React.forwardRef<HTMLDivElement, SelectProps>(({
   state = defaultSelectProps.state,
   options = defaultSelectProps.options,
   value,
@@ -34,9 +34,12 @@ export const Select: React.FC<SelectProps> = ({
   placeholder = defaultSelectProps.placeholder,
   disabled = defaultSelectProps.disabled,
   error = defaultSelectProps.error,
+  name,
+  id,
+  required,
   className,
   ...ariaProps
-}) => {
+}, ref) => {
   const [open, setOpen] = useState(false);
   const anchorRef = useRef<HTMLDivElement>(null);
 
@@ -75,16 +78,20 @@ export const Select: React.FC<SelectProps> = ({
 
   return (
     <FormControl
+      ref={ref}
       fullWidth
       error={hasError}
       disabled={isDisabled}
+      required={required}
       className={className}
     >
       {label && (
         <InputLabel shrink>{label}</InputLabel>
       )}
+      {name && <input type="hidden" name={name} value={value ?? ''} />}
       <div
         ref={anchorRef}
+        id={id}
         onClick={handleClick}
         style={{
           fontFamily: tokens.typography.fontFamily,
@@ -155,7 +162,7 @@ export const Select: React.FC<SelectProps> = ({
       {helperText && <FormHelperText>{helperText}</FormHelperText>}
     </FormControl>
   );
-};
+});
 
 Select.displayName = 'Select';
 

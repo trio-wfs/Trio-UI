@@ -17,17 +17,18 @@ import { Box, Typography } from '@mui/material';
 import { BreadcrumbProps, defaultBreadcrumbProps } from './Breadcrumb.types';
 import { tokens } from '../../design-tokens/tokens';
 
-export const Breadcrumb: React.FC<BreadcrumbProps> = ({
+export const Breadcrumb = React.forwardRef<HTMLDivElement, BreadcrumbProps>(({
   state = defaultBreadcrumbProps.state,
   links,
   showNumberIndicator = defaultBreadcrumbProps.showNumberIndicator,
   recordCount,
   actions,
-}) => {
+}, ref) => {
   const divider = state === 'Links' ? '|' : '/';
 
   return (
     <Box
+      ref={ref}
       sx={{
         display: 'flex',
         alignItems: 'center',
@@ -95,7 +96,7 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({
       )}
     </Box>
   );
-};
+});
 
 Breadcrumb.displayName = 'Breadcrumb';
 export default Breadcrumb;

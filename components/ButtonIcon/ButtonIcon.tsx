@@ -13,7 +13,7 @@ import { Badge } from '@mui/material';
 import { ButtonIconProps, defaultButtonIconProps } from './ButtonIcon.types';
 import { tokens } from '../../design-tokens/tokens';
 
-export const ButtonIcon: React.FC<ButtonIconProps> = ({
+export const ButtonIcon = React.forwardRef<HTMLButtonElement, ButtonIconProps>(({
   variant = defaultButtonIconProps.variant,
   color = defaultButtonIconProps.color,
   size = defaultButtonIconProps.size,
@@ -23,7 +23,7 @@ export const ButtonIcon: React.FC<ButtonIconProps> = ({
   disabled,
   onClick,
   'aria-label': ariaLabel,
-}) => {
+}, ref) => {
   const sizeStyles =
     size === 'sm'
       ? { width: 24, height: 24, '& .MuiSvgIcon-root': { fontSize: 16 } }
@@ -76,6 +76,7 @@ export const ButtonIcon: React.FC<ButtonIconProps> = ({
 
   const button = (
     <IconButton
+      ref={ref}
       disabled={disabled}
       onClick={onClick}
       aria-label={ariaLabel}
@@ -101,7 +102,7 @@ export const ButtonIcon: React.FC<ButtonIconProps> = ({
       {button}
     </Badge>
   );
-};
+});
 
 ButtonIcon.displayName = 'ButtonIcon';
 export default ButtonIcon;

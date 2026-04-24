@@ -366,7 +366,7 @@ const LabelsFooter: React.FC<LabelsFooterProps> = ({ metrics }) => (
 
 // ─── Main Component ──────────────────────────────────────────────────────────
 
-export const MetricCard: React.FC<MetricCardProps> = ({
+export const MetricCard = React.forwardRef<HTMLDivElement, MetricCardProps>(({
   label,
   labelIcon = defaultMetricCardProps.labelIcon,
   showHelpIcon = defaultMetricCardProps.showHelpIcon,
@@ -375,13 +375,14 @@ export const MetricCard: React.FC<MetricCardProps> = ({
   footer = defaultMetricCardProps.footer,
   className,
   style: customStyle,
-}) => {
+}, ref) => {
   const colors = resolveColors(metrics);
   const isListLayout = layout === 'auto' && metrics.length >= 4;
   const isGroupedLayout = layout === 'grouped';
 
   return (
     <div
+      ref={ref}
       className={className}
       style={{ ...styles.card, ...customStyle }}
       role="region"
@@ -417,7 +418,9 @@ export const MetricCard: React.FC<MetricCardProps> = ({
       </div>
     </div>
   );
-};
+});
+
+MetricCard.displayName = 'MetricCard';
 
 // ─── Styles ───────────────────────────────────────────────────────────────────
 // All values extracted directly from Figma instances.

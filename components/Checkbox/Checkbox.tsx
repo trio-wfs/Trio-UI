@@ -18,7 +18,7 @@ import React from 'react';
 import { Checkbox as MuiCheckbox, FormControlLabel } from '@mui/material';
 import { CheckboxProps, defaultCheckboxProps } from './Checkbox.types';
 
-export const Checkbox: React.FC<CheckboxProps> = ({
+export const Checkbox = React.forwardRef<HTMLButtonElement, CheckboxProps>(({
   color = defaultCheckboxProps.color,
   checked = defaultCheckboxProps.checked,
   disabled = defaultCheckboxProps.disabled,
@@ -26,10 +26,12 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   onChange,
   label,
   className,
+  id,
+  required,
   name,
   value,
   ...ariaProps
-}) => {
+}, ref) => {
   const muiColor = color === 'error' ? 'error' : 'primary';
 
   const checkedProps = checked !== undefined ? { checked } : {};
@@ -42,7 +44,10 @@ export const Checkbox: React.FC<CheckboxProps> = ({
       onChange={onChange}
       color={muiColor}
       name={name}
+      id={id}
+      required={required}
       value={value}
+      ref={ref}
       {...ariaProps}
     />
   );
@@ -59,7 +64,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   }
 
   return checkboxElement;
-};
+});
 
 Checkbox.displayName = 'Checkbox';
 

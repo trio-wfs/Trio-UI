@@ -93,7 +93,7 @@ const NavItem: React.FC<{
 );
 
 // ── Main component ───────────────────────────────────────────────────────────
-export const NavigationHeader: React.FC<NavigationHeaderProps> = ({
+export const NavigationHeader = React.forwardRef<HTMLDivElement, NavigationHeaderProps>(({
   navItems = defaultNavigationHeaderProps.navItems!,
   activeItemId,
   user,
@@ -103,11 +103,11 @@ export const NavigationHeader: React.FC<NavigationHeaderProps> = ({
   onSearch,
   onUserMenuClick,
   onNavItemClick,
-}) => {
+}, ref) => {
   const [searchValue, setSearchValue] = useState('');
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+    <Box ref={ref} sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
       {/* ── Row 1: Brand Bar ── */}
       <Box
         sx={{
@@ -163,7 +163,7 @@ export const NavigationHeader: React.FC<NavigationHeaderProps> = ({
             py: '6px',
             flexShrink: 0,
             '& .MuiOutlinedInput-root': {
-              backgroundColor: tokens.colors.background.paper,
+              backgroundColor: `${tokens.colors.background.paper} !important`,
             },
           }}>
             <SearchBar
@@ -257,7 +257,7 @@ export const NavigationHeader: React.FC<NavigationHeaderProps> = ({
       </Box>
     </Box>
   );
-};
+});
 
 NavigationHeader.displayName = 'NavigationHeader';
 export default NavigationHeader;

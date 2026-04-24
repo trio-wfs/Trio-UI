@@ -37,7 +37,7 @@ const variantToMui = {
   outline: 'outlined',
 } as const;
 
-export const Alert: React.FC<AlertProps> = ({
+export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(({
   variant = defaultAlertProps.variant,
   severity = defaultAlertProps.severity,
   title,
@@ -48,13 +48,14 @@ export const Alert: React.FC<AlertProps> = ({
   onAction,
   children,
   className,
-}) => {
+}, ref) => {
   const hasAction = Boolean(actionLabel || close);
   const muiSeverity = severityToMui[severity!];
   const actionColor = muiSeverity === 'info' ? 'info' : muiSeverity;
 
   return (
     <MuiAlert
+      ref={ref}
       className={className}
       variant={variantToMui[variant!]}
       severity={muiSeverity}
@@ -95,7 +96,7 @@ export const Alert: React.FC<AlertProps> = ({
       )}
     </MuiAlert>
   );
-};
+});
 
 Alert.displayName = 'Alert';
 export default Alert;

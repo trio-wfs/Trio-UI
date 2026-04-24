@@ -17,7 +17,7 @@ import React from 'react';
 import { Menu as MuiMenu, MenuItem as MuiMenuItem, Divider, ListSubheader } from '@mui/material';
 import { MenuProps, defaultMenuProps, MenuItem } from './Menu.types';
 
-export const Menu: React.FC<MenuProps & { anchorEl?: HTMLElement | null; open?: boolean; onClose?: () => void }> = ({
+export const Menu = React.forwardRef<HTMLDivElement, MenuProps & { anchorEl?: HTMLElement | null; open?: boolean; onClose?: () => void }>(({
   state = defaultMenuProps.state,
   scroll = defaultMenuProps.scroll,
   items = defaultMenuProps.items,
@@ -28,7 +28,7 @@ export const Menu: React.FC<MenuProps & { anchorEl?: HTMLElement | null; open?: 
   open = false,
   onClose,
   ...ariaProps
-}) => {
+}, ref) => {
   const renderMenuItem = (item: MenuItem) => {
     const itemState = item.disabled ? 'disabled' : item.selected ? 'selected' : item.state || 'default';
 
@@ -54,6 +54,7 @@ export const Menu: React.FC<MenuProps & { anchorEl?: HTMLElement | null; open?: 
 
   return (
     <MuiMenu
+      ref={ref}
       anchorEl={anchorEl}
       open={open}
       onClose={onClose}
@@ -72,7 +73,7 @@ export const Menu: React.FC<MenuProps & { anchorEl?: HTMLElement | null; open?: 
       {items.map((item) => renderMenuItem(item))}
     </MuiMenu>
   );
-};
+});
 
 Menu.displayName = 'Menu';
 

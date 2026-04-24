@@ -15,7 +15,7 @@ import React from 'react';
 import { RadioGroup as MuiRadioGroup, Radio, FormControlLabel, FormControl, FormLabel } from '@mui/material';
 import { RadioGroupProps, defaultRadioGroupProps } from './RadioGroup.types';
 
-export const RadioGroup: React.FC<RadioGroupProps> = ({
+export const RadioGroup = React.forwardRef<HTMLFieldSetElement, RadioGroupProps>(({
   color = defaultRadioGroupProps.color,
   options = defaultRadioGroupProps.options,
   value,
@@ -24,17 +24,22 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
   disabled = defaultRadioGroupProps.disabled,
   error = defaultRadioGroupProps.error,
   className,
+  id,
+  required,
   name,
   ...ariaProps
-}) => {
+}, ref) => {
   const muiColor = color === 'error' ? 'error' : color === 'primary' ? 'primary' : 'default';
 
   return (
     <FormControl
+      ref={ref}
       component="fieldset"
       error={error}
       disabled={disabled}
+      required={required}
       className={className}
+      id={id}
     >
       {label && <FormLabel component="legend">{label}</FormLabel>}
       <MuiRadioGroup
@@ -60,7 +65,7 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
       </MuiRadioGroup>
     </FormControl>
   );
-};
+});
 
 RadioGroup.displayName = 'RadioGroup';
 

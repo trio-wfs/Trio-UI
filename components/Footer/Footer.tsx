@@ -12,12 +12,13 @@ import { Box, Typography, Link } from '@mui/material';
 import { FooterProps, defaultFooterProps } from './Footer.types';
 import { tokens } from '../../design-tokens/tokens';
 
-export const Footer: React.FC<FooterProps> = ({
+export const Footer = React.forwardRef<HTMLElement, FooterProps>(({
   copyrightText = defaultFooterProps.copyrightText,
   links = defaultFooterProps.links!,
-}) => {
+}, ref) => {
   return (
     <Box
+      ref={ref}
       component="footer"
       sx={{
         display: 'flex',
@@ -89,7 +90,7 @@ export const Footer: React.FC<FooterProps> = ({
       </Box>
     </Box>
   );
-};
+});
 
 Footer.displayName = 'Footer';
 export default Footer;

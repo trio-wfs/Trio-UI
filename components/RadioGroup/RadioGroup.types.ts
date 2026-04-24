@@ -71,6 +71,16 @@ export interface RadioGroupProps {
   className?: string;
 
   /**
+   * HTML id attribute
+   */
+  id?: string;
+
+  /**
+   * Whether the radio group is required
+   */
+  required?: boolean;
+
+  /**
    * Name attribute for radio group
    */
   name?: string;

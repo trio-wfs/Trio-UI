@@ -17,7 +17,7 @@ import { Box, Typography } from '@mui/material';
 import { PageHeaderToolbarProps, defaultPageHeaderToolbarProps } from './PageHeaderToolbar.types';
 import { tokens } from '../../design-tokens/tokens';
 
-export const PageHeaderToolbar: React.FC<PageHeaderToolbarProps> = ({
+export const PageHeaderToolbar = React.forwardRef<HTMLDivElement, PageHeaderToolbarProps>(({
   variant = defaultPageHeaderToolbarProps.variant,
   pageTitleText,
   titleIcons,
@@ -28,7 +28,7 @@ export const PageHeaderToolbar: React.FC<PageHeaderToolbarProps> = ({
   buttonGroupContent,
   inputTextFieldContent,
   breadcrumbContent,
-}) => {
+}, ref) => {
   const isFull = variant === 'full';
   const isNewCanvas = variant === 'NewCanvas';
   const isDefault = variant === 'default';
@@ -37,6 +37,7 @@ export const PageHeaderToolbar: React.FC<PageHeaderToolbarProps> = ({
 
   return (
     <Box
+      ref={ref}
       sx={{
         display: 'flex',
         flexDirection: 'column',
@@ -131,7 +132,7 @@ export const PageHeaderToolbar: React.FC<PageHeaderToolbarProps> = ({
       {showBreadcrumb && breadcrumbContent && <Box>{breadcrumbContent}</Box>}
     </Box>
   );
-};
+});
 
 PageHeaderToolbar.displayName = 'PageHeaderToolbar';
 export default PageHeaderToolbar;

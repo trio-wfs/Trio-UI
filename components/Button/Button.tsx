@@ -19,7 +19,7 @@ import { Button as MuiButton } from '@mui/material';
 import { ButtonProps, defaultButtonProps } from './Button.types';
 import { tokens } from '../../design-tokens/tokens';
 
-export const Button: React.FC<ButtonProps> = ({
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   size = defaultButtonProps.size,
   color = defaultButtonProps.color,
   variant = defaultButtonProps.variant,
@@ -33,7 +33,7 @@ export const Button: React.FC<ButtonProps> = ({
   type = defaultButtonProps.type,
   className,
   ...ariaProps
-}) => {
+}, ref) => {
   const isDisabled = disabled;
   const isLoading = loading;
 
@@ -108,6 +108,7 @@ export const Button: React.FC<ButtonProps> = ({
 
   return (
     <MuiButton
+      ref={ref}
       variant={variant}
       size={size}
       onClick={onClick}
@@ -128,7 +129,7 @@ export const Button: React.FC<ButtonProps> = ({
       {children || label}
     </MuiButton>
   );
-};
+});
 
 Button.displayName = 'Button';
 

@@ -42,7 +42,7 @@ const inputChipSx = {
   },
 };
 
-export const Autocomplete: React.FC<AutocompleteProps> = ({
+export const Autocomplete = React.forwardRef<HTMLDivElement, AutocompleteProps>(({
   type = defaultAutocompleteProps.type,
   state = defaultAutocompleteProps.state,
   options = defaultAutocompleteProps.options,
@@ -55,9 +55,11 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
   disabled = defaultAutocompleteProps.disabled,
   required = defaultAutocompleteProps.required,
   limitTags = 5,
+  id,
+  name,
   className,
   ...ariaProps
-}) => {
+}, ref) => {
   const isMulti = type === 'multi';
   const isError = state === 'error';
   const displayedHelperText = isError ? errorText : helperText;
@@ -71,6 +73,8 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
   if (isMulti) {
     return (
       <MuiAutocomplete<AutocompleteOption, true, false, false>
+        ref={ref}
+        id={id}
         multiple
         limitTags={limitTags}
         options={options || []}
@@ -115,6 +119,8 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
 
   return (
     <MuiAutocomplete
+      ref={ref}
+      id={id}
       options={options || []}
       value={(value as AutocompleteOption) || null}
       onChange={(_, newValue) => onChange?.(newValue)}
@@ -142,7 +148,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
       popupIcon={popupIcon}
     />
   );
-};
+});
 
 Autocomplete.displayName = 'Autocomplete';
 export default Autocomplete;

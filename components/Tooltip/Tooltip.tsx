@@ -14,21 +14,21 @@ import React from 'react';
 import { Tooltip as MuiTooltip } from '@mui/material';
 import { TooltipProps, defaultTooltipProps } from './Tooltip.types';
 
-export const Tooltip: React.FC<TooltipProps> = ({
+export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(({
   title,
   position = defaultTooltipProps.position!,
   children,
-}) => {
+}, ref) => {
   if (position === 'none') {
     return <>{children}</>;
   }
 
   return (
-    <MuiTooltip title={title} placement={position}>
+    <MuiTooltip ref={ref} title={title} placement={position}>
       {children}
     </MuiTooltip>
   );
-};
+});
 
 Tooltip.displayName = 'Tooltip';
 export default Tooltip;

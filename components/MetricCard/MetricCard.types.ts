@@ -17,6 +17,8 @@
  *   - icon: INSTANCE_SWAP → labelIcon (Material icon name)
  */
 
+import { tokens } from '../../design-tokens/tokens';
+
 /**
  * SemanticColor
  * Used for per-metric color overrides.
@@ -160,12 +162,14 @@ export const defaultMetricCardProps: Partial<MetricCardProps> = {
  * Label / metric-label:    #757575 (secondary/600)
  */
 export const METRIC_CARD_COLORS = {
-  info: ['#37636B', '#4B9AB0', '#5BBFDE', '#6FD3ED'] as const,
-  error: ['#DB4537', '#BB3430', '#A0241E'] as const,
-  warning: ['#EB8B0C', '#E17109', '#E65100'] as const,
-  success: ['#4CAF50', '#388E3C', '#1B5E20'] as const,
+  // Data viz info tone scale — extracted from charts.tokens.json
+  info: [tokens.colors.dataViz.teal, tokens.colors.info.dark, tokens.colors.info.main, '#6FD3ED'] as const,
+  // Semantic urgency scales: 500 → 700 → 900
+  error: [tokens.colors.error.main, tokens.colors.error.dark, '#A0241E'] as const,
+  warning: ['#EB8B0C', tokens.colors.warning.main, '#E65100'] as const,
+  success: ['#4CAF50', tokens.colors.success.main, tokens.colors.success.dark] as const,
   progressBg: '#EEEEEE',
-  border: '#E0E0E0',
-  cardBg: '#FFFFFF',
-  labelText: '#757575',
+  border: tokens.colors.components.border.default,
+  cardBg: tokens.colors.background.paper,
+  labelText: tokens.colors.text.secondary,
 } as const;

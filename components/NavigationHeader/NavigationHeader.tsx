@@ -19,6 +19,7 @@ import {
 import { SearchBar } from '../SearchBar/SearchBar';
 import { tokens } from '../../design-tokens/tokens';
 
+// TODO: Replace with a bundled asset — this Figma MCP URL is not suitable for production
 const imgTrioLogoWhite = 'https://www.figma.com/api/mcp/asset/ef5f2259-89c8-4dfe-9331-24e33a900116';
 
 // ── Nav item (bottom bar) ────────────────────────────────────────────────────
@@ -50,7 +51,7 @@ const NavItem: React.FC<{
       sx={{
         display: 'flex',
         alignItems: 'center',
-        gap: '3px',
+        gap: `${tokens.spacing.xs}px`,
         height: 50,
         overflow: 'hidden',
         px: `${tokens.spacing.md}px`,
@@ -141,8 +142,8 @@ export const NavigationHeader = React.forwardRef<HTMLDivElement, NavigationHeade
               sx={{
                 backgroundColor: tokens.colors.error.main,
                 borderRadius: `0 0 ${tokens.borderRadius.default}px ${tokens.borderRadius.default}px`,
-                px: '10px',
-                py: '2px',
+                px: `${tokens.spacing.sm}px`,
+                py: `${tokens.spacing.xs}px`,
                 flexShrink: 0,
               }}
             >
@@ -160,7 +161,7 @@ export const NavigationHeader = React.forwardRef<HTMLDivElement, NavigationHeade
 
           {/* Search bar — white fill so it reads on the dark brand bar */}
           <Box sx={{
-            py: '6px',
+            py: `${tokens.spacing.sm}px`,
             flexShrink: 0,
             '& .MuiOutlinedInput-root': {
               backgroundColor: `${tokens.colors.background.paper} !important`,
@@ -186,7 +187,7 @@ export const NavigationHeader = React.forwardRef<HTMLDivElement, NavigationHeade
             sx={{
               display: 'flex',
               alignItems: 'center',
-              gap: '6px',
+              gap: `${tokens.spacing.sm}px`,
               border: 'none',
               background: 'none',
               cursor: 'pointer',
@@ -197,12 +198,12 @@ export const NavigationHeader = React.forwardRef<HTMLDivElement, NavigationHeade
             <Avatar
               sx={{
                 width: 32,
-                height: 34,
+                height: 32,
                 fontSize: `${tokens.typography.fontSize.xs}px`,
                 fontFamily: tokens.typography.fontFamily,
                 fontWeight: tokens.typography.fontWeight.regular,
                 color: tokens.colors.text.inverse,
-                backgroundColor: user.avatarColor || '#AB47BC',
+                backgroundColor: user.avatarColor || tokens.colors.primary.main,
                 border: `2px solid ${tokens.colors.base.white}`,
                 borderRadius: `${tokens.borderRadius.default}px`,
               }}

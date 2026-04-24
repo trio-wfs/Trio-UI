@@ -54,7 +54,7 @@ export const ToggleButton = React.forwardRef<HTMLDivElement, ToggleButtonProps>(
               backgroundColor: tokens.colors.primary.light,
             },
             '&:active': {
-              backgroundColor: `rgba(33, 150, 243, 0.2)`,
+              backgroundColor: tokens.colors.primary.light,
             },
           }}
         >

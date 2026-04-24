@@ -44,6 +44,14 @@
  */
 
 import React from 'react';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import TrendingDownIcon from '@mui/icons-material/TrendingDown';
+import RemoveIcon from '@mui/icons-material/Remove';
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import ErrorIcon from '@mui/icons-material/Error';
+import ScheduleIcon from '@mui/icons-material/Schedule';
 import {
   MetricCardProps,
   MetricItem,
@@ -51,6 +59,7 @@ import {
   METRIC_CARD_COLORS,
   defaultMetricCardProps,
 } from './MetricCard.types';
+import { tokens } from '../../design-tokens/tokens';
 
 // ─── Color Resolution ────────────────────────────────────────────────────────
 
@@ -98,6 +107,33 @@ function resolveColors(metrics: MetricItem[]): string[] {
   });
 }
 
+// ─── Icon Mapping ───────────────────────────────────────────────────────────
+
+/** Maps Material icon string names to MUI icon components */
+const ICON_MAP: Record<string, React.ComponentType<{ style?: React.CSSProperties; 'aria-hidden'?: boolean; 'aria-label'?: string }>> = {
+  schedule: ScheduleIcon,
+  help_outline: HelpOutlineIcon,
+  trending_up: TrendingUpIcon,
+  trending_down: TrendingDownIcon,
+  remove: RemoveIcon,
+  warning_amber: WarningAmberIcon,
+  check_circle: CheckCircleIcon,
+  error: ErrorIcon,
+};
+
+function renderIcon(
+  name: string,
+  style: React.CSSProperties,
+  ariaProps?: { 'aria-hidden'?: boolean; 'aria-label'?: string },
+) {
+  const IconComponent = ICON_MAP[name];
+  if (IconComponent) {
+    return <IconComponent style={style} {...ariaProps} />;
+  }
+  // Fallback for unmapped icons — use MUI SvgIcon convention
+  return <ScheduleIcon style={style} {...ariaProps} />;
+}
+
 // ─── Sub-components ──────────────────────────────────────────────────────────
 
 interface LabelRowProps {
@@ -109,25 +145,11 @@ interface LabelRowProps {
 const LabelRow: React.FC<LabelRowProps> = ({ label, labelIcon, showHelpIcon }) => (
   <div style={styles.labelRow}>
     <div style={styles.labelLeft}>
-      {labelIcon && (
-        <span
-          className="material-icons"
-          style={styles.labelIcon}
-          aria-hidden="true"
-        >
-          {labelIcon}
-        </span>
-      )}
+      {labelIcon && renderIcon(labelIcon, styles.labelIcon, { 'aria-hidden': true })}
       <span style={styles.labelText}>{label}</span>
     </div>
     {showHelpIcon && (
-      <span
-        className="material-icons"
-        style={styles.labelIcon}
-        aria-label="More information"
-      >
-        help_outline
-      </span>
+      <HelpOutlineIcon style={styles.labelIcon} aria-label="More information" />
     )}
   </div>
 );
@@ -317,7 +339,7 @@ const BarFooter: React.FC<BarFooterProps> = ({ metrics, colors }) => {
                 backgroundColor: colors[i],
                 flexShrink: 0,
                 boxSizing: 'border-box',
-                borderRight: isLast ? 'none' : '2px solid #fff',
+                borderRight: isLast ? 'none' : `1px solid ${tokens.colors.background.paper}`,
               }}
               aria-label={`${metric.label}: ${metric.value}`}
             />
@@ -336,13 +358,7 @@ const IconsFooter: React.FC<IconsFooterProps> = ({ metrics }) => (
   <div style={styles.iconsFooter}>
     {metrics.map((metric, i) => (
       <div key={i} style={styles.iconSegment}>
-        <span
-          className="material-icons"
-          style={styles.footerIcon}
-          aria-label={metric.label}
-        >
-          {metric.icon ?? 'warning_amber'}
-        </span>
+        {renderIcon(metric.icon ?? 'warning_amber', styles.footerIcon, { 'aria-label': metric.label })}
       </div>
     ))}
   </div>
@@ -433,7 +449,7 @@ const styles = {
     flexDirection: 'column' as const,
     width: '100%',
     minWidth: 170,
-    height: 150,
+    minHeight: 150,
     backgroundColor: METRIC_CARD_COLORS.cardBg,
     border: `1px solid ${METRIC_CARD_COLORS.border}`,
     borderRadius: 4,
@@ -441,7 +457,7 @@ const styles = {
     gap: 8,
     boxSizing: 'border-box' as const,
     overflow: 'hidden',
-    fontFamily: "Roboto, sans-serif",
+    fontFamily: tokens.typography.fontFamily,
   },
 
   // Label row — 24px height, flex row

@@ -23,7 +23,7 @@ export const Stepper = React.forwardRef<HTMLDivElement, StepperProps>(({ steps, 
           display: 'flex',
           alignItems: 'center',
           width: '100%',
-          maxWidth: 1027,
+          /* maxWidth removed — stepper fills available container width */
           px: `${tokens.spacing.md}px`,
         }}
       >
@@ -39,21 +39,21 @@ export const Stepper = React.forwardRef<HTMLDivElement, StepperProps>(({ steps, 
                 {/* Step circle */}
                 <Box
                   sx={{
-                    width: 20,
+                    width: 20, // Step circle — no token equivalent; matches Figma spec
                     height: 20,
                     borderRadius: `${tokens.borderRadius.full}px`,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     flexShrink: 0,
-                    backgroundColor: isActive ? tokens.colors.dataViz.teal : 'transparent',
+                    backgroundColor: isActive ? tokens.colors.primary.main : 'transparent',
                   }}
                 >
                   {isCompleted && (
                     <CheckIcon
                       sx={{
                         fontSize: 16,
-                        color: tokens.colors.dataViz.teal,
+                        color: tokens.colors.primary.main,
                       }}
                     />
                   )}
@@ -97,8 +97,8 @@ export const Stepper = React.forwardRef<HTMLDivElement, StepperProps>(({ steps, 
                     height: 2,
                     borderRadius: `${tokens.borderRadius.full}px`,
                     backgroundColor: isCompleted
-                      ? tokens.colors.dataViz.teal
-                      : 'rgba(0,0,0,0.1)',
+                      ? tokens.colors.primary.main
+                      : tokens.colors.action.disabled,
                     mx: `${tokens.spacing.sm}px`,
                   }}
                 />

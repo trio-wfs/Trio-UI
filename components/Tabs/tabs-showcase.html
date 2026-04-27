@@ -106,99 +106,14 @@
       transform: rotate(-3deg);
     }
 
-    /* ── Tabs component ───────────────────────────────────────────── */
-    .tabs-bar {
-      display: flex;
-      align-items: flex-end;
-      border-bottom: 1px solid var(--color-secondary-outline);
-      background: var(--color-background-paper);
-      overflow-x: auto;
-      gap: 0;
-    }
-
-    .tab {
-      position: relative;
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-xs);
-      height: 40px;
-      padding: 0 var(--spacing-md);
-      font-family: var(--font-family);
-      font-size: 14px;
-      font-weight: 400;
-      color: var(--color-text-secondary);
-      cursor: pointer;
-      white-space: nowrap;
-      border: none;
-      background: transparent;
-      flex-shrink: 0;
-      transition: color 150ms;
-    }
-    .tab:hover {
-      color: var(--color-text-primary);
-      background: rgba(0,0,0,0.04);
-    }
-    .tab.active {
-      color: var(--color-primary-main);
-      font-weight: 500;
-    }
-    /* Top indicator on active tab */
-    .tab.active::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: var(--color-primary-main);
-      border-radius: 0 0 2px 2px;
-    }
-    .tab.disabled {
-      color: var(--color-text-disabled);
-      cursor: not-allowed;
-      pointer-events: none;
-    }
-    .tab .material-icons,
-    .tab .material-icons-outlined {
-      font-size: 18px;
-    }
-
-    /* Scroll variant — add arrow buttons */
-    .tabs-scrollable {
-      display: flex;
-      align-items: flex-end;
-      border-bottom: 1px solid var(--color-secondary-outline);
-      background: var(--color-background-paper);
-    }
-    .tabs-scroll-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 32px;
-      height: 40px;
-      border: none;
-      background: transparent;
-      color: var(--color-text-secondary);
-      cursor: pointer;
-      flex-shrink: 0;
-    }
-    .tabs-scroll-btn:hover { background: rgba(0,0,0,0.04); }
-    .tabs-scroll-inner {
-      display: flex;
-      align-items: flex-end;
-      overflow: hidden;
-      flex: 1;
-    }
-
-    /* Tab content placeholder */
-    .tab-content {
-      padding: var(--spacing-md) 0;
-      font-size: 14px;
-      color: var(--color-text-secondary);
+    /* React mount points fill their demo container */
+    [data-trio-component] {
+      display: inline-block;
     }
 
   </style>
   <script src="../../design-system-nav.js"></script>
+  <script type="module" src="../../showcase/dist/showcase.js"></script>
 </head>
 <body>
   <!-- LEFT NAVIGATION -->
@@ -271,13 +186,7 @@
           </div>
           <div class="card-illustration">
             <span class="card-illustration-label">Correct</span>
-            <div style="width: 100%;">
-              <div class="tabs-bar" style="border-radius: 4px 4px 0 0;">
-                <button class="tab active">Profile</button>
-                <button class="tab">Credentials</button>
-                <button class="tab">History</button>
-              </div>
-            </div>
+            <div data-trio-component="Tabs" data-trio-props='{"tabs":[{"label":"Profile"},{"label":"Credentials"},{"label":"History"}],"activeIndex":0,"variant":"Tab Group"}'></div>
           </div>
           <div class="card-content">
             <ul>
@@ -297,14 +206,7 @@
           </div>
           <div class="card-illustration card-illustration-wrong">
             <span class="card-illustration-label">Incorrect</span>
-            <div style="width: 100%;">
-              <div class="tabs-bar" style="border-radius: 4px 4px 0 0;">
-                <button class="tab active">Step 1</button>
-                <button class="tab">Step 2</button>
-                <button class="tab">Step 3</button>
-                <button class="tab">Step 4</button>
-              </div>
-            </div>
+            <div data-trio-component="Tabs" data-trio-props='{"tabs":[{"label":"Step 1"},{"label":"Step 2"},{"label":"Step 3"},{"label":"Step 4"}],"activeIndex":0,"variant":"Tab Group"}'></div>
           </div>
           <div class="card-content">
             <ul>
@@ -333,12 +235,7 @@
       <div class="variant-group">
         <div class="variant-label">Tab Group <span class="badge badge-default">Default</span></div>
         <div class="demo-panel" style="padding: 0;">
-          <div class="tabs-bar" id="v-group">
-            <button class="tab active" onclick="setActive('v-group', this)">Submissions</button>
-            <button class="tab" onclick="setActive('v-group', this)">Credentials</button>
-            <button class="tab" onclick="setActive('v-group', this)">Timecards</button>
-            <button class="tab" onclick="setActive('v-group', this)">Notes</button>
-          </div>
+          <div data-trio-component="Tabs" data-trio-props='{"tabs":[{"label":"Submissions"},{"label":"Credentials"},{"label":"Timecards"},{"label":"Notes"}],"activeIndex":0,"variant":"Tab Group"}'></div>
         </div>
       </div>
 
@@ -346,16 +243,7 @@
       <div class="variant-group">
         <div class="variant-label">Left Scroll</div>
         <div class="demo-panel" style="padding: 0;">
-          <div class="tabs-scrollable">
-            <button class="tabs-scroll-btn"><span class="material-icons-outlined" style="font-size:18px">chevron_left</span></button>
-            <div class="tabs-scroll-inner" id="v-left">
-              <button class="tab active" onclick="setActive('v-left', this)">Submissions</button>
-              <button class="tab" onclick="setActive('v-left', this)">Credentials</button>
-              <button class="tab" onclick="setActive('v-left', this)">Timecards</button>
-              <button class="tab" onclick="setActive('v-left', this)">Notes</button>
-              <button class="tab" onclick="setActive('v-left', this)">Shifts</button>
-            </div>
-          </div>
+          <div data-trio-component="Tabs" data-trio-props='{"tabs":[{"label":"Submissions"},{"label":"Credentials"},{"label":"Timecards"},{"label":"Notes"},{"label":"Shifts"}],"activeIndex":0,"variant":"Left Scroll"}'></div>
         </div>
       </div>
 
@@ -363,16 +251,7 @@
       <div class="variant-group">
         <div class="variant-label">Right Scroll</div>
         <div class="demo-panel" style="padding: 0;">
-          <div class="tabs-scrollable">
-            <div class="tabs-scroll-inner" id="v-right">
-              <button class="tab active" onclick="setActive('v-right', this)">Submissions</button>
-              <button class="tab" onclick="setActive('v-right', this)">Credentials</button>
-              <button class="tab" onclick="setActive('v-right', this)">Timecards</button>
-              <button class="tab" onclick="setActive('v-right', this)">Notes</button>
-              <button class="tab" onclick="setActive('v-right', this)">Shifts</button>
-            </div>
-            <button class="tabs-scroll-btn"><span class="material-icons-outlined" style="font-size:18px">chevron_right</span></button>
-          </div>
+          <div data-trio-component="Tabs" data-trio-props='{"tabs":[{"label":"Submissions"},{"label":"Credentials"},{"label":"Timecards"},{"label":"Notes"},{"label":"Shifts"}],"activeIndex":0,"variant":"Right Scroll"}'></div>
         </div>
       </div>
 
@@ -380,18 +259,7 @@
       <div class="variant-group">
         <div class="variant-label">Left and Right Scroll</div>
         <div class="demo-panel" style="padding: 0;">
-          <div class="tabs-scrollable">
-            <button class="tabs-scroll-btn"><span class="material-icons-outlined" style="font-size:18px">chevron_left</span></button>
-            <div class="tabs-scroll-inner" id="v-both">
-              <button class="tab active" onclick="setActive('v-both', this)">Submissions</button>
-              <button class="tab" onclick="setActive('v-both', this)">Credentials</button>
-              <button class="tab" onclick="setActive('v-both', this)">Timecards</button>
-              <button class="tab" onclick="setActive('v-both', this)">Notes</button>
-              <button class="tab" onclick="setActive('v-both', this)">Shifts</button>
-              <button class="tab" onclick="setActive('v-both', this)">Documents</button>
-            </div>
-            <button class="tabs-scroll-btn"><span class="material-icons-outlined" style="font-size:18px">chevron_right</span></button>
-          </div>
+          <div data-trio-component="Tabs" data-trio-props='{"tabs":[{"label":"Submissions"},{"label":"Credentials"},{"label":"Timecards"},{"label":"Notes"},{"label":"Shifts"},{"label":"Documents"}],"activeIndex":0,"variant":"Left and Right Scroll"}'></div>
         </div>
       </div>
 
@@ -399,20 +267,7 @@
       <div class="variant-group">
         <div class="variant-label">With Icons</div>
         <div class="demo-panel" style="padding: 0;">
-          <div class="tabs-bar" id="icon-tabs">
-            <button class="tab active" onclick="setActive('icon-tabs', this)">
-              <span class="material-icons-outlined">person</span>Profile
-            </button>
-            <button class="tab" onclick="setActive('icon-tabs', this)">
-              <span class="material-icons-outlined">assignment</span>Orders
-            </button>
-            <button class="tab" onclick="setActive('icon-tabs', this)">
-              Documents<span class="material-icons-outlined">attach_file</span>
-            </button>
-            <button class="tab" onclick="setActive('icon-tabs', this)">
-              <span class="material-icons-outlined">schedule</span>Schedule<span class="material-icons-outlined" style="font-size:14px;margin-left:2px;color:var(--color-warning-main)">circle</span>
-            </button>
-          </div>
+          <div data-trio-component="Tabs" data-trio-props='{"tabs":[{"label":"Profile","leftIcon":"Person"},{"label":"Orders","leftIcon":"Assignment"},{"label":"Documents","rightIcon":"AttachFile"},{"label":"Schedule","leftIcon":"Schedule"}],"activeIndex":0,"variant":"Tab Group"}'></div>
         </div>
       </div>
     </section>
@@ -428,11 +283,7 @@
       </p>
 
       <div class="demo-panel" style="padding: 0;">
-        <div class="tabs-bar">
-          <button class="tab active">Active</button>
-          <button class="tab">Inactive (Hover Me)</button>
-          <button class="tab disabled">Disabled</button>
-        </div>
+        <div data-trio-component="Tabs" data-trio-props='{"tabs":[{"label":"Active"},{"label":"Inactive (Hover Me)"},{"label":"Disabled","disabled":true}],"activeIndex":0,"variant":"Tab Group"}'></div>
       </div>
 
       <table class="property-table" style="margin-top: var(--spacing-md);">
@@ -482,14 +333,7 @@
           </div>
           <div class="card-illustration">
             <span class="card-illustration-label">Correct</span>
-            <div style="width: 100%;">
-              <div class="tabs-bar" style="border-radius: 4px 4px 0 0;">
-                <button class="tab active">Submissions</button>
-                <button class="tab">Credentials</button>
-                <button class="tab">Timecards</button>
-              </div>
-              <div style="padding: 8px 16px; font-size: 12px; color: var(--color-text-secondary);">Content panel for selected tab</div>
-            </div>
+            <div data-trio-component="Tabs" data-trio-props='{"tabs":[{"label":"Submissions"},{"label":"Credentials"},{"label":"Timecards"}],"activeIndex":0,"variant":"Tab Group"}'></div>
           </div>
           <div class="card-content">
             <ul>
@@ -508,13 +352,7 @@
           </div>
           <div class="card-illustration card-illustration-wrong">
             <span class="card-illustration-label">Incorrect</span>
-            <div style="width: 100%;">
-              <div class="tabs-bar" style="border-radius: 4px 4px 0 0;">
-                <button class="tab active">Step 1: Enter Info</button>
-                <button class="tab">Step 2: Review</button>
-                <button class="tab">Step 3: Confirm</button>
-              </div>
-            </div>
+            <div data-trio-component="Tabs" data-trio-props='{"tabs":[{"label":"Step 1: Enter Info"},{"label":"Step 2: Review"},{"label":"Step 3: Confirm"}],"activeIndex":0,"variant":"Tab Group"}'></div>
           </div>
           <div class="card-content">
             <ul>
@@ -613,13 +451,5 @@
     </section>
   </main>
 
-  <script>
-    function setActive(groupId, clickedTab) {
-      const container = document.getElementById(groupId);
-      if (!container) return;
-      container.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-      clickedTab.classList.add('active');
-    }
-  </script>
 </body>
 </html>

@@ -65,6 +65,11 @@
       border: 1px solid var(--color-secondary-outline);
     }
 
+    /* React mount points */
+    [data-trio-component] {
+      display: inline-block;
+    }
+
     /* ── Card illustrations for Do/Don't ── */
     .card-illustration {
       background: var(--color-background-secondary, #FAFAFA);
@@ -109,114 +114,9 @@
       transform: rotate(-3deg);
     }
 
-    /* RADIO STYLES */
-    .radio-group {
-      display: flex;
-      flex-direction: column;
-      gap: var(--spacing-sm);
-    }
-
-    .radio-label {
-      display: inline-flex;
-      align-items: center;
-      cursor: pointer;
-      font-family: var(--font-family);
-      font-size: 14px;
-      user-select: none;
-    }
-
-    .radio-label.disabled {
-      cursor: default;
-      color: var(--color-text-disabled);
-    }
-
-    .radio-input {
-      width: 38px;
-      height: 38px;
-      margin: 0;
-      padding: 8px;
-      cursor: pointer;
-      position: relative;
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      background: transparent;
-      border: none;
-      outline: none;
-    }
-
-    .radio-input:disabled {
-      cursor: default;
-    }
-
-    .radio-input::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 16px;
-      height: 16px;
-      border: 2px solid var(--color-text-secondary);
-      border-radius: 50%;
-      background: var(--color-background-paper);
-      transition: all 0.2s;
-    }
-
-    .radio-input:hover:not(:disabled)::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      background: rgba(0, 0, 0, 0.04);
-    }
-
-    .radio-input:checked::before {
-      border-color: var(--color-primary-main);
-      border-width: 2px;
-    }
-
-    /* Filled inner circle for checked state */
-    .radio-input:checked::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--color-primary-main);
-      z-index: 1;
-    }
-
-    .radio-input.error:checked::before {
-      border-color: var(--color-error-main);
-    }
-
-    .radio-input.error:checked::after {
-      background: var(--color-error-main);
-    }
-
-    .radio-input:disabled::before {
-      border-color: var(--color-text-disabled);
-      background: var(--color-disabled-bg);
-    }
-
-    .radio-input:disabled:checked::before {
-      border-color: var(--color-text-disabled);
-    }
-
-    .radio-input:disabled:checked::after {
-      background: var(--color-text-disabled);
-    }
-
   </style>
   <script src="../../design-system-nav.js"></script>
+  <script type="module" src="../../showcase/dist/showcase.js"></script>
 </head>
 <body>
   <!-- LEFT NAVIGATION -->
@@ -289,16 +189,7 @@
           </div>
           <div class="card-illustration">
             <span class="card-illustration-label">Correct</span>
-            <div class="radio-group">
-              <label class="radio-label">
-                <input type="radio" name="illus-do" class="radio-input" checked>
-                Standard (3-5 days)
-              </label>
-              <label class="radio-label">
-                <input type="radio" name="illus-do" class="radio-input">
-                Express (1-2 days)
-              </label>
-            </div>
+            <div data-trio-component="RadioGroup" data-trio-props='{"options":[{"value":"standard","label":"Standard (3-5 days)"},{"value":"express","label":"Express (1-2 days)"}],"value":"standard"}'></div>
           </div>
           <div class="card-content">
             <ul>
@@ -318,16 +209,7 @@
           </div>
           <div class="card-illustration card-illustration-wrong">
             <span class="card-illustration-label">Incorrect</span>
-            <div class="radio-group">
-              <label class="radio-label">
-                <input type="radio" name="illus-dont-a" class="radio-input" checked>
-                Email notifications
-              </label>
-              <label class="radio-label">
-                <input type="radio" name="illus-dont-b" class="radio-input" checked>
-                SMS notifications
-              </label>
-            </div>
+            <div data-trio-component="RadioGroup" data-trio-props='{"options":[{"value":"email","label":"Email notifications"},{"value":"sms","label":"SMS notifications"}],"value":"email"}'></div>
           </div>
           <div class="card-content">
             <ul>
@@ -355,36 +237,14 @@
       <div class="variant-group">
         <div class="variant-label">Primary Color (Default)</div>
         <div class="radio-row">
-          <div class="radio-group">
-            <label class="radio-label">
-              <input type="radio" name="variant-primary" class="radio-input">
-              Option A
-            </label>
-            <label class="radio-label">
-              <input type="radio" name="variant-primary" class="radio-input" checked>
-              Option B (selected)
-            </label>
-            <label class="radio-label">
-              <input type="radio" name="variant-primary" class="radio-input">
-              Option C
-            </label>
-          </div>
+          <div data-trio-component="RadioGroup" data-trio-props='{"options":[{"value":"a","label":"Option A"},{"value":"b","label":"Option B (selected)"},{"value":"c","label":"Option C"}],"value":"b","color":"primary"}'></div>
         </div>
       </div>
 
       <div class="variant-group">
         <div class="variant-label">Error Color - For destructive or validation contexts</div>
         <div class="radio-row">
-          <div class="radio-group">
-            <label class="radio-label">
-              <input type="radio" name="variant-error" class="radio-input error">
-              Delete immediately
-            </label>
-            <label class="radio-label">
-              <input type="radio" name="variant-error" class="radio-input error" checked>
-              Delete permanently (no undo)
-            </label>
-          </div>
+          <div data-trio-component="RadioGroup" data-trio-props='{"options":[{"value":"immediate","label":"Delete immediately"},{"value":"permanent","label":"Delete permanently (no undo)"}],"value":"permanent","color":"error"}'></div>
         </div>
       </div>
     </section>
@@ -402,48 +262,21 @@
       <div class="variant-group">
         <div class="variant-label">Default - Unchecked & Checked</div>
         <div class="radio-row">
-          <div class="radio-group">
-            <label class="radio-label">
-              <input type="radio" name="state-default" class="radio-input">
-              Unchecked
-            </label>
-            <label class="radio-label">
-              <input type="radio" name="state-default" class="radio-input" checked>
-              Checked
-            </label>
-          </div>
+          <div data-trio-component="RadioGroup" data-trio-props='{"options":[{"value":"unchecked","label":"Unchecked"},{"value":"checked","label":"Checked"}],"value":"checked"}'></div>
         </div>
       </div>
 
       <div class="variant-group">
         <div class="variant-label">Disabled States</div>
         <div class="radio-row">
-          <div class="radio-group">
-            <label class="radio-label disabled">
-              <input type="radio" name="state-disabled" class="radio-input" disabled>
-              Disabled Unchecked
-            </label>
-            <label class="radio-label disabled">
-              <input type="radio" name="state-disabled" class="radio-input" checked disabled>
-              Disabled Checked
-            </label>
-          </div>
+          <div data-trio-component="RadioGroup" data-trio-props='{"options":[{"value":"unchecked","label":"Disabled Unchecked"},{"value":"checked","label":"Disabled Checked"}],"value":"checked","disabled":true}'></div>
         </div>
       </div>
 
       <div class="variant-group">
         <div class="variant-label">Error - For validation failures</div>
         <div class="radio-row">
-          <div class="radio-group">
-            <label class="radio-label">
-              <input type="radio" name="state-error" class="radio-input error">
-              Delete immediately
-            </label>
-            <label class="radio-label">
-              <input type="radio" name="state-error" class="radio-input error" checked>
-              Delete permanently (no undo)
-            </label>
-          </div>
+          <div data-trio-component="RadioGroup" data-trio-props='{"options":[{"value":"immediate","label":"Delete immediately"},{"value":"permanent","label":"Delete permanently (no undo)"}],"value":"permanent","color":"error"}'></div>
         </div>
       </div>
     </section>
@@ -462,20 +295,7 @@
           </div>
           <div class="card-illustration">
             <span class="card-illustration-label">Correct</span>
-            <div class="radio-group">
-              <label class="radio-label">
-                <input type="radio" name="bp-do" class="radio-input" checked>
-                Standard Shipping (3-5 days)
-              </label>
-              <label class="radio-label">
-                <input type="radio" name="bp-do" class="radio-input">
-                Express Shipping (1-2 days)
-              </label>
-              <label class="radio-label">
-                <input type="radio" name="bp-do" class="radio-input">
-                Overnight Shipping
-              </label>
-            </div>
+            <div data-trio-component="RadioGroup" data-trio-props='{"options":[{"value":"standard","label":"Standard Shipping (3-5 days)"},{"value":"express","label":"Express Shipping (1-2 days)"},{"value":"overnight","label":"Overnight Shipping"}],"value":"standard"}'></div>
           </div>
           <div class="card-content">
             <ul>
@@ -494,16 +314,7 @@
           </div>
           <div class="card-illustration card-illustration-wrong">
             <span class="card-illustration-label">Incorrect</span>
-            <div class="radio-group">
-              <label class="radio-label">
-                <input type="radio" name="bp-dont-a" class="radio-input" checked>
-                Email notifications
-              </label>
-              <label class="radio-label">
-                <input type="radio" name="bp-dont-b" class="radio-input" checked>
-                SMS notifications
-              </label>
-            </div>
+            <div data-trio-component="RadioGroup" data-trio-props='{"options":[{"value":"email","label":"Email notifications"},{"value":"sms","label":"SMS notifications"}],"value":"email"}'></div>
           </div>
           <div class="card-content">
             <ul>

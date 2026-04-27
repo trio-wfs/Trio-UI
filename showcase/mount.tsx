@@ -40,6 +40,7 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import SendIcon from '@mui/icons-material/Send';
 import PrintIcon from '@mui/icons-material/Print';
 import ShareIcon from '@mui/icons-material/Share';
+import InfoIcon from '@mui/icons-material/Info';
 
 const iconRegistry: Record<string, React.ReactElement> = {
   Add: <AddIcon />,
@@ -62,6 +63,7 @@ const iconRegistry: Record<string, React.ReactElement> = {
   Send: <SendIcon />,
   Print: <PrintIcon />,
   Share: <ShareIcon />,
+  Info: <InfoIcon />,
 };
 
 // Resolve string icon names to React elements

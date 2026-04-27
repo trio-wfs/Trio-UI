@@ -438,78 +438,14 @@
       padding: 1px 5px; border-radius: 3px; font-weight: 600;
     }
 
-    /* TextField Styles - Extracted from Figma */
-    .text-input {
-      font-family: var(--font-family);
-      font-size: 14px;
-      font-weight: 400;
-      border: 1px solid;
-      border-radius: var(--border-radius);
-      padding: 4px 8px;
-      background: var(--color-background-paper);
-      color: var(--color-text-primary);
-      width: 100%;
-      box-sizing: border-box;
-      transition: all 0.2s;
-    }
-
-    .text-input-single {
-      height: 36px;
-    }
-
-    .text-input-multi {
-      height: 90px;
-      resize: vertical;
-    }
-
-    .text-input-default {
-      border-color: #9E9E9E;
-    }
-
-    .text-input-error {
-      border-color: var(--color-error-main);
-    }
-
-    .text-input-focus {
-      border-color: #64B5F6;
-      border-width: 2px;
-      padding: 3px 7px;
-    }
-
-    .text-input:disabled {
-      background-color: var(--color-disabled-bg);
-      border-color: var(--color-secondary-outline);
-      color: var(--color-text-disabled);
-      cursor: not-allowed;
-    }
-
-    .text-input::placeholder {
-      color: var(--color-text-disabled);
-    }
-
-    .input-container {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .input-label {
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--color-text-primary);
-    }
-
-    .helper-text {
-      font-size: 12px;
-      color: var(--color-text-secondary);
-    }
-
-    .helper-text-error {
-      color: var(--color-error-main);
+    /* React mount points display inline within demo rows */
+    [data-trio-component] {
+      display: inline-block;
     }
 
   </style>
   <script src="../../design-system-nav.js"></script>
+  <script type="module" src="../../showcase/dist/showcase.js"></script>
 </head>
 <body>
   <!-- LEFT NAVIGATION -->
@@ -639,22 +575,14 @@
       <div class="variant-group">
         <div class="variant-label">Single-Line (36px height)</div>
         <div class="input-row">
-          <div class="input-container">
-            <label class="input-label">Label</label>
-            <input type="text" class="text-input text-input-single text-input-default" placeholder="Placeholder" />
-            <span class="helper-text">Helper text</span>
-          </div>
+          <div data-trio-component="TextField" data-trio-props='{"type":"single-line","label":"Label","placeholder":"Placeholder","helperText":"Helper text"}'></div>
         </div>
       </div>
 
       <div class="variant-group">
         <div class="variant-label">Multi-Line (90px height)</div>
         <div class="input-row">
-          <div class="input-container">
-            <label class="input-label">Label</label>
-            <textarea class="text-input text-input-multi text-input-default" placeholder="Placeholder"></textarea>
-            <span class="helper-text">Helper text</span>
-          </div>
+          <div data-trio-component="TextField" data-trio-props='{"type":"multi-line","label":"Label","placeholder":"Placeholder","helperText":"Helper text"}'></div>
         </div>
       </div>
     </section>
@@ -672,42 +600,28 @@
       <div class="variant-group">
         <div class="variant-label">Default State (#9E9E9E border)</div>
         <div class="input-row">
-          <div class="input-container">
-            <label class="input-label">Label</label>
-            <input type="text" class="text-input text-input-single text-input-default" placeholder="Placeholder" value="Input text" />
-          </div>
+          <div data-trio-component="TextField" data-trio-props='{"state":"default","label":"Label","placeholder":"Placeholder","value":"Input text"}'></div>
         </div>
       </div>
 
       <div class="variant-group">
         <div class="variant-label">Focus State (#64B5F6 border, 2px)</div>
         <div class="input-row">
-          <div class="input-container">
-            <label class="input-label">Label</label>
-            <input type="text" class="text-input text-input-single text-input-focus" placeholder="Placeholder" value="Input text" />
-          </div>
+          <div data-trio-component="TextField" data-trio-props='{"state":"focus","label":"Label","placeholder":"Placeholder","value":"Input text"}'></div>
         </div>
       </div>
 
       <div class="variant-group">
         <div class="variant-label">Error State (#DB4537 border)</div>
         <div class="input-row">
-          <div class="input-container">
-            <label class="input-label">Label</label>
-            <input type="text" class="text-input text-input-single text-input-error" placeholder="Placeholder" value="Invalid input" />
-            <span class="helper-text helper-text-error">Error message</span>
-          </div>
+          <div data-trio-component="TextField" data-trio-props='{"state":"error","label":"Label","placeholder":"Placeholder","value":"Invalid input","helperText":"Error message"}'></div>
         </div>
       </div>
 
       <div class="variant-group">
         <div class="variant-label">Disabled State</div>
         <div class="input-row">
-          <div class="input-container">
-            <label class="input-label">Label</label>
-            <input type="text" class="text-input text-input-single text-input-default" placeholder="Placeholder" value="Disabled" disabled />
-            <span class="helper-text">Helper text</span>
-          </div>
+          <div data-trio-component="TextField" data-trio-props='{"disabled":true,"label":"Label","placeholder":"Placeholder","value":"Disabled","helperText":"Helper text"}'></div>
         </div>
       </div>
     </section>

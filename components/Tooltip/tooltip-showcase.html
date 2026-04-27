@@ -224,6 +224,12 @@
       border: 1px solid var(--color-secondary-outline);
     }
 
+    /* React mount points display inline within demo rows */
+    [data-trio-component] {
+      display: inline-block;
+      white-space: nowrap;
+    }
+
     /* ── Demo helpers ── */
     .demo-center {
       display: flex;
@@ -259,6 +265,7 @@
 
   </style>
   <script src="../../design-system-nav.js"></script>
+  <script type="module" src="../../showcase/dist/showcase.js"></script>
 </head>
 <body>
   <!-- LEFT NAVIGATION -->
@@ -334,11 +341,11 @@
             <div style="display: flex; gap: 8px; align-items: center;">
               <div class="tooltip-wrap" style="margin-top: 40px;">
                 <div class="tooltip-bubble top">Edit worker</div>
-                <button class="trigger-btn icon-only"><span class="material-icons" style="font-size:18px">edit</span></button>
+                <div data-trio-component="ButtonIcon" data-trio-props='{"size":"small","color":"secondary","icon":"Edit"}'></div>
               </div>
               <div class="tooltip-wrap" style="margin-top: 40px;">
                 <div class="tooltip-bubble top">View credentials</div>
-                <button class="trigger-btn icon-only"><span class="material-icons" style="font-size:18px">verified_user</span></button>
+                <div data-trio-component="ButtonIcon" data-trio-props='{"size":"small","color":"secondary","icon":"Visibility"}'></div>
               </div>
             </div>
           </div>
@@ -362,7 +369,7 @@
             <div style="display: flex; gap: 8px; align-items: center;">
               <div class="tooltip-wrap" style="margin-top: 40px;">
                 <div class="tooltip-bubble top">Click here to submit your timecard for the current pay period. Make sure all hours are correct before submitting.</div>
-                <button class="trigger-btn">Submit</button>
+                <div data-trio-component="Button" data-trio-props='{"size":"small","color":"primary","variant":"contained","label":"Submit"}'></div>
               </div>
             </div>
           </div>
@@ -393,21 +400,21 @@
         <div class="demo-center">
           <div class="tooltip-wrap" style="margin-top: 40px;">
             <div class="tooltip-bubble top">Approve submission</div>
-            <button class="trigger-btn"><span class="material-icons" style="font-size:16px">check_circle</span>Approve</button>
+            <div data-trio-component="Button" data-trio-props='{"size":"small","color":"success","variant":"contained","label":"Approve","startIcon":"Check"}'></div>
           </div>
           <div class="demo-label">Top (default)</div>
         </div>
         <div class="demo-center">
           <div class="tooltip-wrap">
             <div class="tooltip-bubble right">Required credential</div>
-            <button class="trigger-btn icon-only"><span class="material-icons" style="font-size:18px">info_outline</span></button>
+            <div data-trio-component="ButtonIcon" data-trio-props='{"size":"small","color":"secondary","icon":"Info"}'></div>
           </div>
           <div class="demo-label">Right</div>
         </div>
         <div class="demo-center">
           <div class="tooltip-wrap" style="margin-bottom: 40px;">
             <div class="tooltip-bubble bottom">Remove from shift</div>
-            <button class="trigger-btn secondary"><span class="material-icons" style="font-size:16px">delete_outline</span>Remove</button>
+            <div data-trio-component="Button" data-trio-props='{"size":"small","color":"error","variant":"outlined","label":"Remove","startIcon":"Delete"}'></div>
           </div>
           <div class="demo-label">Bottom</div>
         </div>
@@ -419,7 +426,7 @@
         <div class="position-cell" style="flex-direction:column; gap: 8px;">
           <div class="tooltip-wrap" style="margin-top: 40px;">
             <div class="tooltip-bubble top">Top tooltip</div>
-            <button class="trigger-btn">Button</button>
+            <div data-trio-component="Button" data-trio-props='{"size":"small","color":"secondary","variant":"contained","label":"Button"}'></div>
           </div>
           <div class="demo-label">top</div>
         </div>
@@ -429,18 +436,18 @@
         <div class="position-cell" style="flex-direction:column; gap:8px;">
           <div class="tooltip-wrap">
             <div class="tooltip-bubble left">Left</div>
-            <button class="trigger-btn">Button</button>
+            <div data-trio-component="Button" data-trio-props='{"size":"small","color":"secondary","variant":"contained","label":"Button"}'></div>
           </div>
           <div class="demo-label">left</div>
         </div>
         <div class="position-cell" style="flex-direction:column; gap:8px;">
-          <button class="trigger-btn secondary">Button</button>
+          <div data-trio-component="Button" data-trio-props='{"size":"small","color":"secondary","variant":"contained","label":"Button"}'></div>
           <div class="demo-label" style="color: var(--color-text-disabled);">none (no tooltip)</div>
         </div>
         <div class="position-cell" style="flex-direction:column; gap:8px;">
           <div class="tooltip-wrap">
             <div class="tooltip-bubble right">Right</div>
-            <button class="trigger-btn">Button</button>
+            <div data-trio-component="Button" data-trio-props='{"size":"small","color":"secondary","variant":"contained","label":"Button"}'></div>
           </div>
           <div class="demo-label">right</div>
         </div>
@@ -450,7 +457,7 @@
         <div class="position-cell" style="flex-direction:column; gap:8px;">
           <div class="tooltip-wrap" style="margin-bottom: 40px;">
             <div class="tooltip-bubble bottom">Bottom tooltip</div>
-            <button class="trigger-btn">Button</button>
+            <div data-trio-component="Button" data-trio-props='{"size":"small","color":"secondary","variant":"contained","label":"Button"}'></div>
           </div>
           <div class="demo-label">bottom</div>
         </div>
@@ -475,19 +482,19 @@
           <div style="display:flex; gap: var(--spacing-sm);">
             <div class="tooltip-wrap" style="margin-top:36px;">
               <div class="tooltip-bubble top">Edit worker</div>
-              <button class="trigger-btn icon-only"><span class="material-icons" style="font-size:18px">edit</span></button>
+              <div data-trio-component="ButtonIcon" data-trio-props='{"size":"small","color":"secondary","icon":"Edit"}'></div>
             </div>
             <div class="tooltip-wrap" style="margin-top:36px;">
               <div class="tooltip-bubble top">View credentials</div>
-              <button class="trigger-btn icon-only"><span class="material-icons" style="font-size:18px">verified_user</span></button>
+              <div data-trio-component="ButtonIcon" data-trio-props='{"size":"small","color":"secondary","icon":"Visibility"}'></div>
             </div>
             <div class="tooltip-wrap" style="margin-top:36px;">
               <div class="tooltip-bubble top">Send message</div>
-              <button class="trigger-btn icon-only"><span class="material-icons" style="font-size:18px">mail_outline</span></button>
+              <div data-trio-component="ButtonIcon" data-trio-props='{"size":"small","color":"secondary","icon":"Send"}'></div>
             </div>
             <div class="tooltip-wrap" style="margin-top:36px;">
               <div class="tooltip-bubble top">Remove from shift</div>
-              <button class="trigger-btn icon-only" style="color: var(--color-error-main);"><span class="material-icons" style="font-size:18px">delete_outline</span></button>
+              <div data-trio-component="ButtonIcon" data-trio-props='{"size":"small","color":"error","icon":"Delete"}'></div>
             </div>
           </div>
         </div>
@@ -499,7 +506,7 @@
             <span style="font-size:14px; color:var(--color-text-primary);">Bill Rate</span>
             <div class="tooltip-wrap">
               <div class="tooltip-bubble right">Hourly rate charged to facility. Must include agency margin.</div>
-              <span class="material-icons" style="font-size:16px; color:var(--color-text-secondary); cursor:pointer;">help_outline</span>
+              <div data-trio-component="ButtonIcon" data-trio-props='{"size":"small","color":"secondary","icon":"Info"}'></div>
             </div>
           </div>
         </div>
@@ -523,7 +530,7 @@
             <div style="display: flex; gap: 8px; align-items: center;">
               <div class="tooltip-wrap" style="margin-top: 40px;">
                 <div class="tooltip-bubble top">Edit worker</div>
-                <button class="trigger-btn icon-only"><span class="material-icons" style="font-size:18px">edit</span></button>
+                <div data-trio-component="ButtonIcon" data-trio-props='{"size":"small","color":"secondary","icon":"Edit"}'></div>
               </div>
             </div>
           </div>
@@ -547,7 +554,7 @@
             <div style="display: flex; gap: 8px; align-items: center;">
               <div class="tooltip-wrap" style="margin-top: 40px;">
                 <div class="tooltip-bubble top">Click this button to perform an action that will do something important</div>
-                <button class="trigger-btn secondary">Action</button>
+                <div data-trio-component="Button" data-trio-props='{"size":"small","color":"secondary","variant":"contained","label":"Action"}'></div>
               </div>
             </div>
           </div>

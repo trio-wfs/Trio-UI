@@ -97,7 +97,7 @@
       transform: rotate(-3deg);
     }
 
-    /* ── Demo containers: paper + border ── */
+    /* ── Demo rows ── */
     .demo-row {
       display: flex;
       align-items: center;
@@ -116,130 +116,7 @@
       min-width: 80px;
     }
 
-    /* Split button base */
-    .split-btn {
-      display: inline-flex;
-      align-items: center;
-      border-radius: var(--border-radius);
-      overflow: hidden;
-      height: 32px;
-    }
-
-    .split-btn-label {
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-xs);
-      padding: 0 var(--spacing-md);
-      height: 100%;
-      font-family: var(--font-family);
-      font-size: 12px;
-      font-weight: 400;
-      border: none;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: background-color 200ms;
-    }
-
-    .split-btn-divider {
-      width: 1px;
-      align-self: stretch;
-      flex-shrink: 0;
-    }
-
-    .split-btn-arrow {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 32px;
-      height: 100%;
-      border: none;
-      cursor: pointer;
-      transition: background-color 200ms;
-    }
-
-    .split-btn-arrow .material-icons {
-      font-size: 18px;
-      transition: transform 200ms;
-    }
-
-    .split-btn-arrow.open .material-icons {
-      transform: rotate(180deg);
-    }
-
-    /* Primary */
-    .split-btn-primary {
-      border: 1px solid transparent;
-    }
-    .split-btn-primary .split-btn-label {
-      background: var(--color-primary-main);
-      color: #fff;
-    }
-    .split-btn-primary .split-btn-label:hover { background: var(--color-primary-dark); }
-    .split-btn-primary .split-btn-divider { background: rgba(255,255,255,0.3); }
-    .split-btn-primary .split-btn-arrow {
-      background: var(--color-primary-main);
-      color: #fff;
-    }
-    .split-btn-primary .split-btn-arrow:hover { background: var(--color-primary-dark); }
-
-    /* Secondary */
-    .split-btn-secondary {
-      border: 1px solid var(--color-secondary-outline);
-    }
-    .split-btn-secondary .split-btn-label {
-      background: var(--color-secondary-main);
-      color: var(--color-secondary-dark);
-    }
-    .split-btn-secondary .split-btn-label:hover { background: rgba(0,0,0,0.04); }
-    .split-btn-secondary .split-btn-divider { background: var(--color-secondary-outline); }
-    .split-btn-secondary .split-btn-arrow {
-      background: var(--color-secondary-main);
-      color: var(--color-secondary-dark);
-    }
-    .split-btn-secondary .split-btn-arrow:hover { background: rgba(0,0,0,0.04); }
-
-    /* Disabled */
-    .split-btn-disabled {
-      opacity: 0.5;
-      pointer-events: none;
-    }
-
-    /* Open state */
-    .split-btn-primary .split-btn-arrow.open { background: var(--color-primary-dark); }
-    .split-btn-secondary .split-btn-arrow.open { background: rgba(0,0,0,0.08); }
-
-    /* Dropdown menu */
-    .split-btn-menu {
-      display: none;
-      position: absolute;
-      top: calc(100% + 4px);
-      right: 0;
-      min-width: 180px;
-      background: var(--color-background-paper);
-      border: 1px solid var(--color-secondary-outline);
-      border-radius: var(--border-radius);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-      z-index: 10;
-      overflow: hidden;
-    }
-    .split-btn-menu.visible { display: block; }
-    .split-btn-menu-item {
-      padding: 10px 16px;
-      font-size: 14px;
-      font-family: var(--font-family);
-      color: var(--color-text-primary);
-      cursor: pointer;
-      transition: background 150ms;
-    }
-    .split-btn-menu-item:hover { background: var(--color-background-default); }
-    .split-btn-menu-item.divider { border-bottom: 1px solid var(--color-secondary-outline); }
-
-    .split-btn-wrap {
-      position: relative;
-      display: inline-flex;
-    }
-
-    /* Anatomy */
+    /* ── Anatomy diagram ── */
     .anatomy-wrap {
       display: flex;
       flex-direction: column;
@@ -277,8 +154,15 @@
       font-weight: 600;
       flex-shrink: 0;
     }
+
+    /* React mount points display inline within demo rows */
+    [data-trio-component] {
+      display: inline-block;
+    }
+
   </style>
   <script src="../../design-system-nav.js"></script>
+  <script type="module" src="../../showcase/dist/showcase.js"></script>
 </head>
 <body>
   <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
@@ -335,13 +219,7 @@
       <!-- Anatomy diagram -->
       <div class="anatomy-wrap" style="margin-top: var(--spacing-md);">
         <div style="display:flex;align-items:center;gap:var(--spacing-lg);">
-          <div class="split-btn split-btn-primary">
-            <button class="split-btn-label">Save Order</button>
-            <div class="split-btn-divider"></div>
-            <button class="split-btn-arrow">
-              <span class="material-icons">arrow_drop_down</span>
-            </button>
-          </div>
+          <div data-trio-component="SplitButton" data-trio-props='{"label":"Save Order","color":"primary"}'></div>
           <div style="display:flex;flex-direction:column;gap:6px;">
             <div class="anatomy-callout"><span class="anatomy-number">1</span> Label button — executes the primary action on click</div>
             <div class="anatomy-callout"><span class="anatomy-number">2</span> Divider — visually separates the two segments</div>
@@ -365,11 +243,7 @@
           </div>
           <div class="card-illustration">
             <span class="card-illustration-label">Correct</span>
-            <div class="split-btn split-btn-primary">
-              <button class="split-btn-label">Save</button>
-              <div class="split-btn-divider"></div>
-              <button class="split-btn-arrow"><span class="material-icons">arrow_drop_down</span></button>
-            </div>
+            <div data-trio-component="SplitButton" data-trio-props='{"label":"Save","color":"primary"}'></div>
           </div>
           <div class="card-content">
             <ul>
@@ -387,16 +261,8 @@
           <div class="card-illustration card-illustration-wrong">
             <span class="card-illustration-label">Incorrect</span>
             <div style="display: flex; gap: 8px;">
-              <div class="split-btn split-btn-primary">
-                <button class="split-btn-label">A</button>
-                <div class="split-btn-divider"></div>
-                <button class="split-btn-arrow"><span class="material-icons">arrow_drop_down</span></button>
-              </div>
-              <div class="split-btn split-btn-primary">
-                <button class="split-btn-label">B</button>
-                <div class="split-btn-divider"></div>
-                <button class="split-btn-arrow"><span class="material-icons">arrow_drop_down</span></button>
-              </div>
+              <div data-trio-component="SplitButton" data-trio-props='{"label":"A","color":"primary"}'></div>
+              <div data-trio-component="SplitButton" data-trio-props='{"label":"B","color":"primary"}'></div>
             </div>
           </div>
           <div class="card-content">
@@ -418,20 +284,12 @@
       </h2>
       <div class="demo-row">
         <span class="demo-label">Primary</span>
-        <div class="split-btn split-btn-primary">
-          <button class="split-btn-label">Save</button>
-          <div class="split-btn-divider"></div>
-          <button class="split-btn-arrow"><span class="material-icons">arrow_drop_down</span></button>
-        </div>
+        <div data-trio-component="SplitButton" data-trio-props='{"label":"Save","color":"primary"}'></div>
         <span style="font-size:12px;color:var(--color-text-secondary);">Blue fill · white text · white divider — use for save/update actions</span>
       </div>
       <div class="demo-row">
         <span class="demo-label">Secondary</span>
-        <div class="split-btn split-btn-secondary">
-          <button class="split-btn-label">Export</button>
-          <div class="split-btn-divider"></div>
-          <button class="split-btn-arrow"><span class="material-icons">arrow_drop_down</span></button>
-        </div>
+        <div data-trio-component="SplitButton" data-trio-props='{"label":"Export","color":"secondary"}'></div>
         <span style="font-size:12px;color:var(--color-text-secondary);">Gray fill · gray border · dark text — use for edit/utility actions</span>
       </div>
     </section>
@@ -444,78 +302,27 @@
       </h2>
       <div class="demo-row">
         <span class="demo-label">Default</span>
-        <div class="split-btn split-btn-primary">
-          <button class="split-btn-label">Submit</button>
-          <div class="split-btn-divider"></div>
-          <button class="split-btn-arrow"><span class="material-icons">arrow_drop_down</span></button>
-        </div>
-        <div class="split-btn split-btn-secondary">
-          <button class="split-btn-label">Actions</button>
-          <div class="split-btn-divider"></div>
-          <button class="split-btn-arrow"><span class="material-icons">arrow_drop_down</span></button>
-        </div>
+        <div data-trio-component="SplitButton" data-trio-props='{"label":"Submit","color":"primary"}'></div>
+        <div data-trio-component="SplitButton" data-trio-props='{"label":"Actions","color":"secondary"}'></div>
       </div>
       <div class="demo-row">
         <span class="demo-label">Open</span>
-        <div class="split-btn split-btn-primary">
-          <button class="split-btn-label">Submit</button>
-          <div class="split-btn-divider"></div>
-          <button class="split-btn-arrow open"><span class="material-icons">arrow_drop_down</span></button>
-        </div>
-        <div class="split-btn split-btn-secondary">
-          <button class="split-btn-label">Actions</button>
-          <div class="split-btn-divider"></div>
-          <button class="split-btn-arrow open"><span class="material-icons">arrow_drop_down</span></button>
-        </div>
+        <div data-trio-component="SplitButton" data-trio-props='{"label":"Submit","color":"primary","open":true}'></div>
+        <div data-trio-component="SplitButton" data-trio-props='{"label":"Actions","color":"secondary","open":true}'></div>
         <span style="font-size:12px;color:var(--color-text-secondary);">Arrow rotates 180° when menu is open</span>
       </div>
       <div class="demo-row">
         <span class="demo-label">Disabled</span>
-        <div class="split-btn split-btn-primary split-btn-disabled">
-          <button class="split-btn-label">Submit</button>
-          <div class="split-btn-divider"></div>
-          <button class="split-btn-arrow"><span class="material-icons">arrow_drop_down</span></button>
-        </div>
-        <div class="split-btn split-btn-secondary split-btn-disabled">
-          <button class="split-btn-label">Actions</button>
-          <div class="split-btn-divider"></div>
-          <button class="split-btn-arrow"><span class="material-icons">arrow_drop_down</span></button>
-        </div>
+        <div data-trio-component="SplitButton" data-trio-props='{"label":"Submit","color":"primary","disabled":true}'></div>
+        <div data-trio-component="SplitButton" data-trio-props='{"label":"Actions","color":"secondary","disabled":true}'></div>
       </div>
 
       <!-- Interactive Demo -->
       <div class="variant-group" style="margin-top: var(--spacing-lg);">
         <div class="variant-label">Interactive Demo — click the arrow to open the dropdown</div>
         <div class="demo-row" style="gap:var(--spacing-xl);">
-          <div class="split-btn-wrap">
-            <div class="split-btn split-btn-primary" id="demo-primary">
-              <button class="split-btn-label" onclick="alert('Primary action: Save')">Save Order</button>
-              <div class="split-btn-divider"></div>
-              <button class="split-btn-arrow" id="demo-primary-arrow" onclick="toggleMenu('demo-primary-menu','demo-primary-arrow')">
-                <span class="material-icons">arrow_drop_down</span>
-              </button>
-            </div>
-            <div class="split-btn-menu" id="demo-primary-menu">
-              <div class="split-btn-menu-item divider" onclick="closeMenu('demo-primary-menu','demo-primary-arrow')">Save and Close</div>
-              <div class="split-btn-menu-item divider" onclick="closeMenu('demo-primary-menu','demo-primary-arrow')">Save as Draft</div>
-              <div class="split-btn-menu-item" onclick="closeMenu('demo-primary-menu','demo-primary-arrow')">Save as Template</div>
-            </div>
-          </div>
-
-          <div class="split-btn-wrap">
-            <div class="split-btn split-btn-secondary" id="demo-secondary">
-              <button class="split-btn-label" onclick="alert('Secondary action: Export')">Export</button>
-              <div class="split-btn-divider"></div>
-              <button class="split-btn-arrow" id="demo-secondary-arrow" onclick="toggleMenu('demo-secondary-menu','demo-secondary-arrow')">
-                <span class="material-icons">arrow_drop_down</span>
-              </button>
-            </div>
-            <div class="split-btn-menu" id="demo-secondary-menu">
-              <div class="split-btn-menu-item divider" onclick="closeMenu('demo-secondary-menu','demo-secondary-arrow')">Export as CSV</div>
-              <div class="split-btn-menu-item divider" onclick="closeMenu('demo-secondary-menu','demo-secondary-arrow')">Export as PDF</div>
-              <div class="split-btn-menu-item" onclick="closeMenu('demo-secondary-menu','demo-secondary-arrow')">Export as Excel</div>
-            </div>
-          </div>
+          <div data-trio-component="SplitButton" data-trio-props='{"label":"Save Order","color":"primary","menuItems":[{"label":"Save and Close"},{"label":"Save as Draft"},{"label":"Save as Template"}]}'></div>
+          <div data-trio-component="SplitButton" data-trio-props='{"label":"Export","color":"secondary","menuItems":[{"label":"Export as CSV"},{"label":"Export as PDF"},{"label":"Export as Excel"}]}'></div>
         </div>
       </div>
     </section>
@@ -534,11 +341,7 @@
           </div>
           <div class="card-illustration">
             <span class="card-illustration-label">Correct</span>
-            <div class="split-btn split-btn-primary">
-              <button class="split-btn-label">Save</button>
-              <div class="split-btn-divider"></div>
-              <button class="split-btn-arrow"><span class="material-icons">arrow_drop_down</span></button>
-            </div>
+            <div data-trio-component="SplitButton" data-trio-props='{"label":"Save","color":"primary"}'></div>
           </div>
           <div class="card-content">
             <ul>
@@ -556,11 +359,7 @@
           </div>
           <div class="card-illustration card-illustration-wrong">
             <span class="card-illustration-label">Incorrect</span>
-            <div class="split-btn split-btn-secondary split-btn-disabled">
-              <button class="split-btn-label">Click Here</button>
-              <div class="split-btn-divider"></div>
-              <button class="split-btn-arrow"><span class="material-icons">arrow_drop_down</span></button>
-            </div>
+            <div data-trio-component="SplitButton" data-trio-props='{"label":"Click Here","color":"secondary","disabled":true}'></div>
           </div>
           <div class="card-content">
             <ul>
@@ -603,30 +402,5 @@
     </section>
   </main>
 
-  <script>
-    function toggleMenu(menuId, arrowId) {
-      const menu = document.getElementById(menuId);
-      const arrow = document.getElementById(arrowId);
-      const isVisible = menu.classList.contains('visible');
-      document.querySelectorAll('.split-btn-menu').forEach(m => m.classList.remove('visible'));
-      document.querySelectorAll('.split-btn-arrow').forEach(a => a.classList.remove('open'));
-      if (!isVisible) {
-        menu.classList.add('visible');
-        arrow.classList.add('open');
-      }
-    }
-
-    function closeMenu(menuId, arrowId) {
-      document.getElementById(menuId).classList.remove('visible');
-      document.getElementById(arrowId).classList.remove('open');
-    }
-
-    document.addEventListener('click', e => {
-      if (!e.target.closest('.split-btn-wrap')) {
-        document.querySelectorAll('.split-btn-menu').forEach(m => m.classList.remove('visible'));
-        document.querySelectorAll('.split-btn-arrow').forEach(a => a.classList.remove('open'));
-      }
-    });
-  </script>
 </body>
 </html>

@@ -108,112 +108,9 @@
       margin-bottom: var(--spacing-md);
     }
 
-    /* Stepper component */
-    .stepper-bar {
-      display: flex;
-      align-items: center;
-      width: 100%;
-      max-width: 900px;
-      padding: 16px;
-      border-bottom: 1px solid var(--color-border-default);
-      background: var(--color-background-paper);
-      border-radius: var(--border-radius);
-    }
-
-    .step {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-shrink: 0;
-    }
-
-    .step-circle {
-      width: 24px;
-      height: 24px;
-      border-radius: 999px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      background: transparent;
-    }
-
-    .step-circle.active {
-      background-color: #37636b;
-    }
-
-    .step-circle .material-icons {
-      font-size: 16px;
-      color: #37636b;
-    }
-
-    .step-number {
-      font-family: 'Roboto', sans-serif;
-      font-size: 12px;
-      font-weight: 400;
-      line-height: 12px;
-    }
-
-    .step-number.active {
-      color: #ffffff;
-    }
-
-    .step-number.upcoming {
-      color: rgba(0, 0, 0, 0.4);
-    }
-
-    .step-label {
-      font-family: 'Roboto', sans-serif;
-      font-size: 14px;
-      font-weight: 400;
-      line-height: 20px;
-      white-space: nowrap;
-    }
-
-    .step-label.active,
-    .step-label.completed {
-      color: var(--color-text-primary);
-    }
-
-    .step-label.upcoming {
-      color: rgba(0, 0, 0, 0.4);
-    }
-
-    .connector {
-      flex: 1 0 0;
-      height: 2px;
-      border-radius: 999px;
-      margin: 0 8px;
-    }
-
-    .connector.completed {
-      background-color: #37636b;
-    }
-
-    .connector.upcoming {
-      background-color: var(--color-border-default);
-    }
-
-    /* State swatch layout */
-    .state-row {
-      display: flex;
-      align-items: center;
-      gap: 32px;
-      flex-wrap: wrap;
-      margin-bottom: 24px;
-    }
-
-    .state-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .state-item .label {
-      font-size: 12px;
-      color: var(--color-text-secondary);
-      font-family: 'Roboto', sans-serif;
+    /* React mount points */
+    [data-trio-component] {
+      display: inline-block;
     }
 
     .progress-example {
@@ -251,6 +148,7 @@
     .spec-table tr:last-child td { border-bottom: none; }
   </style>
   <script src="../../design-system-nav.js"></script>
+  <script type="module" src="../../showcase/dist/showcase.js"></script>
 </head>
 <body>
   <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
@@ -366,53 +264,14 @@
       <p class="section-description">Each step can be in one of three states. Connectors between steps are either completed (teal) or upcoming (gray).</p>
 
       <div class="demo-area">
-        <div class="state-row">
-          <!-- Completed -->
-          <div class="state-item">
-            <div class="step" style="padding: 8px 16px; background: var(--color-background-paper); border: 1px solid var(--color-border-default); border-radius: 4px;">
-              <div class="step-circle">
-                <span class="material-icons" style="font-size: 16px; color: #37636b;">check</span>
-              </div>
-              <span class="step-label completed">Worker Details</span>
-            </div>
-            <span class="label">Completed</span>
-          </div>
+        <p class="progress-label">Step 1 active (upcoming state)</p>
+        <div data-trio-component="Stepper" data-trio-props='{"steps":["Worker Details","API Key","Policies"],"activeStep":0}'></div>
 
-          <!-- Active -->
-          <div class="state-item">
-            <div class="step" style="padding: 8px 16px; background: var(--color-background-paper); border: 1px solid var(--color-border-default); border-radius: 4px;">
-              <div class="step-circle active">
-                <span class="step-number active">2</span>
-              </div>
-              <span class="step-label active">API Key</span>
-            </div>
-            <span class="label">Active (current step)</span>
-          </div>
+        <p class="progress-label" style="margin-top: 16px;">Step 2 active (completed + active + upcoming)</p>
+        <div data-trio-component="Stepper" data-trio-props='{"steps":["Worker Details","API Key","Policies"],"activeStep":1}'></div>
 
-          <!-- Upcoming -->
-          <div class="state-item">
-            <div class="step" style="padding: 8px 16px; background: var(--color-background-paper); border: 1px solid var(--color-border-default); border-radius: 4px;">
-              <div class="step-circle">
-                <span class="step-number upcoming">3</span>
-              </div>
-              <span class="step-label upcoming">Policies</span>
-            </div>
-            <span class="label">Upcoming</span>
-          </div>
-        </div>
-
-        <!-- Connector states -->
-        <p style="font-family: 'Roboto', sans-serif; font-size: 14px; font-weight: 500; color: var(--color-text-primary); margin: 16px 0 8px;">Connectors</p>
-        <div class="state-row">
-          <div class="state-item">
-            <div style="width: 120px; height: 2px; border-radius: 999px; background: #37636b;"></div>
-            <span class="label">Completed</span>
-          </div>
-          <div class="state-item">
-            <div style="width: 120px; height: 2px; border-radius: 999px; background: var(--color-border-default);"></div>
-            <span class="label">Upcoming</span>
-          </div>
-        </div>
+        <p class="progress-label" style="margin-top: 16px;">Step 3 active (all completed)</p>
+        <div data-trio-component="Stepper" data-trio-props='{"steps":["Worker Details","API Key","Policies"],"activeStep":2}'></div>
       </div>
     </section>
 
@@ -424,128 +283,24 @@
       </h2>
       <p class="section-description">5-step wizard at each stage of completion.</p>
 
-      <!-- Step 1 active -->
       <div class="progress-example">
         <p class="progress-label">Step 1 of 5 — Worker Details</p>
-        <div class="stepper-bar">
-          <div class="step">
-            <div class="step-circle active"><span class="step-number active">1</span></div>
-            <span class="step-label active">Worker Details</span>
-          </div>
-          <div class="connector upcoming"></div>
-          <div class="step">
-            <div class="step-circle"><span class="step-number upcoming">2</span></div>
-            <span class="step-label upcoming">API Key</span>
-          </div>
-          <div class="connector upcoming"></div>
-          <div class="step">
-            <div class="step-circle"><span class="step-number upcoming">3</span></div>
-            <span class="step-label upcoming">Policies</span>
-          </div>
-          <div class="connector upcoming"></div>
-          <div class="step">
-            <div class="step-circle"><span class="step-number upcoming">4</span></div>
-            <span class="step-label upcoming">Test Worker</span>
-          </div>
-          <div class="connector upcoming"></div>
-          <div class="step">
-            <div class="step-circle"><span class="step-number upcoming">5</span></div>
-            <span class="step-label upcoming">Agent Settings</span>
-          </div>
-        </div>
+        <div data-trio-component="Stepper" data-trio-props='{"steps":["Worker Details","API Key","Policies","Test Worker","Agent Settings"],"activeStep":0}'></div>
       </div>
 
-      <!-- Step 2 active -->
       <div class="progress-example">
         <p class="progress-label">Step 2 of 5 — API Key</p>
-        <div class="stepper-bar">
-          <div class="step">
-            <div class="step-circle"><span class="material-icons" style="font-size:16px;color:#37636b;">check</span></div>
-            <span class="step-label completed">Worker Details</span>
-          </div>
-          <div class="connector completed"></div>
-          <div class="step">
-            <div class="step-circle active"><span class="step-number active">2</span></div>
-            <span class="step-label active">API Key</span>
-          </div>
-          <div class="connector upcoming"></div>
-          <div class="step">
-            <div class="step-circle"><span class="step-number upcoming">3</span></div>
-            <span class="step-label upcoming">Policies</span>
-          </div>
-          <div class="connector upcoming"></div>
-          <div class="step">
-            <div class="step-circle"><span class="step-number upcoming">4</span></div>
-            <span class="step-label upcoming">Test Worker</span>
-          </div>
-          <div class="connector upcoming"></div>
-          <div class="step">
-            <div class="step-circle"><span class="step-number upcoming">5</span></div>
-            <span class="step-label upcoming">Agent Settings</span>
-          </div>
-        </div>
+        <div data-trio-component="Stepper" data-trio-props='{"steps":["Worker Details","API Key","Policies","Test Worker","Agent Settings"],"activeStep":1}'></div>
       </div>
 
-      <!-- Step 3 active -->
       <div class="progress-example">
         <p class="progress-label">Step 3 of 5 — Policies</p>
-        <div class="stepper-bar">
-          <div class="step">
-            <div class="step-circle"><span class="material-icons" style="font-size:16px;color:#37636b;">check</span></div>
-            <span class="step-label completed">Worker Details</span>
-          </div>
-          <div class="connector completed"></div>
-          <div class="step">
-            <div class="step-circle"><span class="material-icons" style="font-size:16px;color:#37636b;">check</span></div>
-            <span class="step-label completed">API Key</span>
-          </div>
-          <div class="connector completed"></div>
-          <div class="step">
-            <div class="step-circle active"><span class="step-number active">3</span></div>
-            <span class="step-label active">Policies</span>
-          </div>
-          <div class="connector upcoming"></div>
-          <div class="step">
-            <div class="step-circle"><span class="step-number upcoming">4</span></div>
-            <span class="step-label upcoming">Test Worker</span>
-          </div>
-          <div class="connector upcoming"></div>
-          <div class="step">
-            <div class="step-circle"><span class="step-number upcoming">5</span></div>
-            <span class="step-label upcoming">Agent Settings</span>
-          </div>
-        </div>
+        <div data-trio-component="Stepper" data-trio-props='{"steps":["Worker Details","API Key","Policies","Test Worker","Agent Settings"],"activeStep":2}'></div>
       </div>
 
-      <!-- Step 5 active (last step) -->
       <div class="progress-example">
         <p class="progress-label">Step 5 of 5 — Agent Settings (final step)</p>
-        <div class="stepper-bar">
-          <div class="step">
-            <div class="step-circle"><span class="material-icons" style="font-size:16px;color:#37636b;">check</span></div>
-            <span class="step-label completed">Worker Details</span>
-          </div>
-          <div class="connector completed"></div>
-          <div class="step">
-            <div class="step-circle"><span class="material-icons" style="font-size:16px;color:#37636b;">check</span></div>
-            <span class="step-label completed">API Key</span>
-          </div>
-          <div class="connector completed"></div>
-          <div class="step">
-            <div class="step-circle"><span class="material-icons" style="font-size:16px;color:#37636b;">check</span></div>
-            <span class="step-label completed">Policies</span>
-          </div>
-          <div class="connector completed"></div>
-          <div class="step">
-            <div class="step-circle"><span class="material-icons" style="font-size:16px;color:#37636b;">check</span></div>
-            <span class="step-label completed">Test Worker</span>
-          </div>
-          <div class="connector completed"></div>
-          <div class="step">
-            <div class="step-circle active"><span class="step-number active">5</span></div>
-            <span class="step-label active">Agent Settings</span>
-          </div>
-        </div>
+        <div data-trio-component="Stepper" data-trio-props='{"steps":["Worker Details","API Key","Policies","Test Worker","Agent Settings"],"activeStep":4}'></div>
       </div>
     </section>
 

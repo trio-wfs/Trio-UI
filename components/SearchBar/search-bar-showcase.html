@@ -123,71 +123,10 @@
       flex-shrink: 0;
     }
 
-    /* ── SearchBar component ── */
-    .sb-input {
-      border: 1px solid #9E9E9E;
-      background: #fff;
-      font-family: var(--font-family);
-      color: var(--color-text-primary);
-      outline: none;
-      padding: 0 var(--spacing-md);
-      flex: 1;
-      min-width: 200px;
+    /* React mount points display inline within demo rows */
+    [data-trio-component] {
+      display: inline-block;
     }
-    .sb-input::placeholder { color: var(--color-text-disabled); }
-    .sb-input:focus {
-      border-color: #64B5F6;
-      box-shadow: 0 0 0 3px rgba(66,165,245,0.18);
-      z-index: 1;
-      position: relative;
-    }
-    .sb-input:disabled {
-      border-color: var(--color-secondary-outline);
-      background: var(--color-disabled-bg);
-      color: var(--color-text-disabled);
-      cursor: not-allowed;
-    }
-
-    .sb-support {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--color-secondary-main);
-      border: 1px solid #9E9E9E;
-      color: #424242;
-      cursor: pointer;
-      flex-shrink: 0;
-    }
-    .sb-support:hover { background: rgba(0,0,0,0.08); }
-    .sb-support:disabled { background: var(--color-disabled-bg); color: var(--color-text-disabled); cursor: not-allowed; }
-
-    .sb-sm { height: 32px; font-size: 12px; }
-    .sb-sm .sb-support { width: 32px; }
-    .sb-sm .sb-input { font-size: 12px; }
-
-    .sb-md { height: 40px; font-size: 14px; }
-    .sb-md .sb-support { width: 40px; }
-    .sb-md .sb-input { font-size: 14px; }
-
-    .sb-lg { height: 48px; font-size: 16px; }
-    .sb-lg .sb-support { width: 48px; }
-    .sb-lg .sb-input { font-size: 16px; }
-
-    .search-bar {
-      display: inline-flex;
-      align-items: stretch;
-      border-radius: var(--border-radius);
-      overflow: hidden;
-    }
-    .search-bar.left .sb-support { border-right: none; border-radius: var(--border-radius) 0 0 var(--border-radius); }
-    .search-bar.left .sb-input  { border-radius: 0 var(--border-radius) var(--border-radius) 0; }
-
-    .search-bar.right .sb-support { border-left: none; border-radius: 0 var(--border-radius) var(--border-radius) 0; }
-    .search-bar.right .sb-input   { border-radius: var(--border-radius) 0 0 var(--border-radius); }
-
-    .search-bar.both .sb-support:first-child { border-right: none; border-radius: var(--border-radius) 0 0 var(--border-radius); }
-    .search-bar.both .sb-support:last-child  { border-left: none; border-radius: 0 var(--border-radius) var(--border-radius) 0; }
-    .search-bar.both .sb-input { border-radius: 0; }
 
     /* Spec table */
     .spec-table {
@@ -213,6 +152,7 @@
     .spec-table tr:last-child td { border-bottom: none; }
   </style>
   <script src="../../design-system-nav.js"></script>
+  <script type="module" src="../../showcase/dist/showcase.js"></script>
 </head>
 <body>
   <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
@@ -266,10 +206,7 @@
         </div>
       </div>
       <div class="demo-panel" style="align-items: flex-start; margin-top: var(--spacing-md);">
-        <div class="search-bar left sb-md">
-          <button class="sb-support"><span class="material-icons" style="font-size:18px">search</span></button>
-          <input class="sb-input" type="text" placeholder="Search workers, shifts, orders...">
-        </div>
+        <div data-trio-component="SearchBar" data-trio-props='{"size":"medium","type":"left","placeholder":"Search workers, shifts, orders..."}'></div>
       </div>
     </section>
 
@@ -287,10 +224,7 @@
           </div>
           <div class="card-illustration">
             <span class="card-illustration-label">Correct</span>
-            <div class="search-bar left sb-sm" style="width: 220px;">
-              <button class="sb-support"><span class="material-icons" style="font-size:16px">search</span></button>
-              <input class="sb-input" type="text" placeholder="Search workers...">
-            </div>
+            <div data-trio-component="SearchBar" data-trio-props='{"size":"small","type":"left","placeholder":"Search workers..."}'></div>
           </div>
           <div class="card-content">
             <ul>
@@ -333,25 +267,11 @@
       <div class="demo-panel">
         <div class="demo-row">
           <div class="demo-label">Left</div>
-          <div class="search-bar left sb-md">
-            <button class="sb-support"><span class="material-icons" style="font-size:18px">search</span></button>
-            <input class="sb-input" type="text" placeholder="Search...">
-          </div>
+          <div data-trio-component="SearchBar" data-trio-props='{"size":"medium","type":"left","placeholder":"Search..."}'></div>
         </div>
         <div class="demo-row">
           <div class="demo-label">Right</div>
-          <div class="search-bar right sb-md">
-            <input class="sb-input" type="text" placeholder="Search...">
-            <button class="sb-support"><span class="material-icons" style="font-size:18px">search</span></button>
-          </div>
-        </div>
-        <div class="demo-row">
-          <div class="demo-label">Both</div>
-          <div class="search-bar both sb-md">
-            <button class="sb-support"><span class="material-icons" style="font-size:18px">search</span></button>
-            <input class="sb-input" type="text" placeholder="Search...">
-            <button class="sb-support"><span class="material-icons" style="font-size:18px">search</span></button>
-          </div>
+          <div data-trio-component="SearchBar" data-trio-props='{"size":"medium","type":"right","placeholder":"Search..."}'></div>
         </div>
       </div>
     </section>
@@ -365,25 +285,12 @@
       <p class="section-description">Three sizes match the broader form input scale.</p>
       <div class="demo-panel">
         <div class="demo-row">
-          <div class="demo-label">Small<br><span style="font-size:10px;color:var(--color-text-disabled)">32px</span></div>
-          <div class="search-bar left sb-sm">
-            <button class="sb-support"><span class="material-icons" style="font-size:16px">search</span></button>
-            <input class="sb-input" type="text" placeholder="Search...">
-          </div>
+          <div class="demo-label">Small<br><span style="font-size:10px;color:var(--color-text-disabled)">30px</span></div>
+          <div data-trio-component="SearchBar" data-trio-props='{"size":"small","type":"left","placeholder":"Search..."}'></div>
         </div>
         <div class="demo-row">
-          <div class="demo-label">Medium<br><span style="font-size:10px;color:var(--color-text-disabled)">40px · Default</span></div>
-          <div class="search-bar left sb-md">
-            <button class="sb-support"><span class="material-icons" style="font-size:18px">search</span></button>
-            <input class="sb-input" type="text" placeholder="Search...">
-          </div>
-        </div>
-        <div class="demo-row">
-          <div class="demo-label">Large<br><span style="font-size:10px;color:var(--color-text-disabled)">48px</span></div>
-          <div class="search-bar left sb-lg">
-            <button class="sb-support"><span class="material-icons" style="font-size:22px">search</span></button>
-            <input class="sb-input" type="text" placeholder="Search...">
-          </div>
+          <div class="demo-label">Medium<br><span style="font-size:10px;color:var(--color-text-disabled)">38px · Default</span></div>
+          <div data-trio-component="SearchBar" data-trio-props='{"size":"medium","type":"left","placeholder":"Search..."}'></div>
         </div>
       </div>
     </section>
@@ -397,24 +304,15 @@
       <div class="demo-panel">
         <div class="demo-row">
           <div class="demo-label" style="width:80px">Default</div>
-          <div class="search-bar left sb-md">
-            <button class="sb-support"><span class="material-icons" style="font-size:18px">search</span></button>
-            <input class="sb-input" type="text" placeholder="Search...">
-          </div>
+          <div data-trio-component="SearchBar" data-trio-props='{"size":"medium","type":"left","placeholder":"Search..."}'></div>
         </div>
         <div class="demo-row">
           <div class="demo-label" style="width:80px">With value</div>
-          <div class="search-bar left sb-md">
-            <button class="sb-support"><span class="material-icons" style="font-size:18px">search</span></button>
-            <input class="sb-input" type="text" value="Kelly, R.">
-          </div>
+          <div data-trio-component="SearchBar" data-trio-props='{"size":"medium","type":"left","value":"Kelly, R."}'></div>
         </div>
         <div class="demo-row">
           <div class="demo-label" style="width:80px">Disabled</div>
-          <div class="search-bar left sb-md" style="opacity:0.6; pointer-events:none;">
-            <button class="sb-support" disabled><span class="material-icons" style="font-size:18px">search</span></button>
-            <input class="sb-input" type="text" placeholder="Search..." disabled>
-          </div>
+          <div data-trio-component="SearchBar" data-trio-props='{"size":"medium","type":"left","placeholder":"Search...","disabled":true}'></div>
         </div>
       </div>
     </section>
@@ -433,10 +331,7 @@
           </div>
           <div class="card-illustration">
             <span class="card-illustration-label">Correct</span>
-            <div class="search-bar left sb-md" style="width: 280px;">
-              <button class="sb-support"><span class="material-icons" style="font-size:18px">search</span></button>
-              <input class="sb-input" type="text" placeholder="Search workers, shifts...">
-            </div>
+            <div data-trio-component="SearchBar" data-trio-props='{"size":"medium","type":"left","placeholder":"Search workers, shifts..."}'></div>
           </div>
           <div class="card-content">
             <ul>
@@ -452,11 +347,7 @@
           </div>
           <div class="card-illustration card-illustration-wrong">
             <span class="card-illustration-label">Incorrect</span>
-            <div class="search-bar both sb-md" style="width: 280px;">
-              <button class="sb-support"><span class="material-icons" style="font-size:18px">search</span></button>
-              <input class="sb-input" type="text" placeholder="Search...">
-              <button class="sb-support"><span class="material-icons" style="font-size:18px">search</span></button>
-            </div>
+            <div data-trio-component="SearchBar" data-trio-props='{"size":"medium","type":"right","placeholder":"Search..."}'></div>
           </div>
           <div class="card-content">
             <ul>
@@ -479,21 +370,18 @@
           <tr><th>Property</th><th>Value</th><th>Source</th></tr>
         </thead>
         <tbody>
-          <tr><td>Height — Small</td><td>32px</td><td>Figma node 492:653</td></tr>
-          <tr><td>Height — Medium (default)</td><td>40px</td><td>Figma node 492:653</td></tr>
-          <tr><td>Height — Large</td><td>48px</td><td>Figma node 492:653</td></tr>
+          <tr><td>Height — Small</td><td>30px</td><td>Figma node 492:653</td></tr>
+          <tr><td>Height — Medium (default)</td><td>38px</td><td>Figma node 492:653</td></tr>
           <tr><td>Font size — Small</td><td>12px (fontSize.xs)</td><td>Figma typography</td></tr>
           <tr><td>Font size — Medium</td><td>14px (fontSize.sm)</td><td>Figma typography</td></tr>
-          <tr><td>Font size — Large</td><td>16px (fontSize.md)</td><td>Figma typography</td></tr>
           <tr><td>Support button width</td><td>Equal to height (square)</td><td>Extracted from Figma</td></tr>
           <tr><td>Support button background</td><td>#F5F5F5 — secondary.main</td><td>Figma node 2810:4766</td></tr>
           <tr><td>Search icon size — Small</td><td>16px</td><td>Extracted from Figma</td></tr>
           <tr><td>Search icon size — Medium</td><td>18px</td><td>Extracted from Figma</td></tr>
-          <tr><td>Search icon size — Large</td><td>22px</td><td>Extracted from Figma</td></tr>
           <tr><td>Input border</td><td>1px solid #9E9E9E — input.enabledBorder</td><td>TextField token</td></tr>
           <tr><td>Focus ring</td><td>1px #64B5F6 + 3px rgba(66,165,245,0.18) shadow</td><td>components.border.focus</td></tr>
           <tr><td>Border radius</td><td>4px — borderRadius.default</td><td>Design token</td></tr>
-          <tr><td>Type variants</td><td>Left | Right | Both</td><td>Figma variant: Type</td></tr>
+          <tr><td>Type variants</td><td>Left | Right</td><td>Figma variant: Type</td></tr>
         </tbody>
       </table>
     </section>

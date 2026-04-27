@@ -41,6 +41,15 @@ import SendIcon from '@mui/icons-material/Send';
 import PrintIcon from '@mui/icons-material/Print';
 import ShareIcon from '@mui/icons-material/Share';
 import InfoIcon from '@mui/icons-material/Info';
+import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import TableRowsIcon from '@mui/icons-material/TableRows';
+import ViewListIcon from '@mui/icons-material/ViewList';
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import PieChartIcon from '@mui/icons-material/PieChart';
+import ShowChartIcon from '@mui/icons-material/ShowChart';
 
 const iconRegistry: Record<string, React.ReactElement> = {
   Add: <AddIcon />,
@@ -64,6 +73,15 @@ const iconRegistry: Record<string, React.ReactElement> = {
   Print: <PrintIcon />,
   Share: <ShareIcon />,
   Info: <InfoIcon />,
+  FilterAltOff: <FilterAltOffIcon />,
+  FileDownload: <FileDownloadIcon />,
+  RestartAlt: <RestartAltIcon />,
+  TableRows: <TableRowsIcon />,
+  ViewList: <ViewListIcon />,
+  CalendarToday: <CalendarTodayIcon />,
+  BarChart: <BarChartIcon />,
+  PieChart: <PieChartIcon />,
+  ShowChart: <ShowChartIcon />,
 };
 
 // Resolve string icon names to React elements
@@ -73,6 +91,15 @@ function resolveIcons(props: Record<string, any>): Record<string, any> {
     if (typeof resolved[key] === 'string' && iconRegistry[resolved[key]]) {
       resolved[key] = iconRegistry[resolved[key]];
     }
+  }
+  // Resolve icons inside ToggleButton `buttons` array items
+  if (Array.isArray(resolved.buttons)) {
+    resolved.buttons = resolved.buttons.map((btn: Record<string, any>) => {
+      if (typeof btn.icon === 'string' && iconRegistry[btn.icon]) {
+        return { ...btn, icon: iconRegistry[btn.icon] };
+      }
+      return btn;
+    });
   }
   return resolved;
 }

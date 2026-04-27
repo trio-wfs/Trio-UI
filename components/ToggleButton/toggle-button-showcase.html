@@ -125,54 +125,14 @@
       letter-spacing: 0.5px;
     }
 
-    /* Toggle strip wrapper */
-    .toggle-strip {
-      display: inline-flex;
-      align-items: center;
-      border: 1px solid var(--color-primary-main);
-      border-radius: var(--border-radius);
-      overflow: hidden;
+    /* React mount points */
+    [data-trio-component] {
+      display: inline-block;
     }
 
-    /* Slot base */
-    .toggle-slot {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: transparent;
-      color: var(--color-primary-main);
-      border: none;
-      cursor: pointer;
-      padding: 0;
-      font-family: var(--font-family);
-      transition: background 0.15s;
-    }
-    .toggle-slot:not(:last-child) {
-      border-right: 1px solid var(--color-primary-main);
-    }
-    .toggle-slot:hover {
-      background: var(--color-primary-light);
-    }
-
-    /* Sizes */
-    .toggle-slot-sm {
-      width: 24px;
-      height: 24px;
-    }
-    .toggle-slot-sm .material-icons { font-size: 16px; }
-
-    .toggle-slot-md {
-      width: 36px;
-      height: 36px;
-    }
-    .toggle-slot-md .material-icons { font-size: 24px; }
-
-    /* Active slot */
-    .toggle-slot-active {
-      background: var(--color-primary-light);
-    }
   </style>
   <script src="../../design-system-nav.js"></script>
+  <script type="module" src="../../showcase/dist/showcase.js"></script>
 </head>
 <body>
   <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
@@ -241,11 +201,7 @@
           </div>
           <div class="card-illustration">
             <span class="card-illustration-label">Correct</span>
-            <div class="toggle-strip">
-              <button class="toggle-slot toggle-slot-sm toggle-slot-active"><span class="material-icons">filter_alt_off</span></button>
-              <button class="toggle-slot toggle-slot-sm"><span class="material-icons">file_download</span></button>
-              <button class="toggle-slot toggle-slot-sm"><span class="material-icons">restart_alt</span></button>
-            </div>
+            <div data-trio-component="ToggleButton" data-trio-props='{"size":"small","buttons":[{"icon":"FilterAltOff","aria-label":"Clear filters","active":true},{"icon":"FileDownload","aria-label":"Export"},{"icon":"RestartAlt","aria-label":"Reset"}]}'></div>
           </div>
           <div class="card-content">
             <ul>
@@ -285,30 +241,15 @@
       <p class="section-description">Figma supports 3–8 slots (button-3 through button-8). Keep to 3 in most cases — more than 5 gets visually dense.</p>
       <div class="demo-row">
         <div class="demo-col">
-          <div class="toggle-strip">
-            <button class="toggle-slot toggle-slot-sm"><span class="material-icons">filter_alt_off</span></button>
-            <button class="toggle-slot toggle-slot-sm"><span class="material-icons">file_download</span></button>
-            <button class="toggle-slot toggle-slot-sm"><span class="material-icons">restart_alt</span></button>
-          </div>
+          <div data-trio-component="ToggleButton" data-trio-props='{"size":"small","buttons":[{"icon":"FilterAltOff","aria-label":"Clear filters"},{"icon":"FileDownload","aria-label":"Export"},{"icon":"RestartAlt","aria-label":"Reset"}]}'></div>
           <span class="demo-col-label">3 buttons</span>
         </div>
         <div class="demo-col">
-          <div class="toggle-strip">
-            <button class="toggle-slot toggle-slot-sm"><span class="material-icons">table_rows</span></button>
-            <button class="toggle-slot toggle-slot-sm"><span class="material-icons">view_list</span></button>
-            <button class="toggle-slot toggle-slot-sm"><span class="material-icons">calendar_today</span></button>
-            <button class="toggle-slot toggle-slot-sm"><span class="material-icons">bar_chart</span></button>
-          </div>
+          <div data-trio-component="ToggleButton" data-trio-props='{"size":"small","buttons":[{"icon":"TableRows","aria-label":"Table view"},{"icon":"ViewList","aria-label":"List view"},{"icon":"CalendarToday","aria-label":"Calendar view"},{"icon":"BarChart","aria-label":"Bar chart"}]}'></div>
           <span class="demo-col-label">4 buttons</span>
         </div>
         <div class="demo-col">
-          <div class="toggle-strip">
-            <button class="toggle-slot toggle-slot-sm"><span class="material-icons">table_rows</span></button>
-            <button class="toggle-slot toggle-slot-sm"><span class="material-icons">view_list</span></button>
-            <button class="toggle-slot toggle-slot-sm"><span class="material-icons">calendar_today</span></button>
-            <button class="toggle-slot toggle-slot-sm"><span class="material-icons">bar_chart</span></button>
-            <button class="toggle-slot toggle-slot-sm"><span class="material-icons">pie_chart</span></button>
-          </div>
+          <div data-trio-component="ToggleButton" data-trio-props='{"size":"small","buttons":[{"icon":"TableRows","aria-label":"Table view"},{"icon":"ViewList","aria-label":"List view"},{"icon":"CalendarToday","aria-label":"Calendar view"},{"icon":"BarChart","aria-label":"Bar chart"},{"icon":"PieChart","aria-label":"Pie chart"}]}'></div>
           <span class="demo-col-label">5 buttons</span>
         </div>
       </div>
@@ -323,19 +264,11 @@
       <p class="section-description">Two sizes matching ButtonIcon — sm (24px slots) for compact toolbars, md (36px slots) for larger contexts.</p>
       <div class="demo-row">
         <div class="demo-col">
-          <div class="toggle-strip">
-            <button class="toggle-slot toggle-slot-sm"><span class="material-icons">filter_alt_off</span></button>
-            <button class="toggle-slot toggle-slot-sm"><span class="material-icons">file_download</span></button>
-            <button class="toggle-slot toggle-slot-sm"><span class="material-icons">restart_alt</span></button>
-          </div>
+          <div data-trio-component="ToggleButton" data-trio-props='{"size":"small","buttons":[{"icon":"FilterAltOff","aria-label":"Clear filters"},{"icon":"FileDownload","aria-label":"Export"},{"icon":"RestartAlt","aria-label":"Reset"}]}'></div>
           <span class="demo-col-label">sm — 24px</span>
         </div>
         <div class="demo-col">
-          <div class="toggle-strip">
-            <button class="toggle-slot toggle-slot-md"><span class="material-icons">filter_alt_off</span></button>
-            <button class="toggle-slot toggle-slot-md"><span class="material-icons">file_download</span></button>
-            <button class="toggle-slot toggle-slot-md"><span class="material-icons">restart_alt</span></button>
-          </div>
+          <div data-trio-component="ToggleButton" data-trio-props='{"size":"medium","buttons":[{"icon":"FilterAltOff","aria-label":"Clear filters"},{"icon":"FileDownload","aria-label":"Export"},{"icon":"RestartAlt","aria-label":"Reset"}]}'></div>
           <span class="demo-col-label">md — 36px</span>
         </div>
       </div>
@@ -350,19 +283,11 @@
       <p class="section-description">Pass <code>active: true</code> on a slot to highlight the currently selected option.</p>
       <div class="demo-row">
         <div class="demo-col">
-          <div class="toggle-strip">
-            <button class="toggle-slot toggle-slot-sm toggle-slot-active"><span class="material-icons">table_rows</span></button>
-            <button class="toggle-slot toggle-slot-sm"><span class="material-icons">view_list</span></button>
-            <button class="toggle-slot toggle-slot-sm"><span class="material-icons">calendar_today</span></button>
-          </div>
+          <div data-trio-component="ToggleButton" data-trio-props='{"size":"small","buttons":[{"icon":"TableRows","aria-label":"Table view","active":true},{"icon":"ViewList","aria-label":"List view"},{"icon":"CalendarToday","aria-label":"Calendar view"}]}'></div>
           <span class="demo-col-label">First active (Table view)</span>
         </div>
         <div class="demo-col">
-          <div class="toggle-strip">
-            <button class="toggle-slot toggle-slot-sm"><span class="material-icons">table_rows</span></button>
-            <button class="toggle-slot toggle-slot-sm"><span class="material-icons">view_list</span></button>
-            <button class="toggle-slot toggle-slot-sm toggle-slot-active"><span class="material-icons">calendar_today</span></button>
-          </div>
+          <div data-trio-component="ToggleButton" data-trio-props='{"size":"small","buttons":[{"icon":"TableRows","aria-label":"Table view"},{"icon":"ViewList","aria-label":"List view"},{"icon":"CalendarToday","aria-label":"Calendar view","active":true}]}'></div>
           <span class="demo-col-label">Third active (Calendar view)</span>
         </div>
       </div>
@@ -380,11 +305,7 @@
           </div>
           <div style="display: flex; align-items: center; gap: var(--spacing-md);">
             <span style="font-size: 12px; color: var(--color-text-secondary);">### records</span>
-            <div class="toggle-strip">
-              <button class="toggle-slot toggle-slot-sm"><span class="material-icons">filter_alt_off</span></button>
-              <button class="toggle-slot toggle-slot-sm"><span class="material-icons">file_download</span></button>
-              <button class="toggle-slot toggle-slot-sm"><span class="material-icons">restart_alt</span></button>
-            </div>
+            <div data-trio-component="ToggleButton" data-trio-props='{"size":"small","buttons":[{"icon":"FilterAltOff","aria-label":"Clear filters"},{"icon":"FileDownload","aria-label":"Export"},{"icon":"RestartAlt","aria-label":"Reset"}]}'></div>
           </div>
         </div>
       </div>
@@ -404,11 +325,7 @@
           </div>
           <div class="card-illustration">
             <span class="card-illustration-label">Correct</span>
-            <div class="toggle-strip">
-              <button class="toggle-slot toggle-slot-sm toggle-slot-active"><span class="material-icons">filter_alt_off</span></button>
-              <button class="toggle-slot toggle-slot-sm"><span class="material-icons">file_download</span></button>
-              <button class="toggle-slot toggle-slot-sm"><span class="material-icons">restart_alt</span></button>
-            </div>
+            <div data-trio-component="ToggleButton" data-trio-props='{"size":"small","buttons":[{"icon":"FilterAltOff","aria-label":"Clear filters","active":true},{"icon":"FileDownload","aria-label":"Export"},{"icon":"RestartAlt","aria-label":"Reset"}]}'></div>
           </div>
           <div class="card-content">
             <ul>
@@ -426,14 +343,7 @@
           </div>
           <div class="card-illustration card-illustration-wrong">
             <span class="card-illustration-label">Incorrect</span>
-            <div class="toggle-strip">
-              <button class="toggle-slot toggle-slot-sm"><span class="material-icons">table_rows</span></button>
-              <button class="toggle-slot toggle-slot-sm"><span class="material-icons">view_list</span></button>
-              <button class="toggle-slot toggle-slot-sm"><span class="material-icons">calendar_today</span></button>
-              <button class="toggle-slot toggle-slot-sm"><span class="material-icons">bar_chart</span></button>
-              <button class="toggle-slot toggle-slot-sm"><span class="material-icons">pie_chart</span></button>
-              <button class="toggle-slot toggle-slot-sm"><span class="material-icons">show_chart</span></button>
-            </div>
+            <div data-trio-component="ToggleButton" data-trio-props='{"size":"small","buttons":[{"icon":"TableRows","aria-label":"Table view"},{"icon":"ViewList","aria-label":"List view"},{"icon":"CalendarToday","aria-label":"Calendar view"},{"icon":"BarChart","aria-label":"Bar chart"},{"icon":"PieChart","aria-label":"Pie chart"},{"icon":"ShowChart","aria-label":"Line chart"}]}'></div>
           </div>
           <div class="card-content">
             <ul>

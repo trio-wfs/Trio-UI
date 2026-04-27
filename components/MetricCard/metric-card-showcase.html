@@ -177,324 +177,15 @@
       border: 1px solid rgba(0,0,0,0.08);
     }
 
-    /* TOKEN PILLS */
-    .token-pill {
+    /* React mount points — fill wrapper width */
+    [data-trio-component] {
       display: inline-block;
-      padding: 2px 8px;
-      border-radius: 10px;
-      font-size: 11px;
-      font-weight: 500;
-      color: #fff;
-      margin: 2px;
-    }
-
-    /* ANATOMY DIAGRAM */
-    .anatomy-diagram {
-      position: relative;
-      display: inline-block;
-      background: var(--color-background-default);
-      padding: var(--spacing-xl);
-      border-radius: var(--border-radius);
-    }
-
-    .anatomy-callout {
-      font-size: 12px;
-      color: var(--color-text-secondary);
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      margin-bottom: 4px;
-    }
-
-    .callout-num {
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: var(--color-primary-main);
-      color: #fff;
-      font-size: 11px;
-      font-weight: 700;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    /* ========================================
-       METRIC CARD COMPONENT STYLES
-       (Pure CSS implementation for showcase)
-       ======================================== */
-
-    .metric-card {
-      display: flex;
-      flex-direction: column;
       width: 100%;
-      min-width: 170px;
-      height: 150px;
-      background-color: #FFFFFF;
-      border: 1px solid #E0E0E0;
-      border-radius: 4px;
-      padding: 16px 16px 8px 16px;
-      gap: 8px;
-      box-sizing: border-box;
-      overflow: hidden;
-      font-family: var(--font-family);
-    }
-
-    /* Label Row */
-    .mc-label-row {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      flex-shrink: 0;
-      height: 24px;
-    }
-
-    .mc-label-left {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      gap: 4px;
-      min-width: 0;
-      overflow: hidden;
-    }
-
-    .mc-label-icon {
-      font-size: 16px;
-      color: #757575;
-      flex-shrink: 0;
-    }
-
-    .mc-label-text {
-      font-size: 14px;
-      font-weight: 500;
-      line-height: 24px;
-      color: #757575;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    /* Metrics container */
-    .mc-metrics {
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-      gap: 8px;
-      min-height: 0;
-    }
-
-    /* Metric row — horizontal columns */
-    .mc-row {
-      display: flex;
-      flex-direction: row;
-      align-items: flex-start;
-      flex: 1;
-      min-height: 0;
-      gap: 0;
-    }
-
-    /* Single metric column */
-    .mc-col {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: center;
-      flex: 1;
-      min-width: 0;
-      gap: 8px;
-      overflow: hidden;
-    }
-
-    /* Value typography — size set via class modifier */
-    .mc-value {
-      font-weight: 500;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      text-align: center;
-    }
-
-    .mc-value--lg { font-size: 34px; line-height: 41px; }
-    .mc-value--md { font-size: 24px; line-height: 28px; }
-    .mc-value--sm { font-size: 16px; line-height: 24px; }
-
-    /* Metric sub-label */
-    .mc-sub-label {
-      font-size: 12px;
-      font-weight: 400;
-      line-height: 18px;
-      color: #757575;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      text-align: center;
-    }
-
-    /* Column divider */
-    .mc-divider-wrap {
-      display: flex;
-      align-items: flex-start;
-      padding-top: 8px;
-      width: 9px;
-      justify-content: center;
-      align-self: stretch;
-      flex-shrink: 0;
-    }
-
-    .mc-divider {
-      width: 1px;
-      height: 24px;
-      background-color: #E0E0E0;
-    }
-
-    /* List layout */
-    .mc-list {
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-      justify-content: space-between;
-      min-height: 0;
-    }
-
-    .mc-list-row {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      height: 24px;
-      overflow: hidden;
-    }
-
-    .mc-list-caption {
-      font-size: 12px;
-      font-weight: 400;
-      line-height: 18px;
-      color: #757575;
-      flex: 1;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      padding-right: 4px;
-    }
-
-    .mc-list-value {
-      font-size: 16px;
-      font-weight: 500;
-      line-height: 24px;
-      flex-shrink: 0;
-    }
-
-    /* Grouped layout */
-    .mc-grouped-primary {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: center;
-      flex: 1;
-      min-width: 0;
-      gap: 8px;
-      overflow: hidden;
-    }
-
-    .mc-grouped-secondary {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      flex: 1;
-      min-width: 0;
-      overflow: hidden;
-      padding-left: 8px;
-    }
-
-    .mc-grouped-sub-row {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      height: 24px;
-      overflow: hidden;
-    }
-
-    /* Progress bar footer */
-    .mc-bar-footer {
-      flex-shrink: 0;
-      height: 18px;
-      display: flex;
-      align-items: center;
-    }
-
-    .mc-progress-track {
-      display: flex;
-      flex-direction: row;
-      width: 100%;
-      height: 10px;
-      background-color: #EEEEEE;
-      overflow: hidden;
-      border-radius: 999px;
-    }
-
-    .mc-segment {
-      height: 100%;
-      box-sizing: border-box;
-      border-right: 2px solid #fff;
-    }
-
-    .mc-segment:last-child { border-right: none; }
-
-    /* Icons footer */
-    .mc-icons-footer {
-      display: flex;
-      flex-direction: row;
-      flex-shrink: 0;
-      height: 18px;
-      align-items: center;
-    }
-
-    .mc-icon-segment {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-
-    .mc-footer-icon {
-      font-size: 16px;
-      color: #757575;
-    }
-
-    /* Labels footer */
-    .mc-labels-footer {
-      display: flex;
-      flex-direction: row;
-      flex-shrink: 0;
-      height: 18px;
-      align-items: center;
-      gap: 4px;
-      overflow: hidden;
-    }
-
-    .mc-label-chip {
-      flex: 1;
-      overflow: hidden;
-    }
-
-    .mc-label-chip-text {
-      display: block;
-      font-size: 11px;
-      font-weight: 500;
-      line-height: 16px;
-      color: #757575;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      text-align: center;
     }
 
   </style>
   <script src="../../design-system-nav.js"></script>
+  <script type="module" src="../../showcase/dist/showcase.js"></script>
 </head>
 <body>
 
@@ -580,16 +271,10 @@
             <span class="card-illustration-label">Correct</span>
             <div class="metric-group" style="width: 100%;">
               <div class="metric-card-wrapper">
-                <div class="metric-card" style="height: 70px; padding: 8px;">
-                  <div class="mc-label-row"><div class="mc-label-left"><span class="material-icons mc-label-icon" style="font-size:12px;">schedule</span><span class="mc-label-text" style="font-size:11px;">Hours</span></div></div>
-                  <div class="mc-metrics"><div class="mc-row"><div class="mc-col"><span class="mc-value" style="font-size:18px;color:#37636B">2,840</span></div></div></div>
-                </div>
+                <div data-trio-component="MetricCard" data-trio-props='{"label":"Hours","labelIcon":"schedule","metrics":[{"label":"This Week","value":"2,840"}],"footer":"none"}'></div>
               </div>
               <div class="metric-card-wrapper">
-                <div class="metric-card" style="height: 70px; padding: 8px;">
-                  <div class="mc-label-row"><div class="mc-label-left"><span class="material-icons mc-label-icon" style="font-size:12px;">people</span><span class="mc-label-text" style="font-size:11px;">Workers</span></div></div>
-                  <div class="mc-metrics"><div class="mc-row"><div class="mc-col"><span class="mc-value" style="font-size:18px;color:#37636B">147</span></div></div></div>
-                </div>
+                <div data-trio-component="MetricCard" data-trio-props='{"label":"Workers","labelIcon":"people","metrics":[{"label":"On Site","value":"147"}],"footer":"none"}'></div>
               </div>
             </div>
           </div>
@@ -645,74 +330,13 @@
         <div class="demo-area">
           <div class="metric-group">
             <div class="metric-card-wrapper">
-              <div class="metric-card">
-                <div class="mc-label-row">
-                  <div class="mc-label-left">
-                    <span class="material-icons mc-label-icon">schedule</span>
-                    <span class="mc-label-text">Total Hours</span>
-                  </div>
-                </div>
-                <div class="mc-metrics">
-                  <div class="mc-row">
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--lg" style="color:#37636B">2,840</span>
-                      <span class="mc-sub-label">Logged This Week</span>
-                    </div>
-                  </div>
-                  <div class="mc-bar-footer">
-                    <div class="mc-progress-track">
-                      <div class="mc-segment" style="width:100%;background:#37636B"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <div data-trio-component="MetricCard" data-trio-props='{"label":"Total Hours","labelIcon":"schedule","metrics":[{"label":"Logged This Week","value":"2,840"}],"footer":"bar"}'></div>
             </div>
             <div class="metric-card-wrapper">
-              <div class="metric-card">
-                <div class="mc-label-row">
-                  <div class="mc-label-left">
-                    <span class="material-icons mc-label-icon">people</span>
-                    <span class="mc-label-text">Active Workers</span>
-                  </div>
-                  <span class="material-icons mc-label-icon">help_outline</span>
-                </div>
-                <div class="mc-metrics">
-                  <div class="mc-row">
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--lg" style="color:#37636B">147</span>
-                      <span class="mc-sub-label">On Site Today</span>
-                    </div>
-                  </div>
-                  <div class="mc-bar-footer">
-                    <div class="mc-progress-track">
-                      <div class="mc-segment" style="width:100%;background:#37636B"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <div data-trio-component="MetricCard" data-trio-props='{"label":"Active Workers","labelIcon":"people","showHelpIcon":true,"metrics":[{"label":"On Site Today","value":"147"}],"footer":"bar"}'></div>
             </div>
             <div class="metric-card-wrapper">
-              <div class="metric-card">
-                <div class="mc-label-row">
-                  <div class="mc-label-left">
-                    <span class="material-icons mc-label-icon">warning_amber</span>
-                    <span class="mc-label-text">Open Incidents</span>
-                  </div>
-                </div>
-                <div class="mc-metrics">
-                  <div class="mc-row">
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--lg" style="color:#DB4537">12</span>
-                      <span class="mc-sub-label">Unresolved</span>
-                    </div>
-                  </div>
-                  <div class="mc-bar-footer">
-                    <div class="mc-progress-track">
-                      <div class="mc-segment" style="width:100%;background:#DB4537"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <div data-trio-component="MetricCard" data-trio-props='{"label":"Open Incidents","labelIcon":"warning_amber","metrics":[{"label":"Unresolved","value":"12","color":"error"}],"footer":"bar"}'></div>
             </div>
           </div>
         </div>
@@ -724,63 +348,10 @@
         <div class="demo-area">
           <div class="metric-group">
             <div class="metric-card-wrapper">
-              <div class="metric-card">
-                <div class="mc-label-row">
-                  <div class="mc-label-left">
-                    <span class="material-icons mc-label-icon">schedule</span>
-                    <span class="mc-label-text">Timecards</span>
-                  </div>
-                </div>
-                <div class="mc-metrics">
-                  <div class="mc-row">
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--lg" style="color:#37636B">48</span>
-                      <span class="mc-sub-label">Approved</span>
-                    </div>
-                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--lg" style="color:#4B9AB0">12</span>
-                      <span class="mc-sub-label">Pending</span>
-                    </div>
-                  </div>
-                  <div class="mc-bar-footer">
-                    <div class="mc-progress-track">
-                      <div class="mc-segment" style="width:80%;background:#37636B"></div>
-                      <div class="mc-segment" style="width:20%;background:#4B9AB0"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <div data-trio-component="MetricCard" data-trio-props='{"label":"Timecards","labelIcon":"schedule","metrics":[{"label":"Approved","value":48},{"label":"Pending","value":12}],"footer":"bar"}'></div>
             </div>
             <div class="metric-card-wrapper">
-              <div class="metric-card">
-                <div class="mc-label-row">
-                  <div class="mc-label-left">
-                    <span class="material-icons mc-label-icon">assignment</span>
-                    <span class="mc-label-text">Work Orders</span>
-                  </div>
-                  <span class="material-icons mc-label-icon">help_outline</span>
-                </div>
-                <div class="mc-metrics">
-                  <div class="mc-row">
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--lg" style="color:#37636B">103</span>
-                      <span class="mc-sub-label">Complete</span>
-                    </div>
-                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--lg" style="color:#4B9AB0">27</span>
-                      <span class="mc-sub-label">In Progress</span>
-                    </div>
-                  </div>
-                  <div class="mc-bar-footer">
-                    <div class="mc-progress-track">
-                      <div class="mc-segment" style="width:79%;background:#37636B"></div>
-                      <div class="mc-segment" style="width:21%;background:#4B9AB0"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <div data-trio-component="MetricCard" data-trio-props='{"label":"Work Orders","labelIcon":"assignment","showHelpIcon":true,"metrics":[{"label":"Complete","value":103},{"label":"In Progress","value":27}],"footer":"bar"}'></div>
             </div>
           </div>
         </div>
@@ -792,75 +363,10 @@
         <div class="demo-area">
           <div class="metric-group">
             <div class="metric-card-wrapper">
-              <div class="metric-card">
-                <div class="mc-label-row">
-                  <div class="mc-label-left">
-                    <span class="material-icons mc-label-icon">schedule</span>
-                    <span class="mc-label-text">Entries</span>
-                  </div>
-                </div>
-                <div class="mc-metrics">
-                  <div class="mc-row">
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--md" style="color:#37636B">84</span>
-                      <span class="mc-sub-label">Approved</span>
-                    </div>
-                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--md" style="color:#4B9AB0">23</span>
-                      <span class="mc-sub-label">Pending</span>
-                    </div>
-                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--md" style="color:#5BBFDE">11</span>
-                      <span class="mc-sub-label">Rejected</span>
-                    </div>
-                  </div>
-                  <div class="mc-bar-footer">
-                    <div class="mc-progress-track">
-                      <div class="mc-segment" style="width:71%;background:#37636B"></div>
-                      <div class="mc-segment" style="width:19%;background:#4B9AB0"></div>
-                      <div class="mc-segment" style="width:10%;background:#5BBFDE"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <div data-trio-component="MetricCard" data-trio-props='{"label":"Entries","labelIcon":"schedule","metrics":[{"label":"Approved","value":84},{"label":"Pending","value":23},{"label":"Rejected","value":11}],"footer":"bar"}'></div>
             </div>
             <div class="metric-card-wrapper">
-              <div class="metric-card">
-                <div class="mc-label-row">
-                  <div class="mc-label-left">
-                    <span class="material-icons mc-label-icon">people</span>
-                    <span class="mc-label-text">Certifications</span>
-                  </div>
-                  <span class="material-icons mc-label-icon">help_outline</span>
-                </div>
-                <div class="mc-metrics">
-                  <div class="mc-row">
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--md" style="color:#37636B">62</span>
-                      <span class="mc-sub-label">Current</span>
-                    </div>
-                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--md" style="color:#4B9AB0">18</span>
-                      <span class="mc-sub-label">Expiring</span>
-                    </div>
-                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--md" style="color:#5BBFDE">7</span>
-                      <span class="mc-sub-label">Expired</span>
-                    </div>
-                  </div>
-                  <div class="mc-bar-footer">
-                    <div class="mc-progress-track">
-                      <div class="mc-segment" style="width:71%;background:#37636B"></div>
-                      <div class="mc-segment" style="width:21%;background:#4B9AB0"></div>
-                      <div class="mc-segment" style="width:8%;background:#5BBFDE"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <div data-trio-component="MetricCard" data-trio-props='{"label":"Certifications","labelIcon":"people","showHelpIcon":true,"metrics":[{"label":"Current","value":62},{"label":"Expiring","value":18},{"label":"Expired","value":7}],"footer":"bar"}'></div>
             </div>
           </div>
         </div>
@@ -872,95 +378,13 @@
         <div class="demo-area">
           <div class="metric-group">
             <div class="metric-card-wrapper">
-              <div class="metric-card">
-                <div class="mc-label-row">
-                  <div class="mc-label-left">
-                    <span class="material-icons mc-label-icon">schedule</span>
-                    <span class="mc-label-text">Hours by Type</span>
-                  </div>
-                </div>
-                <div class="mc-metrics">
-                  <div class="mc-list">
-                    <div class="mc-list-row">
-                      <span class="mc-list-caption">Regular</span>
-                      <span class="mc-list-value" style="color:#37636B">1,240</span>
-                    </div>
-                    <div class="mc-list-row">
-                      <span class="mc-list-caption">Overtime</span>
-                      <span class="mc-list-value" style="color:#4B9AB0">380</span>
-                    </div>
-                    <div class="mc-list-row">
-                      <span class="mc-list-caption">Holiday</span>
-                      <span class="mc-list-value" style="color:#5BBFDE">96</span>
-                    </div>
-                    <div class="mc-list-row">
-                      <span class="mc-list-caption">PTO</span>
-                      <span class="mc-list-value" style="color:#6FD3ED">64</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <div data-trio-component="MetricCard" data-trio-props='{"label":"Hours by Type","labelIcon":"schedule","metrics":[{"label":"Regular","value":"1,240"},{"label":"Overtime","value":"380"},{"label":"Holiday","value":"96"},{"label":"PTO","value":"64"}],"footer":"none"}'></div>
             </div>
             <div class="metric-card-wrapper">
-              <div class="metric-card">
-                <div class="mc-label-row">
-                  <div class="mc-label-left">
-                    <span class="material-icons mc-label-icon">assignment</span>
-                    <span class="mc-label-text">Work Order Status</span>
-                  </div>
-                  <span class="material-icons mc-label-icon">help_outline</span>
-                </div>
-                <div class="mc-metrics">
-                  <div class="mc-list">
-                    <div class="mc-list-row">
-                      <span class="mc-list-caption">Open</span>
-                      <span class="mc-list-value" style="color:#37636B">45</span>
-                    </div>
-                    <div class="mc-list-row">
-                      <span class="mc-list-caption">In Progress</span>
-                      <span class="mc-list-value" style="color:#4B9AB0">28</span>
-                    </div>
-                    <div class="mc-list-row">
-                      <span class="mc-list-caption">On Hold</span>
-                      <span class="mc-list-value" style="color:#5BBFDE">9</span>
-                    </div>
-                    <div class="mc-list-row">
-                      <span class="mc-list-caption">Closed</span>
-                      <span class="mc-list-value" style="color:#6FD3ED">103</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <div data-trio-component="MetricCard" data-trio-props='{"label":"Work Order Status","labelIcon":"assignment","showHelpIcon":true,"metrics":[{"label":"Open","value":45},{"label":"In Progress","value":28},{"label":"On Hold","value":9},{"label":"Closed","value":103}],"footer":"none"}'></div>
             </div>
             <div class="metric-card-wrapper">
-              <div class="metric-card">
-                <div class="mc-label-row">
-                  <div class="mc-label-left">
-                    <span class="material-icons mc-label-icon">folder</span>
-                    <span class="mc-label-text">Document Review</span>
-                  </div>
-                </div>
-                <div class="mc-metrics">
-                  <div class="mc-list">
-                    <div class="mc-list-row">
-                      <span class="mc-list-caption">Approved</span>
-                      <span class="mc-list-value" style="color:#37636B">210</span>
-                    </div>
-                    <div class="mc-list-row">
-                      <span class="mc-list-caption">Pending</span>
-                      <span class="mc-list-value" style="color:#4B9AB0">34</span>
-                    </div>
-                    <div class="mc-list-row">
-                      <span class="mc-list-caption">Revisions</span>
-                      <span class="mc-list-value" style="color:#5BBFDE">12</span>
-                    </div>
-                    <div class="mc-list-row">
-                      <span class="mc-list-caption">Rejected</span>
-                      <span class="mc-list-value" style="color:#6FD3ED">5</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <div data-trio-component="MetricCard" data-trio-props='{"label":"Document Review","labelIcon":"folder","metrics":[{"label":"Approved","value":210},{"label":"Pending","value":34},{"label":"Revisions","value":12},{"label":"Rejected","value":5}],"footer":"none"}'></div>
             </div>
           </div>
         </div>
@@ -984,74 +408,10 @@
         <div class="demo-area">
           <div class="metric-group">
             <div class="metric-card-wrapper">
-              <div class="metric-card">
-                <div class="mc-label-row">
-                  <div class="mc-label-left">
-                    <span class="material-icons mc-label-icon">schedule</span>
-                    <span class="mc-label-text">Timecards</span>
-                  </div>
-                </div>
-                <div class="mc-metrics">
-                  <div class="mc-row">
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--md" style="color:#37636B">84</span>
-                      <span class="mc-sub-label">Approved</span>
-                    </div>
-                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--md" style="color:#4B9AB0">23</span>
-                      <span class="mc-sub-label">Pending</span>
-                    </div>
-                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--md" style="color:#5BBFDE">11</span>
-                      <span class="mc-sub-label">Rejected</span>
-                    </div>
-                  </div>
-                  <div class="mc-bar-footer">
-                    <div class="mc-progress-track">
-                      <div class="mc-segment" style="width:71%;background:#37636B"></div>
-                      <div class="mc-segment" style="width:19%;background:#4B9AB0"></div>
-                      <div class="mc-segment" style="width:10%;background:#5BBFDE"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <div data-trio-component="MetricCard" data-trio-props='{"label":"Timecards","labelIcon":"schedule","metrics":[{"label":"Approved","value":84},{"label":"Pending","value":23},{"label":"Rejected","value":11}],"footer":"bar"}'></div>
             </div>
             <div class="metric-card-wrapper" style="min-width:170px;max-width:280px;">
-              <div class="metric-card">
-                <div class="mc-label-row">
-                  <div class="mc-label-left">
-                    <span class="material-icons mc-label-icon">schedule</span>
-                    <span class="mc-label-text">Narrow Width</span>
-                  </div>
-                </div>
-                <div class="mc-metrics">
-                  <div class="mc-row">
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--md" style="color:#37636B">84</span>
-                      <span class="mc-sub-label">Approved</span>
-                    </div>
-                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--md" style="color:#4B9AB0">23</span>
-                      <span class="mc-sub-label">Pending</span>
-                    </div>
-                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--md" style="color:#5BBFDE">11</span>
-                      <span class="mc-sub-label">Rejected</span>
-                    </div>
-                  </div>
-                  <div class="mc-bar-footer">
-                    <div class="mc-progress-track">
-                      <div class="mc-segment" style="width:71%;background:#37636B"></div>
-                      <div class="mc-segment" style="width:19%;background:#4B9AB0"></div>
-                      <div class="mc-segment" style="width:10%;background:#5BBFDE"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <div data-trio-component="MetricCard" data-trio-props='{"label":"Narrow Width","labelIcon":"schedule","metrics":[{"label":"Approved","value":84},{"label":"Pending","value":23},{"label":"Rejected","value":11}],"footer":"bar"}'></div>
             </div>
           </div>
         </div>
@@ -1063,75 +423,10 @@
         <div class="demo-area">
           <div class="metric-group">
             <div class="metric-card-wrapper">
-              <div class="metric-card">
-                <div class="mc-label-row">
-                  <div class="mc-label-left">
-                    <span class="material-icons mc-label-icon">schedule</span>
-                    <span class="mc-label-text">Safety Status</span>
-                  </div>
-                </div>
-                <div class="mc-metrics">
-                  <div class="mc-row">
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--md" style="color:#37636B">14</span>
-                      <span class="mc-sub-label">Safe Days</span>
-                    </div>
-                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--md" style="color:#EB8B0C">3</span>
-                      <span class="mc-sub-label">Near Miss</span>
-                    </div>
-                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--md" style="color:#DB4537">1</span>
-                      <span class="mc-sub-label">Incident</span>
-                    </div>
-                  </div>
-                  <div class="mc-icons-footer">
-                    <div class="mc-icon-segment">
-                      <span class="material-icons mc-footer-icon">check_circle</span>
-                    </div>
-                    <div class="mc-icon-segment">
-                      <span class="material-icons mc-footer-icon" style="color:#EB8B0C">warning_amber</span>
-                    </div>
-                    <div class="mc-icon-segment">
-                      <span class="material-icons mc-footer-icon" style="color:#DB4537">error</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <div data-trio-component="MetricCard" data-trio-props='{"label":"Safety Status","labelIcon":"schedule","metrics":[{"label":"Safe Days","value":14,"icon":"check_circle"},{"label":"Near Miss","value":3,"color":"warning","icon":"warning_amber"},{"label":"Incident","value":1,"color":"error","icon":"error"}],"footer":"icons"}'></div>
             </div>
             <div class="metric-card-wrapper">
-              <div class="metric-card">
-                <div class="mc-label-row">
-                  <div class="mc-label-left">
-                    <span class="material-icons mc-label-icon">assignment</span>
-                    <span class="mc-label-text">Compliance</span>
-                  </div>
-                  <span class="material-icons mc-label-icon">help_outline</span>
-                </div>
-                <div class="mc-metrics">
-                  <div class="mc-row">
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--lg" style="color:#37636B">94</span>
-                      <span class="mc-sub-label">Pass Rate %</span>
-                    </div>
-                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--lg" style="color:#DB4537">6</span>
-                      <span class="mc-sub-label">Failed</span>
-                    </div>
-                  </div>
-                  <div class="mc-icons-footer">
-                    <div class="mc-icon-segment">
-                      <span class="material-icons mc-footer-icon">verified</span>
-                    </div>
-                    <div class="mc-icon-segment">
-                      <span class="material-icons mc-footer-icon" style="color:#DB4537">cancel</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <div data-trio-component="MetricCard" data-trio-props='{"label":"Compliance","labelIcon":"assignment","showHelpIcon":true,"metrics":[{"label":"Pass Rate %","value":94,"icon":"verified"},{"label":"Failed","value":6,"color":"error","icon":"cancel"}],"footer":"icons"}'></div>
             </div>
           </div>
         </div>
@@ -1143,65 +438,10 @@
         <div class="demo-area">
           <div class="metric-group">
             <div class="metric-card-wrapper">
-              <div class="metric-card">
-                <div class="mc-label-row">
-                  <div class="mc-label-left">
-                    <span class="material-icons mc-label-icon">schedule</span>
-                    <span class="mc-label-text">Weekly Summary</span>
-                  </div>
-                </div>
-                <div class="mc-metrics">
-                  <div class="mc-row">
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--md" style="color:#37636B">84</span>
-                      <span class="mc-sub-label">Entries</span>
-                    </div>
-                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--md" style="color:#4B9AB0">12</span>
-                      <span class="mc-sub-label">Projects</span>
-                    </div>
-                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--md" style="color:#5BBFDE">48</span>
-                      <span class="mc-sub-label">Workers</span>
-                    </div>
-                  </div>
-                  <div class="mc-labels-footer">
-                    <div class="mc-label-chip"><span class="mc-label-chip-text">Timecards</span></div>
-                    <div class="mc-label-chip"><span class="mc-label-chip-text">Active Jobs</span></div>
-                    <div class="mc-label-chip"><span class="mc-label-chip-text">Assigned</span></div>
-                  </div>
-                </div>
-              </div>
+              <div data-trio-component="MetricCard" data-trio-props='{"label":"Weekly Summary","labelIcon":"schedule","metrics":[{"label":"Entries","value":84,"secondaryLabel":"Timecards"},{"label":"Projects","value":12,"secondaryLabel":"Active Jobs"},{"label":"Workers","value":48,"secondaryLabel":"Assigned"}],"footer":"labels"}'></div>
             </div>
             <div class="metric-card-wrapper">
-              <div class="metric-card">
-                <div class="mc-label-row">
-                  <div class="mc-label-left">
-                    <span class="material-icons mc-label-icon">folder</span>
-                    <span class="mc-label-text">Documents</span>
-                  </div>
-                  <span class="material-icons mc-label-icon">help_outline</span>
-                </div>
-                <div class="mc-metrics">
-                  <div class="mc-row">
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--lg" style="color:#37636B">210</span>
-                      <span class="mc-sub-label">Approved</span>
-                    </div>
-                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--lg" style="color:#4B9AB0">34</span>
-                      <span class="mc-sub-label">Pending</span>
-                    </div>
-                  </div>
-                  <div class="mc-labels-footer">
-                    <div class="mc-label-chip"><span class="mc-label-chip-text">Processed</span></div>
-                    <div class="mc-label-chip"><span class="mc-label-chip-text">In Review</span></div>
-                  </div>
-                </div>
-              </div>
+              <div data-trio-component="MetricCard" data-trio-props='{"label":"Documents","labelIcon":"folder","showHelpIcon":true,"metrics":[{"label":"Approved","value":210,"secondaryLabel":"Processed"},{"label":"Pending","value":34,"secondaryLabel":"In Review"}],"footer":"labels"}'></div>
             </div>
           </div>
         </div>
@@ -1213,56 +453,10 @@
         <div class="demo-area">
           <div class="metric-group">
             <div class="metric-card-wrapper">
-              <div class="metric-card">
-                <div class="mc-label-row">
-                  <div class="mc-label-left">
-                    <span class="material-icons mc-label-icon">people</span>
-                    <span class="mc-label-text">Headcount</span>
-                  </div>
-                </div>
-                <div class="mc-metrics">
-                  <div class="mc-row">
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--lg" style="color:#37636B">312</span>
-                      <span class="mc-sub-label">Total Staff</span>
-                    </div>
-                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--lg" style="color:#4B9AB0">147</span>
-                      <span class="mc-sub-label">On Site</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <div data-trio-component="MetricCard" data-trio-props='{"label":"Headcount","labelIcon":"people","metrics":[{"label":"Total Staff","value":312},{"label":"On Site","value":147}],"footer":"none"}'></div>
             </div>
             <div class="metric-card-wrapper">
-              <div class="metric-card">
-                <div class="mc-label-row">
-                  <div class="mc-label-left">
-                    <span class="material-icons mc-label-icon">schedule</span>
-                    <span class="mc-label-text">This Month</span>
-                  </div>
-                  <span class="material-icons mc-label-icon">help_outline</span>
-                </div>
-                <div class="mc-metrics">
-                  <div class="mc-row">
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--md" style="color:#37636B">1,840</span>
-                      <span class="mc-sub-label">Hours Regular</span>
-                    </div>
-                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--md" style="color:#4B9AB0">380</span>
-                      <span class="mc-sub-label">Overtime</span>
-                    </div>
-                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--md" style="color:#5BBFDE">96</span>
-                      <span class="mc-sub-label">Holiday</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <div data-trio-component="MetricCard" data-trio-props='{"label":"This Month","labelIcon":"schedule","showHelpIcon":true,"metrics":[{"label":"Hours Regular","value":"1,840"},{"label":"Overtime","value":380},{"label":"Holiday","value":96}],"footer":"none"}'></div>
             </div>
           </div>
         </div>
@@ -1286,77 +480,10 @@
         <div class="demo-area">
           <div class="metric-group">
             <div class="metric-card-wrapper">
-              <div class="metric-card">
-                <div class="mc-label-row">
-                  <div class="mc-label-left">
-                    <span class="material-icons mc-label-icon">schedule</span>
-                    <span class="mc-label-text">Hours Overview</span>
-                  </div>
-                </div>
-                <div class="mc-metrics">
-                  <div class="mc-row">
-                    <div class="mc-grouped-primary">
-                      <span class="mc-value mc-value--lg" style="color:#37636B">2,840</span>
-                      <span class="mc-sub-label">Total Hours</span>
-                    </div>
-                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
-                    <div class="mc-grouped-secondary">
-                      <div class="mc-grouped-sub-row">
-                        <span class="mc-list-caption">Regular</span>
-                        <span class="mc-list-value" style="color:#4B9AB0">2,460</span>
-                      </div>
-                      <div class="mc-grouped-sub-row">
-                        <span class="mc-list-caption">Overtime</span>
-                        <span class="mc-list-value" style="color:#5BBFDE">380</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="mc-bar-footer">
-                    <div class="mc-progress-track">
-                      <div class="mc-segment" style="width:55%;background:#37636B"></div>
-                      <div class="mc-segment" style="width:27%;background:#4B9AB0"></div>
-                      <div class="mc-segment" style="width:18%;background:#5BBFDE"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <div data-trio-component="MetricCard" data-trio-props='{"label":"Hours Overview","labelIcon":"schedule","layout":"grouped","metrics":[{"label":"Total Hours","value":"2,840"},{"label":"Regular","value":"2,460"},{"label":"Overtime","value":"380"}],"footer":"bar"}'></div>
             </div>
             <div class="metric-card-wrapper">
-              <div class="metric-card">
-                <div class="mc-label-row">
-                  <div class="mc-label-left">
-                    <span class="material-icons mc-label-icon">assignment</span>
-                    <span class="mc-label-text">Work Orders</span>
-                  </div>
-                  <span class="material-icons mc-label-icon">help_outline</span>
-                </div>
-                <div class="mc-metrics">
-                  <div class="mc-row">
-                    <div class="mc-grouped-primary">
-                      <span class="mc-value mc-value--lg" style="color:#37636B">130</span>
-                      <span class="mc-sub-label">Total Orders</span>
-                    </div>
-                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
-                    <div class="mc-grouped-secondary">
-                      <div class="mc-grouped-sub-row">
-                        <span class="mc-list-caption">In Progress</span>
-                        <span class="mc-list-value" style="color:#4B9AB0">27</span>
-                      </div>
-                      <div class="mc-grouped-sub-row">
-                        <span class="mc-list-caption">On Hold</span>
-                        <span class="mc-list-value" style="color:#5BBFDE">9</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="mc-bar-footer">
-                    <div class="mc-progress-track">
-                      <div class="mc-segment" style="width:72%;background:#37636B"></div>
-                      <div class="mc-segment" style="width:18%;background:#4B9AB0"></div>
-                      <div class="mc-segment" style="width:10%;background:#5BBFDE"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <div data-trio-component="MetricCard" data-trio-props='{"label":"Work Orders","labelIcon":"assignment","showHelpIcon":true,"layout":"grouped","metrics":[{"label":"Total Orders","value":130},{"label":"In Progress","value":27},{"label":"On Hold","value":9}],"footer":"bar"}'></div>
             </div>
           </div>
         </div>
@@ -1382,69 +509,10 @@
         <div class="demo-area">
           <div class="metric-group">
             <div class="metric-card-wrapper">
-              <div class="metric-card">
-                <div class="mc-label-row">
-                  <div class="mc-label-left">
-                    <span class="material-icons mc-label-icon">warning</span>
-                    <span class="mc-label-text">Safety Alerts</span>
-                  </div>
-                </div>
-                <div class="mc-metrics">
-                  <div class="mc-row">
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--md" style="color:#DB4537">8</span>
-                      <span class="mc-sub-label">Critical</span>
-                    </div>
-                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--md" style="color:#BB3430">14</span>
-                      <span class="mc-sub-label">High</span>
-                    </div>
-                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--md" style="color:#A0241E">23</span>
-                      <span class="mc-sub-label">Medium</span>
-                    </div>
-                  </div>
-                  <div class="mc-bar-footer">
-                    <div class="mc-progress-track">
-                      <div class="mc-segment" style="width:18%;background:#DB4537"></div>
-                      <div class="mc-segment" style="width:31%;background:#BB3430"></div>
-                      <div class="mc-segment" style="width:51%;background:#A0241E"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <div data-trio-component="MetricCard" data-trio-props='{"label":"Safety Alerts","labelIcon":"warning","metrics":[{"label":"Critical","value":8,"color":"error"},{"label":"High","value":14,"color":"error"},{"label":"Medium","value":23,"color":"error"}],"footer":"bar"}'></div>
             </div>
             <div class="metric-card-wrapper">
-              <div class="metric-card">
-                <div class="mc-label-row">
-                  <div class="mc-label-left">
-                    <span class="material-icons mc-label-icon">schedule</span>
-                    <span class="mc-label-text">Exceptions</span>
-                  </div>
-                  <span class="material-icons mc-label-icon">help_outline</span>
-                </div>
-                <div class="mc-metrics">
-                  <div class="mc-row">
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--lg" style="color:#DB4537">47</span>
-                      <span class="mc-sub-label">Missing</span>
-                    </div>
-                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--lg" style="color:#BB3430">12</span>
-                      <span class="mc-sub-label">Errors</span>
-                    </div>
-                  </div>
-                  <div class="mc-bar-footer">
-                    <div class="mc-progress-track">
-                      <div class="mc-segment" style="width:80%;background:#DB4537"></div>
-                      <div class="mc-segment" style="width:20%;background:#BB3430"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <div data-trio-component="MetricCard" data-trio-props='{"label":"Exceptions","labelIcon":"schedule","showHelpIcon":true,"metrics":[{"label":"Missing","value":47,"color":"error"},{"label":"Errors","value":12,"color":"error"}],"footer":"bar"}'></div>
             </div>
           </div>
         </div>
@@ -1456,69 +524,10 @@
         <div class="demo-area">
           <div class="metric-group">
             <div class="metric-card-wrapper">
-              <div class="metric-card">
-                <div class="mc-label-row">
-                  <div class="mc-label-left">
-                    <span class="material-icons mc-label-icon">schedule</span>
-                    <span class="mc-label-text">Timecard Review</span>
-                  </div>
-                </div>
-                <div class="mc-metrics">
-                  <div class="mc-row">
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--lg" style="color:#37636B">96</span>
-                      <span class="mc-sub-label">Approved</span>
-                    </div>
-                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--lg" style="color:#DB4537">18</span>
-                      <span class="mc-sub-label">Errors</span>
-                    </div>
-                  </div>
-                  <div class="mc-bar-footer">
-                    <div class="mc-progress-track">
-                      <div class="mc-segment" style="width:84%;background:#37636B"></div>
-                      <div class="mc-segment" style="width:16%;background:#DB4537"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <div data-trio-component="MetricCard" data-trio-props='{"label":"Timecard Review","labelIcon":"schedule","metrics":[{"label":"Approved","value":96},{"label":"Errors","value":18,"color":"error"}],"footer":"bar"}'></div>
             </div>
             <div class="metric-card-wrapper">
-              <div class="metric-card">
-                <div class="mc-label-row">
-                  <div class="mc-label-left">
-                    <span class="material-icons mc-label-icon">people</span>
-                    <span class="mc-label-text">Certifications</span>
-                  </div>
-                  <span class="material-icons mc-label-icon">help_outline</span>
-                </div>
-                <div class="mc-metrics">
-                  <div class="mc-row">
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--md" style="color:#37636B">62</span>
-                      <span class="mc-sub-label">Current</span>
-                    </div>
-                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--md" style="color:#EB8B0C">18</span>
-                      <span class="mc-sub-label">Expiring</span>
-                    </div>
-                    <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
-                    <div class="mc-col">
-                      <span class="mc-value mc-value--md" style="color:#DB4537">7</span>
-                      <span class="mc-sub-label">Expired</span>
-                    </div>
-                  </div>
-                  <div class="mc-bar-footer">
-                    <div class="mc-progress-track">
-                      <div class="mc-segment" style="width:71%;background:#37636B"></div>
-                      <div class="mc-segment" style="width:21%;background:#EB8B0C"></div>
-                      <div class="mc-segment" style="width:8%;background:#DB4537"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <div data-trio-component="MetricCard" data-trio-props='{"label":"Certifications","labelIcon":"people","showHelpIcon":true,"metrics":[{"label":"Current","value":62},{"label":"Expiring","value":18,"color":"warning"},{"label":"Expired","value":7,"color":"error"}],"footer":"bar"}'></div>
             </div>
           </div>
         </div>
@@ -1539,123 +548,19 @@
         <div class="metric-group">
           <!-- Icon + no help -->
           <div class="metric-card-wrapper">
-            <div class="metric-card">
-              <div class="mc-label-row">
-                <div class="mc-label-left">
-                  <span class="material-icons mc-label-icon">schedule</span>
-                  <span class="mc-label-text">With Icon</span>
-                </div>
-              </div>
-              <div class="mc-metrics">
-                <div class="mc-row">
-                  <div class="mc-col">
-                    <span class="mc-value mc-value--lg" style="color:#37636B">42</span>
-                    <span class="mc-sub-label">This Week</span>
-                  </div>
-                  <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
-                  <div class="mc-col">
-                    <span class="mc-value mc-value--lg" style="color:#4B9AB0">8</span>
-                    <span class="mc-sub-label">Last Week</span>
-                  </div>
-                </div>
-                <div class="mc-bar-footer">
-                  <div class="mc-progress-track">
-                    <div class="mc-segment" style="width:84%;background:#37636B"></div>
-                    <div class="mc-segment" style="width:16%;background:#4B9AB0"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <div data-trio-component="MetricCard" data-trio-props='{"label":"With Icon","labelIcon":"schedule","metrics":[{"label":"This Week","value":42},{"label":"Last Week","value":8}],"footer":"bar"}'></div>
           </div>
           <!-- No icon + help -->
           <div class="metric-card-wrapper">
-            <div class="metric-card">
-              <div class="mc-label-row">
-                <div class="mc-label-left">
-                  <span class="mc-label-text">No Left Icon</span>
-                </div>
-                <span class="material-icons mc-label-icon">help_outline</span>
-              </div>
-              <div class="mc-metrics">
-                <div class="mc-row">
-                  <div class="mc-col">
-                    <span class="mc-value mc-value--lg" style="color:#37636B">42</span>
-                    <span class="mc-sub-label">This Week</span>
-                  </div>
-                  <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
-                  <div class="mc-col">
-                    <span class="mc-value mc-value--lg" style="color:#4B9AB0">8</span>
-                    <span class="mc-sub-label">Last Week</span>
-                  </div>
-                </div>
-                <div class="mc-bar-footer">
-                  <div class="mc-progress-track">
-                    <div class="mc-segment" style="width:84%;background:#37636B"></div>
-                    <div class="mc-segment" style="width:16%;background:#4B9AB0"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <div data-trio-component="MetricCard" data-trio-props='{"label":"No Left Icon","showHelpIcon":true,"metrics":[{"label":"This Week","value":42},{"label":"Last Week","value":8}],"footer":"bar"}'></div>
           </div>
           <!-- Icon + help -->
           <div class="metric-card-wrapper">
-            <div class="metric-card">
-              <div class="mc-label-row">
-                <div class="mc-label-left">
-                  <span class="material-icons mc-label-icon">people</span>
-                  <span class="mc-label-text">Icon + Help</span>
-                </div>
-                <span class="material-icons mc-label-icon">help_outline</span>
-              </div>
-              <div class="mc-metrics">
-                <div class="mc-row">
-                  <div class="mc-col">
-                    <span class="mc-value mc-value--lg" style="color:#37636B">42</span>
-                    <span class="mc-sub-label">This Week</span>
-                  </div>
-                  <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
-                  <div class="mc-col">
-                    <span class="mc-value mc-value--lg" style="color:#4B9AB0">8</span>
-                    <span class="mc-sub-label">Last Week</span>
-                  </div>
-                </div>
-                <div class="mc-bar-footer">
-                  <div class="mc-progress-track">
-                    <div class="mc-segment" style="width:84%;background:#37636B"></div>
-                    <div class="mc-segment" style="width:16%;background:#4B9AB0"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <div data-trio-component="MetricCard" data-trio-props='{"label":"Icon + Help","labelIcon":"people","showHelpIcon":true,"metrics":[{"label":"This Week","value":42},{"label":"Last Week","value":8}],"footer":"bar"}'></div>
           </div>
           <!-- No icon, no help -->
           <div class="metric-card-wrapper">
-            <div class="metric-card">
-              <div class="mc-label-row">
-                <div class="mc-label-left">
-                  <span class="mc-label-text">Label Only</span>
-                </div>
-              </div>
-              <div class="mc-metrics">
-                <div class="mc-row">
-                  <div class="mc-col">
-                    <span class="mc-value mc-value--lg" style="color:#37636B">42</span>
-                    <span class="mc-sub-label">This Week</span>
-                  </div>
-                  <div class="mc-divider-wrap"><div class="mc-divider"></div></div>
-                  <div class="mc-col">
-                    <span class="mc-value mc-value--lg" style="color:#4B9AB0">8</span>
-                    <span class="mc-sub-label">Last Week</span>
-                  </div>
-                </div>
-                <div class="mc-bar-footer">
-                  <div class="mc-progress-track">
-                    <div class="mc-segment" style="width:84%;background:#37636B"></div>
-                    <div class="mc-segment" style="width:16%;background:#4B9AB0"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <div data-trio-component="MetricCard" data-trio-props='{"label":"Label Only","metrics":[{"label":"This Week","value":42},{"label":"Last Week","value":8}],"footer":"bar"}'></div>
           </div>
         </div>
       </div>

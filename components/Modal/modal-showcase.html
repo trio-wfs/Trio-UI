@@ -448,8 +448,15 @@
     }
     .demo-primary { background: #2196F3; color: #FFFFFF; }
     .demo-secondary { background: #F5F5F5; color: #212121; border: 1px solid #E0E0E0; }
+
+    /* React mount points display inline within demo rows */
+    [data-trio-component] {
+      display: inline-block;
+      white-space: nowrap;
+    }
   </style>
   <script src="../../design-system-nav.js"></script>
+  <script type="module" src="../../showcase/dist/showcase.js"></script>
 </head>
 <body>
   <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
@@ -611,7 +618,7 @@
           </div>
         </div>
         <div class="demo-row">
-          <button class="btn btn-primary" onclick="openModal('modal-sm')">Open Interactive</button>
+          <div data-trio-component="Button" data-trio-props='{"variant":"contained","color":"secondary","label":"Open Interactive","size":"medium"}' onclick="openModal('modal-sm')"></div>
         </div>
       </div>
 
@@ -655,7 +662,7 @@
           </div>
         </div>
         <div class="demo-row">
-          <button class="btn btn-primary" onclick="openModal('modal-lg')">Open Interactive</button>
+          <div data-trio-component="Button" data-trio-props='{"variant":"contained","color":"secondary","label":"Open Interactive","size":"medium"}' onclick="openModal('modal-lg')"></div>
         </div>
       </div>
     </section>

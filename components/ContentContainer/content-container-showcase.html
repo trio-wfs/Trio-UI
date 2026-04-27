@@ -24,192 +24,163 @@
     }
     .section-title .material-icons-outlined { font-size: 18px; }
 
-    /* Demo containers */
-    .demo-row { display: flex; gap: 16px; margin-top: 16px; }
-    .demo-container {
-      background: #FFFFFF;
-      border: 1px solid #E0E0E0;
-      border-radius: 4px;
-      overflow: hidden;
-      flex: 1;
-    }
-    .demo-container-header {
+    /* Demo rows */
+    .demo-row {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: #F5F5F5;
-      height: 48px;
-      padding-left: 16px;
-      padding-right: 8px;
-      border-bottom: 1px solid #E0E0E0;
-      font-family: 'Roboto', sans-serif;
-      font-size: 14px;
-      font-weight: 500;
-      color: #212121;
+      gap: var(--spacing-md);
+      margin-top: var(--spacing-md);
+      flex-wrap: wrap;
     }
-    .demo-container-body { padding: 16px; }
-    .demo-container-body p {
-      font-family: 'Roboto', sans-serif;
-      font-size: 14px;
-      color: #757575;
-      margin: 0;
+
+    /* React mount points */
+    [data-trio-component] {
+      display: inline-block;
     }
-    .demo-container-flush .demo-container-body { padding: 0; }
-    .demo-kv {
-      display: flex;
-      justify-content: space-between;
-      padding: 8px 0;
-      border-bottom: 1px solid #E0E0E0;
-      font-family: 'Roboto', sans-serif;
-      font-size: 12px;
-    }
-    .demo-kv-label { color: #757575; }
-    .demo-kv-value { color: #212121; font-size: 14px; }
   </style>
+  <script src="../../design-system-nav.js"></script>
+  <script type="module" src="../../showcase/dist/showcase.js"></script>
 </head>
 <body>
   <aside class="sidebar"></aside>
   <main class="main-content">
-    <div class="page-header">
-      <h1>ContentContainer</h1>
-      <p class="component-description">
+    <header class="page-header">
+      <h1 class="page-title">ContentContainer</h1>
+      <p class="page-subtitle">
         The standard paper surface for TRIO WFS page content.
         White background (#FFFFFF), 1px border (#E0E0E0), 4px radius.
         No shadows — ever. Use for every card, panel, and content section on a page.
       </p>
-    </div>
+      <div class="component-meta">
+        <span><span class="material-icons-outlined" style="font-size: 14px;">category</span> Atomic Component</span>
+        <span><span class="material-icons-outlined" style="font-size: 14px;">verified</span> Production Ready</span>
+      </div>
+    </header>
 
     <!-- Overview -->
-    <div class="section">
+    <section class="section">
       <h2 class="section-title">
         <span class="material-icons-outlined">info</span> Overview
       </h2>
-      <p style="font-family: Roboto; font-size: 14px; color: #757575; margin-top: 8px;">
+      <p class="section-description">
         ContentContainer is the building block for all page content. It provides a consistent
         white surface with a gray header bar, 1px border, and 4px radius. Containers can nest
         inside other containers for grouped content sections.
       </p>
-    </div>
+    </section>
 
     <!-- With Title -->
-    <div class="section">
+    <section class="section">
       <h2 class="section-title">
         <span class="material-icons-outlined">title</span> With Title
       </h2>
+      <p class="section-description">
+        Pass a <code>title</code> prop to render the gray header bar (48px, #F5F5F5) with Subtitle2 typography.
+        Optionally pass <code>titleActions</code> to render controls (icons, menus) on the right side of the header.
+      </p>
       <div class="demo-row">
-        <div class="demo-container">
-          <div class="demo-container-header">Section Title</div>
-          <div class="demo-container-body">
-            <p>Content goes here with 16px padding on all sides.</p>
-          </div>
-        </div>
+        <div data-trio-component="ContentContainer" data-trio-props='{"title":"Section Title","sx":{"width":480}}'></div>
       </div>
-    </div>
+    </section>
 
     <!-- Without Title -->
-    <div class="section">
+    <section class="section">
       <h2 class="section-title">
         <span class="material-icons-outlined">crop_free</span> Without Title
       </h2>
+      <p class="section-description">
+        Omit <code>title</code> to render a borderless surface with only padding — no header bar.
+        Use when the context makes the container's purpose self-evident.
+      </p>
       <div class="demo-row">
-        <div class="demo-container">
-          <div class="demo-container-body">
-            <p>No title bar — just padded content inside the bordered surface.</p>
-          </div>
-        </div>
+        <div data-trio-component="ContentContainer" data-trio-props='{"sx":{"width":480}}'></div>
       </div>
-    </div>
-
-    <!-- With Key-Value Content -->
-    <div class="section">
-      <h2 class="section-title">
-        <span class="material-icons-outlined">list</span> Key-Value Content
-      </h2>
-      <div class="demo-row">
-        <div class="demo-container">
-          <div class="demo-container-header">Candidate</div>
-          <div class="demo-container-body">
-            <div class="demo-kv"><span class="demo-kv-label">Name</span><span class="demo-kv-value">Sarah Connor, RN</span></div>
-            <div class="demo-kv"><span class="demo-kv-label">License</span><span class="demo-kv-value">RN-4820193</span></div>
-            <div class="demo-kv"><span class="demo-kv-label">Specialty</span><span class="demo-kv-value">ICU / Critical Care</span></div>
-            <div class="demo-kv"><span class="demo-kv-label">Experience</span><span class="demo-kv-value">8 years</span></div>
-          </div>
-        </div>
-        <div class="demo-container">
-          <div class="demo-container-header">Financials</div>
-          <div class="demo-container-body">
-            <div class="demo-kv"><span class="demo-kv-label">Bill Rate</span><span class="demo-kv-value">$92.00/hr</span></div>
-            <div class="demo-kv"><span class="demo-kv-label">OT Rate</span><span class="demo-kv-value">$138.00/hr</span></div>
-            <div class="demo-kv"><span class="demo-kv-label">Est. Total</span><span class="demo-kv-value">$43,056</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
+    </section>
 
     <!-- Flush (No Padding) -->
-    <div class="section">
+    <section class="section">
       <h2 class="section-title">
         <span class="material-icons-outlined">fullscreen</span> Flush Content (padding: 0)
       </h2>
-      <p style="font-family: Roboto; font-size: 14px; color: #757575; margin: 8px 0;">
+      <p class="section-description">
         Set <code>padding={0}</code> for content that fills edge-to-edge, like AG Grid.
+        The title bar (if present) still renders normally — only the body padding is removed.
       </p>
       <div class="demo-row">
-        <div class="demo-container demo-container-flush">
-          <div class="demo-container-header">Tasks</div>
-          <div class="demo-container-body" style="padding:0; background: #FAFAFA; height: 120px; display: flex; align-items: center; justify-content: center;">
-            <span style="font-family: Roboto; font-size: 14px; color: #757575;">AG Grid would render here — edge-to-edge</span>
-          </div>
-        </div>
+        <div data-trio-component="ContentContainer" data-trio-props='{"title":"Tasks","padding":0,"sx":{"width":480}}'></div>
       </div>
-    </div>
+    </section>
 
-    <!-- Nested -->
-    <div class="section">
+    <!-- Flush Border Radius -->
+    <section class="section">
       <h2 class="section-title">
-        <span class="material-icons-outlined">layers</span> Nested Containers
+        <span class="material-icons-outlined">layers</span> Flush Border Radius
       </h2>
+      <p class="section-description">
+        Set <code>flush={true}</code> to remove border radius. Use when containers stack directly
+        against each other or against a page edge and rounded corners would create visible gaps.
+      </p>
       <div class="demo-row">
-        <div class="demo-container">
-          <div class="demo-container-header">Parent Container</div>
-          <div class="demo-container-body">
-            <div class="demo-container" style="margin-bottom: 16px;">
-              <div class="demo-container-header">Nested Child A</div>
-              <div class="demo-container-body"><p>Child content with its own title bar.</p></div>
-            </div>
-            <div class="demo-container">
-              <div class="demo-container-header">Nested Child B</div>
-              <div class="demo-container-body"><p>Siblings stack with 16px gap between them.</p></div>
-            </div>
-          </div>
-        </div>
+        <div data-trio-component="ContentContainer" data-trio-props='{"title":"Stacked Panel","flush":true,"sx":{"width":480}}'></div>
       </div>
-    </div>
+    </section>
 
-    <!-- Technical Specs -->
-    <div class="section">
+    <!-- Nested Containers -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">account_tree</span> Nested Containers
+      </h2>
+      <p class="section-description">
+        ContentContainers can nest inside each other for grouped sub-sections. Use 16px gap
+        between siblings inside a parent container's padded body.
+      </p>
+      <div class="demo-row">
+        <div data-trio-component="ContentContainer" data-trio-props='{"title":"Parent Container","sx":{"width":480}}'></div>
+      </div>
+    </section>
+
+    <!-- Technical Specifications -->
+    <section class="section">
       <h2 class="section-title">
         <span class="material-icons-outlined">code</span> Technical Specifications
       </h2>
-      <table style="width:100%; border-collapse:collapse; font-family:Roboto; font-size:14px; margin-top:16px;">
+      <table class="property-table">
         <thead>
-          <tr style="border-bottom: 1px solid #E0E0E0;">
-            <th style="text-align:left; padding:8px 16px; font-weight:500; color:#757575;">Property</th>
-            <th style="text-align:left; padding:8px 16px; font-weight:500; color:#757575;">Value</th>
+          <tr>
+            <th>Property</th>
+            <th>Value</th>
           </tr>
         </thead>
         <tbody>
-          <tr style="border-bottom:1px solid #E0E0E0;"><td style="padding:8px 16px;">Background</td><td style="padding:8px 16px;">#FFFFFF (background.paper)</td></tr>
-          <tr style="border-bottom:1px solid #E0E0E0;"><td style="padding:8px 16px;">Border</td><td style="padding:8px 16px;">1px solid #E0E0E0</td></tr>
-          <tr style="border-bottom:1px solid #E0E0E0;"><td style="padding:8px 16px;">Border Radius</td><td style="padding:8px 16px;">4px (flush: 0)</td></tr>
-          <tr style="border-bottom:1px solid #E0E0E0;"><td style="padding:8px 16px;">Title Bar Height</td><td style="padding:8px 16px;">48px</td></tr>
-          <tr style="border-bottom:1px solid #E0E0E0;"><td style="padding:8px 16px;">Title Bar Background</td><td style="padding:8px 16px;">#F5F5F5 (background.default)</td></tr>
-          <tr style="border-bottom:1px solid #E0E0E0;"><td style="padding:8px 16px;">Title Font</td><td style="padding:8px 16px;">Subtitle2 — 14px / 500 / #212121</td></tr>
-          <tr style="border-bottom:1px solid #E0E0E0;"><td style="padding:8px 16px;">Content Padding</td><td style="padding:8px 16px;">16px (default), 0 (flush)</td></tr>
+          <tr><td>Background</td><td>#FFFFFF (background.paper)</td></tr>
+          <tr><td>Border</td><td>1px solid #E0E0E0</td></tr>
+          <tr><td>Border Radius</td><td>4px (flush: 0)</td></tr>
+          <tr><td>Title Bar Height</td><td>48px</td></tr>
+          <tr><td>Title Bar Background</td><td>#F5F5F5 (background.default)</td></tr>
+          <tr><td>Title Font</td><td>Subtitle2 — 14px / 500 / #212121</td></tr>
+          <tr><td>Content Padding</td><td>16px (default), 0 (flush)</td></tr>
         </tbody>
       </table>
-    </div>
+
+      <h3 style="font-size: 14px; font-weight: 500; margin-top: var(--spacing-lg); margin-bottom: var(--spacing-sm); color: var(--color-text-primary);">Props</h3>
+      <table class="property-table">
+        <thead>
+          <tr>
+            <th>Prop</th>
+            <th>Type</th>
+            <th>Default</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>title</code></td><td><code>string</code></td><td>—</td><td>Optional section title. Renders header bar when present.</td></tr>
+          <tr><td><code>titleActions</code></td><td><code>ReactNode</code></td><td>—</td><td>Controls rendered to the right of the title (icons, menus).</td></tr>
+          <tr><td><code>padding</code></td><td><code>number</code></td><td><code>16</code></td><td>Body padding in px. Set to <code>0</code> for flush content like AG Grid.</td></tr>
+          <tr><td><code>flush</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Removes border radius. Use when containers stack flush against each other.</td></tr>
+          <tr><td><code>children</code></td><td><code>ReactNode</code></td><td>—</td><td>Content rendered inside the container body.</td></tr>
+          <tr><td><code>sx</code></td><td><code>object</code></td><td>—</td><td>MUI sx overrides for the outer wrapper.</td></tr>
+        </tbody>
+      </table>
+    </section>
   </main>
-  <script src="../../design-system-nav.js"></script>
 </body>
 </html>

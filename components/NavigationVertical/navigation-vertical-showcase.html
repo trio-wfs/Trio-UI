@@ -125,123 +125,6 @@
       letter-spacing: 0.5px;
     }
 
-    /* ── Nav component ── */
-    .nav-demo {
-      width: 260px;
-      background: var(--color-background-paper);
-      border: 1px solid var(--color-secondary-outline);
-      border-radius: var(--border-radius);
-      padding: var(--spacing-sm);
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .nav-item {
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-md);
-      padding: var(--spacing-md);
-      border-radius: 8px;
-      font-family: var(--font-family);
-      font-size: 14px;
-      font-weight: 400;
-      color: var(--color-text-primary);
-      cursor: pointer;
-      border: none;
-      background: transparent;
-      width: 100%;
-      text-align: left;
-      transition: background 150ms, color 150ms;
-    }
-    .nav-item:hover { background: #FAFAFA; }
-    .nav-item.selected {
-      background: #2196F31F;
-      color: var(--color-primary-dark);
-    }
-    .nav-item .material-icons.nav-icon {
-      font-size: 20px;
-      color: inherit;
-      flex-shrink: 0;
-    }
-    .nav-item .nav-label {
-      flex: 1;
-      font-size: inherit;
-      font-weight: inherit;
-      color: inherit;
-    }
-    .nav-item .nav-chevron {
-      font-size: 16px;
-      color: inherit;
-      flex-shrink: 0;
-    }
-
-    /* Sub-items */
-    .nav-subitems {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      margin-top: 2px;
-    }
-    .nav-subitem {
-      display: flex;
-      align-items: center;
-      padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-sm) 40px;
-      border-radius: var(--border-radius);
-      font-family: var(--font-family);
-      font-size: 12px;
-      font-weight: 400;
-      color: var(--color-text-primary);
-      cursor: pointer;
-      border: none;
-      background: transparent;
-      width: 100%;
-      text-align: left;
-      transition: background 150ms, color 150ms;
-    }
-    .nav-subitem:hover { background: #FAFAFA; }
-    .nav-subitem.selected { color: var(--color-primary-dark); }
-
-    /* Divider */
-    .nav-divider {
-      height: 1px;
-      background: var(--color-secondary-outline);
-      margin: var(--spacing-sm) 0;
-    }
-
-    /* Settings section label */
-    .nav-section-label {
-      padding: var(--spacing-xs) var(--spacing-md);
-      font-size: 11px;
-      font-weight: 500;
-      color: var(--color-text-secondary);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    /* Settings items */
-    .nav-settings-item {
-      display: flex;
-      align-items: center;
-      padding: var(--spacing-sm) var(--spacing-md);
-      border-radius: var(--border-radius);
-      border-left: 3px solid transparent;
-      font-family: var(--font-family);
-      font-size: 12px;
-      font-weight: 400;
-      color: var(--color-text-primary);
-      cursor: pointer;
-      background: transparent;
-      width: 100%;
-      text-align: left;
-      transition: background 150ms, color 150ms, border-color 150ms;
-    }
-    .nav-settings-item:hover { background: rgba(0,0,0,0.04); }
-    .nav-settings-item.selected {
-      border-left-color: var(--color-primary-dark);
-      color: var(--color-primary-dark);
-    }
-
     /* Spec table */
     .spec-table {
       width: 100%;
@@ -264,8 +147,15 @@
       vertical-align: top;
     }
     .spec-table tr:last-child td { border-bottom: none; }
+
+    /* React mount points — full width for layout components */
+    [data-trio-component] {
+      display: block;
+      width: 100%;
+    }
   </style>
   <script src="../../design-system-nav.js"></script>
+  <script type="module" src="../../showcase/dist/showcase.js"></script>
 </head>
 <body>
   <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
@@ -319,34 +209,7 @@
         </div>
       </div>
       <div class="demo-panel" style="margin-top: var(--spacing-md);">
-        <div class="nav-demo" id="overview-nav">
-          <button class="nav-item selected" onclick="selectNav('overview-nav', this)">
-            <span class="material-icons nav-icon">dashboard</span>
-            <span class="nav-label">Dashboard</span>
-          </button>
-          <button class="nav-item" onclick="selectNav('overview-nav', this)">
-            <span class="material-icons nav-icon">assignment</span>
-            <span class="nav-label">Orders</span>
-            <span class="material-icons nav-chevron">keyboard_arrow_down</span>
-          </button>
-          <button class="nav-item" onclick="selectNav('overview-nav', this)">
-            <span class="material-icons nav-icon">people</span>
-            <span class="nav-label">Workers</span>
-          </button>
-          <button class="nav-item" onclick="selectNav('overview-nav', this)">
-            <span class="material-icons nav-icon">schedule</span>
-            <span class="nav-label">Shifts</span>
-          </button>
-          <button class="nav-item" onclick="selectNav('overview-nav', this)">
-            <span class="material-icons nav-icon">verified_user</span>
-            <span class="nav-label">Credentialing</span>
-          </button>
-          <div class="nav-divider"></div>
-          <div class="nav-section-label">Settings</div>
-          <button class="nav-settings-item selected">Program Details</button>
-          <button class="nav-settings-item">Users & Roles</button>
-          <button class="nav-settings-item">Notifications</button>
-        </div>
+        <div data-trio-component="NavigationVertical" data-trio-props='{"state":"open","activeId":"dashboard","settings":true,"activeSettingsId":"program-details","items":[{"id":"dashboard","label":"Dashboard","icon":"Dashboard"},{"id":"orders","label":"Orders","expandable":true,"subItems":[{"id":"open-orders","label":"Open Orders"},{"id":"filled-orders","label":"Filled Orders"},{"id":"cancelled","label":"Cancelled"}]},{"id":"workers","label":"Workers","icon":"People"},{"id":"shifts","label":"Shifts","icon":"Schedule"},{"id":"credentialing","label":"Credentialing","icon":"VerifiedUser"}],"settingsItems":[{"id":"program-details","label":"Program Details"},{"id":"users-roles","label":"Users & Roles"},{"id":"notifications","label":"Notifications"}]}'></div>
       </div>
     </section>
 
@@ -409,44 +272,12 @@
       <div class="demo-panel">
         <div class="demo-row">
           <div class="demo-col">
-            <div class="demo-label">Collapsed</div>
-            <div class="nav-demo">
-              <button class="nav-item">
-                <span class="material-icons nav-icon">assignment</span>
-                <span class="nav-label">Orders</span>
-                <span class="material-icons nav-chevron">keyboard_arrow_down</span>
-              </button>
-            </div>
+            <div class="demo-label">Expandable item — collapsed</div>
+            <div data-trio-component="NavigationVertical" data-trio-props='{"state":"open","items":[{"id":"orders","label":"Orders","expandable":true,"subItems":[{"id":"open-orders","label":"Open Orders"},{"id":"filled-orders","label":"Filled Orders"},{"id":"cancelled","label":"Cancelled"}]}]}'></div>
           </div>
           <div class="demo-col">
-            <div class="demo-label">Expanded — default</div>
-            <div class="nav-demo">
-              <button class="nav-item">
-                <span class="material-icons nav-icon">assignment</span>
-                <span class="nav-label">Orders</span>
-                <span class="material-icons nav-chevron">keyboard_arrow_up</span>
-              </button>
-              <div class="nav-subitems">
-                <button class="nav-subitem">Open Orders</button>
-                <button class="nav-subitem">Filled Orders</button>
-                <button class="nav-subitem">Cancelled</button>
-              </div>
-            </div>
-          </div>
-          <div class="demo-col">
-            <div class="demo-label">Expanded — with selection</div>
-            <div class="nav-demo">
-              <button class="nav-item selected">
-                <span class="material-icons nav-icon">assignment</span>
-                <span class="nav-label">Orders</span>
-                <span class="material-icons nav-chevron">keyboard_arrow_up</span>
-              </button>
-              <div class="nav-subitems">
-                <button class="nav-subitem selected">Open Orders</button>
-                <button class="nav-subitem">Filled Orders</button>
-                <button class="nav-subitem">Cancelled</button>
-              </div>
-            </div>
+            <div class="demo-label">Expandable item — expanded with selection</div>
+            <div data-trio-component="NavigationVertical" data-trio-props='{"state":"open","activeId":"orders","activeSubId":"open-orders","items":[{"id":"orders","label":"Orders","expandable":true,"subItems":[{"id":"open-orders","label":"Open Orders"},{"id":"filled-orders","label":"Filled Orders"},{"id":"cancelled","label":"Cancelled"}]}]}'></div>
           </div>
         </div>
       </div>
@@ -455,26 +286,7 @@
       <div class="variant-group" style="margin-top: var(--spacing-lg);">
         <div class="variant-label">Settings Section — left border selected style</div>
         <div class="demo-panel">
-          <div class="demo-row">
-            <div class="demo-col">
-              <div class="demo-label">Default</div>
-              <div style="width: 260px; padding: var(--spacing-sm);">
-                <button class="nav-settings-item">Program Details</button>
-              </div>
-            </div>
-            <div class="demo-col">
-              <div class="demo-label">Hover</div>
-              <div style="width: 260px; padding: var(--spacing-sm);">
-                <button class="nav-settings-item" style="background: rgba(0,0,0,0.04);">Program Details</button>
-              </div>
-            </div>
-            <div class="demo-col">
-              <div class="demo-label">Selected</div>
-              <div style="width: 260px; padding: var(--spacing-sm);">
-                <button class="nav-settings-item selected">Program Details</button>
-              </div>
-            </div>
-          </div>
+          <div data-trio-component="NavigationVertical" data-trio-props='{"state":"open","settings":true,"activeSettingsId":"program-details","items":[{"id":"dashboard","label":"Dashboard","icon":"Dashboard"}],"settingsItems":[{"id":"program-details","label":"Program Details"},{"id":"users-roles","label":"Users & Roles"},{"id":"notifications","label":"Notifications"}]}'></div>
         </div>
       </div>
     </section>
@@ -489,31 +301,16 @@
       <div class="demo-panel">
         <div class="demo-row">
           <div class="demo-col">
-            <div class="demo-label">Default</div>
-            <div class="nav-demo" style="width: 260px; gap:0;">
-              <button class="nav-item">
-                <span class="material-icons nav-icon">people</span>
-                <span class="nav-label">Workers</span>
-              </button>
-            </div>
-          </div>
-          <div class="demo-col">
-            <div class="demo-label">Hover</div>
-            <div class="nav-demo" style="width: 260px; gap:0;">
-              <button class="nav-item" style="background: #FAFAFA;">
-                <span class="material-icons nav-icon">people</span>
-                <span class="nav-label">Workers</span>
-              </button>
-            </div>
+            <div class="demo-label">Default (no active item)</div>
+            <div data-trio-component="NavigationVertical" data-trio-props='{"state":"open","items":[{"id":"workers","label":"Workers","icon":"People"}]}'></div>
           </div>
           <div class="demo-col">
             <div class="demo-label">Selected</div>
-            <div class="nav-demo" style="width: 260px; gap:0;">
-              <button class="nav-item selected">
-                <span class="material-icons nav-icon">people</span>
-                <span class="nav-label">Workers</span>
-              </button>
-            </div>
+            <div data-trio-component="NavigationVertical" data-trio-props='{"state":"open","activeId":"workers","items":[{"id":"workers","label":"Workers","icon":"People"}]}'></div>
+          </div>
+          <div class="demo-col">
+            <div class="demo-label">Closed (icon rail)</div>
+            <div data-trio-component="NavigationVertical" data-trio-props='{"state":"closed","activeId":"workers","items":[{"id":"workers","label":"Workers","icon":"People"}]}'></div>
           </div>
         </div>
 
@@ -544,51 +341,7 @@
         A realistic TRIO WFS sidebar with primary sections, one expanded item, and the settings section.
       </p>
       <div class="demo-panel">
-        <div class="nav-demo" id="full-nav">
-          <button class="nav-item" onclick="selectNav('full-nav', this)">
-            <span class="material-icons nav-icon">dashboard</span>
-            <span class="nav-label">Dashboard</span>
-          </button>
-          <div>
-            <button class="nav-item selected" onclick="toggleExpand(this, 'orders-sub')">
-              <span class="material-icons nav-icon">assignment</span>
-              <span class="nav-label">Orders</span>
-              <span class="material-icons nav-chevron" id="orders-chevron">keyboard_arrow_up</span>
-            </button>
-            <div class="nav-subitems" id="orders-sub">
-              <button class="nav-subitem selected">Open Orders</button>
-              <button class="nav-subitem">Filled Orders</button>
-              <button class="nav-subitem">Cancelled</button>
-            </div>
-          </div>
-          <button class="nav-item" onclick="selectNav('full-nav', this)">
-            <span class="material-icons nav-icon">people</span>
-            <span class="nav-label">Workers</span>
-          </button>
-          <button class="nav-item" onclick="selectNav('full-nav', this)">
-            <span class="material-icons nav-icon">schedule</span>
-            <span class="nav-label">Shifts</span>
-          </button>
-          <button class="nav-item" onclick="selectNav('full-nav', this)">
-            <span class="material-icons nav-icon">verified_user</span>
-            <span class="nav-label">Credentialing</span>
-            <span class="material-icons nav-chevron">keyboard_arrow_down</span>
-          </button>
-          <button class="nav-item" onclick="selectNav('full-nav', this)">
-            <span class="material-icons nav-icon">access_time</span>
-            <span class="nav-label">Timekeeping</span>
-          </button>
-          <button class="nav-item" onclick="selectNav('full-nav', this)">
-            <span class="material-icons nav-icon">receipt</span>
-            <span class="nav-label">Invoicing</span>
-          </button>
-          <div class="nav-divider"></div>
-          <div class="nav-section-label">Settings</div>
-          <button class="nav-settings-item selected">Program Details</button>
-          <button class="nav-settings-item">Users & Roles</button>
-          <button class="nav-settings-item">Notifications</button>
-          <button class="nav-settings-item">Integrations</button>
-        </div>
+        <div data-trio-component="NavigationVertical" data-trio-props='{"state":"open","activeId":"orders","activeSubId":"open-orders","settings":true,"activeSettingsId":"program-details","items":[{"id":"dashboard","label":"Dashboard","icon":"Dashboard"},{"id":"orders","label":"Orders","expandable":true,"subItems":[{"id":"open-orders","label":"Open Orders"},{"id":"filled-orders","label":"Filled Orders"},{"id":"cancelled","label":"Cancelled"}]},{"id":"workers","label":"Workers","icon":"People"},{"id":"shifts","label":"Shifts","icon":"Schedule"},{"id":"credentialing","label":"Credentialing","expandable":true,"subItems":[{"id":"pending","label":"Pending Review"},{"id":"approved","label":"Approved"},{"id":"expired","label":"Expired"}]},{"id":"timekeeping","label":"Timekeeping","icon":"AccessTime"},{"id":"invoicing","label":"Invoicing","icon":"Receipt"}],"settingsItems":[{"id":"program-details","label":"Program Details"},{"id":"users-roles","label":"Users & Roles"},{"id":"notifications","label":"Notifications"},{"id":"integrations","label":"Integrations"}]}'></div>
       </div>
     </section>
 
@@ -662,22 +415,5 @@
 
   </main>
 
-  <script>
-    function selectNav(groupId, clickedItem) {
-      const container = document.getElementById(groupId);
-      if (!container) return;
-      container.querySelectorAll('.nav-item').forEach(i => i.classList.remove('selected'));
-      clickedItem.classList.add('selected');
-    }
-
-    function toggleExpand(btn, subId) {
-      const sub = document.getElementById(subId);
-      const chevron = document.getElementById('orders-chevron');
-      if (!sub) return;
-      const isOpen = sub.style.display !== 'none' && sub.style.display !== '';
-      sub.style.display = isOpen ? 'none' : 'flex';
-      if (chevron) chevron.textContent = isOpen ? 'keyboard_arrow_down' : 'keyboard_arrow_up';
-    }
-  </script>
 </body>
 </html>

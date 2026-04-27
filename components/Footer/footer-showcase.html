@@ -39,45 +39,11 @@
       background: var(--color-background-paper);
     }
 
-    /* ── Footer demo ── */
-    .footer-demo {
-      display: flex;
-      align-items: center;
-      width: 100%;
-      background: var(--color-background-default);
-      border-top: 1px solid var(--color-secondary-outline);
-      padding: var(--spacing-sm) var(--spacing-md);
-      position: sticky;
-      bottom: 0;
-      border-radius: 4px;
-      font-family: 'Roboto', sans-serif;
-    }
-    .footer-demo-left {
-      flex: 1;
-      font-size: 12px;
-      color: var(--color-text-primary);
-      letter-spacing: 0.4px;
-      line-height: 1.66;
-    }
-    .footer-demo-right {
-      flex: 1;
-      text-align: right;
-      font-size: 12px;
-      line-height: 1.66;
-    }
-    .footer-demo-right a {
-      color: var(--color-primary-main);
-      text-decoration: none;
-    }
-    .footer-demo-right a:hover {
-      text-decoration: underline;
-    }
-    .footer-demo-right .separator {
-      color: var(--color-text-primary);
-      margin: 0 var(--spacing-xs);
-    }
+    /* React mount points */
+    [data-trio-component] { display: block; width: 100%; }
   </style>
   <script src="../../design-system-nav.js"></script>
+  <script type="module" src="../../showcase/dist/showcase.js"></script>
 </head>
 <body>
   <aside class="sidebar"><!-- nav injected --></aside>
@@ -101,16 +67,7 @@
 
         <!-- Live demo -->
         <div style="margin-top: var(--spacing-md);">
-          <div class="footer-demo">
-            <div class="footer-demo-left">
-              &copy; 2017-2025 American Health Technology Group, LLC: Trio/Insight 25.4.0.0
-            </div>
-            <div class="footer-demo-right">
-              <a href="#">Terms of Use</a>
-              <span class="separator">|</span>
-              <a href="#">Privacy Policy</a>
-            </div>
-          </div>
+          <div data-trio-component="Footer" data-trio-props='{"copyrightText":"© 2017-2025 American Health Technology Group, LLC: Trio/Insight 25.4.0.0","links":[{"label":"Terms of Use","href":"#"},{"label":"Privacy Policy","href":"#"}]}'></div>
         </div>
       </section>
 

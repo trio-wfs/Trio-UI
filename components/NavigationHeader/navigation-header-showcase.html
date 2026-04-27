@@ -39,124 +39,6 @@
       background: var(--color-background-paper);
     }
 
-    /* ── Demo: Brand Bar ── */
-    .brand-bar-demo {
-      display: flex;
-      align-items: center;
-      background: #607D8B;
-      padding: 0 var(--spacing-lg);
-      border-radius: 4px 4px 0 0;
-      overflow: hidden;
-    }
-    .brand-bar-inner {
-      display: flex;
-      flex: 1;
-      align-items: center;
-      gap: var(--spacing-lg);
-      min-width: 0;
-      height: 48px;
-    }
-    .trio-logo {
-      height: 26px;
-      width: 101px;
-      object-fit: contain;
-    }
-    .env-badge {
-      background: var(--color-error-main);
-      border-radius: 0 0 4px 4px;
-      padding: 2px 10px;
-      font-size: 20px;
-      font-weight: 500;
-      color: var(--color-text-inverse);
-      white-space: nowrap;
-    }
-    .search-demo {
-      background: var(--color-background-paper);
-      border: 1px solid var(--color-secondary-outline);
-      border-radius: 4px;
-      padding: var(--spacing-xs) var(--spacing-sm);
-      font-size: 14px;
-      color: var(--color-text-secondary);
-      min-width: 200px;
-    }
-    .user-section {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-left: auto;
-    }
-    .user-avatar {
-      width: 32px;
-      height: 34px;
-      border-radius: 4px;
-      background: #AB47BC;
-      border: 2px solid var(--color-text-inverse);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      color: var(--color-text-inverse);
-      font-family: 'Roboto', sans-serif;
-    }
-    .user-name {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--color-text-inverse);
-      white-space: nowrap;
-    }
-
-    /* ── Demo: Nav Bar ── */
-    .nav-bar-demo {
-      display: flex;
-      align-items: flex-start;
-      background: var(--color-background-paper);
-      border: 1px solid var(--color-secondary-outline);
-      border-top: none;
-      border-radius: 0 0 4px 4px;
-      padding: 0 var(--spacing-md);
-      height: 50px;
-    }
-    .nav-item-demo {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: center;
-      height: 50px;
-      cursor: pointer;
-      flex-shrink: 0;
-    }
-    .nav-item-demo:hover .nav-item-inner {
-      background: var(--color-background-default);
-    }
-    .nav-item-inner {
-      display: flex;
-      align-items: center;
-      gap: 3px;
-      height: 50px;
-      padding: 0 var(--spacing-md);
-      overflow: hidden;
-    }
-    .nav-item-label {
-      font-family: 'Roboto', sans-serif;
-      font-size: 11px;
-      font-weight: 500;
-      line-height: 16px;
-      color: var(--color-text-primary);
-      white-space: nowrap;
-    }
-    .nav-item-arrow {
-      font-size: 16px !important;
-      color: var(--color-text-primary);
-    }
-    .nav-item-active .nav-item-inner {
-      background: var(--color-background-default);
-    }
-    .nav-item-active-indicator {
-      width: 100%;
-      height: 2px;
-      background: var(--color-text-primary);
-    }
-
     /* ── Anatomy diagram ── */
     .anatomy-diagram {
       background: var(--color-background-paper);
@@ -177,8 +59,15 @@
     }
     .anatomy-label.brand { background: #607D8B; color: white; }
     .anatomy-label.nav { background: var(--color-primary-main); color: white; }
+
+    /* React mount points — full width block for header components */
+    [data-trio-component] {
+      display: block;
+      width: 100%;
+    }
   </style>
   <script src="../../design-system-nav.js"></script>
+  <script type="module" src="../../showcase/dist/showcase.js"></script>
 </head>
 <body>
   <aside class="sidebar"><!-- nav injected --></aside>
@@ -202,78 +91,7 @@
 
         <!-- Live demo -->
         <div style="margin-top: var(--spacing-md);">
-          <div class="brand-bar-demo">
-            <div class="brand-bar-inner">
-              <img src="https://www.figma.com/api/mcp/asset/ef5f2259-89c8-4dfe-9331-24e33a900116" alt="TRIO" class="trio-logo" />
-              <span class="env-badge">TRIO WIP</span>
-              <div class="search-demo">Search Trio</div>
-              <div class="user-section">
-                <div class="user-avatar">JS</div>
-                <span class="user-name">Jesse Szygiel</span>
-                <span class="material-icons" style="font-size: 20px; color: white;">keyboard_arrow_down</span>
-              </div>
-            </div>
-          </div>
-          <div class="nav-bar-demo">
-            <div class="nav-item-demo">
-              <div class="nav-item-inner">
-                <span class="nav-item-label">DASHBOARDS</span>
-                <span class="material-icons nav-item-arrow">keyboard_arrow_down</span>
-              </div>
-            </div>
-            <div class="nav-item-demo">
-              <div class="nav-item-inner">
-                <span class="nav-item-label">NURSING/ALLIED</span>
-                <span class="material-icons nav-item-arrow">keyboard_arrow_down</span>
-              </div>
-            </div>
-            <div class="nav-item-demo">
-              <div class="nav-item-inner">
-                <span class="nav-item-label">LOCUMS</span>
-                <span class="material-icons nav-item-arrow">keyboard_arrow_down</span>
-              </div>
-            </div>
-            <div class="nav-item-demo nav-item-active">
-              <div class="nav-item-inner">
-                <span class="nav-item-label">PER DIEM</span>
-                <span class="material-icons nav-item-arrow">keyboard_arrow_down</span>
-              </div>
-              <div class="nav-item-active-indicator"></div>
-            </div>
-            <div class="nav-item-demo">
-              <div class="nav-item-inner">
-                <span class="nav-item-label">IRM</span>
-                <span class="material-icons nav-item-arrow">keyboard_arrow_down</span>
-              </div>
-            </div>
-            <div class="nav-item-demo">
-              <div class="nav-item-inner">
-                <span class="nav-item-label">CLIENTS</span>
-              </div>
-            </div>
-            <div class="nav-item-demo">
-              <div class="nav-item-inner">
-                <span class="nav-item-label">AGENCIES</span>
-              </div>
-            </div>
-            <div class="nav-item-demo">
-              <div class="nav-item-inner">
-                <span class="nav-item-label">BILLING</span>
-                <span class="material-icons nav-item-arrow">keyboard_arrow_down</span>
-              </div>
-            </div>
-            <div class="nav-item-demo">
-              <div class="nav-item-inner">
-                <span class="nav-item-label">REPORTS</span>
-              </div>
-            </div>
-            <div class="nav-item-demo">
-              <div class="nav-item-inner">
-                <span class="nav-item-label">ADMINISTRATION</span>
-                <span class="material-icons nav-item-arrow">keyboard_arrow_down</span>
-              </div>
-            </div>
-          </div>
+          <div data-trio-component="NavigationHeader" data-trio-props='{"badgeText":"TRIO WIP","searchPlaceholder":"Search Trio","user":{"name":"Jesse Szygiel","initials":"JS","avatarColor":"#AB47BC"},"activeItemId":"per-diem","navItems":[{"id":"dashboards","label":"Dashboards","hasDropdown":true},{"id":"nursing","label":"Nursing/Allied","hasDropdown":true},{"id":"locums","label":"Locums","hasDropdown":true},{"id":"per-diem","label":"Per Diem","hasDropdown":true},{"id":"irm","label":"IRM","hasDropdown":true},{"id":"clients","label":"Clients"},{"id":"agencies","label":"Agencies"},{"id":"billing","label":"Billing","hasDropdown":true},{"id":"reports","label":"Reports"},{"id":"administration","label":"Administration","hasDropdown":true}]}'></div>
         </div>
       </section>
 

@@ -97,7 +97,7 @@
       transform: rotate(-3deg);
     }
 
-    /* ── Demo containers: paper + border ── */
+    /* ── Demo containers ── */
     .demo-stack {
       display: flex;
       flex-direction: column;
@@ -113,284 +113,14 @@
       margin-bottom: var(--spacing-sm);
     }
 
-    /* ── Toolbar wrapper ── */
-    .pht {
-      display: flex;
-      flex-direction: column;
+    /* React mount points — full width for layout components */
+    [data-trio-component] {
+      display: block;
       width: 100%;
-      border-radius: var(--border-radius);
-      background: var(--color-background-paper);
-      border: 1px solid var(--color-secondary-outline);
     }
-
-    .pht-new-canvas {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      border-radius: var(--border-radius);
-    }
-
-    /* ── Top bar ── */
-    .pht-top {
-      display: flex;
-      align-items: center;
-      min-height: 68px;
-    }
-
-    .pht-top-border {
-      border-bottom: 1px solid var(--color-secondary-outline);
-    }
-
-    /* ── Status indicator ── */
-    .pht-indicator {
-      display: flex;
-      align-self: stretch;
-      align-items: center;
-      justify-content: center;
-      width: 80px;
-      background: var(--color-primary-main);
-      flex-shrink: 0;
-      border-radius: var(--border-radius) 0 0 0;
-    }
-    .pht-indicator span {
-      font-size: 12px;
-      color: #fff;
-      letter-spacing: 0.5px;
-      font-family: var(--font-family);
-    }
-
-    /* ── Content row ── */
-    .pht-content {
-      display: flex;
-      flex: 1;
-      align-items: center;
-      justify-content: flex-end;
-      gap: var(--spacing-md);
-      padding: var(--spacing-md);
-    }
-
-    /* ── Title area ── */
-    .pht-title-area {
-      display: flex;
-      flex: 1;
-      flex-direction: column;
-      gap: var(--spacing-sm);
-      min-width: 0;
-    }
-
-    .pht-title-row {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      flex-wrap: wrap;
-    }
-
-    .pht-title {
-      font-size: 20px;
-      font-weight: 500;
-      color: var(--color-text-primary);
-      font-family: var(--font-family);
-      line-height: 24px;
-      white-space: nowrap;
-    }
-
-    .pht-eyebrow {
-      font-size: 12px;
-      color: var(--color-text-secondary);
-      font-family: var(--font-family);
-      line-height: 18px;
-      white-space: nowrap;
-    }
-
-    /* ── Chips row ── */
-    .pht-chips {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: var(--spacing-sm);
-    }
-
-    .chip-sm {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      height: 24px;
-      padding: 0 var(--spacing-sm);
-      border-radius: 999px;
-      background: var(--color-secondary-main);
-      color: var(--color-text-primary);
-      font-size: 12px;
-      font-family: var(--font-family);
-    }
-    .chip-sm .material-icons { font-size: 14px; color: var(--color-text-secondary); cursor: pointer; }
-
-    /* ── Right-side actions ── */
-    .pht-actions {
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-sm);
-      flex-shrink: 0;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      height: 36px;
-      padding: 0 var(--spacing-md);
-      border-radius: var(--border-radius);
-      font-size: 12px;
-      font-family: var(--font-family);
-      cursor: pointer;
-      border: none;
-      white-space: nowrap;
-    }
-    .btn-secondary { background: var(--color-secondary-main); color: var(--color-secondary-dark); border: 1px solid var(--color-secondary-outline); }
-    .btn-secondary:hover { background: var(--color-secondary-outline); }
-    .btn-secondary .material-icons { font-size: 16px; }
-
-    /* Split button */
-    .split-btn {
-      display: inline-flex;
-      align-items: center;
-      border-radius: var(--border-radius);
-      overflow: hidden;
-      border: 1px solid var(--color-secondary-outline);
-    }
-    .split-btn-label {
-      height: 36px;
-      padding: 0 var(--spacing-md);
-      background: var(--color-secondary-main);
-      color: var(--color-secondary-dark);
-      font-size: 12px;
-      font-family: var(--font-family);
-      cursor: pointer;
-      border: none;
-      white-space: nowrap;
-    }
-    .split-btn-icon {
-      height: 36px;
-      width: 32px;
-      background: var(--color-secondary-main);
-      color: var(--color-secondary-dark);
-      font-size: 12px;
-      cursor: pointer;
-      border: none;
-      border-left: 1px solid var(--color-secondary-outline);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .split-btn-icon .material-icons { font-size: 16px; }
-
-    /* Inline button group */
-    .btn-group {
-      display: inline-flex;
-      border-radius: var(--border-radius);
-    }
-    .btn-group-item {
-      height: 38px;
-      padding: 0 var(--spacing-md);
-      background: var(--color-secondary-main);
-      color: var(--color-secondary-dark);
-      font-size: 12px;
-      font-weight: 400;
-      font-family: var(--font-family);
-      cursor: pointer;
-      border: 1px solid var(--color-secondary-outline);
-      border-radius: 0;
-      white-space: nowrap;
-      text-transform: none;
-    }
-    .btn-group-item:first-child {
-      border-radius: var(--border-radius) 0 0 var(--border-radius);
-    }
-    .btn-group-item:last-child {
-      border-radius: 0 var(--border-radius) var(--border-radius) 0;
-    }
-    .btn-group-item:not(:first-child) { margin-left: -1px; }
-    .btn-group-item:hover { box-shadow: inset 0 0 0 9999px rgba(0,0,0,0.08); border-color: var(--color-text-secondary); }
-
-    /* ── Breadcrumb strip ── */
-    .pht-breadcrumb {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 40px;
-      padding: 0 var(--spacing-md);
-      background: var(--color-background-secondary, #fafafa);
-      border-radius: 0 0 var(--border-radius) var(--border-radius);
-    }
-
-    .bc-links {
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-sm);
-    }
-
-    .bc-item {
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-sm);
-      flex-shrink: 0;
-    }
-
-    .bc-link {
-      font-size: 12px;
-      color: var(--color-primary-main);
-      text-decoration: none;
-      font-family: var(--font-family);
-    }
-
-    .bc-selected {
-      font-size: 12px;
-      color: var(--color-text-primary);
-      font-family: var(--font-family);
-      border-bottom: 2px solid var(--color-primary-main);
-      line-height: 38px;
-    }
-
-    .bc-divider {
-      font-size: 16px;
-      color: var(--color-text-secondary);
-    }
-
-    .bc-right {
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-md);
-      flex-shrink: 0;
-    }
-
-    .bc-count {
-      font-size: 12px;
-      color: var(--color-text-secondary);
-      font-family: var(--font-family);
-    }
-
-    .toggle-strip {
-      display: inline-flex;
-      align-items: center;
-      border: 1px solid var(--color-primary-main);
-      border-radius: var(--border-radius);
-      overflow: hidden;
-    }
-    .toggle-slot {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 24px;
-      height: 24px;
-      background: transparent;
-      color: var(--color-primary-main);
-      border: none;
-      cursor: pointer;
-      padding: 0;
-    }
-    .toggle-slot:not(:last-child) { border-right: 1px solid var(--color-primary-main); }
-    .toggle-slot .material-icons { font-size: 16px; }
   </style>
   <script src="../../design-system-nav.js"></script>
+  <script type="module" src="../../showcase/dist/showcase.js"></script>
 </head>
 <body>
   <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
@@ -504,145 +234,25 @@
         <!-- Full -->
         <div>
           <div class="demo-label">Full</div>
-          <div class="pht">
-            <div class="pht-top pht-top-border">
-              <div class="pht-content">
-                <div class="pht-title-area">
-                  <div class="pht-title-row">
-                    <span class="pht-title">Per Diem Shift Scheduler</span>
-                    <div class="pht-chips">
-                      <span class="chip-sm">Lorem Ipsum Tag <span class="material-icons">close</span></span>
-                      <span class="chip-sm">Lorem Tag <span class="material-icons">close</span></span>
-                      <span class="chip-sm">Ipsum Tag <span class="material-icons">close</span></span>
-                      <span class="chip-sm" style="color: var(--color-primary-main);">+8 More</span>
-                    </div>
-                  </div>
-                  <span class="pht-eyebrow">Eyebrow Text Placement (Header Support text)</span>
-                </div>
-                <div class="pht-actions">
-                  <div class="split-btn">
-                    <button class="split-btn-label">Single</button>
-                    <button class="split-btn-icon"><span class="material-icons">arrow_drop_down</span></button>
-                  </div>
-                  <div class="btn-group">
-                    <button class="btn-group-item">Action</button>
-                    <button class="btn-group-item">Action</button>
-                    <button class="btn-group-item">Action</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="pht-breadcrumb">
-              <div class="bc-links">
-                <div class="bc-item"><a class="bc-link" href="#">Parent</a><span class="bc-divider">/</span></div>
-                <div class="bc-item"><a class="bc-link" href="#">Child</a><span class="bc-divider">/</span></div>
-                <div class="bc-item"><span class="bc-selected">Selected Page</span></div>
-              </div>
-              <div class="bc-right">
-                <span class="bc-count">1,284 records</span>
-                <div class="toggle-strip">
-                  <button class="toggle-slot"><span class="material-icons">filter_alt_off</span></button>
-                  <button class="toggle-slot"><span class="material-icons">file_download</span></button>
-                  <button class="toggle-slot"><span class="material-icons">restart_alt</span></button>
-                </div>
-              </div>
-            </div>
-          </div>
+          <div data-trio-component="PageHeaderToolbar" data-trio-props='{"variant":"full","pageTitleText":"Per Diem Shift Scheduler","eyebrowText":"Eyebrow Text Placement (Header Support text)"}'></div>
         </div>
 
         <!-- Default -->
         <div>
           <div class="demo-label">Default</div>
-          <div class="pht">
-            <div class="pht-top">
-              <div class="pht-content">
-                <div class="pht-title-area">
-                  <div class="pht-title-row">
-                    <span class="pht-title">Per Diem Shift Scheduler</span>
-                  </div>
-                </div>
-                <div class="pht-actions">
-                  <div class="btn-group">
-                    <button class="btn-group-item">Action</button>
-                    <button class="btn-group-item">Action</button>
-                    <button class="btn-group-item">Action</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <div data-trio-component="PageHeaderToolbar" data-trio-props='{"variant":"default","pageTitleText":"Per Diem Shift Scheduler"}'></div>
         </div>
 
         <!-- NewCanvas -->
         <div>
           <div class="demo-label">NewCanvas (no outer border)</div>
-          <div class="pht-new-canvas" style="background: var(--color-background-paper); border-radius: var(--border-radius); border: 1px solid var(--color-secondary-outline);">
-            <div class="pht-top pht-top-border">
-              <div class="pht-content">
-                <div class="pht-title-area">
-                  <div class="pht-title-row">
-                    <span class="pht-title">Per Diem Shift Scheduler</span>
-                    <div class="pht-chips">
-                      <span class="chip-sm">Lorem Tag <span class="material-icons">close</span></span>
-                      <span class="chip-sm">Ipsum Tag <span class="material-icons">close</span></span>
-                    </div>
-                  </div>
-                  <span class="pht-eyebrow">Eyebrow Text Placement (Header Support text)</span>
-                </div>
-                <div class="pht-actions">
-                  <div class="split-btn">
-                    <button class="split-btn-label">Single</button>
-                    <button class="split-btn-icon"><span class="material-icons">arrow_drop_down</span></button>
-                  </div>
-                  <div class="btn-group">
-                    <button class="btn-group-item">Action</button>
-                    <button class="btn-group-item">Action</button>
-                    <button class="btn-group-item">Action</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="pht-breadcrumb">
-              <div class="bc-links">
-                <div class="bc-item"><a class="bc-link" href="#">Parent</a><span class="bc-divider">/</span></div>
-                <div class="bc-item"><a class="bc-link" href="#">Child</a><span class="bc-divider">/</span></div>
-                <div class="bc-item"><span class="bc-selected">Selected Page</span></div>
-              </div>
-              <div class="bc-right">
-                <span class="bc-count">842 records</span>
-                <div class="toggle-strip">
-                  <button class="toggle-slot"><span class="material-icons">filter_alt_off</span></button>
-                  <button class="toggle-slot"><span class="material-icons">file_download</span></button>
-                  <button class="toggle-slot"><span class="material-icons">restart_alt</span></button>
-                </div>
-              </div>
-            </div>
-          </div>
+          <div data-trio-component="PageHeaderToolbar" data-trio-props='{"variant":"NewCanvas","pageTitleText":"Per Diem Shift Scheduler","eyebrowText":"Eyebrow Text Placement (Header Support text)"}'></div>
         </div>
 
         <!-- Status Indicator -->
         <div>
           <div class="demo-label">With Status Indicator</div>
-          <div class="pht" style="max-width: 720px;">
-            <div class="pht-top">
-              <div class="pht-indicator"><span>OPEN</span></div>
-              <div class="pht-content">
-                <div class="pht-title-area">
-                  <div class="pht-title-row">
-                    <span class="pht-title">Shift #20481 — ICU Night</span>
-                  </div>
-                  <span class="pht-eyebrow">Memorial Hospital · ICU · RN · Nights</span>
-                </div>
-                <div class="pht-actions">
-                  <div class="btn-group">
-                    <button class="btn-group-item">Edit</button>
-                    <button class="btn-group-item">Close</button>
-                    <button class="btn-group-item">Cancel</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <div data-trio-component="PageHeaderToolbar" data-trio-props='{"variant":"default","pageTitleText":"Shift #20481 — ICU Night","eyebrowText":"Memorial Hospital · ICU · RN · Nights","indicatorLabel":"OPEN"}'></div>
         </div>
 
       </div>
@@ -660,58 +270,19 @@
         <!-- Title only -->
         <div>
           <div class="demo-label">Title only</div>
-          <div class="pht">
-            <div class="pht-top">
-              <div class="pht-content">
-                <div class="pht-title-area">
-                  <div class="pht-title-row"><span class="pht-title">Page Title</span></div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <div data-trio-component="PageHeaderToolbar" data-trio-props='{"variant":"default","pageTitleText":"Page Title"}'></div>
         </div>
 
         <!-- Title + eyebrow -->
         <div>
           <div class="demo-label">Title + eyebrow</div>
-          <div class="pht">
-            <div class="pht-top">
-              <div class="pht-content">
-                <div class="pht-title-area">
-                  <div class="pht-title-row"><span class="pht-title">Page Title</span></div>
-                  <span class="pht-eyebrow">Supporting context for this page</span>
-                </div>
-              </div>
-            </div>
-          </div>
+          <div data-trio-component="PageHeaderToolbar" data-trio-props='{"variant":"default","pageTitleText":"Page Title","eyebrowText":"Supporting context for this page"}'></div>
         </div>
 
-        <!-- Full without breadcrumb -->
+        <!-- Full without breadcrumb — use default variant (no breadcrumb strip) with chips context described in eyebrow -->
         <div>
           <div class="demo-label">Full, breadcrumb hidden</div>
-          <div class="pht">
-            <div class="pht-top">
-              <div class="pht-content">
-                <div class="pht-title-area">
-                  <div class="pht-title-row">
-                    <span class="pht-title">Credentialing Queue</span>
-                    <div class="pht-chips">
-                      <span class="chip-sm">RN <span class="material-icons">close</span></span>
-                      <span class="chip-sm">ICU <span class="material-icons">close</span></span>
-                    </div>
-                  </div>
-                  <span class="pht-eyebrow">Pending review · 24 items</span>
-                </div>
-                <div class="pht-actions">
-                  <div class="btn-group">
-                    <button class="btn-group-item">Approve</button>
-                    <button class="btn-group-item">Reject</button>
-                    <button class="btn-group-item">Export</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <div data-trio-component="PageHeaderToolbar" data-trio-props='{"variant":"default","pageTitleText":"Credentialing Queue","eyebrowText":"Pending review · 24 items"}'></div>
         </div>
 
       </div>

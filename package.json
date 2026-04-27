@@ -64,9 +64,11 @@
   ],
   "license": "UNLICENSED",
   "dependencies": {
+    "@mui/x-date-pickers": "^9.0.3",
     "ag-charts-community": "^13.2.1",
     "ag-charts-react": "^13.2.1",
     "ag-grid-community": "^35.2.1",
-    "ag-grid-react": "^35.2.1"
+    "ag-grid-react": "^35.2.1",
+    "dayjs": "^1.11.20"
   }
 }

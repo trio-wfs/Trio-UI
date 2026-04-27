@@ -39,6 +39,7 @@ export { TextField } from './TextField/TextField';
 export { ToggleButton } from './ToggleButton/ToggleButton';
 export { Tooltip } from './Tooltip/Tooltip';
 export { Chart } from './Chart/Chart';
+export { DatePicker } from './DatePicker/DatePicker';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -207,6 +208,11 @@ export type {
 } from './Tooltip/Tooltip.types';
 
 export type { ChartProps } from './Chart/Chart.types';
+
+export type {
+  DatePickerType,
+  DatePickerProps,
+} from './DatePicker/DatePicker.types';
 
 // ─── Design Tokens ───────────────────────────────────────────────────────────
 

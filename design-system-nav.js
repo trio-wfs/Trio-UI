@@ -29,6 +29,7 @@ const DS_NAV = {
     { label: 'Button Icon',   icon: 'crop_square',            href: 'components/ButtonIcon/button-icon-showcase.html' },
     { label: 'Checkbox',      icon: 'check_box',              href: 'components/Checkbox/checkbox-showcase.html' },
     { label: 'Chip',               icon: 'label',                  href: 'components/Chip/chip-showcase.html' },
+    { label: 'Date Picker',       icon: 'calendar_today',         href: 'components/DatePicker/date-picker-showcase.html' },
     { label: 'ContentContainer',  icon: 'crop_free',              href: 'components/ContentContainer/content-container-showcase.html' },
     { label: 'Menu',              icon: 'menu',                   href: 'components/Menu/menu-showcase.html' },
     { label: 'Modal',         icon: 'web_asset',              href: 'components/Modal/modal-showcase.html' },

@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Date Picker - TRIO WFS Design System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+  <link rel="stylesheet" href="../../design-system-shell.css">
+  <style>
+    .main-content {
+      background: var(--color-background-secondary);
+      min-height: 100vh;
+    }
+    .section {
+      background: transparent;
+      border-radius: 0;
+      padding: 0;
+      margin-bottom: 0;
+      padding-bottom: var(--spacing-xl);
+    }
+    .section + .section {
+      border-top: 1px solid var(--color-secondary-outline);
+      padding-top: var(--spacing-xl);
+    }
+    .section-title .material-icons-outlined,
+    .section-title .material-icons {
+      font-size: 18px;
+    }
+    .section .property-table,
+    .section .spec-table {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .section .property-table th,
+    .section .spec-table th {
+      background: var(--color-background-paper);
+    }
+    .card {
+      background: var(--color-background-paper);
+    }
+    .card-illustration {
+      background: var(--color-background-secondary, #FAFAFA);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      padding: var(--spacing-md);
+      margin-bottom: var(--spacing-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 80px;
+    }
+    .demo-area {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-xl);
+      margin-bottom: var(--spacing-md);
+    }
+
+    /* Day cell state swatches */
+    .state-row {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+    .state-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .state-item .label {
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      font-family: 'Roboto', sans-serif;
+    }
+    .day-cell {
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Roboto', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+    }
+    .day-cell.default {
+      color: #212121;
+    }
+    .day-cell.selected {
+      background: #2196F3;
+      color: #FFFFFF;
+    }
+    .day-cell.today {
+      border: 1px solid #2196F3;
+      color: #2196F3;
+    }
+    .day-cell.greyed {
+      color: #9E9E9E;
+    }
+    .day-cell.highlight {
+      background: rgba(33, 150, 243, 0.1);
+      border-radius: 0;
+      color: #212121;
+    }
+
+    /* Input mock */
+    .input-mock {
+      display: flex;
+      align-items: center;
+      height: 36px;
+      border: 1px solid #9E9E9E;
+      border-radius: 4px;
+      padding: 0 16px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 14px;
+      color: #212121;
+      background: #FFFFFF;
+      width: 220px;
+      gap: 8px;
+    }
+    .input-mock .material-icons-outlined {
+      font-size: 18px;
+      color: rgba(0, 0, 0, 0.6);
+      margin-left: auto;
+    }
+    .input-mock.disabled {
+      background: rgba(0, 0, 0, 0.12);
+      border-color: #E0E0E0;
+      color: #9E9E9E;
+    }
+    .input-mock.error {
+      border-color: #DB4537;
+    }
+    .input-mock.focused {
+      border: 2px solid #64B5F6;
+    }
+    .input-label {
+      font-family: 'Roboto', sans-serif;
+      font-size: 12px;
+      font-weight: 400;
+      color: rgba(0, 0, 0, 0.6);
+      margin-bottom: 4px;
+    }
+    .input-helper {
+      font-family: 'Roboto', sans-serif;
+      font-size: 12px;
+      font-weight: 400;
+      color: rgba(0, 0, 0, 0.6);
+      margin-top: 4px;
+    }
+    .input-helper.error {
+      color: #DB4537;
+    }
+
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .spec-table th {
+      background: var(--color-secondary-main);
+      padding: var(--spacing-sm) var(--spacing-md);
+      text-align: left;
+      font-weight: 500;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 2px solid var(--color-secondary-outline);
+    }
+    .spec-table td {
+      padding: var(--spacing-sm) var(--spacing-md);
+      border-bottom: 1px solid var(--color-secondary-outline);
+      vertical-align: top;
+    }
+    .spec-table tr:last-child td { border-bottom: none; }
+
+    .variant-row {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .variant-item {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .variant-label {
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      font-family: 'Roboto', sans-serif;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+  </style>
+  <script src="../../design-system-nav.js"></script>
+</head>
+<body>
+  <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
+  <main class="main-content">
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+      <div class="page-header-content">
+        <h1 class="page-title">Date Picker</h1>
+        <p class="page-subtitle">Date and time selection inputs built on MUI X DatePicker, themed to TRIO WFS tokens.</p>
+      </div>
+    </div>
+
+    <div class="content-area">
+
+      <!-- OVERVIEW -->
+      <div class="section" id="overview">
+        <h2 class="section-title"><span class="material-icons-outlined">info</span> Overview</h2>
+        <p>The DatePicker lets users select a date (or date + time) via a text input that opens a calendar popup. It wraps MUI X DatePicker with TRIO design tokens for consistent styling across the platform.</p>
+        <p><strong>When to use:</strong> Shift scheduling, assignment dates, credential expiry, timecard entries, report date ranges.</p>
+        <p><strong>Implementation:</strong> Uses <code>@mui/x-date-pickers</code> with <code>dayjs</code> adapter. The calendar popup is themed to match the Figma spec — 36px day cells, #2196F3 selection, outlined today indicator.</p>
+      </div>
+
+      <!-- VARIANTS -->
+      <div class="section" id="variants">
+        <h2 class="section-title"><span class="material-icons-outlined">view_carousel</span> Variants</h2>
+        <div class="variant-row">
+          <div class="variant-item">
+            <div class="variant-label">Date</div>
+            <div>
+              <div class="input-label">Start Date</div>
+              <div class="input-mock">
+                <span>01/12/2024</span>
+                <span class="material-icons-outlined">calendar_today</span>
+              </div>
+            </div>
+            <p style="font-size: 12px; color: rgba(0,0,0,0.6); max-width: 220px;">Standard date-only picker. Opens a 320px calendar popup.</p>
+          </div>
+          <div class="variant-item">
+            <div class="variant-label">Date + Time</div>
+            <div>
+              <div class="input-label">Shift Start</div>
+              <div class="input-mock" style="width: 260px;">
+                <span>01/12/2024 08:00 AM</span>
+                <span class="material-icons-outlined">calendar_today</span>
+              </div>
+            </div>
+            <p style="font-size: 12px; color: rgba(0,0,0,0.6); max-width: 260px;">Date + time picker with hour/minute/period columns alongside the calendar.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- STATES -->
+      <div class="section" id="states">
+        <h2 class="section-title"><span class="material-icons-outlined">toggle_on</span> States</h2>
+
+        <h3 style="font-size: 14px; font-weight: 500; margin-bottom: 16px;">Input States</h3>
+        <div class="variant-row" style="margin-bottom: 32px;">
+          <div class="variant-item">
+            <div class="variant-label">Default</div>
+            <div class="input-mock">
+              <span style="color: rgba(0,0,0,0.6);">MM/DD/YYYY</span>
+              <span class="material-icons-outlined">calendar_today</span>
+            </div>
+          </div>
+          <div class="variant-item">
+            <div class="variant-label">Focused</div>
+            <div class="input-mock focused">
+              <span style="color: rgba(0,0,0,0.6);">MM/DD/YYYY</span>
+              <span class="material-icons-outlined">calendar_today</span>
+            </div>
+          </div>
+          <div class="variant-item">
+            <div class="variant-label">Filled</div>
+            <div class="input-mock">
+              <span>01/12/2024</span>
+              <span class="material-icons-outlined">calendar_today</span>
+            </div>
+          </div>
+          <div class="variant-item">
+            <div class="variant-label">Error</div>
+            <div>
+              <div class="input-mock error">
+                <span style="color: rgba(0,0,0,0.6);">MM/DD/YYYY</span>
+                <span class="material-icons-outlined">calendar_today</span>
+              </div>
+              <div class="input-helper error">Date is required</div>
+            </div>
+          </div>
+          <div class="variant-item">
+            <div class="variant-label">Disabled</div>
+            <div class="input-mock disabled">
+              <span>01/12/2024</span>
+              <span class="material-icons-outlined">calendar_today</span>
+            </div>
+          </div>
+        </div>
+
+        <h3 style="font-size: 14px; font-weight: 500; margin-bottom: 16px;">Day Cell States (Calendar Popup)</h3>
+        <div class="state-row">
+          <div class="state-item">
+            <div class="day-cell default">13</div>
+            <span class="label">Default</span>
+          </div>
+          <div class="state-item">
+            <div class="day-cell selected">12</div>
+            <span class="label">Selected</span>
+          </div>
+          <div class="state-item">
+            <div class="day-cell today">7</div>
+            <span class="label">Today</span>
+          </div>
+          <div class="state-item">
+            <div class="day-cell greyed">31</div>
+            <span class="label">Outside Month</span>
+          </div>
+          <div class="state-item">
+            <div class="day-cell highlight">14</div>
+            <span class="label">Highlight / Range</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- BEST PRACTICES -->
+      <div class="section" id="best-practices">
+        <h2 class="section-title"><span class="material-icons-outlined">lightbulb</span> Best Practices</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div class="card" style="border: 1px solid var(--color-secondary-outline); border-radius: 4px; padding: 16px;">
+            <div style="font-size: 12px; font-weight: 500; color: #388e3c; margin-bottom: 8px;">DO</div>
+            <ul style="font-size: 14px; margin: 0; padding-left: 16px; line-height: 1.8;">
+              <li>Use <code>type="date"</code> for date-only fields (most common)</li>
+              <li>Use <code>type="dateTime"</code> only when time is required (shift start/end)</li>
+              <li>Set <code>minDate</code> / <code>maxDate</code> to prevent invalid selections</li>
+              <li>Always include a label for accessibility</li>
+              <li>Show helper text for date format expectations</li>
+            </ul>
+          </div>
+          <div class="card" style="border: 1px solid var(--color-secondary-outline); border-radius: 4px; padding: 16px;">
+            <div style="font-size: 12px; font-weight: 500; color: #DB4537; margin-bottom: 8px;">DON'T</div>
+            <ul style="font-size: 14px; margin: 0; padding-left: 16px; line-height: 1.8;">
+              <li>Don't use dateTime when only a date is needed</li>
+              <li>Don't leave date pickers without min/max when there's a valid range</li>
+              <li>Don't use a plain text field for date input — always use DatePicker</li>
+              <li>Don't set unreasonably wide date ranges (e.g., 100 years back)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- TECHNICAL SPECS -->
+      <div class="section" id="specs">
+        <h2 class="section-title"><span class="material-icons-outlined">code</span> Technical Specifications</h2>
+        <table class="spec-table">
+          <thead>
+            <tr>
+              <th>Property</th>
+              <th>Value</th>
+              <th>Token / Source</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Input height</td><td>36px (small) / 44px (medium)</td><td>Figma: TextField single-line</td></tr>
+            <tr><td>Calendar popup width</td><td>320px (date) / ~500px (dateTime)</td><td>Figma: Date Picker component</td></tr>
+            <tr><td>Day cell size</td><td>36 x 36px</td><td>Figma: Building Blocks/Date Selections</td></tr>
+            <tr><td>Selected day bg</td><td>#2196F3</td><td>primary.main</td></tr>
+            <tr><td>Selected day text</td><td>#FFFFFF</td><td>primary.contrastText</td></tr>
+            <tr><td>Today indicator</td><td>1px solid #2196F3</td><td>primary.main (outline)</td></tr>
+            <tr><td>Day-of-week header</td><td>12px, rgba(0,0,0,0.38)</td><td>text.disabled</td></tr>
+            <tr><td>Month header</td><td>16px Roboto Regular</td><td>body1</td></tr>
+            <tr><td>Popup shadow</td><td>0px 8px 16px rgba(0,0,0,0.15)</td><td>Shadows/02. Regular</td></tr>
+            <tr><td>Popup border radius</td><td>4px</td><td>shape.borderRadius</td></tr>
+            <tr><td>Font</td><td>Roboto</td><td>typography.fontFamily</td></tr>
+            <tr><td>Date library</td><td>dayjs</td><td>@mui/x-date-pickers/AdapterDayjs</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- USAGE -->
+      <div class="section" id="usage">
+        <h2 class="section-title"><span class="material-icons-outlined">integration_instructions</span> Usage</h2>
+        <div class="demo-area">
+<pre style="margin: 0; font-size: 13px; line-height: 1.6; overflow-x: auto;"><code>import { DatePicker } from '@trio-wfs/ui';
+import dayjs from 'dayjs';
+
+// Date only
+&lt;DatePicker
+  label="Start Date"
+  value={startDate}
+  onChange={setStartDate}
+/&gt;
+
+// Date + Time
+&lt;DatePicker
+  type="dateTime"
+  label="Shift Start"
+  value={shiftStart}
+  onChange={setShiftStart}
+/&gt;
+
+// With constraints
+&lt;DatePicker
+  label="Assignment Date"
+  minDate={dayjs('2024-01-01')}
+  maxDate={dayjs('2024-12-31')}
+  value={date}
+  onChange={setDate}
+  helperText="Must be within 2024"
+/&gt;</code></pre>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</body>
+</html>

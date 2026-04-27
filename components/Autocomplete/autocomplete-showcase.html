@@ -114,7 +114,9 @@
       display: flex;
       flex-direction: column;
       gap: 4px;
-      min-width: 260px;
+      min-width: 280px;
+      flex: 1;
+      max-width: 360px;
     }
     .demo-label {
       font-size: 11px;
@@ -165,9 +167,10 @@
     .spec-table tr:last-child td { border-bottom: none; }
     .token-ref { color: #2196F3; }
 
-    /* React mount points */
+    /* React mount points — Autocomplete needs full width to be usable */
     [data-trio-component] {
-      display: inline-block;
+      display: block;
+      width: 100%;
     }
 
   </style>

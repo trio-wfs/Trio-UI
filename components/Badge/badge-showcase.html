@@ -126,59 +126,9 @@
       font-weight: 500;
     }
 
-    /* Badge wrapper — positions badge relative to anchor */
-    .badge-anchor {
-      position: relative;
-      display: inline-flex;
-    }
-
-    /* The badge itself */
-    .badge {
-      position: absolute;
-      top: -4px;
-      right: -4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-family);
-      font-size: 11px;
-      font-weight: 500;
-      line-height: 16px;
-      letter-spacing: 0;
-      border-radius: 999px;
-    }
-
-    .badge-default {
-      height: 16px;
-      min-width: 16px;
-      padding: 0 4px;
-    }
-
-    .badge-dot {
-      height: 8px;
-      width: 8px;
-      min-width: 8px;
-      padding: 0;
-    }
-
-    /* Color variants */
-    .badge-primary   { background: var(--color-primary-main);  color: #fff; }
-    .badge-secondary { background: var(--color-secondary-main); color: var(--color-text-secondary); }
-    .badge-error     { background: var(--color-error-main);    color: #fff; }
-    .badge-success   { background: var(--color-success-main);  color: #fff; }
-    .badge-warning   { background: var(--color-warning-main);  color: #fff; }
-    .badge-info      { background: var(--color-info-main);     color: #fff; }
-
-    /* Icon anchor for demo */
-    .icon-anchor {
-      width: 40px;
-      height: 40px;
-      background: var(--color-background-secondary);
-      border-radius: var(--border-radius);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--color-icon-default);
+    /* React mount points */
+    [data-trio-component] {
+      display: inline-block;
     }
 
     .spec-table {
@@ -207,6 +157,7 @@
 
   </style>
   <script src="../../design-system-nav.js"></script>
+  <script type="module" src="../../showcase/dist/showcase.js"></script>
 </head>
 <body>
   <!-- LEFT NAVIGATION -->
@@ -282,14 +233,8 @@
           <div class="card-illustration">
             <span class="card-illustration-label">Correct</span>
             <div style="display: flex; gap: 32px; align-items: center;">
-              <div class="badge-anchor">
-                <div class="icon-anchor"><span class="material-icons">notifications</span></div>
-                <div class="badge badge-default badge-error">3</div>
-              </div>
-              <div class="badge-anchor">
-                <div class="icon-anchor"><span class="material-icons">mail</span></div>
-                <div class="badge badge-dot badge-primary"></div>
-              </div>
+              <div data-trio-component="Badge" data-trio-props='{"color":"error","type":"default","badgeContent":"3"}'></div>
+              <div data-trio-component="Badge" data-trio-props='{"color":"primary","type":"dot"}'></div>
             </div>
           </div>
           <div class="card-content">
@@ -310,10 +255,8 @@
           <div class="card-illustration card-illustration-wrong">
             <span class="card-illustration-label">Incorrect</span>
             <div style="display: flex; gap: 32px; align-items: center;">
-              <div style="position: relative; display: inline-flex;">
-                <span style="font-size: 14px; color: var(--color-text-primary);">Total Items</span>
-                <div class="badge badge-default badge-primary" style="position: static; margin-left: 8px;">42</div>
-              </div>
+              <span style="font-size: 14px; color: var(--color-text-primary);">Total Items</span>
+              <div data-trio-component="Badge" data-trio-props='{"color":"primary","type":"default","badgeContent":"42"}'></div>
             </div>
           </div>
           <div class="card-content">
@@ -339,45 +282,27 @@
       </p>
       <div class="badge-demo">
         <div class="badge-item">
-          <div class="badge-anchor">
-            <div class="icon-anchor"><span class="material-icons">notifications</span></div>
-            <div class="badge badge-default badge-primary">4</div>
-          </div>
+          <div data-trio-component="Badge" data-trio-props='{"color":"primary","type":"default","badgeContent":"4"}'></div>
           <div class="badge-item-label">Primary</div>
         </div>
         <div class="badge-item">
-          <div class="badge-anchor">
-            <div class="icon-anchor"><span class="material-icons">notifications</span></div>
-            <div class="badge badge-default badge-secondary">4</div>
-          </div>
+          <div data-trio-component="Badge" data-trio-props='{"color":"secondary","type":"default","badgeContent":"4"}'></div>
           <div class="badge-item-label">Secondary</div>
         </div>
         <div class="badge-item">
-          <div class="badge-anchor">
-            <div class="icon-anchor"><span class="material-icons">notifications</span></div>
-            <div class="badge badge-default badge-error">4</div>
-          </div>
+          <div data-trio-component="Badge" data-trio-props='{"color":"error","type":"default","badgeContent":"4"}'></div>
           <div class="badge-item-label">Error</div>
         </div>
         <div class="badge-item">
-          <div class="badge-anchor">
-            <div class="icon-anchor"><span class="material-icons">notifications</span></div>
-            <div class="badge badge-default badge-success">4</div>
-          </div>
+          <div data-trio-component="Badge" data-trio-props='{"color":"success","type":"default","badgeContent":"4"}'></div>
           <div class="badge-item-label">Success</div>
         </div>
         <div class="badge-item">
-          <div class="badge-anchor">
-            <div class="icon-anchor"><span class="material-icons">notifications</span></div>
-            <div class="badge badge-default badge-warning">4</div>
-          </div>
+          <div data-trio-component="Badge" data-trio-props='{"color":"warning","type":"default","badgeContent":"4"}'></div>
           <div class="badge-item-label">Warning</div>
         </div>
         <div class="badge-item">
-          <div class="badge-anchor">
-            <div class="icon-anchor"><span class="material-icons">notifications</span></div>
-            <div class="badge badge-default badge-info">4</div>
-          </div>
+          <div data-trio-component="Badge" data-trio-props='{"color":"info","type":"default","badgeContent":"4"}'></div>
           <div class="badge-item-label">Info</div>
         </div>
       </div>
@@ -392,31 +317,19 @@
       <p class="section-description">Use when presence matters but count doesn't.</p>
       <div class="badge-demo">
         <div class="badge-item">
-          <div class="badge-anchor">
-            <div class="icon-anchor"><span class="material-icons">mail</span></div>
-            <div class="badge badge-dot badge-primary"></div>
-          </div>
+          <div data-trio-component="Badge" data-trio-props='{"color":"primary","type":"dot"}'></div>
           <div class="badge-item-label">Primary</div>
         </div>
         <div class="badge-item">
-          <div class="badge-anchor">
-            <div class="icon-anchor"><span class="material-icons">mail</span></div>
-            <div class="badge badge-dot badge-error"></div>
-          </div>
+          <div data-trio-component="Badge" data-trio-props='{"color":"error","type":"dot"}'></div>
           <div class="badge-item-label">Error</div>
         </div>
         <div class="badge-item">
-          <div class="badge-anchor">
-            <div class="icon-anchor"><span class="material-icons">mail</span></div>
-            <div class="badge badge-dot badge-warning"></div>
-          </div>
+          <div data-trio-component="Badge" data-trio-props='{"color":"warning","type":"dot"}'></div>
           <div class="badge-item-label">Warning</div>
         </div>
         <div class="badge-item">
-          <div class="badge-anchor">
-            <div class="icon-anchor"><span class="material-icons">mail</span></div>
-            <div class="badge badge-dot badge-success"></div>
-          </div>
+          <div data-trio-component="Badge" data-trio-props='{"color":"success","type":"dot"}'></div>
           <div class="badge-item-label">Success</div>
         </div>
       </div>
@@ -433,38 +346,20 @@
       </p>
       <div class="badge-demo">
         <div class="badge-item">
-          <div class="badge-anchor">
-            <div class="icon-anchor"><span class="material-icons">notifications</span></div>
-            <div class="badge badge-default badge-error">1</div>
-          </div>
+          <div data-trio-component="Badge" data-trio-props='{"color":"error","type":"default","badgeContent":"1"}'></div>
           <div class="badge-item-label">Single Digit</div>
         </div>
         <div class="badge-item">
-          <div class="badge-anchor">
-            <div class="icon-anchor"><span class="material-icons">notifications</span></div>
-            <div class="badge badge-default badge-error">12</div>
-          </div>
+          <div data-trio-component="Badge" data-trio-props='{"color":"error","type":"default","badgeContent":"12"}'></div>
           <div class="badge-item-label">Double Digit</div>
         </div>
         <div class="badge-item">
-          <div class="badge-anchor">
-            <div class="icon-anchor"><span class="material-icons">notifications</span></div>
-            <div class="badge badge-default badge-error">99+</div>
-          </div>
+          <div data-trio-component="Badge" data-trio-props='{"color":"error","type":"default","badgeContent":"99+"}'></div>
           <div class="badge-item-label">Overflow</div>
         </div>
         <div class="badge-item">
-          <div class="badge-anchor">
-            <div class="icon-anchor"><span class="material-icons">notifications</span></div>
-            <div class="badge badge-dot badge-error"></div>
-          </div>
+          <div data-trio-component="Badge" data-trio-props='{"color":"error","type":"dot"}'></div>
           <div class="badge-item-label">Dot</div>
-        </div>
-        <div class="badge-item">
-          <div class="badge-anchor">
-            <div class="icon-anchor"><span class="material-icons">notifications</span></div>
-          </div>
-          <div class="badge-item-label">No Badge</div>
         </div>
       </div>
     </section>
@@ -484,14 +379,8 @@
           <div class="card-illustration">
             <span class="card-illustration-label">Correct</span>
             <div style="display: flex; gap: 32px; align-items: center;">
-              <div class="badge-anchor">
-                <div class="icon-anchor"><span class="material-icons">assignment_late</span></div>
-                <div class="badge badge-default badge-error">5</div>
-              </div>
-              <div class="badge-anchor">
-                <div class="icon-anchor"><span class="material-icons">inbox</span></div>
-                <div class="badge badge-default badge-primary">12</div>
-              </div>
+              <div data-trio-component="Badge" data-trio-props='{"color":"error","type":"default","badgeContent":"5"}'></div>
+              <div data-trio-component="Badge" data-trio-props='{"color":"primary","type":"default","badgeContent":"12"}'></div>
             </div>
           </div>
           <div class="card-content">
@@ -512,18 +401,9 @@
           <div class="card-illustration card-illustration-wrong">
             <span class="card-illustration-label">Incorrect</span>
             <div style="display: flex; gap: 24px; align-items: center;">
-              <div class="badge-anchor">
-                <div class="icon-anchor"><span class="material-icons">notifications</span></div>
-                <div class="badge badge-default badge-primary">0</div>
-              </div>
-              <div class="badge-anchor">
-                <div class="icon-anchor"><span class="material-icons">notifications</span></div>
-                <div class="badge badge-default badge-success">4</div>
-              </div>
-              <div class="badge-anchor">
-                <div class="icon-anchor"><span class="material-icons">notifications</span></div>
-                <div class="badge badge-default badge-warning">4</div>
-              </div>
+              <div data-trio-component="Badge" data-trio-props='{"color":"primary","type":"default","badgeContent":"0"}'></div>
+              <div data-trio-component="Badge" data-trio-props='{"color":"success","type":"default","badgeContent":"4"}'></div>
+              <div data-trio-component="Badge" data-trio-props='{"color":"warning","type":"default","badgeContent":"4"}'></div>
             </div>
           </div>
           <div class="card-content">
@@ -562,67 +442,37 @@
             <td><code>primary</code></td>
             <td>General activity counts</td>
             <td>New submissions, unread messages</td>
-            <td>
-              <div class="badge-anchor" style="position:static; display:inline-flex;">
-                <div class="icon-anchor" style="width:32px;height:32px;"><span class="material-icons" style="font-size:18px;">mail</span></div>
-                <div class="badge badge-default badge-primary" style="top:-4px;right:-4px;">3</div>
-              </div>
-            </td>
+            <td><div data-trio-component="Badge" data-trio-props='{"color":"primary","type":"default","badgeContent":"3"}'></div></td>
           </tr>
           <tr>
             <td><code>error</code></td>
             <td>Urgent items requiring action</td>
             <td>Expired documents, overdue timecards</td>
-            <td>
-              <div class="badge-anchor" style="position:static; display:inline-flex;">
-                <div class="icon-anchor" style="width:32px;height:32px;"><span class="material-icons" style="font-size:18px;">assignment_late</span></div>
-                <div class="badge badge-default badge-error" style="top:-4px;right:-4px;">5</div>
-              </div>
-            </td>
+            <td><div data-trio-component="Badge" data-trio-props='{"color":"error","type":"default","badgeContent":"5"}'></div></td>
           </tr>
           <tr>
             <td><code>warning</code></td>
             <td>Items approaching a deadline</td>
             <td>Credentials expiring soon</td>
-            <td>
-              <div class="badge-anchor" style="position:static; display:inline-flex;">
-                <div class="icon-anchor" style="width:32px;height:32px;"><span class="material-icons" style="font-size:18px;">schedule</span></div>
-                <div class="badge badge-default badge-warning" style="top:-4px;right:-4px;">2</div>
-              </div>
-            </td>
+            <td><div data-trio-component="Badge" data-trio-props='{"color":"warning","type":"default","badgeContent":"2"}'></div></td>
           </tr>
           <tr>
             <td><code>success</code></td>
             <td>Completed or verified items</td>
             <td>Approved timecards — use sparingly</td>
-            <td>
-              <div class="badge-anchor" style="position:static; display:inline-flex;">
-                <div class="icon-anchor" style="width:32px;height:32px;"><span class="material-icons" style="font-size:18px;">verified</span></div>
-                <div class="badge badge-default badge-success" style="top:-4px;right:-4px;">1</div>
-              </div>
-            </td>
+            <td><div data-trio-component="Badge" data-trio-props='{"color":"success","type":"default","badgeContent":"1"}'></div></td>
           </tr>
           <tr>
             <td><code>info</code></td>
             <td>Neutral informational counts</td>
             <td>Available shifts, total open orders</td>
-            <td>
-              <div class="badge-anchor" style="position:static; display:inline-flex;">
-                <div class="icon-anchor" style="width:32px;height:32px;"><span class="material-icons" style="font-size:18px;">info</span></div>
-                <div class="badge badge-default badge-info" style="top:-4px;right:-4px;">8</div>
-              </div>
-            </td>
+            <td><div data-trio-component="Badge" data-trio-props='{"color":"info","type":"default","badgeContent":"8"}'></div></td>
           </tr>
           <tr>
             <td><code>secondary</code></td>
             <td>De-emphasized counts</td>
             <td>Inactive or archived items</td>
-            <td>
-              <div class="badge-anchor" style="position:static; display:inline-flex;">
-                <div class="icon-anchor" style="width:32px;height:32px;"><span class="material-icons" style="font-size:18px;">inventory_2</span></div>
-                <div class="badge badge-default badge-secondary" style="top:-4px;right:-4px;">4</div>
-              </div>
-            </td>
+            <td><div data-trio-component="Badge" data-trio-props='{"color":"secondary","type":"default","badgeContent":"4"}'></div></td>
           </tr>
         </tbody>
       </table>

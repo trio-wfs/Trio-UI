@@ -113,93 +113,6 @@
       padding: var(--spacing-lg);
     }
 
-    /* Base alert */
-    .alert {
-      display: flex;
-      align-items: flex-start;
-      gap: var(--spacing-md);
-      padding: var(--spacing-md);
-      border-radius: var(--border-radius);
-      font-family: var(--font-family);
-      position: relative;
-    }
-
-    .alert-icon {
-      font-size: 24px;
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-
-    .alert-body {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .alert-title {
-      font-size: 14px;
-      font-weight: 500;
-      line-height: 24px;
-      margin: 0;
-    }
-
-    .alert-description {
-      font-size: 12px;
-      font-weight: 400;
-      line-height: 18px;
-    }
-
-    .alert-actions {
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-xs);
-      flex-shrink: 0;
-    }
-
-    .alert-action-btn {
-      font-size: 12px;
-      font-weight: 400;
-      line-height: 18px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 0 var(--spacing-sm);
-      font-family: var(--font-family);
-      color: inherit;
-    }
-
-    .alert-close {
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: inherit;
-      display: flex;
-      align-items: center;
-      padding: 4px;
-      border-radius: 50%;
-    }
-
-    .alert-close .material-icons { font-size: 16px; }
-
-    /* Standard variant */
-    .alert-standard-default   { background: var(--color-primary-light);  color: var(--color-primary-dark); }
-    .alert-standard-error     { background: var(--color-error-light);    color: var(--color-error-dark); }
-    .alert-standard-warning   { background: var(--color-warning-light);  color: var(--color-warning-dark); }
-    .alert-standard-success   { background: var(--color-success-light);  color: var(--color-success-dark); }
-
-    /* Contained variant */
-    .alert-contained-default  { background: var(--color-primary-main);   color: #fff; }
-    .alert-contained-error    { background: var(--color-error-main);     color: #fff; }
-    .alert-contained-warning  { background: var(--color-warning-main);   color: #fff; }
-    .alert-contained-success  { background: var(--color-success-main);   color: #fff; }
-
-    /* Outline variant */
-    .alert-outline-default  { background: transparent; color: var(--color-primary-main);  border: 1px solid var(--color-primary-main); }
-    .alert-outline-error    { background: transparent; color: var(--color-error-dark);    border: 1px solid var(--color-error-main); }
-    .alert-outline-warning  { background: transparent; color: var(--color-warning-dark);  border: 1px solid var(--color-warning-main); }
-    .alert-outline-success  { background: transparent; color: var(--color-success-dark);  border: 1px solid var(--color-success-main); }
-
     .variant-group { margin-bottom: var(--spacing-xl); }
     .variant-label {
       font-size: 12px;
@@ -210,24 +123,14 @@
       margin-bottom: var(--spacing-sm);
     }
 
-    /* ── Mini alert for card illustrations ── */
-    .alert-mini {
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-      padding: 8px 12px;
-      border-radius: 4px;
-      font-family: var(--font-family);
-      font-size: 11px;
-      width: 100%;
-      max-width: 320px;
+    /* React mount points */
+    [data-trio-component] {
+      display: inline-block;
     }
-    .alert-mini .material-icons-outlined { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
-    .alert-mini-title { font-weight: 500; font-size: 12px; }
-    .alert-mini-desc { font-size: 11px; opacity: 0.85; }
 
   </style>
   <script src="../../design-system-nav.js"></script>
+  <script type="module" src="../../showcase/dist/showcase.js"></script>
 </head>
 <body>
   <!-- LEFT NAVIGATION -->
@@ -357,78 +260,30 @@
       <div class="variant-group">
         <div class="variant-label">Standard</div>
         <div class="alert-demo">
-          <div class="alert alert-standard-default">
-            <span class="material-icons-outlined alert-icon">info</span>
-            <div class="alert-body"><div class="alert-title">Title</div><div class="alert-description">Description text providing additional context about this alert.</div></div>
-            <div class="alert-actions"><button class="alert-action-btn">Action Label</button><button class="alert-close"><span class="material-icons">close</span></button></div>
-          </div>
-          <div class="alert alert-standard-error">
-            <span class="material-icons-outlined alert-icon">error_outline</span>
-            <div class="alert-body"><div class="alert-title">Title</div><div class="alert-description">Description text providing additional context about this alert.</div></div>
-            <div class="alert-actions"><button class="alert-action-btn">Action Label</button><button class="alert-close"><span class="material-icons">close</span></button></div>
-          </div>
-          <div class="alert alert-standard-warning">
-            <span class="material-icons-outlined alert-icon">warning_amber</span>
-            <div class="alert-body"><div class="alert-title">Title</div><div class="alert-description">Description text providing additional context about this alert.</div></div>
-            <div class="alert-actions"><button class="alert-action-btn">Action Label</button><button class="alert-close"><span class="material-icons">close</span></button></div>
-          </div>
-          <div class="alert alert-standard-success">
-            <span class="material-icons-outlined alert-icon">check_circle_outline</span>
-            <div class="alert-body"><div class="alert-title">Title</div><div class="alert-description">Description text providing additional context about this alert.</div></div>
-            <div class="alert-actions"><button class="alert-action-btn">Action Label</button><button class="alert-close"><span class="material-icons">close</span></button></div>
-          </div>
+          <div data-trio-component="Alert" data-trio-props='{"variant":"standard","severity":"default","title":"Title","description":"Description text providing additional context about this alert.","actionLabel":"Action Label","close":true}'></div>
+          <div data-trio-component="Alert" data-trio-props='{"variant":"standard","severity":"error","title":"Title","description":"Description text providing additional context about this alert.","actionLabel":"Action Label","close":true}'></div>
+          <div data-trio-component="Alert" data-trio-props='{"variant":"standard","severity":"warning","title":"Title","description":"Description text providing additional context about this alert.","actionLabel":"Action Label","close":true}'></div>
+          <div data-trio-component="Alert" data-trio-props='{"variant":"standard","severity":"success","title":"Title","description":"Description text providing additional context about this alert.","actionLabel":"Action Label","close":true}'></div>
         </div>
       </div>
 
       <div class="variant-group">
         <div class="variant-label">Contained</div>
         <div class="alert-demo">
-          <div class="alert alert-contained-default">
-            <span class="material-icons-outlined alert-icon">info</span>
-            <div class="alert-body"><div class="alert-title">Title</div><div class="alert-description">Description text providing additional context.</div></div>
-            <div class="alert-actions"><button class="alert-action-btn">Action Label</button><button class="alert-close"><span class="material-icons">close</span></button></div>
-          </div>
-          <div class="alert alert-contained-error">
-            <span class="material-icons-outlined alert-icon">error_outline</span>
-            <div class="alert-body"><div class="alert-title">Title</div><div class="alert-description">Description text providing additional context.</div></div>
-            <div class="alert-actions"><button class="alert-action-btn">Action Label</button><button class="alert-close"><span class="material-icons">close</span></button></div>
-          </div>
-          <div class="alert alert-contained-warning">
-            <span class="material-icons-outlined alert-icon">warning_amber</span>
-            <div class="alert-body"><div class="alert-title">Title</div><div class="alert-description">Description text providing additional context.</div></div>
-            <div class="alert-actions"><button class="alert-action-btn">Action Label</button><button class="alert-close"><span class="material-icons">close</span></button></div>
-          </div>
-          <div class="alert alert-contained-success">
-            <span class="material-icons-outlined alert-icon">check_circle_outline</span>
-            <div class="alert-body"><div class="alert-title">Title</div><div class="alert-description">Description text providing additional context.</div></div>
-            <div class="alert-actions"><button class="alert-action-btn">Action Label</button><button class="alert-close"><span class="material-icons">close</span></button></div>
-          </div>
+          <div data-trio-component="Alert" data-trio-props='{"variant":"contained","severity":"default","title":"Title","description":"Description text providing additional context.","actionLabel":"Action Label","close":true}'></div>
+          <div data-trio-component="Alert" data-trio-props='{"variant":"contained","severity":"error","title":"Title","description":"Description text providing additional context.","actionLabel":"Action Label","close":true}'></div>
+          <div data-trio-component="Alert" data-trio-props='{"variant":"contained","severity":"warning","title":"Title","description":"Description text providing additional context.","actionLabel":"Action Label","close":true}'></div>
+          <div data-trio-component="Alert" data-trio-props='{"variant":"contained","severity":"success","title":"Title","description":"Description text providing additional context.","actionLabel":"Action Label","close":true}'></div>
         </div>
       </div>
 
       <div class="variant-group">
         <div class="variant-label">Outline</div>
         <div class="alert-demo">
-          <div class="alert alert-outline-default">
-            <span class="material-icons-outlined alert-icon">info</span>
-            <div class="alert-body"><div class="alert-title">Title</div><div class="alert-description">Description text providing additional context.</div></div>
-            <div class="alert-actions"><button class="alert-action-btn">Action Label</button><button class="alert-close"><span class="material-icons">close</span></button></div>
-          </div>
-          <div class="alert alert-outline-error">
-            <span class="material-icons-outlined alert-icon">error_outline</span>
-            <div class="alert-body"><div class="alert-title">Title</div><div class="alert-description">Description text providing additional context.</div></div>
-            <div class="alert-actions"><button class="alert-action-btn">Action Label</button><button class="alert-close"><span class="material-icons">close</span></button></div>
-          </div>
-          <div class="alert alert-outline-warning">
-            <span class="material-icons-outlined alert-icon">warning_amber</span>
-            <div class="alert-body"><div class="alert-title">Title</div><div class="alert-description">Description text providing additional context.</div></div>
-            <div class="alert-actions"><button class="alert-action-btn">Action Label</button><button class="alert-close"><span class="material-icons">close</span></button></div>
-          </div>
-          <div class="alert alert-outline-success">
-            <span class="material-icons-outlined alert-icon">check_circle_outline</span>
-            <div class="alert-body"><div class="alert-title">Title</div><div class="alert-description">Description text providing additional context.</div></div>
-            <div class="alert-actions"><button class="alert-action-btn">Action Label</button><button class="alert-close"><span class="material-icons">close</span></button></div>
-          </div>
+          <div data-trio-component="Alert" data-trio-props='{"variant":"outline","severity":"default","title":"Title","description":"Description text providing additional context.","actionLabel":"Action Label","close":true}'></div>
+          <div data-trio-component="Alert" data-trio-props='{"variant":"outline","severity":"error","title":"Title","description":"Description text providing additional context.","actionLabel":"Action Label","close":true}'></div>
+          <div data-trio-component="Alert" data-trio-props='{"variant":"outline","severity":"warning","title":"Title","description":"Description text providing additional context.","actionLabel":"Action Label","close":true}'></div>
+          <div data-trio-component="Alert" data-trio-props='{"variant":"outline","severity":"success","title":"Title","description":"Description text providing additional context.","actionLabel":"Action Label","close":true}'></div>
         </div>
       </div>
     </section>
@@ -441,19 +296,9 @@
       </h2>
       <p class="section-description">Each part of the alert is independently toggleable via props.</p>
       <div class="alert-demo">
-        <div class="alert alert-standard-default">
-          <span class="material-icons-outlined alert-icon">info</span>
-          <div class="alert-body"><div class="alert-title">Title only</div></div>
-        </div>
-        <div class="alert alert-standard-default">
-          <span class="material-icons-outlined alert-icon">info</span>
-          <div class="alert-body"><div class="alert-description">Description only, no title.</div></div>
-        </div>
-        <div class="alert alert-standard-default">
-          <span class="material-icons-outlined alert-icon">info</span>
-          <div class="alert-body"><div class="alert-title">Title</div><div class="alert-description">With close only.</div></div>
-          <div class="alert-actions"><button class="alert-close"><span class="material-icons">close</span></button></div>
-        </div>
+          <div data-trio-component="Alert" data-trio-props='{"variant":"standard","severity":"default","title":"Title only"}'></div>
+          <div data-trio-component="Alert" data-trio-props='{"variant":"standard","severity":"default","description":"Description only, no title."}'></div>
+          <div data-trio-component="Alert" data-trio-props='{"variant":"standard","severity":"default","title":"Title","description":"With close only.","close":true}'></div>
       </div>
     </section>
 
@@ -544,10 +389,7 @@
             <td>Informational messages. No action required.</td>
             <td>System status, tips, guidance</td>
             <td>
-              <div class="alert alert-standard-default" style="padding: 8px; font-size: 11px;">
-                <span class="material-icons-outlined" style="font-size: 18px;">info</span>
-                <div class="alert-body"><div class="alert-title" style="font-size: 12px;">Info</div></div>
-              </div>
+              <div data-trio-component="Alert" data-trio-props='{"variant":"standard","severity":"default","title":"Info"}'></div>
             </td>
           </tr>
           <tr>
@@ -555,10 +397,7 @@
             <td>Something failed or is blocked. Requires user action.</td>
             <td>Failed submission, expired credential, compliance block</td>
             <td>
-              <div class="alert alert-standard-error" style="padding: 8px; font-size: 11px;">
-                <span class="material-icons-outlined" style="font-size: 18px;">error_outline</span>
-                <div class="alert-body"><div class="alert-title" style="font-size: 12px;">Error</div></div>
-              </div>
+              <div data-trio-component="Alert" data-trio-props='{"variant":"standard","severity":"error","title":"Error"}'></div>
             </td>
           </tr>
           <tr>
@@ -566,10 +405,7 @@
             <td>Potential issue — non-blocking. User should be aware.</td>
             <td>Expiring credentials, approaching limits</td>
             <td>
-              <div class="alert alert-standard-warning" style="padding: 8px; font-size: 11px;">
-                <span class="material-icons-outlined" style="font-size: 18px;">warning_amber</span>
-                <div class="alert-body"><div class="alert-title" style="font-size: 12px;">Warning</div></div>
-              </div>
+              <div data-trio-component="Alert" data-trio-props='{"variant":"standard","severity":"warning","title":"Warning"}'></div>
             </td>
           </tr>
           <tr>
@@ -577,10 +413,7 @@
             <td>Positive confirmation. Action completed successfully.</td>
             <td>Shift confirmed, credential approved, submission accepted</td>
             <td>
-              <div class="alert alert-standard-success" style="padding: 8px; font-size: 11px;">
-                <span class="material-icons-outlined" style="font-size: 18px;">check_circle_outline</span>
-                <div class="alert-body"><div class="alert-title" style="font-size: 12px;">Success</div></div>
-              </div>
+              <div data-trio-component="Alert" data-trio-props='{"variant":"standard","severity":"success","title":"Success"}'></div>
             </td>
           </tr>
         </tbody>

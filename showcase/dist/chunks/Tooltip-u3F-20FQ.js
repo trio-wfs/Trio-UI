@@ -1,0 +1,1 @@
+import{a as e,n as t,t as n}from"./jsx-runtime-CvBdq97w.js";import{t as r}from"./Tooltip-BRTI_s8C.js";var i=e(t()),a={position:`top`},o=n(),s=i.forwardRef(({title:e,position:t=a.position,children:n},i)=>t===`none`?(0,o.jsx)(o.Fragment,{children:n}):(0,o.jsx)(r,{ref:i,title:e,placement:t,children:n}));s.displayName=`Tooltip`;export{s as Tooltip,s as default};

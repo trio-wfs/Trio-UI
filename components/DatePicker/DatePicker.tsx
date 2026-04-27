@@ -142,14 +142,14 @@ const calendarSlotProps = {
           backgroundColor: 'rgba(33, 150, 243, 0.08)',
         },
         '&.Mui-selected': {
-          backgroundColor: tokens.colors.primary.main,
-          color: tokens.colors.primary.contrastText,
+          backgroundColor: tokens.colors.primary.selected,
+          color: tokens.colors.text.primary,
           fontWeight: tokens.typography.fontWeight.medium,
           '&:hover': {
-            backgroundColor: tokens.colors.primary.dark,
+            backgroundColor: 'rgba(33, 150, 243, 0.16)',
           },
           '&:focus': {
-            backgroundColor: tokens.colors.primary.main,
+            backgroundColor: tokens.colors.primary.selected,
           },
         },
       },

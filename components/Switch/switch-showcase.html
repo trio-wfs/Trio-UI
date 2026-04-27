@@ -68,68 +68,9 @@
       border: 1px solid var(--color-secondary-outline);
     }
 
-    /* ── SWITCH STYLES ── */
-    .switch-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      font-family: var(--font-family);
-      font-size: 14px;
-      user-select: none;
-    }
-
-    .switch-label.disabled {
-      cursor: default;
-      color: var(--color-text-disabled);
-    }
-
-    .switch-input {
-      width: 28px;
-      height: 16px;
-      position: relative;
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      background-color: white;
-      border: 1px solid rgba(0, 0, 0, 0.3);
-      border-radius: 999px;
-      cursor: pointer;
-      transition: background-color 0.3s, border-color 0.3s;
-      outline: none;
-      box-sizing: border-box;
-    }
-
-    .switch-input:checked {
-      background-color: var(--color-primary-main);
-      border-color: var(--color-primary-main);
-    }
-
-    .switch-input::before {
-      content: '';
-      position: absolute;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: rgba(0, 0, 0, 0.32);
-      top: 1px;
-      left: 1px;
-      transition: transform 0.3s, background 0.3s;
-    }
-
-    .switch-input:checked::before {
-      transform: translateX(12px);
-      background: white;
-    }
-
-    .switch-input:disabled {
-      cursor: default;
-      background-color: rgba(0, 0, 0, 0.08);
-      border-color: transparent;
-    }
-
-    .switch-input:disabled::before {
-      background: #BDBDBD;
+    /* React mount points */
+    [data-trio-component] {
+      display: inline-block;
     }
 
     /* ── Card illustration (Do/Don't visuals) ── */
@@ -177,6 +118,7 @@
     }
   </style>
   <script src="../../design-system-nav.js"></script>
+  <script type="module" src="../../showcase/dist/showcase.js"></script>
 </head>
 <body>
   <!-- LEFT NAVIGATION -->
@@ -264,14 +206,8 @@
           <div class="card-illustration">
             <span class="card-illustration-label">Correct</span>
             <div style="display: flex; flex-direction: column; gap: 16px; width: 100%; padding: 8px;">
-              <label class="switch-label">
-                <input type="checkbox" class="switch-input" checked>
-                <span>Enable email notifications</span>
-              </label>
-              <label class="switch-label">
-                <input type="checkbox" class="switch-input">
-                <span>Auto-assign shifts</span>
-              </label>
+              <div data-trio-component="Switch" data-trio-props='{"label":"Enable email notifications","state":"on"}'></div>
+              <div data-trio-component="Switch" data-trio-props='{"label":"Auto-assign shifts","state":"off"}'></div>
             </div>
           </div>
           <div class="card-content">
@@ -293,10 +229,7 @@
           <div class="card-illustration card-illustration-wrong">
             <span class="card-illustration-label">Incorrect</span>
             <div style="display: flex; flex-direction: column; gap: 16px; width: 100%; padding: 8px;">
-              <label class="switch-label">
-                <input type="checkbox" class="switch-input">
-                <span>I accept terms and conditions</span>
-              </label>
+              <div data-trio-component="Switch" data-trio-props='{"label":"I accept terms and conditions","state":"off"}'></div>
             </div>
           </div>
           <div class="card-content">
@@ -328,34 +261,22 @@
       <div class="variant-group">
         <div class="variant-label">Off & On</div>
         <div class="switch-row">
-          <label class="switch-label">
-            <input type="checkbox" class="switch-input">
-            <span>Notifications Off</span>
-          </label>
-          <label class="switch-label">
-            <input type="checkbox" class="switch-input" checked>
-            <span>Notifications On</span>
-          </label>
+          <div data-trio-component="Switch" data-trio-props='{"label":"Notifications Off","state":"off"}'></div>
+          <div data-trio-component="Switch" data-trio-props='{"label":"Notifications On","state":"on"}'></div>
         </div>
       </div>
 
       <div class="variant-group">
         <div class="variant-label">Label Placement — Right (Default)</div>
         <div class="switch-row">
-          <label class="switch-label">
-            <input type="checkbox" class="switch-input" checked>
-            <span>Enable feature</span>
-          </label>
+          <div data-trio-component="Switch" data-trio-props='{"label":"Enable feature","state":"on","labelPlacement":"right"}'></div>
         </div>
       </div>
 
       <div class="variant-group">
         <div class="variant-label">Label Placement — Left</div>
         <div class="switch-row">
-          <label class="switch-label" style="flex-direction: row-reverse;">
-            <span>Enable feature</span>
-            <input type="checkbox" class="switch-input" checked>
-          </label>
+          <div data-trio-component="Switch" data-trio-props='{"label":"Enable feature","state":"on","labelPlacement":"left"}'></div>
         </div>
       </div>
     </section>
@@ -376,50 +297,35 @@
       <div class="variant-group">
         <div class="variant-label">Default — Off</div>
         <div class="switch-row">
-          <label class="switch-label">
-            <input type="checkbox" class="switch-input">
-            <span>Default off state</span>
-          </label>
+          <div data-trio-component="Switch" data-trio-props='{"label":"Default off state","state":"off"}'></div>
         </div>
       </div>
 
       <div class="variant-group">
         <div class="variant-label">Default — On</div>
         <div class="switch-row">
-          <label class="switch-label">
-            <input type="checkbox" class="switch-input" checked>
-            <span>Default on state</span>
-          </label>
+          <div data-trio-component="Switch" data-trio-props='{"label":"Default on state","state":"on"}'></div>
         </div>
       </div>
 
       <div class="variant-group">
         <div class="variant-label">Hover</div>
         <div class="switch-row">
-          <label class="switch-label" style="position: relative;">
-            <input type="checkbox" class="switch-input" checked>
-            <span>Hover state (interactive — hover the switch)</span>
-          </label>
+          <div data-trio-component="Switch" data-trio-props='{"label":"Hover state (interactive — hover the switch)","state":"on"}'></div>
         </div>
       </div>
 
       <div class="variant-group">
         <div class="variant-label">Disabled — Off</div>
         <div class="switch-row">
-          <label class="switch-label disabled">
-            <input type="checkbox" class="switch-input" disabled>
-            <span>Disabled Off</span>
-          </label>
+          <div data-trio-component="Switch" data-trio-props='{"label":"Disabled Off","state":"off","disabled":true}'></div>
         </div>
       </div>
 
       <div class="variant-group">
         <div class="variant-label">Disabled — On</div>
         <div class="switch-row">
-          <label class="switch-label disabled">
-            <input type="checkbox" class="switch-input" checked disabled>
-            <span>Disabled On</span>
-          </label>
+          <div data-trio-component="Switch" data-trio-props='{"label":"Disabled On","state":"on","disabled":true}'></div>
         </div>
       </div>
     </section>
@@ -442,10 +348,7 @@
           <div class="card-illustration">
             <span class="card-illustration-label">Correct</span>
             <div style="display: flex; flex-direction: column; gap: 16px; width: 100%; padding: 8px;">
-              <label class="switch-label">
-                <input type="checkbox" class="switch-input" checked>
-                <span>Enable notifications</span>
-              </label>
+              <div data-trio-component="Switch" data-trio-props='{"label":"Enable notifications","state":"on"}'></div>
               <div style="font-size: 10px; color: #757575;">Clear label describes what the switch controls</div>
             </div>
           </div>
@@ -468,10 +371,7 @@
           <div class="card-illustration card-illustration-wrong">
             <span class="card-illustration-label">Incorrect</span>
             <div style="display: flex; flex-direction: column; gap: 16px; width: 100%; padding: 8px;">
-              <label class="switch-label">
-                <input type="checkbox" class="switch-input">
-                <span></span>
-              </label>
+              <div data-trio-component="Switch" data-trio-props='{"state":"off"}'></div>
               <div style="font-size: 10px; color: #757575;">No label — user cannot tell what this controls</div>
             </div>
           </div>

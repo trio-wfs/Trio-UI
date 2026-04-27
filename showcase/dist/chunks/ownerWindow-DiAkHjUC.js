@@ -1,0 +1,1 @@
+import{t as e}from"./ownerDocument-hfLMkNBc.js";import{t}from"./ownerWindow-CpPems_B.js";function n(e,t=166){let n;function r(...r){clearTimeout(n),n=setTimeout(()=>{e.apply(this,r)},t)}return r.clear=()=>{clearTimeout(n)},r}var r=n,i=e,a=t;export{n as i,i as n,r,a as t};

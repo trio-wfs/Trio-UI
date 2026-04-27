@@ -109,10 +109,6 @@
       border: 1px solid var(--color-secondary-outline);
     }
 
-    .chip-row.dark-bg {
-      background: #424242;
-    }
-
     .size-row {
       display: flex;
       gap: var(--spacing-md);
@@ -123,116 +119,14 @@
       border: 1px solid var(--color-secondary-outline);
     }
 
-    /* ========================================
-       CHIP COMPONENT STYLES
-       Extracted from Figma MCP — 2026-02-17
-       Node: 1512:8352
-       fileKey: PjAYuPDr8IA1ccwiAjFkSD
-       ======================================== */
-
-    .chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 0;
-      padding: 0 4px;
-      border-radius: 999px;
-      font-family: var(--font-family);
-      font-size: 12px;
-      font-weight: 400;
-      line-height: 12px;
-      letter-spacing: 0;
-      cursor: default;
-      position: relative;
-      overflow: hidden;
-      border: none;
-      outline: none;
-      white-space: nowrap;
-      transition: background-color 0.15s ease;
-      text-decoration: none;
-      -webkit-user-select: none;
-      user-select: none;
-    }
-
-    .chip::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      background-color: transparent;
-      transition: background-color 0.15s ease;
-      pointer-events: none;
-    }
-
-    .chip:hover::after {
-      background-color: var(--action-hover);
-    }
-
-    .chip-md { height: 32px; }
-    .chip-sm { height: 24px; }
-
-    .chip .chip-icon-left {
-      font-size: 16px;
-      width: 16px;
-      height: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      color: inherit;
-    }
-
-    .chip .chip-icon-right {
-      font-size: 20px;
-      width: 24px;
-      height: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      color: inherit;
-    }
-
-    .chip .chip-label {
-      padding: 0 8px;
-      font-size: inherit;
-      font-weight: inherit;
-      line-height: inherit;
-    }
-
-    /* ── CONTAINED VARIANT ── */
-    .chip-default-contained { background-color: var(--color-secondary-main); color: var(--color-text-primary); }
-    .chip-primary-contained { background-color: var(--color-primary-main); color: #FFFFFF; }
-    .chip-error-contained { background-color: var(--color-error-main); color: #FFFFFF; }
-    .chip-info-contained { background-color: var(--color-info-main); color: #FFFFFF; }
-    .chip-warning-contained { background-color: var(--color-warning-main); color: #FFFFFF; }
-    .chip-success-contained { background-color: var(--color-success-main); color: #FFFFFF; }
-
-    /* ── OUTLINE VARIANT ── */
-    .chip-default-outline { background-color: transparent; color: var(--color-text-primary); border: 1px solid var(--color-secondary-outline); }
-    .chip-primary-outline { background-color: transparent; color: var(--color-primary-main); border: 1px solid var(--color-primary-main); }
-    .chip-error-outline { background-color: transparent; color: var(--color-error-main); border: 1px solid var(--color-error-main); }
-    .chip-info-outline { background-color: transparent; color: var(--color-info-main); border: 1px solid var(--color-info-main); }
-    .chip-warning-outline { background-color: transparent; color: var(--color-warning-main); border: 1px solid var(--color-warning-main); }
-    .chip-success-outline { background-color: transparent; color: var(--color-success-main); border: 1px solid var(--color-success-main); }
-
-    /* ── DISABLED STATE ── */
-    .chip-disabled {
-      background-color: var(--color-disabled-bg) !important;
-      color: var(--color-text-disabled) !important;
-      border-color: var(--color-disabled-bg) !important;
-      pointer-events: none;
-      cursor: default;
-    }
-
-    .chip-disabled-outline {
-      background-color: transparent !important;
-      color: var(--color-text-disabled) !important;
-      border: 1px solid var(--color-disabled-bg) !important;
-      pointer-events: none;
+    /* React mount points */
+    [data-trio-component] {
+      display: inline-block;
     }
 
   </style>
   <script src="../../design-system-nav.js"></script>
+  <script type="module" src="../../showcase/dist/showcase.js"></script>
 </head>
 <body>
 
@@ -311,9 +205,9 @@
           <div class="card-illustration">
             <span class="card-illustration-label">Correct</span>
             <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
-              <div class="chip chip-sm chip-success-contained"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Verified</span></div>
-              <div class="chip chip-sm chip-warning-contained"><span class="chip-label">Pending</span></div>
-              <div class="chip chip-sm chip-default-outline"><span class="chip-label">RN</span><span class="material-icons chip-icon-right">cancel</span></div>
+              <div data-trio-component="Chip" data-trio-props='{"size":"small","color":"success","variant":"contained","label":"Verified","iconLeft":"Check"}'></div>
+              <div data-trio-component="Chip" data-trio-props='{"size":"small","color":"warning","variant":"contained","label":"Pending"}'></div>
+              <div data-trio-component="Chip" data-trio-props='{"size":"small","color":"default","variant":"outline","label":"RN","iconRight":true}'></div>
             </div>
           </div>
           <div class="card-content">
@@ -336,9 +230,9 @@
           <div class="card-illustration card-illustration-wrong">
             <span class="card-illustration-label">Incorrect</span>
             <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
-              <div class="chip chip-sm chip-primary-contained"><span class="chip-label">Save Changes</span></div>
-              <div class="chip chip-sm chip-error-contained"><span class="chip-label">Delete All</span></div>
-              <div class="chip chip-sm chip-success-contained"><span class="chip-label">Submit</span></div>
+              <div data-trio-component="Chip" data-trio-props='{"size":"small","color":"primary","variant":"contained","label":"Save Changes"}'></div>
+              <div data-trio-component="Chip" data-trio-props='{"size":"small","color":"error","variant":"contained","label":"Delete All"}'></div>
+              <div data-trio-component="Chip" data-trio-props='{"size":"small","color":"success","variant":"contained","label":"Submit"}'></div>
             </div>
           </div>
           <div class="card-content">
@@ -368,24 +262,24 @@
       <div class="variant-group">
         <div class="variant-label">Contained (default)</div>
         <div class="chip-row">
-          <div class="chip chip-md chip-default-contained"><span class="chip-label">Default</span></div>
-          <div class="chip chip-md chip-primary-contained"><span class="chip-label">Primary</span></div>
-          <div class="chip chip-md chip-error-contained"><span class="chip-label">Error</span></div>
-          <div class="chip chip-md chip-warning-contained"><span class="chip-label">Warning</span></div>
-          <div class="chip chip-md chip-info-contained"><span class="chip-label">Info</span></div>
-          <div class="chip chip-md chip-success-contained"><span class="chip-label">Success</span></div>
+          <div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"default","variant":"contained","label":"Default"}'></div>
+          <div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"primary","variant":"contained","label":"Primary"}'></div>
+          <div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"error","variant":"contained","label":"Error"}'></div>
+          <div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"warning","variant":"contained","label":"Warning"}'></div>
+          <div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"info","variant":"contained","label":"Info"}'></div>
+          <div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"success","variant":"contained","label":"Success"}'></div>
         </div>
       </div>
 
       <div class="variant-group">
         <div class="variant-label">Outline</div>
         <div class="chip-row">
-          <div class="chip chip-md chip-default-outline"><span class="chip-label">Default</span></div>
-          <div class="chip chip-md chip-primary-outline"><span class="chip-label">Primary</span></div>
-          <div class="chip chip-md chip-error-outline"><span class="chip-label">Error</span></div>
-          <div class="chip chip-md chip-warning-outline"><span class="chip-label">Warning</span></div>
-          <div class="chip chip-md chip-info-outline"><span class="chip-label">Info</span></div>
-          <div class="chip chip-md chip-success-outline"><span class="chip-label">Success</span></div>
+          <div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"default","variant":"outline","label":"Default"}'></div>
+          <div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"primary","variant":"outline","label":"Primary"}'></div>
+          <div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"error","variant":"outline","label":"Error"}'></div>
+          <div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"warning","variant":"outline","label":"Warning"}'></div>
+          <div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"info","variant":"outline","label":"Info"}'></div>
+          <div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"success","variant":"outline","label":"Success"}'></div>
         </div>
       </div>
     </section>
@@ -401,20 +295,20 @@
       </p>
 
       <div class="variant-group">
-        <div class="variant-label">md — 32px height (default)</div>
+        <div class="variant-label">medium — 32px height (default)</div>
         <div class="size-row">
-          <div class="chip chip-md chip-default-contained"><span class="chip-label">Label</span></div>
-          <div class="chip chip-md chip-primary-contained"><span class="chip-label">Label</span></div>
-          <div class="chip chip-md chip-default-outline"><span class="chip-label">Label</span></div>
+          <div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"default","variant":"contained","label":"Label"}'></div>
+          <div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"primary","variant":"contained","label":"Label"}'></div>
+          <div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"default","variant":"outline","label":"Label"}'></div>
         </div>
       </div>
 
       <div class="variant-group">
-        <div class="variant-label">sm — 24px height</div>
+        <div class="variant-label">small — 24px height</div>
         <div class="size-row">
-          <div class="chip chip-sm chip-default-contained"><span class="chip-label">Label</span></div>
-          <div class="chip chip-sm chip-primary-contained"><span class="chip-label">Label</span></div>
-          <div class="chip chip-sm chip-default-outline"><span class="chip-label">Label</span></div>
+          <div data-trio-component="Chip" data-trio-props='{"size":"small","color":"default","variant":"contained","label":"Label"}'></div>
+          <div data-trio-component="Chip" data-trio-props='{"size":"small","color":"primary","variant":"contained","label":"Label"}'></div>
+          <div data-trio-component="Chip" data-trio-props='{"size":"small","color":"default","variant":"outline","label":"Label"}'></div>
         </div>
       </div>
     </section>
@@ -435,19 +329,19 @@
         <div class="chip-row">
           <div style="display:flex; flex-direction:column; align-items:center; gap:8px;">
             <span style="font-size:11px;color:var(--color-text-secondary)">Default</span>
-            <div class="chip chip-md chip-default-contained"><span class="chip-label">Label</span></div>
+            <div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"default","variant":"contained","label":"Label"}'></div>
           </div>
           <div style="display:flex; flex-direction:column; align-items:center; gap:8px;">
             <span style="font-size:11px;color:var(--color-text-secondary)">Hover (try it)</span>
-            <div class="chip chip-md chip-primary-contained"><span class="chip-label">Label</span></div>
+            <div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"primary","variant":"contained","label":"Label"}'></div>
           </div>
           <div style="display:flex; flex-direction:column; align-items:center; gap:8px;">
             <span style="font-size:11px;color:var(--color-text-secondary)">Disabled</span>
-            <div class="chip chip-md chip-disabled"><span class="chip-label">Label</span></div>
+            <div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"default","variant":"contained","label":"Label","disabled":true}'></div>
           </div>
           <div style="display:flex; flex-direction:column; align-items:center; gap:8px;">
             <span style="font-size:11px;color:var(--color-text-secondary)">Disabled Outline</span>
-            <div class="chip chip-md chip-disabled-outline"><span class="chip-label">Label</span></div>
+            <div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"default","variant":"outline","label":"Label","disabled":true}'></div>
           </div>
         </div>
       </div>
@@ -455,11 +349,11 @@
       <div class="variant-group">
         <div class="variant-label">Disabled — All Colors (Contained)</div>
         <div class="chip-row">
-          <div class="chip chip-md chip-disabled"><span class="chip-label">Default</span></div>
-          <div class="chip chip-md chip-disabled"><span class="chip-label">Primary</span></div>
-          <div class="chip chip-md chip-disabled"><span class="chip-label">Error</span></div>
-          <div class="chip chip-md chip-disabled"><span class="chip-label">Warning</span></div>
-          <div class="chip chip-md chip-disabled"><span class="chip-label">Success</span></div>
+          <div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"default","variant":"contained","label":"Default","disabled":true}'></div>
+          <div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"primary","variant":"contained","label":"Primary","disabled":true}'></div>
+          <div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"error","variant":"contained","label":"Error","disabled":true}'></div>
+          <div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"warning","variant":"contained","label":"Warning","disabled":true}'></div>
+          <div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"success","variant":"contained","label":"Success","disabled":true}'></div>
         </div>
       </div>
     </section>
@@ -478,59 +372,33 @@
       <div class="variant-group">
         <div class="variant-label">Icon Left + Icon Right</div>
         <div class="chip-row">
-          <div class="chip chip-md chip-default-contained">
-            <span class="material-icons chip-icon-left">check</span>
-            <span class="chip-label">Label</span>
-            <span class="material-icons chip-icon-right">cancel</span>
-          </div>
-          <div class="chip chip-md chip-primary-contained">
-            <span class="material-icons chip-icon-left">check</span>
-            <span class="chip-label">Label</span>
-            <span class="material-icons chip-icon-right">cancel</span>
-          </div>
+          <div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"default","variant":"contained","label":"Label","iconLeft":"Check","iconRight":true}'></div>
+          <div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"primary","variant":"contained","label":"Label","iconLeft":"Check","iconRight":true}'></div>
         </div>
       </div>
 
       <div class="variant-group">
         <div class="variant-label">Icon Left only</div>
         <div class="chip-row">
-          <div class="chip chip-md chip-default-contained">
-            <span class="material-icons chip-icon-left">check</span>
-            <span class="chip-label">Label</span>
-          </div>
-          <div class="chip chip-md chip-primary-outline">
-            <span class="material-icons chip-icon-left">check</span>
-            <span class="chip-label">Label</span>
-          </div>
+          <div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"default","variant":"contained","label":"Label","iconLeft":"Check"}'></div>
+          <div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"primary","variant":"outline","label":"Label","iconLeft":"Check"}'></div>
         </div>
       </div>
 
       <div class="variant-group">
         <div class="variant-label">Icon Right only</div>
         <div class="chip-row">
-          <div class="chip chip-md chip-default-contained">
-            <span class="chip-label">Label</span>
-            <span class="material-icons chip-icon-right">cancel</span>
-          </div>
-          <div class="chip chip-md chip-error-outline">
-            <span class="chip-label">Label</span>
-            <span class="material-icons chip-icon-right">cancel</span>
-          </div>
+          <div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"default","variant":"contained","label":"Label","iconRight":true}'></div>
+          <div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"error","variant":"outline","label":"Label","iconRight":true}'></div>
         </div>
       </div>
 
       <div class="variant-group">
         <div class="variant-label">Label only (no icons)</div>
         <div class="chip-row">
-          <div class="chip chip-md chip-default-contained">
-            <span class="chip-label">Label</span>
-          </div>
-          <div class="chip chip-md chip-primary-contained">
-            <span class="chip-label">Label</span>
-          </div>
-          <div class="chip chip-md chip-success-outline">
-            <span class="chip-label">Label</span>
-          </div>
+          <div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"default","variant":"contained","label":"Label"}'></div>
+          <div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"primary","variant":"contained","label":"Label"}'></div>
+          <div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"success","variant":"outline","label":"Label"}'></div>
         </div>
       </div>
     </section>
@@ -550,9 +418,9 @@
           <div class="card-illustration">
             <span class="card-illustration-label">Correct</span>
             <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
-              <div class="chip chip-sm chip-default-outline"><span class="chip-label">RN</span><span class="material-icons chip-icon-right">cancel</span></div>
-              <div class="chip chip-sm chip-default-outline"><span class="chip-label">CNA</span><span class="material-icons chip-icon-right">cancel</span></div>
-              <div class="chip chip-sm chip-primary-contained"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Active</span></div>
+              <div data-trio-component="Chip" data-trio-props='{"size":"small","color":"default","variant":"outline","label":"RN","iconRight":true}'></div>
+              <div data-trio-component="Chip" data-trio-props='{"size":"small","color":"default","variant":"outline","label":"CNA","iconRight":true}'></div>
+              <div data-trio-component="Chip" data-trio-props='{"size":"small","color":"primary","variant":"contained","label":"Active","iconLeft":"Check"}'></div>
             </div>
           </div>
           <div class="card-content">
@@ -573,9 +441,9 @@
           <div class="card-illustration card-illustration-wrong">
             <span class="card-illustration-label">Incorrect</span>
             <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
-              <div class="chip chip-md chip-primary-contained"><span class="chip-label">Click to Save</span></div>
-              <div class="chip chip-sm chip-error-contained"><span class="chip-label">X</span></div>
-              <div class="chip chip-md chip-success-outline"><span class="chip-label">This is a very long chip label</span></div>
+              <div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"primary","variant":"contained","label":"Click to Save"}'></div>
+              <div data-trio-component="Chip" data-trio-props='{"size":"small","color":"error","variant":"contained","label":"X"}'></div>
+              <div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"success","variant":"outline","label":"This is a very long chip label"}'></div>
             </div>
           </div>
           <div class="card-content">
@@ -613,39 +481,39 @@
         <tbody>
           <tr>
             <td><strong>default</strong></td>
-            <td><div class="chip chip-md chip-default-contained"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Default</span><span class="material-icons chip-icon-right">cancel</span></div></td>
-            <td><div class="chip chip-md chip-default-outline"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Default</span><span class="material-icons chip-icon-right">cancel</span></div></td>
-            <td><div class="chip chip-md chip-disabled"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Default</span><span class="material-icons chip-icon-right">cancel</span></div></td>
+            <td><div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"default","variant":"contained","label":"Default","iconLeft":"Check","iconRight":true}'></div></td>
+            <td><div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"default","variant":"outline","label":"Default","iconLeft":"Check","iconRight":true}'></div></td>
+            <td><div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"default","variant":"contained","label":"Default","iconLeft":"Check","iconRight":true,"disabled":true}'></div></td>
           </tr>
           <tr>
             <td><strong>primary</strong></td>
-            <td><div class="chip chip-md chip-primary-contained"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Primary</span><span class="material-icons chip-icon-right">cancel</span></div></td>
-            <td><div class="chip chip-md chip-primary-outline"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Primary</span><span class="material-icons chip-icon-right">cancel</span></div></td>
-            <td><div class="chip chip-md chip-disabled"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Primary</span><span class="material-icons chip-icon-right">cancel</span></div></td>
+            <td><div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"primary","variant":"contained","label":"Primary","iconLeft":"Check","iconRight":true}'></div></td>
+            <td><div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"primary","variant":"outline","label":"Primary","iconLeft":"Check","iconRight":true}'></div></td>
+            <td><div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"primary","variant":"contained","label":"Primary","iconLeft":"Check","iconRight":true,"disabled":true}'></div></td>
           </tr>
           <tr>
             <td><strong>error</strong></td>
-            <td><div class="chip chip-md chip-error-contained"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Error</span><span class="material-icons chip-icon-right">cancel</span></div></td>
-            <td><div class="chip chip-md chip-error-outline"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Error</span><span class="material-icons chip-icon-right">cancel</span></div></td>
-            <td><div class="chip chip-md chip-disabled"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Error</span><span class="material-icons chip-icon-right">cancel</span></div></td>
+            <td><div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"error","variant":"contained","label":"Error","iconLeft":"Check","iconRight":true}'></div></td>
+            <td><div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"error","variant":"outline","label":"Error","iconLeft":"Check","iconRight":true}'></div></td>
+            <td><div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"error","variant":"contained","label":"Error","iconLeft":"Check","iconRight":true,"disabled":true}'></div></td>
           </tr>
           <tr>
             <td><strong>warning</strong></td>
-            <td><div class="chip chip-md chip-warning-contained"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Warning</span><span class="material-icons chip-icon-right">cancel</span></div></td>
-            <td><div class="chip chip-md chip-warning-outline"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Warning</span><span class="material-icons chip-icon-right">cancel</span></div></td>
-            <td><div class="chip chip-md chip-disabled"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Warning</span><span class="material-icons chip-icon-right">cancel</span></div></td>
+            <td><div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"warning","variant":"contained","label":"Warning","iconLeft":"Check","iconRight":true}'></div></td>
+            <td><div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"warning","variant":"outline","label":"Warning","iconLeft":"Check","iconRight":true}'></div></td>
+            <td><div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"warning","variant":"contained","label":"Warning","iconLeft":"Check","iconRight":true,"disabled":true}'></div></td>
           </tr>
           <tr>
             <td><strong>info</strong></td>
-            <td><div class="chip chip-md chip-info-contained"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Info</span><span class="material-icons chip-icon-right">cancel</span></div></td>
-            <td><div class="chip chip-md chip-info-outline"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Info</span><span class="material-icons chip-icon-right">cancel</span></div></td>
-            <td><div class="chip chip-md chip-disabled"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Info</span><span class="material-icons chip-icon-right">cancel</span></div></td>
+            <td><div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"info","variant":"contained","label":"Info","iconLeft":"Check","iconRight":true}'></div></td>
+            <td><div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"info","variant":"outline","label":"Info","iconLeft":"Check","iconRight":true}'></div></td>
+            <td><div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"info","variant":"contained","label":"Info","iconLeft":"Check","iconRight":true,"disabled":true}'></div></td>
           </tr>
           <tr>
             <td><strong>success</strong></td>
-            <td><div class="chip chip-md chip-success-contained"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Success</span><span class="material-icons chip-icon-right">cancel</span></div></td>
-            <td><div class="chip chip-md chip-success-outline"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Success</span><span class="material-icons chip-icon-right">cancel</span></div></td>
-            <td><div class="chip chip-md chip-disabled"><span class="material-icons chip-icon-left">check</span><span class="chip-label">Success</span><span class="material-icons chip-icon-right">cancel</span></div></td>
+            <td><div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"success","variant":"contained","label":"Success","iconLeft":"Check","iconRight":true}'></div></td>
+            <td><div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"success","variant":"outline","label":"Success","iconLeft":"Check","iconRight":true}'></div></td>
+            <td><div data-trio-component="Chip" data-trio-props='{"size":"medium","color":"success","variant":"contained","label":"Success","iconLeft":"Check","iconRight":true,"disabled":true}'></div></td>
           </tr>
         </tbody>
       </table>

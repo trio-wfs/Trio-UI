@@ -67,7 +67,7 @@ const iconRegistry: Record<string, React.ReactElement> = {
 // Resolve string icon names to React elements
 function resolveIcons(props: Record<string, any>): Record<string, any> {
   const resolved = { ...props };
-  for (const key of ['startIcon', 'endIcon', 'icon']) {
+  for (const key of ['startIcon', 'endIcon', 'icon', 'iconLeft']) {
     if (typeof resolved[key] === 'string' && iconRegistry[resolved[key]]) {
       resolved[key] = iconRegistry[resolved[key]];
     }
@@ -107,6 +107,12 @@ const registry: Record<string, () => Promise<{ default: React.ComponentType<any>
   ToggleButton:       () => import('../components/ToggleButton/ToggleButton').then(m => ({ default: m.ToggleButton })),
   Tooltip:            () => import('../components/Tooltip/Tooltip').then(m => ({ default: m.Tooltip })),
   Chart:              () => import('../components/Chart/Chart').then(m => ({ default: m.Chart })),
+  DatePicker:         () => import('../components/DatePicker/DatePicker').then(m => ({ default: m.DatePicker })),
+  Handle:             () => import('../components/Handle/Handle').then(m => ({ default: m.Handle })),
+  NumberField:        () => import('../components/NumberField/NumberField').then(m => ({ default: m.NumberField })),
+  PopOver:            () => import('../components/PopOver/PopOver').then(m => ({ default: m.PopOver })),
+  ProductLogos:       () => import('../components/ProductLogos/ProductLogos').then(m => ({ default: m.ProductLogos })),
+  Slider:             () => import('../components/Slider/Slider').then(m => ({ default: m.Slider })),
 };
 
 // ─── Wrapper that loads + renders a single component ────────────────────────

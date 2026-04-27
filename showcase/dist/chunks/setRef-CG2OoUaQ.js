@@ -1,1 +1,0 @@
-function e(e){return e&&e.ownerDocument||document}function t(e,t){typeof e==`function`?e(t):e&&(e.current=t)}export{e as n,t};

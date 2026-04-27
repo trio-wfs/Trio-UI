@@ -1,0 +1,1 @@
+import{c as e,s as t}from"./createTheme-BNpr618b.js";function n(t){return e(`MuiListItemButton`,t)}var r=t(`MuiListItemButton`,[`root`,`focusVisible`,`dense`,`alignItemsFlexStart`,`disabled`,`divider`,`gutters`,`selected`]);export{r as n,n as t};

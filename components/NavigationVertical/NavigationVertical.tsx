@@ -332,7 +332,7 @@ export const NavigationVertical = React.forwardRef<HTMLDivElement, NavigationVer
           display: 'flex',
           flexDirection: 'column',
           overflowY: 'auto',
-          padding: `${tokens.spacing.sm}px`,
+          padding: `${tokens.spacing.sm}px ${tokens.spacing.md}px`,
           transition: 'width 200ms ease',
         }}
       >

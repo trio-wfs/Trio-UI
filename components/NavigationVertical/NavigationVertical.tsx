@@ -41,7 +41,7 @@ import {
 import { tokens } from '../../design-tokens/tokens';
 
 const NAV_WIDTH_OPEN = 260;
-const NAV_WIDTH_CLOSED = 56;
+const NAV_WIDTH_CLOSED = 72;
 const ITEM_BORDER_RADIUS = 8;
 const ICON_BUTTON_SIZE = 40;
 
@@ -273,7 +273,7 @@ const SecondaryPanel: React.FC<{
     >
       {title}
     </Typography>
-    <List disablePadding sx={{ display: 'flex', flexDirection: 'column', gap: `${tokens.spacing.xs}px` }}>
+    <List disablePadding sx={{ display: 'flex', flexDirection: 'column', gap: `${tokens.spacing.md}px` }}>
       {items.map(item => (
         <SettingsNavItem
           key={item.id}
@@ -427,10 +427,10 @@ export const NavigationVertical = React.forwardRef<HTMLDivElement, NavigationVer
         </Box>
 
         {/* Divider below header */}
-        <Divider sx={{ mb: `${tokens.spacing.sm}px`, borderColor: tokens.colors.components.divider }} />
+        <Divider sx={{ mb: `${tokens.spacing.md}px`, borderColor: tokens.colors.components.divider }} />
 
         {/* ── Nav items ── */}
-        <List disablePadding sx={{ display: 'flex', flexDirection: 'column', gap: `${tokens.spacing.xs}px` }}>
+        <List disablePadding sx={{ display: 'flex', flexDirection: 'column', gap: `${tokens.spacing.md}px` }}>
           {items.map(item => {
             const isActive = item.id === activeId;
             const isExpanded = expandedIds.has(item.id);
@@ -459,7 +459,7 @@ export const NavigationVertical = React.forwardRef<HTMLDivElement, NavigationVer
                 />
                 {!subSection && item.expandable && item.subItems && item.subItems.length > 0 && (
                   <Collapse in={isExpanded} timeout="auto" unmountOnExit>
-                    <List disablePadding sx={{ mt: `${tokens.spacing.xs}px`, display: 'flex', flexDirection: 'column', gap: `${tokens.spacing.xs}px` }}>
+                    <List disablePadding sx={{ mt: `${tokens.spacing.xs}px`, display: 'flex', flexDirection: 'column', gap: `${tokens.spacing.md}px` }}>
                       {item.subItems.map(sub => (
                         <SubNavItem
                           key={sub.id}
@@ -511,7 +511,7 @@ export const NavigationVertical = React.forwardRef<HTMLDivElement, NavigationVer
               <>
                 {settingsItems.length > 0 && !subSection && (
                   <>
-                    <Divider sx={{ my: `${tokens.spacing.sm}px`, borderColor: tokens.colors.components.divider }} />
+                    <Divider sx={{ my: `${tokens.spacing.md}px`, borderColor: tokens.colors.components.divider }} />
                     <Typography
                       sx={{
                         px: `${tokens.spacing.md}px`,
@@ -526,7 +526,7 @@ export const NavigationVertical = React.forwardRef<HTMLDivElement, NavigationVer
                     >
                       Settings
                     </Typography>
-                    <List disablePadding sx={{ display: 'flex', flexDirection: 'column', gap: `${tokens.spacing.xs}px` }}>
+                    <List disablePadding sx={{ display: 'flex', flexDirection: 'column', gap: `${tokens.spacing.md}px` }}>
                       {settingsItems.map(item => (
                         <SettingsNavItem
                           key={item.id}

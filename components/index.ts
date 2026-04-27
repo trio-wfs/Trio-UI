@@ -40,6 +40,11 @@ export { ToggleButton } from './ToggleButton/ToggleButton';
 export { Tooltip } from './Tooltip/Tooltip';
 export { Chart } from './Chart/Chart';
 export { DatePicker } from './DatePicker/DatePicker';
+export { Handle } from './Handle/Handle';
+export { NumberField } from './NumberField/NumberField';
+export { PopOver } from './PopOver/PopOver';
+export { ProductLogos } from './ProductLogos/ProductLogos';
+export { Slider } from './Slider/Slider';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -213,6 +218,19 @@ export type {
   DatePickerType,
   DatePickerProps,
 } from './DatePicker/DatePicker.types';
+
+export type { HandleProps } from './Handle/Handle.types';
+
+export type { NumberFieldProps } from './NumberField/NumberField.types';
+
+export type { PopOverProps } from './PopOver/PopOver.types';
+
+export type {
+  LogoType,
+  ProductLogosProps,
+} from './ProductLogos/ProductLogos.types';
+
+export type { SliderProps } from './Slider/Slider.types';
 
 // ─── Design Tokens ───────────────────────────────────────────────────────────
 

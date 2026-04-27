@@ -39,7 +39,10 @@ const DS_NAV = {
     { label: 'Tabs',          icon: 'tab',                    href: 'components/Tabs/tabs-showcase.html' },
     { label: 'Text Field',    icon: 'text_fields',            href: 'components/TextField/text-field-showcase.html' },
     { label: 'Toggle Button', icon: 'view_week',              href: 'components/ToggleButton/toggle-button-showcase.html' },
-    { label: 'Tooltip',       icon: 'chat_bubble_outline',    href: 'components/Tooltip/tooltip-showcase.html' },
+    { label: 'Number Field',    icon: 'exposure',               href: 'components/NumberField/number-field-showcase.html' },
+    { label: 'Pop Over',        icon: 'picture_in_picture',     href: 'components/PopOver/pop-over-showcase.html' },
+    { label: 'Slider',          icon: 'tune',                   href: 'components/Slider/slider-showcase.html' },
+    { label: 'Tooltip',         icon: 'chat_bubble_outline',    href: 'components/Tooltip/tooltip-showcase.html' },
   ],
 
   // Custom TRIO components — built specifically for TRIO WFS
@@ -52,6 +55,8 @@ const DS_NAV = {
     { label: 'Search Bar',    icon: 'search',       href: 'components/SearchBar/search-bar-showcase.html' },
     { label: 'Split Button',  icon: 'call_split',   href: 'components/SplitButton/split-button-showcase.html' },
     { label: 'Stepper',       icon: 'linear_scale', href: 'components/Stepper/stepper-showcase.html' },
+    { label: 'Handle',        icon: 'drag_indicator', href: 'components/Handle/handle-showcase.html' },
+    { label: 'Product Logos', icon: 'branding_watermark', href: 'components/ProductLogos/product-logos-showcase.html' },
   ],
 
   // Data Visualization — AG Charts components themed to TRIO design tokens

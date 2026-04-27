@@ -125,161 +125,6 @@
       margin-bottom: 4px;
     }
 
-    /* ── Autocomplete Field ─────────────────────────── */
-    .ac-field {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      width: 100%;
-    }
-    .ac-label {
-      font-size: 12px;
-      font-weight: 400;
-      color: #757575;
-      line-height: 18px;
-    }
-    .ac-label .required { color: #DB4537; margin-left: 2px; }
-
-    .ac-input-wrap {
-      position: relative;
-      display: flex;
-      align-items: center;
-    }
-    .ac-input {
-      width: 100%;
-      height: 36px;
-      padding: 4px 32px 4px 8px;
-      border: 1px solid #9E9E9E;
-      border-radius: 4px;
-      font-family: 'Roboto', sans-serif;
-      font-size: 14px;
-      color: #212121;
-      background: transparent;
-      outline: none;
-      transition: border-color 0.15s;
-      box-sizing: border-box;
-    }
-    .ac-input::placeholder { color: #757575; }
-    .ac-input:hover { border-color: #616161; }
-    .ac-input:focus { border-color: #64B5F6; }
-    .ac-input.error { border-color: #DB4537; }
-    .ac-input:disabled {
-      border-color: #E0E0E0;
-      background: rgba(0,0,0,0.07);
-      color: #9E9E9E;
-      cursor: not-allowed;
-    }
-    .ac-icon {
-      position: absolute;
-      right: 6px;
-      font-size: 20px;
-      color: #757575;
-      pointer-events: none;
-      user-select: none;
-    }
-    .ac-helper {
-      font-size: 12px;
-      color: #757575;
-      line-height: 18px;
-      margin-top: 2px;
-    }
-    .ac-helper.error { color: #DB4537; }
-
-    /* ── Dropdown ───────────────────────────────────── */
-    .ac-dropdown {
-      position: absolute;
-      top: calc(100% + 4px);
-      left: 0; right: 0;
-      background: #FFFFFF;
-      border-radius: 4px;
-      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
-      z-index: 100;
-      overflow: hidden;
-      display: none;
-    }
-    .ac-dropdown.open { display: block; }
-    .ac-option {
-      padding: 8px 16px;
-      font-size: 14px;
-      font-family: 'Roboto', sans-serif;
-      color: #212121;
-      cursor: pointer;
-      transition: background 0.1s;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .ac-option:hover { background: rgba(0,0,0,0.04); }
-    .ac-option.selected { background: #E3F2FD; }
-    .ac-option .check-icon {
-      font-size: 16px;
-      color: #2196F3;
-      opacity: 0;
-    }
-    .ac-option.selected .check-icon { opacity: 1; }
-    .ac-no-options {
-      padding: 12px 16px;
-      font-size: 14px;
-      color: #757575;
-      font-family: 'Roboto', sans-serif;
-    }
-
-    /* ── Multi chips ─────────────────────────────────── */
-    .ac-multi-wrap {
-      min-height: 36px;
-      height: auto;
-      padding: 4px 32px 4px 8px;
-      border: 1px solid #9E9E9E;
-      border-radius: 4px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 4px;
-      align-items: center;
-      cursor: text;
-      transition: border-color 0.15s;
-      background: transparent;
-      position: relative;
-      box-sizing: border-box;
-    }
-    .ac-multi-wrap:hover { border-color: #616161; }
-    .ac-multi-wrap.focused { border-color: #64B5F6; }
-    .ac-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      background: #FAFAFA;
-      border: 1px solid #E0E0E0;
-      border-radius: 999px;
-      padding: 2px 8px 2px 10px;
-      font-size: 12px;
-      color: #212121;
-      height: 24px;
-      font-family: 'Roboto', sans-serif;
-    }
-    .ac-chip button {
-      background: none; border: none; cursor: pointer;
-      display: flex; align-items: center;
-      color: #757575; padding: 0;
-      line-height: 1;
-    }
-    .ac-chip button .material-icons { font-size: 14px; }
-    .ac-chip button:hover { color: #212121; }
-    .ac-multi-input {
-      border: none; outline: none; background: transparent;
-      font-family: 'Roboto', sans-serif; font-size: 14px;
-      color: #212121; min-width: 80px; flex: 1;
-    }
-    .ac-multi-icon {
-      position: absolute;
-      right: 6px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 20px;
-      color: #757575;
-      pointer-events: none;
-      user-select: none;
-    }
-
     /* ── Interactive demo container ─────────────────── */
     .interactive-demo {
       background: var(--color-background-paper);
@@ -320,8 +165,14 @@
     .spec-table tr:last-child td { border-bottom: none; }
     .token-ref { color: #2196F3; }
 
+    /* React mount points */
+    [data-trio-component] {
+      display: inline-block;
+    }
+
   </style>
   <script src="../../design-system-nav.js"></script>
+  <script type="module" src="../../showcase/dist/showcase.js"></script>
 </head>
 <body>
   <!-- LEFT NAVIGATION -->
@@ -395,13 +246,7 @@
           </div>
           <div class="card-illustration">
             <span class="card-illustration-label">Correct</span>
-            <div class="ac-field" style="width: 240px;">
-              <span class="ac-label">Provider</span>
-              <div class="ac-input-wrap">
-                <input class="ac-input" value="Jane Smith, RN" type="text" readonly style="pointer-events:none">
-                <span class="material-icons ac-icon">arrow_drop_down</span>
-              </div>
-            </div>
+            <div data-trio-component="Autocomplete" data-trio-props='{"label":"Provider","placeholder":"Search providers...","value":{"value":"jane-smith","label":"Jane Smith, RN"},"options":[{"value":"jane-smith","label":"Jane Smith, RN"}],"disabled":false}'></div>
           </div>
           <div class="card-content">
             <ul>
@@ -419,12 +264,7 @@
           </div>
           <div class="card-illustration card-illustration-wrong">
             <span class="card-illustration-label">Incorrect</span>
-            <div class="ac-field" style="width: 240px;">
-              <div class="ac-input-wrap">
-                <input class="ac-input" placeholder="Type here..." type="text" readonly style="pointer-events:none">
-                <span class="material-icons ac-icon">arrow_drop_down</span>
-              </div>
-            </div>
+            <div data-trio-component="Autocomplete" data-trio-props='{"placeholder":"Type here...","options":[{"value":"a","label":"Option A"},{"value":"b","label":"Option B"}]}'></div>
           </div>
           <div class="card-content">
             <ul>
@@ -450,36 +290,13 @@
         <!-- Single Select -->
         <div class="demo-col">
           <h3>Single Select</h3>
-          <div class="ac-field">
-            <span class="ac-label">Provider</span>
-            <div class="ac-input-wrap" style="position:relative" id="single-wrap">
-              <input
-                class="ac-input"
-                id="single-input"
-                placeholder="Search providers..."
-                type="text"
-                autocomplete="off"
-              >
-              <span class="material-icons ac-icon" id="single-arrow">arrow_drop_down</span>
-              <div class="ac-dropdown" id="single-dropdown"></div>
-            </div>
-          </div>
+          <div data-trio-component="Autocomplete" data-trio-props='{"label":"Provider","placeholder":"Search providers...","options":[{"value":"jane-smith","label":"Jane Smith, RN"},{"value":"marcus-lee","label":"Marcus Lee, CNA"},{"value":"priya-patel","label":"Priya Patel, LPN"},{"value":"david-torres","label":"David Torres, RN"},{"value":"sarah-kim","label":"Sarah Kim, NP"},{"value":"james-okafor","label":"James Okafor, CNA"},{"value":"emily-chen","label":"Emily Chen, R N"},{"value":"michael-brown","label":"Michael Brown, LPN"}]}'></div>
         </div>
 
         <!-- Multi Select -->
         <div class="demo-col">
           <h3>Multi Select</h3>
-          <div class="ac-field">
-            <span class="ac-label">Resources <span class="required">*</span></span>
-            <div style="position:relative" id="multi-wrap">
-              <div class="ac-multi-wrap" id="multi-container">
-                <!-- chips injected here -->
-                <input class="ac-multi-input" id="multi-input" placeholder="Search resources..." autocomplete="off">
-                <span class="material-icons ac-multi-icon" id="multi-arrow">arrow_drop_down</span>
-              </div>
-              <div class="ac-dropdown" id="multi-dropdown"></div>
-            </div>
-          </div>
+          <div data-trio-component="Autocomplete" data-trio-props='{"type":"multi","label":"Resources","required":true,"placeholder":"Search resources...","options":[{"value":"sunrise","label":"Sunrise Health Agency"},{"value":"medstaff","label":"MedStaff Solutions"},{"value":"allied","label":"Allied Nursing Partners"},{"value":"premier","label":"Premier Staffing Group"},{"value":"coastal","label":"Coastal Healthcare"},{"value":"pinnacle","label":"Pinnacle Medical Staffing"},{"value":"brightpath","label":"BrightPath RN Services"},{"value":"national","label":"National Nurse Network"}]}'></div>
         </div>
       </div>
     </section>
@@ -495,67 +312,25 @@
         <!-- Default -->
         <div class="demo-field">
           <span class="demo-label">Default</span>
-          <div class="ac-field">
-            <span class="ac-label">Provider</span>
-            <div class="ac-input-wrap">
-              <input class="ac-input" placeholder="Search providers..." type="text" readonly>
-              <span class="material-icons ac-icon">arrow_drop_down</span>
-            </div>
-          </div>
+          <div data-trio-component="Autocomplete" data-trio-props='{"label":"Provider","placeholder":"Search providers...","options":[{"value":"jane-smith","label":"Jane Smith, RN"},{"value":"marcus-lee","label":"Marcus Lee, CNA"},{"value":"priya-patel","label":"Priya Patel, LPN"}]}'></div>
         </div>
 
         <!-- With value -->
         <div class="demo-field">
           <span class="demo-label">With Value</span>
-          <div class="ac-field">
-            <span class="ac-label">Provider</span>
-            <div class="ac-input-wrap">
-              <input class="ac-input" value="Jane Smith, RN" type="text" readonly>
-              <span class="material-icons ac-icon">arrow_drop_down</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Focus + open -->
-        <div class="demo-field">
-          <span class="demo-label">Focus / Open</span>
-          <div class="ac-field">
-            <span class="ac-label">Provider</span>
-            <div class="ac-input-wrap" style="position:relative">
-              <input class="ac-input" placeholder="Search providers..." type="text" style="border-color:#64B5F6" value="Jane" readonly>
-              <span class="material-icons ac-icon">arrow_drop_up</span>
-              <div class="ac-dropdown open" style="position:absolute;top:calc(100% + 4px);left:0;right:0;background:#fff;border-radius:4px;box-shadow:0 4px 6px -1px rgba(0,0,0,0.1);z-index:10;overflow:hidden">
-                <div class="ac-option">Jane Smith, RN</div>
-                <div class="ac-option">Jane Doe, LPN</div>
-                <div class="ac-option">Janelle Carter, CNA</div>
-              </div>
-            </div>
-          </div>
+          <div data-trio-component="Autocomplete" data-trio-props='{"label":"Provider","placeholder":"Search providers...","value":{"value":"jane-smith","label":"Jane Smith, RN"},"options":[{"value":"jane-smith","label":"Jane Smith, RN"},{"value":"marcus-lee","label":"Marcus Lee, CNA"},{"value":"priya-patel","label":"Priya Patel, LPN"}]}'></div>
         </div>
 
         <!-- Error -->
         <div class="demo-field">
           <span class="demo-label">Error</span>
-          <div class="ac-field">
-            <span class="ac-label">Provider <span style="color:#DB4537">*</span></span>
-            <div class="ac-input-wrap">
-              <input class="ac-input error" placeholder="Search providers..." type="text" readonly>
-              <span class="material-icons ac-icon">arrow_drop_down</span>
-            </div>
-            <span class="ac-helper error">Required field</span>
-          </div>
+          <div data-trio-component="Autocomplete" data-trio-props='{"label":"Provider","placeholder":"Search providers...","required":true,"state":"error","errorText":"Required field","options":[{"value":"jane-smith","label":"Jane Smith, RN"},{"value":"marcus-lee","label":"Marcus Lee, CNA"},{"value":"priya-patel","label":"Priya Patel, LPN"}]}'></div>
         </div>
 
         <!-- Disabled -->
         <div class="demo-field">
           <span class="demo-label">Disabled</span>
-          <div class="ac-field">
-            <span class="ac-label">Provider</span>
-            <div class="ac-input-wrap">
-              <input class="ac-input" placeholder="Search providers..." type="text" disabled>
-              <span class="material-icons ac-icon">arrow_drop_down</span>
-            </div>
-          </div>
+          <div data-trio-component="Autocomplete" data-trio-props='{"label":"Provider","placeholder":"Search providers...","disabled":true,"options":[{"value":"jane-smith","label":"Jane Smith, RN"},{"value":"marcus-lee","label":"Marcus Lee, CNA"},{"value":"priya-patel","label":"Priya Patel, LPN"}]}'></div>
         </div>
       </div>
     </section>
@@ -571,66 +346,25 @@
         <!-- Empty -->
         <div class="demo-field" style="min-width:300px">
           <span class="demo-label">Empty</span>
-          <div class="ac-field">
-            <span class="ac-label">Resources</span>
-            <div style="position:relative">
-              <div class="ac-multi-wrap">
-                <input class="ac-multi-input" placeholder="Search..." readonly>
-                <span class="material-icons ac-multi-icon">arrow_drop_down</span>
-              </div>
-            </div>
-          </div>
+          <div data-trio-component="Autocomplete" data-trio-props='{"type":"multi","label":"Resources","placeholder":"Search...","options":[{"value":"jane-smith","label":"Jane Smith, RN"},{"value":"marcus-lee","label":"Marcus Lee, CNA"},{"value":"priya-patel","label":"Priya Patel, LPN"}]}'></div>
         </div>
 
         <!-- With chips -->
         <div class="demo-field" style="min-width:360px">
           <span class="demo-label">With Selections</span>
-          <div class="ac-field">
-            <span class="ac-label">Resources <span style="color:#DB4537">*</span></span>
-            <div style="position:relative">
-              <div class="ac-multi-wrap focused">
-                <span class="ac-chip">Jane Smith, RN <button disabled><span class="material-icons">cancel</span></button></span>
-                <span class="ac-chip">Marcus Lee, CNA <button disabled><span class="material-icons">cancel</span></button></span>
-                <input class="ac-multi-input" placeholder="" readonly>
-                <span class="material-icons ac-multi-icon">arrow_drop_up</span>
-              </div>
-            </div>
-          </div>
+          <div data-trio-component="Autocomplete" data-trio-props='{"type":"multi","label":"Resources","required":true,"placeholder":"","value":[{"value":"jane-smith","label":"Jane Smith, RN"},{"value":"marcus-lee","label":"Marcus Lee, CNA"}],"options":[{"value":"jane-smith","label":"Jane Smith, RN"},{"value":"marcus-lee","label":"Marcus Lee, CNA"},{"value":"priya-patel","label":"Priya Patel, LPN"}]}'></div>
         </div>
 
-        <!-- Multi open with dropdown -->
+        <!-- Multi with selection + more options -->
         <div class="demo-field" style="min-width:300px">
-          <span class="demo-label">Open Dropdown</span>
-          <div class="ac-field">
-            <span class="ac-label">Agencies</span>
-            <div style="position:relative">
-              <div class="ac-multi-wrap focused">
-                <span class="ac-chip">Agency Name 6 <button disabled><span class="material-icons">cancel</span></button></span>
-                <input class="ac-multi-input" value="Ag" readonly>
-                <span class="material-icons ac-multi-icon">arrow_drop_up</span>
-                <div class="ac-dropdown open" style="position:absolute;top:calc(100% + 4px);left:0;right:0;background:#fff;border-radius:4px;box-shadow:0 4px 6px -1px rgba(0,0,0,0.1);z-index:10;overflow:hidden">
-                  <div class="ac-option selected">Agency Name 6 <span class="material-icons check-icon" style="opacity:1;font-size:16px;color:#2196F3">check</span></div>
-                  <div class="ac-option">Agency Name 7 <span class="material-icons check-icon">check</span></div>
-                  <div class="ac-option">Agency Name 8 <span class="material-icons check-icon">check</span></div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <span class="demo-label">With Agencies</span>
+          <div data-trio-component="Autocomplete" data-trio-props='{"type":"multi","label":"Agencies","placeholder":"Search agencies...","value":[{"value":"sunrise","label":"Sunrise Health Agency"}],"options":[{"value":"sunrise","label":"Sunrise Health Agency"},{"value":"medstaff","label":"MedStaff Solutions"},{"value":"allied","label":"Allied Nursing Partners"},{"value":"premier","label":"Premier Staffing Group"}]}'></div>
         </div>
 
         <!-- Multi disabled -->
         <div class="demo-field" style="min-width:260px">
           <span class="demo-label">Disabled</span>
-          <div class="ac-field">
-            <span class="ac-label">Resources</span>
-            <div style="position:relative">
-              <div class="ac-multi-wrap" style="border-color:#E0E0E0;background:rgba(0,0,0,0.07)">
-                <span class="ac-chip" style="opacity:0.5">Jane Smith, RN <button disabled><span class="material-icons">cancel</span></button></span>
-                <input class="ac-multi-input" disabled placeholder="" style="color:#9E9E9E">
-                <span class="material-icons ac-multi-icon" style="color:#9E9E9E">arrow_drop_down</span>
-              </div>
-            </div>
-          </div>
+          <div data-trio-component="Autocomplete" data-trio-props='{"type":"multi","label":"Resources","disabled":true,"value":[{"value":"jane-smith","label":"Jane Smith, RN"}],"options":[{"value":"jane-smith","label":"Jane Smith, RN"},{"value":"marcus-lee","label":"Marcus Lee, CNA"}]}'></div>
         </div>
       </div>
     </section>
@@ -649,14 +383,7 @@
           </div>
           <div class="card-illustration">
             <span class="card-illustration-label">Correct</span>
-            <div class="ac-field" style="width: 240px;">
-              <span class="ac-label">Provider <span class="required">*</span></span>
-              <div class="ac-input-wrap">
-                <input class="ac-input" value="Jane Smith, RN" type="text" readonly style="pointer-events:none">
-                <span class="material-icons ac-icon">arrow_drop_down</span>
-              </div>
-              <span class="ac-helper">Search by name or credential</span>
-            </div>
+            <div data-trio-component="Autocomplete" data-trio-props='{"label":"Provider","required":true,"helperText":"Search by name or credential","value":{"value":"jane-smith","label":"Jane Smith, RN"},"options":[{"value":"jane-smith","label":"Jane Smith, RN"}]}'></div>
           </div>
           <div class="card-content">
             <ul>
@@ -675,12 +402,7 @@
           </div>
           <div class="card-illustration card-illustration-wrong">
             <span class="card-illustration-label">Incorrect</span>
-            <div class="ac-field" style="width: 240px;">
-              <div class="ac-input-wrap">
-                <input class="ac-input" placeholder="Select provider..." type="text" readonly style="pointer-events:none">
-                <span class="material-icons ac-icon">arrow_drop_down</span>
-              </div>
-            </div>
+            <div data-trio-component="Autocomplete" data-trio-props='{"placeholder":"Select provider...","options":[{"value":"a","label":"Option A"},{"value":"b","label":"Option B"}]}'></div>
           </div>
           <div class="card-content">
             <ul>
@@ -737,185 +459,5 @@
 
   </main>
 
-  <script>
-    // ─────────────────────────────────────────────────────────────────
-    //  SINGLE SELECT AUTOCOMPLETE
-    // ─────────────────────────────────────────────────────────────────
-    const SINGLE_OPTIONS = [
-      'Jane Smith, RN',
-      'Marcus Lee, CNA',
-      'Priya Patel, LPN',
-      'David Torres, RN',
-      'Sarah Kim, NP',
-      'James Okafor, CNA',
-      'Emily Chen, RN',
-      'Michael Brown, LPN',
-    ];
-
-    const singleInput = document.getElementById('single-input');
-    const singleDropdown = document.getElementById('single-dropdown');
-    const singleArrow = document.getElementById('single-arrow');
-    let singleOpen = false;
-    let singleValue = null;
-
-    function renderSingleOptions(filter) {
-      const filtered = SINGLE_OPTIONS.filter(o =>
-        o.toLowerCase().includes((filter || '').toLowerCase())
-      );
-      if (filtered.length === 0) {
-        singleDropdown.innerHTML = '<div class="ac-no-options">No results</div>';
-      } else {
-        singleDropdown.innerHTML = filtered.map(o => `
-          <div class="ac-option${singleValue === o ? ' selected' : ''}" data-value="${o}">
-            <span>${o}</span>
-            <span class="material-icons check-icon">check</span>
-          </div>
-        `).join('');
-        singleDropdown.querySelectorAll('.ac-option').forEach(el => {
-          el.addEventListener('mousedown', (e) => {
-            e.preventDefault();
-            selectSingle(el.dataset.value);
-          });
-        });
-      }
-    }
-
-    function openSingle() {
-      singleOpen = true;
-      singleDropdown.classList.add('open');
-      singleArrow.textContent = 'arrow_drop_up';
-      singleInput.style.borderColor = '#64B5F6';
-      renderSingleOptions(singleInput.value);
-    }
-
-    function closeSingle() {
-      singleOpen = false;
-      singleDropdown.classList.remove('open');
-      singleArrow.textContent = 'arrow_drop_down';
-      singleInput.style.borderColor = '';
-      if (singleValue) singleInput.value = singleValue;
-      else if (!singleValue) singleInput.value = '';
-    }
-
-    function selectSingle(value) {
-      singleValue = value;
-      singleInput.value = value;
-      closeSingle();
-    }
-
-    singleInput.addEventListener('focus', () => openSingle());
-    singleInput.addEventListener('blur', () => closeSingle());
-    singleInput.addEventListener('input', () => renderSingleOptions(singleInput.value));
-    singleInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') { closeSingle(); singleInput.blur(); }
-    });
-
-    // ─────────────────────────────────────────────────────────────────
-    //  MULTI SELECT AUTOCOMPLETE
-    // ─────────────────────────────────────────────────────────────────
-    const MULTI_OPTIONS = [
-      'Sunrise Health Agency',
-      'MedStaff Solutions',
-      'Allied Nursing Partners',
-      'Premier Staffing Group',
-      'Coastal Healthcare',
-      'Pinnacle Medical Staffing',
-      'BrightPath RN Services',
-      'National Nurse Network',
-    ];
-
-    const multiInput = document.getElementById('multi-input');
-    const multiDropdown = document.getElementById('multi-dropdown');
-    const multiContainer = document.getElementById('multi-container');
-    const multiArrow = document.getElementById('multi-arrow');
-    let multiOpen = false;
-    let multiSelected = [];
-
-    function renderChips() {
-      multiContainer.querySelectorAll('.ac-chip').forEach(c => c.remove());
-      const before = multiInput;
-      multiSelected.forEach(val => {
-        const chip = document.createElement('span');
-        chip.className = 'ac-chip';
-        chip.innerHTML = `${val} <button type="button" aria-label="Remove ${val}"><span class="material-icons">cancel</span></button>`;
-        chip.querySelector('button').addEventListener('click', () => removeChip(val));
-        multiContainer.insertBefore(chip, before);
-      });
-    }
-
-    function removeChip(val) {
-      multiSelected = multiSelected.filter(v => v !== val);
-      renderChips();
-      renderMultiOptions(multiInput.value);
-    }
-
-    function renderMultiOptions(filter) {
-      const available = MULTI_OPTIONS.filter(o =>
-        o.toLowerCase().includes((filter || '').toLowerCase())
-      );
-      if (available.length === 0) {
-        multiDropdown.innerHTML = '<div class="ac-no-options">No results</div>';
-      } else {
-        multiDropdown.innerHTML = available.map(o => {
-          const sel = multiSelected.includes(o);
-          return `
-            <div class="ac-option${sel ? ' selected' : ''}" data-value="${o}">
-              <span>${o}</span>
-              <span class="material-icons check-icon">check</span>
-            </div>
-          `;
-        }).join('');
-        multiDropdown.querySelectorAll('.ac-option').forEach(el => {
-          el.addEventListener('mousedown', (e) => {
-            e.preventDefault();
-            toggleMulti(el.dataset.value);
-          });
-        });
-      }
-    }
-
-    function toggleMulti(val) {
-      if (multiSelected.includes(val)) {
-        multiSelected = multiSelected.filter(v => v !== val);
-      } else {
-        multiSelected.push(val);
-      }
-      renderChips();
-      multiInput.value = '';
-      renderMultiOptions('');
-      multiInput.focus();
-    }
-
-    function openMulti() {
-      multiOpen = true;
-      multiDropdown.classList.add('open');
-      multiContainer.classList.add('focused');
-      multiArrow.textContent = 'arrow_drop_up';
-      renderMultiOptions(multiInput.value);
-    }
-
-    function closeMulti() {
-      multiOpen = false;
-      multiDropdown.classList.remove('open');
-      multiContainer.classList.remove('focused');
-      multiArrow.textContent = 'arrow_drop_down';
-    }
-
-    multiInput.addEventListener('focus', () => openMulti());
-    multiInput.addEventListener('blur', () => closeMulti());
-    multiInput.addEventListener('input', () => renderMultiOptions(multiInput.value));
-    multiInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') { closeMulti(); multiInput.blur(); }
-      if (e.key === 'Backspace' && multiInput.value === '' && multiSelected.length > 0) {
-        removeChip(multiSelected[multiSelected.length - 1]);
-      }
-    });
-
-    multiContainer.addEventListener('click', (e) => {
-      if (!e.target.closest('.ac-chip button')) {
-        multiInput.focus();
-      }
-    });
-  </script>
 </body>
 </html>

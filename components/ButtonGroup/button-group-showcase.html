@@ -111,111 +111,14 @@
       border: 1px solid var(--color-secondary-outline);
     }
 
-    /* BUTTON GROUP STYLES */
-    .btn-group {
-      display: inline-flex;
-      border-radius: var(--border-radius);
-    }
-
-    .btn-group.vertical {
-      flex-direction: column;
-    }
-
-    .btn-group .btn {
-      border: 1px solid transparent;
-      font-family: var(--font-family);
-      font-size: 12px;
-      font-weight: 400;
-      text-transform: none;
-      cursor: pointer;
-      transition: all 0.2s;
-      white-space: nowrap;
-    }
-
-    /* Remove border radius for middle buttons */
-    .btn-group:not(.vertical) .btn:not(:first-child) {
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-      margin-left: -1px;
-    }
-
-    .btn-group:not(.vertical) .btn:not(:last-child) {
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
-    }
-
-    .btn-group.vertical .btn:not(:first-child) {
-      border-top-left-radius: 0;
-      border-top-right-radius: 0;
-      margin-top: -1px;
-    }
-
-    .btn-group.vertical .btn:not(:last-child) {
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
-    }
-
-    /* Small size - 32px height */
-    .btn-group-sm .btn {
-      height: 32px;
-      padding: 0 12px;
-      border-radius: var(--border-radius);
-    }
-
-    /* Medium size - 38px height */
-    .btn-group-md .btn {
-      height: 38px;
-      padding: 0 16px;
-      border-radius: var(--border-radius);
-    }
-
-    /* Contained variant */
-    .btn-group-contained-primary .btn {
-      background-color: var(--color-primary-main);
-      color: white;
-      border-color: var(--color-primary-main);
-    }
-
-    .btn-group-contained-primary .btn:hover {
-      background-color: var(--color-primary-dark);
-      border-color: var(--color-primary-dark);
-    }
-
-    .btn-group-contained-secondary .btn {
-      background-color: var(--color-secondary-main);
-      color: var(--color-secondary-dark);
-      border: 1px solid var(--color-secondary-outline);
-    }
-
-    .btn-group-contained-secondary .btn:hover {
-      box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.08);
-      border-color: var(--color-text-secondary);
-    }
-
-    /* Outlined variant */
-    .btn-group-outlined-primary .btn {
-      background-color: transparent;
-      color: var(--color-primary-main);
-      border-color: var(--color-primary-main);
-    }
-
-    .btn-group-outlined-primary .btn:hover {
-      background-color: var(--color-primary-light);
-    }
-
-    .btn-group-outlined-secondary .btn {
-      background-color: transparent;
-      color: var(--color-text-primary);
-      border: 1px solid var(--color-secondary-outline);
-    }
-
-    .btn-group-outlined-secondary .btn:hover {
-      background-color: rgba(0, 0, 0, 0.04);
-      border-color: var(--color-text-secondary);
+    /* React mount points */
+    [data-trio-component] {
+      display: inline-block;
     }
 
   </style>
   <script src="../../design-system-nav.js"></script>
+  <script type="module" src="../../showcase/dist/showcase.js"></script>
 </head>
 <body>
   <!-- LEFT NAVIGATION -->
@@ -292,11 +195,7 @@
           </div>
           <div class="card-illustration">
             <span class="card-illustration-label">Correct</span>
-            <div class="btn-group btn-group-sm btn-group-contained-secondary">
-              <button class="btn">Filter</button>
-              <button class="btn">Sort</button>
-              <button class="btn">Export</button>
-            </div>
+            <div data-trio-component="ButtonGroup" data-trio-props='{"variant":"contained","color":"secondary","size":"small","buttons":["Filter","Sort","Export"]}'></div>
           </div>
           <div class="card-content">
             <ul>
@@ -315,10 +214,7 @@
           </div>
           <div class="card-illustration card-illustration-wrong">
             <span class="card-illustration-label">Incorrect</span>
-            <div class="btn-group btn-group-sm" style="margin-top: 8px;">
-              <button class="btn" style="background: #2196F3; color: white; border: 1px solid #2196F3; height: 32px; padding: 0 12px; border-radius: 4px 0 0 4px;">Save</button>
-              <button class="btn" style="background: #F5F5F5; color: #212121; border: 1px solid #E0E0E0; height: 32px; padding: 0 12px; border-radius: 0 4px 4px 0; margin-left: -1px;">Cancel</button>
-            </div>
+            <div data-trio-component="ButtonGroup" data-trio-props='{"variant":"contained","color":"primary","size":"small","buttons":["Save","Cancel"]}'></div>
           </div>
           <div class="card-content">
             <ul>
@@ -346,79 +242,40 @@
       <div class="variant-group">
         <div class="variant-label">Small (32px) - Toolbars and dense interfaces</div>
         <div class="button-group-row">
-          <div class="btn-group btn-group-sm btn-group-contained-secondary">
-            <button class="btn">Edit</button>
-            <button class="btn">Duplicate</button>
-            <button class="btn">Archive</button>
-          </div>
-          <div class="btn-group btn-group-sm btn-group-outlined-secondary">
-            <button class="btn">Filter</button>
-            <button class="btn">Sort</button>
-            <button class="btn">Export</button>
-          </div>
+          <div data-trio-component="ButtonGroup" data-trio-props='{"variant":"contained","color":"secondary","size":"small","buttons":["Edit","Duplicate","Archive"]}'></div>
+          <div data-trio-component="ButtonGroup" data-trio-props='{"variant":"outline","color":"secondary","size":"small","buttons":["Filter","Sort","Export"]}'></div>
         </div>
       </div>
 
       <div class="variant-group">
         <div class="variant-label">Medium (38px) - Standard forms and modals</div>
         <div class="button-group-row">
-          <div class="btn-group btn-group-md btn-group-contained-secondary">
-            <button class="btn">Option A</button>
-            <button class="btn">Option B</button>
-            <button class="btn">Option C</button>
-          </div>
-          <div class="btn-group btn-group-md btn-group-outlined-secondary">
-            <button class="btn">View</button>
-            <button class="btn">Edit</button>
-            <button class="btn">Delete</button>
-          </div>
+          <div data-trio-component="ButtonGroup" data-trio-props='{"variant":"contained","color":"secondary","size":"medium","buttons":["Option A","Option B","Option C"]}'></div>
+          <div data-trio-component="ButtonGroup" data-trio-props='{"variant":"outline","color":"secondary","size":"medium","buttons":["View","Edit","Delete"]}'></div>
         </div>
       </div>
 
       <div class="variant-group">
         <div class="variant-label">Primary - Confirming Actions</div>
         <div class="button-group-row">
-          <div class="btn-group btn-group-sm btn-group-contained-primary">
-            <button class="btn">Save Draft</button>
-            <button class="btn">Save & Close</button>
-            <button class="btn">Save & Continue</button>
-          </div>
-          <div class="btn-group btn-group-sm btn-group-outlined-primary">
-            <button class="btn">Approve</button>
-            <button class="btn">Approve & Next</button>
-          </div>
+          <div data-trio-component="ButtonGroup" data-trio-props='{"variant":"contained","color":"primary","size":"small","buttons":["Save Draft","Save & Close","Save & Continue"]}'></div>
+          <div data-trio-component="ButtonGroup" data-trio-props='{"variant":"outline","color":"primary","size":"small","buttons":["Approve","Approve & Next"]}'></div>
         </div>
       </div>
 
       <div class="variant-group">
         <div class="variant-label">Secondary - Editing/Prompt Actions</div>
         <div class="button-group-row">
-          <div class="btn-group btn-group-sm btn-group-contained-secondary">
-            <button class="btn">Edit</button>
-            <button class="btn">Duplicate</button>
-            <button class="btn">Archive</button>
-          </div>
-          <div class="btn-group btn-group-sm btn-group-outlined-secondary">
-            <button class="btn">Manage</button>
-            <button class="btn">Settings</button>
-            <button class="btn">History</button>
-          </div>
+          <div data-trio-component="ButtonGroup" data-trio-props='{"variant":"contained","color":"secondary","size":"small","buttons":["Edit","Duplicate","Archive"]}'></div>
+          <div data-trio-component="ButtonGroup" data-trio-props='{"variant":"outline","color":"secondary","size":"small","buttons":["Manage","Settings","History"]}'></div>
         </div>
       </div>
 
       <div class="variant-group">
         <div class="variant-label">Vertical - For narrow containers</div>
         <div class="button-group-row">
-          <div class="btn-group btn-group-sm btn-group-contained-secondary vertical">
-            <button class="btn">Option A</button>
-            <button class="btn">Option B</button>
-            <button class="btn">Option C</button>
-          </div>
-          <div class="btn-group btn-group-sm btn-group-outlined-secondary vertical">
-            <button class="btn">Edit</button>
-            <button class="btn">Duplicate</button>
-            <button class="btn">Archive</button>
-          </div>
+          <div data-trio-component="ButtonGroup" data-trio-props='{"variant":"contained","color":"secondary","size":"small","orientation":"vertical","buttons":["Option A","Option B","Option C"]}'></div>
+          <div data-trio-component="ButtonGroup" data-trio-props='{"variant":"outline","color":"secondary","size":"small","orientation":"vertical","buttons":["Edit","Duplicate","Archive"]}'></div>
         </div>
       </div>
     </section>
@@ -434,33 +291,18 @@
       </p>
 
       <div class="variant-group">
-        <div class="variant-label">Default & Hover</div>
+        <div class="variant-label">Default &amp; Hover</div>
         <div class="button-group-row">
-          <div class="btn-group btn-group-sm btn-group-contained-primary">
-            <button class="btn">Save Draft</button>
-            <button class="btn">Save & Close</button>
-          </div>
-          <div class="btn-group btn-group-sm btn-group-outlined-secondary">
-            <button class="btn">Edit</button>
-            <button class="btn">Duplicate</button>
-            <button class="btn">Archive</button>
-          </div>
+          <div data-trio-component="ButtonGroup" data-trio-props='{"variant":"contained","color":"primary","size":"small","buttons":["Save Draft","Save & Close"]}'></div>
+          <div data-trio-component="ButtonGroup" data-trio-props='{"variant":"outline","color":"secondary","size":"small","buttons":["Edit","Duplicate","Archive"]}'></div>
         </div>
       </div>
 
       <div class="variant-group">
         <div class="variant-label">Horizontal vs Vertical</div>
         <div class="button-group-row">
-          <div class="btn-group btn-group-sm btn-group-contained-secondary">
-            <button class="btn">Edit</button>
-            <button class="btn">Duplicate</button>
-            <button class="btn">Archive</button>
-          </div>
-          <div class="btn-group btn-group-sm btn-group-contained-secondary vertical">
-            <button class="btn">Edit</button>
-            <button class="btn">Duplicate</button>
-            <button class="btn">Archive</button>
-          </div>
+          <div data-trio-component="ButtonGroup" data-trio-props='{"variant":"contained","color":"secondary","size":"small","orientation":"horizontal","buttons":["Edit","Duplicate","Archive"]}'></div>
+          <div data-trio-component="ButtonGroup" data-trio-props='{"variant":"contained","color":"secondary","size":"small","orientation":"vertical","buttons":["Edit","Duplicate","Archive"]}'></div>
         </div>
       </div>
     </section>
@@ -479,11 +321,7 @@
           </div>
           <div class="card-illustration">
             <span class="card-illustration-label">Correct</span>
-            <div class="btn-group btn-group-sm btn-group-contained-secondary">
-              <button class="btn">Filter</button>
-              <button class="btn">Sort</button>
-              <button class="btn">Export</button>
-            </div>
+            <div data-trio-component="ButtonGroup" data-trio-props='{"variant":"contained","color":"secondary","size":"small","buttons":["Filter","Sort","Export"]}'></div>
           </div>
           <div class="card-content">
             <ul>
@@ -502,10 +340,7 @@
           </div>
           <div class="card-illustration card-illustration-wrong">
             <span class="card-illustration-label">Incorrect</span>
-            <div class="btn-group btn-group-sm">
-              <button class="btn" style="background: #2196F3; color: white; border: 1px solid #2196F3; height: 32px; padding: 0 12px; border-radius: 4px 0 0 4px;">Save</button>
-              <button class="btn" style="background: #F5F5F5; color: #212121; border: 1px solid #E0E0E0; height: 32px; padding: 0 12px; border-radius: 0 4px 4px 0; margin-left: -1px;">Cancel</button>
-            </div>
+            <div data-trio-component="ButtonGroup" data-trio-props='{"variant":"contained","color":"primary","size":"small","buttons":["Save","Cancel"]}'></div>
           </div>
           <div class="card-content">
             <ul>

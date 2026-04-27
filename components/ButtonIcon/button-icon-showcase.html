@@ -110,120 +110,6 @@
       margin-bottom: var(--spacing-lg);
     }
 
-    .demo-label {
-      font-size: 11px;
-      font-weight: 500;
-      color: var(--color-text-secondary);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      min-width: 100px;
-    }
-
-    /* Base icon button reset */
-    .icon-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border: none;
-      cursor: pointer;
-      font-family: var(--font-family);
-      position: relative;
-      transition: background 0.15s;
-    }
-
-    /* Sizes */
-    .icon-btn-sm {
-      width: 24px;
-      height: 24px;
-      border-radius: var(--border-radius);
-    }
-    .icon-btn-sm .material-icons,
-    .icon-btn-sm .material-icons-outlined {
-      font-size: 16px;
-    }
-
-    .icon-btn-md {
-      width: 36px;
-      height: 36px;
-      border-radius: var(--border-radius);
-    }
-    .icon-btn-md .material-icons,
-    .icon-btn-md .material-icons-outlined {
-      font-size: 24px;
-    }
-
-    /* Contained — primary */
-    .icon-btn-contained-primary {
-      background: var(--color-primary-main);
-      color: #fff;
-    }
-    .icon-btn-contained-primary:hover { background: var(--color-primary-dark); }
-
-    /* Contained — secondary */
-    .icon-btn-contained-secondary {
-      background: var(--color-secondary-main);
-      color: var(--color-secondary-dark);
-      border: 1px solid var(--color-secondary-outline);
-    }
-    .icon-btn-contained-secondary:hover { background: var(--color-secondary-outline); }
-
-    /* Ghost — primary */
-    .icon-btn-ghost-primary {
-      background: transparent;
-      color: var(--color-primary-main);
-      border-radius: 50%;
-    }
-    .icon-btn-ghost-primary:hover { background: rgba(0,0,0,0.04); }
-    .icon-btn-ghost-primary:active { background: rgba(0,0,0,0.08); }
-
-    /* Ghost — secondary */
-    .icon-btn-ghost-secondary {
-      background: transparent;
-      color: var(--color-secondary-dark);
-      border-radius: 50%;
-    }
-    .icon-btn-ghost-secondary:hover { background: rgba(0,0,0,0.04); }
-
-    /* Disabled */
-    .icon-btn-disabled {
-      background: var(--color-disabled-bg) !important;
-      color: var(--color-text-disabled) !important;
-      border-color: transparent !important;
-      cursor: not-allowed;
-    }
-
-    /* Badge overlay */
-    .badge-wrapper {
-      position: relative;
-      display: inline-flex;
-    }
-    .badge-dot {
-      position: absolute;
-      top: -4px;
-      right: -4px;
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: var(--color-error-main);
-    }
-    .badge-count {
-      position: absolute;
-      top: -6px;
-      right: -8px;
-      min-width: 16px;
-      height: 16px;
-      border-radius: 999px;
-      background: var(--color-error-main);
-      color: #fff;
-      font-size: 11px;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0 3px;
-      font-family: var(--font-family);
-    }
-
     .state-col {
       display: flex;
       flex-direction: column;
@@ -237,8 +123,14 @@
       letter-spacing: 0.5px;
     }
 
+    /* React mount points */
+    [data-trio-component] {
+      display: inline-block;
+    }
+
   </style>
   <script src="../../design-system-nav.js"></script>
+  <script type="module" src="../../showcase/dist/showcase.js"></script>
 </head>
 <body>
   <!-- LEFT NAVIGATION -->
@@ -312,8 +204,8 @@
           <div class="card-illustration">
             <span class="card-illustration-label">Correct</span>
             <div style="display: flex; gap: 8px; align-items: center;">
-              <button class="icon-btn icon-btn-sm icon-btn-ghost-primary"><span class="material-icons">edit</span></button>
-              <button class="icon-btn icon-btn-sm icon-btn-ghost-primary"><span class="material-icons">more_vert</span></button>
+              <div data-trio-component="ButtonIcon" data-trio-props='{"variant":"ghost","color":"primary","size":"small","icon":"Edit","aria-label":"Edit"}'></div>
+              <div data-trio-component="ButtonIcon" data-trio-props='{"variant":"ghost","color":"primary","size":"small","icon":"MoreVert","aria-label":"More options"}'></div>
             </div>
           </div>
           <div class="card-content">
@@ -334,8 +226,8 @@
           <div class="card-illustration card-illustration-wrong">
             <span class="card-illustration-label">Incorrect</span>
             <div style="display: flex; gap: 8px; align-items: center;">
-              <button class="icon-btn icon-btn-md icon-btn-contained-primary"><span class="material-icons">send</span></button>
-              <button class="icon-btn icon-btn-md icon-btn-contained-primary"><span class="material-icons">star</span></button>
+              <div data-trio-component="ButtonIcon" data-trio-props='{"variant":"contained","color":"primary","size":"medium","icon":"Send","aria-label":"Send"}'></div>
+              <div data-trio-component="ButtonIcon" data-trio-props='{"variant":"contained","color":"primary","size":"medium","icon":"Visibility","aria-label":"View"}'></div>
             </div>
           </div>
           <div class="card-content">
@@ -364,23 +256,19 @@
         <div class="variant-label">Contained — Primary</div>
         <div class="demo-row">
           <div class="state-col">
-            <button class="icon-btn icon-btn-md icon-btn-contained-primary"><span class="material-icons">filter_alt</span></button>
+            <div data-trio-component="ButtonIcon" data-trio-props='{"variant":"contained","color":"primary","size":"medium","icon":"FilterList","aria-label":"Filter"}'></div>
             <span class="state-col-label">Default</span>
           </div>
           <div class="state-col">
-            <button class="icon-btn icon-btn-md icon-btn-contained-primary" style="background: var(--color-primary-dark)"><span class="material-icons">filter_alt</span></button>
-            <span class="state-col-label">Hover</span>
-          </div>
-          <div class="state-col">
-            <button class="icon-btn icon-btn-md icon-btn-contained-primary icon-btn-disabled"><span class="material-icons">filter_alt</span></button>
+            <div data-trio-component="ButtonIcon" data-trio-props='{"variant":"contained","color":"primary","size":"medium","icon":"FilterList","disabled":true,"aria-label":"Filter disabled"}'></div>
             <span class="state-col-label">Disabled</span>
           </div>
           <div class="state-col">
-            <button class="icon-btn icon-btn-sm icon-btn-contained-primary"><span class="material-icons">filter_alt</span></button>
+            <div data-trio-component="ButtonIcon" data-trio-props='{"variant":"contained","color":"primary","size":"small","icon":"FilterList","aria-label":"Filter small"}'></div>
             <span class="state-col-label">sm</span>
           </div>
           <div class="state-col">
-            <button class="icon-btn icon-btn-md icon-btn-contained-primary"><span class="material-icons">filter_alt</span></button>
+            <div data-trio-component="ButtonIcon" data-trio-props='{"variant":"contained","color":"primary","size":"medium","icon":"FilterList","aria-label":"Filter medium"}'></div>
             <span class="state-col-label">md</span>
           </div>
         </div>
@@ -390,23 +278,19 @@
         <div class="variant-label">Contained — Secondary</div>
         <div class="demo-row">
           <div class="state-col">
-            <button class="icon-btn icon-btn-md icon-btn-contained-secondary"><span class="material-icons">file_download</span></button>
+            <div data-trio-component="ButtonIcon" data-trio-props='{"variant":"contained","color":"secondary","size":"medium","icon":"Download","aria-label":"Download"}'></div>
             <span class="state-col-label">Default</span>
           </div>
           <div class="state-col">
-            <button class="icon-btn icon-btn-md icon-btn-contained-secondary" style="background: var(--color-secondary-outline)"><span class="material-icons">file_download</span></button>
-            <span class="state-col-label">Hover</span>
-          </div>
-          <div class="state-col">
-            <button class="icon-btn icon-btn-md icon-btn-contained-secondary icon-btn-disabled"><span class="material-icons">file_download</span></button>
+            <div data-trio-component="ButtonIcon" data-trio-props='{"variant":"contained","color":"secondary","size":"medium","icon":"Download","disabled":true,"aria-label":"Download disabled"}'></div>
             <span class="state-col-label">Disabled</span>
           </div>
           <div class="state-col">
-            <button class="icon-btn icon-btn-sm icon-btn-contained-secondary"><span class="material-icons">file_download</span></button>
+            <div data-trio-component="ButtonIcon" data-trio-props='{"variant":"contained","color":"secondary","size":"small","icon":"Download","aria-label":"Download small"}'></div>
             <span class="state-col-label">sm</span>
           </div>
           <div class="state-col">
-            <button class="icon-btn icon-btn-md icon-btn-contained-secondary"><span class="material-icons">file_download</span></button>
+            <div data-trio-component="ButtonIcon" data-trio-props='{"variant":"contained","color":"secondary","size":"medium","icon":"Download","aria-label":"Download medium"}'></div>
             <span class="state-col-label">md</span>
           </div>
         </div>
@@ -416,24 +300,20 @@
         <div class="variant-label">Ghost — Primary</div>
         <div class="demo-row">
           <div class="state-col">
-            <button class="icon-btn icon-btn-md icon-btn-ghost-primary"><span class="material-icons">restart_alt</span></button>
+            <div data-trio-component="ButtonIcon" data-trio-props='{"variant":"ghost","color":"primary","size":"medium","icon":"Refresh","aria-label":"Refresh"}'></div>
             <span class="state-col-label">Default</span>
           </div>
           <div class="state-col">
-            <button class="icon-btn icon-btn-md icon-btn-ghost-primary" style="background: rgba(0,0,0,0.04)"><span class="material-icons">restart_alt</span></button>
-            <span class="state-col-label">Hover</span>
-          </div>
-          <div class="state-col">
-            <button class="icon-btn icon-btn-md icon-btn-ghost-primary" style="background: rgba(0,0,0,0.08)"><span class="material-icons">restart_alt</span></button>
-            <span class="state-col-label">Active</span>
-          </div>
-          <div class="state-col">
-            <button class="icon-btn icon-btn-md icon-btn-ghost-primary icon-btn-disabled" style="background: transparent"><span class="material-icons">restart_alt</span></button>
+            <div data-trio-component="ButtonIcon" data-trio-props='{"variant":"ghost","color":"primary","size":"medium","icon":"Refresh","disabled":true,"aria-label":"Refresh disabled"}'></div>
             <span class="state-col-label">Disabled</span>
           </div>
           <div class="state-col">
-            <button class="icon-btn icon-btn-sm icon-btn-ghost-primary"><span class="material-icons">restart_alt</span></button>
+            <div data-trio-component="ButtonIcon" data-trio-props='{"variant":"ghost","color":"primary","size":"small","icon":"Refresh","aria-label":"Refresh small"}'></div>
             <span class="state-col-label">sm</span>
+          </div>
+          <div class="state-col">
+            <div data-trio-component="ButtonIcon" data-trio-props='{"variant":"ghost","color":"primary","size":"medium","icon":"Refresh","aria-label":"Refresh medium"}'></div>
+            <span class="state-col-label">md</span>
           </div>
         </div>
       </div>
@@ -453,31 +333,19 @@
         <div class="variant-label">Badge Overlay</div>
         <div class="demo-row">
           <div class="state-col">
-            <div class="badge-wrapper">
-              <button class="icon-btn icon-btn-md icon-btn-contained-secondary"><span class="material-icons">notifications</span></button>
-              <span class="badge-dot"></span>
-            </div>
+            <div data-trio-component="ButtonIcon" data-trio-props='{"variant":"contained","color":"secondary","size":"medium","icon":"Settings","badge":true,"aria-label":"Settings with notification"}'></div>
             <span class="state-col-label">Dot</span>
           </div>
           <div class="state-col">
-            <div class="badge-wrapper">
-              <button class="icon-btn icon-btn-md icon-btn-contained-secondary"><span class="material-icons">notifications</span></button>
-              <span class="badge-count">3</span>
-            </div>
+            <div data-trio-component="ButtonIcon" data-trio-props='{"variant":"contained","color":"secondary","size":"medium","icon":"Settings","badge":true,"badgeCount":3,"aria-label":"Settings with count"}'></div>
             <span class="state-col-label">Count</span>
           </div>
           <div class="state-col">
-            <div class="badge-wrapper">
-              <button class="icon-btn icon-btn-md icon-btn-contained-primary"><span class="material-icons">filter_alt</span></button>
-              <span class="badge-count">12</span>
-            </div>
+            <div data-trio-component="ButtonIcon" data-trio-props='{"variant":"contained","color":"primary","size":"medium","icon":"FilterList","badge":true,"badgeCount":12,"aria-label":"Filter with count"}'></div>
             <span class="state-col-label">Count (Primary)</span>
           </div>
           <div class="state-col">
-            <div class="badge-wrapper">
-              <button class="icon-btn icon-btn-sm icon-btn-contained-secondary"><span class="material-icons">notifications</span></button>
-              <span class="badge-count">5</span>
-            </div>
+            <div data-trio-component="ButtonIcon" data-trio-props='{"variant":"contained","color":"secondary","size":"small","icon":"Settings","badge":true,"badgeCount":5,"aria-label":"Settings small with count"}'></div>
             <span class="state-col-label">sm + Count</span>
           </div>
         </div>
@@ -487,16 +355,16 @@
         <div class="variant-label">In Context — Toolbar Groupings</div>
         <div class="demo-row">
           <!-- Inline toolbar strip -->
-          <div style="display: flex; border: 1px solid var(--color-primary-main); border-radius: var(--border-radius); overflow: hidden;">
-            <button class="icon-btn icon-btn-sm icon-btn-ghost-primary" style="border-radius: 0; border-right: 1px solid var(--color-primary-main)"><span class="material-icons" style="font-size:16px">filter_alt_off</span></button>
-            <button class="icon-btn icon-btn-sm icon-btn-ghost-primary" style="border-radius: 0; border-right: 1px solid var(--color-primary-main)"><span class="material-icons" style="font-size:16px">file_download</span></button>
-            <button class="icon-btn icon-btn-sm icon-btn-ghost-primary" style="border-radius: 0;"><span class="material-icons" style="font-size:16px">restart_alt</span></button>
+          <div style="display: flex; gap: 4px; align-items: center;">
+            <div data-trio-component="ButtonIcon" data-trio-props='{"variant":"ghost","color":"primary","size":"small","icon":"Close","aria-label":"Clear filters"}'></div>
+            <div data-trio-component="ButtonIcon" data-trio-props='{"variant":"ghost","color":"primary","size":"small","icon":"Download","aria-label":"Download"}'></div>
+            <div data-trio-component="ButtonIcon" data-trio-props='{"variant":"ghost","color":"primary","size":"small","icon":"Refresh","aria-label":"Refresh"}'></div>
           </div>
           <!-- Standalone in a table row -->
           <div style="display: flex; align-items: center; gap: 4px; padding: 4px 8px; background: var(--color-background-paper); border: 1px solid var(--color-secondary-outline); border-radius: var(--border-radius);">
             <span style="font-size: 13px; color: var(--color-text-primary); margin-right: 8px;">Worker Name</span>
-            <button class="icon-btn icon-btn-sm icon-btn-ghost-primary"><span class="material-icons" style="font-size:16px">edit</span></button>
-            <button class="icon-btn icon-btn-sm icon-btn-ghost-primary"><span class="material-icons" style="font-size:16px">more_vert</span></button>
+            <div data-trio-component="ButtonIcon" data-trio-props='{"variant":"ghost","color":"primary","size":"small","icon":"Edit","aria-label":"Edit"}'></div>
+            <div data-trio-component="ButtonIcon" data-trio-props='{"variant":"ghost","color":"primary","size":"small","icon":"MoreVert","aria-label":"More options"}'></div>
           </div>
         </div>
       </div>
@@ -517,9 +385,9 @@
           <div class="card-illustration">
             <span class="card-illustration-label">Correct</span>
             <div style="display: flex; gap: 4px; align-items: center;">
-              <button class="icon-btn icon-btn-sm icon-btn-ghost-primary"><span class="material-icons" style="font-size:16px">edit</span></button>
-              <button class="icon-btn icon-btn-sm icon-btn-ghost-primary"><span class="material-icons" style="font-size:16px">verified_user</span></button>
-              <button class="icon-btn icon-btn-sm icon-btn-ghost-primary"><span class="material-icons" style="font-size:16px">more_vert</span></button>
+              <div data-trio-component="ButtonIcon" data-trio-props='{"variant":"ghost","color":"primary","size":"small","icon":"Edit","aria-label":"Edit"}'></div>
+              <div data-trio-component="ButtonIcon" data-trio-props='{"variant":"ghost","color":"primary","size":"small","icon":"Visibility","aria-label":"View"}'></div>
+              <div data-trio-component="ButtonIcon" data-trio-props='{"variant":"ghost","color":"primary","size":"small","icon":"MoreVert","aria-label":"More options"}'></div>
             </div>
           </div>
           <div class="card-content">
@@ -540,9 +408,9 @@
           <div class="card-illustration card-illustration-wrong">
             <span class="card-illustration-label">Incorrect</span>
             <div style="display: flex; gap: 4px; align-items: center;">
-              <button class="icon-btn icon-btn-md icon-btn-contained-primary"><span class="material-icons">send</span></button>
-              <button class="icon-btn icon-btn-md icon-btn-ghost-primary"><span class="material-icons">star</span></button>
-              <button class="icon-btn icon-btn-md icon-btn-contained-secondary"><span class="material-icons">help</span></button>
+              <div data-trio-component="ButtonIcon" data-trio-props='{"variant":"contained","color":"primary","size":"medium","icon":"Send","aria-label":"Send"}'></div>
+              <div data-trio-component="ButtonIcon" data-trio-props='{"variant":"ghost","color":"primary","size":"medium","icon":"Search","aria-label":"Search"}'></div>
+              <div data-trio-component="ButtonIcon" data-trio-props='{"variant":"contained","color":"secondary","size":"medium","icon":"Info","aria-label":"Help"}'></div>
             </div>
           </div>
           <div class="card-content">

@@ -121,98 +121,14 @@
       margin-bottom: 4px;
     }
 
-    /* Breadcrumb strip */
-    .breadcrumb {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 40px;
-      padding: 0 var(--spacing-md);
-      background: var(--color-background-secondary, #fafafa);
-      border-radius: var(--border-radius);
-      overflow: hidden;
+    /* React mount points fill their container width */
+    [data-trio-component] {
+      display: block;
+      width: 100%;
     }
-
-    .breadcrumb-links {
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-sm);
-      overflow: hidden;
-    }
-
-    .breadcrumb-item {
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-sm);
-      flex-shrink: 0;
-    }
-
-    .bc-link {
-      font-size: 12px;
-      color: var(--color-primary-main);
-      text-decoration: none;
-      white-space: nowrap;
-      font-family: var(--font-family);
-      line-height: 18px;
-    }
-    .bc-link:hover { text-decoration: underline; }
-
-    .bc-selected {
-      font-size: 12px;
-      color: var(--color-text-primary);
-      white-space: nowrap;
-      font-family: var(--font-family);
-      line-height: 38px;
-      border-bottom: 2px solid var(--color-primary-main);
-    }
-
-    .bc-divider {
-      font-size: 16px;
-      color: var(--color-text-secondary);
-      line-height: 24px;
-      flex-shrink: 0;
-    }
-
-    /* Right side */
-    .breadcrumb-right {
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-md);
-      flex-shrink: 0;
-    }
-
-    .bc-count {
-      font-size: 12px;
-      color: var(--color-text-secondary);
-      white-space: nowrap;
-      font-family: var(--font-family);
-    }
-
-    /* Inline toggle strip */
-    .toggle-strip {
-      display: inline-flex;
-      align-items: center;
-      border: 1px solid var(--color-primary-main);
-      border-radius: var(--border-radius);
-      overflow: hidden;
-    }
-    .toggle-slot {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 24px;
-      height: 24px;
-      background: transparent;
-      color: var(--color-primary-main);
-      border: none;
-      cursor: pointer;
-      padding: 0;
-    }
-    .toggle-slot:not(:last-child) { border-right: 1px solid var(--color-primary-main); }
-    .toggle-slot .material-icons { font-size: 16px; }
-    .toggle-slot:hover { background: var(--color-primary-light); }
   </style>
   <script src="../../design-system-nav.js"></script>
+  <script type="module" src="../../showcase/dist/showcase.js"></script>
 </head>
 <body>
   <!-- LEFT NAVIGATION -->
@@ -285,24 +201,7 @@
           </div>
           <div class="card-illustration">
             <span class="card-illustration-label">Correct</span>
-            <div class="breadcrumb" style="width: 100%;">
-              <div class="breadcrumb-links">
-                <div class="breadcrumb-item">
-                  <a class="bc-link" href="#">Facilities</a>
-                  <span class="bc-divider">/</span>
-                </div>
-                <div class="breadcrumb-item">
-                  <a class="bc-link" href="#">Memorial Hospital</a>
-                  <span class="bc-divider">/</span>
-                </div>
-                <div class="breadcrumb-item">
-                  <span class="bc-selected">Open Shifts</span>
-                </div>
-              </div>
-              <div class="breadcrumb-right">
-                <span class="bc-count">1,284 records</span>
-              </div>
-            </div>
+            <div data-trio-component="Breadcrumb" data-trio-props='{"state":"breadcrumb","links":[{"label":"Facilities","href":"#"},{"label":"Memorial Hospital","href":"#"},{"label":"Open Shifts","selected":true}],"showNumberIndicator":true,"recordCount":"1,284 records"}'></div>
           </div>
           <div class="card-content">
             <ul>
@@ -320,41 +219,7 @@
           </div>
           <div class="card-illustration card-illustration-wrong">
             <span class="card-illustration-label">Incorrect</span>
-            <div class="breadcrumb" style="width: 100%;">
-              <div class="breadcrumb-links">
-                <div class="breadcrumb-item">
-                  <a class="bc-link" href="#">Home</a>
-                  <span class="bc-divider">/</span>
-                </div>
-                <div class="breadcrumb-item">
-                  <a class="bc-link" href="#">Section A</a>
-                  <span class="bc-divider">/</span>
-                </div>
-                <div class="breadcrumb-item">
-                  <a class="bc-link" href="#">Sub A</a>
-                  <span class="bc-divider">/</span>
-                </div>
-                <div class="breadcrumb-item">
-                  <a class="bc-link" href="#">Sub B</a>
-                  <span class="bc-divider">/</span>
-                </div>
-                <div class="breadcrumb-item">
-                  <a class="bc-link" href="#">Sub C</a>
-                  <span class="bc-divider">/</span>
-                </div>
-                <div class="breadcrumb-item">
-                  <a class="bc-link" href="#">Sub D</a>
-                  <span class="bc-divider">/</span>
-                </div>
-                <div class="breadcrumb-item">
-                  <a class="bc-link" href="#">Sub E</a>
-                  <span class="bc-divider">/</span>
-                </div>
-                <div class="breadcrumb-item">
-                  <span class="bc-selected">Current</span>
-                </div>
-              </div>
-            </div>
+            <div data-trio-component="Breadcrumb" data-trio-props='{"state":"breadcrumb","links":[{"label":"Home","href":"#"},{"label":"Section A","href":"#"},{"label":"Sub A","href":"#"},{"label":"Sub B","href":"#"},{"label":"Sub C","href":"#"},{"label":"Sub D","href":"#"},{"label":"Sub E","href":"#"},{"label":"Current","selected":true}],"showNumberIndicator":false}'></div>
           </div>
           <div class="card-content">
             <ul>
@@ -382,66 +247,14 @@
         <div>
           <div class="demo-label">Breadcrumb (/ divider)</div>
           <div class="demo-container">
-            <div class="breadcrumb">
-              <div class="breadcrumb-links">
-                <div class="breadcrumb-item">
-                  <a class="bc-link" href="#">Parent</a>
-                  <span class="bc-divider">/</span>
-                </div>
-                <div class="breadcrumb-item">
-                  <a class="bc-link" href="#">Child</a>
-                  <span class="bc-divider">/</span>
-                </div>
-                <div class="breadcrumb-item">
-                  <a class="bc-link" href="#">Child</a>
-                  <span class="bc-divider">/</span>
-                </div>
-                <div class="breadcrumb-item">
-                  <span class="bc-selected">Selected Page</span>
-                </div>
-              </div>
-              <div class="breadcrumb-right">
-                <span class="bc-count">1,284 records</span>
-                <div class="toggle-strip">
-                  <button class="toggle-slot"><span class="material-icons">filter_alt_off</span></button>
-                  <button class="toggle-slot"><span class="material-icons">file_download</span></button>
-                  <button class="toggle-slot"><span class="material-icons">restart_alt</span></button>
-                </div>
-              </div>
-            </div>
+            <div data-trio-component="Breadcrumb" data-trio-props='{"state":"breadcrumb","links":[{"label":"Parent","href":"#"},{"label":"Child","href":"#"},{"label":"Child","href":"#"},{"label":"Selected Page","selected":true}],"showNumberIndicator":true,"recordCount":"1,284 records"}'></div>
           </div>
         </div>
 
         <div>
           <div class="demo-label">Links (| divider)</div>
           <div class="demo-container">
-            <div class="breadcrumb">
-              <div class="breadcrumb-links">
-                <div class="breadcrumb-item">
-                  <a class="bc-link" href="#">Parent</a>
-                  <span class="bc-divider">|</span>
-                </div>
-                <div class="breadcrumb-item">
-                  <a class="bc-link" href="#">Child</a>
-                  <span class="bc-divider">|</span>
-                </div>
-                <div class="breadcrumb-item">
-                  <a class="bc-link" href="#">Child</a>
-                  <span class="bc-divider">|</span>
-                </div>
-                <div class="breadcrumb-item">
-                  <span class="bc-selected">Selected Link</span>
-                </div>
-              </div>
-              <div class="breadcrumb-right">
-                <span class="bc-count">842 records</span>
-                <div class="toggle-strip">
-                  <button class="toggle-slot"><span class="material-icons">filter_alt_off</span></button>
-                  <button class="toggle-slot"><span class="material-icons">file_download</span></button>
-                  <button class="toggle-slot"><span class="material-icons">restart_alt</span></button>
-                </div>
-              </div>
-            </div>
+            <div data-trio-component="Breadcrumb" data-trio-props='{"state":"Links","links":[{"label":"Parent","href":"#"},{"label":"Child","href":"#"},{"label":"Child","href":"#"},{"label":"Selected Link","selected":true}],"showNumberIndicator":true,"recordCount":"842 records"}'></div>
           </div>
         </div>
       </div>
@@ -461,61 +274,21 @@
         <div>
           <div class="demo-label">No right-side content</div>
           <div class="demo-container">
-            <div class="breadcrumb">
-              <div class="breadcrumb-links">
-                <div class="breadcrumb-item">
-                  <a class="bc-link" href="#">Parent</a>
-                  <span class="bc-divider">/</span>
-                </div>
-                <div class="breadcrumb-item">
-                  <span class="bc-selected">Current Page</span>
-                </div>
-              </div>
-            </div>
+            <div data-trio-component="Breadcrumb" data-trio-props='{"state":"breadcrumb","links":[{"label":"Parent","href":"#"},{"label":"Current Page","selected":true}],"showNumberIndicator":false}'></div>
           </div>
         </div>
 
         <div>
           <div class="demo-label">Count only (no toggle)</div>
           <div class="demo-container">
-            <div class="breadcrumb">
-              <div class="breadcrumb-links">
-                <div class="breadcrumb-item">
-                  <a class="bc-link" href="#">Parent</a>
-                  <span class="bc-divider">/</span>
-                </div>
-                <div class="breadcrumb-item">
-                  <span class="bc-selected">Current Page</span>
-                </div>
-              </div>
-              <div class="breadcrumb-right">
-                <span class="bc-count">512 records</span>
-              </div>
-            </div>
+            <div data-trio-component="Breadcrumb" data-trio-props='{"state":"breadcrumb","links":[{"label":"Parent","href":"#"},{"label":"Current Page","selected":true}],"showNumberIndicator":true,"recordCount":"512 records"}'></div>
           </div>
         </div>
 
         <div>
           <div class="demo-label">Toggle only (no count)</div>
           <div class="demo-container">
-            <div class="breadcrumb">
-              <div class="breadcrumb-links">
-                <div class="breadcrumb-item">
-                  <a class="bc-link" href="#">Parent</a>
-                  <span class="bc-divider">/</span>
-                </div>
-                <div class="breadcrumb-item">
-                  <span class="bc-selected">Current Page</span>
-                </div>
-              </div>
-              <div class="breadcrumb-right">
-                <div class="toggle-strip">
-                  <button class="toggle-slot"><span class="material-icons">filter_alt_off</span></button>
-                  <button class="toggle-slot"><span class="material-icons">file_download</span></button>
-                  <button class="toggle-slot"><span class="material-icons">restart_alt</span></button>
-                </div>
-              </div>
-            </div>
+            <div data-trio-component="Breadcrumb" data-trio-props='{"state":"breadcrumb","links":[{"label":"Parent","href":"#"},{"label":"Current Page","selected":true}],"showNumberIndicator":false}'></div>
           </div>
         </div>
       </div>
@@ -535,20 +308,7 @@
           </div>
           <div class="card-illustration">
             <span class="card-illustration-label">Correct</span>
-            <div class="breadcrumb" style="width: 100%;">
-              <div class="breadcrumb-links">
-                <div class="breadcrumb-item">
-                  <a class="bc-link" href="#">Facilities</a>
-                  <span class="bc-divider">/</span>
-                </div>
-                <div class="breadcrumb-item">
-                  <span class="bc-selected">Shifts</span>
-                </div>
-              </div>
-              <div class="breadcrumb-right">
-                <span class="bc-count">256 records</span>
-              </div>
-            </div>
+            <div data-trio-component="Breadcrumb" data-trio-props='{"state":"breadcrumb","links":[{"label":"Facilities","href":"#"},{"label":"Shifts","selected":true}],"showNumberIndicator":true,"recordCount":"256 records"}'></div>
           </div>
           <div class="card-content">
             <ul>
@@ -566,37 +326,7 @@
           </div>
           <div class="card-illustration card-illustration-wrong">
             <span class="card-illustration-label">Incorrect</span>
-            <div class="breadcrumb" style="width: 100%;">
-              <div class="breadcrumb-links">
-                <div class="breadcrumb-item">
-                  <a class="bc-link" href="#">A</a>
-                  <span class="bc-divider">/</span>
-                </div>
-                <div class="breadcrumb-item">
-                  <a class="bc-link" href="#">B</a>
-                  <span class="bc-divider">/</span>
-                </div>
-                <div class="breadcrumb-item">
-                  <a class="bc-link" href="#">C</a>
-                  <span class="bc-divider">/</span>
-                </div>
-                <div class="breadcrumb-item">
-                  <a class="bc-link" href="#">D</a>
-                  <span class="bc-divider">/</span>
-                </div>
-                <div class="breadcrumb-item">
-                  <a class="bc-link" href="#">E</a>
-                  <span class="bc-divider">/</span>
-                </div>
-                <div class="breadcrumb-item">
-                  <a class="bc-link" href="#">F</a>
-                  <span class="bc-divider">/</span>
-                </div>
-                <div class="breadcrumb-item">
-                  <span class="bc-selected">G</span>
-                </div>
-              </div>
-            </div>
+            <div data-trio-component="Breadcrumb" data-trio-props='{"state":"breadcrumb","links":[{"label":"A","href":"#"},{"label":"B","href":"#"},{"label":"C","href":"#"},{"label":"D","href":"#"},{"label":"E","href":"#"},{"label":"F","href":"#"},{"label":"G","selected":true}],"showNumberIndicator":false}'></div>
           </div>
           <div class="card-content">
             <ul>

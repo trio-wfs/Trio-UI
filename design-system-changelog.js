@@ -10,6 +10,17 @@
  */
 
 const DS_CHANGELOG = [
+  { date: '2026-04-27', text: 'All 28 showcase pages now render live React components via ThemeProvider mount system', type: 'Infrastructure' },
+  { date: '2026-04-27', text: '6 new components: DatePicker, PopOver, NumberField, Slider, ProductLogos, Handle', type: 'Components' },
+  { date: '2026-04-27', text: 'DatePicker — MUI X wrapper with dayjs, TRIO-themed calendar popup, CalendarMonthOutlined icon', type: 'Components' },
+  { date: '2026-04-27', text: 'PopOver — MUI Popover wrapper with header, action link, scrollable content area', type: 'Components' },
+  { date: '2026-04-27', text: 'NumberField — numeric stepper input with +/- buttons, medium/small sizes', type: 'Components' },
+  { date: '2026-04-27', text: 'Slider — MUI Slider themed to TRIO tokens (primary blue track, 4px height)', type: 'Components' },
+  { date: '2026-04-27', text: 'ProductLogos — TRIO logo renderer with dark/white/icon-only variants', type: 'Components' },
+  { date: '2026-04-27', text: 'Handle — drag grip component with hover/active CSS states', type: 'Components' },
+  { date: '2026-04-27', text: 'New deps: @mui/x-date-pickers, dayjs', type: 'Infrastructure' },
+  { date: '2026-04-27', text: 'Showcase mount system expanded — 10+ new icons, nested icon resolution for ToggleButton', type: 'Infrastructure' },
+  { date: '2026-04-27', text: 'Component count: 35 (up from 29)', type: 'Components' },
   { date: '2026-04-20', text: 'Digital Jesse — design philosophy, brand voice, and pattern rules document created', type: 'Guidelines' },
   { date: '2026-04-20', text: 'Chip usage rules formalized — filled vs outlined, semantic variants, filter patterns', type: 'Guidelines' },
   { date: '2026-04-20', text: 'AG Grid standards locked — 42px rows, zebra stripe, both borders, infinite scroll', type: 'Guidelines' },

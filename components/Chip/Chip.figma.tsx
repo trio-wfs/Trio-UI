@@ -4,8 +4,8 @@ import { Chip } from './Chip'
 figma.connect(Chip, 'https://www.figma.com/design/PjAYuPDr8IA1ccwiAjFkSD?node-id=1512-8352', {
   props: {
     size: figma.enum('size', {
-      md: 'medium',
-      sm: 'small',
+      medium: 'medium',
+      small: 'small',
     }),
     color: figma.enum('color', {
       default: 'default',
@@ -21,6 +21,8 @@ figma.connect(Chip, 'https://www.figma.com/design/PjAYuPDr8IA1ccwiAjFkSD?node-id
     }),
     disabled: figma.boolean('disabled'),
     label: figma.string('label'),
+    iconLeft: figma.boolean('icon-left'),
+    iconRight: figma.boolean('icon-right'),
   },
   example: ({ size, color, variant, disabled, label }) => (
     <Chip

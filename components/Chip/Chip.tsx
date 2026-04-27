@@ -15,7 +15,6 @@
 
 import React from 'react';
 import { Chip as MuiChip } from '@mui/material';
-import CancelIcon from '@mui/icons-material/Cancel';
 import { ChipProps, defaultChipProps } from './Chip.types';
 import { tokens } from '../../design-tokens/tokens';
 
@@ -125,8 +124,9 @@ export const Chip = React.forwardRef<HTMLDivElement, ChipProps>(({
     };
   };
 
-  // Determine if we show a delete icon
-  const hasDelete = Boolean(iconRight || onDelete);
+  // Right icon: any icon element passed via iconRight, or triggered by onDelete
+  const hasRightIcon = Boolean(iconRight || onDelete);
+  const rightIconElement = iconRight ? <span>{iconRight}</span> : undefined;
 
   return (
     <MuiChip
@@ -135,18 +135,21 @@ export const Chip = React.forwardRef<HTMLDivElement, ChipProps>(({
       size={muiSize}
       variant={muiVariant}
       icon={iconLeft ? <span>{iconLeft}</span> : undefined}
-      deleteIcon={<CancelIcon />}
-      onDelete={hasDelete ? (onDelete ?? (() => {})) : undefined}
+      deleteIcon={rightIconElement}
+      onDelete={hasRightIcon ? (onDelete ?? (() => {})) : undefined}
       onClick={onClick}
       disabled={disabled}
       className={className}
       {...ariaProps}
       sx={{
         ...getColorStyles(),
-        // Center icon vertically
+        // Figma: medium 32px, small 24px
+        height: muiSize === 'small' ? 24 : 32,
+        // Center icons vertically
         '& .MuiChip-icon': {
           display: 'flex',
           alignItems: 'center',
+          fontSize: muiSize === 'small' ? 14 : 16,
         },
         '& .MuiChip-deleteIcon': {
           display: 'flex',

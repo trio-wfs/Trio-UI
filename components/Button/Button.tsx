@@ -31,6 +31,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   disabled = defaultButtonProps.disabled,
   loading = defaultButtonProps.loading,
   type = defaultButtonProps.type,
+  sx: sxOverride,
   className,
   ...ariaProps
 }, ref) => {
@@ -116,13 +117,14 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       type={type}
       className={className}
       {...ariaProps}
-      sx={{
-        ...getColorStyles(),
-        ...(isLoading && {
+      sx={[
+        getColorStyles(),
+        isLoading && {
           cursor: 'wait',
           opacity: 0.7,
-        }),
-      }}
+        },
+        ...(Array.isArray(sxOverride) ? sxOverride : sxOverride ? [sxOverride] : []),
+      ]}
       startIcon={startIcon}
       endIcon={endIcon}
     >

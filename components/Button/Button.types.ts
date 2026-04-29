@@ -5,6 +5,7 @@
  */
 
 import React, { ReactNode } from 'react';
+import type { SxProps, Theme } from '@mui/material/styles';
 
 /**
  * Button Size
@@ -58,6 +59,7 @@ export interface ButtonProps {
   type?: 'button' | 'submit' | 'reset';
 
   // Standard
+  sx?: SxProps<Theme>;
   className?: string;
   'aria-label'?: string;
   'aria-describedby'?: string;

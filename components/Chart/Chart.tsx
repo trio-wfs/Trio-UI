@@ -20,6 +20,7 @@
  *   options={{ theme: { baseTheme: trioAgChartsTheme, ... }, ...rest }}
  */
 
+import 'ag-charts-enterprise';
 import React from 'react';
 import { AgCharts } from 'ag-charts-react';
 import type { AgChartOptions } from 'ag-charts-community';

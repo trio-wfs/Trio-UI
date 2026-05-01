@@ -109,9 +109,18 @@ export const trioAgChartsTheme = {
         color:      tokens.colors.text.secondary,
       },
 
-      // Legend labels
+      // Legend — small filled circle marker, no line
       legend: {
         item: {
+          marker: {
+            shape: 'circle',
+            size: 8,
+            strokeWidth: 0,
+          },
+          line: {
+            length: 0,
+            strokeWidth: 0,
+          },
           label: {
             fontFamily: tokens.typography.fontFamily,
             fontSize:   tokens.typography.fontSize.xs,       // 12

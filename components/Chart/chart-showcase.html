@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
   <link rel="stylesheet" href="../../design-system-shell.css">
   <script src="https://cdn.jsdelivr.net/npm/ag-charts-community@13/dist/umd/ag-charts-community.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/ag-charts-enterprise@13/dist/umd/ag-charts-enterprise.min.js"></script>
   <script src="../../design-system-nav.js"></script>
   <script type="module" src="../../showcase/dist/showcase.js"></script>
 
@@ -556,6 +557,60 @@
       </div>
     </section>
 
+    <!-- ENTERPRISE CHARTS -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">auto_awesome</span>
+        Enterprise Chart Types
+      </h2>
+      <p class="section-description">
+        AG Charts Enterprise features: range-bar, waterfall, radar, treemap, sunburst, box plot, heatmap, and range-area. All styled with TRIO tokens.
+      </p>
+
+      <div class="chart-grid">
+        <div class="chart-card">
+          <h4>Range Bar — Hiring Pipeline</h4>
+          <p>Horizontal range bar showing funnel progression from orders to placements.</p>
+          <div id="chart-range-bar" class="chart-container"></div>
+        </div>
+        <div class="chart-card">
+          <h4>Range Bar — Fulfillment Gantt</h4>
+          <p>Sequential phases with peer avg marker. Each phase starts where the previous ended.</p>
+          <div id="chart-gantt" class="chart-container"></div>
+        </div>
+        <div class="chart-card">
+          <h4>Waterfall — Score Breakdown</h4>
+          <p>Point contributions by scoring dimension. Green = positive, red = negative.</p>
+          <div id="chart-waterfall" class="chart-container"></div>
+        </div>
+        <div class="chart-card">
+          <h4>Radar — Performance Profile</h4>
+          <p>Agency vs peer group across 6 performance dimensions.</p>
+          <div id="chart-radar" class="chart-container"></div>
+        </div>
+        <div class="chart-card">
+          <h4>Box Plot — Time-to-Fill Distribution</h4>
+          <p>Min/Q1/median/Q3/max spread per department. Shows variance in hiring speed.</p>
+          <div id="chart-boxplot" class="chart-container"></div>
+        </div>
+        <div class="chart-card">
+          <h4>Heatmap — Shift Coverage</h4>
+          <p>Day × shift coverage matrix. Darker = higher fill rate.</p>
+          <div id="chart-heatmap" class="chart-container"></div>
+        </div>
+        <div class="chart-card">
+          <h4>Range Area — Agency vs Peer Band</h4>
+          <p>Agency performance line overlaid on peer group 25th–75th percentile band.</p>
+          <div id="chart-range-area" class="chart-container"></div>
+        </div>
+        <div class="chart-card">
+          <h4>Treemap — Submissions by Dept</h4>
+          <p>Hierarchical view: department → specialty, sized by submission volume.</p>
+          <div id="chart-treemap" class="chart-container"></div>
+        </div>
+      </div>
+    </section>
+
     <!-- COLOR SEMANTICS (Data Viz Palette) -->
     <section class="section">
       <h2 class="section-title">
@@ -725,7 +780,7 @@
           </tr>
           <tr>
             <td>AG Charts version</td>
-            <td colspan="2">ag-charts-community v13 / ag-charts-react v13</td>
+            <td colspan="2">ag-charts-community v13 + ag-charts-enterprise v13 / ag-charts-react v13</td>
           </tr>
           <tr>
             <td>Icons</td>
@@ -772,6 +827,8 @@
           subtitle: { fontFamily: 'Roboto, sans-serif', fontSize: 14, color: '#757575' },
           legend: {
             item: {
+              marker: { shape: 'circle', size: 8, strokeWidth: 0 },
+              line: { length: 0, strokeWidth: 0 },
               label: { fontFamily: 'Roboto, sans-serif', fontSize: 12, color: '#757575' },
             },
           },
@@ -797,11 +854,24 @@
       AgCharts.create(opts);
     }
 
+    // Gradient fill helper — matches scorecard pattern
+    function gradFill(color, topOpacity) {
+      topOpacity = topOpacity || '33';
+      return {
+        type: 'gradient',
+        colorStops: [
+          { color: color + topOpacity, stop: 0 },
+          { color: color + '00', stop: 1 },
+        ],
+        rotation: 180,
+      };
+    }
+
     // ─── Bar Chart ───────────────────────────────────────────────────────────
     observedChart({ container: document.getElementById('chart-bar'), theme: trioTheme, background: { fill: 'transparent' }, data: [ { dept: 'ICU', fillRate: 87 }, { dept: 'Med/Surg', fillRate: 72 }, { dept: 'ED', fillRate: 91 }, { dept: 'OR', fillRate: 65 }, { dept: 'Telemetry', fillRate: 78 }, { dept: 'Pediatrics', fillRate: 83 }, ], series: [{ type: 'bar', xKey: 'dept', yKey: 'fillRate', yName: 'Fill Rate %', cornerRadius: 4 }], axes: [ { type: 'category', position: 'bottom' }, { type: 'number', position: 'left', min: 0, max: 100, label: { formatter: ({ value }) => `${value}%` } }, ], legend: { enabled: false } });
 
-    // ─── Line Chart ──────────────────────────────────────────────────────────
-    observedChart({ container: document.getElementById('chart-line'), theme: trioTheme, background: { fill: 'transparent' }, data: [ { week: 'Wk 1', submitted: 142, filled: 118 }, { week: 'Wk 2', submitted: 165, filled: 134 }, { week: 'Wk 3', submitted: 158, filled: 141 }, { week: 'Wk 4', submitted: 179, filled: 152 }, { week: 'Wk 5', submitted: 192, filled: 167 }, { week: 'Wk 6', submitted: 201, filled: 183 }, ], series: [ { type: 'line', xKey: 'week', yKey: 'submitted', yName: 'Submitted', stroke: '#005F8A', marker: { enabled: true, fill: '#005F8A', stroke: '#005F8A' } }, { type: 'line', xKey: 'week', yKey: 'filled', yName: 'Filled', stroke: '#FF8321', marker: { enabled: true, fill: '#FF8321', stroke: '#FF8321' } }, ], axes: [ { type: 'category', position: 'bottom' }, { type: 'number', position: 'left', min: 0 }, ], legend: { enabled: true, position: 'bottom' } });
+    // ─── Line Chart (area + gradient) ───────────────────────────────────────
+    observedChart({ container: document.getElementById('chart-line'), theme: trioTheme, background: { fill: 'transparent' }, data: [ { week: 'Wk 1', submitted: 142, filled: 118 }, { week: 'Wk 2', submitted: 165, filled: 134 }, { week: 'Wk 3', submitted: 158, filled: 141 }, { week: 'Wk 4', submitted: 179, filled: 152 }, { week: 'Wk 5', submitted: 192, filled: 167 }, { week: 'Wk 6', submitted: 201, filled: 183 }, ], series: [ { type: 'area', xKey: 'week', yKey: 'submitted', yName: 'Submitted', stroke: '#005F8A', strokeWidth: 2, fill: gradFill('#005F8A', '18'), marker: { enabled: true, size: 4, fill: '#005F8A', strokeWidth: 0 } }, { type: 'area', xKey: 'week', yKey: 'filled', yName: 'Filled', stroke: '#FF8321', strokeWidth: 2, fill: gradFill('#FF8321', '18'), marker: { enabled: true, size: 4, fill: '#FF8321', strokeWidth: 0 } }, ], axes: [ { type: 'category', position: 'bottom' }, { type: 'number', position: 'left', min: 0 }, ], legend: { enabled: true, position: 'bottom' } });
 
     // ─── Donut Chart ─────────────────────────────────────────────────────────
     observedChart({ container: document.getElementById('chart-donut'), theme: trioTheme, background: { fill: 'transparent' }, data: [ { status: 'Active', count: 312 }, { status: 'Credentialing', count: 87 }, { status: 'Pending', count: 54 }, { status: 'On Assignment', count: 198 }, { status: 'Inactive', count: 41 }, { status: 'New', count: 63 }, { status: 'Suspended', count: 28 }, { status: 'Reviewing', count: 45 }, { status: 'Approved', count: 156 }, { status: 'Expired', count: 33 }, ], series: [{ type: 'donut', calloutLabelKey: 'status', angleKey: 'count', innerRadiusRatio: 0.6, calloutLabel: { enabled: false }, tooltip: { renderer: ({ datum, calloutLabelKey, angleKey }) => ({ content: `${datum[calloutLabelKey]}: ${datum[angleKey]}` }) } }], legend: { enabled: true, position: 'right' } });
@@ -819,7 +889,7 @@
     observedChart({ container: document.getElementById('chart-bubble'), theme: trioTheme, background: { fill: 'transparent' }, data: [ { agency: 'Alpha', billRate: 38, fillRate: 91, volume: 210 }, { agency: 'Beta', billRate: 44, fillRate: 74, volume: 145 }, { agency: 'Gamma', billRate: 41, fillRate: 88, volume: 190 }, { agency: 'Delta', billRate: 52, fillRate: 65, volume: 80 }, { agency: 'Echo', billRate: 36, fillRate: 83, volume: 170 }, { agency: 'Foxtrot', billRate: 48, fillRate: 70, volume: 110 }, { agency: 'Gulf', billRate: 40, fillRate: 86, volume: 160 }, { agency: 'Hotel', billRate: 55, fillRate: 61, volume: 55 }, ], series: [{ type: 'bubble', xKey: 'billRate', yKey: 'fillRate', sizeKey: 'volume', labelKey: 'agency', label: { enabled: false }, marker: { maxSize: 40, minSize: 8 }, itemStyler: ({ datum }) => { const i = ['Alpha','Beta','Gamma','Delta','Echo','Foxtrot','Gulf','Hotel'].indexOf(datum.agency); return { fill: PALETTE_FILLS[i], stroke: PALETTE_STROKES[i] }; }, tooltip: { renderer: ({ datum }) => ({ title: datum.agency, content: `$${datum.billRate}/hr · ${datum.fillRate}% fill · ${datum.volume} submissions` }) } }], axes: [ { type: 'number', position: 'bottom', title: { text: 'Bill Rate ($/hr)' }, min: 30, max: 60 }, { type: 'number', position: 'left', title: { text: 'Fill Rate %' }, min: 50, max: 100, label: { formatter: ({ value }) => `${value}%` } }, ], legend: { enabled: false } });
 
     // ─── Combination ─────────────────────────────────────────────────────────
-    observedChart({ container: document.getElementById('chart-combo'), theme: trioTheme, background: { fill: 'transparent' }, data: [ { week: 'Wk 1', submissions: 142, fillRate: 74 }, { week: 'Wk 2', submissions: 165, fillRate: 77 }, { week: 'Wk 3', submissions: 158, fillRate: 81 }, { week: 'Wk 4', submissions: 179, fillRate: 80 }, { week: 'Wk 5', submissions: 192, fillRate: 85 }, { week: 'Wk 6', submissions: 201, fillRate: 88 }, ], series: [ { type: 'bar', xKey: 'week', yKey: 'submissions', yName: 'Submissions', cornerRadius: 4 }, { type: 'line', xKey: 'week', yKey: 'fillRate', yName: 'Fill Rate %', stroke: '#D65498', marker: { enabled: true, size: 5, fill: '#D65498', stroke: '#D65498' } }, ], axes: [ { type: 'category', position: 'bottom' }, { type: 'number', position: 'left', keys: ['submissions'], title: { text: 'Submissions' } }, { type: 'number', position: 'right', keys: ['fillRate'], title: { text: 'Fill Rate %' }, min: 0, max: 100, label: { formatter: ({ value }) => `${value}%` } }, ], legend: { enabled: true, position: 'bottom' } });
+    observedChart({ container: document.getElementById('chart-combo'), theme: trioTheme, background: { fill: 'transparent' }, data: [ { week: 'Wk 1', submissions: 142, fillRate: 74 }, { week: 'Wk 2', submissions: 165, fillRate: 77 }, { week: 'Wk 3', submissions: 158, fillRate: 81 }, { week: 'Wk 4', submissions: 179, fillRate: 80 }, { week: 'Wk 5', submissions: 192, fillRate: 85 }, { week: 'Wk 6', submissions: 201, fillRate: 88 }, ], series: [ { type: 'bar', xKey: 'week', yKey: 'submissions', yName: 'Submissions', cornerRadius: 4 }, { type: 'area', xKey: 'week', yKey: 'fillRate', yName: 'Fill Rate %', stroke: '#D65498', strokeWidth: 2, fill: gradFill('#D65498'), marker: { enabled: true, size: 4, fill: '#D65498', strokeWidth: 0 } }, ], axes: [ { type: 'category', position: 'bottom' }, { type: 'number', position: 'left', keys: ['submissions'], title: { text: 'Submissions' } }, { type: 'number', position: 'right', keys: ['fillRate'], title: { text: 'Fill Rate %' }, min: 0, max: 100, label: { formatter: ({ value }) => `${value}%` } }, ], legend: { enabled: true, position: 'bottom' } });
 
     // ─── Stacked charts shared data ──────────────────────────────────────────
     const stackData = [ { dept: 'ICU', filled: 52, pending: 18, unfilled: 15 }, { dept: 'Med/Surg', filled: 38, pending: 22, unfilled: 18 }, { dept: 'ED', filled: 61, pending: 12, unfilled: 9 }, { dept: 'OR', filled: 29, pending: 25, unfilled: 21 }, { dept: 'Telemetry', filled: 44, pending: 19, unfilled: 14 }, { dept: 'Peds', filled: 35, pending: 21, unfilled: 12 }, ];
@@ -835,11 +905,11 @@
 
     const coverageData = [ { month: 'Oct', coverage: 71 }, { month: 'Nov', coverage: 74 }, { month: 'Dec', coverage: 68 }, { month: 'Jan', coverage: 76 }, { month: 'Feb', coverage: 81 }, { month: 'Mar', coverage: 84 }, { month: 'Apr', coverage: 87 }, ];
 
-    observedChart({ container: document.getElementById('chart-smooth'), theme: trioTheme, background: { fill: 'transparent' }, data: coverageData, series: [{ type: 'line', xKey: 'month', yKey: 'coverage', yName: 'Coverage %', interpolation: { type: 'smooth', tension: 0.8 }, stroke: '#005F8A', marker: { enabled: true, size: 5, fill: '#005F8A', stroke: '#005F8A' } }], axes: [ { type: 'category', position: 'bottom' }, { type: 'number', position: 'left', min: 60, max: 100, label: { formatter: ({ value }) => `${value}%` } }, ], legend: { enabled: false } });
+    observedChart({ container: document.getElementById('chart-smooth'), theme: trioTheme, background: { fill: 'transparent' }, data: coverageData, series: [{ type: 'area', xKey: 'month', yKey: 'coverage', yName: 'Coverage %', interpolation: { type: 'smooth', tension: 0.8 }, stroke: '#005F8A', strokeWidth: 2, fill: gradFill('#005F8A'), marker: { enabled: true, size: 4, fill: '#005F8A', strokeWidth: 0 } }], axes: [ { type: 'category', position: 'bottom' }, { type: 'number', position: 'left', min: 60, max: 100, label: { formatter: ({ value }) => `${value}%` } }, ], legend: { enabled: false } });
 
-    observedChart({ container: document.getElementById('chart-step'), theme: trioTheme, background: { fill: 'transparent' }, data: coverageData, series: [{ type: 'line', xKey: 'month', yKey: 'coverage', yName: 'Coverage %', interpolation: { type: 'step', position: 'end' }, stroke: '#7462AE', marker: { enabled: true, size: 5, fill: '#7462AE', stroke: '#7462AE' } }], axes: [ { type: 'category', position: 'bottom' }, { type: 'number', position: 'left', min: 60, max: 100, label: { formatter: ({ value }) => `${value}%` } }, ], legend: { enabled: false } });
+    observedChart({ container: document.getElementById('chart-step'), theme: trioTheme, background: { fill: 'transparent' }, data: coverageData, series: [{ type: 'area', xKey: 'month', yKey: 'coverage', yName: 'Coverage %', interpolation: { type: 'step', position: 'end' }, stroke: '#7462AE', strokeWidth: 2, fill: gradFill('#7462AE'), marker: { enabled: true, size: 4, fill: '#7462AE', strokeWidth: 0 } }], axes: [ { type: 'category', position: 'bottom' }, { type: 'number', position: 'left', min: 60, max: 100, label: { formatter: ({ value }) => `${value}%` } }, ], legend: { enabled: false } });
 
-    observedChart({ container: document.getElementById('chart-crosshair'), theme: trioTheme, background: { fill: 'transparent' }, data: [ { week: 'Wk 1', submitted: 142, filled: 118, cancelled: 24 }, { week: 'Wk 2', submitted: 165, filled: 134, cancelled: 31 }, { week: 'Wk 3', submitted: 158, filled: 141, cancelled: 17 }, { week: 'Wk 4', submitted: 179, filled: 152, cancelled: 27 }, { week: 'Wk 5', submitted: 192, filled: 167, cancelled: 25 }, { week: 'Wk 6', submitted: 201, filled: 183, cancelled: 18 }, { week: 'Wk 7', submitted: 188, filled: 171, cancelled: 17 }, { week: 'Wk 8', submitted: 214, filled: 196, cancelled: 18 }, ], series: [ { type: 'line', xKey: 'week', yKey: 'submitted', yName: 'Submitted', stroke: '#005F8A', marker: { enabled: true, size: 5, fill: '#005F8A' } }, { type: 'line', xKey: 'week', yKey: 'filled', yName: 'Filled', stroke: '#17C76F', marker: { enabled: true, size: 5, fill: '#17C76F' } }, { type: 'line', xKey: 'week', yKey: 'cancelled', yName: 'Cancelled', stroke: '#FF6552', marker: { enabled: true, size: 5, fill: '#FF6552' } }, ], axes: [ { type: 'category', position: 'bottom', crosshair: { enabled: true, stroke: '#2196F3', strokeWidth: 1, strokeOpacity: 0.5, lineDash: [4, 4] } }, { type: 'number', position: 'left', min: 0, crosshair: { enabled: true, stroke: '#757575', strokeWidth: 1, strokeOpacity: 0.5, lineDash: [4, 4] } }, ], legend: { enabled: true, position: 'bottom' } });
+    observedChart({ container: document.getElementById('chart-crosshair'), theme: trioTheme, background: { fill: 'transparent' }, data: [ { week: 'Wk 1', submitted: 142, filled: 118, cancelled: 24 }, { week: 'Wk 2', submitted: 165, filled: 134, cancelled: 31 }, { week: 'Wk 3', submitted: 158, filled: 141, cancelled: 17 }, { week: 'Wk 4', submitted: 179, filled: 152, cancelled: 27 }, { week: 'Wk 5', submitted: 192, filled: 167, cancelled: 25 }, { week: 'Wk 6', submitted: 201, filled: 183, cancelled: 18 }, { week: 'Wk 7', submitted: 188, filled: 171, cancelled: 17 }, { week: 'Wk 8', submitted: 214, filled: 196, cancelled: 18 }, ], series: [ { type: 'area', xKey: 'week', yKey: 'submitted', yName: 'Submitted', stroke: '#005F8A', strokeWidth: 2, fill: gradFill('#005F8A', '18'), marker: { enabled: true, size: 4, fill: '#005F8A', strokeWidth: 0 } }, { type: 'area', xKey: 'week', yKey: 'filled', yName: 'Filled', stroke: '#17C76F', strokeWidth: 2, fill: gradFill('#17C76F', '18'), marker: { enabled: true, size: 4, fill: '#17C76F', strokeWidth: 0 } }, { type: 'area', xKey: 'week', yKey: 'cancelled', yName: 'Cancelled', stroke: '#FF6552', strokeWidth: 2, fill: gradFill('#FF6552', '18'), marker: { enabled: true, size: 4, fill: '#FF6552', strokeWidth: 0 } }, ], axes: [ { type: 'category', position: 'bottom', crosshair: { enabled: true, stroke: '#2196F3', strokeWidth: 1, strokeOpacity: 0.5, lineDash: [4, 4] } }, { type: 'number', position: 'left', min: 0, crosshair: { enabled: true, stroke: '#757575', strokeWidth: 1, strokeOpacity: 0.5, lineDash: [4, 4] } }, ], legend: { enabled: true, position: 'bottom' } });
 
     // ─── Horizontal charts ───────────────────────────────────────────────────
     const horizData = [ { dept: 'ICU', fillRate: 87, remaining: 13 }, { dept: 'Med/Surg', fillRate: 72, remaining: 28 }, { dept: 'ED', fillRate: 91, remaining: 9 }, { dept: 'OR', fillRate: 65, remaining: 35 }, { dept: 'Telemetry', fillRate: 78, remaining: 22 }, { dept: 'Peds', fillRate: 83, remaining: 17 }, ];
@@ -851,6 +921,47 @@
 
     const progressDepts = ['ICU','Med/Surg','ED','OR','Telemetry','Peds'];
     observedChart({ container: document.getElementById('chart-progress'), theme: trioTheme, background: { fill: 'transparent' }, data: horizData, series: [ { type: 'bar', direction: 'horizontal', xKey: 'dept', yKey: 'fillRate', yName: 'Complete', stacked: true, width: 10, cornerRadius: 4, itemStyler: ({ datum }) => { const i = progressDepts.indexOf(datum.dept); return { fill: PALETTE_FILLS[i], stroke: PALETTE_STROKES[i] }; }, label: { enabled: true, placement: 'outside-end', spacing: 8, formatter: ({ value }) => `${value}%`, color: '#212121', fontFamily: 'Roboto, sans-serif', fontSize: 11 } }, { type: 'bar', direction: 'horizontal', xKey: 'dept', yKey: 'remaining', yName: 'Remaining', stacked: true, width: 10, fill: '#EEEEEE', stroke: '#EEEEEE', showInLegend: false }, ], axes: [ { type: 'number', position: 'bottom', min: 0, max: 100, label: { enabled: false }, gridLine: { enabled: false } }, { type: 'category', position: 'left' }, ], legend: { enabled: false } });
+
+    // ─── Enterprise: Range Bar — Hiring Pipeline ────────────────────────────
+    var pipelineData = [
+      { stage: 'Orders', start: 0, end: 740 },
+      { stage: 'Submissions', start: 0, end: 496 },
+      { stage: 'Interviews', start: 0, end: 193 },
+      { stage: 'Offers', start: 0, end: 164 },
+      { stage: 'Placements', start: 0, end: 114 },
+    ];
+    observedChart({ container: document.getElementById('chart-range-bar'), theme: trioTheme, background: { fill: 'transparent' }, data: pipelineData, series: [{ type: 'range-bar', direction: 'horizontal', xKey: 'stage', yLowKey: 'start', yHighKey: 'end', cornerRadius: 4, strokeWidth: 0, label: { enabled: false }, itemStyler: function(p) { var idx = pipelineData.findIndex(function(d) { return d.stage === p.datum.stage; }); return { fill: PALETTE_FILLS[idx], stroke: PALETTE_STROKES[idx] }; } }], axes: [ { type: 'category', position: 'left', label: { fontSize: 12, color: '#757575' }, line: { enabled: false }, tick: { enabled: false }, paddingInner: 0.15 }, { type: 'number', position: 'bottom', label: { fontSize: 12, color: '#9E9E9E' }, line: { enabled: false }, tick: { enabled: false }, gridLine: { enabled: true, style: [{ stroke: '#E0E0E060', lineDash: [4, 3] }] } } ], legend: { enabled: false }, animation: { enabled: true } });
+
+    // ─── Enterprise: Range Bar — Fulfillment Gantt ────────────────────────
+    var ganttPhases = [
+      { phase: 'Time to Submission', start: 0, end: 3.8 },
+      { phase: 'Time to Feedback', start: 3.8, end: 8.3 },
+      { phase: 'Time to Placement', start: 8.3, end: 26.3 },
+    ];
+    observedChart({ container: document.getElementById('chart-gantt'), theme: trioTheme, background: { fill: 'transparent' }, data: ganttPhases, series: [{ type: 'range-bar', direction: 'horizontal', xKey: 'phase', yLowKey: 'start', yHighKey: 'end', cornerRadius: 4, strokeWidth: 0, label: { enabled: false }, itemStyler: function(p) { var idx = ganttPhases.findIndex(function(d) { return d.phase === p.datum.phase; }); return { fill: PALETTE_FILLS[idx], stroke: PALETTE_STROKES[idx] }; } }], axes: [ { type: 'category', position: 'left', label: { fontSize: 12, color: '#757575' }, line: { enabled: false }, tick: { enabled: false }, paddingInner: 0.15 }, { type: 'number', position: 'bottom', min: 0, max: 30, label: { fontSize: 12, color: '#9E9E9E', formatter: function(p) { return p.value + 'd'; } }, line: { enabled: false }, tick: { enabled: false }, gridLine: { enabled: true, style: [{ stroke: '#E0E0E060', lineDash: [4, 3] }] }, crossLines: [{ type: 'line', value: 27, stroke: PALETTE_FILLS[3], strokeWidth: 2, lineDash: [4, 3], label: { text: '27d peer avg', position: 'top', fontSize: 12, color: PALETTE_FILLS[3] } }] } ], legend: { enabled: false }, animation: { enabled: true } });
+
+    // ─── Enterprise: Waterfall ─────────────────────────────────────────────
+    observedChart({ container: document.getElementById('chart-waterfall'), theme: trioTheme, background: { fill: 'transparent' }, data: [ { category: 'Participation', value: 5.2 }, { category: 'Fulfillment', value: 3.8 }, { category: 'Placement', value: 4.1 }, { category: 'Readiness', value: -1.2 }, { category: 'Retention', value: 2.6 }, { category: 'Cancellations', value: -0.8 }, { category: 'Quality', value: 3.1 }, ], series: [{ type: 'waterfall', xKey: 'category', yKey: 'value', item: { positive: { fill: PALETTE_FILLS[0], stroke: PALETTE_STROKES[0] }, negative: { fill: PALETTE_FILLS[6], stroke: PALETTE_STROKES[6] }, subtotal: { fill: PALETTE_FILLS[8], stroke: PALETTE_STROKES[8] } }, totals: [{ totalType: 'subtotal', index: 7, axisLabel: 'Total' }] }], axes: [ { type: 'category', position: 'bottom', label: { fontSize: 12, color: '#757575' } }, { type: 'number', position: 'left', label: { fontSize: 12, color: '#9E9E9E' } } ], animation: { enabled: true } });
+
+    // ─── Enterprise: Radar ─────────────────────────────────────────────────
+    observedChart({ container: document.getElementById('chart-radar'), theme: trioTheme, background: { fill: 'transparent' }, data: [ { dimension: 'Participation', agency: 72, peer: 58 }, { dimension: 'Placement', agency: 65, peer: 55 }, { dimension: 'Readiness', agency: 84, peer: 78 }, { dimension: 'Retention', agency: 89, peer: 84 }, { dimension: 'Quality', agency: 78, peer: 64 }, { dimension: 'Speed', agency: 70, peer: 62 }, ], series: [ { type: 'radar-area', angleKey: 'dimension', radiusKey: 'agency', radiusName: 'Agency', stroke: PALETTE_FILLS[0], strokeWidth: 2, fill: PALETTE_FILLS[0] + '33', marker: { enabled: true, size: 4, fill: PALETTE_FILLS[0], strokeWidth: 0 } }, { type: 'radar-area', angleKey: 'dimension', radiusKey: 'peer', radiusName: 'Peer Avg', stroke: PALETTE_FILLS[3], strokeWidth: 1.5, lineDash: [4, 3], fill: PALETTE_FILLS[3] + '1A', marker: { enabled: true, size: 3, fill: PALETTE_FILLS[3], strokeWidth: 0 } }, ], legend: { enabled: true, position: 'bottom' }, animation: { enabled: true } });
+
+    // ─── Enterprise: Box Plot ──────────────────────────────────────────────
+    observedChart({ container: document.getElementById('chart-boxplot'), theme: trioTheme, background: { fill: 'transparent' }, data: [ { dept: 'ICU', min: 8, q1: 14, median: 19, q3: 26, max: 42 }, { dept: 'ED', min: 5, q1: 10, median: 15, q3: 22, max: 38 }, { dept: 'Med/Surg', min: 3, q1: 8, median: 12, q3: 18, max: 28 }, { dept: 'L&D', min: 12, q1: 18, median: 24, q3: 32, max: 48 }, { dept: 'OR', min: 10, q1: 16, median: 22, q3: 30, max: 45 }, ], series: [{ type: 'box-plot', xKey: 'dept', minKey: 'min', q1Key: 'q1', medianKey: 'median', q3Key: 'q3', maxKey: 'max', fill: PALETTE_FILLS[0] + '40', stroke: PALETTE_FILLS[0], strokeWidth: 2, whisker: { stroke: PALETTE_FILLS[0], strokeWidth: 1.5 }, cap: { lengthRatio: 0.5 } }], axes: [ { type: 'category', position: 'bottom', label: { fontSize: 12, color: '#757575' } }, { type: 'number', position: 'left', label: { fontSize: 12, color: '#9E9E9E', formatter: function(p) { return p.value + 'd'; } } } ], animation: { enabled: true } });
+
+    // ─── Enterprise: Heatmap ───────────────────────────────────────────────
+    var heatData = [];
+    var hDays = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+    var hShifts = ['Day (7a-3p)','Eve (3p-11p)','Night (11p-7a)'];
+    var hVals = [[95,88,72],[92,85,68],[94,90,75],[91,82,65],[89,78,62],[78,70,55],[75,65,50]];
+    hDays.forEach(function(day, di) { hShifts.forEach(function(shift, si) { heatData.push({ day: day, shift: shift, coverage: hVals[di][si] }); }); });
+    observedChart({ container: document.getElementById('chart-heatmap'), theme: trioTheme, background: { fill: 'transparent' }, data: heatData, series: [{ type: 'heatmap', xKey: 'day', yKey: 'shift', colorKey: 'coverage', colorRange: [PALETTE_FILLS[6] + '40', PALETTE_FILLS[0]], label: { enabled: true, fontSize: 12, color: '#212121', formatter: function(p) { return p.datum.coverage + '%'; } } }], axes: [ { type: 'category', position: 'bottom', label: { fontSize: 12, color: '#757575' } }, { type: 'category', position: 'left', label: { fontSize: 12, color: '#757575' } } ], animation: { enabled: true } });
+
+    // ─── Enterprise: Range Area ────────────────────────────────────────────
+    observedChart({ container: document.getElementById('chart-range-area'), theme: trioTheme, background: { fill: 'transparent' }, data: [ { period: 'Q1 25', agency: 68, peerLow: 52, peerHigh: 72 }, { period: 'Q2 25', agency: 70, peerLow: 54, peerHigh: 74 }, { period: 'Q3 25', agency: 71, peerLow: 53, peerHigh: 73 }, { period: 'Q4 25', agency: 72, peerLow: 55, peerHigh: 75 }, { period: 'Q1 26', agency: 72.4, peerLow: 54, peerHigh: 74 }, ], series: [ { type: 'range-area', xKey: 'period', yLowKey: 'peerLow', yHighKey: 'peerHigh', yName: 'Peer Range', fill: PALETTE_FILLS[3] + '20', stroke: PALETTE_FILLS[3], strokeWidth: 1, lineDash: [4, 3], strokeOpacity: 0.5 }, { type: 'area', xKey: 'period', yKey: 'agency', yName: 'Agency', stroke: PALETTE_FILLS[0], strokeWidth: 2.5, fill: gradFill(PALETTE_FILLS[0]), marker: { enabled: true, size: 5, fill: PALETTE_FILLS[0], strokeWidth: 0 } }, ], legend: { enabled: true, position: 'bottom' }, animation: { enabled: true } });
+
+    // ─── Enterprise: Treemap ───────────────────────────────────────────────
+    observedChart({ container: document.getElementById('chart-treemap'), theme: trioTheme, background: { fill: 'transparent' }, data: [{ name: 'All Departments', children: [ { name: 'ICU', children: [{ name: 'RN', size: 86 },{ name: 'CNA', size: 42 },{ name: 'RT', size: 28 }] }, { name: 'ED', children: [{ name: 'RN', size: 112 },{ name: 'LPN', size: 34 },{ name: 'Paramedic', size: 21 }] }, { name: 'Med/Surg', children: [{ name: 'RN', size: 94 },{ name: 'CNA', size: 67 },{ name: 'LPN', size: 45 }] }, { name: 'L&D', children: [{ name: 'RN', size: 48 },{ name: 'CNM', size: 18 }] }, { name: 'OR', children: [{ name: 'RN', size: 52 },{ name: 'Surg Tech', size: 31 }] }, ] }], series: [{ type: 'treemap', childrenKey: 'children', sizeKey: 'size', labelKey: 'name', fills: PALETTE_FILLS, strokes: PALETTE_STROKES }], animation: { enabled: true } });
 
     // ─── Color Vision Simulation ─────────────────────────────────────────────
     const cbvdTargets = () => document.querySelectorAll('.chart-card, .demo-area, #palette-swatches');

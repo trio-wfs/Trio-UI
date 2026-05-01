@@ -91,7 +91,7 @@ export const trioAgChartsTheme = {
     // Axes & grid
     axisGridLineColor: tokens.colors.components.border.default, // #E0E0E0
     axisLineColor:     tokens.colors.components.border.default,
-    axisLabelColor:    tokens.colors.text.secondary,            // #757575
+    axisLabelColor:    tokens.colors.text.secondary,            // rgba(0,0,0,0.6)
   },
 
   overrides: {

@@ -18,17 +18,16 @@ Source of truth for all UI decisions across the TRIO WFS platform.
 - If a spec is missing or unclear, report it and skip — do not guess
 
 Figma REST API scripts have been removed. The Figma MCP replaces them entirely.
-Cached specs in `figma-specs/` are available as offline reference but may be stale.
+All component specs are pulled live via Figma MCP — no offline cache needed.
 
 ---
 
 ## Component Status
 
-**24 components live** (have showcase pages + TSX):
-Alert, Autocomplete, Badge, Breadcrumb, Button, ButtonGroup, ButtonIcon, Checkbox, Chip, Chart, Menu, MetricCard, Modal, NavigationVertical, PageHeaderToolbar, RadioGroup, SearchBar, Select, SplitButton, Switch, Tabs, TextField, ToggleButton, Tooltip
+**35 components live** (have TSX + types):
+Alert, Autocomplete, Badge, Breadcrumb, Button, ButtonGroup, ButtonIcon, Checkbox, Chip, Chart, ContentContainer, DatePicker, Footer, Handle, Menu, MetricCard, Modal, NavigationHeader, NavigationVertical, NumberField, PageHeaderToolbar, PopOver, ProductLogos, RadioGroup, SearchBar, Select, Slider, SplitButton, Stepper, Switch, Tabs, TextField, ToggleButton, Tooltip
 
-**Token pages live:**
-Colors, Typography, Spacing
+**29 showcase pages live.** Token pages: Colors, Typography, Spacing.
 
 **Remaining:** ~75+ components per `figma-component-manifest.json`
 
@@ -48,8 +47,8 @@ Colors, Typography, Spacing
   tokens.ts          # MUI theme overrides
   colors.json, typography.json, spacing.json, etc.
 
-/figma-specs         # Cached Figma REST API JSON (stale — use MCP instead)
-/figma-cache         # Additional cached Figma data
+/figma-specs         # Legacy cached specs (stale — MCP is the source of truth)
+/figma-cache         # Legacy cached Figma data
 
 /briefs              # Design briefs for upcoming work
 /design-reviews      # Past compliance reviews

@@ -569,7 +569,7 @@
         Variants
       </h2>
       <p class="section-description">
-        Text fields come in two types: single-line for short entries and multi-line for longer content. Heights are extracted from Figma: 36px (single-line), 90px (multi-line).
+        Text fields come in two types: single-line for short entries and multi-line for longer content. Two sizes are available: medium (default, 36px single-line) and small (30px single-line, 12px font). Heights are extracted from Figma.
       </p>
 
       <div class="variant-group">
@@ -580,7 +580,7 @@
       </div>
 
       <div class="variant-group">
-        <div class="variant-label">Multi-Line (90px height)</div>
+        <div class="variant-label">Multi-Line (auto height, rows-based)</div>
         <div class="input-row">
           <div data-trio-component="TextField" data-trio-props='{"type":"multi-line","label":"Label","placeholder":"Placeholder","helperText":"Helper text"}'></div>
         </div>
@@ -909,13 +909,18 @@
         </thead>
         <tbody>
           <tr>
-            <td>Input Height (Single-Line)</td>
+            <td>Input Height (Medium, Single-Line)</td>
             <td><code>36px</code></td>
             <td><code>--</code></td>
           </tr>
           <tr>
+            <td>Input Height (Small, Single-Line)</td>
+            <td><code>30px</code></td>
+            <td><code>--</code></td>
+          </tr>
+          <tr>
             <td>Input Height (Multi-Line)</td>
-            <td><code>90px</code></td>
+            <td>Auto (3–4 rows, determined by size)</td>
             <td><code>--</code></td>
           </tr>
           <tr>
@@ -954,9 +959,14 @@
             <td><code>fontSize.xs</code></td>
           </tr>
           <tr>
-            <td>Input Typography</td>
+            <td>Input Typography (Medium)</td>
             <td>Roboto <code>14px</code> / 400</td>
             <td><code>fontSize.sm</code></td>
+          </tr>
+          <tr>
+            <td>Input Typography (Small)</td>
+            <td>Roboto <code>12px</code> / 400</td>
+            <td><code>fontSize.xs</code></td>
           </tr>
           <tr>
             <td>Help Text Typography</td>

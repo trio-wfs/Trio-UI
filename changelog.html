@@ -12,6 +12,7 @@
       width: 100%;
       border-collapse: collapse;
       font-size: 13px;
+      line-height: 20px;
     }
     .changelog-table thead tr {
       border-bottom: 1px solid var(--color-secondary-outline);
@@ -24,7 +25,7 @@
       font-size: 12px;
     }
     .changelog-table td {
-      padding: 8px 16px;
+      padding: 12px 16px;
       border-bottom: 1px solid var(--color-secondary-outline);
     }
     .changelog-table tr:nth-child(even) td {
@@ -54,6 +55,7 @@
 
     <div style="max-width: 1100px; margin: 0 auto; padding: 0 32px 32px;">
       <div style="background: var(--color-background-paper); border: 1px solid var(--color-secondary-outline); border-radius: var(--border-radius); overflow: hidden;">
+        <div id="changelog-filters"></div>
         <table class="changelog-table">
           <thead>
             <tr>
@@ -70,6 +72,7 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+      renderChangelogFilters('changelog-filters', 'changelog-full');
       renderChangelog('changelog-full');
     });
   </script>

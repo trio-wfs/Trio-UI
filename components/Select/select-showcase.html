@@ -160,7 +160,7 @@
             Anatomy
           </div>
           <div class="card-content">
-            Built from a TextField input with a dropdown icon and a custom Menu component. States include default, focus, disabled, error, and selected. Input height: 36px, min width: 256px.
+            Built from a TextField input with a dropdown icon and a custom Menu component. States include default, focus, disabled, error, and selected. Sizes: medium (36px) and small (28px). Min width: 256px.
           </div>
         </div>
         <div class="card">
@@ -224,6 +224,33 @@
       </div>
     </section>
 
+    <!-- SIZES -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">straighten</span>
+        Sizes
+      </h2>
+      <p class="section-description">
+        Select supports two sizes. Medium (default) is used in standard forms. Small is used in dense layouts, toolbars, and inline filter controls where vertical space is limited.
+      </p>
+
+      <div class="variant-group">
+        <div class="variant-label">Medium (default) — 36px input height</div>
+        <div class="select-row">
+          <div data-trio-component="Select" data-trio-props='{"label":"Country","placeholder":"Select a country","options":[{"value":"us","label":"United States"},{"value":"ca","label":"Canada"},{"value":"uk","label":"United Kingdom"},{"value":"au","label":"Australia"}]}'></div>
+          <div data-trio-component="Select" data-trio-props='{"label":"State","value":"ca","options":[{"value":"ca","label":"California"},{"value":"ny","label":"New York"},{"value":"tx","label":"Texas"}]}'></div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Small — 28px input height</div>
+        <div class="select-row">
+          <div data-trio-component="Select" data-trio-props='{"label":"Country","size":"small","placeholder":"Select a country","options":[{"value":"us","label":"United States"},{"value":"ca","label":"Canada"},{"value":"uk","label":"United Kingdom"},{"value":"au","label":"Australia"}]}'></div>
+          <div data-trio-component="Select" data-trio-props='{"label":"State","size":"small","value":"ca","options":[{"value":"ca","label":"California"},{"value":"ny","label":"New York"},{"value":"tx","label":"Texas"}]}'></div>
+        </div>
+      </div>
+    </section>
+
     <!-- VARIANTS -->
     <section class="section">
       <h2 class="section-title">
@@ -274,9 +301,10 @@
       </div>
 
       <div class="variant-group">
-        <div class="variant-label">Disabled</div>
+        <div class="variant-label">Disabled — gray fill + muted border (#E0E0E0)</div>
         <div class="select-row">
           <div data-trio-component="Select" data-trio-props='{"label":"Disabled Select","placeholder":"Not available","disabled":true,"options":[{"value":"1","label":"Option 1"}]}'></div>
+          <div data-trio-component="Select" data-trio-props='{"label":"Disabled Small","size":"small","placeholder":"Not available","disabled":true,"options":[{"value":"1","label":"Option 1"}]}'></div>
         </div>
       </div>
     </section>
@@ -349,19 +377,29 @@
         </thead>
         <tbody>
           <tr>
-            <td>Input height</td>
+            <td>Input height (medium)</td>
             <td><code>36px</code></td>
             <td>TextField single-line instance</td>
           </tr>
           <tr>
+            <td>Input height (small)</td>
+            <td><code>28px</code></td>
+            <td>TextField single-line instance</td>
+          </tr>
+          <tr>
             <td>Total height (with label)</td>
-            <td><code>~58px</code></td>
-            <td>.absoluteBoundingBox.height</td>
+            <td><code>~58px</code> / <code>~50px</code></td>
+            <td>.absoluteBoundingBox.height (medium / small)</td>
           </tr>
           <tr>
             <td>Default width</td>
             <td><code>256px</code></td>
             <td>.absoluteBoundingBox.width</td>
+          </tr>
+          <tr>
+            <td>Sizes</td>
+            <td><code>medium, small</code></td>
+            <td>componentPropertyDefinitions.size.variantOptions</td>
           </tr>
           <tr>
             <td>States</td>
@@ -386,7 +424,7 @@
           <tr>
             <td>Border (focus)</td>
             <td><code>#64B5F6</code> (2px)</td>
-            <td>tokens.colors.border.focus</td>
+            <td>tokens.colors.components.border.focus</td>
           </tr>
           <tr>
             <td>Border (error)</td>
@@ -394,14 +432,34 @@
             <td>tokens.colors.error.main</td>
           </tr>
           <tr>
-            <td>Padding</td>
-            <td><code>0 40px 0 16px</code></td>
-            <td>Internal spacing</td>
+            <td>Border (disabled)</td>
+            <td><code>#E0E0E0</code></td>
+            <td>tokens.colors.components.input.disabledBorder</td>
           </tr>
           <tr>
-            <td>Typography</td>
+            <td>Background (disabled)</td>
+            <td><code>rgba(0,0,0,0.12)</code></td>
+            <td>tokens.colors.action.disabledBackground</td>
+          </tr>
+          <tr>
+            <td>Padding (medium)</td>
+            <td><code>0 16px</code></td>
+            <td>tokens.spacing.md</td>
+          </tr>
+          <tr>
+            <td>Padding (small)</td>
+            <td><code>0 8px</code></td>
+            <td>tokens.spacing.sm</td>
+          </tr>
+          <tr>
+            <td>Typography (medium)</td>
             <td>Roboto <code>14px</code>, weight <code>400</code></td>
             <td>tokens.typography.fontSize.sm</td>
+          </tr>
+          <tr>
+            <td>Typography (small)</td>
+            <td>Roboto <code>12px</code>, weight <code>400</code></td>
+            <td>tokens.typography.fontSize.xs</td>
           </tr>
         </tbody>
       </table>

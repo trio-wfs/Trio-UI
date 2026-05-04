@@ -50,6 +50,21 @@ import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import PieChartIcon from '@mui/icons-material/PieChart';
 import ShowChartIcon from '@mui/icons-material/ShowChart';
+import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
+import PersonSearchOutlinedIcon from '@mui/icons-material/PersonSearchOutlined';
+import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
+import AssignmentIndOutlinedIcon from '@mui/icons-material/AssignmentIndOutlined';
+import ChecklistOutlinedIcon from '@mui/icons-material/ChecklistOutlined';
+import BusinessCenterOutlinedIcon from '@mui/icons-material/BusinessCenterOutlined';
+import AssignmentTurnedInOutlinedIcon from '@mui/icons-material/AssignmentTurnedInOutlined';
+import ScheduleOutlinedIcon from '@mui/icons-material/ScheduleOutlined';
+import MonetizationOnOutlinedIcon from '@mui/icons-material/MonetizationOnOutlined';
+import FolderCopyOutlinedIcon from '@mui/icons-material/FolderCopyOutlined';
+import PeopleOutlinedIcon from '@mui/icons-material/PeopleOutlined';
+import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
+import ReceiptOutlinedIcon from '@mui/icons-material/ReceiptOutlined';
+import VerifiedUserOutlinedIcon from '@mui/icons-material/VerifiedUserOutlined';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 
 const iconRegistry: Record<string, React.ReactElement> = {
   Add: <AddIcon />,
@@ -82,6 +97,21 @@ const iconRegistry: Record<string, React.ReactElement> = {
   BarChart: <BarChartIcon />,
   PieChart: <PieChartIcon />,
   ShowChart: <ShowChartIcon />,
+  DashboardOutlined: <DashboardOutlinedIcon />,
+  PersonSearchOutlined: <PersonSearchOutlinedIcon />,
+  GroupsOutlined: <GroupsOutlinedIcon />,
+  AssignmentIndOutlined: <AssignmentIndOutlinedIcon />,
+  ChecklistOutlined: <ChecklistOutlinedIcon />,
+  BusinessCenterOutlined: <BusinessCenterOutlinedIcon />,
+  AssignmentTurnedInOutlined: <AssignmentTurnedInOutlinedIcon />,
+  ScheduleOutlined: <ScheduleOutlinedIcon />,
+  MonetizationOnOutlined: <MonetizationOnOutlinedIcon />,
+  FolderCopyOutlined: <FolderCopyOutlinedIcon />,
+  PeopleOutlined: <PeopleOutlinedIcon />,
+  AccessTimeOutlined: <AccessTimeOutlinedIcon />,
+  ReceiptOutlined: <ReceiptOutlinedIcon />,
+  VerifiedUserOutlined: <VerifiedUserOutlinedIcon />,
+  SettingsOutlined: <SettingsOutlinedIcon />,
 };
 
 // Resolve string icon names to React elements
@@ -99,6 +129,15 @@ function resolveIcons(props: Record<string, any>): Record<string, any> {
         return { ...btn, icon: iconRegistry[btn.icon] };
       }
       return btn;
+    });
+  }
+  // Resolve icons inside NavigationVertical `items` array
+  if (Array.isArray(resolved.items)) {
+    resolved.items = resolved.items.map((item: Record<string, any>) => {
+      if (typeof item.icon === 'string' && iconRegistry[item.icon]) {
+        return { ...item, icon: iconRegistry[item.icon] };
+      }
+      return item;
     });
   }
   return resolved;

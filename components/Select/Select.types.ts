@@ -12,6 +12,7 @@
  * Select variant types from Figma
  */
 export type SelectState = 'default' | 'focus' | 'disabled' | 'error' | 'selected';
+export type SelectSize = 'medium' | 'small';
 
 export interface SelectOption {
   value: string;
@@ -29,6 +30,12 @@ export interface SelectProps {
    * @default 'default'
    */
   state?: SelectState;
+
+  /**
+   * Size variant
+   * @default 'medium'
+   */
+  size?: SelectSize;
 
   // ========================================
   // React Props (not from Figma)
@@ -102,6 +109,7 @@ export interface SelectProps {
 
 export const defaultSelectProps: Partial<SelectProps> = {
   state: 'default',
+  size: 'medium',
   disabled: false,
   error: false,
   placeholder: 'Select an option',

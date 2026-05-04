@@ -4,7 +4,7 @@
  * DO NOT add properties not in Figma. DO NOT modify variant options unless Figma changes.
  */
 
-import React from 'react';
+import React, { RefObject } from 'react';
 
 /** default = title + buttons only; full = title + chips + eyebrow + breadcrumb; NewCanvas = full without outer border */
 export type PageHeaderToolbarVariant = 'default' | 'full' | 'NewCanvas';
@@ -33,6 +33,10 @@ export interface PageHeaderToolbarProps {
 
   // ── Breadcrumb strip (full / NewCanvas only) — shown when provided ─
   breadcrumbContent?: React.ReactNode;
+
+  // ── Scroll container (NewCanvas only) — ref to the scrollable parent ─
+  /** Ref to the scrollable container for the NewCanvas scroll divider. Defaults to window. */
+  scrollContainerRef?: RefObject<HTMLElement | null>;
 }
 
 export const defaultPageHeaderToolbarProps: Partial<PageHeaderToolbarProps> = {

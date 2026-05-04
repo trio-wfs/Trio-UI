@@ -41,6 +41,12 @@
       color: var(--color-secondary-outline);
     }
 
+    .proto-card-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
     .proto-card-body {
       padding: var(--spacing-md);
     }
@@ -134,15 +140,29 @@
     <div class="content-body" style="padding: 0 var(--spacing-xl) var(--spacing-xl);">
 
       <div class="proto-grid" id="proto-gallery">
-        <!-- Prototype cards will be added here as projects produce them -->
-        <div class="empty-state">
-          <span class="material-icons-outlined">science</span>
-          <div class="empty-state-title">No prototypes yet</div>
-          <div class="empty-state-desc">
-            Prototypes will appear here as they're created during design projects. Each prototype links to its live demo and source Figma file.
+
+        <!-- Agency Scorecard -->
+        <a href="https://jszygiel1981-ship-it.github.io/agency-scorecard/summary/summary" target="_blank" class="proto-card" style="text-decoration: none; color: inherit;">
+          <div class="proto-card-thumb" id="scorecard-thumb">
+            <span class="material-icons-outlined">assessment</span>
           </div>
-        </div>
+          <div class="proto-card-body">
+            <div class="proto-card-title">Agency Scorecard Dashboard</div>
+            <div class="proto-card-desc">
+              Real-time agency performance dashboard replacing manual quarterly PDFs. Rolling time frame paradigm with metric cards, donut charts, bar charts, and AG Grid detail tables. Built with the full TRIO/UI component library.
+            </div>
+            <div class="proto-card-meta">
+              <span class="proto-tag proto-tag-project">Agency Scorecard</span>
+              <span class="proto-tag proto-tag-ready">Live</span>
+            </div>
+          </div>
+        </a>
+
       </div>
+
+      <p style="font-size: 12px; color: var(--color-text-secondary); margin-bottom: var(--spacing-xl);">
+        Drop a screenshot into <code>assets/prototypes/</code> to replace the placeholder thumbnails.
+      </p>
 
       <!-- How prototypes work -->
       <h2 style="font-size: 16px; font-weight: 500; margin-bottom: var(--spacing-md); display: flex; align-items: center; gap: var(--spacing-sm);">

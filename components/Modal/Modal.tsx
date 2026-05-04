@@ -10,7 +10,7 @@
  * - Title/eyebrow Typography now use `variant="h6"` and `variant="body2"`
  *   (our theme maps these to the correct Figma values).
  *
- * SIZES: sm 500px | lg 900px (min 500, max 900)
+ * SIZES: sm 550px | lg 900px (min 550, max 900)
  * PADDING: Header 40 L/R × 16 T/B | Content 40 L/R × 24 T/B | Footer 40 L/R × 16 T/B
  */
 
@@ -27,8 +27,8 @@ import { Button } from '../Button/Button';
 import { tokens } from '../../design-tokens/tokens';
 
 const WIDTH: Record<'sm' | 'lg', { width: number; minWidth: number }> = {
-  sm: { width: 500, minWidth: 500 },
-  lg: { width: 900, minWidth: 500 },
+  sm: { width: 550, minWidth: 550 },
+  lg: { width: 900, minWidth: 550 },
 };
 
 export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(({

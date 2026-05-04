@@ -695,9 +695,9 @@ const themeOptions: ThemeOptions = {
             backgroundColor: tokens.colors.action.hover,
           },
           '&.Mui-selected': {
-            backgroundColor: tokens.colors.action.selected,
+            backgroundColor: tokens.colors.primary.selected,
             '&:hover': {
-              backgroundColor: tokens.colors.action.focus,
+              backgroundColor: tokens.colors.primary.selected,
             },
           },
           '&.Mui-disabled': {

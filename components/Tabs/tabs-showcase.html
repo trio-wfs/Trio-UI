@@ -157,7 +157,7 @@
             Anatomy
           </div>
           <div class="card-content">
-            Each tab is 40px tall with 16px horizontal padding. Active state uses primary blue label (500 weight) with a 2px top indicator. Inactive tabs use secondary gray (#757575). Supports optional left/right icons at 18px.
+            Each tab is 40px tall with 16px horizontal padding. Active state uses primary blue label (500 weight) with a 2px top indicator. Inactive tabs use secondary gray (#757575). Supports optional left/right icons at 16px.
           </div>
         </div>
         <div class="card">
@@ -438,13 +438,18 @@
           </tr>
           <tr>
             <td>Icon size</td>
-            <td><code>18px</code></td>
-            <td>Extracted from Figma</td>
+            <td><code>16px</code></td>
+            <td>Extracted from code (Tabs.tsx)</td>
           </tr>
           <tr>
             <td>Icon-label gap</td>
             <td><code>4px</code> (spacing.xs)</td>
             <td>Figma node 3868:51827</td>
+          </tr>
+          <tr>
+            <td>Surface prop</td>
+            <td><code>paper</code> (default) | <code>secondary</code></td>
+            <td>Controls selected tab bg blend</td>
           </tr>
         </tbody>
       </table>

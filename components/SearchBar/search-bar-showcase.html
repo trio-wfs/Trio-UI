@@ -192,7 +192,7 @@
             Behavior
           </div>
           <div class="card-content">
-            Pressing Enter or clicking the search button triggers the <code>onSearch</code> callback. Three type variants control button placement: left, right, or both.
+            Pressing Enter or clicking the search button triggers the <code>onSearch</code> callback. Two type variants control button placement: left or right.
           </div>
         </div>
         <div class="card">
@@ -230,7 +230,6 @@
             <ul>
               <li>Use the Medium size by default</li>
               <li>Reserve Small for dense toolbars (e.g., inline grid filters)</li>
-              <li>Reserve Large for primary page-level search</li>
               <li>Provide a clear placeholder that tells the user what is searchable</li>
             </ul>
           </div>
@@ -247,7 +246,7 @@
           <div class="card-content">
             <ul>
               <li>Don't use SearchBar for navigation or routing — it's a filter control</li>
-              <li>Don't use the Both type unless there's a clear reason for dual triggers</li>
+              <li>Don't use the Right type without reason — Left is the standard pattern</li>
               <li>Don't use for global/site-wide search — use the App Bar search field instead</li>
             </ul>
           </div>
@@ -282,7 +281,7 @@
         <span class="material-icons-outlined">straighten</span>
         Sizes
       </h2>
-      <p class="section-description">Three sizes match the broader form input scale.</p>
+      <p class="section-description">Two sizes match the broader form input scale.</p>
       <div class="demo-panel">
         <div class="demo-row">
           <div class="demo-label">Small<br><span style="font-size:10px;color:var(--color-text-disabled)">30px</span></div>
@@ -335,7 +334,7 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Use the Medium size by default. Reserve Small for dense toolbars and Large for primary page-level search.</li>
+              <li>Use the Medium size by default. Reserve Small for dense toolbars (e.g., inline grid filters).</li>
               <li>Provide a clear placeholder that tells the user what is searchable: "Search workers, shifts, or orders..." is better than just "Search".</li>
             </ul>
           </div>
@@ -352,7 +351,7 @@
           <div class="card-content">
             <ul>
               <li>Don't use SearchBar for navigation or routing. It's a filter control, not a site-wide search.</li>
-              <li>Don't use the Both type unless there's a clear reason for dual triggers. Left is the standard pattern across TRIO WFS.</li>
+              <li>Don't use the Right type without reason — Left is the standard pattern across TRIO WFS.</li>
             </ul>
           </div>
         </div>
@@ -374,14 +373,14 @@
           <tr><td>Height — Medium (default)</td><td>38px</td><td>Figma node 492:653</td></tr>
           <tr><td>Font size — Small</td><td>12px (fontSize.xs)</td><td>Figma typography</td></tr>
           <tr><td>Font size — Medium</td><td>14px (fontSize.sm)</td><td>Figma typography</td></tr>
-          <tr><td>Support button width</td><td>Equal to height (square)</td><td>Extracted from Figma</td></tr>
+          <tr><td>Support button padding</td><td>8px horizontal (spacing.sm)</td><td>Extracted from code</td></tr>
           <tr><td>Support button background</td><td>#F5F5F5 — secondary.main</td><td>Figma node 2810:4766</td></tr>
           <tr><td>Search icon size — Small</td><td>16px</td><td>Extracted from Figma</td></tr>
-          <tr><td>Search icon size — Medium</td><td>18px</td><td>Extracted from Figma</td></tr>
+          <tr><td>Search icon size — Medium</td><td>20px</td><td>Extracted from Figma</td></tr>
           <tr><td>Input border</td><td>1px solid #9E9E9E — input.enabledBorder</td><td>TextField token</td></tr>
           <tr><td>Focus ring</td><td>1px #64B5F6 + 3px rgba(66,165,245,0.18) shadow</td><td>components.border.focus</td></tr>
           <tr><td>Border radius</td><td>4px — borderRadius.default</td><td>Design token</td></tr>
-          <tr><td>Type variants</td><td>Left | Right</td><td>Figma variant: Type</td></tr>
+          <tr><td>Type variants</td><td>left | right</td><td>Figma variant: Type</td></tr>
         </tbody>
       </table>
     </section>

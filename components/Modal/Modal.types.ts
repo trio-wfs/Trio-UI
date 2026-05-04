@@ -5,8 +5,8 @@
  * Design System: AHTG Desktop SaaS
  *
  * SIZES:
- * - sm: 500px width
- * - lg: 900px width (max 900px, min 500px)
+ * - sm: 550px width
+ * - lg: 900px width (max 900px, min 550px)
  *
  * PADDING:
  * - Header: 40px L/R, 16px T/B
@@ -23,7 +23,7 @@ import { ReactNode } from 'react';
 
 /**
  * Modal size
- * sm: 448px | lg: 656px
+ * sm: 550px | lg: 900px
  */
 export type ModalSize = 'sm' | 'lg';
 
@@ -53,7 +53,7 @@ export interface ModalProps {
   /** Modal body content */
   children: ReactNode;
 
-  /** Width preset — sm: 448px, lg: 656px */
+  /** Width preset — sm: 550px, lg: 900px */
   size?: ModalSize;
 
   /** Determines confirm button color. destructive uses error (#DB4537) */

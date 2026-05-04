@@ -12,7 +12,7 @@
  *   Figma specs already match theme variants exactly.
  */
 
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Box, Typography } from '@mui/material';
 import { PageHeaderToolbarProps, defaultPageHeaderToolbarProps } from './PageHeaderToolbar.types';
 import { tokens } from '../../design-tokens/tokens';
@@ -28,12 +28,30 @@ export const PageHeaderToolbar = React.forwardRef<HTMLDivElement, PageHeaderTool
   buttonGroupContent,
   inputTextFieldContent,
   breadcrumbContent,
+  scrollContainerRef,
 }, ref) => {
   const isFull = variant === 'full';
   const isNewCanvas = variant === 'NewCanvas';
   const isDefault = variant === 'default';
   const showBreadcrumb = (isFull || isNewCanvas) && !!breadcrumbContent;
   const withBorder = isDefault || isFull;
+
+  // NewCanvas: fade in a bottom divider when the page scrolls
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  const handleScroll = useCallback(() => {
+    const target = scrollContainerRef?.current;
+    const scrollTop = target ? target.scrollTop : window.scrollY;
+    setIsScrolled(scrollTop > 0);
+  }, [scrollContainerRef]);
+
+  useEffect(() => {
+    if (!isNewCanvas) return;
+    const target = scrollContainerRef?.current ?? window;
+    target.addEventListener('scroll', handleScroll as EventListener, { passive: true });
+    handleScroll();
+    return () => target.removeEventListener('scroll', handleScroll as EventListener);
+  }, [isNewCanvas, handleScroll, scrollContainerRef]);
 
   return (
     <Box
@@ -130,6 +148,18 @@ export const PageHeaderToolbar = React.forwardRef<HTMLDivElement, PageHeaderTool
 
       {/* ── Breadcrumb strip ────────────────────────────────── */}
       {showBreadcrumb && breadcrumbContent && <Box>{breadcrumbContent}</Box>}
+
+      {/* ── Scroll divider (NewCanvas only) ───────────────── */}
+      {isNewCanvas && (
+        <Box
+          sx={{
+            height: '1px',
+            backgroundColor: tokens.colors.components.divider,
+            opacity: isScrolled ? 1 : 0,
+            transition: 'opacity 200ms ease',
+          }}
+        />
+      )}
     </Box>
   );
 });

@@ -10,6 +10,16 @@
  */
 
 const DS_CHANGELOG = [
+  { date: '2026-05-04', text: 'Select — new small size variant (28px height, 12px font, 8px padding). All states supported at both sizes.', type: 'Components' },
+  { date: '2026-05-04', text: 'Semantic chart colors added to tokens.ts (charts.info, charts.error, charts.warning, charts.success). Material color strips section added to Colors page. MetricCard now references shared chart tokens.', type: 'Tokens' },
+  { date: '2026-05-04', text: 'Select — disabled state fix: border now uses disabledBorder token (#E0E0E0) instead of enabledBorder (#9E9E9E). Background fill + muted border + disabled text all aligned.', type: 'Components' },
+  { date: '2026-04-29', text: 'PageHeaderToolbar NewCanvas — scroll-triggered bottom divider fades in on scroll (1px, divider color, 200ms ease). New scrollContainerRef prop for nested scroll containers.', type: 'Components' },
+  { date: '2026-04-29', text: 'NavigationVertical — title dropdown selector using Menu component. New props: titleMenuItems, onTitleMenuSelect.', type: 'Components' },
+  { date: '2026-04-29', text: 'Menu showcase — new Trigger Patterns section documenting Button, Input Field, and Chip anchor patterns.', type: 'Guidelines' },
+  { date: '2026-04-29', text: 'Full design system audit — 20+ factual corrections across 13 component showcase pages (wrong dimensions, missing props, stale tokens).', type: 'Components' },
+  { date: '2026-04-29', text: 'Token corrections — success.main #388E3C, success.dark #2E7D32, text.secondary rgba(0,0,0,0.6), Modal small 550px. Updated tokens.ts, design-system.md, CLAUDE.md.', type: 'Tokens' },
+  { date: '2026-04-29', text: 'Overview page — tech stack chips replaced with inline SVG logos (React, TypeScript, MUI, AG Grid, AG Charts, Emotion, Storybook, Figma).', type: 'Branding' },
+  { date: '2026-04-29', text: 'Showcase mount — 16 nav icons added, items[].icon resolution for NavigationVertical.', type: 'Infrastructure' },
   { date: '2026-04-27', text: 'All 28 showcase pages now render live React components via ThemeProvider mount system', type: 'Infrastructure' },
   { date: '2026-04-27', text: '6 new components: DatePicker, PopOver, NumberField, Slider, ProductLogos, Handle', type: 'Components' },
   { date: '2026-04-27', text: 'DatePicker — MUI X wrapper with dayjs, TRIO-themed calendar popup, CalendarMonthOutlined icon', type: 'Components' },
@@ -52,22 +62,81 @@ const DS_CHANGELOG_TYPE_COLORS = {
  * Render changelog entries into a <tbody> element.
  * @param {string} tbodyId - ID of the target tbody
  * @param {number} [limit] - Max entries to show (omit for all)
+ * @param {string} [filterType] - Only show entries of this type (omit for all)
  */
-function renderChangelog(tbodyId, limit) {
+function renderChangelog(tbodyId, limit, filterType) {
   const tbody = document.getElementById(tbodyId);
   if (!tbody) return;
 
-  const entries = limit ? DS_CHANGELOG.slice(0, limit) : DS_CHANGELOG;
+  let entries = filterType
+    ? DS_CHANGELOG.filter(e => e.type === filterType)
+    : DS_CHANGELOG;
+  if (limit) entries = entries.slice(0, limit);
 
   tbody.innerHTML = entries.map((entry, i) => {
     const colors = DS_CHANGELOG_TYPE_COLORS[entry.type] || DS_CHANGELOG_TYPE_COLORS['Infrastructure'];
     const stripe = i % 2 === 1 ? 'background: #FAFAFA;' : '';
     return `<tr style="border-bottom: 1px solid var(--color-secondary-outline); ${stripe}">
-      <td style="padding: 8px 16px; color: var(--color-text-secondary); font-size: 12px; white-space: nowrap;">${entry.date}</td>
-      <td style="padding: 8px 16px; color: var(--color-text-primary);">${entry.text}</td>
-      <td style="padding: 8px 16px;">
+      <td style="padding: 12px 16px; color: var(--color-text-secondary); font-size: 12px; white-space: nowrap;">${entry.date}</td>
+      <td style="padding: 12px 16px; color: var(--color-text-primary); line-height: 20px;">${entry.text}</td>
+      <td style="padding: 12px 16px;">
         <span style="font-size: 11px; padding: 2px 8px; border-radius: 999px; background: ${colors.bg}; color: ${colors.text}; font-weight: 500; white-space: nowrap;">${entry.type}</span>
       </td>
     </tr>`;
   }).join('');
+}
+
+/**
+ * Render filter chips for changelog types into a container element.
+ * Clicking a chip filters the changelog table; clicking again (or "All") resets.
+ * @param {string} containerId - ID of the element to hold filter chips
+ * @param {string} tbodyId - ID of the changelog <tbody> to re-render on filter
+ */
+function renderChangelogFilters(containerId, tbodyId) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  const types = Object.keys(DS_CHANGELOG_TYPE_COLORS);
+  let activeType = null;
+
+  function buildChips() {
+    const allActive = activeType === null;
+    let html = `<button data-filter="all" style="
+      font-family: Roboto, sans-serif; font-size: 12px; font-weight: 500;
+      padding: 4px 12px; border-radius: 999px; cursor: pointer; transition: all 0.15s;
+      border: 1px solid ${allActive ? 'var(--color-primary-main)' : 'var(--color-secondary-outline)'};
+      background: ${allActive ? 'var(--color-primary-main)' : 'var(--color-background-paper)'};
+      color: ${allActive ? '#FFFFFF' : 'var(--color-text-secondary)'};
+    ">All</button>`;
+
+    types.forEach(type => {
+      const colors = DS_CHANGELOG_TYPE_COLORS[type];
+      const isActive = activeType === type;
+      html += `<button data-filter="${type}" style="
+        font-family: Roboto, sans-serif; font-size: 12px; font-weight: 500;
+        padding: 4px 12px; border-radius: 999px; cursor: pointer; transition: all 0.15s;
+        border: 1px solid ${isActive ? colors.text : 'var(--color-secondary-outline)'};
+        background: ${isActive ? colors.bg : 'var(--color-background-paper)'};
+        color: ${isActive ? colors.text : 'var(--color-text-secondary)'};
+      ">${type}</button>`;
+    });
+
+    container.innerHTML = html;
+  }
+
+  function handleClick(e) {
+    const btn = e.target.closest('[data-filter]');
+    if (!btn) return;
+    const filter = btn.getAttribute('data-filter');
+    activeType = (filter === 'all' || filter === activeType) ? null : filter;
+    buildChips();
+    renderChangelog(tbodyId, undefined, activeType);
+  }
+
+  container.style.display = 'flex';
+  container.style.flexWrap = 'wrap';
+  container.style.gap = '8px';
+  container.style.padding = '16px 16px 0';
+  container.addEventListener('click', handleClick);
+  buildChips();
 }

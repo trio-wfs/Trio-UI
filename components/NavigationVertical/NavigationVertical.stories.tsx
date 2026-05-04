@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { NavigationVertical } from './NavigationVertical';
+import type { MenuItem } from '../Menu/Menu.types';
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import PersonSearchOutlinedIcon from '@mui/icons-material/PersonSearchOutlined';
 import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
@@ -119,15 +120,28 @@ export const Collapsed: Story = {
   },
 };
 
-/** With expanded sub-items (inline, no secondary panel) */
-export const WithSubItems: Story = {
+/** Title as dropdown selector — click title to switch programs */
+export const TitleDropdown: Story = {
   render: () => {
+    const programs: MenuItem[] = [
+      { id: 'locums', label: 'Locums Program' },
+      { id: 'travel-nursing', label: 'Travel Nursing' },
+      { id: 'allied-health', label: 'Allied Health' },
+      { id: 'per-diem', label: 'Per Diem Staffing' },
+    ];
     const [state, setState] = useState<'open' | 'closed'>('open');
-    const [activeId, setActiveId] = useState('shifts');
-    const [activeSubId, setActiveSubId] = useState<string | undefined>('grid-view');
+    const [activeId, setActiveId] = useState('dashboard');
+    const [activeSubId, setActiveSubId] = useState<string | undefined>();
+    const [selectedProgram, setSelectedProgram] = useState(programs[0]);
     return (
       <NavigationVertical
-        {...headerProps}
+        title={selectedProgram.label}
+        subtitle="Sunset Grove Medical Hospital"
+        titleMenuItems={programs.map(p => ({
+          ...p,
+          selected: p.id === selectedProgram.id,
+        }))}
+        onTitleMenuSelect={(item) => setSelectedProgram(item)}
         items={items}
         state={state}
         activeId={activeId}
@@ -139,34 +153,13 @@ export const WithSubItems: Story = {
   },
 };
 
-/** Sub-section mode — secondary panel slides out for sub-items */
-export const SubSectionPanel: Story = {
-  render: () => {
-    const [state, setState] = useState<'open' | 'closed'>('open');
-    const [activeId, setActiveId] = useState('membership');
-    const [activeSubId, setActiveSubId] = useState<string | undefined>('resources');
-    return (
-      <NavigationVertical
-        {...headerProps}
-        items={items}
-        state={state}
-        activeId={activeId}
-        activeSubId={activeSubId}
-        subSection
-        onNavigate={(id, subId) => { setActiveId(id); setActiveSubId(subId); }}
-        onToggleState={() => setState(s => s === 'open' ? 'closed' : 'open')}
-      />
-    );
-  },
-};
-
-/** With settings section (inline) */
-export const WithSettings: Story = {
+/** Settings sub-section — open with secondary panel toggle */
+export const SettingsSubSection: Story = {
   render: () => {
     const [state, setState] = useState<'open' | 'closed'>('open');
     const [activeId, setActiveId] = useState('dashboard');
     const [activeSubId, setActiveSubId] = useState<string | undefined>();
-    const [activeSettingsId, setActiveSettingsId] = useState<string | undefined>();
+    const [activeSettingsId, setActiveSettingsId] = useState<string | undefined>('program-details');
     return (
       <NavigationVertical
         {...headerProps}
@@ -175,6 +168,7 @@ export const WithSettings: Story = {
         activeId={activeId}
         activeSubId={activeSubId}
         settings
+        subSection
         settingsItems={settingsItems}
         activeSettingsId={activeSettingsId}
         onNavigate={(id, subId) => {
@@ -186,64 +180,8 @@ export const WithSettings: Story = {
             setActiveSettingsId(undefined);
           }
         }}
-        onToggleState={() => setState(s => s === 'open' ? 'closed' : 'open')}
-      />
-    );
-  },
-};
-
-/** Collapsed with settings gear icon */
-export const CollapsedWithSettings: Story = {
-  render: () => {
-    const [state, setState] = useState<'open' | 'closed'>('closed');
-    const [activeId, setActiveId] = useState('dashboard');
-    const [activeSettingsId, setActiveSettingsId] = useState<string | undefined>();
-    return (
-      <NavigationVertical
-        {...headerProps}
-        items={items}
-        state={state}
-        activeId={activeId}
-        settings
-        settingsItems={settingsItems}
-        activeSettingsId={activeSettingsId}
-        onNavigate={(id) => {
-          if (settingsItems.find(s => s.id === id)) {
-            setActiveSettingsId(id);
-          } else {
-            setActiveId(id);
-            setActiveSettingsId(undefined);
-          }
-        }}
-        onToggleState={() => setState(s => s === 'open' ? 'closed' : 'open')}
-      />
-    );
-  },
-};
-
-/** Settings with sub-section secondary panel */
-export const SettingsSubSection: Story = {
-  render: () => {
-    const [state, setState] = useState<'open' | 'closed'>('open');
-    const [activeId, setActiveId] = useState('dashboard');
-    const [activeSettingsId, setActiveSettingsId] = useState<string | undefined>('program-details');
-    return (
-      <NavigationVertical
-        {...headerProps}
-        items={items}
-        state={state}
-        activeId={activeId}
-        settings
-        subSection
-        settingsItems={settingsItems}
-        activeSettingsId={activeSettingsId}
-        onNavigate={(id, subId) => {
-          if (settingsItems.find(s => s.id === id)) {
-            setActiveSettingsId(id);
-          } else {
-            setActiveId(id);
-            setActiveSettingsId(undefined);
-          }
+        onToggleSettings={() => {
+          setActiveSettingsId(prev => prev ? undefined : settingsItems[0]?.id);
         }}
         onToggleState={() => setState(s => s === 'open' ? 'closed' : 'open')}
       />

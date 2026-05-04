@@ -27,6 +27,7 @@ import {
   Typography,
   Tooltip,
 } from '@mui/material';
+import { Button } from '../Button/Button';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -38,6 +39,8 @@ import {
   NavSettingsItem,
   defaultNavigationVerticalProps,
 } from './NavigationVertical.types';
+import { Menu } from '../Menu/Menu';
+import { MenuItem } from '../Menu/Menu.types';
 import { tokens } from '../../design-tokens/tokens';
 
 const NAV_WIDTH_OPEN = 260;
@@ -105,7 +108,7 @@ const RailItem: React.FC<{
           '&.Mui-selected': { backgroundColor: tokens.colors.primary.selected },
           '&.Mui-selected:hover': { backgroundColor: tokens.colors.primary.selected },
         } : {
-          '&:hover': { backgroundColor: tokens.colors.background.secondary },
+          '&:hover': { backgroundColor: tokens.colors.action.hover },
         }),
       }}
     >
@@ -220,7 +223,7 @@ const SettingsNavItem: React.FC<{
       borderLeft: isActive
         ? `3px solid ${tokens.colors.primary.dark}`
         : '3px solid transparent',
-      borderRadius: `${tokens.borderRadius.default}px`,
+      borderRadius: 0,
       paddingLeft: `${tokens.spacing.md}px`,
       paddingRight: `${tokens.spacing.md}px`,
       paddingTop: `${tokens.spacing.sm}px`,
@@ -256,6 +259,7 @@ const SecondaryPanel: React.FC<{
   <Box
     sx={{
       width: NAV_WIDTH_OPEN,
+      height: '100%',
       overflowY: 'auto',
       padding: `${tokens.spacing.sm}px`,
       borderLeft: `1px solid ${tokens.colors.secondary.outline}`,
@@ -298,14 +302,23 @@ export const NavigationVertical = React.forwardRef<HTMLDivElement, NavigationVer
   activeSettingsId,
   subSection = defaultNavigationVerticalProps.subSection!,
   onToggleState,
+  onToggleSettings,
   title,
   subtitle,
   titleDropdown,
   onTitleClick,
+  titleMenuItems,
+  onTitleMenuSelect,
 }, ref) => {
   const [expandedIds, setExpandedIds] = useState<Set<string>>(
     () => new Set(activeId ? [activeId] : [])
   );
+  const [titleMenuAnchor, setTitleMenuAnchor] = useState<HTMLElement | null>(null);
+  const titleMenuOpen = Boolean(titleMenuAnchor);
+
+  // When titleMenuItems is provided, the title is always a dropdown
+  const hasTitleMenu = titleMenuItems && titleMenuItems.length > 0;
+  const showDropdownChevron = titleDropdown || hasTitleMenu;
 
   const isCollapsed = state === 'closed';
 
@@ -317,10 +330,8 @@ export const NavigationVertical = React.forwardRef<HTMLDivElement, NavigationVer
     });
   };
 
-  // Determine if secondary panel should show
-  const activeItem = items.find(i => i.id === activeId);
-  const showSubPanel = subSection && activeItem?.expandable && activeItem.subItems && activeItem.subItems.length > 0;
-  const showSettingsPanel = subSection && settings && settingsItems.length > 0 && activeSettingsId;
+  // Determine if settings secondary panel should show
+  const showSettingsPanel = subSection && settings && settingsItems.length > 0 && !!activeSettingsId;
 
   return (
     <Box ref={ref} sx={{ display: 'flex' }}>
@@ -349,8 +360,14 @@ export const NavigationVertical = React.forwardRef<HTMLDivElement, NavigationVer
           >
             {!isCollapsed && title && (
               <Box
-                component={onTitleClick ? 'button' : 'div'}
-                onClick={onTitleClick}
+                component={(hasTitleMenu || onTitleClick) ? 'button' : 'div'}
+                onClick={(e: React.MouseEvent<HTMLElement>) => {
+                  if (hasTitleMenu) {
+                    setTitleMenuAnchor(e.currentTarget);
+                  } else {
+                    onTitleClick?.();
+                  }
+                }}
                 sx={{
                   flex: 1,
                   display: 'flex',
@@ -360,7 +377,7 @@ export const NavigationVertical = React.forwardRef<HTMLDivElement, NavigationVer
                   background: 'none',
                   padding: 0,
                   pl: `${tokens.spacing.sm}px`,
-                  cursor: onTitleClick ? 'pointer' : 'default',
+                  cursor: (hasTitleMenu || onTitleClick) ? 'pointer' : 'default',
                   minWidth: 0,
                 }}
               >
@@ -378,8 +395,10 @@ export const NavigationVertical = React.forwardRef<HTMLDivElement, NavigationVer
                 >
                   {title}
                 </Typography>
-                {titleDropdown && (
-                  <KeyboardArrowDownIcon sx={{ fontSize: 16, color: tokens.colors.text.primary, flexShrink: 0 }} />
+                {showDropdownChevron && (
+                  titleMenuOpen
+                    ? <KeyboardArrowUpIcon sx={{ fontSize: 16, color: tokens.colors.text.primary, flexShrink: 0 }} />
+                    : <KeyboardArrowDownIcon sx={{ fontSize: 16, color: tokens.colors.text.primary, flexShrink: 0 }} />
                 )}
               </Box>
             )}
@@ -400,7 +419,7 @@ export const NavigationVertical = React.forwardRef<HTMLDivElement, NavigationVer
                 color: ICON_DEFAULT,
                 cursor: 'pointer',
                 flexShrink: 0,
-                '&:hover': { backgroundColor: tokens.colors.background.secondary },
+                '&:hover': { backgroundColor: tokens.colors.action.hover },
               }}
             >
               {isCollapsed ? <MenuIcon sx={{ fontSize: 20 }} /> : <MenuOpenIcon sx={{ fontSize: 20 }} />}
@@ -457,7 +476,7 @@ export const NavigationVertical = React.forwardRef<HTMLDivElement, NavigationVer
                     onNavigate?.(item.id);
                   }}
                 />
-                {!subSection && item.expandable && item.subItems && item.subItems.length > 0 && (
+                {item.expandable && item.subItems && item.subItems.length > 0 && (
                   <Collapse in={isExpanded} timeout="auto" unmountOnExit>
                     <List disablePadding sx={{ mt: `${tokens.spacing.xs}px`, display: 'flex', flexDirection: 'column', gap: `${tokens.spacing.md}px` }}>
                       {item.subItems.map(sub => (
@@ -500,7 +519,7 @@ export const NavigationVertical = React.forwardRef<HTMLDivElement, NavigationVer
                       backgroundColor: tokens.colors.primary.selected,
                       '&:hover': { backgroundColor: tokens.colors.primary.selected },
                     } : {
-                      '&:hover': { backgroundColor: tokens.colors.background.secondary },
+                      '&:hover': { backgroundColor: tokens.colors.action.hover },
                     }),
                   }}
                 >
@@ -539,35 +558,17 @@ export const NavigationVertical = React.forwardRef<HTMLDivElement, NavigationVer
                   </>
                 )}
                 {subSection && (
-                  <ListItemButton
-                    onClick={() => settingsItems[0] && onNavigate?.(settingsItems[0].id)}
-                    sx={{
-                      ...navItemBaseSx,
-                      ...(activeSettingsId ? navItemSelectedSx : {}),
-                    }}
-                  >
-                    <ListItemIcon
-                      sx={{
-                        minWidth: 'unset',
-                        color: activeSettingsId ? 'inherit' : ICON_DEFAULT,
-                        '& .MuiSvgIcon-root': { fontSize: 20 },
-                      }}
-                    >
-                      <SettingsOutlinedIcon />
-                    </ListItemIcon>
-                    <ListItemText
-                      primary="Program Settings"
-                      sx={{
-                        my: 0,
-                        '& .MuiListItemText-primary': {
-                          fontFamily: tokens.typography.fontFamily,
-                          fontSize: `${tokens.typography.fontSize.sm}px`,
-                          fontWeight: tokens.typography.fontWeight.regular,
-                          color: 'inherit',
-                        },
-                      }}
+                  <Box sx={{ width: '100%', '& .MuiButton-root': { width: '100%' } }}>
+                    <Divider sx={{ my: `${tokens.spacing.md}px`, borderColor: tokens.colors.components.divider }} />
+                    <Button
+                      size="small"
+                      color="secondary"
+                      variant="contained"
+                      startIcon={<SettingsOutlinedIcon sx={{ fontSize: '16px !important' }} />}
+                      onClick={onToggleSettings}
+                      label="Program Settings"
                     />
-                  </ListItemButton>
+                  </Box>
                 )}
               </>
             )}
@@ -575,22 +576,37 @@ export const NavigationVertical = React.forwardRef<HTMLDivElement, NavigationVer
         )}
       </Box>
 
-      {/* ── Secondary slide-out panel ── */}
-      {subSection && showSubPanel && !isCollapsed && (
-        <SecondaryPanel
-          title={activeItem!.label}
-          items={activeItem!.subItems!}
-          activeId={activeSubId}
-          onNavigate={(subId) => onNavigate?.(activeId!, subId)}
+      {/* ── Title dropdown menu ── */}
+      {hasTitleMenu && (
+        <Menu
+          anchorEl={titleMenuAnchor}
+          open={titleMenuOpen}
+          onClose={() => setTitleMenuAnchor(null)}
+          items={titleMenuItems.map((item) => ({
+            ...item,
+            onClick: () => {
+              onTitleMenuSelect?.(item);
+              setTitleMenuAnchor(null);
+            },
+          }))}
         />
       )}
-      {subSection && showSettingsPanel && !isCollapsed && (
-        <SecondaryPanel
-          title="Program Settings"
-          items={settingsItems}
-          activeId={activeSettingsId}
-          onNavigate={(id) => onNavigate?.(id)}
-        />
+
+      {/* ── Settings secondary panel (animated) ── */}
+      {subSection && settings && !isCollapsed && (
+        <Collapse
+          in={showSettingsPanel}
+          orientation="horizontal"
+          timeout={200}
+          sx={{ alignSelf: 'stretch', '& .MuiCollapse-wrapperInner': { height: '100%' } }}
+        >
+          <SecondaryPanel
+            title="Program Settings"
+            items={settingsItems}
+            activeId={activeSettingsId}
+            onNavigate={(id) => onNavigate?.(id)}
+          />
+        </Collapse>
       )}
     </Box>
   );

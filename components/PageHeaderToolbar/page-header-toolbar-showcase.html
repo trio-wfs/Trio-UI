@@ -160,7 +160,7 @@
             Variants
           </div>
           <div class="card-content">
-            The <strong>full</strong> variant includes title, chips, eyebrow, actions, and breadcrumb strip. The <strong>default</strong> strips it back to title + buttons only. <strong>NewCanvas</strong> removes the outer card border.
+            The <strong>full</strong> variant includes title, chips, eyebrow, actions, and breadcrumb strip. The <strong>default</strong> strips it back to title + buttons only. <strong>NewCanvas</strong> removes the outer card border and adds a scroll-triggered bottom divider — a 1px line that fades in when the page content scrolls, providing visual separation between the fixed header and moving content.
           </div>
         </div>
         <div class="card">
@@ -245,7 +245,7 @@
 
         <!-- NewCanvas -->
         <div>
-          <div class="demo-label">NewCanvas (no outer border)</div>
+          <div class="demo-label">NewCanvas (no outer border, scroll divider fades in on scroll)</div>
           <div data-trio-component="PageHeaderToolbar" data-trio-props='{"variant":"NewCanvas","pageTitleText":"Per Diem Shift Scheduler","eyebrowText":"Eyebrow Text Placement (Header Support text)"}'></div>
         </div>
 
@@ -327,6 +327,30 @@
       </div>
     </section>
 
+    <!-- PROPS API -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">code</span>
+        Props API
+      </h2>
+      <table class="property-table">
+        <thead><tr><th>Prop</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><code>variant</code></td><td><code>'default' | 'full' | 'NewCanvas'</code></td><td><code>'full'</code></td><td>default = title + buttons only; full = title + chips + eyebrow + breadcrumb; NewCanvas = full without outer border + scroll-triggered bottom divider</td></tr>
+          <tr><td><code>pageTitleText</code></td><td><code>string</code></td><td>Required</td><td>Page title displayed in the header</td></tr>
+          <tr><td><code>titleIcons</code></td><td><code>ReactNode</code></td><td>-</td><td>Small icons rendered inline next to the title</td></tr>
+          <tr><td><code>eyebrowText</code></td><td><code>string</code></td><td>-</td><td>Support text below the title (full/NewCanvas variants)</td></tr>
+          <tr><td><code>chipItems</code></td><td><code>ReactNode</code></td><td>-</td><td>Chip tags shown below the title area (full variant only)</td></tr>
+          <tr><td><code>indicatorLabel</code></td><td><code>string</code></td><td>-</td><td>Status indicator label — renders a primary-colored left bar</td></tr>
+          <tr><td><code>singleButtonContent</code></td><td><code>ReactNode</code></td><td>-</td><td>Single action button on the right side</td></tr>
+          <tr><td><code>buttonGroupContent</code></td><td><code>ReactNode</code></td><td>-</td><td>Button group on the right side</td></tr>
+          <tr><td><code>inputTextFieldContent</code></td><td><code>ReactNode</code></td><td>-</td><td>Text field / search input on the right side</td></tr>
+          <tr><td><code>breadcrumbContent</code></td><td><code>ReactNode</code></td><td>-</td><td>Breadcrumb strip above the title area (full/NewCanvas only)</td></tr>
+          <tr><td><code>scrollContainerRef</code></td><td><code>RefObject&lt;HTMLElement&gt;</code></td><td>window</td><td>Ref to the scrollable parent for the NewCanvas scroll divider. Defaults to window if not provided.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
     <!-- TECHNICAL SPECIFICATIONS -->
     <section class="section">
       <h2 class="section-title">
@@ -336,7 +360,7 @@
       <table class="property-table">
         <thead><tr><th>Property</th><th>Value</th><th>Source</th></tr></thead>
         <tbody>
-          <tr><td>Min height (top bar)</td><td>68px</td><td>Figma node extracted</td></tr>
+          <tr><td>Min height (top bar)</td><td>56px</td><td>Figma node extracted</td></tr>
           <tr><td>Padding</td><td>16px</td><td>Figma node extracted</td></tr>
           <tr><td>Gap (content row)</td><td>16px</td><td>Figma node extracted</td></tr>
           <tr><td>Title font</td><td>20px / 500 / 24px lh (H6)</td><td>Figma node extracted</td></tr>
@@ -347,6 +371,7 @@
           <tr><td>Border</td><td>1px solid border.default (#E0E0E0)</td><td>Figma node extracted</td></tr>
           <tr><td>Border radius</td><td>4px</td><td>Design token</td></tr>
           <tr><td>Breadcrumb height</td><td>40px</td><td>Breadcrumb component</td></tr>
+          <tr><td>Scroll divider (NewCanvas)</td><td>1px solid divider (#E0E0E0), opacity 0→1 on scroll, 200ms ease</td><td>Component</td></tr>
         </tbody>
       </table>
     </section>

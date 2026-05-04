@@ -321,7 +321,7 @@
       </h2>
       <p class="section-description">
         Hover applies an <code>rgba(0,0,0,0.04)</code> overlay (state-layer from Figma).
-        Disabled uses <code>rgba(0,0,0,0.07)</code> background and <code>#9E9E9E</code> text.
+        Disabled uses <code>rgba(0,0,0,0.12)</code> background and <code>rgba(0,0,0,0.4)</code> text.
       </p>
 
       <div class="variant-group">
@@ -365,8 +365,8 @@
         Icon Combinations
       </h2>
       <p class="section-description">
-        Both icons are optional. The left icon (<code>check</code>) signals selection/confirmation.
-        The right icon (<code>cancel</code>) triggers deletion/removal.
+        Both icons are optional and accept any icon element. The left icon is commonly a check mark for selection/confirmation.
+        The right icon triggers deletion/removal via <code>onDelete</code>.
       </p>
 
       <div class="variant-group">
@@ -541,10 +541,11 @@
         <tbody>
           <tr><td>Height (md)</td><td>32px</td><td>2384:9253</td><td>--</td></tr>
           <tr><td>Height (sm)</td><td>24px</td><td>5612:3236</td><td>--</td></tr>
-          <tr><td>Wrapper padding</td><td>4px all sides</td><td>5608:1244 (wrapper)</td><td>spacing.xs</td></tr>
+          <tr><td>Wrapper padding</td><td>0px 4px (vertical / horizontal)</td><td>5608:1244 (wrapper)</td><td>spacing.xs (horizontal only)</td></tr>
           <tr><td>Inner gap</td><td>4px</td><td>2384:9254 (label)</td><td>spacing.xs</td></tr>
           <tr><td>Border radius</td><td>999px (pill)</td><td>5608:1244 (wrapper)</td><td>--</td></tr>
-          <tr><td>Icon size</td><td>24px x 24px</td><td>2384:9255, 2384:9257</td><td>--</td></tr>
+          <tr><td>Icon size (medium)</td><td>16px</td><td>2384:9255, 2384:9257</td><td>--</td></tr>
+          <tr><td>Icon size (small)</td><td>14px</td><td>2384:9255, 2384:9257</td><td>--</td></tr>
           <tr><td>Font size</td><td>12px</td><td>2384:9256</td><td>typography.button.sm.fontSize</td></tr>
           <tr><td>Font weight</td><td>400 (Regular)</td><td>2384:9256</td><td>typography.button.sm.fontWeight</td></tr>
           <tr><td>Line height</td><td>12px</td><td>2384:9256</td><td>typography.button.sm.lineHeight</td></tr>
@@ -555,8 +556,8 @@
           <tr><td>Error bg (contained)</td><td>#DB4537</td><td>5608:2607</td><td>colors.error.main</td></tr>
           <tr><td>Default outline border</td><td>#E0E0E0</td><td>5608:1372</td><td>colors.secondary.outline</td></tr>
           <tr><td>Hover overlay</td><td>rgba(0,0,0,0.04)</td><td>5608:2548 (state-layer)</td><td>colors.action.hover</td></tr>
-          <tr><td>Disabled bg</td><td>rgba(0,0,0,0.07)</td><td>5608:1303</td><td>colors.action.disabled</td></tr>
-          <tr><td>Disabled text</td><td>#9E9E9E</td><td>5608:1306</td><td>colors.text.disabled</td></tr>
+          <tr><td>Disabled bg</td><td>rgba(0,0,0,0.12)</td><td>5608:1303</td><td>colors.action.disabled</td></tr>
+          <tr><td>Disabled text</td><td>rgba(0,0,0,0.4)</td><td>5608:1306</td><td>colors.text.disabled</td></tr>
         </tbody>
       </table>
     </section>
@@ -584,10 +585,10 @@
         <tbody>
           <tr>
             <td><code>size</code></td>
-            <td><code>'md' | 'sm'</code></td>
-            <td><code>'md'</code></td>
+            <td><code>'medium' | 'small'</code></td>
+            <td><code>'medium'</code></td>
             <td>size</td>
-            <td>Height: md=32px, sm=24px</td>
+            <td>Height: medium=32px, small=24px</td>
           </tr>
           <tr>
             <td><code>color</code></td>
@@ -612,17 +613,17 @@
           </tr>
           <tr>
             <td><code>iconLeft</code></td>
-            <td><code>boolean</code></td>
-            <td><code>true</code></td>
+            <td><code>React.ReactNode</code></td>
+            <td><code>undefined</code></td>
             <td>iconLeft</td>
-            <td>Shows the Material Icon 'check' (24px) on the left side.</td>
+            <td>Any icon element on the left side. Pass any MUI icon (e.g. <code>&lt;Check /&gt;</code>). Size: 14px (small) / 16px (medium).</td>
           </tr>
           <tr>
             <td><code>iconRight</code></td>
-            <td><code>boolean</code></td>
-            <td><code>true</code></td>
+            <td><code>React.ReactNode</code></td>
+            <td><code>undefined</code></td>
             <td>iconRight</td>
-            <td>Shows the Material Icon 'cancel' (24px) on the right. Triggers onDelete.</td>
+            <td>Any icon element on the right side. Triggers onDelete when present. Size: 14px (small) / 16px (medium).</td>
           </tr>
           <tr>
             <td><code>label</code></td>

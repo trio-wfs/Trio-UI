@@ -153,6 +153,22 @@
       display: block;
       width: 100%;
     }
+
+    /* Nav demo containers need a fixed height */
+    .nav-demo-container {
+      height: 560px;
+      display: flex;
+      background: var(--color-background-secondary);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .nav-demo-container-short {
+      height: 320px;
+      display: flex;
+      background: var(--color-background-secondary);
+      border-radius: 4px;
+      overflow: hidden;
+    }
   </style>
   <script src="../../design-system-nav.js"></script>
   <script type="module" src="../../showcase/dist/showcase.js"></script>
@@ -164,7 +180,7 @@
     <!-- PAGE HEADER -->
     <header class="page-header">
       <h1 class="page-title">Navigation Vertical</h1>
-      <p class="page-subtitle">The primary left-sidebar navigation used across all TRIO WFS desktop views.</p>
+      <p class="page-subtitle">The primary left-sidebar navigation used across all TRIO WFS desktop views. Supports open/closed states, a title header with optional dropdown selector, expandable sub-items, settings sections, and a secondary slide-out panel.</p>
       <div class="component-meta">
         <span><span class="material-icons-outlined" style="font-size: 14px;">category</span> Custom Component</span>
         <a href="#" class="meta-link"><span class="material-icons-outlined" style="font-size: 14px;">menu_book</span> Storybook</a>
@@ -186,7 +202,7 @@
             Purpose
           </div>
           <div class="card-content">
-            NavigationVertical is the persistent left-rail navigation. It holds primary section links with icons, supports expandable sub-navigation, and includes an optional settings section at the bottom.
+            NavigationVertical is the persistent left-rail navigation. It holds primary section links with icons, supports expandable sub-navigation, an optional settings section, and a title header that can act as a program/context selector dropdown.
           </div>
         </div>
         <div class="card">
@@ -195,21 +211,315 @@
             Layout
           </div>
           <div class="card-content">
-            Width is fixed at 260px. Primary items use icon + label + optional chevron. Settings section uses a distinct left-border selected style instead of background fill.
+            Open state is 260px with icon + label + chevron. Closed state collapses to a 72px icon rail with tooltips. A hamburger toggle switches between states. Title and subtitle appear above the nav items.
           </div>
         </div>
         <div class="card">
           <div class="card-title">
-            <span class="material-icons-outlined" style="color: var(--color-primary-main);">accessibility</span>
-            Accessibility
+            <span class="material-icons-outlined" style="color: var(--color-primary-main);">swap_horiz</span>
+            Title Dropdown
           </div>
           <div class="card-content">
-            All nav items are keyboard-navigable buttons. Expandable items toggle aria-expanded. Settings items are visually differentiated from primary nav for quick scanning.
+            The title can be a static header or a dropdown selector using the Menu component. Use this to let users switch between programs, facilities, or other top-level contexts without leaving the current view.
           </div>
         </div>
       </div>
+
+      <!-- Full nav demo -->
       <div class="demo-panel" style="margin-top: var(--spacing-md);">
-        <div data-trio-component="NavigationVertical" data-trio-props='{"state":"open","activeId":"dashboard","settings":true,"activeSettingsId":"program-details","items":[{"id":"dashboard","label":"Dashboard","icon":"Dashboard"},{"id":"orders","label":"Orders","expandable":true,"subItems":[{"id":"open-orders","label":"Open Orders"},{"id":"filled-orders","label":"Filled Orders"},{"id":"cancelled","label":"Cancelled"}]},{"id":"workers","label":"Workers","icon":"People"},{"id":"shifts","label":"Shifts","icon":"Schedule"},{"id":"credentialing","label":"Credentialing","icon":"VerifiedUser"}],"settingsItems":[{"id":"program-details","label":"Program Details"},{"id":"users-roles","label":"Users & Roles"},{"id":"notifications","label":"Notifications"}]}'></div>
+        <div class="demo-label" style="margin-bottom: var(--spacing-sm);">Full navigation — open state with title, subtitle, and settings</div>
+        <div class="nav-demo-container">
+          <div data-trio-component="NavigationVertical" data-trio-props='{
+            "state": "open",
+            "title": "Locums Program",
+            "subtitle": "Sunset Grove Medical Hospital",
+            "titleDropdown": true,
+            "activeId": "dashboard",
+            "settings": true,
+            "activeSettingsId": "program-details",
+            "items": [
+              {"id": "dashboard", "label": "Dashboard", "icon": "DashboardOutlined"},
+              {"id": "recruiting", "label": "Recruiting", "icon": "PersonSearchOutlined"},
+              {"id": "membership", "label": "Membership", "icon": "GroupsOutlined", "expandable": true, "subItems": [{"id": "resources", "label": "Resources"}, {"id": "resource-pools", "label": "Resource Pools"}]},
+              {"id": "segment-activity", "label": "(Segment) Activity", "icon": "AssignmentIndOutlined"},
+              {"id": "tasks", "label": "Tasks", "icon": "ChecklistOutlined"},
+              {"id": "jobs", "label": "Jobs", "icon": "BusinessCenterOutlined"},
+              {"id": "submissions", "label": "Submissions", "icon": "AssignmentTurnedInOutlined"},
+              {"id": "shifts", "label": "Shifts", "icon": "ScheduleOutlined", "expandable": true, "subItems": [{"id": "grid-view", "label": "Grid View"}, {"id": "calendar-view", "label": "Calendar View"}]},
+              {"id": "billing", "label": "Billing", "icon": "MonetizationOnOutlined", "expandable": true, "subItems": [{"id": "time-collection", "label": "Time Collection"}, {"id": "timecards", "label": "Timecards"}]},
+              {"id": "reports", "label": "Reports", "icon": "FolderCopyOutlined"}
+            ],
+            "settingsItems": [
+              {"id": "program-details", "label": "Program Details"},
+              {"id": "provider-confirmation", "label": "Provider Confirmation"},
+              {"id": "task-automations", "label": "Task Automations"}
+            ]
+          }'></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VARIANTS -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">widgets</span>
+        Variants
+      </h2>
+
+      <!-- Open vs Closed -->
+      <p class="section-description">
+        The nav has two primary states controlled by the hamburger toggle button.
+      </p>
+      <div class="demo-panel">
+        <div class="demo-row">
+          <div class="demo-col" style="flex: 0 0 auto;">
+            <div class="demo-label">Open (260px) — icons + labels</div>
+            <div class="nav-demo-container-short">
+              <div data-trio-component="NavigationVertical" data-trio-props='{
+                "state": "open",
+                "title": "Locums Program",
+                "subtitle": "Sunset Grove Medical Hospital",
+                "activeId": "dashboard",
+                "items": [
+                  {"id": "dashboard", "label": "Dashboard", "icon": "DashboardOutlined"},
+                  {"id": "recruiting", "label": "Recruiting", "icon": "PersonSearchOutlined"},
+                  {"id": "membership", "label": "Membership", "icon": "GroupsOutlined"},
+                  {"id": "shifts", "label": "Shifts", "icon": "ScheduleOutlined"},
+                  {"id": "billing", "label": "Billing", "icon": "MonetizationOnOutlined"}
+                ]
+              }'></div>
+            </div>
+          </div>
+          <div class="demo-col" style="flex: 0 0 auto;">
+            <div class="demo-label">Closed (72px) — icon rail with tooltips</div>
+            <div class="nav-demo-container-short">
+              <div data-trio-component="NavigationVertical" data-trio-props='{
+                "state": "closed",
+                "title": "Locums Program",
+                "subtitle": "Sunset Grove Medical Hospital",
+                "activeId": "dashboard",
+                "items": [
+                  {"id": "dashboard", "label": "Dashboard", "icon": "DashboardOutlined"},
+                  {"id": "recruiting", "label": "Recruiting", "icon": "PersonSearchOutlined"},
+                  {"id": "membership", "label": "Membership", "icon": "GroupsOutlined"},
+                  {"id": "shifts", "label": "Shifts", "icon": "ScheduleOutlined"},
+                  {"id": "billing", "label": "Billing", "icon": "MonetizationOnOutlined"}
+                ]
+              }'></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Title Header -->
+      <div style="margin-top: var(--spacing-lg);">
+        <h3 style="font-size: 16px; font-weight: 500; margin-bottom: var(--spacing-sm); color: var(--color-text-primary);">Title Header</h3>
+        <p class="section-description">
+          The title area sits above the nav items, separated by a divider. It supports three modes:
+          <strong>static text</strong> (no interaction), <strong>clickable</strong> (custom onTitleClick handler),
+          or <strong>dropdown selector</strong> (pass titleMenuItems to open a Menu on click).
+          The subtitle provides secondary context like a facility name.
+        </p>
+        <div class="demo-panel">
+          <div class="demo-row">
+            <div class="demo-col" style="flex: 0 0 auto;">
+              <div class="demo-label">Static title</div>
+              <div class="nav-demo-container-short">
+                <div data-trio-component="NavigationVertical" data-trio-props='{
+                  "state": "open",
+                  "title": "Locums Program",
+                  "subtitle": "Sunset Grove Medical Hospital",
+                  "activeId": "dashboard",
+                  "items": [
+                    {"id": "dashboard", "label": "Dashboard", "icon": "DashboardOutlined"},
+                    {"id": "shifts", "label": "Shifts", "icon": "ScheduleOutlined"}
+                  ]
+                }'></div>
+              </div>
+            </div>
+            <div class="demo-col" style="flex: 0 0 auto;">
+              <div class="demo-label">Dropdown title (chevron indicator)</div>
+              <div class="nav-demo-container-short">
+                <div data-trio-component="NavigationVertical" data-trio-props='{
+                  "state": "open",
+                  "title": "Locums Program",
+                  "subtitle": "Sunset Grove Medical Hospital",
+                  "titleDropdown": true,
+                  "activeId": "dashboard",
+                  "items": [
+                    {"id": "dashboard", "label": "Dashboard", "icon": "DashboardOutlined"},
+                    {"id": "shifts", "label": "Shifts", "icon": "ScheduleOutlined"}
+                  ]
+                }'></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Expandable Items -->
+      <div style="margin-top: var(--spacing-lg);">
+        <h3 style="font-size: 16px; font-weight: 500; margin-bottom: var(--spacing-sm); color: var(--color-text-primary);">Expandable Sub-Items</h3>
+        <p class="section-description">
+          Items with <code>expandable: true</code> show a 16px chevron on the right. Clicking toggles the chevron
+          direction and reveals sub-items indented 40px. Selected sub-item text uses primary.dark.
+        </p>
+        <div class="demo-panel">
+          <div class="demo-row">
+            <div class="demo-col" style="flex: 0 0 auto;">
+              <div class="demo-label">Collapsed</div>
+              <div class="nav-demo-container-short">
+                <div data-trio-component="NavigationVertical" data-trio-props='{
+                  "state": "open",
+                  "title": "Locums Program",
+                  "items": [
+                    {"id": "shifts", "label": "Shifts", "icon": "ScheduleOutlined", "expandable": true, "subItems": [{"id": "grid-view", "label": "Grid View"}, {"id": "calendar-view", "label": "Calendar View"}]}
+                  ]
+                }'></div>
+              </div>
+            </div>
+            <div class="demo-col" style="flex: 0 0 auto;">
+              <div class="demo-label">Expanded with selection</div>
+              <div class="nav-demo-container-short">
+                <div data-trio-component="NavigationVertical" data-trio-props='{
+                  "state": "open",
+                  "title": "Locums Program",
+                  "activeId": "shifts",
+                  "activeSubId": "grid-view",
+                  "items": [
+                    {"id": "shifts", "label": "Shifts", "icon": "ScheduleOutlined", "expandable": true, "subItems": [{"id": "grid-view", "label": "Grid View"}, {"id": "calendar-view", "label": "Calendar View"}]}
+                  ]
+                }'></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Settings + SubSection -->
+      <div style="margin-top: var(--spacing-lg);">
+        <h3 style="font-size: 16px; font-weight: 500; margin-bottom: var(--spacing-sm); color: var(--color-text-primary);">Settings &amp; SubSection Panel</h3>
+        <p class="section-description">
+          When <code>settings</code> is enabled, a settings section appears at the bottom. With <code>subSection</code> enabled,
+          settings items appear in a 260px secondary panel that slides out to the right, triggered by a "Program Settings" button.
+          Without subSection, settings items render inline with a left-border selected style.
+        </p>
+        <div class="demo-panel">
+          <div class="demo-row">
+            <div class="demo-col" style="flex: 0 0 auto;">
+              <div class="demo-label">Inline settings (no subSection)</div>
+              <div class="nav-demo-container-short">
+                <div data-trio-component="NavigationVertical" data-trio-props='{
+                  "state": "open",
+                  "title": "Locums Program",
+                  "activeId": "dashboard",
+                  "settings": true,
+                  "activeSettingsId": "program-details",
+                  "items": [
+                    {"id": "dashboard", "label": "Dashboard", "icon": "DashboardOutlined"},
+                    {"id": "shifts", "label": "Shifts", "icon": "ScheduleOutlined"}
+                  ],
+                  "settingsItems": [
+                    {"id": "program-details", "label": "Program Details"},
+                    {"id": "provider-confirmation", "label": "Provider Confirmation"},
+                    {"id": "task-automations", "label": "Task Automations"}
+                  ]
+                }'></div>
+              </div>
+            </div>
+            <div class="demo-col" style="flex: 1 1 auto;">
+              <div class="demo-label">SubSection panel (slides out right)</div>
+              <div class="nav-demo-container-short">
+                <div data-trio-component="NavigationVertical" data-trio-props='{
+                  "state": "open",
+                  "title": "Locums Program",
+                  "activeId": "dashboard",
+                  "settings": true,
+                  "subSection": true,
+                  "activeSettingsId": "program-details",
+                  "items": [
+                    {"id": "dashboard", "label": "Dashboard", "icon": "DashboardOutlined"},
+                    {"id": "shifts", "label": "Shifts", "icon": "ScheduleOutlined"}
+                  ],
+                  "settingsItems": [
+                    {"id": "program-details", "label": "Program Details"},
+                    {"id": "provider-confirmation", "label": "Provider Confirmation"},
+                    {"id": "task-automations", "label": "Task Automations"}
+                  ]
+                }'></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATES -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">toggle_on</span>
+        States
+      </h2>
+      <p class="section-description">Each nav item has three interactive states. The closed rail uses the same color logic in a 40px square icon button.</p>
+      <div class="demo-panel">
+        <div class="demo-row">
+          <div class="demo-col" style="flex: 0 0 auto;">
+            <div class="demo-label">Default (no selection)</div>
+            <div class="nav-demo-container-short">
+              <div data-trio-component="NavigationVertical" data-trio-props='{
+                "state": "open",
+                "title": "Locums Program",
+                "items": [
+                  {"id": "dashboard", "label": "Dashboard", "icon": "DashboardOutlined"},
+                  {"id": "shifts", "label": "Shifts", "icon": "ScheduleOutlined"}
+                ]
+              }'></div>
+            </div>
+          </div>
+          <div class="demo-col" style="flex: 0 0 auto;">
+            <div class="demo-label">Selected item</div>
+            <div class="nav-demo-container-short">
+              <div data-trio-component="NavigationVertical" data-trio-props='{
+                "state": "open",
+                "title": "Locums Program",
+                "activeId": "dashboard",
+                "items": [
+                  {"id": "dashboard", "label": "Dashboard", "icon": "DashboardOutlined"},
+                  {"id": "shifts", "label": "Shifts", "icon": "ScheduleOutlined"}
+                ]
+              }'></div>
+            </div>
+          </div>
+          <div class="demo-col" style="flex: 0 0 auto;">
+            <div class="demo-label">Closed rail — selected</div>
+            <div class="nav-demo-container-short">
+              <div data-trio-component="NavigationVertical" data-trio-props='{
+                "state": "closed",
+                "title": "Locums Program",
+                "activeId": "dashboard",
+                "items": [
+                  {"id": "dashboard", "label": "Dashboard", "icon": "DashboardOutlined"},
+                  {"id": "shifts", "label": "Shifts", "icon": "ScheduleOutlined"}
+                ]
+              }'></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="prop-table" style="margin-top: var(--spacing-lg);">
+          <div class="prop-row">
+            <div class="prop-label">Default</div>
+            <div class="prop-value">Transparent background, text.primary (#212121), icon.default (#424242)</div>
+          </div>
+          <div class="prop-row">
+            <div class="prop-label">Hover</div>
+            <div class="prop-value">action.hover (rgba(0,0,0,0.04)) background, text.primary</div>
+          </div>
+          <div class="prop-row">
+            <div class="prop-label">Selected</div>
+            <div class="prop-value">primary.selected (#2196F31F) background, primary.dark (#1976D2) text and icon</div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -234,6 +544,7 @@
               <li>Always include a left icon for primary nav items — critical for scanability</li>
               <li>Keep primary nav labels short — 1 or 2 words maximum</li>
               <li>Auto-expand the active parent item on page load</li>
+              <li>Use the title dropdown when the user needs to switch between programs, facilities, or similar top-level contexts</li>
               <li>Use settings section for configuration pages only</li>
             </ul>
           </div>
@@ -251,97 +562,12 @@
             <ul>
               <li>Don't use settings-style items (left border) for primary navigation</li>
               <li>Don't nest sub-navigation more than one level deep</li>
-              <li>Don't put more than 8–10 primary items in the nav</li>
+              <li>Don't put more than 8-10 primary items in the nav</li>
               <li>Don't use for mobile — this is desktop-only</li>
+              <li>Don't use the title dropdown for actions — it's a selector, not a menu</li>
             </ul>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- VARIANTS — Expandable Items -->
-    <section class="section">
-      <h2 class="section-title">
-        <span class="material-icons-outlined">widgets</span>
-        Variants
-      </h2>
-      <p class="section-description">
-        Items with sub-navigation show a 16px chevron on the right. Clicking toggles the chevron
-        direction and reveals sub-items indented 40px. The selected sub-item text turns primary.dark.
-      </p>
-      <div class="demo-panel">
-        <div class="demo-row">
-          <div class="demo-col">
-            <div class="demo-label">Expandable item — collapsed</div>
-            <div data-trio-component="NavigationVertical" data-trio-props='{"state":"open","items":[{"id":"orders","label":"Orders","expandable":true,"subItems":[{"id":"open-orders","label":"Open Orders"},{"id":"filled-orders","label":"Filled Orders"},{"id":"cancelled","label":"Cancelled"}]}]}'></div>
-          </div>
-          <div class="demo-col">
-            <div class="demo-label">Expandable item — expanded with selection</div>
-            <div data-trio-component="NavigationVertical" data-trio-props='{"state":"open","activeId":"orders","activeSubId":"open-orders","items":[{"id":"orders","label":"Orders","expandable":true,"subItems":[{"id":"open-orders","label":"Open Orders"},{"id":"filled-orders","label":"Filled Orders"},{"id":"cancelled","label":"Cancelled"}]}]}'></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Settings Section -->
-      <div class="variant-group" style="margin-top: var(--spacing-lg);">
-        <div class="variant-label">Settings Section — left border selected style</div>
-        <div class="demo-panel">
-          <div data-trio-component="NavigationVertical" data-trio-props='{"state":"open","settings":true,"activeSettingsId":"program-details","items":[{"id":"dashboard","label":"Dashboard","icon":"Dashboard"}],"settingsItems":[{"id":"program-details","label":"Program Details"},{"id":"users-roles","label":"Users & Roles"},{"id":"notifications","label":"Notifications"}]}'></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- STATES -->
-    <section class="section">
-      <h2 class="section-title">
-        <span class="material-icons-outlined">toggle_on</span>
-        States
-      </h2>
-      <p class="section-description">Each nav item has three interactive states.</p>
-      <div class="demo-panel">
-        <div class="demo-row">
-          <div class="demo-col">
-            <div class="demo-label">Default (no active item)</div>
-            <div data-trio-component="NavigationVertical" data-trio-props='{"state":"open","items":[{"id":"workers","label":"Workers","icon":"People"}]}'></div>
-          </div>
-          <div class="demo-col">
-            <div class="demo-label">Selected</div>
-            <div data-trio-component="NavigationVertical" data-trio-props='{"state":"open","activeId":"workers","items":[{"id":"workers","label":"Workers","icon":"People"}]}'></div>
-          </div>
-          <div class="demo-col">
-            <div class="demo-label">Closed (icon rail)</div>
-            <div data-trio-component="NavigationVertical" data-trio-props='{"state":"closed","activeId":"workers","items":[{"id":"workers","label":"Workers","icon":"People"}]}'></div>
-          </div>
-        </div>
-
-        <div class="prop-table" style="margin-top: var(--spacing-lg);">
-          <div class="prop-row">
-            <div class="prop-label">Default</div>
-            <div class="prop-value">Transparent background, text.primary (#212121), icon inherits color</div>
-          </div>
-          <div class="prop-row">
-            <div class="prop-label">Hover</div>
-            <div class="prop-value">background.secondary (#FAFAFA), text.primary — subtle lift without blue</div>
-          </div>
-          <div class="prop-row">
-            <div class="prop-label">Selected</div>
-            <div class="prop-value">primary/states/selected (#2196F31F) background, primary.dark (#1976D2) text and icon</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- FULL NAV EXAMPLE -->
-    <section class="section">
-      <h2 class="section-title">
-        <span class="material-icons-outlined">view_sidebar</span>
-        Full Navigation Example
-      </h2>
-      <p class="section-description">
-        A realistic TRIO WFS sidebar with primary sections, one expanded item, and the settings section.
-      </p>
-      <div class="demo-panel">
-        <div data-trio-component="NavigationVertical" data-trio-props='{"state":"open","activeId":"orders","activeSubId":"open-orders","settings":true,"activeSettingsId":"program-details","items":[{"id":"dashboard","label":"Dashboard","icon":"Dashboard"},{"id":"orders","label":"Orders","expandable":true,"subItems":[{"id":"open-orders","label":"Open Orders"},{"id":"filled-orders","label":"Filled Orders"},{"id":"cancelled","label":"Cancelled"}]},{"id":"workers","label":"Workers","icon":"People"},{"id":"shifts","label":"Shifts","icon":"Schedule"},{"id":"credentialing","label":"Credentialing","expandable":true,"subItems":[{"id":"pending","label":"Pending Review"},{"id":"approved","label":"Approved"},{"id":"expired","label":"Expired"}]},{"id":"timekeeping","label":"Timekeeping","icon":"AccessTime"},{"id":"invoicing","label":"Invoicing","icon":"Receipt"}],"settingsItems":[{"id":"program-details","label":"Program Details"},{"id":"users-roles","label":"Users & Roles"},{"id":"notifications","label":"Notifications"},{"id":"integrations","label":"Integrations"}]}'></div>
       </div>
     </section>
 
@@ -361,7 +587,9 @@
             <ul>
               <li>Always include a left icon for primary nav items — icons are critical for scanability in time-pressured clinical environments</li>
               <li>Keep primary nav labels short — 1 or 2 words maximum. The 260px width is tight with an icon, label, and chevron</li>
-              <li>Auto-expand the active parent item on page load so users can see where they are in the hierarchy immediately</li>
+              <li>Auto-expand the active parent item on page load so users see where they are immediately</li>
+              <li>Use the title dropdown to let users switch programs without navigating away — update the nav items accordingly when the selection changes</li>
+              <li>Show the subtitle for context (e.g. facility name) so users know which program scope they're in</li>
             </ul>
           </div>
         </div>
@@ -372,13 +600,45 @@
           </div>
           <div class="card-content">
             <ul>
+              <li>Don't apply a background color to the nav — it is always transparent against the page</li>
               <li>Don't use settings-style items (left border) for primary navigation — the two patterns are visually distinct for a reason</li>
               <li>Don't nest sub-navigation more than one level deep — if you need deeper hierarchy, reconsider the IA</li>
-              <li>Don't put more than 8–10 primary items in the nav — consider grouping or a secondary navigation pattern</li>
+              <li>Don't put more than 8-10 primary items in the nav — consider grouping or a secondary navigation pattern</li>
+              <li>Don't mix static and dropdown titles within the same app — pick one pattern and be consistent</li>
             </ul>
           </div>
         </div>
       </div>
+    </section>
+
+    <!-- PROPS API -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">code</span>
+        Props API
+      </h2>
+      <table class="spec-table">
+        <thead><tr><th>Prop</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><code>items</code></td><td><code>NavItem[]</code></td><td><code>[]</code></td><td>Primary navigation items with id, label, icon, and optional subItems</td></tr>
+          <tr><td><code>state</code></td><td><code>'open' | 'closed'</code></td><td><code>'open'</code></td><td>Open sidebar (260px) or closed icon rail (72px)</td></tr>
+          <tr><td><code>activeId</code></td><td><code>string</code></td><td>-</td><td>Currently active primary item id</td></tr>
+          <tr><td><code>activeSubId</code></td><td><code>string</code></td><td>-</td><td>Currently active sub-item id</td></tr>
+          <tr><td><code>onNavigate</code></td><td><code>(itemId, subItemId?) => void</code></td><td>-</td><td>Called when a nav item or sub-item is clicked</td></tr>
+          <tr><td><code>title</code></td><td><code>string</code></td><td>-</td><td>Title shown above the nav items (open state only)</td></tr>
+          <tr><td><code>subtitle</code></td><td><code>string</code></td><td>-</td><td>Subtitle shown below the title (open state only)</td></tr>
+          <tr><td><code>titleDropdown</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Show dropdown chevron next to the title (auto-set when titleMenuItems provided)</td></tr>
+          <tr><td><code>onTitleClick</code></td><td><code>() => void</code></td><td>-</td><td>Custom click handler for the title — ignored when titleMenuItems is provided</td></tr>
+          <tr><td><code>titleMenuItems</code></td><td><code>MenuItem[]</code></td><td>-</td><td>Menu items for the title dropdown — when provided, title becomes a dropdown selector</td></tr>
+          <tr><td><code>onTitleMenuSelect</code></td><td><code>(item: MenuItem) => void</code></td><td>-</td><td>Called when a title menu item is selected</td></tr>
+          <tr><td><code>settings</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Show the settings section at the bottom</td></tr>
+          <tr><td><code>settingsItems</code></td><td><code>NavSettingsItem[]</code></td><td><code>[]</code></td><td>Settings section items</td></tr>
+          <tr><td><code>activeSettingsId</code></td><td><code>string</code></td><td>-</td><td>Active settings item id</td></tr>
+          <tr><td><code>subSection</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Show settings in a secondary slide-out panel instead of inline</td></tr>
+          <tr><td><code>onToggleState</code></td><td><code>() => void</code></td><td>-</td><td>Called when the hamburger toggle is clicked</td></tr>
+          <tr><td><code>onToggleSettings</code></td><td><code>() => void</code></td><td>-</td><td>Called when the Program Settings button is clicked (subSection mode)</td></tr>
+        </tbody>
+      </table>
     </section>
 
     <!-- TECHNICAL SPECIFICATIONS -->
@@ -390,25 +650,31 @@
       <table class="spec-table">
         <thead><tr><th>Property</th><th>Value</th><th>Source</th></tr></thead>
         <tbody>
-          <tr><td>Nav width</td><td>260px</td><td>Figma node 4795:1339</td></tr>
-          <tr><td>Item height</td><td>52px (16px padding top + bottom + 20px content)</td><td>Figma node 4795:1422</td></tr>
-          <tr><td>Item padding</td><td>16px (spacing.md)</td><td>Figma node 4795:1422</td></tr>
+          <tr><td>Open width</td><td>260px</td><td>Figma node 4795:1339</td></tr>
+          <tr><td>Closed width (icon rail)</td><td>72px</td><td>Component constant</td></tr>
+          <tr><td>Rail icon button size</td><td>40 x 40px</td><td>Component constant</td></tr>
           <tr><td>Item border-radius</td><td>8px</td><td>Figma node 4795:1422</td></tr>
-          <tr><td>Item gap (icon → label)</td><td>16px (spacing.md)</td><td>Figma node 4795:1422</td></tr>
+          <tr><td>Item padding</td><td>8px top/bottom, 16px left/right</td><td>spacing.sm / spacing.md</td></tr>
+          <tr><td>Item gap (between items)</td><td>16px (spacing.md)</td><td>Component — all items uniform</td></tr>
+          <tr><td>Item gap (icon to label)</td><td>16px (spacing.md)</td><td>Figma node 4795:1422</td></tr>
           <tr><td>Left icon size</td><td>20px</td><td>Figma node 4795:1423</td></tr>
           <tr><td>Chevron icon size</td><td>16px</td><td>Figma node 4795:1426</td></tr>
-          <tr><td>Item font</td><td>14px / Regular (400) — button/md</td><td>Figma typography token</td></tr>
-          <tr><td>Default bg</td><td>transparent</td><td>Figma node 4795:1449</td></tr>
-          <tr><td>Hover bg</td><td>#FAFAFA — background.secondary</td><td>Figma node 4795:1427</td></tr>
-          <tr><td>Selected bg</td><td>#2196F31F — primary/states/selected</td><td>Figma variable</td></tr>
+          <tr><td>Item font</td><td>14px / Regular (400) — body2</td><td>Figma typography token</td></tr>
+          <tr><td>Sub-item indent</td><td>40px (spacing.xxl)</td><td>Figma node 4795:1446</td></tr>
+          <tr><td>Sub-item font</td><td>12px / Regular (400)</td><td>Figma node 4795:1456</td></tr>
+          <tr><td>Default bg</td><td>transparent (no background ever)</td><td>Design rule</td></tr>
+          <tr><td>Hover bg</td><td>action.hover — rgba(0,0,0,0.04)</td><td>Figma node 4795:1427</td></tr>
+          <tr><td>Selected bg</td><td>#2196F31F — primary.selected</td><td>Figma variable</td></tr>
           <tr><td>Selected text/icon</td><td>#1976D2 — primary.dark</td><td>Figma variable</td></tr>
-          <tr><td>Sub-item indent</td><td>40px</td><td>Figma node 4795:1446</td></tr>
-          <tr><td>Sub-item font</td><td>12px / Regular (400) — button/sm</td><td>Figma node 4795:1456</td></tr>
-          <tr><td>Sub-item gap</td><td>8px (spacing.sm)</td><td>Figma node 4795:1437</td></tr>
+          <tr><td>Non-selected icon color</td><td>#424242 — icon.default</td><td>Design token</td></tr>
+          <tr><td>Title font</td><td>14px / Medium (500) — subtitle2</td><td>Component</td></tr>
+          <tr><td>Subtitle font</td><td>12px / Regular (400) — body2 secondary</td><td>Component</td></tr>
           <tr><td>Settings selected border</td><td>3px left, primary.dark (#1976D2)</td><td>Figma node 4795:1487</td></tr>
-          <tr><td>Settings item font</td><td>12px / Regular (400) — button/sm</td><td>Figma node 4795:1488</td></tr>
-          <tr><td>Settings hover bg</td><td>action/hover rgba(0,0,0,0.04)</td><td>Figma node 4795:1491</td></tr>
+          <tr><td>Settings item font</td><td>12px / Regular (400)</td><td>Figma node 4795:1488</td></tr>
+          <tr><td>Secondary panel width</td><td>260px</td><td>Component constant</td></tr>
           <tr><td>Divider color</td><td>#E0E0E0 — components.divider</td><td>Design token</td></tr>
+          <tr><td>Nav padding</td><td>8px top/bottom, 16px left/right</td><td>spacing.sm / spacing.md</td></tr>
+          <tr><td>Transition</td><td>width 200ms ease</td><td>Component</td></tr>
         </tbody>
       </table>
     </section>

@@ -12,8 +12,9 @@
  *   the visual state (default/focus/error/disabled) is driven by the `state` prop.
  *
  * EXTRACTED VALUES FROM FIGMA:
- * - Input height: 36px (uses TextField single-line instance)
+ * - Input height: 36px medium / 28px small (uses TextField single-line instance)
  * - Width: 256px default
+ * - Sizes: medium (default), small
  * - Uses custom Menu component (not system dropdown)
  */
 
@@ -26,6 +27,7 @@ import { MenuItem } from '../Menu/Menu.types';
 
 export const Select = React.forwardRef<HTMLDivElement, SelectProps>(({
   state = defaultSelectProps.state,
+  size = defaultSelectProps.size,
   options = defaultSelectProps.options,
   value,
   onChange,
@@ -46,6 +48,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(({
   const isDisabled = disabled || state === 'disabled';
   const hasError = error || state === 'error';
   const isFocused = state === 'focus' || open;
+  const isSmall = size === 'small';
 
   // Find selected option label
   const selectedOption = options?.find((opt) => opt.value === value);
@@ -95,17 +98,19 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(({
         onClick={handleClick}
         style={{
           fontFamily: tokens.typography.fontFamily,
-          height: '36px',
+          height: isSmall ? '28px' : '36px',
           backgroundColor: isDisabled
             ? tokens.colors.action.disabledBackground
             : tokens.colors.background.paper,
           borderRadius: `${tokens.borderRadius.default}px`,
-          fontSize: `${tokens.typography.fontSize.sm}px`,
+          fontSize: `${isSmall ? tokens.typography.fontSize.xs : tokens.typography.fontSize.sm}px`,
           display: 'flex',
           alignItems: 'center',
-          padding: `0 ${tokens.spacing.md}px`,
+          padding: isSmall ? `0 ${tokens.spacing.sm}px` : `0 ${tokens.spacing.md}px`,
           border: `${isFocused ? 2 : 1}px solid ${
-            hasError
+            isDisabled
+              ? tokens.colors.components.input.disabledBorder
+              : hasError
               ? tokens.colors.error.main
               : isFocused
               ? tokens.colors.components.border.focus
@@ -138,7 +143,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(({
         <span
           className="material-icons"
           style={{
-            fontSize: '18px',
+            fontSize: isSmall ? '16px' : '18px',
             marginLeft: `${tokens.spacing.sm}px`,
             color: isDisabled ? tokens.colors.text.disabled : tokens.colors.text.secondary,
             transition: 'transform 0.2s',

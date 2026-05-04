@@ -162,12 +162,11 @@ export const defaultMetricCardProps: Partial<MetricCardProps> = {
  * Label / metric-label:    #757575 (secondary/600)
  */
 export const METRIC_CARD_COLORS = {
-  // Data viz info tone scale — extracted from charts.tokens.json
-  info: [tokens.colors.dataViz.teal, tokens.colors.info.dark, tokens.colors.info.main, '#6FD3ED'] as const,
-  // Semantic urgency scales: 500 → 700 → 900
-  error: [tokens.colors.error.main, tokens.colors.error.dark, '#A0241E'] as const,
-  warning: ['#EB8B0C', tokens.colors.warning.main, '#E65100'] as const,
-  success: ['#4CAF50', tokens.colors.success.main, tokens.colors.success.dark] as const,
+  // Semantic chart colors — shared tokens from tokens.colors.charts
+  info: tokens.colors.charts.info,
+  error: tokens.colors.charts.error,
+  warning: tokens.colors.charts.warning,
+  success: tokens.colors.charts.success,
   progressBg: '#EEEEEE',
   border: tokens.colors.components.border.default,
   cardBg: tokens.colors.background.paper,

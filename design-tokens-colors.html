@@ -203,53 +203,158 @@
       <p class="section-description">
         Semantic colors communicate status, urgency, and action consequence. Use consistently to build user understanding.
       </p>
+      <!-- Success -->
+      <h3 style="font-size: 14px; font-weight: 500; margin: 0 0 8px; color: var(--color-text-primary);">Success</h3>
+      <p style="font-size: 13px; color: var(--color-text-secondary); margin: 0 0 12px;">Confirm, Approve, Activate — positive outcomes and completed states.</p>
       <div class="color-grid">
-        <!-- Success -->
         <div class="color-card">
-          <div class="color-swatch" style="background-color: #4CAF50;">
-            <span class="color-label">Success</span>
+          <div class="color-swatch" style="background-color: #E8F5E9;">
+            <span class="color-label" style="color: #212121;">Light</span>
+          </div>
+          <div class="color-info">
+            <div class="color-name">Success Light</div>
+            <div class="color-value">#E8F5E9</div>
+            <div class="token-path">tokens.colors.success.light</div>
+            <div class="color-usage">Alert backgrounds, chip backgrounds, status badges</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-swatch" style="background-color: #388E3C;">
+            <span class="color-label">Main</span>
           </div>
           <div class="color-info">
             <div class="color-name">Success Main</div>
-            <div class="color-value">#4CAF50</div>
+            <div class="color-value">#388E3C</div>
             <div class="token-path">tokens.colors.success.main</div>
-            <div class="color-usage">Confirm, Approve, Activate actions</div>
+            <div class="color-usage">Button backgrounds, icons, text indicators</div>
           </div>
         </div>
-        <!-- Error -->
+        <div class="color-card">
+          <div class="color-swatch" style="background-color: #2E7D32;">
+            <span class="color-label">Dark</span>
+          </div>
+          <div class="color-info">
+            <div class="color-name">Success Dark</div>
+            <div class="color-value">#2E7D32</div>
+            <div class="token-path">tokens.colors.success.dark</div>
+            <div class="color-usage">Hover/pressed states on success actions</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Error -->
+      <h3 style="font-size: 14px; font-weight: 500; margin: 24px 0 8px; color: var(--color-text-primary);">Error</h3>
+      <p style="font-size: 13px; color: var(--color-text-secondary); margin: 0 0 12px;">Delete, Remove, Deactivate — destructive actions and failure states.</p>
+      <div class="color-grid">
+        <div class="color-card">
+          <div class="color-swatch" style="background-color: #FBEAED;">
+            <span class="color-label" style="color: #212121;">Light</span>
+          </div>
+          <div class="color-info">
+            <div class="color-name">Error Light</div>
+            <div class="color-value">#FBEAED</div>
+            <div class="token-path">tokens.colors.error.light</div>
+            <div class="color-usage">Alert backgrounds, chip backgrounds, status badges</div>
+          </div>
+        </div>
         <div class="color-card">
           <div class="color-swatch" style="background-color: #DB4537;">
-            <span class="color-label">Error</span>
+            <span class="color-label">Main</span>
           </div>
           <div class="color-info">
             <div class="color-name">Error Main</div>
             <div class="color-value">#DB4537</div>
             <div class="token-path">tokens.colors.error.main</div>
-            <div class="color-usage">Delete, Remove, destructive actions</div>
+            <div class="color-usage">Button backgrounds, icons, validation borders</div>
           </div>
         </div>
-        <!-- Warning -->
+        <div class="color-card">
+          <div class="color-swatch" style="background-color: #BB3430;">
+            <span class="color-label">Dark</span>
+          </div>
+          <div class="color-info">
+            <div class="color-name">Error Dark</div>
+            <div class="color-value">#BB3430</div>
+            <div class="token-path">tokens.colors.error.dark</div>
+            <div class="color-usage">Hover/pressed states on error actions</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Warning -->
+      <h3 style="font-size: 14px; font-weight: 500; margin: 24px 0 8px; color: var(--color-text-primary);">Warning</h3>
+      <p style="font-size: 13px; color: var(--color-text-secondary); margin: 0 0 12px;">Archive, Deprecate, Force Update — actions requiring caution.</p>
+      <div class="color-grid">
+        <div class="color-card">
+          <div class="color-swatch" style="background-color: #FCF1E0;">
+            <span class="color-label" style="color: #212121;">Light</span>
+          </div>
+          <div class="color-info">
+            <div class="color-name">Warning Light</div>
+            <div class="color-value">#FCF1E0</div>
+            <div class="token-path">tokens.colors.warning.light</div>
+            <div class="color-usage">Alert backgrounds, chip backgrounds, status badges</div>
+          </div>
+        </div>
         <div class="color-card">
           <div class="color-swatch" style="background-color: #E17109;">
-            <span class="color-label">Warning</span>
+            <span class="color-label">Main</span>
           </div>
           <div class="color-info">
             <div class="color-name">Warning Main</div>
             <div class="color-value">#E17109</div>
             <div class="token-path">tokens.colors.warning.main</div>
-            <div class="color-usage">Caution, Archive, Force Update actions</div>
+            <div class="color-usage">Button backgrounds, icons, text indicators</div>
           </div>
         </div>
-        <!-- Info -->
         <div class="color-card">
-          <div class="color-swatch" style="background-color: #5BBFDE;">
-            <span class="color-label">Info</span>
+          <div class="color-swatch" style="background-color: #DA6207;">
+            <span class="color-label">Dark</span>
+          </div>
+          <div class="color-info">
+            <div class="color-name">Warning Dark</div>
+            <div class="color-value">#DA6207</div>
+            <div class="token-path">tokens.colors.warning.dark</div>
+            <div class="color-usage">Hover/pressed states on warning actions</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Info -->
+      <h3 style="font-size: 14px; font-weight: 500; margin: 24px 0 8px; color: var(--color-text-primary);">Info</h3>
+      <p style="font-size: 13px; color: var(--color-text-secondary); margin: 0 0 12px;">Learn More, Details, Help — informational context and neutral data visualization.</p>
+      <div class="color-grid">
+        <div class="color-card">
+          <div class="color-swatch" style="background-color: #E4F7FD;">
+            <span class="color-label" style="color: #212121;">Light</span>
+          </div>
+          <div class="color-info">
+            <div class="color-name">Info Light</div>
+            <div class="color-value">#E4F7FD</div>
+            <div class="token-path">tokens.colors.info.light</div>
+            <div class="color-usage">Alert backgrounds, chip backgrounds, accent surfaces</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-swatch" style="background-color: #54AFCA;">
+            <span class="color-label">Main</span>
           </div>
           <div class="color-info">
             <div class="color-name">Info Main</div>
-            <div class="color-value">#5BBFDE</div>
+            <div class="color-value">#54AFCA</div>
             <div class="token-path">tokens.colors.info.main</div>
-            <div class="color-usage">Learn More, Details, Help actions</div>
+            <div class="color-usage">Icons, text indicators, informational elements</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-swatch" style="background-color: #4B9AB0;">
+            <span class="color-label">Dark</span>
+          </div>
+          <div class="color-info">
+            <div class="color-name">Info Dark</div>
+            <div class="color-value">#4B9AB0</div>
+            <div class="token-path">tokens.colors.info.dark</div>
+            <div class="color-usage">Hover/pressed states on info actions</div>
           </div>
         </div>
       </div>
@@ -351,6 +456,119 @@
             <div class="token-path">tokens.colors.background.accent</div>
             <div class="color-usage">Highlight cards and selections</div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MATERIAL COLOR STRIPS -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">palette</span>
+        Material Color Palette
+      </h2>
+      <p class="section-description">
+        These are the base material color values from the Figma Variables (<code>materials</code> collection). Every color in the design system — semantic tokens, chart colors, component states — is derived from tones within these strips. Engineers should reference these values as the foundation when building any visual hierarchy.
+      </p>
+
+      <!-- Primary (Blue) -->
+      <div style="margin-bottom: 24px;">
+        <div style="font-size: 13px; font-weight: 500; margin-bottom: 8px; color: var(--color-text-primary);">Primary</div>
+        <div style="display: flex; border-radius: 4px; overflow: hidden; border: 1px solid var(--color-secondary-outline);">
+          <div style="flex: 1; height: 56px; background: #E3F2FD; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #212121; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">50<br>#E3F2FD</div></div>
+          <div style="flex: 1; height: 56px; background: #BBDEFB; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #212121; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">100<br>#BBDEFB</div></div>
+          <div style="flex: 1; height: 56px; background: #90CAF9; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #212121; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">200<br>#90CAF9</div></div>
+          <div style="flex: 1; height: 56px; background: #64B5F6; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #212121; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">300<br>#64B5F6</div></div>
+          <div style="flex: 1; height: 56px; background: #42A5F5; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #fff; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">400<br>#42A5F5</div></div>
+          <div style="flex: 1; height: 56px; background: #2196F3; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #fff; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">500<br>#2196F3</div></div>
+          <div style="flex: 1; height: 56px; background: #1E88E5; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #fff; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">600<br>#1E88E5</div></div>
+          <div style="flex: 1; height: 56px; background: #1976D2; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #fff; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">700<br>#1976D2</div></div>
+          <div style="flex: 1; height: 56px; background: #1565C0; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #fff; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">800<br>#1565C0</div></div>
+          <div style="flex: 1; height: 56px; background: #0D47A1; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #fff; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">900<br>#0D47A1</div></div>
+        </div>
+      </div>
+
+      <!-- Info (Teal) -->
+      <div style="margin-bottom: 24px;">
+        <div style="font-size: 13px; font-weight: 500; margin-bottom: 8px; color: var(--color-text-primary);">Info</div>
+        <div style="display: flex; border-radius: 4px; overflow: hidden; border: 1px solid var(--color-secondary-outline);">
+          <div style="flex: 1; height: 56px; background: #E4F7FD; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #212121; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">50<br>#E4F7FD</div></div>
+          <div style="flex: 1; height: 56px; background: #BBECF9; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #212121; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">100<br>#BBECF9</div></div>
+          <div style="flex: 1; height: 56px; background: #92E0F4; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #212121; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">200<br>#92E0F4</div></div>
+          <div style="flex: 1; height: 56px; background: #6FD3ED; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #212121; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">300<br>#6FD3ED</div></div>
+          <div style="flex: 1; height: 56px; background: #5EC9E5; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #212121; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">400<br>#5EC9E5</div></div>
+          <div style="flex: 1; height: 56px; background: #5BBFDE; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #212121; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">500<br>#5BBFDE</div></div>
+          <div style="flex: 1; height: 56px; background: #54AFCA; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #fff; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">600<br>#54AFCA</div></div>
+          <div style="flex: 1; height: 56px; background: #4B9AB0; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #fff; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">700<br>#4B9AB0</div></div>
+          <div style="flex: 1; height: 56px; background: #448697; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #fff; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">800<br>#448697</div></div>
+          <div style="flex: 1; height: 56px; background: #37636B; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #fff; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">900<br>#37636B</div></div>
+        </div>
+      </div>
+
+      <!-- Success (Green) -->
+      <div style="margin-bottom: 24px;">
+        <div style="font-size: 13px; font-weight: 500; margin-bottom: 8px; color: var(--color-text-primary);">Success</div>
+        <div style="display: flex; border-radius: 4px; overflow: hidden; border: 1px solid var(--color-secondary-outline);">
+          <div style="flex: 1; height: 56px; background: #E8F5E9; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #212121; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">50<br>#E8F5E9</div></div>
+          <div style="flex: 1; height: 56px; background: #C8E6C9; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #212121; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">100<br>#C8E6C9</div></div>
+          <div style="flex: 1; height: 56px; background: #A5D6A7; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #212121; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">200<br>#A5D6A7</div></div>
+          <div style="flex: 1; height: 56px; background: #81C784; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #212121; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">300<br>#81C784</div></div>
+          <div style="flex: 1; height: 56px; background: #66BB6A; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #212121; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">400<br>#66BB6A</div></div>
+          <div style="flex: 1; height: 56px; background: #4CAF50; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #fff; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">500<br>#4CAF50</div></div>
+          <div style="flex: 1; height: 56px; background: #43A047; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #fff; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">600<br>#43A047</div></div>
+          <div style="flex: 1; height: 56px; background: #388E3C; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #fff; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">700<br>#388E3C</div></div>
+          <div style="flex: 1; height: 56px; background: #2E7D32; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #fff; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">800<br>#2E7D32</div></div>
+          <div style="flex: 1; height: 56px; background: #1B5E20; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #fff; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">900<br>#1B5E20</div></div>
+        </div>
+      </div>
+
+      <!-- Warning (Orange) -->
+      <div style="margin-bottom: 24px;">
+        <div style="font-size: 13px; font-weight: 500; margin-bottom: 8px; color: var(--color-text-primary);">Warning</div>
+        <div style="display: flex; border-radius: 4px; overflow: hidden; border: 1px solid var(--color-secondary-outline);">
+          <div style="flex: 1; height: 56px; background: #FCF1E0; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #212121; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">50<br>#FCF1E0</div></div>
+          <div style="flex: 1; height: 56px; background: #F9DBB1; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #212121; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">100<br>#F9DBB1</div></div>
+          <div style="flex: 1; height: 56px; background: #F4C47F; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #212121; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">200<br>#F4C47F</div></div>
+          <div style="flex: 1; height: 56px; background: #F0AD4E; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #212121; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">300<br>#F0AD4E</div></div>
+          <div style="flex: 1; height: 56px; background: #ED9B2B; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #212121; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">400<br>#ED9B2B</div></div>
+          <div style="flex: 1; height: 56px; background: #EB8B0C; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #fff; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">500<br>#EB8B0C</div></div>
+          <div style="flex: 1; height: 56px; background: #E7800B; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #fff; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">600<br>#E7800B</div></div>
+          <div style="flex: 1; height: 56px; background: #E17109; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #fff; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">700<br>#E17109</div></div>
+          <div style="flex: 1; height: 56px; background: #DA6207; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #fff; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">800<br>#DA6207</div></div>
+          <div style="flex: 1; height: 56px; background: #E65100; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #fff; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">900<br>#E65100</div></div>
+        </div>
+      </div>
+
+      <!-- Error (Red) -->
+      <div style="margin-bottom: 24px;">
+        <div style="font-size: 13px; font-weight: 500; margin-bottom: 8px; color: var(--color-text-primary);">Error</div>
+        <div style="display: flex; border-radius: 4px; overflow: hidden; border: 1px solid var(--color-secondary-outline);">
+          <div style="flex: 1; height: 56px; background: #FBEAED; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #212121; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">50<br>#FBEAED</div></div>
+          <div style="flex: 1; height: 56px; background: #F6CBCF; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #212121; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">100<br>#F6CBCF</div></div>
+          <div style="flex: 1; height: 56px; background: #E19897; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #212121; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">200<br>#E19897</div></div>
+          <div style="flex: 1; height: 56px; background: #D27170; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #fff; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">300<br>#D27170</div></div>
+          <div style="flex: 1; height: 56px; background: #D9544F; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #fff; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">400<br>#D9544F</div></div>
+          <div style="flex: 1; height: 56px; background: #DB4537; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #fff; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">500<br>#DB4537</div></div>
+          <div style="flex: 1; height: 56px; background: #CD3D36; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #fff; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">600<br>#CD3D36</div></div>
+          <div style="flex: 1; height: 56px; background: #BB3430; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #fff; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">700<br>#BB3430</div></div>
+          <div style="flex: 1; height: 56px; background: #AE2E29; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #fff; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">800<br>#AE2E29</div></div>
+          <div style="flex: 1; height: 56px; background: #A0241E; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #fff; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">900<br>#A0241E</div></div>
+        </div>
+      </div>
+
+      <!-- Secondary / Grey -->
+      <div style="margin-bottom: 24px;">
+        <div style="font-size: 13px; font-weight: 500; margin-bottom: 8px; color: var(--color-text-primary);">Grey</div>
+        <div style="display: flex; border-radius: 4px; overflow: hidden; border: 1px solid var(--color-secondary-outline);">
+          <div style="flex: 1; height: 56px; background: #FAFAFA; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #212121; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">50<br>#FAFAFA</div></div>
+          <div style="flex: 1; height: 56px; background: #F5F5F5; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #212121; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">100<br>#F5F5F5</div></div>
+          <div style="flex: 1; height: 56px; background: #EEEEEE; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #212121; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">200<br>#EEEEEE</div></div>
+          <div style="flex: 1; height: 56px; background: #E0E0E0; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #212121; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">300<br>#E0E0E0</div></div>
+          <div style="flex: 1; height: 56px; background: #BDBDBD; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #212121; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">400<br>#BDBDBD</div></div>
+          <div style="flex: 1; height: 56px; background: #9E9E9E; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #fff; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">500<br>#9E9E9E</div></div>
+          <div style="flex: 1; height: 56px; background: #757575; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #fff; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">600<br>#757575</div></div>
+          <div style="flex: 1; height: 56px; background: #616161; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #fff; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">700<br>#616161</div></div>
+          <div style="flex: 1; height: 56px; background: #424242; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #fff; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">800<br>#424242</div></div>
+          <div style="flex: 1; height: 56px; background: #212121; display: flex; align-items: flex-end; padding: 4px 6px;"><div style="color: #fff; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3;">900<br>#212121</div></div>
         </div>
       </div>
     </section>

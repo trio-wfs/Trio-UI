@@ -147,7 +147,7 @@
     }
     .modal-close:hover { background: rgba(255,255,255,0.12); }
     .modal-body {
-      padding: 40px;
+      padding: 24px 40px;
       overflow-y: auto;
       flex: 1;
     }
@@ -160,7 +160,7 @@
       justify-content: flex-end;
       align-items: center;
     }
-    .modal-sm { width: 500px; }
+    .modal-sm { width: 550px; }
     .modal-lg { width: 900px; }
 
     /* ── Spacing diagram styles ── */
@@ -589,9 +589,9 @@
         Two fixed widths based on content complexity. Small for simple interactions, Large for multi-field forms and data entry.
       </p>
 
-      <!-- Small Modal — 500px -->
+      <!-- Small Modal — 550px -->
       <div class="variant-group">
-        <div class="variant-label">Small Modal — 500px</div>
+        <div class="variant-label">Small Modal — 550px</div>
         <p style="font-size: 13px; color: var(--color-text-secondary); margin-bottom: var(--spacing-md);">Use for confirmations, alerts, simple forms, and single-step actions.</p>
         <div class="modal-preview">
           <div class="modal-container modal-sm">
@@ -677,7 +677,7 @@
         Anatomy &amp; Spacing
       </h2>
       <p class="section-description">
-        Both sizes use 40px internal padding on all sides with a 16px gutter between content columns. The 12-column grid inside a modal scales to the modal's content width.
+        Both sizes use 40px left/right padding across all zones, with 16px top/bottom on header and footer, and 24px top/bottom on the body. A 16px gutter separates content columns. The 12-column grid inside a modal scales to the modal's content width.
       </p>
 
       <!-- Token badges -->
@@ -688,11 +688,11 @@
         </div>
         <div style="background:var(--color-background-paper);border:1px solid var(--color-secondary-outline);border-radius:4px;padding:10px 16px;font-size:13px;">
           <div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin-bottom:3px;">Small Modal</div>
-          <div style="font-weight:500;color:var(--color-primary-main);">500px</div>
+          <div style="font-weight:500;color:var(--color-primary-main);">550px</div>
         </div>
         <div style="background:var(--color-background-paper);border:1px solid var(--color-secondary-outline);border-radius:4px;padding:10px 16px;font-size:13px;">
           <div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin-bottom:3px;">Internal Padding</div>
-          <div style="font-weight:500;color:var(--color-primary-main);">40px all sides</div>
+          <div style="font-weight:500;color:var(--color-primary-main);">40px L/R, varies T/B</div>
         </div>
         <div style="background:var(--color-background-paper);border:1px solid var(--color-secondary-outline);border-radius:4px;padding:10px 16px;font-size:13px;">
           <div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin-bottom:3px;">Internal Gutter</div>
@@ -742,7 +742,7 @@
 
         <!-- Small -->
         <div class="ld-modal-wrap">
-          <div class="ld-modal-size-label">Small — 500px</div>
+          <div class="ld-modal-size-label">Small — 550px</div>
           <div class="ld-modal-box ld-modal-box--sm">
             <div class="ld-modal-titlebar">
               <span>Confirm Action</span>
@@ -820,7 +820,7 @@
       </div>
 
       <div class="ld-annotation-row">
-        <span class="ld-annotation-badge">40px</span> modal internal padding (all sides)
+        <span class="ld-annotation-badge">40px</span> modal left/right padding (all zones)
         <span style="margin-left:12px;" class="ld-annotation-badge">16px</span> gutter between form field columns
         <span style="margin-left:12px;" class="ld-annotation-badge">6px</span> gap between field rows
       </div>
@@ -1026,7 +1026,7 @@
         <tbody>
           <tr>
             <td>Small Modal Width</td>
-            <td><code>500px</code></td>
+            <td><code>550px</code></td>
             <td><span class="token-path">--</span></td>
           </tr>
           <tr>
@@ -1041,8 +1041,8 @@
           </tr>
           <tr>
             <td>Body Padding</td>
-            <td><code>40px</code></td>
-            <td><span class="token-path">spacing.xxl</span></td>
+            <td><code>24px 40px</code></td>
+            <td><span class="token-path">spacing.lg / spacing.xxl</span></td>
           </tr>
           <tr>
             <td>Footer Padding</td>
@@ -1096,7 +1096,7 @@
           </tr>
           <tr>
             <td>MUI Base</td>
-            <td colspan="2"><code>@mui/material/Dialog</code></td>
+            <td colspan="2"><code>@mui/material/Modal</code></td>
           </tr>
         </tbody>
       </table>

@@ -5,6 +5,7 @@
  */
 
 import React from 'react';
+import { MenuItem } from '../Menu/Menu.types';
 
 /** A sub-item shown when a nav item is expanded */
 export interface NavSubItem {
@@ -53,14 +54,20 @@ export interface NavigationVerticalProps {
   subSection?: boolean;
   /** Called when the collapse/expand toggle is clicked */
   onToggleState?: () => void;
+  /** Called when the Program Settings button is clicked (toggles settings panel) */
+  onToggleSettings?: () => void;
   /** Title shown to the left of the hamburger toggle (open state only, subtitle2) */
   title?: string;
   /** Subtitle shown below the title (open state only, body2 secondary) */
   subtitle?: string;
-  /** Show dropdown chevron next to the title */
+  /** Show dropdown chevron next to the title (auto-set when titleMenuItems is provided) */
   titleDropdown?: boolean;
-  /** Called when the title area is clicked (e.g. program selector) */
+  /** Called when the title area is clicked — ignored when titleMenuItems is provided */
   onTitleClick?: () => void;
+  /** Menu items for the title dropdown — when provided, title becomes a dropdown selector */
+  titleMenuItems?: MenuItem[];
+  /** Called when a title menu item is selected — receives the selected MenuItem */
+  onTitleMenuSelect?: (item: MenuItem) => void;
 }
 
 export const defaultNavigationVerticalProps: Partial<NavigationVerticalProps> = {

@@ -111,6 +111,17 @@ export const tokens = {
       teal: '#37636b',
     },
 
+    // Semantic Chart Colors (from Figma Variables: color/info, color/error, etc.)
+    // Used for simple charts (1–3 value bars, metric card bars).
+    // Info: darkest first (900→700→500→300). Semantic: lightest first (500→700→900).
+    // Complex charts (donut, 4+ series) use the AG Charts palette instead.
+    charts: {
+      info: ['#37636B', '#4B9AB0', '#5BBFDE', '#6FD3ED'] as const,   // 900→700→500→300 (metric card / simple bar order)
+      error: ['#DB4537', '#BB3430', '#A0241E'] as const,              // 500→700→900
+      warning: ['#EB8B0C', '#E17109', '#E65100'] as const,            // 500→700→900
+      success: ['#4CAF50', '#388E3C', '#1B5E20'] as const,            // 500→700→900
+    },
+
     // Brand Colors
     // Application-level brand surfaces — not for general component use
     brand: {

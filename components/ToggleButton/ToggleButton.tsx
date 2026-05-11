@@ -10,7 +10,7 @@
 
 import React from 'react';
 import { Box, IconButton } from '@mui/material';
-import { ToggleButtonProps, defaultToggleButtonProps } from './ToggleButton.types';
+import { type ToggleButtonProps, defaultToggleButtonProps } from './ToggleButton.types';
 import { tokens } from '../../design-tokens/tokens';
 
 export const ToggleButton = React.forwardRef<HTMLDivElement, ToggleButtonProps>(({

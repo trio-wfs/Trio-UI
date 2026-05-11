@@ -19,7 +19,7 @@ import React from 'react';
 import { Box, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { TextField } from '../TextField/TextField';
-import { SearchBarProps, defaultSearchBarProps } from './SearchBar.types';
+import { type SearchBarProps, defaultSearchBarProps } from './SearchBar.types';
 import { tokens } from '../../design-tokens/tokens';
 
 const SIZE_MAP = {

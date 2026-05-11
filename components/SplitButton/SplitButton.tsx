@@ -7,19 +7,20 @@
  *   - Left: label button — triggers the primary action
  *   - Right: arrow_drop_down icon button — opens a Menu dropdown
  *
- * Only sm/contained exists in Figma. color: primary | secondary.
+ * Size: sm only. color: primary | secondary. variant: contained | outline.
  */
 
 import React, { useRef } from 'react';
-import { Box, IconButton, Popover, Typography } from '@mui/material';
+import { Box, IconButton, Typography } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import { SplitButtonProps, defaultSplitButtonProps } from './SplitButton.types';
+import { type SplitButtonProps, defaultSplitButtonProps } from './SplitButton.types';
 import { Menu } from '../Menu/Menu';
 import { tokens } from '../../design-tokens/tokens';
 
 export const SplitButton = React.forwardRef<HTMLDivElement, SplitButtonProps>(({
   label,
   color = defaultSplitButtonProps.color!,
+  variant = defaultSplitButtonProps.variant!,
   open = defaultSplitButtonProps.open!,
   onClick,
   onMenuToggle,
@@ -31,6 +32,7 @@ export const SplitButton = React.forwardRef<HTMLDivElement, SplitButtonProps>(({
   const arrowRef = useRef<HTMLButtonElement>(null);
 
   const isPrimary = color === 'primary';
+  const isOutline = variant === 'outline';
 
   // ── Shared token values ──────────────────────────────────────
   const height = 32; // button/sm from Figma
@@ -38,13 +40,27 @@ export const SplitButton = React.forwardRef<HTMLDivElement, SplitButtonProps>(({
   const fontWeight = tokens.typography.button.sm.fontWeight;
 
   // ── Color scheme ─────────────────────────────────────────────
-  const bg = isPrimary ? tokens.colors.primary.main : tokens.colors.secondary.main;
-  const bgHover = isPrimary ? tokens.colors.primary.dark : tokens.colors.action.hover;
-  const textColor = isPrimary ? tokens.colors.base.white : tokens.colors.secondary.dark;
-  const borderColor = isPrimary ? 'transparent' : tokens.colors.secondary.outline;
-  const dividerColor = isPrimary
-    ? 'rgba(255,255,255,0.3)'
-    : tokens.colors.secondary.outline;
+  // Contained: solid fill, white/dark text.
+  // Outline: transparent fill, colored border + text, light tint on hover.
+  const bg = isOutline
+    ? 'transparent'
+    : (isPrimary ? tokens.colors.primary.main : tokens.colors.secondary.main);
+
+  const bgHover = isOutline
+    ? (isPrimary ? tokens.colors.primary.light : tokens.colors.secondary.main)
+    : (isPrimary ? tokens.colors.primary.dark : tokens.colors.action.hover);
+
+  const textColor = isOutline
+    ? (isPrimary ? tokens.colors.primary.main : tokens.colors.secondary.dark)
+    : (isPrimary ? tokens.colors.base.white : tokens.colors.secondary.dark);
+
+  const borderColor = isOutline
+    ? (isPrimary ? tokens.colors.primary.main : tokens.colors.secondary.outline)
+    : (isPrimary ? 'transparent' : tokens.colors.secondary.outline);
+
+  const dividerColor = isOutline
+    ? borderColor
+    : (isPrimary ? 'rgba(255,255,255,0.3)' : tokens.colors.secondary.outline);
 
   const sharedButtonSx = {
     height,
@@ -149,20 +165,13 @@ export const SplitButton = React.forwardRef<HTMLDivElement, SplitButtonProps>(({
 
       {/* ── Dropdown menu ─────────────────────────────────────── */}
       {menuItems.length > 0 && (
-        <Popover
-          open={open && !disabled}
+        <Menu
+          items={menuItems}
+          state="single"
           anchorEl={anchorEl ?? arrowRef.current}
+          open={open && !disabled}
           onClose={() => onMenuToggle?.(false)}
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-          disablePortal={false}
-          sx={{ mt: `${tokens.spacing.xs}px` }}
-        >
-          <Menu
-            items={menuItems}
-            state="single"
-          />
-        </Popover>
+        />
       )}
     </>
   );

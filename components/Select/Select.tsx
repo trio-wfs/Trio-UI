@@ -19,11 +19,12 @@
  */
 
 import React, { useState, useRef } from 'react';
-import { FormControl, InputLabel, FormHelperText, InputAdornment } from '@mui/material';
-import { SelectProps, defaultSelectProps } from './Select.types';
+import { FormControl, InputLabel, FormHelperText } from '@mui/material';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import { type SelectProps, defaultSelectProps } from './Select.types';
 import { tokens } from '../../design-tokens/tokens';
 import { Menu } from '../Menu/Menu';
-import { MenuItem } from '../Menu/Menu.types';
+import type { MenuItem } from '../Menu/Menu.types';
 
 export const Select = React.forwardRef<HTMLDivElement, SelectProps>(({
   state = defaultSelectProps.state,
@@ -101,7 +102,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(({
           height: isSmall ? '28px' : '36px',
           backgroundColor: isDisabled
             ? tokens.colors.action.disabledBackground
-            : tokens.colors.background.paper,
+            : 'transparent',
           borderRadius: `${tokens.borderRadius.default}px`,
           fontSize: `${isSmall ? tokens.typography.fontSize.xs : tokens.typography.fontSize.sm}px`,
           display: 'flex',
@@ -140,18 +141,15 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(({
         {...ariaProps}
       >
         <span style={{ flex: 1 }}>{displayValue}</span>
-        <span
-          className="material-icons"
-          style={{
-            fontSize: isSmall ? '16px' : '18px',
-            marginLeft: `${tokens.spacing.sm}px`,
+        <ArrowDropDownIcon
+          sx={{
+            fontSize: isSmall ? 16 : 18,
+            ml: `${tokens.spacing.sm}px`,
             color: isDisabled ? tokens.colors.text.disabled : tokens.colors.text.secondary,
             transition: 'transform 0.2s',
             transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
           }}
-        >
-          arrow_drop_down
-        </span>
+        />
       </div>
 
       {/* Custom Menu Dropdown */}

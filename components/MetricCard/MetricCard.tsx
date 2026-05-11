@@ -53,9 +53,9 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircleOutlined';
 import ErrorIcon from '@mui/icons-material/ErrorOutlineOutlined';
 import ScheduleIcon from '@mui/icons-material/ScheduleOutlined';
 import {
-  MetricCardProps,
-  MetricItem,
-  SemanticColor,
+  type MetricCardProps,
+  type MetricItem,
+  type SemanticColor,
   METRIC_CARD_COLORS,
   defaultMetricCardProps,
 } from './MetricCard.types';

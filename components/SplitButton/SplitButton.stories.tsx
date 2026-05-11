@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { SplitButton } from './SplitButton';
 import SaveIcon from '@mui/icons-material/Save';
@@ -31,11 +31,13 @@ const meta: Meta<typeof SplitButton> = {
   argTypes: {
     label: { control: 'text' },
     color: { control: 'select', options: ['primary', 'secondary'] },
+    variant: { control: 'select', options: ['contained', 'outline'] },
     disabled: { control: 'boolean' },
   },
   args: {
     label: 'Save',
     color: 'primary',
+    variant: 'contained',
     disabled: false,
   },
 };
@@ -59,4 +61,14 @@ export const WithStartIcon: Story = {
 export const Disabled: Story = {
   render: (args) => <SplitButtonDemo {...args} />,
   args: { disabled: true },
+};
+
+export const Outline: Story = {
+  render: (args) => <SplitButtonDemo {...args} />,
+  args: { variant: 'outline', label: 'Apply Policy' },
+};
+
+export const OutlineSecondary: Story = {
+  render: (args) => <SplitButtonDemo {...args} />,
+  args: { variant: 'outline', color: 'secondary', label: 'Apply Policy' },
 };

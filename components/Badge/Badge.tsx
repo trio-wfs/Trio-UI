@@ -13,7 +13,7 @@
 
 import React from 'react';
 import MuiBadge from '@mui/material/Badge';
-import { BadgeProps, defaultBadgeProps } from './Badge.types';
+import { type BadgeProps, defaultBadgeProps } from './Badge.types';
 
 export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(({
   color = defaultBadgeProps.color,

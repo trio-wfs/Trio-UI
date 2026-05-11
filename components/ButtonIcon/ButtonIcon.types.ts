@@ -7,7 +7,7 @@
 import React from 'react';
 
 export type ButtonIconVariant = 'contained' | 'ghost';
-export type ButtonIconColor = 'primary' | 'secondary';
+export type ButtonIconColor = 'primary' | 'secondary' | 'default';
 export type ButtonIconSize = 'small' | 'medium';
 
 export interface ButtonIconProps {

@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Chip } from './Chip';
 
@@ -49,6 +49,40 @@ export const WithLeadingIcon: Story = {
 
 export const Deletable: Story = {
   args: { color: 'primary', iconRight: icon('close'), label: 'Remove me' },
+};
+
+/**
+ * Wires the X icon to `onDelete`. Click the X on any chip to remove it from
+ * the list. This is the canonical chip-as-filter / chip-as-tag pattern.
+ */
+export const InteractiveDeletable: Story = {
+  render: () => {
+    const [items, setItems] = useState([
+      { id: 'icu', label: 'ICU' },
+      { id: 'er', label: 'Emergency Dept' },
+      { id: 'orth', label: 'Orthopedics' },
+      { id: 'peds', label: 'Pediatrics' },
+    ]);
+    return (
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', maxWidth: 480 }}>
+        {items.length === 0 && (
+          <span style={{ fontSize: 13, color: '#9E9E9E' }}>
+            All chips deleted — refresh the story to reset.
+          </span>
+        )}
+        {items.map((item) => (
+          <Chip
+            key={item.id}
+            color="primary"
+            variant="outline"
+            label={item.label}
+            iconRight={icon('close')}
+            onDelete={() => setItems((prev) => prev.filter((c) => c.id !== item.id))}
+          />
+        ))}
+      </div>
+    );
+  },
 };
 
 export const Disabled: Story = {

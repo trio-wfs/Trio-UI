@@ -1,4 +1,3 @@
-import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { ContentContainer } from './ContentContainer';
 import { Box, Typography, IconButton } from '@mui/material';

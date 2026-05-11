@@ -11,7 +11,7 @@
 
 import React from 'react';
 import { Box, Typography } from '@mui/material';
-import { ContentContainerProps, defaultContentContainerProps } from './ContentContainer.types';
+import { type ContentContainerProps, defaultContentContainerProps } from './ContentContainer.types';
 import { tokens } from '../../design-tokens/tokens';
 
 export const ContentContainer = React.forwardRef<HTMLDivElement, ContentContainerProps>(({

@@ -19,7 +19,7 @@
 
 import React from 'react';
 import { Popover, Divider, Typography, Box } from '@mui/material';
-import { PopOverProps, defaultPopOverProps } from './PopOver.types';
+import { type PopOverProps, defaultPopOverProps } from './PopOver.types';
 import { tokens } from '../../design-tokens/tokens';
 
 export const PopOver = React.forwardRef<HTMLDivElement, PopOverProps>(({

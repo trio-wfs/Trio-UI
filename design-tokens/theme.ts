@@ -403,9 +403,13 @@ const themeOptions: ThemeOptions = {
           boxShadow: tokens.shadows.md,
           fontFamily: tokens.typography.fontFamily,
         },
+        listbox: {
+          fontSize: `${tokens.typography.fontSize.sm}px`,
+          fontFamily: tokens.typography.fontFamily,
+        },
         option: {
           fontFamily: tokens.typography.fontFamily,
-          fontSize: `${tokens.typography.body2.fontSize}px`,
+          fontSize: `${tokens.typography.fontSize.sm}px`,
           padding: `${tokens.spacing.sm}px ${tokens.spacing.md}px`,
           '&.Mui-focused': {
             backgroundColor: tokens.colors.action.hover,
@@ -586,6 +590,9 @@ const themeOptions: ThemeOptions = {
       styleOverrides: {
         root: {
           fontFamily: tokens.typography.fontFamily,
+          '& .MuiButton-root': {
+            textTransform: 'none',
+          },
         },
       },
       variants: [
@@ -596,6 +603,7 @@ const themeOptions: ThemeOptions = {
               height: 32,
               fontSize: `${tokens.typography.fontSize.sm}px`,
               fontWeight: tokens.typography.fontWeight.medium,
+              textTransform: 'none',
             },
           },
         },
@@ -606,6 +614,7 @@ const themeOptions: ThemeOptions = {
               height: 38,
               fontSize: `${tokens.typography.fontSize.sm}px`,
               fontWeight: tokens.typography.fontWeight.medium,
+              textTransform: 'none',
             },
           },
         },

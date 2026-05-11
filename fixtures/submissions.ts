@@ -1,9 +1,9 @@
 // ─── Submissions ─────────────────────────────────────────────────────────────
 // A provider submitted by an agency for a specific job.
-// Pipeline: New → In Review → Presented → Interviewed → Offered → Accepted
+// Pipeline: New → In Review → Presented → Interviewed → Offered → Accepted → On Assignment
 //           Also: Client Response, Redirected, Withdrawn, Cleared
 
-export type SubmissionStatus = 'new' | 'in-review' | 'presented' | 'interviewed' | 'offered' | 'accepted' | 'client-response' | 'redirected' | 'withdrawn' | 'cleared'
+export type SubmissionStatus = 'new' | 'in-review' | 'presented' | 'interviewed' | 'offered' | 'accepted' | 'on-assignment' | 'client-response' | 'redirected' | 'withdrawn' | 'cleared'
 
 export interface SubmissionQualityScore {
   score: number

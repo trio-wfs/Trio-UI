@@ -7,13 +7,18 @@ figma.connect(SplitButton, 'https://www.figma.com/design/PjAYuPDr8IA1ccwiAjFkSD?
       primary: 'primary',
       secondary: 'secondary',
     }),
+    variant: figma.enum('variant', {
+      contained: 'contained',
+      outline: 'outline',
+    }),
     open: figma.boolean('open'),
     label: figma.string('label'),
   },
-  example: ({ color, open, label }) => (
+  example: ({ color, variant, open, label }) => (
     <SplitButton
       label={label}
       color={color}
+      variant={variant}
       open={open}
       menuItems={[
         { id: '1', label: 'Option 1' },

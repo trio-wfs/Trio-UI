@@ -27,12 +27,13 @@ ComponentName/
 
 ### Step 1: Look Up the Node ID
 
-```bash
-# Find component in manifest
-cat figma-component-manifest.json | jq '.components[] | select(.name == "ComponentName")'
+Use Figma MCP to list components in the design system file, then find the one you want:
+
+```
+mcp__figma__get_metadata({ fileKey: "PjAYuPDr8IA1ccwiAjFkSD" })
 ```
 
-This gives you the Figma node ID needed for Step 2.
+The returned metadata is the live tree from Figma — always current, never drifts. Find the component by name and copy its `nodeId` for Step 2.
 
 ### Step 2: Pull Spec from Figma via MCP
 
@@ -142,11 +143,9 @@ Template:
  * Design System: TRIO WFS Desktop
  *
  * CRITICAL RULES:
- * - All colors from tokens.ts (NO hardcoded hex values)
- * - All spacing from tokens.ts (8px system, 4px exception within component)
- * - All typography from tokens.ts
- * - Desktop-only (no responsive/mobile)
- * - Material Icons only
+ * - All values from tokens.ts (colors, spacing, typography, radius). No hardcoded hex or px.
+ * - Follow PAGE_ARCHITECTURE.md for component defaults, color usage, and layout rules.
+ * - Desktop-only (no responsive/mobile considerations).
  */
 
 import React from 'react';
@@ -260,11 +259,8 @@ Before marking a component complete:
 - [ ] NO hardcoded pixel values
 
 ### ✓ TRIO WFS Design System
-- [ ] Desktop-only (no responsive)
-- [ ] 8px spacing system
-- [ ] Roboto typography
-- [ ] Material Icons only
-- [ ] Follows semantic color rules from `PAGE_ARCHITECTURE.md`
+- [ ] Follows rules in `PAGE_ARCHITECTURE.md` (typography, icons, layout, color usage, component defaults)
+- [ ] Desktop-only (no responsive considerations)
 
 ### ✓ File Structure
 - [ ] ComponentName.tsx exists
@@ -328,7 +324,7 @@ interface ButtonProps {
 
 - **Golden template:** `components/Button/`
 - **Figma file:** `PjAYuPDr8IA1ccwiAjFkSD` (Design System)
-- **Component node IDs:** `figma-component-manifest.json`
+- **Component node IDs:** look up live via `mcp__figma__get_metadata` with the file key above
 - **Design tokens:** `design-tokens/tokens.ts`
 - **Page rules:** `PAGE_ARCHITECTURE.md`
 - **Claude rules:** `CLAUDE.md`

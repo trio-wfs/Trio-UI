@@ -3,21 +3,21 @@ import { Autocomplete } from './Autocomplete'
 
 figma.connect(Autocomplete, 'https://www.figma.com/design/PjAYuPDr8IA1ccwiAjFkSD?node-id=2381-6441', {
   props: {
-    type: figma.enum('type', {
-      single: 'single',
-      multi: 'multi',
-    }),
     state: figma.enum('state', {
       default: 'default',
-      focus: 'focus',
+      focus: 'default',
       error: 'error',
+    }),
+    size: figma.enum('size', {
+      small: 'small',
+      medium: 'medium',
     }),
     disabled: figma.boolean('disabled'),
   },
-  example: ({ type, state, disabled }) => (
+  example: ({ state, size, disabled }) => (
     <Autocomplete
-      type={type}
       state={state}
+      size={size}
       disabled={disabled}
       label="Label"
       placeholder="Search..."

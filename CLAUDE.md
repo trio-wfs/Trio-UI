@@ -29,7 +29,7 @@ Alert, Autocomplete, Badge, Breadcrumb, Button, ButtonGroup, ButtonIcon, Checkbo
 
 **29 showcase pages live.** Token pages: Colors, Typography, Spacing.
 
-**Remaining:** ~75+ components per `figma-component-manifest.json`
+**Remaining:** components from the Figma design system not yet built. To see what's available, use Figma MCP: `mcp__figma__get_metadata` with `fileKey: PjAYuPDr8IA1ccwiAjFkSD` (no nodeId) returns the file's top-level component list.
 
 ---
 
@@ -63,7 +63,6 @@ design-system-shell.css         # Shared layout, tokens, and component styles
 design-tokens-colors.html
 design-tokens-typography.html
 design-tokens-spacing.html
-figma-component-manifest.json   # Full component list with Figma node IDs
 COMPONENT_TEMPLATE.md           # Mandatory structure for new components
 ```
 
@@ -90,29 +89,24 @@ Every component showcase MUST:
 ---
 
 ## Tech Stack
-- React + TypeScript (components)
-- MUI v5 — `sx` prop or `styled()` for all styling
-- `theme.palette`, `theme.spacing`, `theme.typography` — no hardcoded values
-- `@mui/icons-material` only — no other icon libraries
-- AG Grid for all data tables
+React + TypeScript + MUI v5 + AG Grid. See `README.md` for install / theme wiring details and `PAGE_ARCHITECTURE.md` §9 for component defaults.
 
 ---
 
 ## Design Rules
-- 8px spacing grid: `xs:4, sm:8, mid:12, md:16, lg:24, xl:32, xxl:40`
-- Modals: 900px large / 500px small
-- Drawer: 400px standard
-- 12-column grid, 16px gutters
-- Roboto font only, max H5 for page headers
-- Primary blue (#2196F3) = Save/Update actions only
-- Desktop-first — no responsive/mobile considerations
 
-**Before producing any UI output, read `PAGE_ARCHITECTURE.md`** — it defines page layer order, elevation rules, header variants, background hierarchy, and color usage. These rules apply to all TRIO WFS projects.
+This project does not restate design rules. They live in canonical sources:
+
+- `PAGE_ARCHITECTURE.md` — page layer order, color usage, layout, component defaults, tab patterns, grid patterns, alert rules, form rules
+- `design-tokens/tokens.ts` — every token value (colors, spacing, radius, typography)
+- `DIGITAL_JESSE.md` — brand voice, design philosophy, user persona
+
+**Before producing any UI output, read `PAGE_ARCHITECTURE.md` and `design-tokens/tokens.ts`.** Both files together are the rule set — anything you'd otherwise guess at is in one of them.
 
 ---
 
 ## Behavior Rules
-- Always check `figma-component-manifest.json` for node IDs before pulling from Figma
+- Use Figma MCP for node IDs: `mcp__figma__get_metadata` with `fileKey: PjAYuPDr8IA1ccwiAjFkSD` returns the file's component list (or search a known component by traversing the metadata). The design system file itself is the source of truth — there is no static manifest.
 - Always read existing components before building new ones — reuse patterns
 - Only touch files relevant to the current task
 - No unsolicited refactors

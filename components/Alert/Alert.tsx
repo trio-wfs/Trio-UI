@@ -22,7 +22,7 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
-import { AlertProps, defaultAlertProps } from './Alert.types';
+import { type AlertProps, defaultAlertProps } from './Alert.types';
 
 const severityToMui = {
   default: 'info',

@@ -14,7 +14,7 @@
 
 import React from 'react';
 import { Box, Typography } from '@mui/material';
-import { BreadcrumbProps, defaultBreadcrumbProps } from './Breadcrumb.types';
+import { type BreadcrumbProps, defaultBreadcrumbProps } from './Breadcrumb.types';
 import { tokens } from '../../design-tokens/tokens';
 
 export const Breadcrumb = React.forwardRef<HTMLDivElement, BreadcrumbProps>(({

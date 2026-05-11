@@ -4,7 +4,8 @@
  * SOURCE OF TRUTH: Figma component "button" (node: 978:5063)
  */
 
-import React, { ReactNode } from 'react';
+import React from 'react';
+import type { ReactNode } from 'react';
 import type { SxProps, Theme } from '@mui/material/styles';
 
 /**

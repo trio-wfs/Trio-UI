@@ -8,7 +8,6 @@
  * DO NOT modify variant options unless Figma is updated.
  */
 
-import { ReactNode } from 'react';
 
 /**
  * Switch variant types from Figma

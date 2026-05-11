@@ -117,7 +117,7 @@ const iconRegistry: Record<string, React.ReactElement> = {
 // Resolve string icon names to React elements
 function resolveIcons(props: Record<string, any>): Record<string, any> {
   const resolved = { ...props };
-  for (const key of ['startIcon', 'endIcon', 'icon', 'iconLeft']) {
+  for (const key of ['startIcon', 'endIcon', 'icon', 'iconLeft', 'iconRight']) {
     if (typeof resolved[key] === 'string' && iconRegistry[resolved[key]]) {
       resolved[key] = iconRegistry[resolved[key]];
     }
@@ -161,6 +161,7 @@ const registry: Record<string, () => Promise<{ default: React.ComponentType<any>
   Menu:               () => import('../components/Menu/Menu').then(m => ({ default: m.Menu })),
   MetricCard:         () => import('../components/MetricCard/MetricCard').then(m => ({ default: m.MetricCard })),
   Modal:              () => import('../components/Modal/Modal').then(m => ({ default: m.Modal })),
+  ModalPanel:         () => import('../components/Modal/Modal').then(m => ({ default: m.ModalPanel })),
   NavigationHeader:   () => import('../components/NavigationHeader/NavigationHeader').then(m => ({ default: m.NavigationHeader })),
   NavigationVertical: () => import('../components/NavigationVertical/NavigationVertical').then(m => ({ default: m.NavigationVertical })),
   PageHeaderToolbar:  () => import('../components/PageHeaderToolbar/PageHeaderToolbar').then(m => ({ default: m.PageHeaderToolbar })),
@@ -181,6 +182,8 @@ const registry: Record<string, () => Promise<{ default: React.ComponentType<any>
   PopOver:            () => import('../components/PopOver/PopOver').then(m => ({ default: m.PopOver })),
   ProductLogos:       () => import('../components/ProductLogos/ProductLogos').then(m => ({ default: m.ProductLogos })),
   Slider:             () => import('../components/Slider/Slider').then(m => ({ default: m.Slider })),
+  // Showcase-only wrappers
+  ModalDemo:          () => import('./ModalDemo').then(m => ({ default: m.ModalDemo })),
 };
 
 // ─── Wrapper that loads + renders a single component ────────────────────────

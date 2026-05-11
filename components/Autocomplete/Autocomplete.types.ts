@@ -30,6 +30,13 @@ export type AutocompleteMenu = 'open' | 'closed';
 export type AutocompleteType = 'single' | 'multi';
 
 /**
+ * Autocomplete Size
+ * medium = 36px height (default)
+ * small = 28px height, 12px font — matches Select small
+ */
+export type AutocompleteSize = 'medium' | 'small';
+
+/**
  * Autocomplete Selected
  * Figma property: "selected"
  * Options: true, false → boolean
@@ -50,6 +57,12 @@ export interface AutocompleteProps {
   // Variant properties (from Figma)
   type?: AutocompleteType;
   state?: AutocompleteState;
+
+  /**
+   * Size variant — matches TextField/Select sizing
+   * @default 'medium'
+   */
+  size?: AutocompleteSize;
 
   // Options
   options?: AutocompleteOption[];
@@ -87,6 +100,7 @@ export interface AutocompleteProps {
 export const defaultAutocompleteProps: Partial<AutocompleteProps> = {
   type: 'single',
   state: 'default',
+  size: 'medium',
   disabled: false,
   required: false,
   placeholder: 'Search...',

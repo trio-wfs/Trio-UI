@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import { MenuItem } from '../Menu/Menu.types';
+import type { MenuItem } from '../Menu/Menu.types';
 
 /** A sub-item shown when a nav item is expanded */
 export interface NavSubItem {

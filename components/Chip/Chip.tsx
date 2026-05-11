@@ -15,7 +15,8 @@
 
 import React from 'react';
 import { Chip as MuiChip } from '@mui/material';
-import { ChipProps, defaultChipProps } from './Chip.types';
+import CloseIcon from '@mui/icons-material/Close';
+import { type ChipProps, defaultChipProps } from './Chip.types';
 import { tokens } from '../../design-tokens/tokens';
 
 // Semantic hover tints from Figma variables — color @ 5% opacity
@@ -86,9 +87,11 @@ export const Chip = React.forwardRef<HTMLDivElement, ChipProps>(({
   const getColorStyles = () => {
     if (disabled) {
       return {
-        backgroundColor: variant === 'contained' ? tokens.colors.action.disabled : 'transparent',
+        // Contained disabled: light grey surface (action.disabledBackground = 8% black)
+        // Outline disabled: transparent surface + dimmed input border
+        backgroundColor: variant === 'contained' ? tokens.colors.action.disabledBackground : 'transparent',
         color: tokens.colors.text.disabled,
-        border: variant === 'outline' ? `1px solid ${tokens.colors.action.disabled}` : 'none',
+        border: variant === 'outline' ? `1px solid ${tokens.colors.components.input.disabledBorder}` : 'none',
         '& .MuiChip-deleteIcon': { color: tokens.colors.text.disabled },
       };
     }
@@ -124,9 +127,16 @@ export const Chip = React.forwardRef<HTMLDivElement, ChipProps>(({
     };
   };
 
-  // Right icon: any icon element passed via iconRight, or triggered by onDelete
+  // Right icon: any icon element passed via iconRight, or triggered by onDelete.
+  // `iconRight={true}` is a shorthand for the default close X — matches the
+  // showcase convention and is the only common right-side icon for a chip.
   const hasRightIcon = Boolean(iconRight || onDelete);
-  const rightIconElement = iconRight ? <span>{iconRight}</span> : undefined;
+  const rightIconElement =
+    iconRight === true || (onDelete && !iconRight)
+      ? <CloseIcon />
+      : iconRight
+        ? <span>{iconRight}</span>
+        : undefined;
 
   return (
     <MuiChip
@@ -145,18 +155,19 @@ export const Chip = React.forwardRef<HTMLDivElement, ChipProps>(({
         ...getColorStyles(),
         // Figma: medium 32px, small 24px
         height: muiSize === 'small' ? 24 : 32,
-        // Center icons vertically
-        '& .MuiChip-icon': {
+        // Icons are 16×16 in both chip sizes (per Figma).
+        '& .MuiChip-icon, & .MuiChip-deleteIcon': {
           display: 'flex',
           alignItems: 'center',
-          fontSize: muiSize === 'small' ? 14 : 16,
-        },
-        '& .MuiChip-deleteIcon': {
-          display: 'flex',
-          alignItems: 'center',
-          fontSize: muiSize === 'small' ? 14 : 16,
-          width: muiSize === 'small' ? 14 : 16,
-          height: muiSize === 'small' ? 14 : 16,
+          justifyContent: 'center',
+          fontSize: 16,
+          width: 16,
+          height: 16,
+          '& > svg': {
+            fontSize: 'inherit',
+            width: '1em',
+            height: '1em',
+          },
         },
       }}
     />

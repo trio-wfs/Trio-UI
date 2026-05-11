@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Spacing - TRIO WFS Design System</title>
+  <title>Spacing & Breakpoints - TRIO WFS Design System</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
@@ -641,9 +641,9 @@
 
   <main class="main-content">
     <header class="page-header">
-      <h1 class="page-title">Spacing System</h1>
+      <h1 class="page-title">Spacing & Breakpoints</h1>
       <p class="page-subtitle">
-        Consistent spacing creates visual rhythm, improves scannability, and maintains alignment across interfaces. AHTG uses an 8px base grid system for all layout spacing.
+        The layout foundation: spacing scale, 12-column grid, and the breakpoints that define how arrangement adapts to viewport width. Width is fluid; arrangement is discrete.
       </p>
     </header>
 
@@ -1119,6 +1119,195 @@
           </div>
         </div>
 
+      </div>
+    </section>
+
+    <!-- RESPONSIVE BREAKPOINTS -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">aspect_ratio</span>
+        Responsive Breakpoints
+      </h2>
+      <p class="section-description">
+        TRIO is desktop-first with a 1440px target. <strong>Width is fluid; arrangement is discrete.</strong> Containers grow and shrink with the browser within a breakpoint range — the arrangement (4-up vs 2-up vs stacked, row vs column) only changes when the browser crosses a defined breakpoint, where it snaps cleanly. Below 1200px (<code>lg</code>), the experience is a graceful floor — degraded, not designed. This is not mobile support.
+      </p>
+
+      <!-- Breakpoint tokens -->
+      <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin-bottom:var(--spacing-sm);">MUI Breakpoints — Used As Defaults, No Overrides</div>
+      <div style="display:flex; gap:12px; flex-wrap:wrap; margin-bottom:var(--spacing-xl);">
+        <div style="background:var(--color-background-default);border:1px solid var(--color-secondary-outline);border-radius:4px;padding:10px 16px;font-size:13px;min-width:104px;">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin-bottom:3px;">xs</div>
+          <div style="font-weight:500;color:var(--color-primary-main);">0px</div>
+        </div>
+        <div style="background:var(--color-background-default);border:1px solid var(--color-secondary-outline);border-radius:4px;padding:10px 16px;font-size:13px;min-width:104px;">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin-bottom:3px;">sm</div>
+          <div style="font-weight:500;color:var(--color-primary-main);">600px</div>
+        </div>
+        <div style="background:var(--color-background-default);border:1px solid var(--color-secondary-outline);border-radius:4px;padding:10px 16px;font-size:13px;min-width:104px;">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin-bottom:3px;">md</div>
+          <div style="font-weight:500;color:var(--color-primary-main);">900px</div>
+        </div>
+        <div style="background:#E3F2FD;border:1px solid var(--color-primary-main);border-radius:4px;padding:10px 16px;font-size:13px;min-width:104px;">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-primary-main);margin-bottom:3px;">lg — Default Floor</div>
+          <div style="font-weight:500;color:var(--color-primary-main);">1200px</div>
+        </div>
+        <div style="background:var(--color-background-default);border:1px solid var(--color-secondary-outline);border-radius:4px;padding:10px 16px;font-size:13px;min-width:104px;">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin-bottom:3px;">xl</div>
+          <div style="font-weight:500;color:var(--color-primary-main);">1536px</div>
+        </div>
+      </div>
+
+      <!-- Snap demo: MetricCard row at three widths -->
+      <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin-bottom:var(--spacing-sm);">Arrangement Snaps at Breakpoints — MetricCard Row at Three Widths</div>
+      <p style="font-size:13px;color:var(--color-text-secondary);margin-bottom:var(--spacing-md);max-width:740px;">
+        Same row of four <code>MetricCard</code> components shown at three browser widths. Within each range, cards fluidly resize. At each breakpoint the arrangement snaps: 4-up → 2-up at <code>md</code>, 2-up → 1-up at <code>sm</code>.
+      </p>
+
+      <div style="display:grid; grid-template-columns: 1.4fr 1fr 0.7fr; gap:var(--spacing-md); margin-bottom:var(--spacing-lg); align-items:start;">
+        <!-- Frame 1: >= lg (4-up) -->
+        <div>
+          <div style="border:1px solid var(--color-secondary-outline); border-radius:4px; background:#FFFFFF; overflow:hidden;">
+            <div style="background:#FAFAFA; border-bottom:1px solid var(--color-secondary-outline); padding:6px 10px; display:flex; align-items:center; gap:6px;">
+              <div style="width:6px;height:6px;border-radius:50%;background:#FF5F57;"></div>
+              <div style="width:6px;height:6px;border-radius:50%;background:#FFBD2E;"></div>
+              <div style="width:6px;height:6px;border-radius:50%;background:#28C840;"></div>
+              <div style="margin-left:auto; font-size:10px; color:var(--color-text-secondary);">1440px</div>
+            </div>
+            <div style="padding:12px; background:#FAFAFA;">
+              <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:8px;">
+                <div style="background:#FFFFFF;border:1px solid var(--color-secondary-outline);border-radius:4px;padding:8px;"><div style="font-size:9px;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.04em;">Open Shifts</div><div style="font-size:14px;font-weight:500;margin-top:2px;">214</div></div>
+                <div style="background:#FFFFFF;border:1px solid var(--color-secondary-outline);border-radius:4px;padding:8px;"><div style="font-size:9px;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.04em;">Submissions</div><div style="font-size:14px;font-weight:500;margin-top:2px;">496</div></div>
+                <div style="background:#FFFFFF;border:1px solid var(--color-secondary-outline);border-radius:4px;padding:8px;"><div style="font-size:9px;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.04em;">Filled</div><div style="font-size:14px;font-weight:500;margin-top:2px;">114</div></div>
+                <div style="background:#FFFFFF;border:1px solid var(--color-secondary-outline);border-radius:4px;padding:8px;"><div style="font-size:9px;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.04em;">Fill Rate</div><div style="font-size:14px;font-weight:500;margin-top:2px;">82%</div></div>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:8px;font-size:12px;">
+            <span class="ld-annotation-badge">≥ lg</span>
+            <span style="color:var(--color-text-secondary);">1200px and up — 4-up</span>
+          </div>
+        </div>
+
+        <!-- Frame 2: md → lg (2-up) -->
+        <div>
+          <div style="border:1px solid var(--color-secondary-outline); border-radius:4px; background:#FFFFFF; overflow:hidden;">
+            <div style="background:#FAFAFA; border-bottom:1px solid var(--color-secondary-outline); padding:6px 10px; display:flex; align-items:center; gap:6px;">
+              <div style="width:6px;height:6px;border-radius:50%;background:#FF5F57;"></div>
+              <div style="width:6px;height:6px;border-radius:50%;background:#FFBD2E;"></div>
+              <div style="width:6px;height:6px;border-radius:50%;background:#28C840;"></div>
+              <div style="margin-left:auto; font-size:10px; color:var(--color-text-secondary);">1100px</div>
+            </div>
+            <div style="padding:12px; background:#FAFAFA;">
+              <div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:8px;">
+                <div style="background:#FFFFFF;border:1px solid var(--color-secondary-outline);border-radius:4px;padding:8px;"><div style="font-size:9px;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.04em;">Open Shifts</div><div style="font-size:14px;font-weight:500;margin-top:2px;">214</div></div>
+                <div style="background:#FFFFFF;border:1px solid var(--color-secondary-outline);border-radius:4px;padding:8px;"><div style="font-size:9px;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.04em;">Submissions</div><div style="font-size:14px;font-weight:500;margin-top:2px;">496</div></div>
+                <div style="background:#FFFFFF;border:1px solid var(--color-secondary-outline);border-radius:4px;padding:8px;"><div style="font-size:9px;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.04em;">Filled</div><div style="font-size:14px;font-weight:500;margin-top:2px;">114</div></div>
+                <div style="background:#FFFFFF;border:1px solid var(--color-secondary-outline);border-radius:4px;padding:8px;"><div style="font-size:9px;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.04em;">Fill Rate</div><div style="font-size:14px;font-weight:500;margin-top:2px;">82%</div></div>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:8px;font-size:12px;">
+            <span class="ld-annotation-badge">md → lg</span>
+            <span style="color:var(--color-text-secondary);">900–1199 — 2-up</span>
+          </div>
+        </div>
+
+        <!-- Frame 3: < sm (1-up) -->
+        <div>
+          <div style="border:1px solid var(--color-secondary-outline); border-radius:4px; background:#FFFFFF; overflow:hidden;">
+            <div style="background:#FAFAFA; border-bottom:1px solid var(--color-secondary-outline); padding:6px 10px; display:flex; align-items:center; gap:6px;">
+              <div style="width:6px;height:6px;border-radius:50%;background:#FF5F57;"></div>
+              <div style="width:6px;height:6px;border-radius:50%;background:#FFBD2E;"></div>
+              <div style="width:6px;height:6px;border-radius:50%;background:#28C840;"></div>
+              <div style="margin-left:auto; font-size:10px; color:var(--color-text-secondary);">560px</div>
+            </div>
+            <div style="padding:12px; background:#FAFAFA;">
+              <div style="display:grid; grid-template-columns:1fr; gap:8px;">
+                <div style="background:#FFFFFF;border:1px solid var(--color-secondary-outline);border-radius:4px;padding:8px;"><div style="font-size:9px;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.04em;">Open Shifts</div><div style="font-size:14px;font-weight:500;margin-top:2px;">214</div></div>
+                <div style="background:#FFFFFF;border:1px solid var(--color-secondary-outline);border-radius:4px;padding:8px;"><div style="font-size:9px;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.04em;">Submissions</div><div style="font-size:14px;font-weight:500;margin-top:2px;">496</div></div>
+                <div style="background:#FFFFFF;border:1px solid var(--color-secondary-outline);border-radius:4px;padding:8px;"><div style="font-size:9px;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.04em;">Filled</div><div style="font-size:14px;font-weight:500;margin-top:2px;">114</div></div>
+                <div style="background:#FFFFFF;border:1px solid var(--color-secondary-outline);border-radius:4px;padding:8px;"><div style="font-size:9px;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.04em;">Fill Rate</div><div style="font-size:14px;font-weight:500;margin-top:2px;">82%</div></div>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:8px;font-size:12px;">
+            <span class="ld-annotation-badge">&lt; sm</span>
+            <span style="color:var(--color-text-secondary);">below 600 — 1-up</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Annotation row -->
+      <div class="ld-annotation-row" style="margin-bottom:var(--spacing-xl);">
+        <span class="ld-annotation-badge">Fluid</span> Within each range, cards resize with the browser
+        <span style="margin-left:12px;" class="ld-annotation-badge">Snap</span> Arrangement only changes when crossing a breakpoint
+      </div>
+
+      <!-- Stacking rules table -->
+      <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin-bottom:var(--spacing-sm);">Stacking Rules by Primitive</div>
+      <table class="property-table" style="margin-bottom:var(--spacing-xl);">
+        <thead>
+          <tr>
+            <th style="width:30%;">Primitive</th>
+            <th style="width:22%;">Stacks at</th>
+            <th>Behavior</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>PageHeaderToolbar</code></td>
+            <td><code>lg</code> (1200)</td>
+            <td>Title row and action row stack vertically; chips/eyebrow stay inline with the title</td>
+          </tr>
+          <tr>
+            <td>Filter bars</td>
+            <td><code>lg</code> (1200)</td>
+            <td>Filter inputs/chips wrap, then stack</td>
+          </tr>
+          <tr>
+            <td><code>MetricCard</code> rows</td>
+            <td><code>md</code> / <code>sm</code></td>
+            <td>4-up at <code>lg</code> → 2-up at <code>md</code> → 1-up at <code>sm</code></td>
+          </tr>
+          <tr>
+            <td>Two-column form sections</td>
+            <td><code>md</code> (900)</td>
+            <td>Collapse to single column</td>
+          </tr>
+          <tr>
+            <td>Detail page rails</td>
+            <td><code>md</code> (900)</td>
+            <td>Left/center/right rails collapse to a single stacked column</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- What does NOT stack -->
+      <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-secondary);margin-bottom:var(--spacing-sm);">What Does NOT Stack</div>
+      <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:var(--spacing-md); margin-bottom:var(--spacing-xl);">
+        <div style="background:var(--color-background-default);border:1px solid var(--color-secondary-outline);border-radius:4px;padding:12px 14px;">
+          <div style="font-size:13px;font-weight:500;margin-bottom:4px;">AG Grid tables</div>
+          <div style="font-size:12px;color:var(--color-text-secondary);">Horizontal scroll fallback. If unusable below <code>lg</code>, show a "best viewed on desktop" notice instead of re-architecting the grid.</div>
+        </div>
+        <div style="background:var(--color-background-default);border:1px solid var(--color-secondary-outline);border-radius:4px;padding:12px 14px;">
+          <div style="font-size:13px;font-weight:500;margin-bottom:4px;">Modals</div>
+          <div style="font-size:12px;color:var(--color-text-secondary);">Already width-constrained at 500/900px. Stay centered at all browser sizes.</div>
+        </div>
+        <div style="background:var(--color-background-default);border:1px solid var(--color-secondary-outline);border-radius:4px;padding:12px 14px;">
+          <div style="font-size:13px;font-weight:500;margin-bottom:4px;">Page shell</div>
+          <div style="font-size:12px;color:var(--color-text-secondary);">The 12-column grid wrapper does not change. Containers within it are what stack.</div>
+        </div>
+      </div>
+
+      <!-- Navigation TBD -->
+      <div style="background:#FFF8E1; border:1px solid #FFE082; border-radius:4px; padding:12px 16px; display:flex; gap:12px; align-items:flex-start;">
+        <span class="material-icons" style="font-size:18px; color:#E17109; margin-top:1px;">pending</span>
+        <div style="font-size:13px; color:var(--color-text-primary);">
+          <div style="font-weight:500; margin-bottom:4px;">Navigation responsiveness — needs definition</div>
+          <div style="color:var(--color-text-secondary); line-height:1.5;">
+            Both <code>NavigationHeader</code> and <code>NavigationVertical</code> need responsive behavior defined together — their treatments are paired (e.g. collapsed rail + slim header, drawer pattern). Until then, both retain their full desktop layout at all widths. This section will be updated once the navigation responsive behavior is settled.
+          </div>
+        </div>
       </div>
     </section>
 

@@ -81,88 +81,6 @@
       margin-top: var(--spacing-xs);
     }
 
-    /* Modal overlay */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 280px;
-      width: calc(100% - 280px);
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-    }
-    .modal-overlay.active {
-      display: flex;
-    }
-
-    .modal-container {
-      background: var(--color-background-paper);
-      border-radius: var(--border-radius);
-      box-shadow: 0 5px 40px rgba(0, 0, 0, 0.16);
-      max-height: 90vh;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      animation: slideUp 300ms ease-out;
-    }
-
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .modal-header {
-      padding: 16px 40px;
-      background: var(--color-primary-main);
-      border-radius: var(--border-radius) var(--border-radius) 0 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .modal-header-text { display: flex; flex-direction: column; gap: 2px; }
-    .modal-header h2 {
-      font-size: 20px;
-      font-weight: 500;
-      color: #fff;
-      margin: 0;
-    }
-    .modal-header-eyebrow {
-      font-size: 14px;
-      font-weight: 400;
-      color: rgba(255,255,255,0.85);
-    }
-    .modal-close {
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 4px;
-      border-radius: var(--border-radius);
-    }
-    .modal-close:hover { background: rgba(255,255,255,0.12); }
-    .modal-body {
-      padding: 24px 40px;
-      overflow-y: auto;
-      flex: 1;
-    }
-    .modal-footer {
-      padding: 16px 40px;
-      min-height: 68px;
-      border-top: 1px solid var(--color-secondary-outline);
-      display: flex;
-      gap: var(--spacing-lg);
-      justify-content: flex-end;
-      align-items: center;
-    }
-    .modal-sm { width: 550px; }
-    .modal-lg { width: 900px; }
-
     /* ── Spacing diagram styles ── */
     .ld-frame {
       border: 1px solid #E0E0E0;
@@ -345,49 +263,6 @@
     .ld-theme-full     { background:#F3E5F5; color:#4A148C; border:1px solid #CE93D8; }
     .ld-theme-equal    { background:#FCE4EC; color:#880E4F; border:1px solid #F48FB1; }
 
-    /* Inline form styles for demo content */
-    .form-group { margin-bottom: var(--spacing-md); }
-    .form-group:last-child { margin-bottom: 0; }
-    .form-label {
-      display: block;
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--color-text-primary);
-      margin-bottom: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    .form-input {
-      width: 100%;
-      padding: 10px 12px;
-      border: 1px solid var(--color-secondary-outline);
-      border-radius: var(--border-radius);
-      font-size: 14px;
-      font-family: var(--font-family);
-      transition: border-color 200ms;
-      box-sizing: border-box;
-    }
-    .form-input:focus {
-      outline: none;
-      border-color: var(--color-primary-main);
-      box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.1);
-    }
-
-    /* Reuse shell btn styles */
-    .btn {
-      padding: 8px 22px;
-      border-radius: var(--border-radius);
-      font-size: 14px;
-      font-weight: 500;
-      cursor: pointer;
-      border: none;
-      font-family: var(--font-family);
-      transition: background 200ms;
-    }
-    .btn-primary { background: var(--color-primary-main); color: #fff; }
-    .btn-primary:hover { background: var(--color-primary-dark); }
-    .btn-secondary { background: transparent; color: var(--color-primary-main); border: none; }
-    .btn-secondary:hover { background: var(--color-primary-light); }
 
     /* ── Visual illustration inside Do/Don't cards ── */
     .card-illustration {
@@ -594,31 +469,24 @@
         <div class="variant-label">Small Modal — 550px</div>
         <p style="font-size: 13px; color: var(--color-text-secondary); margin-bottom: var(--spacing-md);">Use for confirmations, alerts, simple forms, and single-step actions.</p>
         <div class="modal-preview">
-          <div class="modal-container modal-sm">
-            <div class="modal-header">
-              <div class="modal-header-text"><h2>Sign In</h2></div>
-              <button class="modal-close" disabled style="cursor:default">
-                <span class="material-icons">close</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div class="form-group">
-                <label class="form-label">Email Address</label>
-                <input type="email" class="form-input" placeholder="name@company.com">
-              </div>
-              <div class="form-group">
-                <label class="form-label">Password</label>
-                <input type="password" class="form-input" placeholder="••••••••">
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button class="btn btn-secondary">Cancel</button>
-              <button class="btn btn-primary">Sign In</button>
-            </div>
-          </div>
+          <div data-trio-component="ModalPanel" data-trio-props='{
+            "inline":true,
+            "size":"sm",
+            "title":"Sign In",
+            "confirmLabel":"Sign In",
+            "cancelLabel":"Cancel"
+          }' data-trio-children="Email and password fields would go here."></div>
         </div>
         <div class="demo-row">
-          <div data-trio-component="Button" data-trio-props='{"variant":"contained","color":"secondary","label":"Open Interactive","size":"medium"}' onclick="openModal('modal-sm')"></div>
+          <div data-trio-component="ModalDemo" data-trio-props='{
+            "triggerLabel":"Open Interactive",
+            "triggerColor":"secondary",
+            "size":"sm",
+            "title":"Sign In",
+            "bodyText":"Real Modal component — close with the X, Cancel, Sign In, ESC key, or backdrop click.",
+            "confirmLabel":"Sign In",
+            "cancelLabel":"Cancel"
+          }'></div>
         </div>
       </div>
 
@@ -627,42 +495,58 @@
         <div class="variant-label">Large Modal — 900px</div>
         <p style="font-size: 13px; color: var(--color-text-secondary); margin-bottom: var(--spacing-md);">Use for multi-field forms, data entry, complex workflows, and feature-level dialogs.</p>
         <div class="modal-preview">
-          <div class="modal-container modal-lg">
-            <div class="modal-header">
-              <div class="modal-header-text">
-                <h2>Create New User</h2>
-                <span class="modal-header-eyebrow">Workforce Management · User Administration</span>
-              </div>
-              <button class="modal-close" disabled style="cursor:default">
-                <span class="material-icons">close</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div class="form-group">
-                <label class="form-label">Full Name</label>
-                <input type="text" class="form-input" placeholder="John Doe">
-              </div>
-              <div class="form-group">
-                <label class="form-label">Email Address</label>
-                <input type="email" class="form-input" placeholder="john@company.com">
-              </div>
-              <div class="form-group">
-                <label class="form-label">Password</label>
-                <input type="password" class="form-input" placeholder="••••••••">
-              </div>
-              <div class="form-group">
-                <label class="form-label">Confirm Password</label>
-                <input type="password" class="form-input" placeholder="••••••••">
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button class="btn btn-secondary">Cancel</button>
-              <button class="btn btn-primary">Create User</button>
-            </div>
-          </div>
+          <div data-trio-component="ModalPanel" data-trio-props='{
+            "inline":true,
+            "size":"lg",
+            "title":"Create New User",
+            "eyebrowText":"Workforce Management · User Administration",
+            "confirmLabel":"Create User",
+            "cancelLabel":"Cancel"
+          }' data-trio-children="Form fields would go here — full name, email, password, etc."></div>
         </div>
         <div class="demo-row">
-          <div data-trio-component="Button" data-trio-props='{"variant":"contained","color":"secondary","label":"Open Interactive","size":"medium"}' onclick="openModal('modal-lg')"></div>
+          <div data-trio-component="ModalDemo" data-trio-props='{
+            "triggerLabel":"Open Interactive",
+            "triggerColor":"secondary",
+            "size":"lg",
+            "title":"Create New User",
+            "eyebrowText":"Workforce Management · User Administration",
+            "bodyText":"Real Modal component — typically you would put a form here.",
+            "confirmLabel":"Create User",
+            "cancelLabel":"Cancel"
+          }'></div>
+        </div>
+      </div>
+
+      <!-- Destructive variant -->
+      <div class="variant-group">
+        <div class="variant-label">Destructive — red confirm</div>
+        <p style="font-size: 13px; color: var(--color-text-secondary); margin-bottom: var(--spacing-md);">
+          Use <code>variant="destructive"</code> for irreversible actions: delete, revoke, terminate, remove. The confirm button switches to <code>color="error"</code> to make the destructive intent obvious.
+        </p>
+        <div class="modal-preview">
+          <div data-trio-component="ModalPanel" data-trio-props='{
+            "inline":true,
+            "size":"sm",
+            "variant":"destructive",
+            "title":"Delete account?",
+            "eyebrowText":"This action cannot be undone",
+            "confirmLabel":"Delete",
+            "cancelLabel":"Cancel"
+          }' data-trio-children="All credentials, timecards, and submission history for this user will be permanently removed."></div>
+        </div>
+        <div class="demo-row">
+          <div data-trio-component="ModalDemo" data-trio-props='{
+            "triggerLabel":"Delete account",
+            "triggerColor":"error",
+            "variant":"destructive",
+            "size":"sm",
+            "title":"Delete account?",
+            "eyebrowText":"This action cannot be undone",
+            "bodyText":"All credentials, timecards, and submission history for this user will be permanently removed. The agency will be notified.",
+            "confirmLabel":"Delete",
+            "cancelLabel":"Cancel"
+          }'></div>
         </div>
       </div>
     </section>
@@ -1103,87 +987,5 @@
     </section>
 
   </main>
-
-  <!-- ============================================================
-       INTERACTIVE MODAL OVERLAYS
-       ============================================================ -->
-
-  <!-- Small Modal -->
-  <div id="modal-sm" class="modal-overlay">
-    <div class="modal-container modal-sm">
-      <div class="modal-header">
-        <div class="modal-header-text"><h2>Sign In</h2></div>
-        <button class="modal-close" onclick="closeModal('modal-sm')">
-          <span class="material-icons">close</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <label class="form-label">Email Address</label>
-          <input type="email" class="form-input" placeholder="name@company.com">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Password</label>
-          <input type="password" class="form-input" placeholder="••••••••">
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-secondary" onclick="closeModal('modal-sm')">Cancel</button>
-        <button class="btn btn-primary" onclick="closeModal('modal-sm')">Sign In</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Large Modal -->
-  <div id="modal-lg" class="modal-overlay">
-    <div class="modal-container modal-lg">
-      <div class="modal-header">
-        <div class="modal-header-text">
-          <h2>Create New User</h2>
-          <span class="modal-header-eyebrow">Workforce Management · User Administration</span>
-        </div>
-        <button class="modal-close" onclick="closeModal('modal-lg')">
-          <span class="material-icons">close</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <label class="form-label">Full Name</label>
-          <input type="text" class="form-input" placeholder="John Doe">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Email Address</label>
-          <input type="email" class="form-input" placeholder="john@company.com">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Password</label>
-          <input type="password" class="form-input" placeholder="••••••••">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Confirm Password</label>
-          <input type="password" class="form-input" placeholder="••••••••">
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-secondary" onclick="closeModal('modal-lg')">Cancel</button>
-        <button class="btn btn-primary" onclick="closeModal('modal-lg')">Create User</button>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    function openModal(id) { document.getElementById(id).classList.add('active'); }
-    function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-
-    document.querySelectorAll('.modal-overlay').forEach(overlay => {
-      overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(overlay.id); });
-    });
-
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') {
-        document.querySelectorAll('.modal-overlay.active').forEach(m => closeModal(m.id));
-      }
-    });
-  </script>
 </body>
 </html>

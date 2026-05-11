@@ -17,22 +17,24 @@
 import React from 'react';
 import { Box } from '@mui/material';
 import {
-  ProductLogosProps,
+  type ProductLogosProps,
   defaultProductLogosProps,
   LOGO_DIMENSIONS,
-  LogoType,
+  type LogoType,
 } from './ProductLogos.types';
 
-// SVG asset paths — resolved relative to the project root at runtime.
-// Using string imports keeps the component free of bundler assumptions and
-// allows the design-system site to reference the files directly via relative URLs.
+// Asset imports — Vite/Storybook resolve these to served URLs at build time.
+import logoDark from '../../assets/logos/trio-logo-dark.png';
+import logoWhite from '../../assets/logos/trio-logo-white.png';
+import logoIcon from '../../assets/trio-icon.svg';
+
 const LOGO_SRCS: Record<LogoType, string> = {
-  dark:     '../../assets/logos/trio-logo-dark.png',
-  white:    '../../assets/logos/trio-logo-white.png',
-  logoOnly: '../../assets/trio-icon.svg',
+  dark:     logoDark,
+  white:    logoWhite,
+  logoOnly: logoIcon,
 };
 
-export const ProductLogos = React.forwardRef<HTMLDivElement, ProductLogosProps>(
+export const ProductLogos = React.forwardRef<HTMLSpanElement, ProductLogosProps>(
   (
     {
       logoType = defaultProductLogosProps.logoType!,
@@ -56,10 +58,8 @@ export const ProductLogos = React.forwardRef<HTMLDivElement, ProductLogosProps>(
       <Box
         ref={ref}
         component="span"
-        display="inline-flex"
-        alignItems="center"
         className={className}
-        sx={{ lineHeight: 0 }}
+        sx={{ display: 'inline-flex', alignItems: 'center', lineHeight: 0 }}
       >
         <img
           src={LOGO_SRCS[logoType]}

@@ -16,7 +16,7 @@
 
 import React from 'react';
 import { Checkbox as MuiCheckbox, FormControlLabel } from '@mui/material';
-import { CheckboxProps, defaultCheckboxProps } from './Checkbox.types';
+import { type CheckboxProps, defaultCheckboxProps } from './Checkbox.types';
 
 export const Checkbox = React.forwardRef<HTMLButtonElement, CheckboxProps>(({
   color = defaultCheckboxProps.color,
@@ -48,6 +48,7 @@ export const Checkbox = React.forwardRef<HTMLButtonElement, CheckboxProps>(({
       required={required}
       value={value}
       ref={ref}
+      className={label ? undefined : className}
       {...ariaProps}
     />
   );

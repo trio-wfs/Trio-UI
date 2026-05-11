@@ -19,7 +19,7 @@
  * - Desktop-only (no responsive/mobile)
  */
 
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 /**
  * Modal size

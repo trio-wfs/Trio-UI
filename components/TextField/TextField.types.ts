@@ -54,39 +54,11 @@ export interface TextFieldProps {
    */
   disabled?: boolean;
 
-  // ========================================
-  // BOOLEAN Properties (from Figma)
-  // ========================================
-
   /**
-   * Show helper text below input
-   * @default false
-   */
-  iconRight?: boolean;
-
-  /**
-   * Show support icon
-   * @default false
-   */
-  iconSupport?: boolean;
-
-  /**
-   * Fill input background
+   * Fill input background with `background.secondary`
    * @default false
    */
   inputFill?: boolean;
-
-  /**
-   * Show chip content
-   * @default false
-   */
-  chipContent?: boolean;
-
-  /**
-   * Show input adornment
-   * @default false
-   */
-  adornmentInput?: boolean;
 
   // ========================================
   // TEXT / React Props
@@ -149,10 +121,6 @@ export const defaultTextFieldProps: Partial<TextFieldProps> = {
   size: 'medium',
   state: 'default',
   disabled: false,
-  iconRight: false,
-  iconSupport: false,
   inputFill: false,
-  chipContent: false,
-  adornmentInput: false,
   placeholder: 'Placeholder',
 };

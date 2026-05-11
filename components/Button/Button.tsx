@@ -16,7 +16,7 @@
 
 import React from 'react';
 import { Button as MuiButton } from '@mui/material';
-import { ButtonProps, defaultButtonProps } from './Button.types';
+import { type ButtonProps, defaultButtonProps } from './Button.types';
 import { tokens } from '../../design-tokens/tokens';
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({

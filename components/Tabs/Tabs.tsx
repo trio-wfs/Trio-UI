@@ -13,7 +13,7 @@
 
 import React, { useState } from 'react';
 import { Tabs as MuiTabs, Tab as MuiTab, Box } from '@mui/material';
-import { TabsProps, defaultTabsProps } from './Tabs.types';
+import { type TabsProps, defaultTabsProps } from './Tabs.types';
 import { tokens } from '../../design-tokens/tokens';
 
 export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(({

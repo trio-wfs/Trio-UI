@@ -272,6 +272,33 @@
       </div>
     </section>
 
+    <!-- SURFACE -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">layers</span>
+        Surface
+      </h2>
+      <p class="section-description">
+        The active tab fills with the surrounding page background so the selected tab visually connects to the content below. Use <code>surface="secondary"</code> when the tab strip sits over a secondary-tinted background (e.g. a settings page or nested panel).
+      </p>
+
+      <!-- Paper (default) -->
+      <div class="variant-group">
+        <div class="variant-label">Paper <span class="badge badge-default">Default</span></div>
+        <div class="demo-panel" style="padding: 0; background: var(--color-background-paper);">
+          <div data-trio-component="Tabs" data-trio-props='{"tabs":[{"label":"Submissions"},{"label":"Credentials"},{"label":"Timecards"},{"label":"Notes"}],"activeIndex":0,"variant":"Tab Group","surface":"paper"}'></div>
+        </div>
+      </div>
+
+      <!-- Secondary -->
+      <div class="variant-group">
+        <div class="variant-label">Secondary</div>
+        <div class="demo-panel" style="padding: 0; background: var(--color-background-secondary);">
+          <div data-trio-component="Tabs" data-trio-props='{"tabs":[{"label":"Submissions"},{"label":"Credentials"},{"label":"Timecards"},{"label":"Notes"}],"activeIndex":0,"variant":"Tab Group","surface":"secondary"}'></div>
+        </div>
+      </div>
+    </section>
+
     <!-- STATES -->
     <section class="section">
       <h2 class="section-title">

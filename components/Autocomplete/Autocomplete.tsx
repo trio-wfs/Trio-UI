@@ -18,8 +18,9 @@
  */
 
 import React from 'react';
-import { Autocomplete as MuiAutocomplete, TextField, Chip } from '@mui/material';
-import { AutocompleteProps, AutocompleteOption, defaultAutocompleteProps } from './Autocomplete.types';
+import { Autocomplete as MuiAutocomplete, TextField, Chip, type SxProps, type Theme } from '@mui/material';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import { type AutocompleteProps, type AutocompleteOption, defaultAutocompleteProps } from './Autocomplete.types';
 import { tokens } from '../../design-tokens/tokens';
 
 const inputChipSx = {
@@ -45,6 +46,7 @@ const inputChipSx = {
 export const Autocomplete = React.forwardRef<HTMLDivElement, AutocompleteProps>(({
   type = defaultAutocompleteProps.type,
   state = defaultAutocompleteProps.state,
+  size = defaultAutocompleteProps.size,
   options = defaultAutocompleteProps.options,
   value,
   onChange,
@@ -62,13 +64,27 @@ export const Autocomplete = React.forwardRef<HTMLDivElement, AutocompleteProps>(
 }, ref) => {
   const isMulti = type === 'multi';
   const isError = state === 'error';
+  const isSmall = size === 'small';
   const displayedHelperText = isError ? errorText : helperText;
 
   const popupIcon = (
-    <span className="material-icons-outlined" style={{ fontSize: 20, color: tokens.colors.text.secondary }}>
-      arrow_drop_down
-    </span>
+    <ArrowDropDownIcon sx={{ fontSize: isSmall ? 18 : 20, color: tokens.colors.text.secondary }} />
   );
+
+  const smallSx: SxProps<Theme> = isSmall ? {
+    '& .MuiOutlinedInput-root': {
+      height: '28px',
+      padding: `${tokens.spacing.xs}px ${tokens.spacing.sm}px`,
+      fontSize: `${tokens.typography.fontSize.xs}px`,
+    },
+    '& .MuiOutlinedInput-input': {
+      fontSize: `${tokens.typography.fontSize.xs}px`,
+      padding: '0 !important',
+    },
+    '& .MuiAutocomplete-endAdornment': {
+      right: `${tokens.spacing.xs}px`,
+    },
+  } : {};
 
   if (isMulti) {
     return (
@@ -98,6 +114,7 @@ export const Autocomplete = React.forwardRef<HTMLDivElement, AutocompleteProps>(
           <TextField
             {...params}
             variant="outlined"
+            size={isSmall ? 'small' : 'medium'}
             label={label}
             placeholder={placeholder}
             required={required}
@@ -108,7 +125,7 @@ export const Autocomplete = React.forwardRef<HTMLDivElement, AutocompleteProps>(
               inputLabel: { ...params.slotProps.inputLabel, shrink: true },
               input: { ...params.slotProps.input, notched: false },
             }}
-            sx={inputChipSx}
+            sx={{ ...inputChipSx, ...smallSx }}
             {...ariaProps}
           />
         )}
@@ -132,9 +149,11 @@ export const Autocomplete = React.forwardRef<HTMLDivElement, AutocompleteProps>(
         <TextField
           {...params}
           variant="outlined"
+          size={isSmall ? 'small' : 'medium'}
           label={label}
           placeholder={placeholder}
           required={required}
+          name={name}
           error={isError}
           helperText={displayedHelperText}
           slotProps={{
@@ -142,6 +161,7 @@ export const Autocomplete = React.forwardRef<HTMLDivElement, AutocompleteProps>(
             inputLabel: { ...params.slotProps.inputLabel, shrink: true },
             input: { ...params.slotProps.input, notched: false },
           }}
+          sx={smallSx}
           {...ariaProps}
         />
       )}

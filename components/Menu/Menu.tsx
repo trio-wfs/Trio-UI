@@ -15,12 +15,12 @@
 
 import React from 'react';
 import { Menu as MuiMenu, MenuItem as MuiMenuItem, Divider, ListSubheader } from '@mui/material';
-import { MenuProps, defaultMenuProps, MenuItem } from './Menu.types';
+import { type MenuProps, defaultMenuProps, type MenuItem } from './Menu.types';
 
 export const Menu = React.forwardRef<HTMLDivElement, MenuProps & { anchorEl?: HTMLElement | null; open?: boolean; onClose?: () => void }>(({
   state = defaultMenuProps.state,
   scroll = defaultMenuProps.scroll,
-  items = defaultMenuProps.items,
+  items = defaultMenuProps.items ?? [],
   className,
   width = 254,
   maxHeight,

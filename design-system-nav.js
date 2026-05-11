@@ -13,7 +13,7 @@ const DS_NAV = {
     { label: 'Changelog',   icon: 'update',       href: 'changelog.html' },
     { label: 'Colors',      icon: 'palette',      href: 'design-tokens-colors.html' },
     { label: 'Typography',  icon: 'text_fields',  href: 'design-tokens-typography.html' },
-    { label: 'Spacing',     icon: 'space_bar',    href: 'design-tokens-spacing.html' },
+    { label: 'Spacing & Breakpoints', icon: 'space_bar',    href: 'design-tokens-spacing.html' },
     { label: 'Downloads',   icon: 'download',     href: 'downloads.html' },
     { label: 'Prototypes',  icon: 'science',      href: 'prototypes.html' },
   ],
@@ -55,7 +55,6 @@ const DS_NAV = {
     { label: 'Search Bar',    icon: 'search',       href: 'components/SearchBar/search-bar-showcase.html' },
     { label: 'Split Button',  icon: 'call_split',   href: 'components/SplitButton/split-button-showcase.html' },
     { label: 'Stepper',       icon: 'linear_scale', href: 'components/Stepper/stepper-showcase.html' },
-    { label: 'Handle',        icon: 'drag_indicator', href: 'components/Handle/handle-showcase.html' },
     { label: 'Product Logos', icon: 'branding_watermark', href: 'components/ProductLogos/product-logos-showcase.html' },
   ],
 

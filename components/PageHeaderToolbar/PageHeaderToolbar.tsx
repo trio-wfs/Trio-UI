@@ -14,7 +14,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { Box, Typography } from '@mui/material';
-import { PageHeaderToolbarProps, defaultPageHeaderToolbarProps } from './PageHeaderToolbar.types';
+import { type PageHeaderToolbarProps, defaultPageHeaderToolbarProps } from './PageHeaderToolbar.types';
 import { tokens } from '../../design-tokens/tokens';
 
 export const PageHeaderToolbar = React.forwardRef<HTMLDivElement, PageHeaderToolbarProps>(({

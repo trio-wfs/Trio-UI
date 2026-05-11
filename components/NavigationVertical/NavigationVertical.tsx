@@ -34,13 +34,12 @@ import MenuIcon from '@mui/icons-material/Menu';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import {
-  NavigationVerticalProps,
-  NavItem,
-  NavSettingsItem,
+  type NavigationVerticalProps,
+  type NavItem,
+  type NavSettingsItem,
   defaultNavigationVerticalProps,
 } from './NavigationVertical.types';
 import { Menu } from '../Menu/Menu';
-import { MenuItem } from '../Menu/Menu.types';
 import { tokens } from '../../design-tokens/tokens';
 
 const NAV_WIDTH_OPEN = 260;

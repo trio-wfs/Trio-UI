@@ -8,7 +8,7 @@
  * DO NOT modify variant options unless Figma is updated.
  */
 
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 /**
  * Menu variant types from Figma

@@ -747,6 +747,360 @@
         </div>
       </section>
 
+      <!-- ═══════════════════════════════════════════════════════════
+           9. ELEVATION & SHADOWS
+           ═══════════════════════════════════════════════════════════ -->
+      <section class="section">
+        <h2 class="section-title">
+          <span class="material-icons-outlined">filter_drama</span>
+          Elevation & Shadows
+        </h2>
+        <p class="section-description">
+          TRIO uses a flat design language. Drop shadows are reserved exclusively for floating/overlay elements that sit above the page surface.
+        </p>
+
+        <div class="grid-2">
+          <div>
+            <div class="variant-label">Shadows allowed</div>
+            <table class="rules-table">
+              <tbody>
+                <tr><td>Modals / Dialogs</td></tr>
+                <tr><td>Menus / Popovers</td></tr>
+                <tr><td>Tooltips</td></tr>
+                <tr><td>Breadcrumb dropdowns</td></tr>
+                <tr><td>Snackbars / Toasts</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <div class="variant-label">Never use shadows on</div>
+            <table class="rules-table">
+              <tbody>
+                <tr><td>Cards</td></tr>
+                <tr><td>Panels / ContentContainers</td></tr>
+                <tr><td>Page headers</td></tr>
+                <tr><td>Any paper surface in the page layout</td></tr>
+                <tr><td>Buttons (including hover state)</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="diagram-surface" style="margin-top: 16px;">
+          <p style="font-size: 13px; color: #212121; margin: 0;">
+            Shadow token: <code>tokens.shadows.sm</code> — only for floating elements. Depth is communicated through the background layer hierarchy (Section 1), not elevation.
+          </p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════════════
+           10. COLOR USAGE RULES
+           ═══════════════════════════════════════════════════════════ -->
+      <section class="section">
+        <h2 class="section-title">
+          <span class="material-icons-outlined">palette</span>
+          Color Usage Rules
+        </h2>
+        <p class="section-description">
+          Every color in TRIO has a defined purpose. No decorative color. No invented palettes.
+        </p>
+
+        <div class="variant-label">Background hierarchy</div>
+        <table class="rules-table" style="margin-bottom: 16px;">
+          <thead>
+            <tr><th>Token</th><th>Hex</th><th>Use</th><th>Never use for</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>background.default</code></td>
+              <td><span style="display:inline-block;width:14px;height:14px;background:#F5F5F5;border:1px solid #E0E0E0;border-radius:2px;vertical-align:middle;margin-right:4px;"></span> <code>#F5F5F5</code></td>
+              <td>Page canvas only</td>
+              <td>Cards, containers, component backgrounds</td>
+            </tr>
+            <tr>
+              <td><code>background.secondary</code></td>
+              <td><span style="display:inline-block;width:14px;height:14px;background:#FAFAFA;border:1px solid #E0E0E0;border-radius:2px;vertical-align:middle;margin-right:4px;"></span> <code>#FAFAFA</code></td>
+              <td>Content wrapper only</td>
+              <td>Cards, component backgrounds</td>
+            </tr>
+            <tr>
+              <td><code>background.paper</code></td>
+              <td><span style="display:inline-block;width:14px;height:14px;background:#FFFFFF;border:1px solid #E0E0E0;border-radius:2px;vertical-align:middle;margin-right:4px;"></span> <code>#FFFFFF</code></td>
+              <td>All cards, panels, containers</td>
+              <td>—</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="variant-label">Primary blue (#2196F3)</div>
+        <div class="diagram-surface" style="border-left: 4px solid #2196F3; margin-bottom: 16px;">
+          <ul style="font-size: 13px; color: #424242; line-height: 1.8; margin: 0; padding-left: 20px;">
+            <li><strong>Save</strong> and <strong>Update</strong> actions only</li>
+            <li>Clickable text links (email addresses, IDs that navigate)</li>
+            <li><strong>Not for</strong> navigation, status indicators, decorative use, or general emphasis</li>
+          </ul>
+        </div>
+
+        <div class="variant-label">Semantic colors — status and feedback only</div>
+        <table class="rules-table">
+          <thead>
+            <tr><th>Color</th><th>Token</th><th>Hex</th><th>Use for</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span style="display:inline-block;width:14px;height:14px;background:#388e3c;border-radius:2px;vertical-align:middle;margin-right:4px;"></span> Success</td>
+              <td><code>success.main</code></td>
+              <td><code>#388e3c</code></td>
+              <td>Positive outcomes, active/filled status</td>
+            </tr>
+            <tr>
+              <td><span style="display:inline-block;width:14px;height:14px;background:#E17109;border-radius:2px;vertical-align:middle;margin-right:4px;"></span> Warning</td>
+              <td><code>warning.main</code></td>
+              <td><code>#E17109</code></td>
+              <td>Caution, approaching a limit</td>
+            </tr>
+            <tr>
+              <td><span style="display:inline-block;width:14px;height:14px;background:#DB4537;border-radius:2px;vertical-align:middle;margin-right:4px;"></span> Error</td>
+              <td><code>error.main</code></td>
+              <td><code>#DB4537</code></td>
+              <td>Failures, destructive actions, rejections</td>
+            </tr>
+            <tr>
+              <td><span style="display:inline-block;width:14px;height:14px;background:#54afca;border-radius:2px;vertical-align:middle;margin-right:4px;"></span> Info</td>
+              <td><code>info.main</code></td>
+              <td><code>#54afca</code></td>
+              <td>Informational, neutral callouts</td>
+            </tr>
+            <tr>
+              <td><span style="display:inline-block;width:14px;height:14px;background:#37636b;border-radius:2px;vertical-align:middle;margin-right:4px;"></span> Data Viz Teal</td>
+              <td><code>dataViz.teal</code></td>
+              <td><code>#37636b</code></td>
+              <td>Metric card bars, stepper indicators, charts — not buttons or chips</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════════════
+           11. TYPOGRAPHY RULES
+           ═══════════════════════════════════════════════════════════ -->
+      <section class="section">
+        <h2 class="section-title">
+          <span class="material-icons-outlined">text_fields</span>
+          Typography Rules
+        </h2>
+        <p class="section-description">
+          All TRIO typography is Roboto. No alternatives. Max weight is Medium (500).
+        </p>
+
+        <table class="rules-table">
+          <thead>
+            <tr><th>Context</th><th>Style</th><th>Size</th><th>Weight</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Page title</td><td>H5 or H6</td><td>24px / 20px</td><td>Medium 500</td></tr>
+            <tr><td>Section header</td><td>Subtitle1</td><td>16px</td><td>Medium 500</td></tr>
+            <tr><td>Container header</td><td>Subtitle2</td><td>14px</td><td>Medium 500</td></tr>
+            <tr><td>Body copy (primary)</td><td>Body1</td><td>16px</td><td>Regular 400</td></tr>
+            <tr><td>Body copy (dense)</td><td>Body2</td><td>14px</td><td>Regular 400</td></tr>
+            <tr><td>Labels / captions</td><td>Caption</td><td>12px</td><td>Regular 400</td></tr>
+            <tr><td>Eyebrow text</td><td>Caption</td><td>12px</td><td>Regular 400</td></tr>
+            <tr><td>Overline labels</td><td>Overline</td><td>10px</td><td>Medium 500</td></tr>
+          </tbody>
+        </table>
+
+        <div class="diagram-surface" style="margin-top: 16px; background: #FFF8E1; border-color: #FFE082;">
+          <p style="font-size: 13px; color: #212121; margin: 0;">
+            <strong>Rules:</strong> No <code>textTransform: uppercase</code> except for overline labels explicitly called for in Figma. No font weights above 500. Never use Inter, system-ui, or any font other than Roboto.
+          </p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════════════
+           12. FORM LAYOUT
+           ═══════════════════════════════════════════════════════════ -->
+      <section class="section">
+        <h2 class="section-title">
+          <span class="material-icons-outlined">edit_note</span>
+          Form Layout
+        </h2>
+        <p class="section-description">
+          Standard form structure for modals and inline editing. Consistent vertical rhythm across all forms.
+        </p>
+
+        <table class="rules-table">
+          <thead>
+            <tr><th>Property</th><th>Value</th><th>Token</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Vertical gap between fields</td><td>24px</td><td><code>spacing.lg</code></td></tr>
+            <tr><td>Horizontal gap between columns</td><td>16px</td><td><code>spacing.md</code></td></tr>
+            <tr><td>Section divider margin</td><td>8px top/bottom</td><td><code>spacing.sm</code></td></tr>
+            <tr><td>Section title</td><td>Subtitle2 (14px, Medium 500)</td><td>—</td></tr>
+            <tr><td>Checkbox/radio spacing</td><td>8px between options</td><td><code>spacing.sm</code></td></tr>
+          </tbody>
+        </table>
+
+        <div class="diagram-surface" style="margin-top: 16px;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px 16px; padding: 12px; background: #FFFFFF; border: 1px solid #E0E0E0; border-radius: 4px;">
+            <div style="border: 1px dashed #BDBDBD; border-radius: 4px; padding: 8px; font-size: 10px; color: #757575;">Text Field — First Name</div>
+            <div style="border: 1px dashed #BDBDBD; border-radius: 4px; padding: 8px; font-size: 10px; color: #757575;">Text Field — Last Name</div>
+            <div style="border: 1px dashed #BDBDBD; border-radius: 4px; padding: 8px; font-size: 10px; color: #757575;">Select — Department</div>
+            <div style="border: 1px dashed #BDBDBD; border-radius: 4px; padding: 8px; font-size: 10px; color: #757575;">Date Picker — Start Date</div>
+            <div style="border: 1px dashed #BDBDBD; border-radius: 4px; padding: 8px; font-size: 10px; color: #757575; grid-column: 1 / -1;">Text Area — Notes (full width)</div>
+          </div>
+          <div class="diagram-caption">Two-column grid: <code>grid-template-columns: 1fr 1fr; gap: 24px 16px</code>. Full-width fields span both columns. Most forms live in modals (900px large, 500px small).</div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════════════
+           13. DATA DISPLAY & FORMATTING
+           ═══════════════════════════════════════════════════════════ -->
+      <section class="section">
+        <h2 class="section-title">
+          <span class="material-icons-outlined">data_object</span>
+          Data Display & Formatting
+        </h2>
+        <p class="section-description">
+          Standard formatting conventions for data values, loading states, and empty states across all TRIO pages.
+        </p>
+
+        <div class="variant-label">Data formats</div>
+        <table class="rules-table" style="margin-bottom: 16px;">
+          <thead>
+            <tr><th>Data type</th><th>Format</th><th>Example</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Dates</td><td>MM/DD/YYYY</td><td>04/02/2024</td></tr>
+            <tr><td>Currency</td><td>$X,XXX.XX</td><td>$800.00</td></tr>
+            <tr><td>Phone</td><td>(XXX) XXX-XXXX</td><td>(215) 555-1212</td></tr>
+            <tr><td>Clickable text</td><td>Primary blue (#2196F3)</td><td>Email addresses, IDs that navigate</td></tr>
+          </tbody>
+        </table>
+
+        <div class="variant-label">Key-value pair display</div>
+        <div class="diagram-surface" style="margin-bottom: 16px;">
+          <div style="background: #FFFFFF; border: 1px solid #E0E0E0; border-radius: 4px; overflow: hidden;">
+            <div style="display: flex; justify-content: space-between; padding: 8px 12px; border-bottom: 1px solid #E0E0E0;">
+              <span style="font-size: 12px; color: rgba(0,0,0,0.6);">Status</span>
+              <span style="font-size: 14px; color: #212121;">Active</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 8px 12px; border-bottom: 1px solid #E0E0E0;">
+              <span style="font-size: 12px; color: rgba(0,0,0,0.6);">Start Date</span>
+              <span style="font-size: 14px; color: #212121;">04/02/2024</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 8px 12px;">
+              <span style="font-size: 12px; color: rgba(0,0,0,0.6);">Bill Rate</span>
+              <span style="font-size: 14px; color: #212121;">$85.00/hr</span>
+            </div>
+          </div>
+          <div class="diagram-caption">Label: Caption (12px), text.secondary. Value: Body2 (14px), text.primary. Rows separated by #E0E0E0 borders.</div>
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <div class="variant-label">Loading states</div>
+            <div class="diagram-surface">
+              <ul style="font-size: 13px; color: #424242; line-height: 1.8; margin: 0; padding-left: 20px;">
+                <li><strong>Spinners only</strong> — no skeleton screens</li>
+                <li>If >2 seconds, add a text label</li>
+                <li>"Loading credentials…" not just a spinner</li>
+              </ul>
+            </div>
+          </div>
+          <div>
+            <div class="variant-label">Empty states</div>
+            <div class="diagram-surface">
+              <ul style="font-size: 13px; color: #424242; line-height: 1.8; margin: 0; padding-left: 20px;">
+                <li><strong>AG Grid:</strong> "No rows to display" centered</li>
+                <li>No icons, no illustrations</li>
+                <li><strong>Cards/pages:</strong> explain why + suggest action</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════════════
+           14. EDIT, DELETE & ALERT PATTERNS
+           ═══════════════════════════════════════════════════════════ -->
+      <section class="section">
+        <h2 class="section-title">
+          <span class="material-icons-outlined">edit</span>
+          Edit, Delete & Alert Patterns
+        </h2>
+        <p class="section-description">
+          Standard interaction patterns for modifying and removing data.
+        </p>
+
+        <table class="rules-table" style="margin-bottom: 16px;">
+          <thead>
+            <tr><th>Action</th><th>Trigger</th><th>Opens</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Edit (grid row)</td><td>Pencil icon</td><td>Modal — always. Never inline-edit in the grid.</td></tr>
+            <tr><td>Edit (detail page)</td><td>Pencil icon or Edit button</td><td>Modal by default. Inline only if Jesse specifies.</td></tr>
+            <tr><td>Delete / Remove</td><td>Trashcan icon</td><td>Confirmation modal (small, 500px)</td></tr>
+          </tbody>
+        </table>
+
+        <div class="variant-label">Callout / alert containers</div>
+        <div class="diagram-surface" style="border: 2px solid #54afca;">
+          <p style="font-size: 13px; color: #212121; margin: 0;">
+            <strong>Critical requirement:</strong> When content needs semantic emphasis (compliance warnings, critical requirements), wrap in a container with a <strong>full border</strong> using the info color (<code>info.main</code>). Not a left-accent-only treatment — full border around the container. Use sparingly.
+          </p>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════════════
+           15. CONTENT SURFACES
+           ═══════════════════════════════════════════════════════════ -->
+      <section class="section">
+        <h2 class="section-title">
+          <span class="material-icons-outlined">layers</span>
+          Content Surfaces — Modal, Panel, Inline
+        </h2>
+        <p class="section-description">
+          Three ways to show secondary content. The choice depends on whether the user is completing an action, referencing information, or optionally exploring deeper.
+        </p>
+
+        <div class="grid-3">
+          <div class="wireframe">
+            <div class="wireframe-title">Modal (current standard)</div>
+            <div class="wireframe-desc">
+              <strong>Interrupts workflow.</strong> User must complete or dismiss before continuing.<br><br>
+              <strong>Use for:</strong> create, edit, save, configure, destructive confirmations, reviewing snapshots.<br><br>
+              <strong>Sizes:</strong> 900px (complex) or 500px (confirmations).<br><br>
+              If too complex for 900px → break into steps, don't make the modal bigger.
+            </div>
+          </div>
+          <div class="wireframe">
+            <div class="wireframe-title">Panel (newer direction)</div>
+            <div class="wireframe-desc">
+              <strong>Non-interrupting.</strong> Main view stays visible and interactive.<br><br>
+              <strong>Use for:</strong> referencing detail info, reviewing context, quick-reference data.<br><br>
+              Layout-driven — uses 12-column grid splits (e.g. 8+4). Not a fixed-width component.<br><br>
+              <em>Still being developed.</em> Digital Workers is the testing ground.
+            </div>
+          </div>
+          <div class="wireframe">
+            <div class="wireframe-title">Inline Expansion</div>
+            <div class="wireframe-desc">
+              <strong>In-place reveal.</strong> No overlay, no interruption.<br><br>
+              <strong>Use for:</strong> secondary content the user might want but doesn't need by default.<br><br>
+              Collapse/expand is user-driven — don't auto-expand.<br><br>
+              Content is subordinate to what's around it.
+            </div>
+          </div>
+        </div>
+
+        <div class="diagram-surface" style="margin-top: 16px; background: #FFF8E1; border-color: #FFE082;">
+          <p style="font-size: 13px; color: #212121; margin: 0;">
+            <strong>Future direction:</strong> Moving away from modals toward contextual experiences — panels and inline expansion. Content comes to the user in-context rather than interrupting. Until those patterns are proven, <strong>modals remain the default</strong> for all existing TRIO projects.
+          </p>
+        </div>
+      </section>
+
     </div><!-- /content-wrap -->
   </main>
 </body>

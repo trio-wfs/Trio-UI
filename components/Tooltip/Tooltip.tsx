@@ -12,7 +12,7 @@
 
 import React from 'react';
 import { Tooltip as MuiTooltip } from '@mui/material';
-import { TooltipProps, defaultTooltipProps } from './Tooltip.types';
+import { type TooltipProps, defaultTooltipProps } from './Tooltip.types';
 
 export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(({
   title,

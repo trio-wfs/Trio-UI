@@ -18,7 +18,7 @@ export const tokens = {
       light: '#E3F2FD',
       dark: '#1976D2',
       contrastText: '#FFFFFF',
-      selected: '#2196F31F', // primary/states/selected — nav item, list item selected bg
+      selected: '#2196F31A', // primary/states/selected — nav item, list item selected bg (10% opacity)
     },
 
     // Secondary - Edit actions
@@ -78,8 +78,8 @@ export const tokens = {
       hover: 'rgba(0, 0, 0, 0.04)',
       selected: 'rgba(0, 0, 0, 0.08)',
       focus: 'rgba(0, 0, 0, 0.12)',
-      disabled: 'rgba(0, 0, 0, 0.12)',
-      disabledBackground: 'rgba(0, 0, 0, 0.12)',
+      disabled: 'rgba(0, 0, 0, 0.26)',           // Figma: action/disabled #00000042
+      disabledBackground: 'rgba(0, 0, 0, 0.08)', // Figma: color/semantic/surface/state/disabled #00000014
     },
 
     // Component-Specific Colors
@@ -92,10 +92,10 @@ export const tokens = {
       border: {
         default: '#E0E0E0',
         focus: '#64B5F6',
-        focusShadow: 'rgba(66, 165, 245, 0.18)',
+        focusShadow: 'rgba(66, 165, 245, 0.32)',
       },
       input: {
-        enabledBorder: '#9E9E9E',
+        enabledBorder: 'rgba(0, 0, 0, 0.30)',
         hoverBorder: '#616161',
         disabledBorder: '#E0E0E0',
       },
@@ -304,7 +304,7 @@ export const tokens = {
   shadows: {
     none: 'none',
     sm: '0px 2px 4px rgba(0, 0, 0, 0.075)',  // Figma: Shadows/01. Small
-    md: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+    md: '0px 8px 16px rgba(0, 0, 0, 0.15)',   // Figma: Shadows/02. Regular
     lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
     xl: '0 20px 25px -5px rgba(0, 0, 0, 0.1)',
   },

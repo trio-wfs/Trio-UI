@@ -19,7 +19,7 @@ figma.connect(Tabs, 'https://www.figma.com/design/PjAYuPDr8IA1ccwiAjFkSD?node-id
         { label: 'Tab 2' },
         { label: 'Tab 3' },
       ]}
-      onChange={(index) => {}}
+      onChange={() => {}}
     />
   ),
 })

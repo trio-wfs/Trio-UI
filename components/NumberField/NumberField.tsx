@@ -21,7 +21,7 @@ import FormLabel from '@mui/material/FormLabel';
 import RemoveOutlined from '@mui/icons-material/RemoveOutlined';
 import AddOutlined from '@mui/icons-material/AddOutlined';
 import { tokens } from '../../design-tokens/tokens';
-import { NumberFieldProps, defaultNumberFieldProps } from './NumberField.types';
+import { type NumberFieldProps, defaultNumberFieldProps } from './NumberField.types';
 
 // ─── dimension constants ────────────────────────────────────────────────────
 

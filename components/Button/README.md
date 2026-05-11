@@ -375,9 +375,8 @@ Test all combinations:
 
 ## References
 
-- **Figma Spec**: Use `mcp__figma__get_design_context` with node ID from `figma-component-manifest.json`
+- **Figma Spec**: Use `mcp__figma__get_design_context` with the Button node ID (`978:5063`) and file key `PjAYuPDr8IA1ccwiAjFkSD`. To discover other component nodeIds, use `mcp__figma__get_metadata` against the same file key.
 - **Design Tokens**: `design-tokens/tokens.ts`
-- **Component Manifest**: `figma-component-manifest.json`
 - **Design System Rules**: `CLAUDE.md`, `PAGE_ARCHITECTURE.md`
 
 ---

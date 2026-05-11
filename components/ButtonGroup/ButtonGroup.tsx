@@ -14,7 +14,7 @@
 import React from 'react';
 import { ButtonGroup as MuiButtonGroup } from '@mui/material';
 import { Button } from '../Button/Button';
-import { ButtonGroupProps, defaultButtonGroupProps } from './ButtonGroup.types';
+import { type ButtonGroupProps, defaultButtonGroupProps } from './ButtonGroup.types';
 import { tokens } from '../../design-tokens/tokens';
 
 export const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(({
@@ -25,6 +25,7 @@ export const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(({
   buttons = defaultButtonGroupProps.buttons,
   onButtonClick = [],
   disabledButtons = [],
+  activeIndex,
   className,
   fullWidth = defaultButtonGroupProps.fullWidth,
   disableElevation = defaultButtonGroupProps.disableElevation,
@@ -39,9 +40,6 @@ export const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(({
     ? tokens.colors.secondary.outline
     : tokens.colors.primary.main;
 
-  // Divider property depends on orientation
-  const dividerProp = isHorizontal ? 'borderRight' : 'borderBottom';
-
   return (
     <MuiButtonGroup
       ref={ref}
@@ -49,7 +47,7 @@ export const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(({
       size={muiSize}
       color={color}
       orientation={orientation}
-      disableElevation
+      disableElevation={disableElevation}
       fullWidth={fullWidth}
       className={className}
       sx={{
@@ -61,6 +59,7 @@ export const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(({
         '& .MuiButton-root': {
           border: 'none !important',
           boxShadow: 'none !important',
+          textTransform: 'none !important',
         },
         // Add dividers between buttons (more specific to override the above)
         '& .MuiButton-root + .MuiButton-root': {
@@ -68,17 +67,24 @@ export const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(({
         },
       }}
     >
-      {displayButtons.map((label, index) => (
-        <Button
-          key={`button-${index}`}
-          variant={muiVariant}
-          size={muiSize}
-          color={color}
-          label={label}
-          onClick={() => onButtonClick[index]?.(index)}
-          disabled={disabledButtons[index] || false}
-        />
-      ))}
+      {displayButtons.map((label, index) => {
+        const isActive = activeIndex === index;
+        return (
+          <Button
+            key={`button-${index}`}
+            variant={muiVariant}
+            size={muiSize}
+            color={color}
+            label={label}
+            onClick={() => onButtonClick[index]?.(index)}
+            disabled={disabledButtons[index] || false}
+            sx={isActive ? {
+              backgroundColor: `${tokens.colors.action.selected} !important`,
+              fontWeight: `${tokens.typography.fontWeight.medium} !important`,
+            } : undefined}
+          />
+        );
+      })}
     </MuiButtonGroup>
   );
 });

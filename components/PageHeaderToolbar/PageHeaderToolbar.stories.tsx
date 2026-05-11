@@ -1,4 +1,3 @@
-import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { PageHeaderToolbar } from './PageHeaderToolbar';
 import { Button } from '../Button/Button';

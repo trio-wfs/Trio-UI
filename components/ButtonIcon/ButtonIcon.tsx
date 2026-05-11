@@ -10,7 +10,7 @@
 import React from 'react';
 import { IconButton } from '@mui/material';
 import { Badge } from '@mui/material';
-import { ButtonIconProps, defaultButtonIconProps } from './ButtonIcon.types';
+import { type ButtonIconProps, defaultButtonIconProps } from './ButtonIcon.types';
 import { tokens } from '../../design-tokens/tokens';
 
 export const ButtonIcon = React.forwardRef<HTMLButtonElement, ButtonIconProps>(({
@@ -63,6 +63,8 @@ export const ButtonIcon = React.forwardRef<HTMLButtonElement, ButtonIconProps>((
     const iconColor =
       color === 'primary'
         ? tokens.colors.primary.main
+        : color === 'default'
+        ? tokens.colors.components.icon.default
         : tokens.colors.secondary.contrastText;
     return {
       backgroundColor: 'transparent',

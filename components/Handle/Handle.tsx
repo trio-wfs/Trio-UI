@@ -10,7 +10,7 @@
 
 import React from 'react';
 import { Box } from '@mui/material';
-import { HandleProps, defaultHandleProps } from './Handle.types';
+import { type HandleProps, defaultHandleProps } from './Handle.types';
 import { tokens } from '../../design-tokens/tokens';
 
 // Shared active/hover background

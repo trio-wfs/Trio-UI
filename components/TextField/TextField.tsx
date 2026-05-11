@@ -15,7 +15,7 @@
 
 import React from 'react';
 import { TextField as MuiTextField } from '@mui/material';
-import { TextFieldProps, defaultTextFieldProps } from './TextField.types';
+import { type TextFieldProps, defaultTextFieldProps } from './TextField.types';
 import { tokens } from '../../design-tokens/tokens';
 
 export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(({
@@ -25,11 +25,7 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(({
   disabled = defaultTextFieldProps.disabled,
   label,
   helperText,
-  iconRight = defaultTextFieldProps.iconRight,
-  iconSupport = defaultTextFieldProps.iconSupport,
   inputFill = defaultTextFieldProps.inputFill,
-  chipContent = defaultTextFieldProps.chipContent,
-  adornmentInput = defaultTextFieldProps.adornmentInput,
   placeholder = defaultTextFieldProps.placeholder,
   value,
   onChange,

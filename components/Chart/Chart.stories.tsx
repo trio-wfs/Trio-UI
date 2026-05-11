@@ -1,4 +1,3 @@
-import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Chart } from './Chart';
 import { trioChartPalette } from '../../design-tokens/agChartsTheme';
@@ -335,7 +334,7 @@ export const ColorPalette: Story = {
           Stroke Colors (outlines)
         </h4>
         <div style={{ display: 'flex', gap: 8 }}>
-          {trioChartPalette.strokes.map((stroke, i) => (
+          {trioChartPalette.strokes.map((stroke) => (
             <div key={stroke} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
               <div style={{
                 width: 48,
@@ -713,7 +712,7 @@ export const RangeBarPipeline: Story = {
             line: { enabled: false }, tick: { enabled: false },
             gridLine: { enabled: true, style: [{ stroke: `${tokens.colors.components.border.default}60`, lineDash: [4, 3] }] },
           },
-        ],
+        ] as any,
         animation: { enabled: true },
       }}
     />
@@ -751,7 +750,7 @@ export const RangeBarGantt: Story = {
               return { fill: trioChartPalette.fills[idx], stroke: trioChartPalette.strokes[idx] };
             },
           }],
-          axes: [
+          axes: ([
             {
               type: 'category', position: 'left',
               label: { fontSize: tokens.typography.fontSize.xs, color: tokens.colors.text.secondary },
@@ -781,7 +780,7 @@ export const RangeBarGantt: Story = {
                 },
               }],
             },
-          ],
+          ]) as any,
           animation: { enabled: true },
         }}
       />
@@ -801,7 +800,7 @@ export const Waterfall: Story = {
         subtitle: { text: 'Point contribution by scoring dimension' },
         data: waterfallData,
         series: [{
-          type: 'waterfall' as any,
+          type: 'waterfall',
           xKey: 'category',
           yKey: 'value',
           item: {
@@ -810,7 +809,7 @@ export const Waterfall: Story = {
             subtotal: { fill: trioChartPalette.fills[8], stroke: trioChartPalette.strokes[8] },
           },
           totals: [{ totalType: 'subtotal', index: 7, axisLabel: 'Total' }],
-        }],
+        }] as any,
         axes: [
           {
             type: 'category', position: 'bottom',
@@ -824,7 +823,7 @@ export const Waterfall: Story = {
               formatter: ({ value }: { value: number }) => `${value > 0 ? '+' : ''}${value}`,
             },
           },
-        ],
+        ] as any,
         animation: { enabled: true },
       }}
     />
@@ -870,7 +869,7 @@ export const RadarChart: Story = {
         }, {
           type: 'radius-number',
           label: { fontSize: tokens.typography.fontSize.xxs, color: tokens.colors.text.disabled },
-        }],
+        }] as any,
         animation: { enabled: true },
       }}
     />
@@ -979,7 +978,7 @@ export const BoxPlot: Story = {
               formatter: ({ value }: { value: number }) => `${value}d`,
             },
           },
-        ],
+        ] as any,
         animation: { enabled: true },
       }}
     />
@@ -1018,7 +1017,7 @@ export const Heatmap: Story = {
             type: 'category', position: 'left',
             label: { fontSize: tokens.typography.fontSize.xs, color: tokens.colors.text.secondary },
           },
-        ],
+        ] as any,
         animation: { enabled: true },
       }}
     />
@@ -1075,7 +1074,7 @@ export const RangeArea: Story = {
               formatter: ({ value }: { value: number }) => `${value}%`,
             },
           },
-        ],
+        ] as any,
         animation: { enabled: true },
       }}
     />
@@ -1130,7 +1129,7 @@ export const AreaGradientScorecard: Story = {
               label: { fontSize: tokens.typography.fontSize.xs, color: tokens.colors.text.disabled },
               line: { enabled: false }, tick: { enabled: false },
             },
-          ],
+          ] as any,
           legend: { enabled: true },
           animation: { enabled: true },
         }}

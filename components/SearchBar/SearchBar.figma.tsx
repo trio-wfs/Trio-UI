@@ -17,7 +17,7 @@ figma.connect(SearchBar, 'https://www.figma.com/design/PjAYuPDr8IA1ccwiAjFkSD?no
       size={size}
       type={type}
       placeholder="Search..."
-      onChange={(value) => {}}
+      onChange={() => {}}
       onSearch={() => {}}
     />
   ),

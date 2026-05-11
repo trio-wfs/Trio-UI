@@ -13,7 +13,7 @@
 
 import React from 'react';
 import { RadioGroup as MuiRadioGroup, Radio, FormControlLabel, FormControl, FormLabel } from '@mui/material';
-import { RadioGroupProps, defaultRadioGroupProps } from './RadioGroup.types';
+import { type RadioGroupProps, defaultRadioGroupProps } from './RadioGroup.types';
 
 export const RadioGroup = React.forwardRef<HTMLFieldSetElement, RadioGroupProps>(({
   color = defaultRadioGroupProps.color,

@@ -4,7 +4,7 @@
  * DO NOT add properties not in Figma. DO NOT modify variant options unless Figma changes.
  */
 
-import React, { RefObject } from 'react';
+import React, { type RefObject } from 'react';
 
 /** default = title + buttons only; full = title + chips + eyebrow + breadcrumb; NewCanvas = full without outer border */
 export type PageHeaderToolbarVariant = 'default' | 'full' | 'NewCanvas';

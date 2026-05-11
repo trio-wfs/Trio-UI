@@ -14,7 +14,7 @@
 
 import React from 'react';
 import { Switch as MuiSwitch, FormControlLabel } from '@mui/material';
-import { SwitchProps, defaultSwitchProps } from './Switch.types';
+import { type SwitchProps, defaultSwitchProps } from './Switch.types';
 
 export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(({
   state = defaultSwitchProps.state,
@@ -48,6 +48,7 @@ export const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(({
       required={required}
       value={value}
       ref={ref}
+      className={label ? undefined : className}
       {...ariaProps}
     />
   );

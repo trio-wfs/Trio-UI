@@ -9,7 +9,7 @@
 
 import React from 'react';
 import { Box, Typography, Link } from '@mui/material';
-import { FooterProps, defaultFooterProps } from './Footer.types';
+import { type FooterProps, defaultFooterProps } from './Footer.types';
 import { tokens } from '../../design-tokens/tokens';
 
 export const Footer = React.forwardRef<HTMLElement, FooterProps>(({

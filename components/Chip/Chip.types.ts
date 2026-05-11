@@ -66,8 +66,16 @@ export interface ChipProps {
   variant?: ChipVariant;
   disabled?: boolean;
 
-  // Icon Properties — pass any MUI icon element, or omit for no icon
+  // Icon Properties
+  /** Left icon — pass any MUI icon element, or omit for no icon */
   iconLeft?: React.ReactNode;
+  /**
+   * Right icon. Three modes:
+   *  - omit → no right icon
+   *  - `true` → default close X (the common chip-as-tag / chip-as-filter pattern)
+   *  - any icon element → custom icon
+   * When `onDelete` is also provided without `iconRight`, the close X is shown automatically.
+   */
   iconRight?: React.ReactNode;
 
   // Text Properties (from Figma)

@@ -25,7 +25,7 @@ import { DateTimePicker as MuiDateTimePicker } from '@mui/x-date-pickers/DateTim
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import CalendarMonthOutlined from '@mui/icons-material/CalendarMonthOutlined';
-import { DatePickerProps, defaultDatePickerProps } from './DatePicker.types';
+import { type DatePickerProps, defaultDatePickerProps } from './DatePicker.types';
 import { tokens } from '../../design-tokens/tokens';
 
 // Shared slot props for theming the calendar popup to match Figma
@@ -225,7 +225,7 @@ const getTextFieldSlotProps = (size: 'small' | 'medium') => {
   };
 };
 
-export const DatePicker = React.forwardRef<HTMLDivElement, DatePickerProps>(({
+export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(({
   type = defaultDatePickerProps.type,
   value,
   onChange,

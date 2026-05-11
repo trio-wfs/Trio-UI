@@ -183,33 +183,17 @@ All 23 components have a live showcase page in the design system website.
 
 ## Design Rules
 
-These rules are non-negotiable. Components are built to enforce them — do not override.
+All design rules — colors, spacing, typography, layout, component composition — live in canonical sources. This README does not restate them, to avoid drift.
 
-**Spacing** — 8px grid: `4 / 8 / 12 / 16 / 24 / 32 / 40px` only. No arbitrary values.
+| Looking for | Canonical source |
+|-------------|------------------|
+| Token values (colors, spacing, radius, typography) | `design-tokens/tokens.ts` |
+| Page layer order, color usage, component defaults, layout patterns | `PAGE_ARCHITECTURE.md` |
+| Brand voice, design philosophy, user persona | `DIGITAL_JESSE.md` |
+| How to build a new component (process + structure) | `COMPONENT_TEMPLATE.md` |
+| Per-component theme migration status | `COMPONENT_COVERAGE.md` |
 
-**Colors**
-
-| Role | Value |
-|------|-------|
-| Primary action (Save/Update) | `#2196F3` |
-| Page background | `#F5F5F5` |
-| Surface / card | `#FFFFFF` |
-| Text primary | `#212121` |
-| Text secondary | `#757575` |
-| Border | `#E0E0E0` |
-| Success | `#388e3c` |
-| Warning | `#E17109` |
-| Error | `#DB4537` |
-
-**Typography** — Roboto only. Maximum heading size: H5 (24px / 500 weight).
-
-**Border radius** — `4px` standard, `999px` pill. No other values.
-
-**Layout** — Desktop-first. 12-column grid, 16px gutters. Modals: 900px / 500px. Drawers: 400px.
-
-Full token reference: `design-tokens/tokens.ts`
-
-For page-level composition rules (layer order, elevation, header variants, color hierarchy): `PAGE_ARCHITECTURE.md`
+Components are built to enforce these rules — do not override.
 
 ---
 
@@ -227,7 +211,7 @@ Open http://localhost:8080 — navigate from the sidebar.
 
 ## Adding a New Component
 
-1. Check `figma-component-manifest.json` for the component's Figma node ID
+1. Find the component's Figma node ID via MCP — `mcp__figma__get_metadata` with `fileKey: PjAYuPDr8IA1ccwiAjFkSD` to list the design system file's components, or use a known nodeId directly
 2. Pull specs via Figma MCP: `get_design_context` with the node ID
 3. Create `components/ComponentName/` with:
    - `ComponentName.tsx` — React/MUI implementation

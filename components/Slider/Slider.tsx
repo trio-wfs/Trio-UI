@@ -14,7 +14,7 @@
 
 import React from 'react';
 import { Slider as MuiSlider } from '@mui/material';
-import { SliderProps, defaultSliderProps } from './Slider.types';
+import { type SliderProps, defaultSliderProps } from './Slider.types';
 
 export const Slider = React.forwardRef<HTMLSpanElement, SliderProps>(({
   size = defaultSliderProps.size,

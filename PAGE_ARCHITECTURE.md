@@ -2,6 +2,10 @@
 
 Rules for how pages are assembled from components. Read alongside `design-tokens/tokens.ts` and the component library.
 
+> **Canonical source.** This file is the authoritative source for layout, color usage, component defaults, page composition, tabs, grids, forms, alerts, and content surfaces. Other docs (`README.md`, both `CLAUDE.md` files, `COMPONENT_TEMPLATE.md`, `DIGITAL_JESSE.md`) point here instead of restating these rules. If a rule appears to be duplicated elsewhere, this file wins.
+>
+> Token values are owned by `design-tokens/tokens.ts`, not this file. This file references token *roles* and *usage*, not literal hex values where avoidable.
+>
 > **For engineers:** These rules are non-negotiable. Components are built to enforce them — do not override.
 > **For Claude:** Read this before producing any UI output for TRIO WFS projects.
 
@@ -14,12 +18,15 @@ Every TRIO page is built from 3 background layers, top to bottom:
 ```
 ┌─────────────────────────────────────────────────┐
 │  background.default (#F5F5F5)  ← page canvas    │
+│  ← 16px padding on all sides of the canvas      │
 │  ┌───────────────────────────────────────────┐  │
-│  │  Page Header Component                    │  │
+│  │  PageHeaderToolbar (paper, bordered)      │  │
 │  └───────────────────────────────────────────┘  │
+│  ← 16px gap                                     │
 │  ┌───────────────────────────────────────────┐  │
-│  │  background.secondary (#FAFAFA)            │  │
-│  │  ← content wrapper, 16px padding all sides│  │
+│  │  background.secondary (#FAFAFA) wrapper    │  │
+│  │  + 1px #E0E0E0 border + 4px radius         │  │
+│  │  ← 16px internal padding around tab content│  │
 │  │  ┌─────────────┐  ┌─────────────────────┐ │  │
 │  │  │ background  │  │ background.paper    │ │  │
 │  │  │ .paper      │  │ (#FFFFFF)           │ │  │
@@ -34,10 +41,10 @@ Every TRIO page is built from 3 background layers, top to bottom:
 
 ### Rules
 
-- **`background.default` (`#F5F5F5`)** — page canvas only. Nothing else uses this value.
-- **`background.secondary` (`#FAFAFA`)** — the single content wrapper that fills the page below the header. Always 16px padding on all sides. Groups all page components.
+- **`background.default` (`#F5F5F5`)** — page canvas only. Nothing else uses this value. The canvas has **16px padding on all four sides** — the PHT and content wrapper both sit within this padded area, never running to the browser edge. (The future full-width PHT variant is the only exception — see §4.)
+- **`background.secondary` (`#FAFAFA`)** — the single content wrapper that fills the page below the PHT. Has the **same paper border treatment** as other containers: `1px solid #E0E0E0` + 4px radius. Tabs sit flush at the top of this wrapper (see §11); tab content gets 16px padding inside it.
 - **`background.paper` (`#FFFFFF`)** — all cards, panels, containers, and components. Paper can nest inside paper (e.g. a card inside a panel, both paper). No exceptions.
-- **Border stroke** — all paper containers use `border: 1px solid` `components.border.default` (`#E0E0E0`). No elevation.
+- **Border stroke** — every container surface (paper *and* the `#FAFAFA` wrapper) uses `border: 1px solid` `components.border.default` (`#E0E0E0`). No elevation.
 
 ---
 
@@ -110,9 +117,37 @@ The toolbar either **floats** (16px gap to content) or **attaches** (no gap, sha
 ### Key rules
 
 - **Header tabs are only for grid switching** — tabbing between AG Grid views on list pages
-- **Detail pages** (candidate, job, facility) use the Tabs component inside the content area for section navigation — never header tabs
+- **Detail pages** (candidate, job, facility) use the Tabs component **at the content wrapper level** for section navigation — never header tabs. See §11.
 - Never invent a new header layout — always use a variant of PageHeaderToolbar
 - If a page has no actions, remove the button group entirely rather than disabling buttons
+
+### Page placement — inset 16px from canvas edges
+
+The PHT sits inside the page canvas's 16px padding (see §1). It does **not** run to the browser edge — `#F5F5F5` shows as a 16px gutter on the top, left, and right. Below it is a 16px gap to the content wrapper.
+
+Internal padding inside the PHT itself is 16px on all sides of the main row.
+
+**Future:** a full-width PHT variant is planned for Digital Workers / AI layouts. That variant *will* run edge-to-edge with no canvas padding around it. It is not yet shipped — until then, treat all PHT use as inset.
+
+### Actions — slot composition
+
+The right side of the PHT has three explicit slots: `inputTextFieldContent`, `buttonGroupContent`, and `singleButtonContent`. Use them for what they're named for; do not pour loose buttons into the actions area.
+
+| Slot | Component | Use for |
+|------|-----------|---------|
+| `inputTextFieldContent` | `TextField` or `SearchBar` | Search / filter input scoped to the page |
+| `buttonGroupContent` | `ButtonGroup` (one or more) | Connected secondary actions — icon trios (filter / columns / more), or labeled clusters (Export / Print) |
+| `singleButtonContent` | `Button` | The single primary action for the page (e.g. "+ New Worker", "Save Changes") |
+
+Multiple `ButtonGroup`s can sit in the actions area when actions cluster naturally — typically one icon-only group for grid controls and one labeled group for data actions, plus the primary `Button` on the far right.
+
+**Don't:**
+- Drop loose `Button` or `IconButton` instances next to each other in the actions area. Group them via `ButtonGroup` so they share one outer border and internal dividers, matching the segmented chrome the rest of the system uses.
+- Put primary actions inside a `ButtonGroup` of secondary actions. The primary action is its own `Button` in `singleButtonContent`.
+
+### Variant choice for grid pages
+
+Standalone grid pages (§10) use the **`full` variant** of PHT — the `breadcrumbContent` slot is filled with the **Breadcrumb component in `state="Links"`**, which renders the grid view switcher (`All | Active | Pending | …`). Don't use the `default` variant on grid pages; you'd lose the slot the view switcher needs to live in.
 
 ---
 
@@ -133,6 +168,7 @@ The toolbar either **floats** (16px gap to content) or **attaches** (no gap, sha
 - Metric card bars, stepper indicators, charts
 - Complements the primary blue palette without competing with it
 - Not for buttons, not for status chips
+- **Stepper specifically:** active step circle fill, completed checkmark icon, and connectors between completed steps all use teal. The current `Stepper.tsx` implementation uses primary blue — that is a known drift to be aligned to this rule, not the rule to follow.
 
 ### Semantic colors — use only for status and feedback
 
@@ -159,7 +195,7 @@ Never use semantic colors for decorative purposes or general UI chrome.
 
 - 16px padding inside the `background.secondary` content wrapper
 - 12-column grid, 16px gutters
-- Desktop-first — 1440px viewport target, no responsive/mobile considerations
+- Desktop-first — 1440px viewport target. Layout primitives stack below 1200px (`lg`) per Section 7. This is a graceful floor, not mobile support.
 
 ### Full-width pages (Digital Workers, future AI layouts)
 
@@ -169,7 +205,77 @@ Never use semantic colors for decorative purposes or general UI chrome.
 
 ---
 
-## 7. Typography Rules
+## 7. Responsive Floor — Below `lg` (1200px)
+
+TRIO is desktop-first. The intended viewport is 1440px. Below ~1200px (MUI's `lg` breakpoint), the experience is **degraded, not designed** — the goal is graceful stacking instead of squishing, so a user on a narrower window sees something readable, not broken.
+
+This is not mobile support. Tables and dense workflows still require desktop, and the navigation components are TBD (see below). The responsive floor only ensures layout primitives don't visually collapse.
+
+### Fluid widths, snap arrangement
+
+**Width is fluid; arrangement is discrete.**
+
+Containers grow and shrink with the browser within a breakpoint range. A 4-up `MetricCard` row at 1440px is the same 4-up row at 1280px — each card just gets proportionally narrower. The *arrangement* (4-up vs 2-up vs stacked, row vs column, multi-column vs single-column) only changes when the browser crosses a defined breakpoint, where it snaps cleanly to the new layout.
+
+So desktop sizes from 1200 to 1920+ all see the same arrangement, just with fluid widths. The "snap" happens when the browser crosses *below* a primitive's defined breakpoint — never gradually in between.
+
+This avoids two failure modes: rigid containers that leave dead margins on wide monitors, and squished half-wrapped middle states that come from also reflowing arrangement fluidly.
+
+### The breakpoints
+
+- **Default floor:** `lg` (1200px). Most layout primitives stack below this.
+- **Some primitives stack later** at `md` (900px) — see the table below.
+- **Above each primitive's defined breakpoint:** normal desktop layout — rows, multi-column grids, side-by-side cards.
+- Use only MUI's standard breakpoints (`xs:0, sm:600, md:900, lg:1200, xl:1536`). Never invent custom pixel values.
+
+### What stacks, and when
+
+Each primitive has a defined breakpoint at which it snaps to stacked:
+
+| Primitive | Stacks at | Behavior |
+|-----------|-----------|----------|
+| `PageHeaderToolbar` | `lg` (1200) | Title row and action row stack vertically; chips/eyebrow stay inline with the title |
+| Filter bars | `lg` (1200) | Filter inputs/chips wrap, then stack |
+| `MetricCard` rows | `md` / `sm` | 4-up at `lg` → 2-up at `md` → 1-up at `sm` |
+| Two-column form sections | `md` (900) | Collapse to single column |
+| Detail page rails (Section 12) | `md` (900) | Left/center/right collapse to a single stacked column |
+
+### What does NOT stack
+
+These remain desktop-only and are out of scope for the responsive floor:
+
+- **AG Grid tables** — horizontal scroll is the fallback. If a grid is unusable below `lg`, the page should display a "best viewed on desktop" notice rather than re-architect the grid.
+- **Modals** — already width-constrained (500/900px); stay centered.
+- **The page shell itself** — the 12-column grid wrapper does not change.
+
+### Navigation — needs definition
+
+Both `NavigationHeader` and `NavigationVertical` need responsive behavior defined together — their treatments are paired (e.g. collapsed rail + slim header, drawer pattern). Until we work this through:
+
+- `NavigationHeader` retains its full layout at all widths (no overflow menu yet).
+- `NavigationVertical` retains its desktop layout at all widths (no collapse / drawer behavior yet).
+
+This section will be updated once the navigation responsive behavior is settled.
+
+### Implementation
+
+Stacking behavior is baked into the layout primitives — consumers should not have to write `sx` overrides at every call site. A page using `<PageHeaderToolbar>` should get correct stacking automatically.
+
+When a one-off `sx` override is genuinely needed, follow this shape:
+
+```tsx
+sx={{
+  display: 'flex',
+  flexDirection: { xs: 'column', lg: 'row' },
+  gap: { xs: 2, lg: 3 },
+}}
+```
+
+`xs` is the lowest-breakpoint default; `lg` is where the desktop layout kicks in. Nothing in between needs a value.
+
+---
+
+## 8. Typography Rules
 
 - **Font:** Roboto only — no Inter, no system-ui
 - **Max headline:** H5 (24px) for page headers
@@ -180,46 +286,102 @@ Never use semantic colors for decorative purposes or general UI chrome.
 
 ---
 
-## 8. Component Defaults
+## 9. Component Defaults
 
 - **Border radius:** 4px standard, 999px pill (chips, badges, step circles)
 - **Spacing:** 4/8/12/16/24/32/40px only — no arbitrary values
 - **Modals:** 900px large, 500px small
-- **Drawer:** 400px standard width (legacy — panels on the 12-column grid are the future direction, see Section 15)
+- **Drawer:** 400px standard width (legacy — panels on the 12-column grid are the future direction, see Section 16)
 - **Icons:** `@mui/icons-material` Outlined only — no other icon libraries
 - **Icon size:** 16x16 in buttons and tabs — always. No exceptions.
-- **Data tables:** AG Grid only — never MUI X DataGrid
+- **Data tables:** **AG Grid** — always, no exceptions. Never MUI X DataGrid, never hand-rolled `<table>` markup. See §10 for grid layout rules (column dividers, paper-bg headers, horizontal scroll).
 - **PageHeaderToolbar:** title-to-eyebrow gap is 4px (`spacing.xs`)
 - **Footer:** sticky, 16px horizontal padding, 16px vertical padding on copy, `#E0E0E0` top border (standard component border, not input border)
 - **NavigationVertical:** never has a background color — always transparent
 
+### ContentContainer — the standard paper surface
+
+Every paper section on a page is a `ContentContainer`. Hand-rolled paper cards (white box + border + arbitrary header) are not allowed — use `ContentContainer` so the title strip stays consistent across the system.
+
+| Property | Value |
+|----------|-------|
+| Background | `background.paper` (`#FFFFFF`) |
+| Border | 1px solid `#E0E0E0` |
+| Radius | 4px (or 0 when `flush`) |
+| Title strip background | `background.default` (`#F5F5F5`) — **persistent** across all containers |
+| Title strip height | 48px |
+| Title strip padding | 16px left, 8px right |
+| Title text | Subtitle2 — 14px / 500 / 16.8px line-height, `text.primary` |
+| Title actions slot | Right-aligned: chips, icon buttons, small text buttons |
+| Body padding | 16px default (configurable per use) |
+| Bottom border under title | 1px solid `#E0E0E0` |
+
+Containers can nest — a list of bordered KV rows inside a container body, or a smaller container inside a larger one. The title strip is required at the top level of each container.
+
+**Containers vs. components:** standalone components like `Alert`, `MetricCard`, and `Stepper` already have their own structure and do **not** get wrapped in a ContentContainer or given a title strip. The rule applies to grouping cards/sections (Profile, Compliance, Profession & specialty, Bill rates, etc.).
+
 ---
 
-## 9. Grid Page Patterns
+## 10. Grid Page Patterns
+
+**Always use AG Grid for data tables in React.** Hand-rolled `<table>` markup or MUI X DataGrid are not allowed. Static HTML prototypes mirror AG Grid's structure (column headers, filter row, zebra-striped data rows) so engineers can drop in `AgGridReact` when implementing.
 
 Two distinct patterns for data grids:
 
 ### Standalone grid page
 
-The PageHeaderToolbar connects directly to the AG Grid — no content wrapper between them, no gap. They share one continuous border.
+The PageHeaderToolbar connects directly to the AG Grid — no content wrapper between them, no gap. They share one continuous border. The PHT is the **`full` variant**, with the `breadcrumbContent` slot occupied by the **Breadcrumb component in `state="Links"`** (pipe dividers) — this is the grid view switcher.
 
 ```
 ┌──────────────────────────────────────┐
-│  PageHeaderToolbar (default variant) │  ← border on all sides
-│  Title            [Create Task]      │
+│  PageHeaderToolbar (full variant)    │  ← top row: title, chips, actions
+│  Title            [search] [⋯] [+]   │
 ├──────────────────────────────────────┤  ← shared border, no gap
-│  Active | Completed | Cancelled      │  ← filter tabs
-├──────────────────────────────────────┤
-│  Col 1  │  Col 2  │  Col 3  │ ...   │  ← AG Grid column headers
-│  [____] │  [____] │  [    ] │ ...   │  ← filter inputs (disabled if not searchable)
-│  data   │  data   │  data   │ ...   │  ← data rows (42px, zebra stripe)
+│  All | Active | Pending | Inactive   │  ← Breadcrumb in state="Links" (40px, #FAFAFA)
+├──────────────────────────────────────┤  ← shared border
+│  Col 1 │ Col 2 │ Col 3 │ ...    →   │  ← Column headers (40px, paper bg, body2)
+│  [___] │ [___] │ [   ] │ ...        │  ← Filter inputs (disabled if not searchable)
+│  data  │ data  │ data  │ ...        │  ← Data rows (42px, zebra stripe)
 └──────────────────────────────────────┘
 ```
 
-- Header's bottom border IS the grid's top border
-- Filter tabs sit between header and column headers
-- The whole assembly is one visual unit with shared `border: 1px solid #E0E0E0`
+#### Structure & borders
+
+- Header's bottom border IS the grid's top border. The whole assembly shares one outer `1px solid #E0E0E0`.
+- **Vertical column dividers** run through every row: `border-right: 1px solid #E0E0E0` on every header `th`, every filter cell, and every data `td`. The last cell in each row drops its right border so the outer frame stays clean.
 - Reference: Figma node `5650:4810`
+
+#### Grid view switching — Breadcrumb-Links, not Tabs
+
+The `Active | Pending | Inactive` switcher is the **Breadcrumb component**, rendered with `state="Links"`:
+
+- Same 40px height, same `background.secondary` (#FAFAFA), same caption (12px) text as a normal breadcrumb.
+- Pipe `|` dividers (in `border.default` color) instead of slashes — that's the only visual difference from a regular breadcrumb.
+- Non-selected items: primary-blue link text. Hover underlines.
+- Selected item: `text.primary` color with a 2px primary-blue bottom border indicator on the item itself (matches the breadcrumb selected pattern).
+- Optional inline count after each label, in `text.secondary`. Selected item flips its count to primary blue.
+
+This is the **third tab pattern** referenced in §11C — distinct from the Tabs component, which is *not* used for grid view switching.
+
+#### Column headers — paper bg, 40px tall
+
+- Background: `background.paper` (#FFFFFF) — not `#F5F5F5`.
+- Height: **40px**, matching the breadcrumb-Links strip directly above. Visually, the 40 → 40 rhythm reads as one continuous header band.
+- Text: body2 medium — 14px / 500 / 21px line-height, `text.primary`.
+- Sort indicator icons: 16px Material Outlined; **`unfold_more`** for unsorted columns in `text.disabled`, **`arrow_upward` / `arrow_downward`** for the active sort. The active sort icon uses **`components.icon.default` (#424242)** — *never* primary blue. (Primary blue is reserved for Save/Update actions, see §5.)
+- `position: sticky; top: 0` so the header stays put under vertical scroll.
+
+#### Horizontal scroll behavior
+
+Grids must support a wide column count gracefully. **Always allow horizontal scroll inside the grid container** — never compress columns to fit:
+
+- The `.ag-grid` container is `overflow: auto` (horizontal + vertical).
+- The table is `width: max-content; min-width: 100%` — grows with content, never narrower than the container.
+- Each cell is `white-space: nowrap` — content can't wrap and force odd row heights; it pushes into the horizontal scroll instead.
+- Per-column widths are pinned via `<colgroup>` (or `colDef.width` in AG Grid). Default columns are sized for legibility, not "fit the viewport."
+- The PHT, breadcrumb-Links strip, and outer border stay fixed; only the grid body scrolls.
+
+When the column set grows beyond what fits, no layout breaks — the user scrolls. AG Grid's column pinning and the column-picker icon button (in the PHT's `buttonGroupContent` slot) handle the overflow ergonomics.
 
 ### Grid inside a tab
 
@@ -239,29 +401,90 @@ When a grid appears inside a tabbed section, the tab content area has 16px paddi
 └──────────────────────────────────────┘
 ```
 
+The same column-divider, paper-header, and horizontal-scroll rules apply inside the ContentContainer.
+
 ---
 
-## 10. Tab Rules
+## 11. Tab Rules
 
-- Tabs sit **flush** on the content wrapper — no padding around them
+There are **three** distinct uses for the Tabs component. Pick the right one.
+
+### A. Detail page section tabs — content wrapper level (most detail pages)
+
+The primary section navigation on detail pages (Worker, Order, Facility, etc.). Tabs sit **flush at the top of the `#FAFAFA` content wrapper**, span its full width, and switching a tab swaps the **entire content below**, including the left and right rails. Each tab is its own page-shaped layout.
+
+```
+┌────────────────────────────────────────────┐  ← #FAFAFA wrapper, 1px #E0E0E0 border
+│ Overview · Credentials · Assignments · …   │  ← tabs flush at top, surface="secondary"
+├────────────────────────────────────────────┤
+│   16px padding                             │
+│   ┌────────┐ ┌──────────────┐ ┌────────┐   │
+│   │ left   │ │   center     │ │ right  │   │  ← per-tab content (rails included)
+│   │ rail   │ │   column     │ │ rail   │   │
+│   └────────┘ └──────────────┘ └────────┘   │
+└────────────────────────────────────────────┘
+```
+
+- **Surface:** `surface="secondary"` — the active tab's background blends with the `#FAFAFA` wrapper.
+- **What swaps:** everything below the tab strip. Rails are **per tab**, not persistent.
+- **Identity / page subject:** lives in the PageHeaderToolbar (title, chips, eyebrow), *not* repeated on every tab.
+
+### B. In-container tabs — inside a paper container
+
+Used inside a single `ContentContainer` to switch between views of the same data set (e.g. "Active / Completed / Cancelled" on a list inside a card).
+
+- **Surface:** `surface="paper"` — the active tab's background blends with the white container.
+- **What swaps:** only the content inside that container.
+
+### C. Header tabs — grid view switching only (list pages)
+
+The view switcher inside a PageHeaderToolbar that flips between AG Grid views (`All / Active / Pending / Inactive`, etc.). Toolbar and grid share one continuous border (see §10, "Standalone grid page").
+
+**This is *not* the Tabs component.** It is rendered with the **Breadcrumb component in `state="Links"`** — the same chrome as a normal breadcrumb, just with `|` pipe dividers instead of `/` slashes. It lives in the `breadcrumbContent` slot of the PHT (full variant).
+
+| | Tabs (patterns A & B) | Breadcrumb-Links (pattern C) |
+|---|----------------------|------------------------------|
+| Component | `Tabs` (MUI Tabs) | `Breadcrumb` with `state="Links"` |
+| Visual | Card tabs — rounded top corners, L/R strokes, top primary-blue indicator | Text links separated by `\|`, with a 2px primary-blue bottom border on the selected item |
+| Surface | `secondary` (on #FAFAFA wrapper) or `paper` (inside container) | Always `#FAFAFA` (matches breadcrumb chrome) |
+| Live where | Top of content wrapper, or top of paper container | `breadcrumbContent` slot of PHT |
+| Switches | Whole tab panel, including rails | The grid view (data set the user sees) |
+| Counts | No | Optional inline `<count>` after each label |
+
+**Never use header tabs (Tabs component) for detail page section nav** — that's pattern A. **Never use Tabs for grid view switching** — that's pattern C, which is Breadcrumb-Links.
+
+### Common rules (all three patterns)
+
+- Tabs sit **flush** on their surface — no padding around the tabs themselves
 - Content below tabs gets 16px padding
-- Tabs with left icons are standard — use MUI outlined icons at 18px
-- The selected tab's bottom border matches the surface color (hides the HR line)
-- `surface="secondary"` when tabs sit on the `#FAFAFA` wrapper
-- `surface="paper"` when tabs sit on a `#FFFFFF` container
-- **Overflow:** When tabs exceed available width, use the built-in scroll arrow variant. Never wrap tabs to a second line, never truncate labels, never hide tabs in a dropdown.
+- Tabs with left icons are standard — use MUI outlined icons at 16px
+- The selected tab's bottom border matches the surface color (hides the HR line) and gets a 2px primary-blue indicator at the **top**, not the bottom
+- The selected tab has rounded top corners (4px) plus 1px `#E0E0E0` left and right strokes — it reads as a card-tab attached to the content below
+- **Overflow:** when tabs exceed available width, use the built-in scroll arrow variant. Never wrap tabs to a second line, never truncate labels, never hide tabs in a dropdown.
 
 ---
 
-## 11. Detail Page Pattern
+## 12. Detail Page Pattern
 
-Most detail pages (candidate, job, facility) use a multi-column layout within the #FAFAFA content wrapper:
+Most detail pages (candidate, job, facility) use **wrapper-level section tabs** (§11, pattern A) and a **multi-column layout within each tab**:
 
-- **Left rail** — Identity/summary card. Key-value pairs stacked vertically in a paper container. Content varies by entity.
-- **Center column** — Main content. Descriptions, grouped data sections, nested containers. This is where the content density lives.
-- **Right rail** — Contextual info. Relationship teams, shift details, background checks, bill rates. Quick-reference data that supports the center content.
+```
+NavigationHeader
+  PageHeaderToolbar (subject identity: title, chips, eyebrow, actions)
+  Content wrapper (#FAFAFA, bordered)
+    Tabs: Overview · Credentials · Assignments · Timecards · Documents · Notes
+    Per-tab content (each tab is its own layout):
+      Left rail (col-span 3) · Center column (col-span 6) · Right rail (col-span 3)
+```
 
-This is a common pattern, not mandatory. Some pages are single-column, some use two columns. Adapt to the use case.
+- **Subject identity belongs in the PHT**, not a repeated card on every tab. Title, status chips, eyebrow ID, and primary actions live there.
+- **Tabs swap the entire layout below** — different tabs can use different rail compositions, single column, two column, etc. Adapt per tab content.
+- **Common per-tab rail roles:**
+  - **Left rail** — supplemental identity, contact, compliance, tags. Quick-reference data about the subject.
+  - **Center column** — the dense content for that tab (assignment history table, credentials list, timecard grid, etc.).
+  - **Right rail** — contextual info that supports the center content (active assignment, bill rates, account team, recent activity).
+
+This is a common pattern, not mandatory. Some tabs are single-column, some use two. Adapt to the use case.
 
 ### Center column — grouping content
 
@@ -282,7 +505,7 @@ The standard read-only data pattern across detail pages:
 
 ---
 
-## 12. Form Layout
+## 13. Form Layout
 
 | Property | Token | Value |
 |----------|-------|-------|
@@ -303,7 +526,7 @@ The standard read-only data pattern across detail pages:
 
 ---
 
-## 13. Data Display & Formatting
+## 14. Data Display & Formatting
 
 ### Data formats
 
@@ -330,7 +553,7 @@ Truncate and show a **"Show More" link** styled in primary blue. The number of v
 
 ---
 
-## 14. Edit, Delete & Alert Patterns
+## 15. Edit, Delete & Alert Patterns
 
 ### Edit & delete affordances
 
@@ -345,9 +568,24 @@ When content needs semantic emphasis (critical requirements, compliance warnings
 
 Use sparingly — for content the user must not miss, not general highlighting.
 
+### Alert color cohesion
+
+When using the `Alert` component (or any alert-style callout), every colored element inside the alert uses the **same semantic color** — the one matching the alert's severity. Border, icon, title, description, and action buttons all share that single color.
+
+| Severity | Single color used everywhere |
+|----------|------------------------------|
+| Info | `info.main` (`#54AFCA`) |
+| Success | `success.main` (`#388E3C`) |
+| Warning | `warning.main` (`#E17109`) |
+| Error | `error.main` (`#DB4537`) |
+
+**Do not** mix the semantic color (border + icon) with `text.primary` / `text.secondary` for the title and description. The alert reads as a single semantic block.
+
+The exception is the `contained`/filled variant where the background carries the color and text is `contrastText` (white) — that's still a single coordinated color choice, just inverted.
+
 ---
 
-## 15. Content Surfaces — Modal, Panel, Inline
+## 16. Content Surfaces — Modal, Panel, Inline
 
 Three ways to show secondary content. The choice depends on whether the user is completing an action, referencing information, or optionally digging deeper.
 
@@ -393,15 +631,15 @@ The long-term direction is moving away from modals toward more responsive, conte
 
 ---
 
-## 16. Still Needs Definition
+## 17. Still Needs Definition
 
 - [x] ~~Page Header — full spec of each variant and when to use each~~ (Sections 3–4)
 - [x] ~~Frameless header — exact spec~~ (NewCanvas variant, Section 4)
-- [x] ~~Modal behavior rules~~ (Section 11)
+- [x] ~~Modal behavior rules~~ (Section 12)
 - [ ] Full-width layout — exact spec for Digital Workers / AI pages. Trimmed-down header exists in DW designs but is placement-only. Full requirements TBD — will be spec'd collaboratively with Jesse when ready.
 - [ ] Panel pattern defaults — standard column splits, animation behavior, when panel vs modal
 
 ---
 
-*Last updated: 2026-05-04*
+*Last updated: 2026-05-07 — content-wrapper border treatment (§1), PHT 16px canvas inset (§4), PHT actions slot composition (§4), PHT full-variant requirement for grid pages (§4), Stepper teal alignment note (§5), AG Grid mandate (§9), ContentContainer persistent title strip spec (§9), Standalone grid page rebuild — Breadcrumb-Links view switcher, paper-bg 40px column headers, vertical column dividers throughout, horizontal scroll behavior, sort indicator color (§10), three-pattern Tabs taxonomy clarified — pattern C is Breadcrumb-Links not Tabs (§11), wrapper-level tabs in Detail Page Pattern (§12), Alert color cohesion rule (§15).*
 *Source: Jesse Szygiel (Lead UX Designer, AHTG)*

@@ -8,7 +8,6 @@
  * DO NOT modify variant options unless Figma is updated.
  */
 
-import { ReactNode } from 'react';
 
 /**
  * ButtonGroup variant types from Figma
@@ -73,6 +72,12 @@ export interface ButtonGroupProps {
    * Disable specific buttons
    */
   disabledButtons?: boolean[];
+
+  /**
+   * Index of the currently active/selected button.
+   * Active button gets action.selected background.
+   */
+  activeIndex?: number;
 
   /**
    * Custom class name

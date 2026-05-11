@@ -27,7 +27,7 @@ export { NavigationHeader } from './NavigationHeader/NavigationHeader';
 export { NavigationVertical } from './NavigationVertical/NavigationVertical';
 export { PageHeaderToolbar } from './PageHeaderToolbar/PageHeaderToolbar';
 export { MetricCard } from './MetricCard/MetricCard';
-export { Modal } from './Modal/Modal';
+export { Modal, ModalPanel } from './Modal/Modal';
 export { RadioGroup } from './RadioGroup/RadioGroup';
 export { SearchBar } from './SearchBar/SearchBar';
 export { Select } from './Select/Select';

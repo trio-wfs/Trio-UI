@@ -1,4 +1,3 @@
-import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { ButtonIcon } from './ButtonIcon';
 import NotificationsIcon from '@mui/icons-material/Notifications';

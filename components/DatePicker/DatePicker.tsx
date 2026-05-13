@@ -162,7 +162,7 @@ const calendarSlotProps = {
 /**
  * Build textField slotProps that match TRIO TextField specs exactly.
  * medium = 38px height, 14px font, 6px 12px padding
- * small = 30px height, 12px font, 4px 8px padding
+ * small = 32px height, 12px font, 4px 8px padding
  */
 const getTextFieldSlotProps = (size: 'small' | 'medium') => {
   const isSmall = size === 'small';
@@ -179,7 +179,7 @@ const getTextFieldSlotProps = (size: 'small' | 'medium') => {
       '& .MuiOutlinedInput-root.MuiInputBase-root': {
         fontFamily: tokens.typography.fontFamily,
         fontSize: `${isSmall ? tokens.typography.fontSize.xs : tokens.typography.fontSize.sm}px`,
-        height: isSmall ? 30 : 38,
+        height: isSmall ? tokens.controls.height.small : tokens.controls.height.medium,
         padding: isSmall
           ? `${tokens.spacing.xs}px ${tokens.spacing.sm}px`
           : `${tokens.spacing.xs + 2}px ${tokens.spacing.mid}px`,

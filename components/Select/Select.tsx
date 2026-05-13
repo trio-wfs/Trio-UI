@@ -12,7 +12,7 @@
  *   the visual state (default/focus/error/disabled) is driven by the `state` prop.
  *
  * EXTRACTED VALUES FROM FIGMA:
- * - Input height: 36px medium / 28px small (uses TextField single-line instance)
+ * - Input height: 38px medium / 32px small (uses TextField single-line instance)
  * - Width: 256px default
  * - Sizes: medium (default), small
  * - Uses custom Menu component (not system dropdown)
@@ -77,6 +77,8 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(({
     state: option.value === value ? 'selected' : option.disabled ? 'disabled' : 'default',
     disabled: option.disabled,
     selected: option.value === value,
+    leftContent: option.leftContent,
+    rightContent: option.rightContent,
     onClick: () => handleMenuItemClick(option.value),
   })) || [];
 
@@ -99,7 +101,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(({
         onClick={handleClick}
         style={{
           fontFamily: tokens.typography.fontFamily,
-          height: isSmall ? '28px' : '36px',
+          height: isSmall ? `${tokens.controls.height.small}px` : `${tokens.controls.height.medium}px`,
           backgroundColor: isDisabled
             ? tokens.colors.action.disabledBackground
             : 'transparent',

@@ -240,4 +240,4 @@ export type { Tokens } from '../design-tokens/tokens';
 export { trioAgChartsTheme, trioChartPalette, MATERIAL_ICON_SVG } from '../design-tokens/agChartsTheme';
 export type { TrioAgChartsTheme } from '../design-tokens/agChartsTheme';
 
-export { trioTheme } from '../design-tokens/theme';
+export { trioTheme, themeOptions as trioThemeOptions } from '../design-tokens/theme';

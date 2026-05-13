@@ -200,9 +200,13 @@ interface ColumnarAreaProps {
 }
 
 const ColumnarArea: React.FC<ColumnarAreaProps> = ({ metrics, colors }) => {
-  // Font sizes per column count (extracted from Figma)
-  const valueFontSize = metrics.length === 3 ? 24 : 34;
-  const valueLineHeight = metrics.length === 3 ? 28 : 41;
+  // 3 columns: h5 typography (24/500/28). 1-2 columns: h4 typography (34/500/41).
+  const valueFontSize = metrics.length === 3
+    ? tokens.typography.h5.fontSize
+    : tokens.typography.h4.fontSize;
+  const valueLineHeight = metrics.length === 3
+    ? tokens.typography.h5.lineHeight
+    : tokens.typography.h4.lineHeight;
 
   return (
     <div style={styles.metricRow}>
@@ -258,13 +262,13 @@ const GroupedArea: React.FC<GroupedAreaProps> = ({ metrics, colors }) => {
 
   return (
     <div style={styles.metricRow}>
-      {/* Left: large primary metric */}
+      {/* Left: large primary metric — h4 typography */}
       <div style={styles.groupedPrimaryColumn}>
         <span
           style={{
             ...styles.metricValue,
-            fontSize: 34,
-            lineHeight: '41px',
+            fontSize: tokens.typography.h4.fontSize,
+            lineHeight: `${tokens.typography.h4.lineHeight}px`,
             color: colors[0],
           }}
         >
@@ -439,74 +443,75 @@ export const MetricCard = React.forwardRef<HTMLDivElement, MetricCardProps>(({
 MetricCard.displayName = 'MetricCard';
 
 // ─── Styles ───────────────────────────────────────────────────────────────────
-// All values extracted directly from Figma instances.
+// Every value sourced from tokens.ts. Figma-specific component sizes (card height,
+// footer heights, progress bar height, divider width) remain as numeric literals
+// because they don't map to the spacing scale — they are component design constants.
 
 const styles = {
-  // Card container
-  // Extracted: width=flexible, height=150px, padding=16/16/8/16, cornerRadius=4, border=#E0E0E0
+  // Card container — 1px border, default radius, Figma padding 16/16/8/16
   card: {
     display: 'flex',
     flexDirection: 'column' as const,
     width: '100%',
-    minWidth: 170,
-    minHeight: 150,
+    minWidth: 170,                                       // Figma min width — component-specific
+    minHeight: 150,                                      // Figma card height — component-specific
     backgroundColor: METRIC_CARD_COLORS.cardBg,
     border: `1px solid ${METRIC_CARD_COLORS.border}`,
-    borderRadius: 4,
-    padding: '16px 16px 8px 16px',
-    gap: 8,
+    borderRadius: tokens.borderRadius.default,
+    padding: `${tokens.spacing.md}px ${tokens.spacing.md}px ${tokens.spacing.sm}px ${tokens.spacing.md}px`,
+    gap: tokens.spacing.sm,
     boxSizing: 'border-box' as const,
     overflow: 'hidden',
     fontFamily: tokens.typography.fontFamily,
   },
 
-  // Label row — 24px height, flex row
+  // Label row — 24px (spacing.lg) height
   labelRow: {
     display: 'flex',
     flexDirection: 'row' as const,
     alignItems: 'center',
     justifyContent: 'space-between',
     flexShrink: 0,
-    height: 24,
+    height: tokens.spacing.lg,
   },
 
   labelLeft: {
     display: 'flex',
     flexDirection: 'row' as const,
     alignItems: 'center',
-    gap: 4,
+    gap: tokens.spacing.xs,
     minWidth: 0,
     overflow: 'hidden',
   },
 
-  // Extracted: 16x16, #757575
+  // 16x16 icon, text.secondary color
   labelIcon: {
-    fontSize: 16,
+    fontSize: tokens.typography.fontSize.md,
     color: METRIC_CARD_COLORS.labelText,
     flexShrink: 0,
   },
 
-  // Extracted: 14px/500/24px lh, #757575
+  // Label text — custom typography (14/500/24, no clean variant match)
   labelText: {
-    fontSize: 14,
-    fontWeight: 500,
-    lineHeight: '24px',
+    fontSize: tokens.typography.fontSize.sm,
+    fontWeight: tokens.typography.fontWeight.medium,
+    lineHeight: `${tokens.spacing.lg}px`,                // 24
     color: METRIC_CARD_COLORS.labelText,
     whiteSpace: 'nowrap' as const,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
 
-  // Metrics container — fills remaining height (126px - 24px label - 8px gap = 94px)
+  // Metrics container — fills remaining height below label row
   metricsContainer: {
     display: 'flex',
     flexDirection: 'column' as const,
     flex: 1,
-    gap: 8,
+    gap: tokens.spacing.sm,
     minHeight: 0,
   },
 
-  // Metric row — horizontal flex, fills available width
+  // Metric row — horizontal flex
   metricRow: {
     display: 'flex',
     flexDirection: 'row' as const,
@@ -516,7 +521,7 @@ const styles = {
     gap: 0,
   },
 
-  // Single metric column — fills equal width
+  // Single metric column — equal width
   metricColumn: {
     display: 'flex',
     flexDirection: 'column' as const,
@@ -524,13 +529,13 @@ const styles = {
     alignItems: 'center',
     flex: 1,
     minWidth: 0,
-    gap: 8,
+    gap: tokens.spacing.sm,
     overflow: 'hidden',
   },
 
-  // Extracted: fs=34/500/41px for 1-2 cols; override at call site for 3 cols (24/500/28px)
+  // Base shape; size/lineHeight set per-layout at call site (h4 / h5 / 16px-list)
   metricValue: {
-    fontWeight: 500,
+    fontWeight: tokens.typography.fontWeight.medium,
     letterSpacing: 0,
     whiteSpace: 'nowrap' as const,
     overflow: 'hidden',
@@ -538,11 +543,11 @@ const styles = {
     textAlign: 'center' as const,
   } as React.CSSProperties,
 
-  // Extracted: 12px/400/18px lh, #757575
+  // Caption typography variant (12/400/18)
   metricLabel: {
-    fontSize: 12,
-    fontWeight: 400,
-    lineHeight: '18px',
+    fontSize: tokens.typography.caption.fontSize,
+    fontWeight: tokens.typography.caption.fontWeight,
+    lineHeight: `${tokens.typography.caption.lineHeight}px`,
     color: METRIC_CARD_COLORS.labelText,
     whiteSpace: 'nowrap' as const,
     overflow: 'hidden',
@@ -550,25 +555,25 @@ const styles = {
     textAlign: 'center' as const,
   },
 
-  // Divider between columns: 1px wide, 24px tall, #E0E0E0, centered
+  // Divider — 1px wide, 24px tall, centered with 4px gutters
   dividerWrapper: {
     display: 'flex',
     alignItems: 'flex-start',
-    paddingTop: 8,
+    paddingTop: tokens.spacing.sm,
     flexShrink: 0,
-    width: 1,
+    width: 1,                                            // 1px — component-specific
     alignSelf: 'stretch',
-    paddingLeft: 4,
-    paddingRight: 4,
+    paddingLeft: tokens.spacing.xs,
+    paddingRight: tokens.spacing.xs,
   },
 
   divider: {
-    width: 1,
-    height: 24,
+    width: 1,                                            // 1px — component-specific
+    height: tokens.spacing.lg,
     backgroundColor: METRIC_CARD_COLORS.border,
   },
 
-  // List layout area — vertical rows
+  // List layout — vertical rows
   listArea: {
     display: 'flex',
     flexDirection: 'column' as const,
@@ -578,38 +583,37 @@ const styles = {
     minHeight: 0,
   },
 
-  // Extracted from state=4, style=list: caption left, value right, 24px height
   listRow: {
     display: 'flex',
     flexDirection: 'row' as const,
     alignItems: 'center',
     justifyContent: 'space-between',
-    height: 24,
+    height: tokens.spacing.lg,
     overflow: 'hidden',
   },
 
-  // Extracted: 12px/400/18px, #757575
+  // Caption typography variant (12/400/18)
   listCaption: {
-    fontSize: 12,
-    fontWeight: 400,
-    lineHeight: '18px',
+    fontSize: tokens.typography.caption.fontSize,
+    fontWeight: tokens.typography.caption.fontWeight,
+    lineHeight: `${tokens.typography.caption.lineHeight}px`,
     color: METRIC_CARD_COLORS.labelText,
     flex: 1,
     whiteSpace: 'nowrap' as const,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    paddingRight: 4,
+    paddingRight: tokens.spacing.xs,
   },
 
-  // Extracted: 16px/500/24px, color resolved per metric
+  // List value — custom typography (16/500/24)
   listValue: {
-    fontSize: 16,
-    fontWeight: 500,
-    lineHeight: '24px',
+    fontSize: tokens.typography.fontSize.md,
+    fontWeight: tokens.typography.fontWeight.medium,
+    lineHeight: `${tokens.spacing.lg}px`,                // 24
     flexShrink: 0,
   } as React.CSSProperties,
 
-  // Grouped layout: left column takes ~half width
+  // Grouped layout — primary column (left)
   groupedPrimaryColumn: {
     display: 'flex',
     flexDirection: 'column' as const,
@@ -617,11 +621,11 @@ const styles = {
     alignItems: 'center',
     flex: 1,
     minWidth: 0,
-    gap: 8,
+    gap: tokens.spacing.sm,
     overflow: 'hidden',
   },
 
-  // Grouped layout: right stacked column
+  // Grouped layout — stacked column (right)
   groupedSecondaryColumn: {
     display: 'flex',
     flexDirection: 'column' as const,
@@ -630,46 +634,45 @@ const styles = {
     minWidth: 0,
     gap: 0,
     overflow: 'hidden',
-    paddingLeft: 8,
+    paddingLeft: tokens.spacing.sm,
   },
 
-  // Extracted from state=groupe: caption+value row, 24px height
   groupedSubRow: {
     display: 'flex',
     flexDirection: 'row' as const,
     alignItems: 'center',
     justifyContent: 'space-between',
-    height: 24,
+    height: tokens.spacing.lg,
     overflow: 'hidden',
   },
 
   // ── Footer styles ──
 
-  // Bar footer wrapper — 18px height container, 10px bar inside
+  // Footer wrapper — 18px Figma footer height (component-specific, no spacing-token match)
   barFooter: {
     flexShrink: 0,
-    height: 18,
+    height: 18,                                          // Figma footer height — component-specific
     display: 'flex',
     alignItems: 'center',
   },
 
-  // Extracted: 10px height, background #EEEEEE, full width, flex row for segments
+  // Progress track — fully rounded pill
   progressTrack: {
     display: 'flex',
     flexDirection: 'row' as const,
     width: '100%',
-    height: 10,
+    height: 10,                                          // Figma progress bar height — component-specific
     backgroundColor: METRIC_CARD_COLORS.progressBg,
     overflow: 'hidden',
-    borderRadius: 999,
+    borderRadius: tokens.borderRadius.full,
   },
 
-  // Icons footer — 18px, equal slots
+  // Icons footer — equal slots
   iconsFooter: {
     display: 'flex',
     flexDirection: 'row' as const,
     flexShrink: 0,
-    height: 18,
+    height: 18,                                          // Figma footer height — component-specific
     alignItems: 'center',
   },
 
@@ -681,20 +684,19 @@ const styles = {
     overflow: 'hidden',
   },
 
-  // Extracted: 16x16, #757575
   footerIcon: {
-    fontSize: 16,
+    fontSize: tokens.typography.fontSize.md,
     color: METRIC_CARD_COLORS.labelText,
   },
 
-  // Labels footer — 18px, proportional chips
+  // Labels footer — proportional chips
   labelsFooter: {
     display: 'flex',
     flexDirection: 'row' as const,
     flexShrink: 0,
-    height: 18,
+    height: 18,                                          // Figma footer height — component-specific
     alignItems: 'center',
-    gap: 4,
+    gap: tokens.spacing.xs,
     overflow: 'hidden',
   },
 
@@ -705,11 +707,11 @@ const styles = {
     minWidth: 0,
   },
 
-  // Extracted: 11px/500/16px lh, #757575
+  // Overline typography variant (11/500/16)
   labelChipText: {
-    fontSize: 11,
-    fontWeight: 500,
-    lineHeight: '16px',
+    fontSize: tokens.typography.overline.fontSize,
+    fontWeight: tokens.typography.overline.fontWeight,
+    lineHeight: `${tokens.typography.overline.lineHeight}px`,
     color: METRIC_CARD_COLORS.labelText,
     whiteSpace: 'nowrap' as const,
     overflow: 'hidden',

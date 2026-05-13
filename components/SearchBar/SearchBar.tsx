@@ -24,7 +24,7 @@ import { tokens } from '../../design-tokens/tokens';
 
 const SIZE_MAP = {
   small: {
-    height: 30,
+    height: tokens.controls.height.small,
     fontSize: tokens.typography.fontSize.xs,    // 12px
     lineHeight: '12px',
     iconSize: 16,
@@ -32,7 +32,7 @@ const SIZE_MAP = {
     tfSize: 'small' as const,
   },
   medium: {
-    height: 38,
+    height: tokens.controls.height.medium,
     fontSize: tokens.typography.fontSize.sm,    // 14px
     lineHeight: '14px',
     iconSize: 20,

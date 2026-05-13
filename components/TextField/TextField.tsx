@@ -66,7 +66,7 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(({
         // Dynamic: size-driven overrides
         ...(isSmall && {
           '& .MuiOutlinedInput-root:not(.MuiInputBase-multiline)': {
-            minHeight: '30px',
+            minHeight: `${tokens.controls.height.small}px`,
           },
           '& .MuiOutlinedInput-root': {
             padding: `${tokens.spacing.xs}px ${tokens.spacing.sm}px`,

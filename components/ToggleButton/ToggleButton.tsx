@@ -17,7 +17,10 @@ export const ToggleButton = React.forwardRef<HTMLDivElement, ToggleButtonProps>(
   size = defaultToggleButtonProps.size,
   buttons,
 }, ref) => {
-  const slotSize = size === 'small' ? 24 : 36;
+  // Slot sizes per Figma node 6950:485:
+  //   small: tokens.controls.ghostHeight (24) — compact toolbar slot
+  //   medium: tokens.controls.height.medium (38) — matches form-row controls
+  const slotSize = size === 'small' ? tokens.controls.ghostHeight : tokens.controls.height.medium;
   const iconSize = size === 'small' ? 16 : 24;
 
   return (

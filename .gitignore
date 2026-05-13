@@ -7,3 +7,5 @@ debug-storybook.log
 dist/
 !showcase/dist/
 storybook-static/
+.claude/
+concepts/

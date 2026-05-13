@@ -287,6 +287,28 @@ export const tokens = {
   },
 
   /**
+   * Control Heights
+   * Source: Figma Desktop Design System — all interactive controls.
+   *
+   * Every form-row control (Button, Select, TextField, Autocomplete,
+   * NumberField, DatePicker, SearchBar, ButtonIcon contained, ToggleButton
+   * medium) must render at these heights. This token is the canonical source —
+   * components MUST read from it rather than hardcoding 32/38.
+   *
+   * ghostHeight is the compact icon-only size used by ButtonIcon ghost variant
+   * and ToggleButton small slots — intentionally smaller for dense toolbars,
+   * grid filter rows, and breadcrumb actions where a 32px control would
+   * dominate. This is a Figma-sanctioned exception, not a drift.
+   */
+  controls: {
+    height: {
+      small: 32,
+      medium: 38,
+    },
+    ghostHeight: 24,
+  },
+
+  /**
    * Border Radius / Shape
    * Source: shape.json
    */

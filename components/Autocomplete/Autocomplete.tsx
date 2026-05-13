@@ -73,7 +73,7 @@ export const Autocomplete = React.forwardRef<HTMLDivElement, AutocompleteProps>(
 
   const smallSx: SxProps<Theme> = isSmall ? {
     '& .MuiOutlinedInput-root': {
-      height: '28px',
+      height: `${tokens.controls.height.small}px`,
       padding: `${tokens.spacing.xs}px ${tokens.spacing.sm}px`,
       fontSize: `${tokens.typography.fontSize.xs}px`,
     },
@@ -121,9 +121,10 @@ export const Autocomplete = React.forwardRef<HTMLDivElement, AutocompleteProps>(
             error={isError}
             helperText={displayedHelperText}
             slotProps={{
-              ...params.slotProps,
-              inputLabel: { ...params.slotProps.inputLabel, shrink: true },
-              input: { ...params.slotProps.input, notched: false },
+              // @ts-expect-error — InputLabelProps exists at runtime but removed from MUI v9 types
+              inputLabel: { ...params.InputLabelProps, shrink: true },
+              // @ts-expect-error — InputProps exists at runtime but removed from MUI v9 types; must spread to preserve endAdornment (chevron/clear icons)
+              input: { ...params.InputProps, notched: false },
             }}
             sx={{ ...inputChipSx, ...smallSx }}
             {...ariaProps}
@@ -157,9 +158,10 @@ export const Autocomplete = React.forwardRef<HTMLDivElement, AutocompleteProps>(
           error={isError}
           helperText={displayedHelperText}
           slotProps={{
-            ...params.slotProps,
-            inputLabel: { ...params.slotProps.inputLabel, shrink: true },
-            input: { ...params.slotProps.input, notched: false },
+            // @ts-expect-error — InputLabelProps exists at runtime but removed from MUI v9 types
+            inputLabel: { ...params.InputLabelProps, shrink: true },
+            // @ts-expect-error — InputProps exists at runtime but removed from MUI v9 types; must spread to preserve endAdornment (chevron/clear icons)
+            input: { ...params.InputProps, notched: false },
           }}
           sx={smallSx}
           {...ariaProps}

@@ -26,8 +26,8 @@ import { type NumberFieldProps, defaultNumberFieldProps } from './NumberField.ty
 // ─── dimension constants ────────────────────────────────────────────────────
 
 const HEIGHTS: Record<'medium' | 'small', number> = {
-  medium: 38,
-  small: 32,
+  medium: tokens.controls.height.medium,
+  small: tokens.controls.height.small,
 };
 
 const FONT_SIZES: Record<'medium' | 'small', number> = {

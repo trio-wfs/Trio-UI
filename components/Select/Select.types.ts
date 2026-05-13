@@ -8,6 +8,8 @@
  * DO NOT modify variant options unless Figma is updated.
  */
 
+import type { ReactNode } from 'react';
+
 /**
  * Select variant types from Figma
  */
@@ -18,6 +20,17 @@ export interface SelectOption {
   value: string;
   label: string;
   disabled?: boolean;
+  /**
+   * Leading slot content (icon, avatar, status dot).
+   * Pass-through to the underlying Menu item's `leftContent` slot,
+   * which is Figma-sanctioned (see Menu `multi` variant, node 4505:3795).
+   */
+  leftContent?: ReactNode;
+  /**
+   * Trailing slot content (icon, badge, shortcut hint).
+   * Pass-through to the underlying Menu item's `rightContent` slot.
+   */
+  rightContent?: ReactNode;
 }
 
 export interface SelectProps {

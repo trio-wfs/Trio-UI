@@ -24,10 +24,28 @@ export const ButtonIcon = React.forwardRef<HTMLButtonElement, ButtonIconProps>((
   onClick,
   'aria-label': ariaLabel,
 }, ref) => {
+  // Sizing per Figma node 4819:14042 — all dimensions sourced from tokens.controls:
+  //   medium (any variant): tokens.controls.height.medium (38px) with 24px icon
+  //   contained small:      tokens.controls.height.small (32px) with 16px icon — matches form-row controls
+  //   ghost small:          tokens.controls.ghostHeight (24px) with 16px icon — compact toolbar/grid affordance
   const sizeStyles =
-    size === 'small'
-      ? { width: 24, height: 24, '& .MuiSvgIcon-root': { fontSize: 16 } }
-      : { width: 36, height: 36, '& .MuiSvgIcon-root': { fontSize: 24 } };
+    size === 'medium'
+      ? {
+          width: tokens.controls.height.medium,
+          height: tokens.controls.height.medium,
+          '& .MuiSvgIcon-root': { fontSize: 24 },
+        }
+      : variant === 'contained'
+      ? {
+          width: tokens.controls.height.small,
+          height: tokens.controls.height.small,
+          '& .MuiSvgIcon-root': { fontSize: 16 },
+        }
+      : {
+          width: tokens.controls.ghostHeight,
+          height: tokens.controls.ghostHeight,
+          '& .MuiSvgIcon-root': { fontSize: 16 },
+        };
 
   const getColorStyles = () => {
     if (variant === 'contained') {

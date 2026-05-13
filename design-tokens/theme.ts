@@ -17,7 +17,7 @@ import { createTheme } from '@mui/material/styles';
 import type { ThemeOptions } from '@mui/material/styles';
 import { tokens } from './tokens';
 
-const themeOptions: ThemeOptions = {
+export const themeOptions: ThemeOptions = {
   palette: {
     mode: 'light',
     primary: {
@@ -192,12 +192,14 @@ const themeOptions: ThemeOptions = {
           '& > *:nth-of-type(1)': { fontSize: 16 },
         },
         sizeMedium: {
+          minHeight: `${tokens.controls.height.medium}px`,
           padding: `${tokens.spacing.sm}px ${tokens.spacing.md}px`,
           fontSize: `${tokens.typography.button.md.fontSize}px`,
           fontWeight: tokens.typography.button.md.fontWeight,
           lineHeight: '20px',
         },
         sizeSmall: {
+          minHeight: `${tokens.controls.height.small}px`,
           padding: `${tokens.spacing.xs}px ${tokens.spacing.sm}px`,
           fontSize: `${tokens.typography.button.sm.fontSize}px`,
           fontWeight: tokens.typography.button.sm.fontWeight,
@@ -253,8 +255,15 @@ const themeOptions: ThemeOptions = {
           },
           // Single-line uses minHeight so multi-select inputs (e.g. Autocomplete)
           // can grow with chips. Multi-line is fixed height per Figma spec.
-          '& .MuiOutlinedInput-root:not(.MuiInputBase-multiline)': {
-            minHeight: '38px',
+          // Size-aware: small (32) and medium (38) selectors are explicit so the
+          // rule reaches raw MUI TextFields (e.g. those rendered by MUI Autocomplete
+          // internally), not just the Trio TextField wrapper. Without these, the
+          // medium minHeight would override Autocomplete's small height: 32px.
+          '& .MuiOutlinedInput-root:not(.MuiInputBase-multiline).MuiInputBase-sizeSmall': {
+            minHeight: `${tokens.controls.height.small}px`,
+          },
+          '& .MuiOutlinedInput-root:not(.MuiInputBase-multiline):not(.MuiInputBase-sizeSmall)': {
+            minHeight: `${tokens.controls.height.medium}px`,
           },
           '& .MuiOutlinedInput-root.MuiInputBase-multiline': {
             height: '90px',

@@ -284,6 +284,15 @@ sx={{
 - **No uppercase text** in UI — avoid `textTransform: uppercase` except for overline labels where explicitly called for in Figma
 - **No font weights above 500 (Medium)** — 700 is not used in TRIO UI
 
+### How to use typography in code
+
+Typography is a **token + theme system**, not a wrapper component:
+
+- **Tokens:** `tokens.typography.h4`, `tokens.typography.caption`, etc. The full variant catalog is documented and rendered at `design-tokens-typography.html`.
+- **In components:** use MUI's `<Typography variant="h4">` from `@mui/material`. The Trio theme (`design-tokens/theme.ts`) wires every MUI typography variant to the matching token, so `<Typography>` renders Trio-compliantly inside `<ThemeProvider theme={trioTheme}>`.
+- **There is no Trio `Typography` wrapper component** — and one is not needed. The theme does the work. Importing `Typography` from `@trio-wfs/ui` will not work because it isn't exported. This is intentional, not a gap.
+- **Never** hand-style text elements (`<h1 style={{fontSize: 34}}>...`) — they bypass the theme entirely and reinvent token values that already exist.
+
 ---
 
 ## 9. Component Defaults
@@ -298,6 +307,21 @@ sx={{
 - **PageHeaderToolbar:** title-to-eyebrow gap is 4px (`spacing.xs`)
 - **Footer:** sticky, 16px horizontal padding, 16px vertical padding on copy, `#E0E0E0` top border (standard component border, not input border)
 - **NavigationVertical:** never has a background color — always transparent
+
+### Control Heights
+
+Every form-row interactive control renders at the standard sizes. The canonical source is `tokens.controls.height` — components read from it; no hardcoded `32` or `38` values anywhere.
+
+| Size | Height | Token |
+|------|--------|-------|
+| `small` | 32px | `tokens.controls.height.small` |
+| `medium` | 38px | `tokens.controls.height.medium` |
+
+**Applies to:** Button, Select, TextField, Autocomplete, NumberField, DatePicker, SearchBar, ButtonIcon (contained variant), ToggleButton (medium).
+
+**Exception — compact icon-only controls (24px):** `ButtonIcon` ghost variant small and `ToggleButton` small slots use **`tokens.controls.ghostHeight` (24px)**. These affordances live in dense toolbars, grid filter rows, and breadcrumb actions where a 32px control would dominate the surrounding density. This is a Figma-sanctioned exception, not a drift — confirmed against component node 4819:14042 (ButtonIcon) and 6950:485 (ToggleButton).
+
+When adding a new interactive control, pull its height from `tokens.controls.height` so the rule is enforced structurally. Hardcoded values are drift waiting to happen.
 
 ### ContentContainer — the standard paper surface
 

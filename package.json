@@ -2,14 +2,14 @@
   "name": "@trio-wfs/ui",
   "version": "1.0.0",
   "description": "TRIO WFS shared component library. React + MUI v5 components aligned to the Trio-UI design system.",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/components/index.js",
+  "module": "./dist/components/index.mjs",
+  "types": "./dist/components/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "types": "./dist/components/index.d.ts",
+      "import": "./dist/components/index.mjs",
+      "require": "./dist/components/index.js"
     },
     "./fixtures": {
       "types": "./dist/fixtures/index.d.ts",
@@ -25,6 +25,7 @@
   },
   "scripts": {
     "build": "tsup",
+    "prepare": "npm run build",
     "prepublishOnly": "npm run build",
     "figma:validate": "figma connect --token $(grep FIGMA_ACCESS_TOKEN .env | cut -d= -f2)",
     "figma:publish": "figma connect publish --token $(grep FIGMA_ACCESS_TOKEN .env | cut -d= -f2)",

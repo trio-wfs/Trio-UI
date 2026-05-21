@@ -13,7 +13,7 @@
  * Switch variant types from Figma
  */
 export type SwitchState = 'off' | 'on';
-export type SwitchLabelPlacement = 'left' | 'right' | 'top';
+export type SwitchLabelPlacement = 'left' | 'right' | 'top' | 'bottom';
 
 export interface SwitchProps {
   // ========================================

@@ -7,11 +7,17 @@ figma.connect(Switch, 'https://www.figma.com/design/PjAYuPDr8IA1ccwiAjFkSD?node-
       on: 'on',
       off: 'off',
     }),
+    labelPlacement: figma.enum('labelPlacement', {
+      left: 'left',
+      right: 'right',
+      top: 'top',
+      bottom: 'bottom',
+    }),
   },
-  example: ({ state }) => (
+  example: ({ state, labelPlacement }) => (
     <Switch
       state={state}
-      labelPlacement="right"
+      labelPlacement={labelPlacement}
       label="Label"
     />
   ),

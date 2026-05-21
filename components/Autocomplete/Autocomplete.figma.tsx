@@ -12,7 +12,7 @@ figma.connect(Autocomplete, 'https://www.figma.com/design/PjAYuPDr8IA1ccwiAjFkSD
       small: 'small',
       medium: 'medium',
     }),
-    disabled: figma.boolean('disabled'),
+    disabled: figma.enum('disabled', { 'true': true, 'false': false }),
   },
   example: ({ state, size, disabled }) => (
     <Autocomplete

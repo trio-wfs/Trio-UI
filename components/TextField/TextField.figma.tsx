@@ -16,7 +16,7 @@ figma.connect(TextField, 'https://www.figma.com/design/PjAYuPDr8IA1ccwiAjFkSD?no
       error: 'error',
       focus: 'focus',
     }),
-    disabled: figma.boolean('disabled'),
+    disabled: figma.enum('disabled', { 'true': true, 'false': false }),
   },
   example: ({ type, size, state, disabled }) => (
     <TextField

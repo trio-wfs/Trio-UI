@@ -10,7 +10,7 @@ figma.connect(Breadcrumb, 'https://www.figma.com/design/PjAYuPDr8IA1ccwiAjFkSD?n
     showNumberIndicator: figma.boolean('Show Number Indicator'),
     state: figma.enum('state', {
       breadcrumb: 'breadcrumb',
-      Links: 'Links',
+      links: 'Links', // Figma value is lowercase 'links'; code state type is 'Links' (capital). Bridge here.
     }),
   },
   example: ({ showNumberIndicator, state }) => (

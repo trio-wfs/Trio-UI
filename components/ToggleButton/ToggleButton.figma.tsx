@@ -7,8 +7,8 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt'
 figma.connect(ToggleButton, 'https://www.figma.com/design/PjAYuPDr8IA1ccwiAjFkSD?node-id=6950-485', {
   props: {
     size: figma.enum('size', {
-      sm: 'small',
-      md: 'medium',
+      small: 'small',
+      medium: 'medium',
     }),
   },
   example: ({ size }) => (

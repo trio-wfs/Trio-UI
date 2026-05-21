@@ -11,7 +11,7 @@ figma.connect(SplitButton, 'https://www.figma.com/design/PjAYuPDr8IA1ccwiAjFkSD?
       contained: 'contained',
       outline: 'outline',
     }),
-    open: figma.boolean('open'),
+    open: figma.enum('open', { yes: true, no: false }),
     label: figma.string('label'),
   },
   example: ({ color, variant, open, label }) => (

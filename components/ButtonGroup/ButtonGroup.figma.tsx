@@ -8,8 +8,8 @@ figma.connect(ButtonGroup, 'https://www.figma.com/design/PjAYuPDr8IA1ccwiAjFkSD?
       outline: 'outline',
     }),
     size: figma.enum('size', {
-      sm: 'small',
-      md: 'medium',
+      small: 'small',
+      medium: 'medium',
     }),
     color: figma.enum('color', {
       primary: 'primary',

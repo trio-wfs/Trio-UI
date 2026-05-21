@@ -19,7 +19,7 @@ figma.connect(Chip, 'https://www.figma.com/design/PjAYuPDr8IA1ccwiAjFkSD?node-id
       contained: 'contained',
       outline: 'outline',
     }),
-    disabled: figma.boolean('disabled'),
+    disabled: figma.enum('disabled', { yes: true, no: false }),
     label: figma.string('label'),
     iconLeft: figma.boolean('iconLeft'),
     iconRight: figma.boolean('iconRight'),

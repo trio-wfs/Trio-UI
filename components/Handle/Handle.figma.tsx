@@ -4,7 +4,7 @@ import { Handle } from './Handle';
 figma.connect(Handle, 'https://www.figma.com/design/PjAYuPDr8IA1ccwiAjFkSD?node-id=5460-2553', {
   props: {
     state: figma.enum('state', {
-      default: 'default',
+      Default: 'default', // Figma value is 'Default' (capital D); code state type is lowercase. Bridge here.
       hover: 'hover',
       drag: 'drag',
     }),

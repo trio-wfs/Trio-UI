@@ -213,7 +213,7 @@
         <!-- Status Indicator -->
         <div>
           <div class="demo-label">With Status Indicator</div>
-          <div data-trio-component="PageHeaderToolbar" data-trio-props='{"variant":"default","pageTitleText":"Shift #20481 — ICU Night","eyebrowText":"Memorial Hospital · ICU · RN · Nights","indicatorLabel":"OPEN"}'></div>
+          <div data-trio-component="PageHeaderToolbar" data-trio-props='{"variant":"default","pageTitleText":"Shift #20481 — ICU Night","eyebrowText":"Memorial Hospital · ICU · RN · Nights","indicator":"OPEN"}'></div>
         </div>
 
       </div>
@@ -301,12 +301,12 @@
           <tr><td><code>pageTitleText</code></td><td><code>string</code></td><td>Required</td><td>Page title displayed in the header</td></tr>
           <tr><td><code>titleIcons</code></td><td><code>ReactNode</code></td><td>-</td><td>Small icons rendered inline next to the title</td></tr>
           <tr><td><code>eyebrowText</code></td><td><code>string</code></td><td>-</td><td>Support text below the title (full/NewCanvas variants)</td></tr>
-          <tr><td><code>chipItems</code></td><td><code>ReactNode</code></td><td>-</td><td>Chip tags shown below the title area (full variant only)</td></tr>
-          <tr><td><code>indicatorLabel</code></td><td><code>string</code></td><td>-</td><td>Status indicator label — renders a primary-colored left bar</td></tr>
-          <tr><td><code>singleButtonContent</code></td><td><code>ReactNode</code></td><td>-</td><td>Single action button on the right side</td></tr>
-          <tr><td><code>buttonGroupContent</code></td><td><code>ReactNode</code></td><td>-</td><td>Button group on the right side</td></tr>
-          <tr><td><code>inputTextFieldContent</code></td><td><code>ReactNode</code></td><td>-</td><td>Text field / search input on the right side</td></tr>
-          <tr><td><code>breadcrumbContent</code></td><td><code>ReactNode</code></td><td>-</td><td>Breadcrumb strip above the title area (full/NewCanvas only)</td></tr>
+          <tr><td><code>chips</code></td><td><code>ReactNode</code></td><td>-</td><td>Chip tags shown below the title area (full variant only)</td></tr>
+          <tr><td><code>indicator</code></td><td><code>string</code></td><td>-</td><td>Status indicator label — renders a primary-colored left bar</td></tr>
+          <tr><td><code>singleButton</code></td><td><code>ReactNode</code></td><td>-</td><td>Single action button on the right side</td></tr>
+          <tr><td><code>buttonGroup</code></td><td><code>ReactNode</code></td><td>-</td><td>Button group on the right side</td></tr>
+          <tr><td><code>inputTextField</code></td><td><code>ReactNode</code></td><td>-</td><td>Text field / search input on the right side</td></tr>
+          <tr><td><code>breadcrumb</code></td><td><code>ReactNode</code></td><td>-</td><td>Breadcrumb strip above the title area (full/NewCanvas only)</td></tr>
           <tr><td><code>scrollContainerRef</code></td><td><code>RefObject&lt;HTMLElement&gt;</code></td><td>window</td><td>Ref to the scrollable parent for the NewCanvas scroll divider. Defaults to window if not provided.</td></tr>
         </tbody>
       </table>

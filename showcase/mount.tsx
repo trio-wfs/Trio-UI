@@ -65,6 +65,10 @@ import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
 import ReceiptOutlinedIcon from '@mui/icons-material/ReceiptOutlined';
 import VerifiedUserOutlinedIcon from '@mui/icons-material/VerifiedUserOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import PersonIcon from '@mui/icons-material/Person';
+import AssignmentIcon from '@mui/icons-material/Assignment';
+import AttachFileIcon from '@mui/icons-material/AttachFile';
+import ScheduleIcon from '@mui/icons-material/Schedule';
 
 const iconRegistry: Record<string, React.ReactElement> = {
   Add: <AddIcon />,
@@ -112,6 +116,10 @@ const iconRegistry: Record<string, React.ReactElement> = {
   ReceiptOutlined: <ReceiptOutlinedIcon />,
   VerifiedUserOutlined: <VerifiedUserOutlinedIcon />,
   SettingsOutlined: <SettingsOutlinedIcon />,
+  Person: <PersonIcon />,
+  Assignment: <AssignmentIcon />,
+  AttachFile: <AttachFileIcon />,
+  Schedule: <ScheduleIcon />,
 };
 
 // Resolve string icon names to React elements
@@ -138,6 +146,19 @@ function resolveIcons(props: Record<string, any>): Record<string, any> {
         return { ...item, icon: iconRegistry[item.icon] };
       }
       return item;
+    });
+  }
+  // Resolve icons inside Tabs `tabs` array (leftIcon, rightIcon)
+  if (Array.isArray(resolved.tabs)) {
+    resolved.tabs = resolved.tabs.map((tab: Record<string, any>) => {
+      const next = { ...tab };
+      if (typeof next.leftIcon === 'string' && iconRegistry[next.leftIcon]) {
+        next.leftIcon = iconRegistry[next.leftIcon];
+      }
+      if (typeof next.rightIcon === 'string' && iconRegistry[next.rightIcon]) {
+        next.rightIcon = iconRegistry[next.rightIcon];
+      }
+      return next;
     });
   }
   return resolved;

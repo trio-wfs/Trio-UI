@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Engineering Handoff - TRIO WFS Design System</title>
+  <title>Engineering - TRIO WFS Design System</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
   <link rel="stylesheet" href="design-system-shell.css">
@@ -131,6 +131,66 @@
       font-size: 14px;
     }
 
+    /* ── Download cards ── */
+    .dl-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--spacing-md);
+      margin-bottom: var(--spacing-xl);
+    }
+    .dl-card {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-lg);
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: border-color 0.15s;
+    }
+    .dl-card:hover {
+      border-color: var(--color-primary-main);
+    }
+    .dl-card-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--border-radius);
+      background: var(--color-primary-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--spacing-sm);
+    }
+    .dl-card-icon .material-icons-outlined {
+      font-size: 18px;
+      color: var(--color-primary-main);
+    }
+    .dl-card-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-text-primary);
+      margin-bottom: 4px;
+    }
+    .dl-card-desc {
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+      margin-bottom: var(--spacing-sm);
+    }
+    .dl-card-meta {
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .dl-card-meta .material-icons-outlined {
+      font-size: 14px;
+    }
+    .dl-card-meta code {
+      font-family: 'Courier New', monospace;
+    }
+
     /* ── Code block ── */
     .code-block {
       background: var(--color-background-paper);
@@ -157,6 +217,55 @@
     .code-block-label .material-icons-outlined {
       font-size: 14px;
       color: var(--color-primary-main);
+    }
+    .code-block-actions {
+      display: flex;
+      gap: var(--spacing-sm);
+    }
+    .code-block-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      color: var(--color-primary-main);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px var(--spacing-sm);
+      border-radius: var(--border-radius);
+      font-family: inherit;
+    }
+    .code-block-btn:hover {
+      background: var(--color-primary-light);
+    }
+    .code-block-btn .material-icons-outlined {
+      font-size: 14px;
+    }
+    .code-block pre.theme-preview {
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    .token-detail-links {
+      display: flex;
+      gap: var(--spacing-md);
+      flex-wrap: wrap;
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      margin-top: var(--spacing-sm);
+      margin-bottom: var(--spacing-xl);
+    }
+    .token-detail-links a {
+      color: var(--color-primary-main);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .token-detail-links a:hover {
+      text-decoration: underline;
+    }
+    .token-detail-links .material-icons-outlined {
+      font-size: 14px;
     }
     .code-block pre {
       margin: 0;
@@ -326,9 +435,9 @@
     <div class="page-header" style="padding: var(--spacing-lg) var(--spacing-xl) var(--spacing-md);">
       <h1 class="page-title">
         <span class="material-icons-outlined">engineering</span>
-        Engineering Handoff
+        Engineering
       </h1>
-      <p class="page-subtitle">How TRIO engineering consumes the design system — components, tokens, page rules, and prototypes.</p>
+      <p class="page-subtitle">Everything TRIO engineering needs to consume the design system — components, tokens, install code, theme, page rules, and reference prototypes.</p>
     </div>
 
     <div class="content-body" style="padding: 0 var(--spacing-xl) var(--spacing-xl);">
@@ -420,10 +529,46 @@
         </div>
       </div>
 
-      <!-- How to consume -->
-      <h2 class="h-section"><span class="material-icons-outlined">terminal</span>How to consume</h2>
+      <!-- Get the code -->
+      <h2 class="h-section"><span class="material-icons-outlined">cloud_download</span>Get the code</h2>
       <p class="h-section-intro">
-        Two paths depending on whether you want the published package or a fresh git checkout. Same components, same tokens — pick whichever fits your project setup.
+        Three paths to the components. Same source, pick whichever fits your project setup.
+      </p>
+
+      <div class="dl-grid">
+        <a class="dl-card" href="https://github.com/jszygiel1981-ship-it/Trio-UI/tree/main/components" target="_blank">
+          <div class="dl-card-icon"><span class="material-icons-outlined">widgets</span></div>
+          <div class="dl-card-title">Component Source on GitHub</div>
+          <div class="dl-card-desc">Browse the individual TRIO React components — 37 of them. Each in its own folder with <code>.tsx</code>, types, and stories.</div>
+          <div class="dl-card-meta">
+            <span class="material-icons-outlined">open_in_new</span>
+            github.com/.../components
+          </div>
+        </a>
+        <a class="dl-card" href="https://github.com/jszygiel1981-ship-it/Trio-UI" target="_blank">
+          <div class="dl-card-icon"><span class="material-icons-outlined">code</span></div>
+          <div class="dl-card-title">Clone the Repo</div>
+          <div class="dl-card-desc">Full Trio-UI repo. Consume via <code>"@trio-wfs/ui": "file:../Trio-UI"</code> for sibling-folder development.</div>
+          <div class="dl-card-meta">
+            <span class="material-icons-outlined">terminal</span>
+            git clone …/Trio-UI.git
+          </div>
+        </a>
+        <div class="dl-card" onclick="copyNpmInstall(this)" style="cursor: pointer;">
+          <div class="dl-card-icon"><span class="material-icons-outlined" id="npm-icon">content_copy</span></div>
+          <div class="dl-card-title" id="npm-label">Copy npm install</div>
+          <div class="dl-card-desc"><code>npm install @trio-wfs/ui</code> — package is built and ready. Will be published to GitHub Packages when engineering needs it.</div>
+          <div class="dl-card-meta">
+            <span class="material-icons-outlined">schedule</span>
+            v1.0.0 · publish on request
+          </div>
+        </div>
+      </div>
+
+      <!-- Code examples -->
+      <h2 class="h-section"><span class="material-icons-outlined">terminal</span>Code examples</h2>
+      <p class="h-section-intro">
+        Wire-up snippets — install command, theme provider, import shape, token-driven styling.
       </p>
 
       <div class="code-block">
@@ -471,6 +616,65 @@ git clone https://github.com/jszygiel1981-ship-it/Trio-UI.git
 
 <span class="code-comment">// RIGHT — token-sourced</span>
 &lt;Box sx={{ padding: tokens.spacing.md, color: tokens.colors.primary.main }} /&gt;</pre>
+      </div>
+
+      <!-- Design tokens -->
+      <h2 class="h-section"><span class="material-icons-outlined">palette</span>Design tokens</h2>
+      <p class="h-section-intro">
+        Tokens are available as a TypeScript object (<code>tokens</code> from <code>@trio-wfs/ui</code>) and as standalone CSS custom properties. Pick what fits your stack.
+      </p>
+
+      <div class="dl-grid">
+        <a class="dl-card" href="design-tokens/trio-tokens.css" download="trio-tokens.css">
+          <div class="dl-card-icon"><span class="material-icons-outlined">css</span></div>
+          <div class="dl-card-title">Download CSS Tokens</div>
+          <div class="dl-card-desc">All design tokens as CSS custom properties. Drop into any project.</div>
+          <div class="dl-card-meta">
+            <span class="material-icons-outlined">description</span>
+            trio-tokens.css
+          </div>
+        </a>
+        <div class="dl-card" onclick="copyTokens()" style="cursor: pointer;">
+          <div class="dl-card-icon"><span class="material-icons-outlined" id="copy-icon">content_copy</span></div>
+          <div class="dl-card-title" id="copy-label">Copy CSS Tokens</div>
+          <div class="dl-card-desc">Copy the full CSS token set to your clipboard.</div>
+          <div class="dl-card-meta">
+            <span class="material-icons-outlined">data_object</span>
+            <span id="token-count">— tokens</span>
+          </div>
+        </div>
+        <a class="dl-card" href="design-tokens/trio-tokens.css" target="_blank">
+          <div class="dl-card-icon"><span class="material-icons-outlined">open_in_new</span></div>
+          <div class="dl-card-title">View Raw CSS</div>
+          <div class="dl-card-desc">Open the raw CSS token file in a new tab for inspection.</div>
+          <div class="dl-card-meta">
+            <span class="material-icons-outlined">visibility</span>
+            Browser view
+          </div>
+        </a>
+      </div>
+
+      <div class="code-block">
+        <div class="code-block-header">
+          <div class="code-block-label">
+            <span class="material-icons-outlined">data_object</span>
+            MUI Theme — theme.ts
+          </div>
+          <div class="code-block-actions">
+            <button class="code-block-btn" onclick="copyTheme()">
+              <span class="material-icons-outlined" id="theme-copy-icon">content_copy</span>
+              <span id="theme-copy-label">Copy</span>
+            </button>
+          </div>
+        </div>
+        <pre id="theme-preview" class="theme-preview">/* Loading... */</pre>
+      </div>
+
+      <div class="token-detail-links">
+        <span>Full reference:</span>
+        <a href="design-tokens-colors.html"><span class="material-icons-outlined">palette</span>Colors</a>
+        <a href="design-tokens-typography.html"><span class="material-icons-outlined">text_fields</span>Typography</a>
+        <a href="design-tokens-spacing.html"><span class="material-icons-outlined">space_bar</span>Spacing &amp; Breakpoints</a>
       </div>
 
       <!-- Live prototypes -->
@@ -576,5 +780,74 @@ git clone https://github.com/jszygiel1981-ship-it/Trio-UI.git
 
     </div>
   </main>
+
+  <script>
+    let tokenCSS = '';
+    let themeTS = '';
+
+    async function loadFiles() {
+      try {
+        const res = await fetch('design-tokens/trio-tokens.css');
+        tokenCSS = await res.text();
+        const count = (tokenCSS.match(/--trio-/g) || []).length;
+        const el = document.getElementById('token-count');
+        if (el) el.textContent = count + ' tokens';
+      } catch (e) { /* ignore */ }
+
+      try {
+        const res = await fetch('design-tokens/theme.ts');
+        themeTS = await res.text();
+        const el = document.getElementById('theme-preview');
+        if (el) el.textContent = themeTS;
+      } catch (e) {
+        const el = document.getElementById('theme-preview');
+        if (el) el.textContent = '/* Could not load theme.ts */';
+      }
+    }
+
+    function copyTokens() {
+      if (!tokenCSS) return;
+      navigator.clipboard.writeText(tokenCSS).then(() => {
+        const icon = document.getElementById('copy-icon');
+        const label = document.getElementById('copy-label');
+        icon.textContent = 'check';
+        label.textContent = 'Copied!';
+        setTimeout(() => {
+          icon.textContent = 'content_copy';
+          label.textContent = 'Copy CSS Tokens';
+        }, 2000);
+      });
+    }
+
+    function copyTheme() {
+      if (!themeTS) return;
+      navigator.clipboard.writeText(themeTS).then(() => {
+        const icon = document.getElementById('theme-copy-icon');
+        const label = document.getElementById('theme-copy-label');
+        icon.textContent = 'check';
+        label.textContent = 'Copied!';
+        setTimeout(() => {
+          icon.textContent = 'content_copy';
+          label.textContent = 'Copy';
+        }, 2000);
+      });
+    }
+
+    function copyNpmInstall(card) {
+      navigator.clipboard.writeText('npm install @trio-wfs/ui').then(() => {
+        const icon = card.querySelector('#npm-icon');
+        const label = card.querySelector('#npm-label');
+        if (!icon || !label) return;
+        icon.textContent = 'check';
+        label.textContent = 'Copied!';
+        setTimeout(() => {
+          icon.textContent = 'content_copy';
+          label.textContent = 'Copy npm install';
+        }, 2000);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', loadFiles);
+  </script>
 </body>
 </html>

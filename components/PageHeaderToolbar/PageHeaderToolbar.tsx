@@ -22,19 +22,20 @@ export const PageHeaderToolbar = React.forwardRef<HTMLDivElement, PageHeaderTool
   pageTitleText,
   titleIcons,
   eyebrowText,
-  chipItems,
-  indicatorLabel,
-  singleButtonContent,
-  buttonGroupContent,
-  inputTextFieldContent,
-  breadcrumbContent,
+  chips,
+  indicator,
+  singleButton,
+  buttonGroup,
+  inputTextField,
+  breadcrumb,
   scrollContainerRef,
 }, ref) => {
   const isFull = variant === 'full';
   const isNewCanvas = variant === 'NewCanvas';
   const isDefault = variant === 'default';
-  const showBreadcrumb = (isFull || isNewCanvas) && !!breadcrumbContent;
+  const showBreadcrumb = (isFull || isNewCanvas) && !!breadcrumb;
   const withBorder = isDefault || isFull;
+  const indicatorLabel = indicator === true ? 'Active' : indicator;
 
   // NewCanvas: fade in a bottom divider when the page scrolls
   const [isScrolled, setIsScrolled] = useState(false);
@@ -79,7 +80,7 @@ export const PageHeaderToolbar = React.forwardRef<HTMLDivElement, PageHeaderTool
         }}
       >
         {/* Status indicator */}
-        {indicatorLabel && (
+        {indicator && (
           <Box
             sx={{
               display: 'flex',
@@ -124,9 +125,9 @@ export const PageHeaderToolbar = React.forwardRef<HTMLDivElement, PageHeaderTool
               </Box>
 
               {/* Chips (full variant only) */}
-              {isFull && chipItems && (
+              {isFull && chips && (
                 <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: `${tokens.spacing.sm}px` }}>
-                  {chipItems}
+                  {chips}
                 </Box>
               )}
             </Box>
@@ -140,14 +141,14 @@ export const PageHeaderToolbar = React.forwardRef<HTMLDivElement, PageHeaderTool
           </Box>
 
           {/* Right-side actions */}
-          {inputTextFieldContent}
-          {singleButtonContent}
-          {buttonGroupContent}
+          {inputTextField}
+          {singleButton}
+          {buttonGroup}
         </Box>
       </Box>
 
       {/* ── Breadcrumb strip ────────────────────────────────── */}
-      {showBreadcrumb && breadcrumbContent && <Box>{breadcrumbContent}</Box>}
+      {showBreadcrumb && breadcrumb && <Box>{breadcrumb}</Box>}
 
       {/* ── Scroll divider (NewCanvas only) ───────────────── */}
       {isNewCanvas && (

@@ -15,9 +15,8 @@ const DS_NAV = {
     { label: 'Typography',  icon: 'text_fields',  href: 'design-tokens-typography.html' },
     { label: 'Spacing & Breakpoints', icon: 'space_bar',    href: 'design-tokens-spacing.html' },
     { label: 'Page Architecture', icon: 'view_quilt',   href: 'page-architecture.html' },
-    { label: 'Downloads',   icon: 'download',     href: 'downloads.html' },
     { label: 'Prototypes',  icon: 'science',      href: 'prototypes.html' },
-    { label: 'Engineering Handoff', icon: 'engineering', href: 'engineering-handoff.html' },
+    { label: 'Engineering', icon: 'engineering', href: 'engineering-handoff.html' },
   ],
 
   // MUI-based components — built on Material UI primitives

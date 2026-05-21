@@ -663,6 +663,7 @@ export const themeOptions: ThemeOptions = {
           // Card-tab: selected tab overlaps the bottom HR by 1px
           marginBottom: -1,
           borderBottom: '1px solid transparent',
+          position: 'relative',
           '&.Mui-selected': {
             color: tokens.colors.text.primary,
             backgroundColor: tokens.colors.background.paper,
@@ -671,8 +672,20 @@ export const themeOptions: ThemeOptions = {
             borderBottom: `1px solid ${tokens.colors.background.paper}`,
             borderTopLeftRadius: `${tokens.borderRadius.default}px`,
             borderTopRightRadius: `${tokens.borderRadius.default}px`,
-            // Blue indicator at top
-            boxShadow: `inset 0 2px 0 0 ${tokens.colors.primary.main}`,
+            // Blue indicator at top — 3px tall with 2px corner radius
+            // (Figma node 3868:51829 spec is 2px; Jesse uplifted to 3px for
+            //  better visual weight against the 14px tab labels)
+            '&::before': {
+              content: '""',
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              height: 3,
+              backgroundColor: tokens.colors.primary.main,
+              borderTopLeftRadius: 2,
+              borderTopRightRadius: 2,
+            },
           },
           '&.Mui-disabled': {
             color: tokens.colors.text.disabled,

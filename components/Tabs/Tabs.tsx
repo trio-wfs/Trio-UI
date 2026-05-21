@@ -62,13 +62,31 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(({
               }}
             >
               {tab.leftIcon && (
-                <Box sx={{ display: 'flex', alignItems: 'center', fontSize: 16 }}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    flexShrink: 0,
+                    fontSize: 16,
+                    '& > .MuiSvgIcon-root': { fontSize: 16 },
+                    '& > svg': { width: 16, height: 16 },
+                  }}
+                >
                   {tab.leftIcon}
                 </Box>
               )}
               <span>{tab.label}</span>
               {tab.rightIcon && (
-                <Box sx={{ display: 'flex', alignItems: 'center', fontSize: 16 }}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    flexShrink: 0,
+                    fontSize: 16,
+                    '& > .MuiSvgIcon-root': { fontSize: 16 },
+                    '& > svg': { width: 16, height: 16 },
+                  }}
+                >
                   {tab.rightIcon}
                 </Box>
               )}

@@ -5,6 +5,7 @@
   <title>Card - TRIO WFS Design System</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
   <link rel="stylesheet" href="../../design-system-shell.css">
   <style>
     .card-demo {
@@ -16,23 +17,29 @@
       font-family: var(--font-family);
     }
 
+    /* Spacing model — matches Figma node 7826:4 and Card.tsx behavior:
+       Header: p-16 all sides (full padding including bottom)
+       Body:   px-16, pt-0 (sits flush against header pb-16), pb-0 (footer pt absorbs)
+       Footer: p-16 all sides
+       Gaps:   Header→Body = 16 (header pb) + 0 (body pt) = 16
+               Body→Footer = 0 (body pb) + 16 (footer pt) = 16 */
     .card-demo .slot {
       padding: var(--spacing-md);
-    }
-
-    .card-demo .slot-header {
-      padding-bottom: 0;
     }
     .card-demo .slot-body {
       padding-top: 0;
       padding-bottom: 0;
     }
-    .card-demo .slot-footer {
+    /* When body is the only slot (no header above), restore top padding */
+    .card-demo .slot-body:first-child {
       padding-top: var(--spacing-md);
+    }
+    /* When body is the last slot (no footer below), restore bottom padding */
+    .card-demo .slot-body:last-child {
+      padding-bottom: var(--spacing-md);
     }
 
     .card-demo.divided .slot-header {
-      padding-bottom: var(--spacing-md);
       border-bottom: 1px solid var(--color-secondary-outline);
     }
     .card-demo.divided .slot-body {
@@ -42,10 +49,6 @@
     }
     .card-demo.divided .slot-body:last-child {
       border-bottom: none;
-      padding-bottom: var(--spacing-md);
-    }
-    .card-demo.divided .slot-footer {
-      padding-top: var(--spacing-md);
     }
 
     .card-demo .title {
@@ -130,7 +133,7 @@
         <div>
           <div class="demo-label">Body only — minimal card</div>
           <div class="card-demo">
-            <div class="slot slot-body" style="padding-top: var(--spacing-md); padding-bottom: var(--spacing-md);">
+            <div class="slot slot-body">
               <div class="body-text">A simple Card with just body content. No header, no footer.</div>
             </div>
           </div>
@@ -142,7 +145,7 @@
             <div class="slot slot-header">
               <div class="title">Settings</div>
             </div>
-            <div class="slot slot-body" style="padding-bottom: var(--spacing-md);">
+            <div class="slot slot-body">
               <div class="body-text">Configure your workspace preferences. Each section saves automatically.</div>
             </div>
           </div>

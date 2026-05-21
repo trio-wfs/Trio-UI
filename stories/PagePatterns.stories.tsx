@@ -279,7 +279,7 @@ export const PageAnatomy: StoryObj = {
         <PageHeaderToolbar
           variant="default"
           pageTitleText="Page Anatomy Demo"
-          buttonGroupContent={
+          buttonGroup={
             <ButtonGroup
               buttons={['Export', 'Edit']}
               variant="outline"
@@ -424,15 +424,15 @@ const DetailsPageDemo: React.FC = () => {
           variant="full"
           pageTitleText="Record Title"
           eyebrowText="Subtitle or secondary context"
-          chipItems={
+          chips={
             <>
               <TrioChip label="Tag A" color="default" size="small" />
               <TrioChip label="Tag B" color="default" size="small" />
               <TrioChip label="Tag C" color="info" size="small" variant="outline" />
             </>
           }
-          indicatorLabel="OPEN"
-          buttonGroupContent={
+          indicator="OPEN"
+          buttonGroup={
             <ButtonGroup
               buttons={['Secondary', 'Tertiary']}
               variant="outline"
@@ -440,12 +440,12 @@ const DetailsPageDemo: React.FC = () => {
               color="secondary"
             />
           }
-          singleButtonContent={
+          singleButton={
             <Button variant="contained" color="primary" size="small">
               Primary Action
             </Button>
           }
-          breadcrumbContent={
+          breadcrumb={
             <Breadcrumb
               state="breadcrumb"
               links={[
@@ -549,7 +549,7 @@ export const GridPage: StoryObj = {
           <PageHeaderToolbar
             variant="NewCanvas"
             pageTitleText="Tasks"
-            singleButtonContent={
+            singleButton={
               <Button variant="contained" color="secondary" size="small" startIcon={<AddIcon />}>
                 Create Task
               </Button>
@@ -606,7 +606,7 @@ const ModalInContextDemo: React.FC = () => {
         <PageHeaderToolbar
           variant="default"
           pageTitleText="Modal Examples"
-          buttonGroupContent={
+          buttonGroup={
             <ButtonGroup
               buttons={['500px Confirm', '900px Form']}
               variant="outline"
@@ -858,7 +858,7 @@ export const NewCanvasPage: StoryObj = {
             variant="NewCanvas"
             pageTitleText="Agency Performance"
             eyebrowText="Q1 2026 — All Programs"
-            buttonGroupContent={
+            buttonGroup={
               <ButtonGroup
                 buttons={['Download', 'Filter']}
                 variant="outline"

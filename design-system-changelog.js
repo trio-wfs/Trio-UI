@@ -10,8 +10,8 @@
  */
 
 const DS_CHANGELOG = [
-  { date: '2026-05-21', text: 'Downloads page — new React Component Library section: GitHub source link to /components, full repo clone, and copy-npm-install command. Tokens section retained below.', type: 'Infrastructure' },
-  { date: '2026-05-21', text: 'Engineering Handoff page — new Foundation entry for devs: how to consume @trio-wfs/ui, the four pillars (components, tokens, page architecture, Storybook), install/import code, reference prototypes, and explicit asks of engineering. Component links point to GitHub source, not the showcase site.', type: 'Guidelines' },
+  { date: '2026-05-21', text: 'Avatar, Card, Paper — three new components published to GitHub + bundled in dist. Background token tier `subtle` added (rgba(0,0,0,0.1)) between secondary and paper for nested-surface delineation. Component count: 37.', type: 'Components' },
+  { date: '2026-05-21', text: 'Downloads merged into Engineering page — single destination for devs covering the model, four pillars (components/tokens/page architecture/Storybook), get-the-code cards, install/import examples, CSS token download + theme.ts viewer, reference prototypes, the handoff loop, and explicit asks of engineering. Downloads URL now redirects.', type: 'Infrastructure' },
   { date: '2026-05-21', text: 'Page Architecture wired into Foundation nav with a back-link in its sidebar — no longer a dead-end reference doc.', type: 'Infrastructure' },
   { date: '2026-05-21', text: 'Prototypes page restructured — split into React Prototypes (built with @trio-wfs/ui) and Figma Prototypes sections, plus a single handoff callout replacing the old How-It-Works wallpaper.', type: 'Infrastructure' },
   { date: '2026-05-21', text: 'Showcase simplification sweep — dead Storybook/Zeplin placeholder links removed from 25 pages, redundant Overview 3-card grid (Purpose/Visual Hierarchy/Accessibility) removed from 23 pages. 932 lines of duplicated copy gone.', type: 'Components' },

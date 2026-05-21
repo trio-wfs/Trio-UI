@@ -11,10 +11,11 @@ figma.connect(ButtonIcon, 'https://www.figma.com/design/PjAYuPDr8IA1ccwiAjFkSD?n
     color: figma.enum('color', {
       primary: 'primary',
       secondary: 'secondary',
+      default: 'default',
     }),
     size: figma.enum('size', {
-      sm: 'small',
-      md: 'medium',
+      small: 'small',
+      medium: 'medium',
     }),
     badge: figma.boolean('badge'),
   },

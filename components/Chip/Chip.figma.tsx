@@ -21,16 +21,18 @@ figma.connect(Chip, 'https://www.figma.com/design/PjAYuPDr8IA1ccwiAjFkSD?node-id
     }),
     disabled: figma.boolean('disabled'),
     label: figma.string('label'),
-    iconLeft: figma.boolean('icon-left'),
-    iconRight: figma.boolean('icon-right'),
+    iconLeft: figma.boolean('iconLeft'),
+    iconRight: figma.boolean('iconRight'),
   },
-  example: ({ size, color, variant, disabled, label }) => (
+  example: ({ size, color, variant, disabled, label, iconLeft, iconRight }) => (
     <Chip
       size={size}
       color={color}
       variant={variant}
       disabled={disabled}
       label={label}
+      iconLeft={iconLeft}
+      iconRight={iconRight}
     />
   ),
 })

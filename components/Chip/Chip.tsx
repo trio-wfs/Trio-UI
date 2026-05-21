@@ -16,6 +16,7 @@
 import React from 'react';
 import { Chip as MuiChip } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import CheckIcon from '@mui/icons-material/Check';
 import { type ChipProps, defaultChipProps } from './Chip.types';
 import { tokens } from '../../design-tokens/tokens';
 
@@ -138,13 +139,23 @@ export const Chip = React.forwardRef<HTMLDivElement, ChipProps>(({
         ? <span>{iconRight}</span>
         : undefined;
 
+  // Left icon: any icon element passed via iconLeft.
+  // `iconLeft={true}` is a shorthand for the default check icon — matches the
+  // showcase "selected state" convention (filter / selected chips).
+  const leftIconElement =
+    iconLeft === true
+      ? <CheckIcon />
+      : iconLeft
+        ? <span>{iconLeft}</span>
+        : undefined;
+
   return (
     <MuiChip
       ref={ref}
       label={label}
       size={muiSize}
       variant={muiVariant}
-      icon={iconLeft ? <span>{iconLeft}</span> : undefined}
+      icon={leftIconElement}
       deleteIcon={rightIconElement}
       onDelete={hasRightIcon ? (onDelete ?? (() => {})) : undefined}
       onClick={onClick}

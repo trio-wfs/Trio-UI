@@ -67,7 +67,12 @@ export interface ChipProps {
   disabled?: boolean;
 
   // Icon Properties
-  /** Left icon — pass any MUI icon element, or omit for no icon */
+  /**
+   * Left icon. Three modes:
+   *  - omit → no left icon
+   *  - `true` → default check icon (the common chip-as-filter "selected" pattern)
+   *  - any icon element → custom icon
+   */
   iconLeft?: React.ReactNode;
   /**
    * Right icon. Three modes:

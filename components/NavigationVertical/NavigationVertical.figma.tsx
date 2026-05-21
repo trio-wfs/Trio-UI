@@ -4,11 +4,16 @@ import DashboardIcon from '@mui/icons-material/Dashboard'
 
 figma.connect(NavigationVertical, 'https://www.figma.com/design/PjAYuPDr8IA1ccwiAjFkSD?node-id=4795-1339', {
   props: {
-    settings: figma.boolean('settings'),
-    subSection: figma.boolean('subSection'),
+    state: figma.enum('state', {
+      open: 'open',
+      closed: 'closed',
+    }),
+    settings: figma.enum('settings', { yes: true, no: false }),
+    subSection: figma.enum('subSection', { yes: true, no: false }),
   },
-  example: ({ settings, subSection }) => (
+  example: ({ state, settings, subSection }) => (
     <NavigationVertical
+      state={state}
       items={[
         {
           id: 'dashboard',

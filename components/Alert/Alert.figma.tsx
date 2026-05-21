@@ -16,7 +16,7 @@ figma.connect(Alert, 'https://www.figma.com/design/PjAYuPDr8IA1ccwiAjFkSD?node-i
     }),
     title: figma.boolean('title', { true: 'Title', false: undefined }),
     description: figma.boolean('description', { true: 'Description text providing additional context.', false: undefined }),
-    actionLabel: figma.boolean('action-btn', { true: 'Action Label', false: undefined }),
+    actionLabel: figma.boolean('actionLabel', { true: 'Action Label', false: undefined }),
     close: figma.boolean('close'),
   },
   example: ({ variant, severity, title, description, actionLabel, close }) => (

@@ -57,5 +57,7 @@ export interface AlertProps {
 export const defaultAlertProps: Partial<AlertProps> = {
   variant: 'standard',
   severity: 'default',
-  close: false,
+  // Default to close=true to match Figma's default. Most Alerts in real UIs
+  // are dismissible; opting out via `close={false}` is the explicit case.
+  close: true,
 };

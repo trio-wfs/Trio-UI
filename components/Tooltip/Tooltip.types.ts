@@ -6,7 +6,16 @@
 
 import React from 'react';
 
-/** Arrow direction / placement of the tooltip relative to its trigger */
+/**
+ * Arrow direction / placement of the tooltip relative to its trigger.
+ *
+ * `'none'` is a special value that **suppresses the tooltip entirely** — the
+ * children are rendered without any MUI Tooltip wrapper. Useful when a
+ * tooltip needs to be conditionally hidden without unmounting the trigger.
+ * (API note: this conflates placement with visibility; future refactor
+ * could split into separate `position` + `disabled` props. Kept for
+ * backward compat with current Figma model.)
+ */
 export type TooltipPosition = 'top' | 'bottom' | 'left' | 'right' | 'none';
 
 export interface TooltipProps {

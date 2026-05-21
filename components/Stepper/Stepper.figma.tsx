@@ -3,7 +3,7 @@ import { Stepper } from './Stepper'
 
 figma.connect(Stepper, 'https://www.figma.com/design/PjAYuPDr8IA1ccwiAjFkSD?node-id=7448-1953', {
   props: {
-    activeStep: figma.enum('Wizard', {
+    activeStep: figma.enum('activeStep', {
       '1': 0,
       '2': 1,
       '3': 2,

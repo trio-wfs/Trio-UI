@@ -3,7 +3,7 @@ import { Tabs } from './Tabs'
 
 figma.connect(Tabs, 'https://www.figma.com/design/PjAYuPDr8IA1ccwiAjFkSD?node-id=3868-51864', {
   props: {
-    variant: figma.enum('Tabs', {
+    variant: figma.enum('variant', {
       'Tab Group': 'Tab Group',
       'Right Scroll': 'Right Scroll',
       'Left and Right Scroll': 'Left and Right Scroll',

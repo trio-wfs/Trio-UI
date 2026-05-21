@@ -10,7 +10,6 @@ figma.connect(Badge, 'https://www.figma.com/design/PjAYuPDr8IA1ccwiAjFkSD?node-i
       success: 'success',
       warning: 'warning',
       info: 'info',
-      color6: 'info',
     }),
     type: figma.enum('type', {
       default: 'default',

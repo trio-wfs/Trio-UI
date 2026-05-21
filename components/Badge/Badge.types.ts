@@ -15,7 +15,9 @@ import type { ReactNode } from 'react';
  * Badge Color
  * Figma property: "color"
  * Options: primary, secondary, error, success, warning, info
- * Note: Figma also has "color6" which is identical to "info" — collapsed to "info"
+ *
+ * (Fixed 2026-05-21: Figma previously had a typo'd `color6` variant that was
+ * supposed to be `info, type=default`. Renamed in Figma; mapping no longer needed.)
  */
 export type BadgeColor =
   | 'primary'

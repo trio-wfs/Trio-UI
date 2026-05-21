@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Engineering Handoff - TRIO WFS Design System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+  <link rel="stylesheet" href="design-system-shell.css">
+  <style>
+    /* ── Pitch banner ── */
+    .pitch {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-primary-main);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-lg) var(--spacing-xl);
+      margin-bottom: var(--spacing-xl);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-lg);
+    }
+    .pitch-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--border-radius);
+      background: var(--color-primary-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .pitch-icon .material-icons-outlined {
+      font-size: 24px;
+      color: var(--color-primary-main);
+    }
+    .pitch-text {
+      flex: 1;
+    }
+    .pitch-title {
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--color-text-primary);
+      margin-bottom: 4px;
+    }
+    .pitch-body {
+      font-size: 13px;
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+    }
+
+    /* ── Section title ── */
+    .h-section {
+      font-size: 16px;
+      font-weight: 500;
+      margin: var(--spacing-xl) 0 var(--spacing-md);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      color: var(--color-text-primary);
+    }
+    .h-section .material-icons-outlined {
+      font-size: 18px;
+      color: var(--color-primary-main);
+    }
+    .h-section-intro {
+      font-size: 13px;
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+      max-width: 720px;
+      margin-bottom: var(--spacing-md);
+    }
+
+    /* ── Pillar grid ── */
+    .pillars {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--spacing-md);
+      margin-bottom: var(--spacing-xl);
+    }
+    .pillar {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-lg);
+    }
+    .pillar-head {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      margin-bottom: var(--spacing-sm);
+    }
+    .pillar-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--border-radius);
+      background: var(--color-primary-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .pillar-icon .material-icons-outlined {
+      font-size: 18px;
+      color: var(--color-primary-main);
+    }
+    .pillar-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-text-primary);
+    }
+    .pillar-subtitle {
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      font-family: 'Courier New', monospace;
+    }
+    .pillar-body {
+      font-size: 13px;
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+      margin-bottom: var(--spacing-md);
+    }
+    .pillar-link {
+      font-size: 12px;
+      color: var(--color-primary-main);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .pillar-link .material-icons-outlined {
+      font-size: 14px;
+    }
+
+    /* ── Code block ── */
+    .code-block {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      margin-bottom: var(--spacing-xl);
+    }
+    .code-block-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--spacing-sm) var(--spacing-md);
+      border-bottom: 1px solid var(--color-secondary-outline);
+    }
+    .code-block-label {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+    }
+    .code-block-label .material-icons-outlined {
+      font-size: 14px;
+      color: var(--color-primary-main);
+    }
+    .code-block pre {
+      margin: 0;
+      padding: var(--spacing-md);
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--color-text-primary);
+      overflow-x: auto;
+    }
+    .code-comment { color: var(--color-text-secondary); font-style: italic; }
+    .code-keyword { color: var(--color-primary-main); }
+    .code-string  { color: var(--color-success-main); }
+
+    /* ── Flow diagram ── */
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr) auto;
+      align-items: center;
+      gap: var(--spacing-xs);
+      margin-bottom: var(--spacing-md);
+    }
+    .flow-step {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-md);
+      text-align: center;
+    }
+    .flow-step .material-icons-outlined {
+      font-size: 24px;
+      color: var(--color-primary-main);
+      margin-bottom: var(--spacing-xs);
+    }
+    .flow-step-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--color-text-primary);
+    }
+    .flow-arrow {
+      color: var(--color-secondary-outline);
+      font-size: 20px;
+      text-align: center;
+    }
+    .flow-feedback {
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      font-style: italic;
+      text-align: center;
+      padding: var(--spacing-sm) 0;
+      border-top: 1px dashed var(--color-secondary-outline);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* ── Proto reference cards ── */
+    .repo-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--spacing-md);
+      margin-bottom: var(--spacing-xl);
+    }
+    .repo-card {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-md);
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      gap: var(--spacing-md);
+      transition: border-color 0.15s;
+    }
+    .repo-card:hover {
+      border-color: var(--color-primary-main);
+    }
+    .repo-icon {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+      background: var(--color-secondary-main);
+      border-radius: var(--border-radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .repo-icon .material-icons-outlined {
+      font-size: 18px;
+      color: var(--color-text-secondary);
+    }
+    .repo-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-text-primary);
+      margin-bottom: 4px;
+    }
+    .repo-desc {
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+      margin-bottom: var(--spacing-xs);
+    }
+    .repo-meta {
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+    }
+    .repo-meta code {
+      font-family: 'Courier New', monospace;
+      font-size: 11px;
+      color: var(--color-text-primary);
+      background: var(--color-secondary-main);
+      padding: 1px 6px;
+      border-radius: 3px;
+    }
+
+    /* ── Asks list ── */
+    .asks {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      margin-bottom: var(--spacing-xl);
+    }
+    .ask-row {
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      gap: var(--spacing-md);
+      padding: var(--spacing-md);
+      border-bottom: 1px solid var(--color-secondary-outline);
+    }
+    .ask-row:last-child {
+      border-bottom: none;
+    }
+    .ask-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--color-primary-light);
+      color: var(--color-primary-main);
+      font-weight: 500;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ask-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--color-text-primary);
+      margin-bottom: 4px;
+    }
+    .ask-body {
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+    }
+  </style>
+  <script src="design-system-nav.js"></script>
+</head>
+<body>
+  <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
+
+  <main class="main-content">
+    <div class="page-header" style="padding: var(--spacing-lg) var(--spacing-xl) var(--spacing-md);">
+      <h1 class="page-title">
+        <span class="material-icons-outlined">engineering</span>
+        Engineering Handoff
+      </h1>
+      <p class="page-subtitle">How TRIO engineering consumes the design system — components, tokens, page rules, and prototypes.</p>
+    </div>
+
+    <div class="content-body" style="padding: 0 var(--spacing-xl) var(--spacing-xl);">
+
+      <!-- The model -->
+      <div class="pitch">
+        <div class="pitch-icon"><span class="material-icons-outlined">lightbulb</span></div>
+        <div class="pitch-text">
+          <div class="pitch-title">The prototype IS the spec.</div>
+          <div class="pitch-body">
+            Every prototype is built with the same React components, design tokens, and page rules engineering will use in TRIO. To rebuild a screen in TRIO, you open the prototype source, lift the JSX, and swap the import from <code>@trio-wfs/ui</code> to whatever your project imports from. No translation layer, no separate "spec doc" to interpret.
+          </div>
+        </div>
+      </div>
+
+      <!-- The four pillars -->
+      <h2 class="h-section"><span class="material-icons-outlined">view_module</span>The four things you consume</h2>
+      <p class="h-section-intro">
+        The design system is intentionally small. Four artifacts cover everything — they live in this repo, in version control, and are the source of truth.
+      </p>
+
+      <div class="pillars">
+        <div class="pillar">
+          <div class="pillar-head">
+            <div class="pillar-icon"><span class="material-icons-outlined">widgets</span></div>
+            <div>
+              <div class="pillar-title">Component Library</div>
+              <div class="pillar-subtitle">@trio-wfs/ui</div>
+            </div>
+          </div>
+          <div class="pillar-body">
+            React + TypeScript + MUI v5. 37 production components — Button, TextField, Modal, AG Grid, AG Charts, Avatar, Card, Paper, and all the custom TRIO patterns. Each component is themed, typed, and ready to drop in. Source lives in <code>/components/{Name}/{Name}.tsx</code> — clone the repo or browse directly on GitHub.
+          </div>
+          <a class="pillar-link" href="https://github.com/jszygiel1981-ship-it/Trio-UI/tree/main/components" target="_blank">
+            <span class="material-icons-outlined">open_in_new</span>
+            View component source on GitHub
+          </a>
+        </div>
+
+        <div class="pillar">
+          <div class="pillar-head">
+            <div class="pillar-icon"><span class="material-icons-outlined">palette</span></div>
+            <div>
+              <div class="pillar-title">Design Tokens</div>
+              <div class="pillar-subtitle">design-tokens/tokens.ts</div>
+            </div>
+          </div>
+          <div class="pillar-body">
+            Every color, spacing value, font size, and radius. Exposed as a TypeScript object (<code>tokens</code>) and as CSS variables (<code>trio-tokens.css</code>). This file IS the MUI theme contract — the values Patrick's theme work converges against.
+          </div>
+          <a class="pillar-link" href="downloads.html">
+            <span class="material-icons-outlined">arrow_forward</span>
+            Download tokens
+          </a>
+        </div>
+
+        <div class="pillar">
+          <div class="pillar-head">
+            <div class="pillar-icon"><span class="material-icons-outlined">view_quilt</span></div>
+            <div>
+              <div class="pillar-title">Page Architecture</div>
+              <div class="pillar-subtitle">PAGE_ARCHITECTURE.md</div>
+            </div>
+          </div>
+          <div class="pillar-body">
+            The pattern library — layout, color usage, tabs, grids, forms, alerts, headers. Tells you which composition to pick before you write any JSX. Not "rules for designers" — rules for the assembled page.
+          </div>
+          <a class="pillar-link" href="page-architecture.html">
+            <span class="material-icons-outlined">arrow_forward</span>
+            Read page rules
+          </a>
+        </div>
+
+        <div class="pillar">
+          <div class="pillar-head">
+            <div class="pillar-icon"><span class="material-icons-outlined">menu_book</span></div>
+            <div>
+              <div class="pillar-title">Storybook</div>
+              <div class="pillar-subtitle">npm run storybook · localhost:6006</div>
+            </div>
+          </div>
+          <div class="pillar-body">
+            Every component has a <code>.stories.tsx</code> file. Run Storybook locally for an interactive sandbox — try every variant, every prop, every state, with controls. Pre-built static bundle in <code>/storybook-static/</code> if you'd rather just open the files.
+          </div>
+          <a class="pillar-link" href="https://github.com/jszygiel1981-ship-it/Trio-UI/tree/main/stories" target="_blank">
+            <span class="material-icons-outlined">open_in_new</span>
+            View stories on GitHub
+          </a>
+        </div>
+      </div>
+
+      <!-- How to consume -->
+      <h2 class="h-section"><span class="material-icons-outlined">terminal</span>How to consume</h2>
+      <p class="h-section-intro">
+        Two paths depending on whether you want the published package or a fresh git checkout. Same components, same tokens — pick whichever fits your project setup.
+      </p>
+
+      <div class="code-block">
+        <div class="code-block-header">
+          <div class="code-block-label">
+            <span class="material-icons-outlined">download</span>
+            Install
+          </div>
+        </div>
+<pre><span class="code-comment"># Option A — via npm (once published to GitHub Packages)</span>
+npm install @trio-wfs/ui
+
+<span class="code-comment"># Option B — local link, for active iteration alongside Trio-UI</span>
+git clone https://github.com/jszygiel1981-ship-it/Trio-UI.git
+<span class="code-comment"># in your project's package.json:</span>
+"@trio-wfs/ui": "file:../Trio-UI"</pre>
+      </div>
+
+      <div class="code-block">
+        <div class="code-block-header">
+          <div class="code-block-label">
+            <span class="material-icons-outlined">code</span>
+            Import
+          </div>
+        </div>
+<pre><span class="code-keyword">import</span> { Button, TextField, Modal, tokens, trioTheme } <span class="code-keyword">from</span> <span class="code-string">'@trio-wfs/ui'</span>;
+<span class="code-keyword">import</span> { Box, Stack, Typography } <span class="code-keyword">from</span> <span class="code-string">'@mui/material'</span>;  <span class="code-comment">// layout primitives only</span>
+<span class="code-keyword">import</span> CloseIcon <span class="code-keyword">from</span> <span class="code-string">'@mui/icons-material/Close'</span>;          <span class="code-comment">// icons OK</span>
+
+<span class="code-comment">// Wrap your app once with the theme:</span>
+&lt;ThemeProvider theme={trioTheme}&gt;
+  &lt;App /&gt;
+&lt;/ThemeProvider&gt;</pre>
+      </div>
+
+      <div class="code-block">
+        <div class="code-block-header">
+          <div class="code-block-label">
+            <span class="material-icons-outlined">rule</span>
+            Token-driven styling — never hardcode
+          </div>
+        </div>
+<pre><span class="code-comment">// WRONG — hardcoded values</span>
+&lt;Box sx={{ padding: <span class="code-string">'16px'</span>, color: <span class="code-string">'#2196F3'</span> }} /&gt;
+
+<span class="code-comment">// RIGHT — token-sourced</span>
+&lt;Box sx={{ padding: tokens.spacing.md, color: tokens.colors.primary.main }} /&gt;</pre>
+      </div>
+
+      <!-- Live prototypes -->
+      <h2 class="h-section"><span class="material-icons-outlined">science</span>Reference prototypes</h2>
+      <p class="h-section-intro">
+        These are open-source, deployed, and consume the same <code>@trio-wfs/ui</code> components you would. Use them as working specs — every screen in TRIO that resembles one of these can lift the JSX directly.
+      </p>
+
+      <div class="repo-list">
+        <a class="repo-card" href="https://github.com/jszygiel1981-ship-it/agency-scorecard" target="_blank">
+          <div class="repo-icon"><span class="material-icons-outlined">assessment</span></div>
+          <div>
+            <div class="repo-title">Agency Scorecard</div>
+            <div class="repo-desc">
+              Real-time agency performance dashboard. MetricCard + AG Charts + AG Grid + filter toolbars. Full TRIO/UI component coverage.
+            </div>
+            <div class="repo-meta">
+              <code>@trio-wfs/ui</code>
+              <span class="material-icons-outlined" style="font-size: 13px;">open_in_new</span>
+              <span>View repo</span>
+            </div>
+          </div>
+        </a>
+        <a class="repo-card" href="https://jszygiel1981-ship-it.github.io/agency-scorecard/" target="_blank">
+          <div class="repo-icon"><span class="material-icons-outlined">public</span></div>
+          <div>
+            <div class="repo-title">Agency Scorecard — Live</div>
+            <div class="repo-desc">
+              Deployed prototype. Open it side-by-side with the repo to map JSX onto rendered output.
+            </div>
+            <div class="repo-meta">
+              <span class="material-icons-outlined" style="font-size: 13px;">launch</span>
+              <span>Open prototype</span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- The flow -->
+      <h2 class="h-section"><span class="material-icons-outlined">sync</span>The handoff loop</h2>
+      <p class="h-section-intro">
+        Design and engineering both feed back into the design system. Two-way sync isn't optional — when engineering builds something that diverges from a prototype, that divergence either goes into the DS or back into the design.
+      </p>
+
+      <div class="flow">
+        <div class="flow-step">
+          <span class="material-icons-outlined">design_services</span>
+          <div class="flow-step-label">Figma</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <span class="material-icons-outlined">widgets</span>
+          <div class="flow-step-label">DS components</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <span class="material-icons-outlined">science</span>
+          <div class="flow-step-label">Prototype</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <span class="material-icons-outlined">engineering</span>
+          <div class="flow-step-label">TRIO product</div>
+        </div>
+      </div>
+      <p class="flow-feedback">↑ Anything engineering builds that diverges from the prototype must feed back into the DS or the design.</p>
+
+      <!-- The asks -->
+      <h2 class="h-section"><span class="material-icons-outlined">handshake</span>What we need from engineering</h2>
+      <p class="h-section-intro">
+        Three things from the engineering side to keep this working.
+      </p>
+
+      <div class="asks">
+        <div class="ask-row">
+          <div class="ask-num">1</div>
+          <div>
+            <div class="ask-title">Current MUI theme shape (Patrick)</div>
+            <div class="ask-body">
+              Send the current TRIO theme override file. The goal is to converge <code>tokens.ts</code> with the production theme so the DS and TRIO agree on values, breakpoints, and component defaults. Once aligned, devs only worry about layout.
+            </div>
+          </div>
+        </div>
+        <div class="ask-row">
+          <div class="ask-num">2</div>
+          <div>
+            <div class="ask-title">Two-way feedback when you lift from a prototype</div>
+            <div class="ask-body">
+              When you rebuild a screen in TRIO using the prototype as a spec, flag anything you had to change — missing prop, wrong token, layout that didn't translate. Those become DS work items.
+            </div>
+          </div>
+        </div>
+        <div class="ask-row">
+          <div class="ask-num">3</div>
+          <div>
+            <div class="ask-title">Storybook decision</div>
+            <div class="ask-body">
+              The April plan was for Storybook to eventually run off TRIO's real codebase components. Confirm timing — do we keep the DS Storybook as the reference, or wait for the TRIO one and retire this?
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</body>
+</html>

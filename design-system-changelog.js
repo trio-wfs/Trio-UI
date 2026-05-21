@@ -10,6 +10,11 @@
  */
 
 const DS_CHANGELOG = [
+  { date: '2026-05-21', text: 'Downloads page — new React Component Library section: GitHub source link to /components, full repo clone, and copy-npm-install command. Tokens section retained below.', type: 'Infrastructure' },
+  { date: '2026-05-21', text: 'Engineering Handoff page — new Foundation entry for devs: how to consume @trio-wfs/ui, the four pillars (components, tokens, page architecture, Storybook), install/import code, reference prototypes, and explicit asks of engineering. Component links point to GitHub source, not the showcase site.', type: 'Guidelines' },
+  { date: '2026-05-21', text: 'Page Architecture wired into Foundation nav with a back-link in its sidebar — no longer a dead-end reference doc.', type: 'Infrastructure' },
+  { date: '2026-05-21', text: 'Prototypes page restructured — split into React Prototypes (built with @trio-wfs/ui) and Figma Prototypes sections, plus a single handoff callout replacing the old How-It-Works wallpaper.', type: 'Infrastructure' },
+  { date: '2026-05-21', text: 'Showcase simplification sweep — dead Storybook/Zeplin placeholder links removed from 25 pages, redundant Overview 3-card grid (Purpose/Visual Hierarchy/Accessibility) removed from 23 pages. 932 lines of duplicated copy gone.', type: 'Components' },
   { date: '2026-05-04', text: 'Select — new small size variant (28px height, 12px font, 8px padding). All states supported at both sizes.', type: 'Components' },
   { date: '2026-05-04', text: 'Semantic chart colors added to tokens.ts (charts.info, charts.error, charts.warning, charts.success). Material color strips section added to Colors page. MetricCard now references shared chart tokens.', type: 'Tokens' },
   { date: '2026-05-04', text: 'Select — disabled state fix: border now uses disabledBorder token (#E0E0E0) instead of enabledBorder (#9E9E9E). Background fill + muted border + disabled text all aligned.', type: 'Components' },

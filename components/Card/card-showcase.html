@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Card - TRIO WFS Design System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="../../design-system-shell.css">
+  <style>
+    .card-demo {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      max-width: 480px;
+      font-family: var(--font-family);
+    }
+
+    .card-demo .slot {
+      padding: var(--spacing-md);
+    }
+
+    .card-demo .slot-header {
+      padding-bottom: 0;
+    }
+    .card-demo .slot-body {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+    .card-demo .slot-footer {
+      padding-top: var(--spacing-md);
+    }
+
+    .card-demo.divided .slot-header {
+      padding-bottom: var(--spacing-md);
+      border-bottom: 1px solid var(--color-secondary-outline);
+    }
+    .card-demo.divided .slot-body {
+      padding-top: var(--spacing-md);
+      padding-bottom: var(--spacing-md);
+      border-bottom: 1px solid var(--color-secondary-outline);
+    }
+    .card-demo.divided .slot-body:last-child {
+      border-bottom: none;
+      padding-bottom: var(--spacing-md);
+    }
+    .card-demo.divided .slot-footer {
+      padding-top: var(--spacing-md);
+    }
+
+    .card-demo .title {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--color-text-primary);
+      line-height: 24px;
+    }
+    .card-demo .subtitle {
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      margin-top: var(--spacing-xs);
+    }
+    .card-demo .body-text {
+      font-size: 14px;
+      color: var(--color-text-primary);
+      line-height: 21px;
+    }
+    .card-demo .footer-action {
+      font-size: 14px;
+      color: var(--color-primary-main);
+      font-weight: 500;
+    }
+
+    .demo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-lg);
+      margin: var(--spacing-md) 0;
+    }
+    .demo-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--color-text-secondary);
+      margin-bottom: var(--spacing-sm);
+    }
+  </style>
+  <script src="../../design-system-nav.js"></script>
+</head>
+<body>
+  <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
+  <main class="main-content">
+    <div class="page-header">
+      <h1 class="page-title">Card</h1>
+      <p class="page-description">Composed surface built on Paper. Adds header / body / footer slots with consistent section spacing.</p>
+    </div>
+
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">view_agenda</span>
+        Overview
+      </h2>
+      <p class="section-description">Use Card when a layout needs predictable section structure. Use Paper directly when you want full layout control. Card wraps Paper internally — it inherits all Paper props (<code>level</code>, <code>padding</code>, <code>bordered</code>).</p>
+      <p class="section-description">No Figma variant axes. The "states" of a Card (with header, with footer, divided) are content presence — handled by React props, not variant explosion.</p>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">view_module</span>
+        Anatomy &amp; Usage
+      </h2>
+      <p class="section-description">Three optional slots. Header and footer render only when provided. Body is always present.</p>
+
+      <div class="demo-grid">
+        <div>
+          <div class="demo-label">Full card — header + body + footer</div>
+          <div class="card-demo">
+            <div class="slot slot-header">
+              <div class="title">Post by Jesse Szygiel</div>
+              <div class="subtitle">2 hours ago</div>
+            </div>
+            <div class="slot slot-body">
+              <div class="body-text">Yes — Cerner experience is preferred but not required. Epic is the primary EHR at this facility.</div>
+            </div>
+            <div class="slot slot-footer">
+              <div class="footer-action">Reply &nbsp;·&nbsp; Pin</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="demo-label">Body only — minimal card</div>
+          <div class="card-demo">
+            <div class="slot slot-body" style="padding-top: var(--spacing-md); padding-bottom: var(--spacing-md);">
+              <div class="body-text">A simple Card with just body content. No header, no footer.</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="demo-label">Header + body (no footer)</div>
+          <div class="card-demo">
+            <div class="slot slot-header">
+              <div class="title">Settings</div>
+            </div>
+            <div class="slot slot-body" style="padding-bottom: var(--spacing-md);">
+              <div class="body-text">Configure your workspace preferences. Each section saves automatically.</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="demo-label">With dividers (divided=true)</div>
+          <div class="card-demo divided">
+            <div class="slot slot-header">
+              <div class="title">Confirm assignment</div>
+            </div>
+            <div class="slot slot-body">
+              <div class="body-text">Sarah Lopez will be assigned to Shift #4521 starting Monday.</div>
+            </div>
+            <div class="slot slot-footer">
+              <div class="footer-action">Cancel &nbsp;·&nbsp; Confirm</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">lightbulb</span>
+        Best Practices
+      </h2>
+      <ul style="line-height: 1.7;">
+        <li><strong>Use Card when the layout has discrete sections.</strong> Header + body, body + footer, or all three. For pure content surfaces without sections, use Paper directly.</li>
+        <li><strong>Reserve <code>divided=true</code> for emphasis.</strong> Most cards don't need dividers — they add visual weight. Use dividers when the sections have genuinely different roles (e.g. a confirmation dialog with action buttons).</li>
+        <li><strong>The header slot accepts any ReactNode.</strong> Pair it with a flex layout to build composed headers (avatar + name + meta + action) — Card just guarantees the consistent outer spacing.</li>
+        <li><strong>Don't nest Card in Card unless intentional.</strong> Double borders read busy. If you want sub-sections, use Paper with <code>level="subtle"</code> inside.</li>
+        <li><strong>Card has no built-in elevation.</strong> Follow the Paper rule: no shadows at rest. If a Card needs to feel clickable, wrap it in an interactive component (Button styled as card, MenuItem).</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">straighten</span>
+        Technical Specifications
+      </h2>
+      <table class="spec-table">
+        <thead><tr><th>Property</th><th>Value</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td>Foundation</td><td>Wraps <code>&lt;Paper&gt;</code> internally</td><td>Composition</td></tr>
+          <tr><td>Default level</td><td><code>paper</code> (#FFFFFF)</td><td><code>tokens.colors.background.paper</code></td></tr>
+          <tr><td>Default padding</td><td>16px around each section</td><td><code>tokens.spacing.md</code></td></tr>
+          <tr><td>Divider line</td><td>1px solid #E0E0E0 (when divided=true)</td><td><code>tokens.colors.components.divider</code></td></tr>
+          <tr><td>Shadow</td><td>none (always)</td><td>Inherited from Paper</td></tr>
+          <tr><td>Variant axes (Figma)</td><td>none</td><td>Composition primitive</td></tr>
+          <tr><td>React-only props</td><td>header · footer · divided · children</td><td>Not modeled in Figma</td></tr>
+          <tr><td>Figma node</td><td>7826:4 (file <code>PjAYuPDr8IA1ccwiAjFkSD</code>)</td><td>COMPONENT</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</body>
+</html>

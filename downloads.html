@@ -241,6 +241,50 @@
 
     <div class="content-body" style="padding: 0 var(--spacing-xl) var(--spacing-xl);">
 
+      <!-- ── React Component Library ── -->
+      <h2 style="font-size: 14px; font-weight: 500; margin-bottom: var(--spacing-md); display: flex; align-items: center; gap: var(--spacing-sm); text-transform: uppercase; letter-spacing: 0.5px; color: var(--color-text-secondary);">
+        <span class="material-icons-outlined" style="font-size: 16px; color: var(--color-primary-main);">widgets</span>
+        React Component Library
+        <span style="font-size: 11px; color: var(--color-text-secondary); text-transform: none; letter-spacing: 0; font-weight: 400;">— <code>@trio-wfs/ui</code> · 37 components</span>
+      </h2>
+
+      <div class="download-cards">
+        <a class="download-card" href="https://github.com/jszygiel1981-ship-it/Trio-UI/tree/main/components" target="_blank">
+          <div class="download-card-icon"><span class="material-icons-outlined">widgets</span></div>
+          <div class="download-card-title">Component Source on GitHub</div>
+          <div class="download-card-desc">Browse the individual TRIO React components — Button, Modal, AG Grid, AG Charts, and 30 more. Each in its own folder with <code>.tsx</code>, types, and stories.</div>
+          <div class="download-card-meta">
+            <span class="material-icons-outlined">open_in_new</span>
+            github.com/.../components
+          </div>
+        </a>
+        <a class="download-card" href="https://github.com/jszygiel1981-ship-it/Trio-UI" target="_blank">
+          <div class="download-card-icon"><span class="material-icons-outlined">code</span></div>
+          <div class="download-card-title">Clone the Repo</div>
+          <div class="download-card-desc">Full Trio-UI repo. Consume via <code>"@trio-wfs/ui": "file:../Trio-UI"</code> in your <code>package.json</code> for sibling-folder development.</div>
+          <div class="download-card-meta">
+            <span class="material-icons-outlined">terminal</span>
+            git clone …/Trio-UI.git
+          </div>
+        </a>
+        <div class="download-card" onclick="navigator.clipboard.writeText('npm install @trio-wfs/ui').then(() => { const t = this.querySelector('.download-card-title'); const o = t.textContent; t.textContent = 'Copied!'; setTimeout(() => t.textContent = o, 1500); })" style="cursor: pointer;">
+          <div class="download-card-icon"><span class="material-icons-outlined">content_copy</span></div>
+          <div class="download-card-title">Copy npm install</div>
+          <div class="download-card-desc"><code>npm install @trio-wfs/ui</code> — package is built and ready. Will be published to GitHub Packages when engineering needs it.</div>
+          <div class="download-card-meta">
+            <span class="material-icons-outlined">schedule</span>
+            v1.0.0 · publish on request
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Design Tokens ── -->
+      <h2 style="font-size: 14px; font-weight: 500; margin: var(--spacing-xl) 0 var(--spacing-md); display: flex; align-items: center; gap: var(--spacing-sm); text-transform: uppercase; letter-spacing: 0.5px; color: var(--color-text-secondary);">
+        <span class="material-icons-outlined" style="font-size: 16px; color: var(--color-primary-main);">palette</span>
+        Design Tokens
+        <span style="font-size: 11px; color: var(--color-text-secondary); text-transform: none; letter-spacing: 0; font-weight: 400;">— colors, spacing, typography as CSS variables</span>
+      </h2>
+
       <!-- Download cards -->
       <div class="download-cards">
         <a class="download-card" href="design-tokens/trio-tokens.css" download="trio-tokens.css">

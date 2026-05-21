@@ -13,11 +13,13 @@
 
 export { Alert } from './Alert/Alert';
 export { Autocomplete } from './Autocomplete/Autocomplete';
+export { Avatar } from './Avatar/Avatar';
 export { Breadcrumb } from './Breadcrumb/Breadcrumb';
 export { Badge } from './Badge/Badge';
 export { Button } from './Button/Button';
 export { ButtonGroup } from './ButtonGroup/ButtonGroup';
 export { ButtonIcon } from './ButtonIcon/ButtonIcon';
+export { Card } from './Card/Card';
 export { Checkbox } from './Checkbox/Checkbox';
 export { Chip } from './Chip/Chip';
 export { ContentContainer } from './ContentContainer/ContentContainer';
@@ -42,6 +44,7 @@ export { Chart } from './Chart/Chart';
 export { DatePicker } from './DatePicker/DatePicker';
 export { Handle } from './Handle/Handle';
 export { NumberField } from './NumberField/NumberField';
+export { Paper } from './Paper/Paper';
 export { PopOver } from './PopOver/PopOver';
 export { ProductLogos } from './ProductLogos/ProductLogos';
 export { Slider } from './Slider/Slider';
@@ -69,6 +72,12 @@ export type {
 } from './Autocomplete/Autocomplete.types';
 
 export type {
+  AvatarSize,
+  AvatarColor,
+  AvatarProps,
+} from './Avatar/Avatar.types';
+
+export type {
   ButtonSize,
   ButtonColor,
   ButtonVariant,
@@ -89,6 +98,8 @@ export type {
   ButtonGroupOrientation,
   ButtonGroupProps,
 } from './ButtonGroup/ButtonGroup.types';
+
+export type { CardProps } from './Card/Card.types';
 
 export type {
   CheckboxColor,
@@ -222,6 +233,12 @@ export type {
 export type { HandleProps } from './Handle/Handle.types';
 
 export type { NumberFieldProps } from './NumberField/NumberField.types';
+
+export type {
+  PaperLevel,
+  PaperPadding,
+  PaperProps,
+} from './Paper/Paper.types';
 
 export type { PopOverProps } from './PopOver/PopOver.types';
 

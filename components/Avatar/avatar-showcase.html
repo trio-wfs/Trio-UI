@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Avatar - TRIO WFS Design System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="../../design-system-shell.css">
+  <style>
+    /* Avatar-specific tokens not in shell — pulled from design-tokens/tokens.ts */
+    :root {
+      --avatar-staff:       #607D8B; /* tokens.colors.brand.headerStrip */
+      --avatar-dataviz:     #37636B; /* tokens.colors.dataViz.teal */
+      --avatar-anonymized:  #9E9E9E; /* tokens.colors.components.icon.disabled (matches Figma grey/500) */
+      --avatar-text-on-fill: #FFFFFF; /* tokens.colors.base.white */
+    }
+
+    .avatar {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      color: var(--avatar-text-on-fill);
+      font-family: var(--font-family);
+      font-weight: 500;
+      line-height: 1;
+      user-select: none;
+      flex-shrink: 0;
+    }
+
+    .avatar.size-small {
+      width: 24px;
+      height: 24px;
+      font-size: 11px;
+    }
+    .avatar.size-medium {
+      width: 32px;
+      height: 32px;
+      font-size: 14px;
+    }
+
+    .avatar.color-staff      { background: var(--avatar-staff); }
+    .avatar.color-primary    { background: var(--color-primary-main); }
+    .avatar.color-info       { background: var(--color-info-main); }
+    .avatar.color-success    { background: var(--color-success-main); }
+    .avatar.color-warning    { background: var(--color-warning-main); }
+    .avatar.color-error      { background: var(--color-error-main); }
+    .avatar.color-dataviz    { background: var(--avatar-dataviz); }
+    .avatar.color-anonymized { background: var(--avatar-anonymized); }
+
+    .avatar-row {
+      display: flex;
+      gap: var(--spacing-lg);
+      align-items: center;
+      flex-wrap: wrap;
+      padding: var(--spacing-md) 0;
+    }
+
+    .avatar-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--spacing-sm);
+    }
+
+    .avatar-label {
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      font-family: var(--font-family);
+    }
+
+    /* In-context demo card (anchored to the Q&A thread use case) */
+    .thread-card {
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-md);
+      background: var(--color-background-paper);
+      max-width: 560px;
+    }
+
+    .thread-post {
+      display: flex;
+      gap: var(--spacing-mid);
+      padding: var(--spacing-sm) 0;
+      align-items: flex-start;
+    }
+    .thread-post + .thread-post {
+      border-top: 1px solid var(--color-secondary-outline);
+    }
+    .thread-post .meta {
+      font-size: 13px;
+      color: var(--color-text-primary);
+    }
+    .thread-post .meta .name { font-weight: 500; }
+    .thread-post .meta .time {
+      color: var(--color-text-secondary);
+      font-size: 11px;
+      margin-left: var(--spacing-sm);
+    }
+    .thread-post .body {
+      font-size: 13px;
+      color: var(--color-text-primary);
+      margin-top: 2px;
+    }
+  </style>
+  <script src="../../design-system-nav.js"></script>
+</head>
+<body>
+  <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
+  <main class="main-content">
+    <div class="page-header">
+      <h1 class="page-title">Avatar</h1>
+      <p class="page-description">Identity primitive for user and agency authors. The anonymized variant powers cross-agency privacy in shared threads.</p>
+    </div>
+
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">account_circle</span>
+        Overview
+      </h2>
+      <p class="section-description">Circular identity primitive rendering 1–2 initials over a colored fill. Non-interactive — no hover, focus, or disabled states by design. Two sizes (24px / 32px) and eight color variants cover identifier rendering across user and agency posts.</p>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">palette</span>
+        Color Variants
+      </h2>
+      <p class="section-description">Eight colors, each mapped to an existing TRIO design token. Choose based on author role: staff is the slate anchor for TRIO Staff/RMs, anonymized is reserved for cross-agency privacy, others are identifier choices (typically name-hashed in code).</p>
+      <div class="avatar-row">
+        <div class="avatar-stack"><div class="avatar size-medium color-staff">JS</div><div class="avatar-label">staff</div></div>
+        <div class="avatar-stack"><div class="avatar size-medium color-primary">AR</div><div class="avatar-label">primary</div></div>
+        <div class="avatar-stack"><div class="avatar size-medium color-info">LM</div><div class="avatar-label">info</div></div>
+        <div class="avatar-stack"><div class="avatar size-medium color-success">DK</div><div class="avatar-label">success</div></div>
+        <div class="avatar-stack"><div class="avatar size-medium color-warning">PT</div><div class="avatar-label">warning</div></div>
+        <div class="avatar-stack"><div class="avatar size-medium color-error">SR</div><div class="avatar-label">error</div></div>
+        <div class="avatar-stack"><div class="avatar size-medium color-dataviz">MK</div><div class="avatar-label">dataviz</div></div>
+        <div class="avatar-stack"><div class="avatar size-medium color-anonymized">A</div><div class="avatar-label">anonymized</div></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">straighten</span>
+        Sizes
+      </h2>
+      <p class="section-description">Small (24px) for compact contexts — list panels, notification rows, sidebars. Medium (32px) as the default for post threads and primary identity surfaces.</p>
+      <div class="avatar-row">
+        <div class="avatar-stack"><div class="avatar size-small color-staff">JS</div><div class="avatar-label">small · 24px</div></div>
+        <div class="avatar-stack"><div class="avatar size-medium color-staff">JS</div><div class="avatar-label">medium · 32px</div></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">groups</span>
+        In Context — Q&amp;A Thread
+      </h2>
+      <p class="section-description">Same data, two views. Left: Staff sees every author by full name. Right: Agency users see Staff and own teammates by name, other agencies as anonymized "Agency" with the gray avatar.</p>
+      <div class="thread-card" style="margin-top: var(--spacing-md);">
+        <div class="thread-post">
+          <div class="avatar size-medium color-staff">JS</div>
+          <div>
+            <div class="meta"><span class="name">Jesse Szygiel</span><span class="time">2h ago</span></div>
+            <div class="body">Yes — Cerner experience is preferred but not required. Epic is the primary EHR at this facility.</div>
+          </div>
+        </div>
+        <div class="thread-post">
+          <div class="avatar size-medium color-primary">AR</div>
+          <div>
+            <div class="meta"><span class="name">Alyssa Ramirez · Aya Healthcare</span><span class="time">3h ago</span></div>
+            <div class="body">Is Cerner experience required, or is Epic sufficient?</div>
+          </div>
+        </div>
+        <div class="thread-post">
+          <div class="avatar size-medium color-anonymized">A</div>
+          <div>
+            <div class="meta"><span class="name">Agency</span><span class="time">1h ago</span></div>
+            <div class="body">Thanks — that's helpful for our submission.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">lightbulb</span>
+        Best Practices
+      </h2>
+      <ul style="line-height: 1.7;">
+        <li><strong>Staff use <code>color="staff"</code> always.</strong> Slate anchors Staff identity across all threads so users find them instantly.</li>
+        <li><strong>Hash identifiable agency colors from a stable name input.</strong> Same author → same color across sessions. Excludes <code>staff</code> (reserved) and <code>anonymized</code> (reserved).</li>
+        <li><strong>Use <code>color="anonymized"</code> for cross-agency rendering.</strong> Three anonymized agencies looking identical is a feature — it visualizes the privacy guarantee.</li>
+        <li><strong>Don't add hover or click states.</strong> Avatar is a display primitive. Interactive author surfaces (e.g. profile popovers) wrap the Avatar in a separate interactive component.</li>
+        <li><strong>1–2 character initials only.</strong> Longer strings will overflow the circle; truncate before passing.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">style</span>
+        Color Semantics
+      </h2>
+      <table class="spec-table">
+        <thead><tr><th>Color</th><th>Hex</th><th>Token</th><th>Typical use</th></tr></thead>
+        <tbody>
+          <tr><td>staff</td><td>#607D8B</td><td><code>brand.headerStrip</code></td><td>TRIO Staff / RM author — always</td></tr>
+          <tr><td>primary</td><td>#2196F3</td><td><code>primary.main</code></td><td>Agency author identifier</td></tr>
+          <tr><td>info</td><td>#54AFCA</td><td><code>info.main</code></td><td>Agency author identifier</td></tr>
+          <tr><td>success</td><td>#388E3C</td><td><code>success.main</code></td><td>Agency author identifier</td></tr>
+          <tr><td>warning</td><td>#E17109</td><td><code>warning.main</code></td><td>Agency author identifier</td></tr>
+          <tr><td>error</td><td>#DB4537</td><td><code>error.main</code></td><td>Agency author identifier</td></tr>
+          <tr><td>dataviz</td><td>#37636B</td><td><code>dataViz.teal</code></td><td>Agency author identifier (dark accent)</td></tr>
+          <tr><td>anonymized</td><td>#9E9E9E</td><td><code>components.icon.disabled</code> (matches Figma <code>grey/500</code>)</td><td>Cross-agency privacy mode</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">straighten</span>
+        Technical Specifications
+      </h2>
+      <table class="spec-table">
+        <thead><tr><th>Property</th><th>Value</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td>Shape</td><td>Circle (border-radius 50%)</td><td>Extracted from Figma node 7814:2</td></tr>
+          <tr><td>Size — small</td><td>24 × 24px</td><td>Figma variant size=small</td></tr>
+          <tr><td>Size — medium</td><td>32 × 32px</td><td>Figma variant size=medium</td></tr>
+          <tr><td>Initials font (small)</td><td>Roboto Medium 11 / 16</td><td>Figma text style <code>body/label/overline</code></td></tr>
+          <tr><td>Initials font (medium)</td><td>Roboto Medium 14 / 24</td><td>Figma text style <code>body/subtitles/subtitle2</code></td></tr>
+          <tr><td>Initials color</td><td>#FFFFFF (white)</td><td>Bound to Figma variable <code>base/white</code></td></tr>
+          <tr><td>Variant axes</td><td>size × color</td><td>2 × 8 = 16 variants</td></tr>
+          <tr><td>Text property</td><td><code>initials</code> (default "JS")</td><td>Figma TEXT property</td></tr>
+          <tr><td>Figma node</td><td>7814:2 (file <code>PjAYuPDr8IA1ccwiAjFkSD</code>)</td><td>COMPONENT_SET</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</body>
+</html>

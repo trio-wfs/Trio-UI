@@ -50,6 +50,7 @@
   /* Surfaces */
   --color-background-default:  #F5F5F5;
   --color-background-secondary: #FAFAFA;
+  --color-background-subtle:   rgba(0, 0, 0, 0.1);
   --color-background-paper:    #FFFFFF;
   --color-disabled-bg:         rgba(0, 0, 0, 0.12);
 

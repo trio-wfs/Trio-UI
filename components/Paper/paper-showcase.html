@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Paper - TRIO WFS Design System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="../../design-system-shell.css">
+  <style>
+    .paper-demo {
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-md);
+      min-height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-family);
+      font-size: 14px;
+      color: var(--color-text-primary);
+    }
+
+    .paper-demo.level-default   { background: var(--color-background-default); }
+    .paper-demo.level-secondary { background: var(--color-background-secondary); }
+    .paper-demo.level-subtle    { background: var(--color-background-subtle); }
+    .paper-demo.level-paper     { background: var(--color-background-paper); }
+    .paper-demo.level-accent    { background: #E4F7FD; }
+
+    .paper-row {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: var(--spacing-md);
+      margin: var(--spacing-md) 0;
+    }
+
+    .paper-label {
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      margin-top: var(--spacing-xs);
+      text-align: center;
+    }
+
+    /* Nested demo — subtle reveals its real character here */
+    .nested-demo {
+      padding: var(--spacing-lg);
+      border-radius: var(--border-radius);
+      border: 1px solid var(--color-secondary-outline);
+      margin-bottom: var(--spacing-md);
+    }
+    .nested-demo .nested-label {
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      margin-bottom: var(--spacing-sm);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .nested-demo .nested-inner {
+      padding: var(--spacing-md);
+      border-radius: var(--border-radius);
+      border: 1px solid var(--color-secondary-outline);
+      background: var(--color-background-subtle);
+      font-size: 13px;
+      color: var(--color-text-primary);
+    }
+    .nested-demo.parent-paper     { background: var(--color-background-paper); }
+    .nested-demo.parent-secondary { background: var(--color-background-secondary); }
+    .nested-demo.parent-accent    { background: #E4F7FD; }
+  </style>
+  <script src="../../design-system-nav.js"></script>
+</head>
+<body>
+  <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
+  <main class="main-content">
+    <div class="page-header">
+      <h1 class="page-title">Paper</h1>
+      <p class="page-description">Static surface primitive. Five layered tiers, border-stroke only — no shadows at rest. Hover-shadow behavior lives on interactive wrappers, not on Paper itself.</p>
+    </div>
+
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">layers</span>
+        Overview
+      </h2>
+      <p class="section-description">Paper is the foundational surface primitive in TRIO. Use it for any boxed content — cards, panels, containers, sidebars. Five level values cover the full surface hierarchy from outermost page canvas to emphasized accent.</p>
+      <p class="section-description"><strong>No shadows at rest.</strong> If a surface needs hover-shadow feedback (e.g. clickable cards in a grid), the interactive parent component owns the shadow — Paper stays static.</p>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">layers</span>
+        Levels
+      </h2>
+      <p class="section-description">Layered hierarchy from outermost to innermost. Choose based on visual depth within a layout.</p>
+      <div class="paper-row">
+        <div>
+          <div class="paper-demo level-default">level=default</div>
+          <div class="paper-label">#F5F5F5</div>
+        </div>
+        <div>
+          <div class="paper-demo level-secondary">level=secondary</div>
+          <div class="paper-label">#FAFAFA</div>
+        </div>
+        <div>
+          <div class="paper-demo level-subtle">level=subtle</div>
+          <div class="paper-label">rgba(0,0,0,0.1)</div>
+        </div>
+        <div>
+          <div class="paper-demo level-paper">level=paper</div>
+          <div class="paper-label">#FFFFFF</div>
+        </div>
+        <div>
+          <div class="paper-demo level-accent">level=accent</div>
+          <div class="paper-label">#E4F7FD</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">filter_none</span>
+        Subtle in context — composing with the parent
+      </h2>
+      <p class="section-description">The <code>subtle</code> tier is a 10% black overlay. It composes with whatever sits behind it — rendering darker on lighter parents, less prominent on darker ones. Use sparingly: introduce only when a nested-container delineation is genuinely needed.</p>
+
+      <div class="nested-demo parent-paper">
+        <div class="nested-label">Parent: paper (#FFFFFF)</div>
+        <div class="nested-inner">Nested subtle — renders as ~#FAFAFA</div>
+      </div>
+      <div class="nested-demo parent-secondary">
+        <div class="nested-label">Parent: secondary (#FAFAFA)</div>
+        <div class="nested-inner">Nested subtle — renders as ~#F4F4F4 (1 step down)</div>
+      </div>
+      <div class="nested-demo parent-accent">
+        <div class="nested-label">Parent: accent (#E4F7FD)</div>
+        <div class="nested-inner">Nested subtle — renders as a slightly darker tint of the accent</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">lightbulb</span>
+        Best Practices
+      </h2>
+      <ul style="line-height: 1.7;">
+        <li><strong>Default to <code>level="paper"</code>.</strong> White is the workhorse for cards, panels, and containers.</li>
+        <li><strong>Use <code>level="secondary"</code> for content wrappers below headers.</strong> Groups all the page's components without competing with cards inside.</li>
+        <li><strong>Use <code>level="subtle"</code> for nested containers</strong> where you want a 1-step-down feel without committing to a fixed gray. Best inside paper or accent parents.</li>
+        <li><strong>Use <code>level="accent"</code> sparingly</strong> — for highlighted or pinned content (e.g. canonical answer blocks in Q&amp;A threads).</li>
+        <li><strong>Don't add shadows.</strong> If a surface needs hover feedback, wrap Paper in an interactive component that owns the shadow.</li>
+        <li><strong>For semantic surfaces (warning, error, success), use <code>&lt;Alert&gt;</code>, not Paper.</strong> Paper handles neutral surface hierarchy; Alert handles semantic feedback.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons">straighten</span>
+        Technical Specifications
+      </h2>
+      <table class="spec-table">
+        <thead><tr><th>Property</th><th>Value</th><th>Source</th></tr></thead>
+        <tbody>
+          <tr><td>Shape</td><td>Rounded rectangle, border-radius 4px</td><td><code>tokens.borderRadius.default</code></td></tr>
+          <tr><td>Border</td><td>1px solid #E0E0E0 (when bordered=true)</td><td>Bound to Figma <code>_components/paper/outlineborder</code></td></tr>
+          <tr><td>Shadow</td><td>none (always)</td><td>TRIO rule — interactive wrappers add hover shadows</td></tr>
+          <tr><td>Default padding (React)</td><td>16px</td><td><code>tokens.spacing.md</code></td></tr>
+          <tr><td>Variant axes</td><td>level (5 values)</td><td>5 Figma variants</td></tr>
+          <tr><td>React-only props</td><td>padding · bordered · children</td><td>Not exposed as Figma variants</td></tr>
+          <tr><td>Figma node</td><td>7824:2 (file <code>PjAYuPDr8IA1ccwiAjFkSD</code>)</td><td>COMPONENT_SET</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</body>
+</html>

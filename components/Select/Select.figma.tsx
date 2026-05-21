@@ -10,26 +10,15 @@ figma.connect(Select, 'https://www.figma.com/design/PjAYuPDr8IA1ccwiAjFkSD?node-
       error: 'error',
       selected: 'selected',
     }),
-    disabled: figma.enum('state', {
-      disabled: true,
-      default: false,
-      focus: false,
-      error: false,
-      selected: false,
-    }),
-    error: figma.enum('state', {
-      error: true,
-      default: false,
-      focus: false,
-      disabled: false,
-      selected: false,
+    size: figma.enum('size', {
+      medium: 'medium',
+      small: 'small',
     }),
   },
-  example: ({ state, disabled, error }) => (
+  example: ({ state, size }) => (
     <Select
       state={state}
-      disabled={disabled}
-      error={error}
+      size={size}
       label="Label"
       placeholder="Select an option"
       options={[

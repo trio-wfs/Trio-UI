@@ -18,7 +18,7 @@
  * - Uses custom Menu component (not system dropdown)
  */
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useId } from 'react';
 import { FormControl, InputLabel, FormHelperText } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { type SelectProps, defaultSelectProps } from './Select.types';
@@ -46,10 +46,29 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(({
   const [open, setOpen] = useState(false);
   const anchorRef = useRef<HTMLDivElement>(null);
 
+  // Stable IDs for label↔trigger ARIA linkage. Allow consumer to override via `id`.
+  const generatedId = useId();
+  const labelId = `${generatedId}-label`;
+  const triggerId = id ?? `${generatedId}-trigger`;
+  const listboxId = `${generatedId}-listbox`;
+
   const isDisabled = disabled || state === 'disabled';
   const hasError = error || state === 'error';
   const isFocused = state === 'focus' || open;
   const isSmall = size === 'small';
+
+  // Keyboard support — open the dropdown via Enter / Space / ArrowDown / ArrowUp.
+  // Once open, MUI Menu handles arrow-key navigation, Enter to select, Escape to close.
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (isDisabled) return;
+    if (event.key === 'Enter' || event.key === ' ' || event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+      event.preventDefault();
+      setOpen(true);
+    } else if (event.key === 'Escape' && open) {
+      event.preventDefault();
+      setOpen(false);
+    }
+  };
 
   // Find selected option label
   const selectedOption = options?.find((opt) => opt.value === value);
@@ -92,13 +111,23 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(({
       className={className}
     >
       {label && (
-        <InputLabel shrink>{label}</InputLabel>
+        <InputLabel id={labelId} shrink>{label}</InputLabel>
       )}
       {name && <input type="hidden" name={name} value={value ?? ''} />}
       <div
         ref={anchorRef}
-        id={id}
+        id={triggerId}
+        role="combobox"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-controls={open ? listboxId : undefined}
+        aria-labelledby={label ? labelId : undefined}
+        aria-disabled={isDisabled || undefined}
+        aria-invalid={hasError || undefined}
+        aria-required={required || undefined}
+        tabIndex={isDisabled ? -1 : 0}
         onClick={handleClick}
+        onKeyDown={handleKeyDown}
         style={{
           fontFamily: tokens.typography.fontFamily,
           height: isSmall ? `${tokens.controls.height.small}px` : `${tokens.controls.height.medium}px`,

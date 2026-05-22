@@ -66,11 +66,6 @@ const DS_NAV = {
   dataviz: [
     { label: 'Chart',  icon: 'bar_chart', href: 'components/Chart/chart-showcase.html' },
   ],
-
-  // Page Templates — assembled layouts for common TRIO screens
-  templates: [
-    { label: 'Page Templates', icon: 'view_quilt', href: 'page-templates.html' },
-  ],
 };
 
 function renderNav(currentHref) {
@@ -86,12 +81,6 @@ function renderNav(currentHref) {
       <span class="material-icons-outlined">${item.icon}</span>${item.label}
     </a>`;
   }
-
-  const templatesSection = `
-    <div class="nav-section">
-      <div class="nav-section-title">Page Templates</div>
-      <div class="nav-item nav-item-empty">Coming soon</div>
-    </div>`;
 
   const html = `
     <div class="sidebar-header">
@@ -120,13 +109,6 @@ function renderNav(currentHref) {
         <div class="nav-section-title">Data Visualization</div>
         ${DS_NAV.dataviz.map(makeLink).join('\n        ')}
       </div>
-      ${DS_NAV.templates.length > 0
-        ? `<div class="nav-section">
-            <div class="nav-section-title">Page Templates</div>
-            ${DS_NAV.templates.map(makeLink).join('\n        ')}
-          </div>`
-        : templatesSection
-      }
     </nav>
     <div class="sidebar-footer">
       <a href="${root}design-tokens/trio-tokens.css" download="trio-tokens.css" class="sidebar-download">

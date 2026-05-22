@@ -5,7 +5,7 @@ figma.connect(SearchBar, 'https://www.figma.com/design/PjAYuPDr8IA1ccwiAjFkSD?no
   props: {
     size: figma.enum('Size', {
       Small: 'small',
-      'Medium Default': 'medium',
+      'Medium (Default)': 'medium',
     }),
     type: figma.enum('Type', {
       Left: 'left',

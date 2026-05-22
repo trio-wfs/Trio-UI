@@ -399,8 +399,20 @@ export const themeOptions: ThemeOptions = {
     // Popup indicator, clear indicator, paper, and option styling for
     // the dropdown surface. The input itself uses MuiTextField overrides
     // (Autocomplete internally renders a MuiTextField via renderInput).
+    //
+    // inputRoot override (added v9 migration): MUI v9 ships Autocomplete-specific
+    // padding (9px on the OutlinedInput root + 7.5px on the inner input) under
+    // `& .MuiOutlinedInput-root` — this selector wins over our MuiTextField
+    // override and pushes the field to ~53px tall. Resetting to our 4/8px spacing
+    // so the field renders at the canonical 38px medium / 32px small.
     MuiAutocomplete: {
       styleOverrides: {
+        inputRoot: {
+          padding: `${tokens.spacing.xs}px ${tokens.spacing.sm}px`,
+        },
+        input: {
+          padding: '0 !important',
+        },
         popupIndicator: {
           padding: `${tokens.spacing.xs}px`,
         },

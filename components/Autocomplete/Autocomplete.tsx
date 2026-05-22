@@ -121,10 +121,9 @@ export const Autocomplete = React.forwardRef<HTMLDivElement, AutocompleteProps>(
             error={isError}
             helperText={displayedHelperText}
             slotProps={{
-              // @ts-expect-error — InputLabelProps exists at runtime but removed from MUI v9 types
-              inputLabel: { ...params.InputLabelProps, shrink: true },
-              // @ts-expect-error — InputProps exists at runtime but removed from MUI v9 types; must spread to preserve endAdornment (chevron/clear icons)
-              input: { ...params.InputProps, notched: false },
+              ...params.slotProps,
+              inputLabel: { ...params.slotProps.inputLabel, shrink: true },
+              input: { ...params.slotProps.input, notched: false },
             }}
             sx={{ ...inputChipSx, ...smallSx }}
             {...ariaProps}
@@ -158,10 +157,9 @@ export const Autocomplete = React.forwardRef<HTMLDivElement, AutocompleteProps>(
           error={isError}
           helperText={displayedHelperText}
           slotProps={{
-            // @ts-expect-error — InputLabelProps exists at runtime but removed from MUI v9 types
-            inputLabel: { ...params.InputLabelProps, shrink: true },
-            // @ts-expect-error — InputProps exists at runtime but removed from MUI v9 types; must spread to preserve endAdornment (chevron/clear icons)
-            input: { ...params.InputProps, notched: false },
+            ...params.slotProps,
+            inputLabel: { ...params.slotProps.inputLabel, shrink: true },
+            input: { ...params.slotProps.input, notched: false },
           }}
           sx={smallSx}
           {...ariaProps}

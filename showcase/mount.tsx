@@ -205,6 +205,8 @@ const registry: Record<string, () => Promise<{ default: React.ComponentType<any>
   Slider:             () => import('../components/Slider/Slider').then(m => ({ default: m.Slider })),
   // Showcase-only wrappers
   ModalDemo:          () => import('./ModalDemo').then(m => ({ default: m.ModalDemo })),
+  NavigationVerticalDemo: () => import('./NavigationVerticalDemo').then(m => ({ default: m.NavigationVerticalDemo })),
+  PopOverDemo:        () => import('./PopOverDemo').then(m => ({ default: m.PopOverDemo })),
 };
 
 // ─── Wrapper that loads + renders a single component ────────────────────────

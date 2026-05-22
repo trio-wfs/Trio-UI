@@ -1,0 +1,1 @@
+import{t as e}from"./ownerDocument-BygyWnhz.js";function t(t){return e(t).defaultView||window}export{t};

@@ -1,0 +1,1 @@
+import{t as e}from"./jsx-runtime-CvBdq97w.js";import{t}from"./createSvgIcon-DzZMrmQA.js";var n=t((0,e().jsx)(`path`,{d:`m7 10 5 5 5-5z`}),`ArrowDropDown`);export{n as t};

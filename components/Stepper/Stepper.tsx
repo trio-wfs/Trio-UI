@@ -46,14 +46,14 @@ export const Stepper = React.forwardRef<HTMLDivElement, StepperProps>(({ steps, 
                     alignItems: 'center',
                     justifyContent: 'center',
                     flexShrink: 0,
-                    backgroundColor: isActive ? tokens.colors.primary.main : 'transparent',
+                    backgroundColor: isActive ? tokens.colors.dataViz.teal : 'transparent',
                   }}
                 >
                   {isCompleted && (
                     <CheckIcon
                       sx={{
                         fontSize: 16,
-                        color: tokens.colors.primary.main,
+                        color: tokens.colors.dataViz.teal,
                       }}
                     />
                   )}
@@ -97,8 +97,8 @@ export const Stepper = React.forwardRef<HTMLDivElement, StepperProps>(({ steps, 
                     height: 2,
                     borderRadius: `${tokens.borderRadius.full}px`,
                     backgroundColor: isCompleted
-                      ? tokens.colors.primary.main
-                      : tokens.colors.action.disabled,
+                      ? tokens.colors.dataViz.teal
+                      : tokens.colors.components.border.default,
                     mx: `${tokens.spacing.sm}px`,
                   }}
                 />

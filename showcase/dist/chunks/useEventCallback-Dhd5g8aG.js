@@ -1,0 +1,1 @@
+import{a as e,n as t}from"./jsx-runtime-CvBdq97w.js";import{t as n}from"./useEnhancedEffect-nSE5E3Rv.js";var r=e(t(),1);function i(e){let t=r.useRef(e);return n(()=>{t.current=e}),r.useRef((...e)=>(0,t.current)(...e)).current}export{i as t};

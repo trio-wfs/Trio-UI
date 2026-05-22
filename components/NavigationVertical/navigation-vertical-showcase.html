@@ -223,18 +223,18 @@
         </div>
       </div>
 
-      <!-- Full nav demo -->
+      <!-- Full nav demo — INTERACTIVE: click hamburger to toggle open ↔ closed -->
       <div class="demo-panel" style="margin-top: var(--spacing-md);">
-        <div class="demo-label" style="margin-bottom: var(--spacing-sm);">Full navigation — open state with title, subtitle, and settings</div>
+        <div class="demo-label" style="margin-bottom: var(--spacing-sm);">Full navigation — interactive: click the hamburger to toggle open ↔ closed</div>
         <div class="nav-demo-container">
-          <div data-trio-component="NavigationVertical" data-trio-props='{
-            "state": "open",
+          <div data-trio-component="NavigationVerticalDemo" data-trio-props='{
+            "initialState": "open",
             "title": "Locums Program",
             "subtitle": "Sunset Grove Medical Hospital",
             "titleDropdown": true,
-            "activeId": "dashboard",
+            "initialActiveId": "dashboard",
             "settings": true,
-            "activeSettingsId": "program-details",
+            "initialActiveSettingsId": "program-details",
             "items": [
               {"id": "dashboard", "label": "Dashboard", "icon": "DashboardOutlined"},
               {"id": "recruiting", "label": "Recruiting", "icon": "PersonSearchOutlined"},

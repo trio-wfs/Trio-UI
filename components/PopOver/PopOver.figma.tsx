@@ -3,16 +3,16 @@ import { PopOver } from './PopOver'
 
 figma.connect(PopOver, 'https://www.figma.com/design/PjAYuPDr8IA1ccwiAjFkSD?node-id=3868-50794', {
   props: {
-    style: figma.enum('Style', {
-      'With Tabs': 'withTabs',
-      'Without Tabs': 'withoutTabs',
+    style: figma.enum('style', {
+      withTabs: 'withTabs',
+      withoutTabs: 'withoutTabs',
     }),
-    type: figma.enum('Type', {
-      'Generic Use': 'generic',
-      'Single Content': 'singleContent',
-      'Multi-Content': 'multiContent',
-      'No Content': 'noContent',
-      'Content': 'content',
+    type: figma.enum('type', {
+      generic: 'generic',
+      singleContent: 'singleContent',
+      multiContent: 'multiContent',
+      noContent: 'noContent',
+      content: 'content',
     }),
   },
   example: () => (

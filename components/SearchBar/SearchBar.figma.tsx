@@ -3,13 +3,13 @@ import { SearchBar } from './SearchBar'
 
 figma.connect(SearchBar, 'https://www.figma.com/design/PjAYuPDr8IA1ccwiAjFkSD?node-id=492-653', {
   props: {
-    size: figma.enum('Size', {
-      Small: 'small',
-      'Medium (Default)': 'medium',
+    size: figma.enum('size', {
+      small: 'small',
+      medium: 'medium',
     }),
-    type: figma.enum('Type', {
-      Left: 'left',
-      Right: 'right',
+    type: figma.enum('type', {
+      left: 'left',
+      right: 'right',
     }),
   },
   example: ({ size, type }) => (

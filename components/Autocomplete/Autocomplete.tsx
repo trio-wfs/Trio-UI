@@ -100,15 +100,17 @@ export const Autocomplete = React.forwardRef<HTMLDivElement, AutocompleteProps>(
         getOptionLabel={(option) => option.label}
         isOptionEqualToValue={(option, val) => option.value === val.value}
         className={className}
-        // @ts-expect-error — renderTags exists at runtime but removed from MUI v9 types
-        renderTags={(tagValue: AutocompleteOption[], getTagProps: any) =>
-          tagValue.map((option, index) => (
-            <Chip
-              label={option.label}
-              {...getTagProps({ index })}
-              key={option.value}
-            />
-          ))
+        renderValue={(value, getItemProps) =>
+          value.map((option, index) => {
+            const itemProps = getItemProps({ index });
+            return (
+              <Chip
+                {...itemProps}
+                key={option.value}
+                label={option.label}
+              />
+            );
+          })
         }
         renderInput={(params) => (
           <TextField

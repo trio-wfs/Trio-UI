@@ -65,12 +65,12 @@ export const tokens = {
 
     // Background Colors
     // Layer order: default → secondary → subtle → paper → accent
-    // (subtle is a transparent in-between tier — 10% black overlay, composes with parent.
+    // (subtle is a transparent in-between tier — 20% white overlay, lifts toward paper.
     //  Introduce slowly — use only when a nested-container delineation is genuinely needed.)
     background: {
-      default: '#F5F5F5',           // Page canvas — entire browser background
-      secondary: '#FAFAFA',         // Content wrapper below header — 16px padding, groups all page components
-      subtle: 'rgba(0, 0, 0, 0.1)', // In-between tier — transparent overlay for nested surfaces
+      default: '#F5F5F5',            // Page canvas — entire browser background
+      secondary: '#FAFAFA',          // Content wrapper below header — 16px padding, groups all page components
+      subtle: 'rgba(255, 255, 255, 0.20)', // In-between tier — transparent overlay for nested surfaces; lifts toward paper
       paper: '#FFFFFF',             // All cards, panels, containers — no elevation, border stroke only
       accent: '#E4F7FD',
     },

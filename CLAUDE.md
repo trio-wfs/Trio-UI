@@ -24,8 +24,8 @@ All component specs are pulled live via Figma MCP — no offline cache needed.
 
 ## Component Status
 
-**35 components live** (have TSX + types):
-Alert, Autocomplete, Badge, Breadcrumb, Button, ButtonGroup, ButtonIcon, Checkbox, Chip, Chart, ContentContainer, DatePicker, Footer, Handle, Menu, MetricCard, Modal, NavigationHeader, NavigationVertical, NumberField, PageHeaderToolbar, PopOver, ProductLogos, RadioGroup, SearchBar, Select, Slider, SplitButton, Stepper, Switch, Tabs, TextField, ToggleButton, Tooltip
+**37 components live** (have TSX + types):
+Alert, Autocomplete, Avatar, Badge, Breadcrumb, Button, ButtonGroup, ButtonIcon, Card, Checkbox, Chip, Chart, ContentContainer, DatePicker, Footer, Handle, Menu, MetricCard, Modal, NavigationHeader, NavigationVertical, NumberField, PageHeaderToolbar, Paper, PopOver, ProductLogos, RadioGroup, SearchBar, Select, Slider, SplitButton, Stepper, Switch, Tabs, TextField, ToggleButton, Tooltip
 
 **29 showcase pages live.** Token pages: Colors, Typography, Spacing.
 

@@ -44,6 +44,7 @@
  */
 
 import React from 'react';
+import { Tooltip as MuiTooltip } from '@mui/material';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutlineOutlined';
 import TrendingUpIcon from '@mui/icons-material/TrendingUpOutlined';
 import TrendingDownIcon from '@mui/icons-material/TrendingDownOutlined';
@@ -140,19 +141,35 @@ interface LabelRowProps {
   label: string;
   labelIcon?: string;
   showHelpIcon?: boolean;
+  helpContent?: React.ReactNode;
 }
 
-const LabelRow: React.FC<LabelRowProps> = ({ label, labelIcon, showHelpIcon }) => (
-  <div style={styles.labelRow}>
-    <div style={styles.labelLeft}>
-      {labelIcon && renderIcon(labelIcon, styles.labelIcon, { 'aria-hidden': true })}
-      <span style={styles.labelText}>{label}</span>
+const LabelRow: React.FC<LabelRowProps> = ({ label, labelIcon, showHelpIcon, helpContent }) => {
+  // The (?) icon renders when either helpContent is provided OR the legacy
+  // showHelpIcon flag is on. helpContent wraps the icon in a Tooltip anchored
+  // precisely to it; showHelpIcon renders a bare icon (legacy / no tooltip).
+  const renderHelpIcon = !!helpContent || showHelpIcon;
+  const icon = renderHelpIcon ? (
+    <HelpOutlineIcon style={styles.labelIcon} aria-label="More information" />
+  ) : null;
+
+  return (
+    <div style={styles.labelRow}>
+      <div style={styles.labelLeft}>
+        {labelIcon && renderIcon(labelIcon, styles.labelIcon, { 'aria-hidden': true })}
+        <span style={styles.labelText}>{label}</span>
+      </div>
+      {helpContent ? (
+        <MuiTooltip title={helpContent} arrow placement="top">
+          {/* Span wrapper so SVG icon doesn't need to forward refs to Tooltip */}
+          <span style={{ display: 'inline-flex', cursor: 'help' }}>{icon}</span>
+        </MuiTooltip>
+      ) : (
+        icon
+      )}
     </div>
-    {showHelpIcon && (
-      <HelpOutlineIcon style={styles.labelIcon} aria-label="More information" />
-    )}
-  </div>
-);
+  );
+};
 
 // Vertical divider between metric columns
 const ColumnDivider: React.FC = () => (
@@ -390,11 +407,17 @@ export const MetricCard = React.forwardRef<HTMLDivElement, MetricCardProps>(({
   label,
   labelIcon = defaultMetricCardProps.labelIcon,
   showHelpIcon = defaultMetricCardProps.showHelpIcon,
+  helpContent,
   metrics,
   layout = defaultMetricCardProps.layout,
   footer = defaultMetricCardProps.footer,
   className,
   style: customStyle,
+  // Forward any DOM-level props injected by wrappers (e.g. MUI Tooltip
+  // clones the element and adds onMouseEnter/Leave/Focus/Blur etc.).
+  // Without this rest spread, MetricCard silently drops those handlers
+  // and the wrapper's behavior breaks.
+  ...rest
 }, ref) => {
   const colors = resolveColors(metrics);
   const isListLayout = layout === 'auto' && metrics.length >= 4;
@@ -407,12 +430,14 @@ export const MetricCard = React.forwardRef<HTMLDivElement, MetricCardProps>(({
       style={{ ...styles.card, ...customStyle }}
       role="region"
       aria-label={label}
+      {...rest}
     >
       {/* Label Row */}
       <LabelRow
         label={label}
         labelIcon={labelIcon}
         showHelpIcon={showHelpIcon}
+        helpContent={helpContent}
       />
 
       {/* Metric Content */}

@@ -170,11 +170,13 @@ function resolveIcons(props: Record<string, any>): Record<string, any> {
 const registry: Record<string, () => Promise<{ default: React.ComponentType<any> }>> = {
   Alert:              () => import('../components/Alert/Alert').then(m => ({ default: m.Alert })),
   Autocomplete:       () => import('../components/Autocomplete/Autocomplete').then(m => ({ default: m.Autocomplete })),
+  Avatar:             () => import('../components/Avatar/Avatar').then(m => ({ default: m.Avatar })),
   Badge:              () => import('../components/Badge/Badge').then(m => ({ default: m.Badge })),
   Breadcrumb:         () => import('../components/Breadcrumb/Breadcrumb').then(m => ({ default: m.Breadcrumb })),
   Button:             () => import('../components/Button/Button').then(m => ({ default: m.Button })),
   ButtonGroup:        () => import('../components/ButtonGroup/ButtonGroup').then(m => ({ default: m.ButtonGroup })),
   ButtonIcon:         () => import('../components/ButtonIcon/ButtonIcon').then(m => ({ default: m.ButtonIcon })),
+  Card:               () => import('../components/Card/Card').then(m => ({ default: m.Card })),
   Checkbox:           () => import('../components/Checkbox/Checkbox').then(m => ({ default: m.Checkbox })),
   Chip:               () => import('../components/Chip/Chip').then(m => ({ default: m.Chip })),
   ContentContainer:   () => import('../components/ContentContainer/ContentContainer').then(m => ({ default: m.ContentContainer })),
@@ -186,6 +188,7 @@ const registry: Record<string, () => Promise<{ default: React.ComponentType<any>
   NavigationHeader:   () => import('../components/NavigationHeader/NavigationHeader').then(m => ({ default: m.NavigationHeader })),
   NavigationVertical: () => import('../components/NavigationVertical/NavigationVertical').then(m => ({ default: m.NavigationVertical })),
   PageHeaderToolbar:  () => import('../components/PageHeaderToolbar/PageHeaderToolbar').then(m => ({ default: m.PageHeaderToolbar })),
+  Paper:              () => import('../components/Paper/Paper').then(m => ({ default: m.Paper })),
   RadioGroup:         () => import('../components/RadioGroup/RadioGroup').then(m => ({ default: m.RadioGroup })),
   SearchBar:          () => import('../components/SearchBar/SearchBar').then(m => ({ default: m.SearchBar })),
   Select:             () => import('../components/Select/Select').then(m => ({ default: m.Select })),
@@ -204,8 +207,10 @@ const registry: Record<string, () => Promise<{ default: React.ComponentType<any>
   ProductLogos:       () => import('../components/ProductLogos/ProductLogos').then(m => ({ default: m.ProductLogos })),
   Slider:             () => import('../components/Slider/Slider').then(m => ({ default: m.Slider })),
   // Showcase-only wrappers
+  CardDemo:           () => import('./CardDemo').then(m => ({ default: m.CardDemo })),
   ModalDemo:          () => import('./ModalDemo').then(m => ({ default: m.ModalDemo })),
   NavigationVerticalDemo: () => import('./NavigationVerticalDemo').then(m => ({ default: m.NavigationVerticalDemo })),
+  PageHeaderToolbarDemo: () => import('./PageHeaderToolbarDemo').then(m => ({ default: m.PageHeaderToolbarDemo })),
   PopOverDemo:        () => import('./PopOverDemo').then(m => ({ default: m.PopOverDemo })),
 };
 
@@ -259,10 +264,9 @@ function mountAll() {
       props.children = el.dataset.trioChildren;
     }
 
-    // Inline display style to prevent layout shift
-    if (!el.style.display) {
-      el.style.display = 'inline-block';
-    }
+    // Display is set by design-system-shell.css ([data-trio-component] { display: inline-block })
+    // so page-level CSS can override (e.g. Stepper sets block for full-width flex connectors).
+    // Don't set inline display here — it would beat any stylesheet rule and break overrides.
 
     const root = createRoot(el);
     root.render(

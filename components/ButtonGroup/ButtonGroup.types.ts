@@ -3,10 +3,15 @@
  *
  * SOURCE OF TRUTH: Figma component "buttonGroup" (node: 2172:9605)
  *
- * These types are DIRECTLY MAPPED from Figma componentPropertyDefinitions.
- * DO NOT add properties that don't exist in Figma.
- * DO NOT modify variant options unless Figma is updated.
+ * Variant types are DIRECTLY MAPPED from Figma componentPropertyDefinitions.
+ * DO NOT add new variants that don't exist in Figma.
+ *
+ * The `children` composition mode is React-only — it lets the group host any
+ * mix of Button / ButtonIcon nodes when the simple `buttons: string[]` API
+ * isn't enough (e.g. icon trios per PAGE_ARCHITECTURE §4).
  */
+
+import type React from 'react';
 
 
 /**
@@ -57,11 +62,31 @@ export interface ButtonGroupProps {
   // ========================================
 
   /**
-   * Button labels (array of strings)
-   * Maps to button-3 through button-8 visibility in Figma
-   * Maximum 6 buttons supported
+   * Button labels (array of strings).
+   * Simple text-button mode — each label renders as a Button inside the group.
+   * Maps to button-3 through button-8 visibility in Figma. Maximum 6 buttons.
+   *
+   * Ignored when `children` is provided.
    */
   buttons?: string[];
+
+  /**
+   * Composition mode — when provided, the group renders these nodes directly
+   * instead of mapping the `buttons` array. Use for icon trios and any case
+   * where the simple `buttons` array isn't expressive enough.
+   *
+   * Each child should be a Button or ButtonIcon. The group strips child borders
+   * and inserts 1px dividers between siblings — Button-on-Button, ButtonIcon-on-
+   * ButtonIcon, or any mix.
+   *
+   * Example (icon trio for a grid toolbar):
+   *   <ButtonGroup variant="outline">
+   *     <ButtonIcon icon={<FilterListIcon />} aria-label="Filter" />
+   *     <ButtonIcon icon={<ViewColumnIcon />} aria-label="Columns" />
+   *     <ButtonIcon icon={<MoreHorizIcon />} aria-label="More" />
+   *   </ButtonGroup>
+   */
+  children?: React.ReactNode;
 
   /**
    * Click handlers for each button

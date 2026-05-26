@@ -1,0 +1,1 @@
+import{t as e}from"./Paper-BLtBY0YG.js";export{e as Paper,e as default};

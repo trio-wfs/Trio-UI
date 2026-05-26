@@ -151,28 +151,42 @@ TypeScript interfaces for every component are in `Component.types.ts` alongside 
 
 ## Component Reference
 
-All 23 components have a live showcase page in the design system website.
+37 components live in the library, with 33 showcase pages in the design system website.
 
 | Component | Use for |
 |-----------|---------|
 | `Alert` | Inline notifications — success, warning, error, info |
 | `Autocomplete` | Text input with filtered suggestions |
+| `Avatar` | Identity primitive — initials + token-driven color |
 | `Badge` | Status count or indicator dot |
 | `Breadcrumb` | Page hierarchy navigation |
 | `Button` | Primary actions — contained, outlined, text variants |
 | `ButtonGroup` | Clustered related actions |
 | `ButtonIcon` | Icon-only button with optional badge |
+| `Card` | Composed surface — header / body / footer slots on Paper |
+| `Chart` | Data visualization wrapper (AG Charts) with TRIO theme |
 | `Checkbox` | Binary selection with label |
 | `Chip` | Removable filter tag or status label |
+| `ContentContainer` | Inner page wrapper for grouped content |
+| `DatePicker` | Date / date-time input with calendar popup (MUI X) |
+| `Footer` | Sticky page footer with copyright and links |
+| `Handle` | Drag handle indicator for sortable rows |
 | `Menu` | Dropdown context menu |
 | `MetricCard` | KPI / data summary card with multiple metric layouts |
 | `Modal` | Dialog overlay — 900px large, 500px small |
+| `NavigationHeader` | Top brand bar + nav row |
 | `NavigationVertical` | Left sidebar nav with sub-items |
+| `NumberField` | Numeric input with step controls |
 | `PageHeaderToolbar` | Page-level action bar |
+| `Paper` | Foundation surface primitive — 5 level tiers, no shadow |
+| `PopOver` | Floating panel anchored to a trigger |
+| `ProductLogos` | TRIO product brand logos |
 | `RadioGroup` | Mutually exclusive option set |
 | `SearchBar` | Search input with type and size variants |
 | `Select` | Dropdown select with options array |
+| `Slider` | Numeric range selection |
 | `SplitButton` | Button with dropdown action menu |
+| `Stepper` | Multi-step flow progress indicator |
 | `Switch` | Toggle with label placement options |
 | `Tabs` | Tab navigation |
 | `TextField` | Text input — single-line and multi-line |

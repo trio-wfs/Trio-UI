@@ -42,6 +42,7 @@ Every TRIO page is built from 3 background layers, top to bottom:
 ### Rules
 
 - **`background.default` (`#F5F5F5`)** — page canvas only. Nothing else uses this value. The canvas has **16px padding on all four sides** — the PHT and content wrapper both sit within this padded area, never running to the browser edge. (The future full-width PHT variant is the only exception — see §4.)
+  - **Exception — NavigationVertical edge.** When `NavigationVertical` is the immediate left neighbor of the content wrapper, the canvas's **left padding is 0**. The rail's right-edge internal padding (16px from the selected item to the rail edge) already provides the canonical inset; doubling them yields a 32px gap that reads as wrong even though every individual value is "correct." Same logic applies if a vertical rail is added on the right.
 - **`background.secondary` (`#FAFAFA`)** — the single content wrapper that fills the page below the PHT. Has the **same paper border treatment** as other containers: `1px solid #E0E0E0` + 4px radius. Tabs sit flush at the top of this wrapper (see §11); tab content gets 16px padding inside it.
 - **`background.paper` (`#FFFFFF`)** — all cards, panels, containers, and components. Paper can nest inside paper (e.g. a card inside a panel, both paper). No exceptions.
 - **Border stroke** — every container surface (paper *and* the `#FAFAFA` wrapper) uses `border: 1px solid` `components.border.default` (`#E0E0E0`). No elevation.
@@ -630,6 +631,30 @@ Modals interrupt the workflow — the user must complete or dismiss before conti
 
 If a form is too complex for 900px, break it into steps — don't make the modal bigger.
 
+#### CTA labels — verb-noun pattern
+
+Primary action buttons in modals (and any page-level primary action) follow a verb-noun pattern that names the consequence. Most Save/Update operations in TRIO live in modals, so this rule shows up here first, but it applies anywhere a primary action exists.
+
+| Pattern | When to use | Examples |
+|---------|-------------|----------|
+| **Create [Noun]** | The modal commits a *new* entity | Create User · Create Shift Template · Create Fee Schedule |
+| **Update [Noun]** | The modal commits *changes* to an existing entity | Update Worker Profile · Update Bill Rate · Update Assignment |
+| **Delete [Noun]** | Destructive — uses `error.main` color | Delete Account · Delete Assignment |
+| **Approve [Noun]** / **Reject [Noun]** | Review decisions | Approve Submission · Reject Timecard |
+| **Send [Noun]** | Transmit actions | Send Invitation · Send Reminder |
+| **Assign [Noun]** | Pairings | Assign Worker · Assign Agency |
+
+Cancel always stays "Cancel" — paired with the verb-noun confirm action.
+
+**Never use:** Save · Submit · OK · Confirm. They hide what the action commits.
+
+**Evaluation checklist** — use when reviewing a prototype:
+
+- [ ] Primary button is verb-noun, not "Save" / "Submit" / "OK"
+- [ ] "Create X" if the flow produces a new record
+- [ ] "Update X" if the flow modifies an existing record
+- [ ] The noun is specific enough that the user knows what's about to commit
+
 ### Panel (newer direction)
 
 Side panels that let the user reference detail information without losing context of the main page. Reduces friction compared to modals because the main view stays visible and interactive.
@@ -665,5 +690,5 @@ The long-term direction is moving away from modals toward more responsive, conte
 
 ---
 
-*Last updated: 2026-05-07 — content-wrapper border treatment (§1), PHT 16px canvas inset (§4), PHT actions slot composition (§4), PHT full-variant requirement for grid pages (§4), Stepper teal alignment note (§5), AG Grid mandate (§9), ContentContainer persistent title strip spec (§9), Standalone grid page rebuild — Breadcrumb-Links view switcher, paper-bg 40px column headers, vertical column dividers throughout, horizontal scroll behavior, sort indicator color (§10), three-pattern Tabs taxonomy clarified — pattern C is Breadcrumb-Links not Tabs (§11), wrapper-level tabs in Detail Page Pattern (§12), Alert color cohesion rule (§15).*
+*Last updated: 2026-05-26 — NavigationVertical edge exception added to §1 (canvas left-padding is 0 when the vertical rail is the immediate left neighbor; the rail's right-edge padding already supplies the 16px inset). Previous update 2026-05-07 — content-wrapper border treatment (§1), PHT 16px canvas inset (§4), PHT actions slot composition (§4), PHT full-variant requirement for grid pages (§4), Stepper teal alignment note (§5), AG Grid mandate (§9), ContentContainer persistent title strip spec (§9), Standalone grid page rebuild — Breadcrumb-Links view switcher, paper-bg 40px column headers, vertical column dividers throughout, horizontal scroll behavior, sort indicator color (§10), three-pattern Tabs taxonomy clarified — pattern C is Breadcrumb-Links not Tabs (§11), wrapper-level tabs in Detail Page Pattern (§12), Alert color cohesion rule (§15).*
 *Source: Jesse Szygiel (Lead UX Designer, AHTG)*

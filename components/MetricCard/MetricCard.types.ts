@@ -17,6 +17,7 @@
  *   - icon: INSTANCE_SWAP → labelIcon (Material icon name)
  */
 
+import React from 'react';
 import { tokens } from '../../design-tokens/tokens';
 
 /**
@@ -91,7 +92,7 @@ export type MetricCardFooter = 'bar' | 'icons' | 'labels' | 'none';
  * - TEXT types → label
  * - INSTANCE_SWAP → labelIcon
  */
-export interface MetricCardProps {
+export interface MetricCardProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'children'> {
   /** Card header label text. Figma default: "Label " */
   label: string;
 
@@ -102,10 +103,22 @@ export interface MetricCardProps {
   labelIcon?: string;
 
   /**
-   * Show the help_outline icon at the right of the label row.
+   * Render a bare help_outline (?) icon at the right of the label row, with no tooltip.
+   * Prefer `helpContent` instead — it renders the same icon AND wires up a tooltip
+   * anchored precisely to the icon.
+   *
+   * @deprecated Use `helpContent` instead. Kept for backward compatibility.
    * Figma default: false
    */
   showHelpIcon?: boolean;
+
+  /**
+   * Tooltip content shown on hover/focus of the (?) help icon. When provided, the
+   * (?) icon renders automatically and the tooltip anchors to the icon — not to the
+   * whole card. Accepts a string or any ReactNode (multi-line breakdowns, lists,
+   * formatted content).
+   */
+  helpContent?: React.ReactNode;
 
   /**
    * Array of 1–4 metric data items.
@@ -127,9 +140,6 @@ export interface MetricCardProps {
    * Defaults to 'bar'.
    */
   footer?: MetricCardFooter;
-
-  className?: string;
-  style?: React.CSSProperties;
 }
 
 /**

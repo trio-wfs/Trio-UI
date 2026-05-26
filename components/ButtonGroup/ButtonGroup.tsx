@@ -23,6 +23,7 @@ export const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(({
   color = defaultButtonGroupProps.color,
   orientation = defaultButtonGroupProps.orientation,
   buttons = defaultButtonGroupProps.buttons,
+  children,
   onButtonClick = [],
   disabledButtons = [],
   activeIndex,
@@ -40,6 +41,11 @@ export const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(({
     ? tokens.colors.secondary.outline
     : tokens.colors.primary.main;
 
+  // Selectors cover both MUI Button (label-based) and MUI IconButton (icon-only).
+  // ButtonIcon wraps IconButton, so this lets composition via children include
+  // both label buttons and icon buttons within the same group.
+  const innerControlSelector = '& .MuiButton-root, & .MuiIconButton-root';
+
   return (
     <MuiButtonGroup
       ref={ref}
@@ -55,19 +61,20 @@ export const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(({
         // Single outer border on the group
         border: `1px solid ${borderColor}`,
         borderRadius: `${tokens.borderRadius.default}px`,
-        // Strip borders from child buttons — the group outer border handles edges
-        '& .MuiButton-root': {
+        // Strip borders from inner controls — the group outer border handles edges
+        [innerControlSelector]: {
           border: 'none !important',
           boxShadow: 'none !important',
           textTransform: 'none !important',
+          borderRadius: '0 !important',
         },
-        // Add dividers between buttons (more specific to override the above)
-        '& .MuiButton-root + .MuiButton-root': {
+        // Divider on every direct child except the first
+        '& > *:not(:first-of-type)': {
           [isHorizontal ? 'borderLeft' : 'borderTop']: `1px solid ${borderColor} !important`,
         },
       }}
     >
-      {displayButtons.map((label, index) => {
+      {children ?? displayButtons.map((label, index) => {
         const isActive = activeIndex === index;
         return (
           <Button

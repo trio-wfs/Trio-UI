@@ -257,4 +257,7 @@ export type { Tokens } from '../design-tokens/tokens';
 export { trioAgChartsTheme, trioChartPalette, MATERIAL_ICON_SVG } from '../design-tokens/agChartsTheme';
 export type { TrioAgChartsTheme } from '../design-tokens/agChartsTheme';
 
+export { trioAgGridTheme, TRIO_AG_GRID_CSS } from '../design-tokens/agGridTheme';
+export type { TrioAgGridTheme } from '../design-tokens/agGridTheme';
+
 export { trioTheme, themeOptions as trioThemeOptions } from '../design-tokens/theme';

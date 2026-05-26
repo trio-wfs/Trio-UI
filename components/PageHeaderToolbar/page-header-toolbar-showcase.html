@@ -118,6 +118,38 @@
       display: block;
       width: 100%;
     }
+
+    /* ── NewCanvas parent-surface demo wrapper ──
+       NewCanvas is transparent and has no outer border — it's meant to span
+       the full width of its parent (typically a content wrapper at #FAFAFA).
+       This wrapper makes that full-width behavior visible by drawing the
+       parent surface explicitly around the demo. */
+    .canvas-parent-demo {
+      background: var(--color-background-secondary, #FAFAFA);
+      border: 1px dashed #BDBDBD;
+      border-radius: 4px;
+      padding: 0; /* zero — so NewCanvas can sit flush, edge to edge */
+      position: relative;
+    }
+    .canvas-parent-demo::before {
+      content: 'PARENT SURFACE (#FAFAFA · full-width container)';
+      position: absolute;
+      top: -10px;
+      left: 12px;
+      background: var(--color-background-paper);
+      padding: 0 8px;
+      font-size: 9px;
+      font-weight: 500;
+      color: #BDBDBD;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .canvas-parent-demo > .canvas-parent-demo-body {
+      padding: var(--spacing-lg) var(--spacing-md);
+      color: var(--color-text-secondary);
+      font-size: 12px;
+      border-top: 1px solid #E0E0E0;
+    }
   </style>
   <script src="../../design-system-nav.js"></script>
   <script type="module" src="../../showcase/dist/showcase.js"></script>
@@ -136,6 +168,43 @@
       </div>
     </header>
 
+
+    <!-- 1. OVERVIEW -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">info</span>
+        Overview
+      </h2>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: #2196F3;">psychology</span>
+            Purpose
+          </div>
+          <div class="card-content">
+            Persistent header bar at the top of a page with title, filters, search, and primary actions. Sets the context for everything below it.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: #2196F3;">priority_high</span>
+            Visual Hierarchy
+          </div>
+          <div class="card-content">
+            Medium-high — orients the user and exposes the section's primary actions. Always above the main content.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: #2196F3;">accessibility</span>
+            Accessibility
+          </div>
+          <div class="card-content">
+            Use <code>&lt;header&gt;</code> semantics. Primary action button must be reachable via keyboard tab. Avoid keyboard traps in filter controls.
+          </div>
+        </div>
+      </div>
+    </section>
     <!-- USAGE GUIDELINES -->
     <section class="section">
       <h2 class="section-title">
@@ -192,22 +261,44 @@
 
       <div class="demo-stack">
 
-        <!-- Full -->
+        <!-- Full (with breadcrumb — canonical for list/grid pages) -->
         <div>
-          <div class="demo-label">Full</div>
+          <div class="demo-label">Full — with breadcrumb (canonical for list/grid pages)</div>
+          <div data-trio-component="PageHeaderToolbarDemo" data-trio-props='{"variant":"full","pageTitleText":"Per Diem Shift Scheduler","eyebrowText":"Eyebrow Text Placement (Header Support text)","crumbs":[{"label":"Workforce Management"},{"label":"Scheduling"},{"label":"Per Diem","selected":true}],"recordCount":42,"showNumberIndicator":true}'></div>
+        </div>
+
+        <!-- Full (no breadcrumb passed) -->
+        <div>
+          <div class="demo-label">Full — without breadcrumb</div>
           <div data-trio-component="PageHeaderToolbar" data-trio-props='{"variant":"full","pageTitleText":"Per Diem Shift Scheduler","eyebrowText":"Eyebrow Text Placement (Header Support text)"}'></div>
         </div>
 
         <!-- Default -->
         <div>
-          <div class="demo-label">Default</div>
+          <div class="demo-label">Default — no breadcrumb support, title + actions only</div>
           <div data-trio-component="PageHeaderToolbar" data-trio-props='{"variant":"default","pageTitleText":"Per Diem Shift Scheduler"}'></div>
         </div>
 
-        <!-- NewCanvas -->
+        <!-- NewCanvas with breadcrumb -->
         <div>
-          <div class="demo-label">NewCanvas (no outer border, scroll divider fades in on scroll)</div>
-          <div data-trio-component="PageHeaderToolbar" data-trio-props='{"variant":"NewCanvas","pageTitleText":"Per Diem Shift Scheduler","eyebrowText":"Eyebrow Text Placement (Header Support text)"}'></div>
+          <div class="demo-label">NewCanvas — with breadcrumb (transparent, full-width of parent, scroll-triggered divider)</div>
+          <div class="canvas-parent-demo">
+            <div data-trio-component="PageHeaderToolbarDemo" data-trio-props='{"variant":"NewCanvas","pageTitleText":"Per Diem Shift Scheduler","eyebrowText":"Eyebrow Text Placement (Header Support text)","crumbs":[{"label":"Workforce Management"},{"label":"Per Diem","selected":true}]}'></div>
+            <div class="canvas-parent-demo-body">
+              The PHT above spans the full width of this parent surface — no outer border, no inset gutter, no margin. Body content sits below.
+            </div>
+          </div>
+        </div>
+
+        <!-- NewCanvas without breadcrumb -->
+        <div>
+          <div class="demo-label">NewCanvas — without breadcrumb (transparent, full-width of parent)</div>
+          <div class="canvas-parent-demo">
+            <div data-trio-component="PageHeaderToolbar" data-trio-props='{"variant":"NewCanvas","pageTitleText":"Per Diem Shift Scheduler","eyebrowText":"Eyebrow Text Placement (Header Support text)"}'></div>
+            <div class="canvas-parent-demo-body">
+              The PHT above spans the full width of this parent surface — no outer border, no inset gutter, no margin. Body content sits below.
+            </div>
+          </div>
         </div>
 
         <!-- Status Indicator -->

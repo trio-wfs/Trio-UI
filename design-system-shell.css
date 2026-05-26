@@ -492,3 +492,17 @@ body {
 .warning-box strong {
   color: #DA6207;
 }
+
+/* ============================================================
+   REACT MOUNT POINT DEFAULT
+   ============================================================
+   Default display for [data-trio-component] mount points.
+   Page-level CSS can override (e.g. Stepper / Footer set block
+   so their flex connectors can stretch full width).
+
+   This lives in the global stylesheet (rather than being set
+   inline by mount.tsx) so that page-level rules override via
+   normal CSS cascade. */
+[data-trio-component] {
+  display: inline-block;
+}

@@ -2,49 +2,45 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Paper - TRIO WFS Design System</title>
+  <title>Paper - TRIO/UI Design System</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
   <link rel="stylesheet" href="../../design-system-shell.css">
   <style>
-    .paper-demo {
-      border: 1px solid var(--color-secondary-outline);
-      border-radius: var(--border-radius);
-      padding: var(--spacing-md);
+    [data-trio-component] {
+      display: block;
       min-height: 80px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-family);
-      font-size: 14px;
-      color: var(--color-text-primary);
     }
 
-    .paper-demo.level-default   { background: var(--color-background-default); }
-    .paper-demo.level-secondary { background: var(--color-background-secondary); }
-    .paper-demo.level-subtle    { background: var(--color-background-subtle); }
-    .paper-demo.level-paper     { background: var(--color-background-paper); }
-    .paper-demo.level-accent    { background: #E4F7FD; }
-
-    .paper-row {
+    .level-grid {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
       gap: var(--spacing-md);
-      margin: var(--spacing-md) 0;
     }
-
-    .paper-label {
+    .level-cell {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-sm);
+    }
+    .level-cell-label {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      text-align: center;
+    }
+    .level-cell-hex {
       font-size: 11px;
       color: var(--color-text-secondary);
-      margin-top: var(--spacing-xs);
       text-align: center;
     }
 
-    /* Nested demo — subtle reveals its real character here */
+    /* Static anatomy diagram — shows subtle composing with parent */
     .nested-demo {
       padding: var(--spacing-lg);
-      border-radius: var(--border-radius);
+      border-radius: 4px;
       border: 1px solid var(--color-secondary-outline);
       margin-bottom: var(--spacing-md);
     }
@@ -57,79 +53,178 @@
     }
     .nested-demo .nested-inner {
       padding: var(--spacing-md);
-      border-radius: var(--border-radius);
+      border-radius: 4px;
       border: 1px solid var(--color-secondary-outline);
-      background: var(--color-background-subtle);
+      background: rgba(0, 0, 0, 0.1);
       font-size: 13px;
       color: var(--color-text-primary);
     }
-    .nested-demo.parent-paper     { background: var(--color-background-paper); }
-    .nested-demo.parent-secondary { background: var(--color-background-secondary); }
+    .nested-demo.parent-paper     { background: #FFFFFF; }
+    .nested-demo.parent-secondary { background: #FAFAFA; }
     .nested-demo.parent-accent    { background: #E4F7FD; }
   </style>
   <script src="../../design-system-nav.js"></script>
+  <script type="module" src="../../showcase/dist/showcase.js"></script>
 </head>
 <body>
   <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
-  <main class="main-content">
-    <div class="page-header">
-      <h1 class="page-title">Paper</h1>
-      <p class="page-description">Static surface primitive. Five layered tiers, border-stroke only — no shadows at rest. Hover-shadow behavior lives on interactive wrappers, not on Paper itself.</p>
-    </div>
 
+  <main class="main-content">
+
+    <!-- PAGE HEADER -->
+    <header class="page-header">
+      <h1 class="page-title">Paper</h1>
+      <p class="page-subtitle">
+        Static surface primitive. Five layered tiers, border-stroke only — no shadows at rest. Hover-shadow behavior lives on interactive wrappers, not on Paper itself.
+      </p>
+      <div class="component-meta">
+        <span><span class="material-icons-outlined" style="font-size: 14px;">category</span> Foundation Primitive</span>
+        <span><span class="material-icons-outlined" style="font-size: 14px;">verified</span> Production Ready</span>
+      </div>
+    </header>
+
+    <!-- 1. OVERVIEW -->
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">layers</span>
+        <span class="material-icons-outlined">info</span>
         Overview
       </h2>
-      <p class="section-description">Paper is the foundational surface primitive in TRIO. Use it for any boxed content — cards, panels, containers, sidebars. Five level values cover the full surface hierarchy from outermost page canvas to emphasized accent.</p>
-      <p class="section-description"><strong>No shadows at rest.</strong> If a surface needs hover-shadow feedback (e.g. clickable cards in a grid), the interactive parent component owns the shadow — Paper stays static.</p>
-    </section>
-
-    <section class="section">
-      <h2 class="section-title">
-        <span class="material-icons">layers</span>
-        Levels
-      </h2>
-      <p class="section-description">Layered hierarchy from outermost to innermost. Choose based on visual depth within a layout.</p>
-      <div class="paper-row">
-        <div>
-          <div class="paper-demo level-default">level=default</div>
-          <div class="paper-label">#F5F5F5</div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: #2196F3;">psychology</span>
+            Purpose
+          </div>
+          <div class="card-content">
+            Foundational surface primitive. Five level values cover the full hierarchy from outermost page canvas to emphasized accent. The base building block for Card, Modal, and most container components.
+          </div>
         </div>
-        <div>
-          <div class="paper-demo level-secondary">level=secondary</div>
-          <div class="paper-label">#FAFAFA</div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: #2196F3;">priority_high</span>
+            Visual Hierarchy
+          </div>
+          <div class="card-content">
+            Background — Paper is the canvas, never the focal point. It frames content by establishing a surface tier without competing with what sits on it.
+          </div>
         </div>
-        <div>
-          <div class="paper-demo level-subtle">level=subtle</div>
-          <div class="paper-label">rgba(0,0,0,0.1)</div>
-        </div>
-        <div>
-          <div class="paper-demo level-paper">level=paper</div>
-          <div class="paper-label">#FFFFFF</div>
-        </div>
-        <div>
-          <div class="paper-demo level-accent">level=accent</div>
-          <div class="paper-label">#E4F7FD</div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: #2196F3;">accessibility</span>
+            Accessibility
+          </div>
+          <div class="card-content">
+            Plain div semantics by default. Pass <code>role</code> and <code>aria-label</code> when Paper carries meaning (e.g. <code>role="region"</code> for landmark areas).
+          </div>
         </div>
       </div>
     </section>
 
+    <!-- 2. USAGE GUIDELINES -->
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">filter_none</span>
-        Subtle in context — composing with the parent
+        <span class="material-icons-outlined">rule</span>
+        Usage Guidelines
       </h2>
-      <p class="section-description">The <code>subtle</code> tier is a 10% black overlay. It composes with whatever sits behind it — rendering darker on lighter parents, less prominent on darker ones. Use sparingly: introduce only when a nested-container delineation is genuinely needed.</p>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">check_circle</span>
+            When to Use
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Any boxed content surface — panels, sidebars, container regions</li>
+              <li>Pure content layouts where Card's slot structure would be too prescriptive</li>
+              <li>Nested containers (use <code>level="subtle"</code> for the inner)</li>
+              <li>Highlighted/pinned content blocks (use <code>level="accent"</code>)</li>
+              <li>As the foundation when building a new composition primitive</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">cancel</span>
+            When NOT to Use
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>For semantic feedback — use <code>&lt;Alert&gt;</code> for warning/error/success surfaces</li>
+              <li>For headers + bodies + footers — use <code>&lt;Card&gt;</code> for the slot structure</li>
+              <li>For metric tiles — use <code>&lt;MetricCard&gt;</code></li>
+              <li>As a clickable target — wrap Paper in an interactive component instead</li>
+              <li>As the only differentiator between sections — use spacing first, surface tiers second</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
 
+    <!-- 3. VARIANTS -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">widgets</span>
+        Variants
+      </h2>
+      <p class="section-description">
+        Layered surface hierarchy from outermost (page canvas) to innermost. Pick the level that matches the depth in the layout — never higher.
+      </p>
+      <div class="level-grid">
+        <div class="level-cell">
+          <div data-trio-component="Paper" data-trio-props='{"level":"default","padding":"md"}' data-trio-children="level = default"></div>
+          <div class="level-cell-label">default</div>
+          <div class="level-cell-hex">#F5F5F5 · page canvas</div>
+        </div>
+        <div class="level-cell">
+          <div data-trio-component="Paper" data-trio-props='{"level":"secondary","padding":"md"}' data-trio-children="level = secondary"></div>
+          <div class="level-cell-label">secondary</div>
+          <div class="level-cell-hex">#FAFAFA · content wrapper</div>
+        </div>
+        <div class="level-cell">
+          <div data-trio-component="Paper" data-trio-props='{"level":"subtle","padding":"md"}' data-trio-children="level = subtle"></div>
+          <div class="level-cell-label">subtle</div>
+          <div class="level-cell-hex">rgba(0,0,0,0.1) · nested</div>
+        </div>
+        <div class="level-cell">
+          <div data-trio-component="Paper" data-trio-props='{"level":"paper","padding":"md"}' data-trio-children="level = paper (default)"></div>
+          <div class="level-cell-label">paper</div>
+          <div class="level-cell-hex">#FFFFFF · most common</div>
+        </div>
+        <div class="level-cell">
+          <div data-trio-component="Paper" data-trio-props='{"level":"accent","padding":"md"}' data-trio-children="level = accent"></div>
+          <div class="level-cell-label">accent</div>
+          <div class="level-cell-hex">#E4F7FD · pinned/highlight</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. STATES -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">toggle_on</span>
+        States
+      </h2>
+      <p class="section-description">
+        Paper is intentionally non-interactive. There is no hover, focus, active, or disabled state by design. If a surface needs hover-shadow feedback (e.g. clickable cards in a grid), the interactive parent wrapper owns the shadow — Paper stays static.
+      </p>
+    </section>
+
+    <!-- 5b. ANATOMY — Subtle in context -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">biotech</span>
+        Anatomy — Subtle in Context
+      </h2>
+      <p class="section-description">
+        The <code>subtle</code> tier is a 10% black overlay. It composes with whatever sits behind it — rendering darker on lighter parents, less prominent on darker ones. Use sparingly: introduce only when nested-container delineation is genuinely needed.
+      </p>
       <div class="nested-demo parent-paper">
         <div class="nested-label">Parent: paper (#FFFFFF)</div>
-        <div class="nested-inner">Nested subtle — renders as ~#FAFAFA</div>
+        <div class="nested-inner">Nested subtle — renders as ~#E6E6E6</div>
       </div>
       <div class="nested-demo parent-secondary">
         <div class="nested-label">Parent: secondary (#FAFAFA)</div>
-        <div class="nested-inner">Nested subtle — renders as ~#F4F4F4 (1 step down)</div>
+        <div class="nested-inner">Nested subtle — renders as ~#E1E1E1 (1 step down)</div>
       </div>
       <div class="nested-demo parent-accent">
         <div class="nested-label">Parent: accent (#E4F7FD)</div>
@@ -137,39 +232,72 @@
       </div>
     </section>
 
+    <!-- 6. BEST PRACTICES -->
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">lightbulb</span>
+        <span class="material-icons-outlined">recommend</span>
         Best Practices
       </h2>
-      <ul style="line-height: 1.7;">
-        <li><strong>Default to <code>level="paper"</code>.</strong> White is the workhorse for cards, panels, and containers.</li>
-        <li><strong>Use <code>level="secondary"</code> for content wrappers below headers.</strong> Groups all the page's components without competing with cards inside.</li>
-        <li><strong>Use <code>level="subtle"</code> for nested containers</strong> where you want a 1-step-down feel without committing to a fixed gray. Best inside paper or accent parents.</li>
-        <li><strong>Use <code>level="accent"</code> sparingly</strong> — for highlighted or pinned content (e.g. canonical answer blocks in Q&amp;A threads).</li>
-        <li><strong>Don't add shadows.</strong> If a surface needs hover feedback, wrap Paper in an interactive component that owns the shadow.</li>
-        <li><strong>For semantic surfaces (warning, error, success), use <code>&lt;Alert&gt;</code>, not Paper.</strong> Paper handles neutral surface hierarchy; Alert handles semantic feedback.</li>
-      </ul>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">check_circle</span>
+            Do
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Default to <code>level="paper"</code> — white is the workhorse for cards, panels, containers</li>
+              <li>Use <code>level="secondary"</code> for content wrappers below page headers</li>
+              <li>Use <code>level="subtle"</code> for nested containers — best inside paper or accent parents</li>
+              <li>Use <code>level="accent"</code> sparingly for highlighted/pinned content (e.g. canonical answers in Q&amp;A threads)</li>
+              <li>Reach for Paper directly when Card's slot structure would over-constrain the layout</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">cancel</span>
+            Don't
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Don't add <code>box-shadow</code> at rest — interactive wrappers own hover shadows</li>
+              <li>Don't use Paper for semantic feedback (warning, error, success) — use <code>&lt;Alert&gt;</code></li>
+              <li>Don't stack multiple <code>accent</code> surfaces — the highlight loses meaning</li>
+              <li>Don't use Paper as the only differentiator between sections — start with spacing, then surface tier</li>
+              <li>Don't pass <code>level="subtle"</code> at the top of the page — it has nothing to compose against</li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </section>
 
+    <!-- 8. TECHNICAL SPECIFICATIONS -->
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">straighten</span>
+        <span class="material-icons-outlined">construction</span>
         Technical Specifications
       </h2>
-      <table class="spec-table">
-        <thead><tr><th>Property</th><th>Value</th><th>Source</th></tr></thead>
+      <p class="section-description">
+        All values extracted from Figma component spec (node: 7824:2). Implementation: <code>components/Paper/Paper.tsx</code>.
+      </p>
+      <table class="property-table">
+        <thead>
+          <tr><th>Property</th><th>Value</th><th>Token</th></tr>
+        </thead>
         <tbody>
-          <tr><td>Shape</td><td>Rounded rectangle, border-radius 4px</td><td><code>tokens.borderRadius.default</code></td></tr>
-          <tr><td>Border</td><td>1px solid #E0E0E0 (when bordered=true)</td><td>Bound to Figma <code>_components/paper/outlineborder</code></td></tr>
-          <tr><td>Shadow</td><td>none (always)</td><td>TRIO rule — interactive wrappers add hover shadows</td></tr>
-          <tr><td>Default padding (React)</td><td>16px</td><td><code>tokens.spacing.md</code></td></tr>
-          <tr><td>Variant axes</td><td>level (5 values)</td><td>5 Figma variants</td></tr>
-          <tr><td>React-only props</td><td>padding · bordered · children</td><td>Not exposed as Figma variants</td></tr>
-          <tr><td>Figma node</td><td>7824:2 (file <code>PjAYuPDr8IA1ccwiAjFkSD</code>)</td><td>COMPONENT_SET</td></tr>
+          <tr><td>Shape</td><td>Rounded rectangle</td><td>—</td></tr>
+          <tr><td>Border radius</td><td>4px</td><td><code>tokens.borderRadius.default</code></td></tr>
+          <tr><td>Border</td><td>1px solid #E0E0E0 (when <code>bordered=true</code>)</td><td><code>tokens.colors.components.border.default</code></td></tr>
+          <tr><td>Shadow</td><td>None (always)</td><td>TRIO rule — interactive wrappers add hover shadows</td></tr>
+          <tr><td>Default padding</td><td>16px</td><td><code>tokens.spacing.md</code></td></tr>
+          <tr><td>Variant axes</td><td><code>level</code> (5 values)</td><td>5 Figma variants</td></tr>
+          <tr><td>React-only props</td><td><code>padding</code>, <code>bordered</code>, <code>children</code></td><td>Not exposed as Figma variants</td></tr>
+          <tr><td>MUI Base</td><td colspan="2"><code>@mui/material/Box</code> (Paper is bespoke, not MUI Paper)</td></tr>
         </tbody>
       </table>
     </section>
+
   </main>
 </body>
 </html>

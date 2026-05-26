@@ -164,6 +164,43 @@
       </div>
     </header>
 
+
+    <!-- 1. OVERVIEW -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">info</span>
+        Overview
+      </h2>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: #2196F3;">psychology</span>
+            Purpose
+          </div>
+          <div class="card-content">
+            Visual indicator of progress through a multi-step flow. Used for onboarding, complex creation flows, and wizards where the user benefits from knowing where they are and what remains.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: #2196F3;">priority_high</span>
+            Visual Hierarchy
+          </div>
+          <div class="card-content">
+            Medium — Stepper provides context for the current step but is not the focal action.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: #2196F3;">accessibility</span>
+            Accessibility
+          </div>
+          <div class="card-content">
+            Steps carry explicit status (complete, current, upcoming) via <code>aria-current="step"</code> on the active step. Step labels are visible, not tooltip-only.
+          </div>
+        </div>
+      </div>
+    </section>
     <!-- USAGE GUIDELINES -->
     <section class="section">
       <h2 class="section-title">
@@ -292,6 +329,7 @@
           </div>
           <div class="card-content">
             <ul>
+              <li>Use <strong>dataViz teal <code>#37636B</code></strong> for the active step circle, completed checkmark, and completed connectors — never primary blue. See <code>PAGE_ARCHITECTURE.md §5</code>.</li>
               <li>Show all steps upfront — never hide upcoming steps</li>
               <li>Keep step labels to 1–3 words so they don't wrap</li>
               <li>Place the stepper at the top of the page, above the form content</li>
@@ -310,12 +348,21 @@
           </div>
           <div class="card-content">
             <ul>
+              <li>Use primary blue <code>#2196F3</code> for active/completed states — primary blue is reserved for Save/Update actions. Stepper uses teal.</li>
               <li>Don't use more than 7 steps — consider consolidating</li>
               <li>Don't use the stepper for non-linear or optional flows</li>
               <li>Don't make steps clickable to jump backwards without validation</li>
               <li>Don't use for single-page forms — the overhead isn't warranted</li>
             </ul>
           </div>
+        </div>
+      </div>
+
+      <div style="margin-top: var(--spacing-md); padding: var(--spacing-md); background: rgba(225, 113, 9, 0.06); border-left: 3px solid #E17109; border-radius: 4px;">
+        <div style="font-size: 11px; font-weight: 500; color: #E17109; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Known drift</div>
+        <div style="font-size: 13px; color: var(--color-text-primary); line-height: 1.5;">
+          The current <code>Stepper.tsx</code> implementation uses primary blue, not teal — this is a known drift to be aligned to the rule above, not the rule to follow.
+          The Technical Specifications below show the <em>canonical</em> teal values per Figma and PAGE_ARCHITECTURE §5.
         </div>
       </div>
     </section>

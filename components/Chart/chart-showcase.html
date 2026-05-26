@@ -317,6 +317,43 @@
       </div>
     </header>
 
+
+    <!-- 1. OVERVIEW -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">info</span>
+        Overview
+      </h2>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: #2196F3;">psychology</span>
+            Purpose
+          </div>
+          <div class="card-content">
+            Data visualization built on AG Charts with the TRIO theme applied. Used for trends, comparisons, distributions, and KPI breakdowns across shifts, agencies, fill rates, and timekeeping.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: #2196F3;">priority_high</span>
+            Visual Hierarchy
+          </div>
+          <div class="card-content">
+            Medium-high when shown — Chart is the focus of its section, often the reason that section exists.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: #2196F3;">accessibility</span>
+            Accessibility
+          </div>
+          <div class="card-content">
+            Use a meaningful <code>aria-label</code> on the chart container. Provide a text summary near the chart for screen-reader users. Color is never the only encoding — pair with shape, position, or label.
+          </div>
+        </div>
+      </div>
+    </section>
     <!-- USAGE GUIDELINES -->
     <section class="section">
       <h2 class="section-title">
@@ -572,21 +609,6 @@
       </div>
     </section>
 
-    <!-- COLOR SEMANTICS (Data Viz Palette) -->
-    <section class="section">
-      <h2 class="section-title">
-        <span class="material-icons-outlined">palette</span>
-        Color Semantics
-      </h2>
-      <p class="section-description">
-        10-color extended palette for TRIO WFS data visualization. Colors are assigned in order — series 1
-        always gets color 1, series 2 gets color 2, and so on. If there are more series than colors, the
-        palette repeats from the beginning.
-      </p>
-
-      <div class="palette-grid" id="palette-swatches"></div>
-    </section>
-
     <!-- BEST PRACTICES -->
     <section class="section">
       <h2 class="section-title">
@@ -625,6 +647,21 @@
           </div>
         </div>
       </div>
+    </section>
+
+    <!-- COLOR SEMANTICS (Data Viz Palette) -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">palette</span>
+        Color Semantics
+      </h2>
+      <p class="section-description">
+        10-color extended palette for TRIO WFS data visualization. Colors are assigned in order — series 1
+        always gets color 1, series 2 gets color 2, and so on. If there are more series than colors, the
+        palette repeats from the beginning.
+      </p>
+
+      <div class="palette-grid" id="palette-swatches"></div>
     </section>
 
     <!-- REACT COMPONENT USAGE -->

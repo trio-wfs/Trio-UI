@@ -2,205 +2,323 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Card - TRIO WFS Design System</title>
+  <title>Card - TRIO/UI Design System</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
   <link rel="stylesheet" href="../../design-system-shell.css">
   <style>
-    .card-demo {
-      background: var(--color-background-paper);
-      border: 1px solid var(--color-secondary-outline);
-      border-radius: var(--border-radius);
-      overflow: hidden;
-      max-width: 480px;
-      font-family: var(--font-family);
+    [data-trio-component] {
+      display: block;
     }
 
-    /* Spacing model — matches Figma node 7826:4 and Card.tsx behavior:
-       Header: p-16 all sides (full padding including bottom)
-       Body:   px-16, pt-0 (sits flush against header pb-16), pb-0 (footer pt absorbs)
-       Footer: p-16 all sides
-       Gaps:   Header→Body = 16 (header pb) + 0 (body pt) = 16
-               Body→Footer = 0 (body pb) + 16 (footer pt) = 16 */
-    .card-demo .slot {
-      padding: var(--spacing-md);
-    }
-    .card-demo .slot-body {
-      padding-top: 0;
-      padding-bottom: 0;
-    }
-    /* When body is the only slot (no header above), restore top padding */
-    .card-demo .slot-body:first-child {
-      padding-top: var(--spacing-md);
-    }
-    /* When body is the last slot (no footer below), restore bottom padding */
-    .card-demo .slot-body:last-child {
-      padding-bottom: var(--spacing-md);
-    }
-
-    .card-demo.divided .slot-header {
-      border-bottom: 1px solid var(--color-secondary-outline);
-    }
-    .card-demo.divided .slot-body {
-      padding-top: var(--spacing-md);
-      padding-bottom: var(--spacing-md);
-      border-bottom: 1px solid var(--color-secondary-outline);
-    }
-    .card-demo.divided .slot-body:last-child {
-      border-bottom: none;
-    }
-
-    .card-demo .title {
-      font-size: 16px;
-      font-weight: 500;
-      color: var(--color-text-primary);
-      line-height: 24px;
-    }
-    .card-demo .subtitle {
-      font-size: 12px;
-      color: var(--color-text-secondary);
-      margin-top: var(--spacing-xs);
-    }
-    .card-demo .body-text {
-      font-size: 14px;
-      color: var(--color-text-primary);
-      line-height: 21px;
-    }
-    .card-demo .footer-action {
-      font-size: 14px;
-      color: var(--color-primary-main);
-      font-weight: 500;
-    }
-
-    .demo-grid {
+    .card-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: var(--spacing-lg);
-      margin: var(--spacing-md) 0;
     }
-    .demo-label {
+    .card-cell {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-sm);
+    }
+    .card-cell-label {
       font-size: 11px;
+      font-weight: 500;
+      color: var(--color-text-secondary);
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      color: var(--color-text-secondary);
-      margin-bottom: var(--spacing-sm);
     }
+
+    /* Slot content typography (used inside Card mount points) */
+    .slot-title {
+      font-size: 16px;
+      font-weight: 500;
+      color: #212121;
+      line-height: 24px;
+    }
+    .slot-subtitle {
+      font-size: 12px;
+      color: #757575;
+      margin-top: 2px;
+    }
+    .slot-body-text {
+      font-size: 14px;
+      color: #212121;
+      line-height: 21px;
+    }
+    .slot-footer-action {
+      font-size: 14px;
+      color: #2196F3;
+      font-weight: 500;
+    }
+
+    /* Anatomy diagram */
+    .anatomy-card {
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      max-width: 480px;
+      overflow: hidden;
+    }
+    .anatomy-slot {
+      padding: var(--spacing-md);
+      position: relative;
+    }
+    .anatomy-slot + .anatomy-slot {
+      border-top: 1px dashed var(--color-secondary-outline);
+    }
+    .anatomy-slot-label {
+      position: absolute;
+      top: 4px;
+      right: 8px;
+      font-size: 9px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--color-text-secondary);
+    }
+    .anatomy-placeholder {
+      background: var(--color-background-default);
+      border-radius: 4px;
+      height: 16px;
+      margin-bottom: var(--spacing-xs);
+    }
+    .anatomy-placeholder.short { width: 40%; }
+    .anatomy-placeholder.medium { width: 70%; }
+    .anatomy-placeholder.full { width: 100%; }
   </style>
   <script src="../../design-system-nav.js"></script>
+  <script type="module" src="../../showcase/dist/showcase.js"></script>
 </head>
 <body>
   <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
-  <main class="main-content">
-    <div class="page-header">
-      <h1 class="page-title">Card</h1>
-      <p class="page-description">Composed surface built on Paper. Adds header / body / footer slots with consistent section spacing.</p>
-    </div>
 
+  <main class="main-content">
+
+    <!-- PAGE HEADER -->
+    <header class="page-header">
+      <h1 class="page-title">Card</h1>
+      <p class="page-subtitle">
+        Composed surface built on Paper. Adds optional header / body / footer slots with consistent section spacing.
+      </p>
+      <div class="component-meta">
+        <span><span class="material-icons-outlined" style="font-size: 14px;">category</span> Composition Primitive</span>
+        <span><span class="material-icons-outlined" style="font-size: 14px;">verified</span> Production Ready</span>
+      </div>
+    </header>
+
+    <!-- 1. OVERVIEW -->
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">view_agenda</span>
+        <span class="material-icons-outlined">info</span>
         Overview
       </h2>
-      <p class="section-description">Use Card when a layout needs predictable section structure. Use Paper directly when you want full layout control. Card wraps Paper internally — it inherits all Paper props (<code>level</code>, <code>padding</code>, <code>bordered</code>).</p>
-      <p class="section-description">No Figma variant axes. The "states" of a Card (with header, with footer, divided) are content presence — handled by React props, not variant explosion.</p>
-    </section>
-
-    <section class="section">
-      <h2 class="section-title">
-        <span class="material-icons">view_module</span>
-        Anatomy &amp; Usage
-      </h2>
-      <p class="section-description">Three optional slots. Header and footer render only when provided. Body is always present.</p>
-
-      <div class="demo-grid">
-        <div>
-          <div class="demo-label">Full card — header + body + footer</div>
-          <div class="card-demo">
-            <div class="slot slot-header">
-              <div class="title">Post by Jesse Szygiel</div>
-              <div class="subtitle">2 hours ago</div>
-            </div>
-            <div class="slot slot-body">
-              <div class="body-text">Yes — Cerner experience is preferred but not required. Epic is the primary EHR at this facility.</div>
-            </div>
-            <div class="slot slot-footer">
-              <div class="footer-action">Reply &nbsp;·&nbsp; Pin</div>
-            </div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: #2196F3;">psychology</span>
+            Purpose
+          </div>
+          <div class="card-content">
+            Predictable section structure on a Paper surface. Header + body + footer slots with consistent 16px outer spacing.
           </div>
         </div>
-
-        <div>
-          <div class="demo-label">Body only — minimal card</div>
-          <div class="card-demo">
-            <div class="slot slot-body">
-              <div class="body-text">A simple Card with just body content. No header, no footer.</div>
-            </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: #2196F3;">priority_high</span>
+            Visual Hierarchy
+          </div>
+          <div class="card-content">
+            Medium — Card is a content container. It frames content without competing with it. Never the focal point.
           </div>
         </div>
-
-        <div>
-          <div class="demo-label">Header + body (no footer)</div>
-          <div class="card-demo">
-            <div class="slot slot-header">
-              <div class="title">Settings</div>
-            </div>
-            <div class="slot slot-body">
-              <div class="body-text">Configure your workspace preferences. Each section saves automatically.</div>
-            </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: #2196F3;">accessibility</span>
+            Accessibility
           </div>
-        </div>
-
-        <div>
-          <div class="demo-label">With dividers (divided=true)</div>
-          <div class="card-demo divided">
-            <div class="slot slot-header">
-              <div class="title">Confirm assignment</div>
-            </div>
-            <div class="slot slot-body">
-              <div class="body-text">Sarah Lopez will be assigned to Shift #4521 starting Monday.</div>
-            </div>
-            <div class="slot slot-footer">
-              <div class="footer-action">Cancel &nbsp;·&nbsp; Confirm</div>
-            </div>
+          <div class="card-content">
+            Pass <code>role</code> and <code>aria-label</code> when Card has semantic meaning (e.g. <code>role="article"</code> for posts). Otherwise plain div semantics are correct.
           </div>
         </div>
       </div>
     </section>
 
+    <!-- 2. USAGE GUIDELINES -->
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">lightbulb</span>
-        Best Practices
+        <span class="material-icons-outlined">rule</span>
+        Usage Guidelines
       </h2>
-      <ul style="line-height: 1.7;">
-        <li><strong>Use Card when the layout has discrete sections.</strong> Header + body, body + footer, or all three. For pure content surfaces without sections, use Paper directly.</li>
-        <li><strong>Reserve <code>divided=true</code> for emphasis.</strong> Most cards don't need dividers — they add visual weight. Use dividers when the sections have genuinely different roles (e.g. a confirmation dialog with action buttons).</li>
-        <li><strong>The header slot accepts any ReactNode.</strong> Pair it with a flex layout to build composed headers (avatar + name + meta + action) — Card just guarantees the consistent outer spacing.</li>
-        <li><strong>Don't nest Card in Card unless intentional.</strong> Double borders read busy. If you want sub-sections, use Paper with <code>level="subtle"</code> inside.</li>
-        <li><strong>Card has no built-in elevation.</strong> Follow the Paper rule: no shadows at rest. If a Card needs to feel clickable, wrap it in an interactive component (Button styled as card, MenuItem).</li>
-      </ul>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">check_circle</span>
+            When to Use
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Content with discrete sections — header + body, body + footer, or all three</li>
+              <li>Confirmation dialogs and forms with action rows</li>
+              <li>Post / thread cards with author header and reply footer</li>
+              <li>Settings panels with title + content blocks</li>
+              <li>Any surface where header/footer spacing should be enforced automatically</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">cancel</span>
+            When NOT to Use
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Pure content surfaces with no sections — use Paper directly for full layout control</li>
+              <li>As a clickable target — wrap in Button or a custom interactive component instead</li>
+              <li>Nested inside another Card — double borders read busy; use Paper with <code>level="subtle"</code> inside</li>
+              <li>For metrics dashboards — use MetricCard, which is purpose-built for that</li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </section>
 
+    <!-- 3. VARIANTS -->
     <section class="section">
       <h2 class="section-title">
-        <span class="material-icons">straighten</span>
+        <span class="material-icons-outlined">widgets</span>
+        Variants
+      </h2>
+      <p class="section-description">
+        Card has no Figma variant axes. "Variants" here are slot combinations — content presence drives layout, not a variant prop.
+      </p>
+
+      <div class="card-grid">
+        <div class="card-cell">
+          <div class="card-cell-label">Header + body + footer</div>
+          <div data-trio-component="CardDemo" data-trio-props='{"variant":"full"}'></div>
+        </div>
+
+        <div class="card-cell">
+          <div class="card-cell-label">Body only</div>
+          <div data-trio-component="CardDemo" data-trio-props='{"variant":"body-only"}'></div>
+        </div>
+
+        <div class="card-cell">
+          <div class="card-cell-label">Header + body</div>
+          <div data-trio-component="CardDemo" data-trio-props='{"variant":"header-body"}'></div>
+        </div>
+
+        <div class="card-cell">
+          <div class="card-cell-label">With dividers (divided=true)</div>
+          <div data-trio-component="CardDemo" data-trio-props='{"variant":"divided"}'></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. STATES -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">toggle_on</span>
+        States
+      </h2>
+      <p class="section-description">
+        Card is a composition primitive — it has no interactive states (no hover, focus, active, or disabled). When Card needs to feel clickable, wrap it in an interactive parent (Button styled as card, link, MenuItem). Don't add state behavior to Card itself.
+      </p>
+    </section>
+
+    <!-- 5b. ANATOMY -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">biotech</span>
+        Anatomy
+      </h2>
+      <p class="section-description">
+        Three slots, each rendering only when its prop is provided. The default padding is 16px (<code>tokens.spacing.md</code>). When <code>divided=true</code>, 1px dividers appear between header→body and body→footer.
+      </p>
+      <div class="anatomy-card">
+        <div class="anatomy-slot">
+          <span class="anatomy-slot-label">header</span>
+          <div class="anatomy-placeholder short"></div>
+          <div class="anatomy-placeholder medium"></div>
+        </div>
+        <div class="anatomy-slot">
+          <span class="anatomy-slot-label">children</span>
+          <div class="anatomy-placeholder full"></div>
+          <div class="anatomy-placeholder full"></div>
+          <div class="anatomy-placeholder medium"></div>
+        </div>
+        <div class="anatomy-slot">
+          <span class="anatomy-slot-label">footer</span>
+          <div class="anatomy-placeholder short"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. BEST PRACTICES -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">recommend</span>
+        Best Practices
+      </h2>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">check_circle</span>
+            Do
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Use Card when the layout has discrete sections (header + body, body + footer, or all three)</li>
+              <li>Pass any ReactNode as the header slot to compose richer layouts (avatar + name + actions)</li>
+              <li>Use <code>divided=true</code> when section roles are genuinely different (e.g. confirm dialogs)</li>
+              <li>Reach for Paper directly when you need full layout control without slot structure</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">cancel</span>
+            Don't
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Don't add hover or click behavior — wrap Card in an interactive component if needed</li>
+              <li>Don't nest Card in Card — double borders read busy. Use <code>Paper level="subtle"</code> instead</li>
+              <li>Don't add box-shadow at rest — surfaces are border-only in TRIO</li>
+              <li>Don't use Card for metrics — that's what MetricCard is for</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. TECHNICAL SPECIFICATIONS -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">construction</span>
         Technical Specifications
       </h2>
-      <table class="spec-table">
-        <thead><tr><th>Property</th><th>Value</th><th>Source</th></tr></thead>
+      <p class="section-description">
+        Card wraps <code>Paper</code> internally and inherits its <code>level</code> / <code>bordered</code> behavior. Implementation: <code>components/Card/Card.tsx</code>. Figma source: node 7826:4.
+      </p>
+      <table class="property-table">
+        <thead>
+          <tr><th>Property</th><th>Value</th><th>Token</th></tr>
+        </thead>
         <tbody>
           <tr><td>Foundation</td><td>Wraps <code>&lt;Paper&gt;</code> internally</td><td>Composition</td></tr>
-          <tr><td>Default level</td><td><code>paper</code> (#FFFFFF)</td><td><code>tokens.colors.background.paper</code></td></tr>
-          <tr><td>Default padding</td><td>16px around each section</td><td><code>tokens.spacing.md</code></td></tr>
-          <tr><td>Divider line</td><td>1px solid #E0E0E0 (when divided=true)</td><td><code>tokens.colors.components.divider</code></td></tr>
-          <tr><td>Shadow</td><td>none (always)</td><td>Inherited from Paper</td></tr>
-          <tr><td>Variant axes (Figma)</td><td>none</td><td>Composition primitive</td></tr>
-          <tr><td>React-only props</td><td>header · footer · divided · children</td><td>Not modeled in Figma</td></tr>
-          <tr><td>Figma node</td><td>7826:4 (file <code>PjAYuPDr8IA1ccwiAjFkSD</code>)</td><td>COMPONENT</td></tr>
+          <tr><td>Default level</td><td><code>paper</code> — #FFFFFF</td><td><code>tokens.colors.background.paper</code></td></tr>
+          <tr><td>Default padding</td><td>16px on each slot</td><td><code>tokens.spacing.md</code></td></tr>
+          <tr><td>Divider line</td><td>1px solid #E0E0E0 (when <code>divided=true</code>)</td><td><code>tokens.colors.components.divider</code></td></tr>
+          <tr><td>Shadow</td><td>None (always)</td><td>Inherited from Paper</td></tr>
+          <tr><td>Variant axes (Figma)</td><td>None — content presence drives behavior</td><td>—</td></tr>
+          <tr><td>React-only props</td><td><code>header</code>, <code>footer</code>, <code>divided</code>, <code>children</code></td><td>Not modeled in Figma</td></tr>
+          <tr><td>MUI Base</td><td colspan="2"><code>@mui/material/Box</code> (Card composes Paper, not MUI Card)</td></tr>
         </tbody>
       </table>
     </section>
+
   </main>
 </body>
 </html>

@@ -473,10 +473,18 @@
 
     <div class="template-note">
       <strong>Section 2: Usage Guidelines</strong> — Icon: <code>rule</code>.
-      Do/Don't cards in <code>grid-2</code>. Each card can include a <code>card-illustration</code>
-      above the text list showing a visual example. The Don't illustration uses
-      <code>card-illustration-wrong</code> for the strikethrough overlay. Illustrations are optional
-      per card — include when a visual makes the rule clearer than text alone.
+      Do/Don't cards in <code>grid-2</code>. <strong>Content rule (read carefully):</strong>
+      This section is about <em>scenario selection</em> — does this component fit this situation?
+      <ul style="margin: 8px 0 0 0; padding-left: 20px;">
+        <li><strong>When to Use</strong> — name scenarios where this component is the right choice.
+        Phrase as noun-phrase contexts: <em>"Confirmation dialogs", "Multi-field forms with a single commit step"</em>.
+        Be domain-specific to TRIO when possible (shift assignment, credential expiry, etc.).</li>
+        <li><strong>When NOT to Use</strong> — name scenarios where a <em>different component</em> fits better,
+        and <strong>explicitly name the alternative</strong>. Format: <em>"Side-loaded forms — use Drawer instead"</em>.
+        If you can't name an alternative, the rule probably belongs in Best Practices, not here.</li>
+      </ul>
+      Card illustrations are optional — include when a visual makes the scenario clearer than text alone.
+      The Don't illustration uses <code>card-illustration-wrong</code> for the strikethrough overlay.
     </div>
 
 
@@ -792,10 +800,19 @@
 
     <div class="template-note">
       <strong>Section 6: Best Practices</strong> — Icon: <code>recommend</code>.
-      Same <code>card-illustration</code> pattern as Usage Guidelines. Use when a visual
-      makes the rule more tangible — e.g., showing correct vs vague button labels,
-      proper spacing vs cramped layouts, right color usage vs wrong.
-      Illustrations are optional per card — not every rule needs one.
+      <strong>Content rule (read carefully):</strong> This section is about <em>technique</em> —
+      given you've chosen this component, how do you use it well?
+      <ul style="margin: 8px 0 0 0; padding-left: 20px;">
+        <li><strong>Do</strong> — imperative authoring guidance about specific choices:
+        labels, focus order, accessibility, sizing, content, edge cases. Format as verb-led commands.
+        Example: <em>"Use specific verb labels — 'Reject submission' not 'OK'"</em>,
+        <em>"Restore focus to the trigger element on close"</em>.</li>
+        <li><strong>Don't</strong> — technique-level anti-patterns. Specific authoring mistakes,
+        not scenario mismatches. Example: <em>"Don't auto-focus the destructive button — Cancel must be the default"</em>.
+        If the Don't names a different component as the alternative, it belongs in <strong>Usage Guidelines</strong> instead.</li>
+      </ul>
+      <strong>Voice:</strong> imperative ("Use…", "Restore…", "Don't…") — never noun phrases.
+      Same <code>card-illustration</code> pattern as Usage Guidelines when a visual makes the rule tangible.
     </div>
 
 

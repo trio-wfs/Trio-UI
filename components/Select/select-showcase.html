@@ -136,6 +136,43 @@
       </div>
     </header>
 
+
+    <!-- 1. OVERVIEW -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">info</span>
+        Overview
+      </h2>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: #2196F3;">psychology</span>
+            Purpose
+          </div>
+          <div class="card-content">
+            Dropdown picker for choosing one option from a fixed, known list. Used in forms when the option count is small (≤7) and stable. For longer lists, use Autocomplete.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: #2196F3;">priority_high</span>
+            Visual Hierarchy
+          </div>
+          <div class="card-content">
+            Medium — Select is a form input. Sits inline with labels and other fields.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: #2196F3;">accessibility</span>
+            Accessibility
+          </div>
+          <div class="card-content">
+            Native <code>&lt;select&gt;</code> semantics with associated <code>&lt;label&gt;</code>. Arrow keys navigate, Enter/Space opens. Native screen-reader support across browsers.
+          </div>
+        </div>
+      </div>
+    </section>
     <!-- USAGE GUIDELINES -->
     <section class="section">
       <h2 class="section-title">
@@ -185,6 +222,31 @@
       </div>
     </section>
 
+    <!-- VARIANTS -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">widgets</span>
+        Variants
+      </h2>
+      <p class="section-description">
+        Select supports different configurations to accommodate various form contexts. The dropdown uses the custom Menu component for consistent styling across the application.
+      </p>
+
+      <div class="variant-group">
+        <div class="variant-label">Default - With placeholder</div>
+        <div class="select-row">
+          <div data-trio-component="Select" data-trio-props='{"label":"Country","placeholder":"Select a country","helperText":"Please select your country","options":[{"value":"us","label":"United States"},{"value":"ca","label":"Canada"},{"value":"uk","label":"United Kingdom"},{"value":"au","label":"Australia"}]}'></div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Selected - With value chosen</div>
+        <div class="select-row">
+          <div data-trio-component="Select" data-trio-props='{"label":"State","value":"ca","options":[{"value":"ca","label":"California"},{"value":"ny","label":"New York"},{"value":"tx","label":"Texas"}]}'></div>
+        </div>
+      </div>
+    </section>
+
     <!-- SIZES -->
     <section class="section">
       <h2 class="section-title">
@@ -208,31 +270,6 @@
         <div class="select-row">
           <div data-trio-component="Select" data-trio-props='{"label":"Country","size":"small","placeholder":"Select a country","options":[{"value":"us","label":"United States"},{"value":"ca","label":"Canada"},{"value":"uk","label":"United Kingdom"},{"value":"au","label":"Australia"}]}'></div>
           <div data-trio-component="Select" data-trio-props='{"label":"State","size":"small","value":"ca","options":[{"value":"ca","label":"California"},{"value":"ny","label":"New York"},{"value":"tx","label":"Texas"}]}'></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- VARIANTS -->
-    <section class="section">
-      <h2 class="section-title">
-        <span class="material-icons-outlined">widgets</span>
-        Variants
-      </h2>
-      <p class="section-description">
-        Select supports different configurations to accommodate various form contexts. The dropdown uses the custom Menu component for consistent styling across the application.
-      </p>
-
-      <div class="variant-group">
-        <div class="variant-label">Default - With placeholder</div>
-        <div class="select-row">
-          <div data-trio-component="Select" data-trio-props='{"label":"Country","placeholder":"Select a country","helperText":"Please select your country","options":[{"value":"us","label":"United States"},{"value":"ca","label":"Canada"},{"value":"uk","label":"United Kingdom"},{"value":"au","label":"Australia"}]}'></div>
-        </div>
-      </div>
-
-      <div class="variant-group">
-        <div class="variant-label">Selected - With value chosen</div>
-        <div class="select-row">
-          <div data-trio-component="Select" data-trio-props='{"label":"State","value":"ca","options":[{"value":"ca","label":"California"},{"value":"ny","label":"New York"},{"value":"tx","label":"Texas"}]}'></div>
         </div>
       </div>
     </section>

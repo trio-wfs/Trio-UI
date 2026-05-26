@@ -353,6 +353,43 @@
     </header>
 
 
+
+    <!-- 1. OVERVIEW -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">info</span>
+        Overview
+      </h2>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: #2196F3;">psychology</span>
+            Purpose
+          </div>
+          <div class="card-content">
+            Full-attention overlay that blocks the page until dismissed. Used for confirmations of consequential actions, focused forms, and destructive operations that require explicit acknowledgment.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: #2196F3;">priority_high</span>
+            Visual Hierarchy
+          </div>
+          <div class="card-content">
+            Highest in the app when open. Modal takes precedence over everything beneath it and must be addressed before the user can continue.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: #2196F3;">accessibility</span>
+            Accessibility
+          </div>
+          <div class="card-content">
+            Focus is trapped inside the modal. Escape closes (unless explicitly forbidden). <code>aria-modal="true"</code> and <code>aria-labelledby</code> on the dialog. Focus returns to the trigger on close.
+          </div>
+        </div>
+      </div>
+    </section>
     <!-- ============================================================
          1. OVERVIEW
          ============================================================ -->
@@ -379,11 +416,13 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Confirmation dialogs — "Are you sure you want to reject this submission?"</li>
-              <li>Multi-field forms — adding a worker, creating a shift template</li>
-              <li>Focused workflows that need isolation from the page behind</li>
-              <li>Actions that require user input before the system can continue</li>
-              <li>Displaying critical information that must be acknowledged</li>
+              <li><strong>Grid row editing — always opens a modal</strong> (never inline-edit within the grid). See <code>PAGE_ARCHITECTURE.md §15</code>.</li>
+              <li><strong>Detail page editing — typically via modal</strong>. Default to modal unless explicitly told otherwise. See <code>PAGE_ARCHITECTURE.md §15</code>.</li>
+              <li><strong>Most forms live in modals</strong>, not on their own page. If a form is too complex for 900px, break it into steps — don't make the modal bigger. See <code>PAGE_ARCHITECTURE.md §13</code>.</li>
+              <li>Destructive confirmations — "Reject submission?", "Terminate placement?", "Delete account?"</li>
+              <li>Acknowledging critical information before continuing — credential expiry, contract terms, compliance notices</li>
+              <li>Single-step workflows that need isolation from the page beneath</li>
+              <li>Any action where the user must confirm intent before the system commits</li>
             </ul>
           </div>
         </div>
@@ -401,11 +440,12 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Simple alerts or status messages — use <strong>Alert</strong> component instead</li>
-              <li>Navigation between pages — use page routing</li>
-              <li>Long multi-step flows (5+ steps) — use <strong>Stepper</strong> on a dedicated page</li>
-              <li>Content the user needs to reference while working — use a side panel or inline expansion</li>
-              <li>Stacking modals on top of modals — never nest overlays</li>
+              <li>Inline notifications or status messages — use <strong>Alert</strong> instead</li>
+              <li>Long multi-step creation flows (5+ steps) — use <strong>Stepper</strong> on a dedicated page</li>
+              <li>Content the user references while working — use a <strong>Drawer</strong> or inline expansion</li>
+              <li>Filter or option panels triggered from a toolbar — use <strong>PopOver</strong> instead</li>
+              <li>Routing between pages — use the router, not a modal</li>
+              <li>Forms or pickers that should overlay one side of the page — use a <strong>Drawer</strong></li>
             </ul>
           </div>
         </div>
@@ -828,21 +868,40 @@
         Best Practices
       </h2>
       <div class="grid-2">
-        <div class="card">
-          <div class="card-title">Dismiss</div>
-          <div class="card-content">Close via X button, Cancel button, clicking the scrim, or pressing <code>Escape</code>. All four paths must always work.</div>
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">check_circle</span>
+            Do
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Use the verb-noun label pattern — <strong>Create [Noun]</strong> for new entities, <strong>Update [Noun]</strong> for changes to existing ones (e.g. "Create User", "Update Bill Rate"). See <code>PAGE_ARCHITECTURE.md §16</code> for the full table.</li>
+              <li>Use specific verb labels for non-CRUD actions — "Reject submission" beats "OK"; "Delete account" beats "Confirm"</li>
+              <li>Use <code>variant="destructive"</code> for irreversible actions so the confirm button switches to red</li>
+              <li>Auto-focus the Cancel button or the first form field — never the destructive action</li>
+              <li>Provide all four dismissal paths: X button, Cancel button, Escape key, and scrim click</li>
+              <li>Keep the title concise and action-oriented — "Confirm assignment" beats "Assignment"</li>
+              <li>Pin the header and footer; only the body region scrolls (90vh max height)</li>
+              <li>Restore focus to the trigger element when the modal closes — never to page top</li>
+            </ul>
+          </div>
         </div>
-        <div class="card">
-          <div class="card-title">Scrim</div>
-          <div class="card-content">Black at 50% opacity. Blocks all interaction with background content. The scrim communicates that the page behind is inaccessible.</div>
-        </div>
-        <div class="card">
-          <div class="card-title">Animation</div>
-          <div class="card-content">Slides up 20px with fade-in over 300ms on open. No exit animation. Keep it fast — users in clinical environments need instant feedback.</div>
-        </div>
-        <div class="card">
-          <div class="card-title">Max height</div>
-          <div class="card-content">90vh with internal scroll on the body region only. Header and footer are always pinned. Never allow the entire modal to scroll within the viewport.</div>
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">cancel</span>
+            Don't
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Don't disable Cancel during async submission — let users back out, even mid-request</li>
+              <li>Don't auto-focus the destructive button — Cancel must be the keyboard default</li>
+              <li>Don't use generic "OK / Cancel" labels — they hide the actual consequence</li>
+              <li>Don't allow the entire modal to scroll — header and footer stay pinned to anchor actions</li>
+              <li>Don't nest a modal inside a modal — collapse the deeper interaction or use a Drawer</li>
+              <li>Don't add extra animation flourishes — the 300ms fade-slide already exists, more is noise</li>
+              <li>Don't block dismissal for routine flows — reserve no-escape only for genuinely irrecoverable in-flight work</li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>

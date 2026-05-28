@@ -14,8 +14,8 @@
       "icon": "account_tree",
       "description": "Privilege Activity provider-based report — 4 metric cards (in-progress + active, coverage risk at 45 days, single-facility, idle) over AG Grid detail. Phase 1 grid stable; Phase 2 interactive cards depend on TanStack URL-filter lifecycle work.",
       "links": {
-        "live": "",
-        "repo": "",
+        "live": "https://trio-wfs.github.io/programs-prototype",
+        "repo": "https://github.com/trio-wfs/programs-prototype",
         "figma": "",
         "miro": "https://miro.com/app/board/uXjVLdK42YU=/",
         "zeplin": ""

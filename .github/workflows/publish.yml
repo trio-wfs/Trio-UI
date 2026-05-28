@@ -27,7 +27,10 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          # Node 24 ships with npm 11, matching local dev. Lock files generated
+          # by npm 11 can be incompatible with npm 10's stricter `npm ci`
+          # check, so we pin to keep CI and dev consistent.
+          node-version: 24
           registry-url: 'https://npm.pkg.github.com'
           scope: '@trio-wfs'
           cache: 'npm'

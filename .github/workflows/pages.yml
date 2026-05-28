@@ -62,6 +62,7 @@ jobs:
           cp -r components _site/
           cp -r showcase _site/
           cp -r design-tokens _site/
+          cp -r assets _site/
 
       - name: Configure Pages
         uses: actions/configure-pages@v5

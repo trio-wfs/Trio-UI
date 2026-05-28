@@ -4,8 +4,11 @@ import { resolve } from 'path';
 
 export default defineConfig({
   plugins: [react()],
-  // Base path so chunk imports resolve correctly from any page depth
-  base: '/showcase/dist/',
+  // Base path so chunk imports resolve correctly from any page depth.
+  // CI sets SHOWCASE_BASE='/Trio-UI/showcase/dist/' for GitHub Pages where
+  // the site lives under the repo name; local dev keeps the project-root
+  // absolute path.
+  base: process.env.SHOWCASE_BASE || '/showcase/dist/',
   build: {
     outDir: 'showcase/dist',
     emptyDirOnBuild: true,

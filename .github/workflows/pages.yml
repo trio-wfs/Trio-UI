@@ -1,0 +1,81 @@
+name: Deploy showcase to GitHub Pages
+
+# Fires on every push to main, plus a manual run button in the Actions tab.
+# The showcase site rebuilds itself on each main update, so any commit that
+# touches a showcase HTML or component immediately becomes browsable.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Pages needs id-token: write so deploy-pages can attest the artifact;
+# pages: write so it can publish. contents: read for checkout.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Only one deploy at a time. New pushes during a deploy queue and run after.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      # SHOWCASE_BASE tells Vite to emit chunk URLs prefixed with /Trio-UI/...
+      # — required because GitHub Pages serves project sites under the repo
+      # name, not the org root.
+      - name: Build showcase bundle
+        run: npm run build:showcase
+        env:
+          SHOWCASE_BASE: /Trio-UI/showcase/dist/
+
+      # Stage only what Pages should serve into _site/. Keeps node_modules
+      # and the npm library dist (the package payload) out of the public
+      # site footprint.
+      - name: Stage Pages artifact
+        run: |
+          mkdir _site
+          cp design-system-overview.html _site/index.html
+          cp design-system-overview.html _site/
+          cp design-tokens-colors.html _site/
+          cp design-tokens-typography.html _site/
+          cp design-tokens-spacing.html _site/
+          cp design-system-shell.css _site/
+          cp design-system-nav.js _site/
+          cp -r components _site/
+          cp -r showcase _site/
+          cp -r design-tokens _site/
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./_site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4

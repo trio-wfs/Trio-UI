@@ -399,6 +399,20 @@ body {
   font-weight: bold;
 }
 
+/* Card illustration safety — keep demo content inside its card */
+/* (Per-showcase HTML files set background, padding, min-height etc. inline. */
+/* These rules only add what's missing: overflow handling + flex wrapping so */
+/* wide demos like ButtonIcon's "Don't" cluster wrap instead of escaping.) */
+.card-illustration {
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.card-illustration > div {
+  flex-wrap: wrap;
+  max-width: 100%;
+}
+
 /* Do / Don't variants */
 .do-card {
   border-left: 3px solid var(--color-success-main);

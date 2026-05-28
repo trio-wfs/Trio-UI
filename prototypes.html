@@ -12,7 +12,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: var(--spacing-lg);
+      margin-bottom: var(--spacing-md);
       gap: var(--spacing-md);
       flex-wrap: wrap;
     }
@@ -22,82 +22,65 @@
       color: var(--color-text-secondary);
     }
 
-    .proto-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: var(--spacing-md);
-      margin-bottom: var(--spacing-xl);
-    }
-
-    .proto-card {
-      background: var(--color-background-paper);
-      border: 1px solid var(--color-secondary-outline);
-      border-radius: var(--border-radius);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      transition: border-color 0.15s, transform 0.15s;
-    }
-
-    .proto-card:hover {
-      border-color: var(--color-primary-main);
-    }
-
-    .proto-thumb {
-      position: relative;
-      height: 120px;
-      background: linear-gradient(135deg, var(--color-background-secondary), var(--color-secondary-light, #F5F5F5));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-bottom: 1px solid var(--color-secondary-outline);
-    }
-
-    .proto-thumb .material-icons-outlined {
-      font-size: 48px;
-      color: var(--color-text-tertiary, rgba(0,0,0,0.4));
-    }
-
-    .proto-type-pill {
-      position: absolute;
-      top: var(--spacing-sm);
-      right: var(--spacing-sm);
-      font-size: 11px;
-      font-weight: 500;
-      padding: 2px 8px;
-      border-radius: 999px;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-
-    .proto-type-react {
-      background: rgba(33, 150, 243, 0.1);
-      color: var(--color-primary-main);
-    }
-
-    .proto-type-figma {
-      background: rgba(155, 81, 224, 0.1);
-      color: #9B51E0;
-    }
-
-    .proto-type-concept {
-      background: rgba(117, 117, 117, 0.1);
-      color: var(--color-text-secondary);
-    }
-
-    .proto-body {
-      padding: var(--spacing-md);
-      flex: 1;
+    .proto-list {
       display: flex;
       flex-direction: column;
       gap: var(--spacing-sm);
+      margin-bottom: var(--spacing-xl);
+    }
+
+    /* ─── Card: horizontal row layout ─────────────────────────────────── */
+    .proto-row {
+      position: relative;
+      display: grid;
+      grid-template-columns: 72px 1fr 260px;
+      gap: var(--spacing-md);
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-md);
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .proto-row[data-href] {
+      cursor: pointer;
+    }
+
+    .proto-row:hover {
+      border-color: var(--color-primary-main);
+      box-shadow: 0 1px 3px rgba(33, 150, 243, 0.08);
+    }
+
+    /* ─── Thumb (left column) ─────────────────────────────────────────── */
+    .proto-thumb {
+      width: 72px;
+      height: 72px;
+      background: linear-gradient(135deg, var(--color-background-secondary), #F0F0F0);
+      border-radius: var(--border-radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .proto-thumb .material-icons-outlined {
+      font-size: 32px;
+      color: var(--color-text-tertiary, rgba(0,0,0,0.4));
+    }
+
+    /* ─── Main content (middle column) ─────────────────────────────────── */
+    .proto-main {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 0;
     }
 
     .proto-titlerow {
       display: flex;
-      justify-content: space-between;
       align-items: baseline;
       gap: var(--spacing-sm);
+      flex-wrap: wrap;
     }
 
     .proto-title {
@@ -105,8 +88,6 @@
       font-weight: 500;
       color: var(--color-text-primary);
       margin: 0;
-      flex: 1;
-      min-width: 0;
     }
 
     .proto-version {
@@ -116,8 +97,20 @@
       background: var(--color-background-secondary);
       padding: 2px 6px;
       border-radius: 3px;
-      flex-shrink: 0;
     }
+
+    .proto-type-pill {
+      font-size: 10px;
+      font-weight: 500;
+      padding: 2px 7px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .proto-type-react { background: rgba(33, 150, 243, 0.1); color: var(--color-primary-main); }
+    .proto-type-figma { background: rgba(155, 81, 224, 0.1); color: #9B51E0; }
+    .proto-type-concept { background: rgba(117, 117, 117, 0.1); color: var(--color-text-secondary); }
 
     .proto-meta {
       font-size: 12px;
@@ -130,26 +123,37 @@
     .proto-divider { color: var(--color-secondary-outline); }
 
     .proto-desc {
-      font-size: 13px;
+      font-size: 12px;
       color: var(--color-text-secondary);
       line-height: 1.5;
-      margin: 0;
+      margin: 2px 0 0 0;
       display: -webkit-box;
-      -webkit-line-clamp: 3;
+      -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
 
-    .proto-progress {
-      margin-top: var(--spacing-xs);
+    /* ─── Aside (right column: progress + chips) ───────────────────────── */
+    .proto-aside {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      align-items: stretch;
+      min-width: 0;
+    }
+
+    .proto-progress-row {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
     }
 
     .proto-progress-bar {
+      flex: 1;
       height: 6px;
       background: var(--color-background-secondary);
       border-radius: 999px;
       overflow: hidden;
-      margin-bottom: 6px;
     }
 
     .proto-progress-fill {
@@ -164,16 +168,19 @@
     .proto-progress-fill.status-blocked { background: var(--color-error-main); }
     .proto-progress-fill.status-draft { background: var(--color-text-tertiary, #BDBDBD); }
 
-    .proto-progress-meta {
+    .proto-pct {
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      font-weight: 500;
+      min-width: 32px;
+      text-align: right;
+    }
+
+    .proto-status-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 11px;
-    }
-
-    .proto-pct {
-      color: var(--color-text-secondary);
-      font-weight: 500;
+      gap: var(--spacing-sm);
     }
 
     .proto-status {
@@ -185,9 +192,9 @@
       font-size: 10px;
     }
 
-    .proto-status-live { background: var(--color-success-light, #E8F5E9); color: var(--color-success-main); }
-    .proto-status-wip { background: var(--color-warning-light, #FFF8E1); color: var(--color-warning-main); }
-    .proto-status-draft { background: var(--color-background-secondary); color: var(--color-text-secondary); }
+    .proto-status-live    { background: var(--color-success-light, #E8F5E9); color: var(--color-success-main); }
+    .proto-status-wip     { background: var(--color-warning-light, #FFF8E1); color: var(--color-warning-main); }
+    .proto-status-draft   { background: var(--color-background-secondary); color: var(--color-text-secondary); }
     .proto-status-shipped { background: #E0F2F1; color: #00695C; }
     .proto-status-blocked { background: var(--color-error-light, #FBEAED); color: var(--color-error-main); }
 
@@ -199,30 +206,30 @@
       gap: 4px;
     }
 
-    .proto-updated .material-icons-outlined {
-      font-size: 12px;
-    }
+    .proto-updated .material-icons-outlined { font-size: 12px; }
 
     .proto-links {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
-      margin-top: var(--spacing-xs);
-      padding-top: var(--spacing-sm);
-      border-top: 1px solid var(--color-secondary-outline);
+      gap: 4px;
+      margin-top: 2px;
+      /* z-index above the card's data-href click handler */
+      position: relative;
+      z-index: 2;
     }
 
     .proto-link {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
+      gap: 3px;
       font-size: 11px;
       font-weight: 500;
       color: var(--color-text-secondary);
       text-decoration: none;
-      padding: 4px 8px;
+      padding: 3px 7px;
       border-radius: 4px;
       border: 1px solid var(--color-secondary-outline);
+      background: var(--color-background-paper);
       transition: background 0.1s, color 0.1s, border-color 0.1s;
     }
 
@@ -232,12 +239,10 @@
       border-color: var(--color-primary-main);
     }
 
-    .proto-link .material-icons-outlined {
-      font-size: 14px;
-    }
+    .proto-link .material-icons-outlined { font-size: 13px; }
 
+    /* ─── Empty / error states ────────────────────────────────────────── */
     .empty-state {
-      grid-column: 1 / -1;
       text-align: center;
       padding: var(--spacing-xxl) var(--spacing-lg);
       background: var(--color-background-paper);
@@ -266,6 +271,7 @@
       margin: 0 auto;
     }
 
+    /* ─── Handoff callout ─────────────────────────────────────────────── */
     .handoff-callout {
       display: flex;
       align-items: center;
@@ -291,6 +297,21 @@
       background: var(--color-primary-light, #E3F2FD);
       flex-shrink: 0;
     }
+
+    /* ─── Responsive: stack columns on narrow widths ──────────────────── */
+    @media (max-width: 900px) {
+      .proto-row {
+        grid-template-columns: 56px 1fr;
+        grid-template-rows: auto auto;
+      }
+      .proto-aside {
+        grid-column: 1 / -1;
+        padding-top: var(--spacing-sm);
+        border-top: 1px solid var(--color-secondary-outline);
+      }
+      .proto-thumb { width: 56px; height: 56px; }
+      .proto-thumb .material-icons-outlined { font-size: 24px; }
+    }
   </style>
   <script src="design-system-nav.js"></script>
 </head>
@@ -303,7 +324,7 @@
         <span class="material-icons-outlined">science</span>
         Prototypes
       </h1>
-      <p class="page-subtitle">Live tracker of every TRIO WFS prototype — status, progress, and links to whichever tool the work lives in. Sorted by most recently updated.</p>
+      <p class="page-subtitle">Live tracker of every TRIO WFS prototype — status, progress, and links to wherever the work lives. Sorted by most recently updated. Click a row to open its primary destination; chips open specific tools.</p>
     </div>
 
     <div class="content-body" style="padding: 0 var(--spacing-xl) var(--spacing-xl);">
@@ -312,7 +333,7 @@
         <div class="tracker-count" id="trackerCount">Loading…</div>
       </div>
 
-      <div class="proto-grid" id="protoGrid">
+      <div class="proto-list" id="protoList">
         <div class="empty-state">
           <span class="material-icons-outlined">hourglass_empty</span>
           <div class="empty-state-title">Loading prototypes…</div>
@@ -338,18 +359,16 @@
 
   <script>
     // ────────────────────────────────────────────────────────────────────────
-    // Prototype tracker — JSON-driven.
-    // Source of truth: data/prototypes.json (edit that file to update cards).
-    // Cards sort by lastUpdated descending (most recent first).
+    // Prototype tracker — JSON-driven, horizontal-row layout.
+    // Source of truth: data/prototypes.json. Cards sort by lastUpdated desc.
+    // Whole row is clickable (primary URL = first non-empty of live/repo/figma/miro/zeplin).
+    // Chips override that and open their own URL via stopPropagation.
     // ────────────────────────────────────────────────────────────────────────
 
     const TYPE_LABEL = { react: 'React', figma: 'Figma', concept: 'Concept' };
     const STATUS_LABEL = {
-      draft: 'Draft',
-      wip: 'In Progress',
-      live: 'Live',
-      shipped: 'Shipped',
-      blocked: 'Blocked',
+      draft: 'Draft', wip: 'In Progress', live: 'Live',
+      shipped: 'Shipped', blocked: 'Blocked',
     };
     const LINK_LABEL = {
       live:   { icon: 'launch',     text: 'Live' },
@@ -358,6 +377,8 @@
       miro:   { icon: 'dashboard',  text: 'Miro' },
       zeplin: { icon: 'assignment', text: 'Zeplin' },
     };
+    // Order of fallback when picking the primary card-level destination.
+    const PRIMARY_PRIORITY = ['live', 'repo', 'figma', 'miro', 'zeplin'];
 
     function escapeHtml(str) {
       return String(str ?? '').replace(/[&<>"']/g, (c) => ({
@@ -380,6 +401,15 @@
       return `${Math.floor(days / 30)} months ago`;
     }
 
+    function pickPrimary(links) {
+      if (!links) return null;
+      for (const key of PRIMARY_PRIORITY) {
+        const v = links[key];
+        if (v && v.trim()) return v;
+      }
+      return null;
+    }
+
     function renderLinks(links) {
       if (!links) return '';
       const entries = Object.entries(links).filter(([, v]) => v && v.trim());
@@ -396,44 +426,43 @@
         </div>`;
     }
 
-    function renderCard(p) {
+    function renderRow(p) {
       const type = p.type || 'concept';
       const status = p.status || 'draft';
       const hasProgress = typeof p.progress === 'number';
+      const primaryHref = pickPrimary(p.links);
 
       return `
-        <article class="proto-card">
+        <article class="proto-row" ${primaryHref ? `data-href="${escapeHtml(primaryHref)}"` : ''}>
           <div class="proto-thumb">
             <span class="material-icons-outlined">${escapeHtml(p.icon || 'science')}</span>
-            <span class="proto-type-pill proto-type-${escapeHtml(type)}">${TYPE_LABEL[type] || type}</span>
           </div>
-          <div class="proto-body">
+          <div class="proto-main">
             <div class="proto-titlerow">
               <h3 class="proto-title">${escapeHtml(p.name)}</h3>
               ${p.version ? `<span class="proto-version">${escapeHtml(p.version)}</span>` : ''}
+              <span class="proto-type-pill proto-type-${escapeHtml(type)}">${TYPE_LABEL[type] || type}</span>
             </div>
             <div class="proto-meta">
               <span>${escapeHtml(p.project || '')}</span>
               ${p.owner ? `<span class="proto-divider">•</span><span>${escapeHtml(p.owner)}</span>` : ''}
             </div>
             <p class="proto-desc">${escapeHtml(p.description || '')}</p>
+          </div>
+          <div class="proto-aside">
             ${hasProgress ? `
-              <div class="proto-progress">
+              <div class="proto-progress-row">
                 <div class="proto-progress-bar">
                   <div class="proto-progress-fill status-${escapeHtml(status)}" style="width: ${Math.max(0, Math.min(100, p.progress))}%"></div>
                 </div>
-                <div class="proto-progress-meta">
-                  <span class="proto-pct">${p.progress}%</span>
-                  <span class="proto-status proto-status-${escapeHtml(status)}">${STATUS_LABEL[status] || status}</span>
-                </div>
-              </div>` : `
-              <div class="proto-progress-meta" style="margin-top: auto;">
-                <span></span>
-                <span class="proto-status proto-status-${escapeHtml(status)}">${STATUS_LABEL[status] || status}</span>
-              </div>`}
-            <div class="proto-updated">
-              <span class="material-icons-outlined">schedule</span>
-              Updated ${relativeDate(p.lastUpdated)}
+                <span class="proto-pct">${p.progress}%</span>
+              </div>` : ''}
+            <div class="proto-status-row">
+              <span class="proto-status proto-status-${escapeHtml(status)}">${STATUS_LABEL[status] || status}</span>
+              <span class="proto-updated">
+                <span class="material-icons-outlined">schedule</span>
+                ${relativeDate(p.lastUpdated)}
+              </span>
             </div>
             ${renderLinks(p.links)}
           </div>
@@ -446,12 +475,27 @@
         <div class="empty-state">
           <span class="material-icons-outlined">science</span>
           <div class="empty-state-title">No prototypes yet</div>
-          <div class="empty-state-desc">Add an entry to <code>data/prototypes.json</code> with name, project, type, status, and any links you have.</div>
+          <div class="empty-state-desc">Add an entry to <code>data/prototypes.json</code>.</div>
         </div>`;
     }
 
+    function attachRowClicks(container) {
+      // Delegate clicks: clicking anywhere on a .proto-row[data-href] opens its
+      // primary URL — EXCEPT clicks on .proto-link chips, which use their own href.
+      container.addEventListener('click', (e) => {
+        // If the click landed on (or inside) a chip, let the chip's <a> handle it.
+        if (e.target.closest('.proto-link')) return;
+        const row = e.target.closest('.proto-row[data-href]');
+        if (!row) return;
+        const href = row.getAttribute('data-href');
+        if (href) {
+          window.open(href, '_blank', 'noopener');
+        }
+      });
+    }
+
     async function loadPrototypes() {
-      const grid = document.getElementById('protoGrid');
+      const list = document.getElementById('protoList');
       const count = document.getElementById('trackerCount');
       try {
         const res = await fetch('data/prototypes.json');
@@ -461,14 +505,15 @@
           return new Date(b.lastUpdated || 0) - new Date(a.lastUpdated || 0);
         });
         if (!items.length) {
-          grid.innerHTML = renderEmpty();
+          list.innerHTML = renderEmpty();
           count.textContent = 'No prototypes';
           return;
         }
-        grid.innerHTML = items.map(renderCard).join('');
+        list.innerHTML = items.map(renderRow).join('');
         count.textContent = `${items.length} prototype${items.length === 1 ? '' : 's'} — sorted by most recent`;
+        attachRowClicks(list);
       } catch (err) {
-        grid.innerHTML = `
+        list.innerHTML = `
           <div class="empty-state">
             <span class="material-icons-outlined">error_outline</span>
             <div class="empty-state-title">Couldn't load prototypes</div>

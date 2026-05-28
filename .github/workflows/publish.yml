@@ -54,10 +54,9 @@ jobs:
       - name: Publish to GitHub Packages
         run: npm publish
         env:
-          # NPM_PUBLISH_TOKEN is a Personal Access Token (classic) with
-          # write:packages scope, stored as a repo secret. We use a PAT
-          # instead of the auto-injected GITHUB_TOKEN because trio-wfs
-          # org-level workflow permissions are restrictive and only owners
-          # (not members) can lift them. The PAT bypasses that chain by
-          # carrying its own scopes directly.
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
+          # GITHUB_TOKEN is auto-injected by Actions. On public repos it
+          # often has broader default scopes than on private repos, which
+          # may let us bypass the org-level PAT restriction that blocked
+          # earlier publish attempts. If this still fails, swap back to
+          # secrets.NPM_PUBLISH_TOKEN (kept on file).
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

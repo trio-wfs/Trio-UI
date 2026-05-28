@@ -53,6 +53,17 @@ import WarningAmberIcon from '@mui/icons-material/WarningAmberOutlined';
 import CheckCircleIcon from '@mui/icons-material/CheckCircleOutlined';
 import ErrorIcon from '@mui/icons-material/ErrorOutlineOutlined';
 import ScheduleIcon from '@mui/icons-material/ScheduleOutlined';
+// Filled variants — used by IconsFooter only. Filled glyphs read as "status
+// badges" tinted in the metric's resolved color; the outlined variants above
+// stay reserved for the label row's lighter category/help affordances.
+import HelpFilledIcon from '@mui/icons-material/Help';
+import TrendingUpFilledIcon from '@mui/icons-material/TrendingUp';
+import TrendingDownFilledIcon from '@mui/icons-material/TrendingDown';
+import RemoveFilledIcon from '@mui/icons-material/Remove';
+import WarningFilledIcon from '@mui/icons-material/Warning';
+import CheckCircleFilledIcon from '@mui/icons-material/CheckCircle';
+import ErrorFilledIcon from '@mui/icons-material/Error';
+import ScheduleFilledIcon from '@mui/icons-material/Schedule';
 import {
   type MetricCardProps,
   type MetricItem,
@@ -122,6 +133,19 @@ const ICON_MAP: Record<string, React.ComponentType<{ style?: React.CSSProperties
   error: ErrorIcon,
 };
 
+// Filled icon map — same keys as ICON_MAP, but filled glyph variants. Used by
+// IconsFooter to render status badges that take the metric's resolved color.
+const FILLED_ICON_MAP: Record<string, React.ComponentType<{ style?: React.CSSProperties; 'aria-hidden'?: boolean; 'aria-label'?: string }>> = {
+  schedule: ScheduleFilledIcon,
+  help_outline: HelpFilledIcon,
+  trending_up: TrendingUpFilledIcon,
+  trending_down: TrendingDownFilledIcon,
+  remove: RemoveFilledIcon,
+  warning_amber: WarningFilledIcon,
+  check_circle: CheckCircleFilledIcon,
+  error: ErrorFilledIcon,
+};
+
 function renderIcon(
   name: string,
   style: React.CSSProperties,
@@ -135,6 +159,18 @@ function renderIcon(
   return <ScheduleIcon style={style} {...ariaProps} />;
 }
 
+function renderFilledIcon(
+  name: string,
+  style: React.CSSProperties,
+  ariaProps?: { 'aria-hidden'?: boolean; 'aria-label'?: string },
+) {
+  const IconComponent = FILLED_ICON_MAP[name];
+  if (IconComponent) {
+    return <IconComponent style={style} {...ariaProps} />;
+  }
+  return <ScheduleFilledIcon style={style} {...ariaProps} />;
+}
+
 // ─── Sub-components ──────────────────────────────────────────────────────────
 
 interface LabelRowProps {
@@ -145,10 +181,21 @@ interface LabelRowProps {
 }
 
 const LabelRow: React.FC<LabelRowProps> = ({ label, labelIcon, showHelpIcon, helpContent }) => {
-  // The (?) icon renders when either helpContent is provided OR the legacy
-  // showHelpIcon flag is on. helpContent wraps the icon in a Tooltip anchored
-  // precisely to it; showHelpIcon renders a bare icon (legacy / no tooltip).
+  // Design system rule: the supporting labelIcon and the (?) help icon are
+  // mutually exclusive — only one may appear in the label row to keep the
+  // 24px-tall band scannable. When both are passed, the (?) wins because
+  // it is functional (anchors a tooltip) while labelIcon is decorative.
   const renderHelpIcon = !!helpContent || showHelpIcon;
+  const renderLabelIcon = !!labelIcon && !renderHelpIcon;
+
+  if (process.env.NODE_ENV !== 'production' && labelIcon && renderHelpIcon) {
+    console.warn(
+      '[MetricCard] `labelIcon` and the help icon (`helpContent` / `showHelpIcon`) ' +
+      'cannot be displayed together. The help icon wins; `labelIcon` is suppressed. ' +
+      `Card label: "${label}"`,
+    );
+  }
+
   const icon = renderHelpIcon ? (
     <HelpOutlineIcon style={styles.labelIcon} aria-label="More information" />
   ) : null;
@@ -156,7 +203,7 @@ const LabelRow: React.FC<LabelRowProps> = ({ label, labelIcon, showHelpIcon, hel
   return (
     <div style={styles.labelRow}>
       <div style={styles.labelLeft}>
-        {labelIcon && renderIcon(labelIcon, styles.labelIcon, { 'aria-hidden': true })}
+        {renderLabelIcon && renderIcon(labelIcon!, styles.labelIcon, { 'aria-hidden': true })}
         <span style={styles.labelText}>{label}</span>
       </div>
       {helpContent ? (
@@ -192,23 +239,39 @@ const MetricColumn: React.FC<MetricColumnProps> = ({
   color,
   valueFontSize,
   valueLineHeight,
-}) => (
-  <div style={styles.metricColumn}>
-    <span
-      style={{
-        ...styles.metricValue,
-        fontSize: valueFontSize,
-        lineHeight: `${valueLineHeight}px`,
-        color,
-      }}
-    >
-      {metric.value}
-    </span>
-    <span style={styles.metricLabel} title={String(metric.label)}>
-      {metric.label}
-    </span>
-  </div>
-);
+}) => {
+  const inner = (
+    <>
+      <span
+        style={{
+          ...styles.metricValue,
+          fontSize: valueFontSize,
+          lineHeight: `${valueLineHeight}px`,
+          color,
+        }}
+      >
+        {metric.value}
+      </span>
+      <span style={styles.metricLabel} title={String(metric.label)}>
+        {metric.label}
+      </span>
+    </>
+  );
+
+  if (metric.onClick) {
+    return (
+      <button
+        type="button"
+        onClick={metric.onClick}
+        style={{ ...styles.metricColumn, ...styles.metricButton }}
+      >
+        {inner}
+      </button>
+    );
+  }
+
+  return <div style={styles.metricColumn}>{inner}</div>;
+};
 
 // Columnar layout: 1, 2, or 3 equal-width columns
 interface ColumnarAreaProps {
@@ -250,21 +313,37 @@ interface ListAreaProps {
 
 const ListArea: React.FC<ListAreaProps> = ({ metrics, colors }) => (
   <div style={styles.listArea}>
-    {metrics.map((metric, i) => (
-      <div key={i} style={styles.listRow}>
-        <span style={styles.listCaption} title={String(metric.label)}>
-          {metric.label}
-        </span>
-        <span
-          style={{
-            ...styles.listValue,
-            color: colors[i],
-          }}
-        >
-          {metric.value}
-        </span>
-      </div>
-    ))}
+    {metrics.map((metric, i) => {
+      const inner = (
+        <>
+          <span style={styles.listCaption} title={String(metric.label)}>
+            {metric.label}
+          </span>
+          <span style={{ ...styles.listValue, color: colors[i] }}>
+            {metric.value}
+          </span>
+        </>
+      );
+
+      if (metric.onClick) {
+        return (
+          <button
+            key={i}
+            type="button"
+            onClick={metric.onClick}
+            style={{ ...styles.listRow, ...styles.metricButton, width: '100%' }}
+          >
+            {inner}
+          </button>
+        );
+      }
+
+      return (
+        <div key={i} style={styles.listRow}>
+          {inner}
+        </div>
+      );
+    })}
   </div>
 );
 
@@ -277,44 +356,74 @@ interface GroupedAreaProps {
 const GroupedArea: React.FC<GroupedAreaProps> = ({ metrics, colors }) => {
   const [primary, ...secondary] = metrics;
 
+  const primaryInner = (
+    <>
+      <span
+        style={{
+          ...styles.metricValue,
+          fontSize: tokens.typography.h4.fontSize,
+          lineHeight: `${tokens.typography.h4.lineHeight}px`,
+          color: colors[0],
+        }}
+      >
+        {primary.value}
+      </span>
+      <span style={styles.metricLabel} title={String(primary.label)}>
+        {primary.label}
+      </span>
+    </>
+  );
+
   return (
     <div style={styles.metricRow}>
       {/* Left: large primary metric — h4 typography */}
-      <div style={styles.groupedPrimaryColumn}>
-        <span
-          style={{
-            ...styles.metricValue,
-            fontSize: tokens.typography.h4.fontSize,
-            lineHeight: `${tokens.typography.h4.lineHeight}px`,
-            color: colors[0],
-          }}
+      {primary.onClick ? (
+        <button
+          type="button"
+          onClick={primary.onClick}
+          style={{ ...styles.groupedPrimaryColumn, ...styles.metricButton }}
         >
-          {primary.value}
-        </span>
-        <span style={styles.metricLabel} title={String(primary.label)}>
-          {primary.label}
-        </span>
-      </div>
+          {primaryInner}
+        </button>
+      ) : (
+        <div style={styles.groupedPrimaryColumn}>{primaryInner}</div>
+      )}
 
       <ColumnDivider />
 
       {/* Right: stacked secondary metrics */}
       <div style={styles.groupedSecondaryColumn}>
-        {secondary.map((metric, i) => (
-          <div key={i} style={styles.groupedSubRow}>
-            <span style={styles.listCaption} title={String(metric.label)}>
-              {metric.label}
-            </span>
-            <span
-              style={{
-                ...styles.listValue,
-                color: colors[i + 1],
-              }}
-            >
-              {metric.value}
-            </span>
-          </div>
-        ))}
+        {secondary.map((metric, i) => {
+          const subInner = (
+            <>
+              <span style={styles.listCaption} title={String(metric.label)}>
+                {metric.label}
+              </span>
+              <span style={{ ...styles.listValue, color: colors[i + 1] }}>
+                {metric.value}
+              </span>
+            </>
+          );
+
+          if (metric.onClick) {
+            return (
+              <button
+                key={i}
+                type="button"
+                onClick={metric.onClick}
+                style={{ ...styles.groupedSubRow, ...styles.metricButton, width: '100%' }}
+              >
+                {subInner}
+              </button>
+            );
+          }
+
+          return (
+            <div key={i} style={styles.groupedSubRow}>
+              {subInner}
+            </div>
+          );
+        })}
       </div>
     </div>
   );
@@ -373,13 +482,21 @@ const BarFooter: React.FC<BarFooterProps> = ({ metrics, colors }) => {
 
 interface IconsFooterProps {
   metrics: MetricItem[];
+  colors: string[];
 }
 
-const IconsFooter: React.FC<IconsFooterProps> = ({ metrics }) => (
+// Filled icons tinted in each metric's resolved color — so the footer icon
+// echoes the urgency tone of its metric value (error red, warning orange,
+// success green, or the positional info teal when no semantic override is set).
+const IconsFooter: React.FC<IconsFooterProps> = ({ metrics, colors }) => (
   <div style={styles.iconsFooter}>
     {metrics.map((metric, i) => (
       <div key={i} style={styles.iconSegment}>
-        {renderIcon(metric.icon ?? 'warning_amber', styles.footerIcon, { 'aria-label': metric.label })}
+        {renderFilledIcon(
+          metric.icon ?? 'warning_amber',
+          { ...styles.footerIcon, color: colors[i] },
+          { 'aria-label': metric.label },
+        )}
       </div>
     ))}
   </div>
@@ -411,6 +528,7 @@ export const MetricCard = React.forwardRef<HTMLDivElement, MetricCardProps>(({
   metrics,
   layout = defaultMetricCardProps.layout,
   footer = defaultMetricCardProps.footer,
+  excludePrimaryFromBar = false,
   className,
   style: customStyle,
   // Forward any DOM-level props injected by wrappers (e.g. MUI Tooltip
@@ -422,12 +540,20 @@ export const MetricCard = React.forwardRef<HTMLDivElement, MetricCardProps>(({
   const colors = resolveColors(metrics);
   const isListLayout = layout === 'auto' && metrics.length >= 4;
   const isGroupedLayout = layout === 'grouped';
+  // Cursor-only affordance: when a consumer attaches onClick, show a pointer
+  // so the card reads as tappable. Deliberately no hover/pressed/selected
+  // visual states — the affordance is the cursor, full stop.
+  const isClickable = typeof (rest as { onClick?: unknown }).onClick === 'function';
 
   return (
     <div
       ref={ref}
       className={className}
-      style={{ ...styles.card, ...customStyle }}
+      style={{
+        ...styles.card,
+        ...(isClickable ? { cursor: 'pointer' } : null),
+        ...customStyle,
+      }}
       role="region"
       aria-label={label}
       {...rest}
@@ -450,12 +576,17 @@ export const MetricCard = React.forwardRef<HTMLDivElement, MetricCardProps>(({
           <ColumnarArea metrics={metrics} colors={colors} />
         )}
 
-        {/* Footer — not shown for list layout */}
+        {/* Footer — not shown for list layout. When excludePrimaryFromBar
+            is set, BarFooter sees only metrics[1..n] / colors[1..n] so the
+            bar represents the breakdown beneath a "total" primary metric. */}
         {!isListLayout && footer === 'bar' && (
-          <BarFooter metrics={metrics} colors={colors} />
+          <BarFooter
+            metrics={excludePrimaryFromBar ? metrics.slice(1) : metrics}
+            colors={excludePrimaryFromBar ? colors.slice(1) : colors}
+          />
         )}
         {!isListLayout && footer === 'icons' && (
-          <IconsFooter metrics={metrics} />
+          <IconsFooter metrics={metrics} colors={colors} />
         )}
         {!isListLayout && footer === 'labels' && (
           <LabelsFooter metrics={metrics} />
@@ -743,6 +874,21 @@ const styles = {
     textOverflow: 'ellipsis',
     display: 'block',
     textAlign: 'center' as const,
+  },
+
+  // Reset applied to <button>-wrapped metric units so they don't inherit
+  // browser default chrome (background, border, padding, font sizing).
+  // Cursor flips to pointer to signal the value is tappable. No hover /
+  // pressed / selected styling on purpose — affordance is cursor only.
+  metricButton: {
+    background: 'transparent',
+    border: 'none',
+    padding: 0,
+    margin: 0,
+    font: 'inherit',
+    color: 'inherit',
+    cursor: 'pointer',
+    textAlign: 'inherit' as const,
   },
 };
 

@@ -57,6 +57,15 @@ export interface MetricItem {
    * Example: "Entries", "Timecards"
    */
   secondaryLabel?: string;
+
+  /**
+   * Click handler that makes this individual metric act as a filter trigger.
+   * When set, the metric's value+label unit becomes a focusable <button> with
+   * a pointer cursor. Other metrics on the same card stay non-clickable unless
+   * they also set onClick. No selected/hover/pressed visuals — the affordance
+   * is the cursor only.
+   */
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 /**
@@ -97,7 +106,14 @@ export interface MetricCardProps extends Omit<React.HTMLAttributes<HTMLDivElemen
   label: string;
 
   /**
-   * Material icon name shown to the left of the label.
+   * Material icon name shown to the left of the label. Decorative — helps users
+   * scan a wall of cards.
+   *
+   * MUTUALLY EXCLUSIVE with the (?) help icon (`helpContent` / `showHelpIcon`).
+   * If both are passed, the help icon wins and `labelIcon` is suppressed
+   * (a dev-mode console.warn is emitted). Pick one: scanning aid OR contextual
+   * help, never both — the 24px label row doesn't have room for both.
+   *
    * Figma default: 'schedule'
    */
   labelIcon?: string;
@@ -106,6 +122,8 @@ export interface MetricCardProps extends Omit<React.HTMLAttributes<HTMLDivElemen
    * Render a bare help_outline (?) icon at the right of the label row, with no tooltip.
    * Prefer `helpContent` instead — it renders the same icon AND wires up a tooltip
    * anchored precisely to the icon.
+   *
+   * MUTUALLY EXCLUSIVE with `labelIcon` — when both are passed, the (?) wins.
    *
    * @deprecated Use `helpContent` instead. Kept for backward compatibility.
    * Figma default: false
@@ -117,6 +135,9 @@ export interface MetricCardProps extends Omit<React.HTMLAttributes<HTMLDivElemen
    * (?) icon renders automatically and the tooltip anchors to the icon — not to the
    * whole card. Accepts a string or any ReactNode (multi-line breakdowns, lists,
    * formatted content).
+   *
+   * MUTUALLY EXCLUSIVE with `labelIcon` — when both are passed, the (?) wins and
+   * `labelIcon` is suppressed.
    */
   helpContent?: React.ReactNode;
 
@@ -140,6 +161,16 @@ export interface MetricCardProps extends Omit<React.HTMLAttributes<HTMLDivElemen
    * Defaults to 'bar'.
    */
   footer?: MetricCardFooter;
+
+  /**
+   * When `footer='bar'`, exclude `metrics[0]` from the bar segment math.
+   * Use this for the "total + breakdown" pattern: the primary metric holds
+   * the total, the remaining metrics are the breakdown that fills the bar.
+   * Without this flag, BarFooter sums every metric, which double-counts the
+   * total against its parts (e.g. [14, 7, 7] renders as 50/25/25 instead
+   * of 50/50). Defaults to false.
+   */
+  excludePrimaryFromBar?: boolean;
 }
 
 /**

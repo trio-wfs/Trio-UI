@@ -7,1182 +7,990 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 <link rel="stylesheet" href="design-system-shell.css">
-<script src="design-system-nav.js"></script>
+<script src="design-system-nav.js" defer></script>
 <style>
-  :root {
-    --color-default: #F5F5F5;
-    --color-secondary: #FAFAFA;
-    --color-paper: #FFFFFF;
-    --color-accent: #E4F7FD;
-    --color-border: #E0E0E0;
-    --color-text-primary: #212121;
-    --color-text-secondary: rgba(0,0,0,0.6);
-    --color-text-tertiary: rgba(0,0,0,0.4);
-    --color-primary: #2196F3;
-    --color-primary-light: #E3F2FD;
-    --color-primary-dark: #1976D2;
-    --color-success: #388e3c;
-    --color-warning: #E17109;
-    --color-error: #DB4537;
-    --color-info: #54afca;
-    --color-info-light: #E4F7FD;
-    --color-data-viz: #37636b;
-    --color-brand-strip: #607D8B;
-    --color-icon-default: #424242;
-    --space-xs: 4px;
-    --space-sm: 8px;
-    --space-mid: 12px;
-    --space-md: 16px;
-    --space-lg: 24px;
-    --space-xl: 32px;
-    --space-xxl: 40px;
-    --radius-sm: 2px;
-    --radius: 4px;
-    --radius-full: 999px;
-  }
-
-  *, *::before, *::after { box-sizing: border-box; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    margin: 0;
-    background: var(--color-default);
-    color: var(--color-text-primary);
-    font-family: 'Roboto', sans-serif;
-    font-size: 14px;
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  code, pre, .mono { font-family: 'Roboto Mono', monospace; }
-
-  /* ────── Layout shell — left site nav, main, right page ToC ────── */
-  .shell { display: grid; grid-template-columns: 280px minmax(0, 1fr) 220px; min-height: 100vh; }
-  /* Override shell.css's fixed-position sidebar so it participates in this page's grid */
-  .shell > .sidebar {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    width: auto;
-    z-index: auto;
-  }
-
-  main {
-    padding: var(--space-xl) var(--space-xxl);
-    max-width: 960px;
-  }
-
-  /* ────── Right-side page ToC — subtle, sticky, in-document section nav ────── */
-  .page-toc {
-    position: sticky;
-    top: 0;
-    align-self: start;
-    height: 100vh;
-    overflow-y: auto;
-    padding: var(--space-xl) var(--space-md) var(--space-xl) 0;
-    font-size: 12px;
-  }
-  .page-toc-label {
-    font-size: 11px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.6px;
-    color: var(--color-text-tertiary);
-    padding: 0 var(--space-mid);
-    margin-bottom: var(--space-sm);
-  }
-  .page-toc ul { list-style: none; padding: 0; margin: 0; }
-  .page-toc a {
+  /* AUTO-GENERATED — DO NOT EDIT BY HAND. */
+  /* Source of truth: PAGE_ARCHITECTURE.md. Edit there; CI regenerates this file. */
+  .doc-banner {
+    background: var(--color-info-light, #E4F7FD);
+    color: var(--color-text-primary, #212121);
+    padding: 12px 16px;
+    margin-bottom: 24px;
+    border-radius: 4px;
+    font-size: 13px;
     display: flex;
-    align-items: baseline;
+    align-items: center;
     gap: 8px;
-    padding: 4px var(--space-mid);
-    color: var(--color-text-secondary);
-    text-decoration: none;
-    line-height: 18px;
-    border-left: 2px solid transparent;
-    transition: color 80ms, border-color 80ms, background 80ms;
+    border: 1px solid var(--color-secondary-outline, #E0E0E0);
   }
-  .page-toc a:hover { color: var(--color-text-primary); background: transparent; }
-  .page-toc a.active {
-    color: var(--color-primary);
-    border-left-color: var(--color-primary);
+  .doc-banner .material-icons-outlined { font-size: 18px; color: var(--color-primary-main, #2196F3); flex-shrink: 0; }
+
+  .doc-content {
+    max-width: 880px;
+    color: var(--color-text-primary, #212121);
+  }
+  .doc-content h1 {
+    font-size: 32px;
     font-weight: 500;
+    margin-top: 0;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--color-secondary-outline, #E0E0E0);
   }
-  .page-toc .num {
-    color: var(--color-text-tertiary);
-    font-family: 'Roboto Mono', monospace;
-    font-size: 10px;
-    flex-shrink: 0;
-    min-width: 18px;
-  }
-
-  .page-banner {
-    background: var(--color-info-light);
-    border: 1px solid var(--color-info);
-    border-radius: var(--radius);
-    padding: var(--space-mid) var(--space-md);
-    margin-bottom: var(--space-xl);
-    display: flex;
-    gap: var(--space-md);
-    align-items: flex-start;
-  }
-  .page-banner .badge { background: var(--color-info); color: white; font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: var(--radius-full); text-transform: uppercase; letter-spacing: 0.4px; flex-shrink: 0; margin-top: 2px; }
-  .page-banner p { margin: 0; color: var(--color-text-primary); font-size: 13px; line-height: 1.6; }
-
-  h1 { font-size: 32px; font-weight: 500; line-height: 1.2; margin: 0 0 var(--space-sm); letter-spacing: -0.5px; }
-  .page-lead { font-size: 16px; color: var(--color-text-secondary); margin: 0 0 var(--space-xl); max-width: 720px; }
-
-  section { margin-bottom: var(--space-xxl); scroll-margin-top: var(--space-md); }
-  section h2 {
+  .doc-content h2 {
     font-size: 22px;
     font-weight: 500;
-    margin: 0 0 var(--space-md);
-    padding-bottom: var(--space-sm);
-    border-bottom: 1px solid var(--color-border);
-    display: flex;
-    align-items: baseline;
-    gap: var(--space-mid);
+    margin-top: 40px;
+    margin-bottom: 16px;
   }
-  section h2 .section-num { color: var(--color-text-tertiary); font-family: 'Roboto Mono', monospace; font-size: 14px; font-weight: 400; }
-  section h3 { font-size: 16px; font-weight: 500; margin: var(--space-lg) 0 var(--space-sm); }
-  section h4 { font-size: 14px; font-weight: 500; margin: var(--space-md) 0 var(--space-xs); color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.4px; font-size: 12px; }
-  p { margin: 0 0 var(--space-md); }
-  ul { padding-left: 22px; margin: 0 0 var(--space-md); }
-  li { margin-bottom: var(--space-xs); }
-  strong { font-weight: 500; }
-
-  /* ────── Color swatches inline ────── */
-  .swatch {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: var(--color-paper);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-full);
-    padding: 2px 10px 2px 4px;
+  .doc-content h3 {
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 24px;
+    margin-bottom: 8px;
+    color: var(--color-text-primary, #212121);
+  }
+  .doc-content h4 {
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 16px;
+    margin-bottom: 8px;
+    color: var(--color-text-secondary, rgba(0,0,0,0.6));
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .doc-content p {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .doc-content ul, .doc-content ol {
+    font-size: 14px;
+    line-height: 1.6;
+    padding-left: 24px;
+    margin-bottom: 16px;
+  }
+  .doc-content li { margin-bottom: 4px; }
+  .doc-content code {
     font-family: 'Roboto Mono', monospace;
-    font-size: 12px;
-    cursor: pointer;
-    transition: background 80ms, border-color 80ms;
-    line-height: 1;
-    vertical-align: baseline;
-    color: var(--color-text-primary);
-  }
-  .swatch:hover { border-color: var(--color-primary); background: var(--color-primary-light); }
-  .swatch .dot { width: 16px; height: 16px; border-radius: var(--radius-full); border: 1px solid rgba(0,0,0,0.08); flex-shrink: 0; }
-  .swatch.copied { background: var(--color-success); color: white; border-color: var(--color-success); }
-  .swatch.copied .dot { border-color: rgba(255,255,255,0.4); }
-
-  /* ────── Layer diagram (§1) ────── */
-  .layer-diagram {
-    background: var(--color-default);
-    padding: var(--space-md);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius);
-    margin: var(--space-md) 0;
-    position: relative;
-  }
-  .layer-label {
-    position: absolute;
-    font-size: 11px;
-    color: var(--color-text-secondary);
-    font-family: 'Roboto Mono', monospace;
-    background: var(--color-paper);
+    font-size: 0.875em;
+    background: var(--color-background-secondary, #FAFAFA);
     padding: 2px 6px;
-    border-radius: 2px;
-    border: 1px solid var(--color-border);
+    border-radius: 3px;
+    border: 1px solid var(--color-secondary-outline, #E0E0E0);
   }
-  .layer-label.l1 { top: -10px; left: var(--space-md); }
-
-  .layer-pht {
-    background: var(--color-paper);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius);
-    padding: var(--space-md);
-    margin-bottom: var(--space-md);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .layer-pht .pht-title { font-size: 14px; font-weight: 500; }
-  .layer-pht .pht-actions { display: flex; gap: 6px; }
-  .layer-pht .pht-actions .btn-mock { background: var(--color-primary); color: white; font-size: 11px; padding: 4px 10px; border-radius: var(--radius); }
-  .layer-pht .pht-actions .btn-mock.secondary { background: var(--color-paper); color: var(--color-text-secondary); border: 1px solid var(--color-border); }
-
-  .layer-wrapper {
-    background: var(--color-secondary);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius);
-    padding: var(--space-md);
-    position: relative;
-  }
-  .layer-wrapper-label { position: absolute; top: -10px; left: var(--space-md); font-size: 11px; color: var(--color-text-secondary); font-family: 'Roboto Mono', monospace; background: var(--color-secondary); padding: 2px 6px; border-radius: 2px; border: 1px solid var(--color-border); }
-
-  .paper-row { display: grid; grid-template-columns: 1fr 2fr; gap: var(--space-md); margin-top: 14px; }
-  .paper-card {
-    background: var(--color-paper);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius);
-    padding: var(--space-md);
-    min-height: 80px;
-    position: relative;
-    font-size: 11px;
-    color: var(--color-text-secondary);
+  .doc-content pre {
     font-family: 'Roboto Mono', monospace;
-  }
-  .paper-card.nested { padding: var(--space-md); }
-  .paper-card.nested .nested-inner {
-    background: var(--color-paper);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius);
-    padding: var(--space-md);
-    margin-top: var(--space-sm);
-    font-size: 11px;
-  }
-  .paper-tag { background: var(--color-default); color: var(--color-text-secondary); font-size: 10px; padding: 2px 6px; border-radius: 2px; font-family: 'Roboto Mono', monospace; display: inline-block; margin-right: 4px; }
-
-  /* ────── PHT variants (§4) ────── */
-  .pht-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-md); margin: var(--space-md) 0; }
-  .pht-mock {
-    background: var(--color-paper);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius);
-    padding: var(--space-md);
-    font-size: 12px;
-  }
-  .pht-mock.transparent { background: var(--color-secondary); border-style: dashed; }
-  .pht-mock .crumb { font-size: 11px; color: var(--color-text-secondary); margin-bottom: var(--space-sm); }
-  .pht-mock .title-row { display: flex; justify-content: space-between; align-items: center; }
-  .pht-mock .title { font-weight: 500; font-size: 14px; }
-  .pht-mock .pill {
-    display: inline-block;
-    background: var(--color-info-light);
-    color: var(--color-info);
-    font-size: 10px;
-    padding: 2px 8px;
-    border-radius: var(--radius-full);
-    margin-left: 6px;
-  }
-  .pht-mock .actions { display: flex; gap: 4px; }
-  .pht-mock .btn { font-size: 11px; padding: 4px 10px; border-radius: var(--radius); background: var(--color-primary); color: white; }
-  .pht-mock .btn-icon { width: 24px; height: 24px; border: 1px solid var(--color-border); border-radius: var(--radius); display: inline-flex; align-items: center; justify-content: center; font-size: 12px; color: var(--color-text-secondary); }
-  .pht-variant-caption { font-size: 12px; color: var(--color-text-secondary); margin-top: var(--space-sm); text-align: center; }
-  .pht-variant-caption strong { color: var(--color-text-primary); }
-
-  /* ────── Generic mock surfaces ────── */
-  .mock-frame {
-    background: var(--color-default);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius);
-    padding: var(--space-md);
-    margin: var(--space-md) 0;
-  }
-  .mock-pht-attached {
-    background: var(--color-paper);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius) var(--radius) 0 0;
-    border-bottom: none;
-  }
-  .mock-pht-attached .row1 { padding: var(--space-mid) var(--space-md); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-border); }
-  .mock-pht-attached .row1 .title { font-weight: 500; }
-  .mock-pht-attached .row1 .actions { display: flex; gap: 6px; }
-  .mock-pht-attached .row1 .actions .btn { background: var(--color-primary); color: white; font-size: 11px; padding: 4px 10px; border-radius: var(--radius); }
-  .mock-pht-attached .row1 .actions .btn-icon { width: 24px; height: 24px; border: 1px solid var(--color-border); border-radius: var(--radius); display: inline-flex; align-items: center; justify-content: center; font-size: 11px; color: var(--color-icon-default); }
-  .mock-crumb-links {
-    background: var(--color-secondary);
-    padding: 0 var(--space-md);
-    height: 40px;
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-    font-size: 12px;
-    color: var(--color-text-secondary);
-    border-bottom: 1px solid var(--color-border);
-  }
-  .mock-crumb-links .link { color: var(--color-primary); text-decoration: none; padding: 4px 0; }
-  .mock-crumb-links .link.active { color: var(--color-text-primary); border-bottom: 2px solid var(--color-primary); font-weight: 500; }
-  .mock-crumb-links .pipe { color: var(--color-border); }
-  .mock-grid {
-    background: var(--color-paper);
-    border: 1px solid var(--color-border);
-    border-top: none;
-    border-radius: 0 0 var(--radius) var(--radius);
-    overflow: hidden;
-  }
-  .mock-grid .header-row, .mock-grid .filter-row, .mock-grid .data-row {
-    display: grid;
-    grid-template-columns: 2fr 1.5fr 1.2fr 1fr;
-    font-size: 11px;
-  }
-  .mock-grid .header-row { background: var(--color-paper); height: 40px; }
-  .mock-grid .header-row > div { padding: var(--space-sm) var(--space-md); display: flex; align-items: center; font-weight: 500; border-right: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
-  .mock-grid .header-row > div:last-child { border-right: none; }
-  .mock-grid .filter-row > div { padding: 4px var(--space-md); display: flex; align-items: center; border-right: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
-  .mock-grid .filter-row > div:last-child { border-right: none; }
-  .mock-grid .filter-row .input { background: var(--color-paper); border: 1px solid var(--color-border); border-radius: var(--radius); height: 24px; flex: 1; }
-  .mock-grid .data-row { background: var(--color-paper); }
-  .mock-grid .data-row:nth-child(even) { background: var(--color-secondary); }
-  .mock-grid .data-row > div { padding: var(--space-sm) var(--space-md); border-right: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); color: var(--color-text-primary); }
-  .mock-grid .data-row > div:last-child { border-right: none; }
-  .mock-grid .data-row:last-child > div { border-bottom: none; }
-
-  /* ────── Tab patterns (§11) ────── */
-  .tab-strip {
-    display: flex;
-    gap: 0;
-    border-bottom: 1px solid var(--color-border);
-    padding: 0 var(--space-md);
-  }
-  .tab-strip .tab { padding: var(--space-mid) var(--space-md); font-size: 13px; color: var(--color-text-secondary); border-radius: var(--radius) var(--radius) 0 0; position: relative; }
-  .tab-strip .tab.active { color: var(--color-text-primary); font-weight: 500; border-left: 1px solid var(--color-border); border-right: 1px solid var(--color-border); border-top: 1px solid var(--color-border); margin-bottom: -1px; padding-top: calc(var(--space-mid) - 2px); }
-  .tab-strip .tab.active::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--color-primary); border-radius: var(--radius-sm) var(--radius-sm) 0 0; }
-  .tab-strip.wrapper-level { background: var(--color-secondary); }
-  .tab-strip.wrapper-level .tab.active { background: var(--color-secondary); }
-  .tab-strip.in-container { background: var(--color-paper); }
-  .tab-strip.in-container .tab.active { background: var(--color-paper); }
-
-  /* ────── Detail page rails (§12) ────── */
-  .detail-mock { display: grid; grid-template-columns: 3fr 6fr 3fr; gap: var(--space-md); margin-top: var(--space-md); }
-  .rail-card {
-    background: var(--color-paper);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius);
-    min-height: 180px;
-    overflow: hidden;
-  }
-  .rail-card .strip { background: var(--color-default); padding: 0 var(--space-md); height: 48px; display: flex; align-items: center; font-size: 12px; font-weight: 500; border-bottom: 1px solid var(--color-border); }
-  .rail-card .body { padding: var(--space-md); font-size: 11px; color: var(--color-text-secondary); line-height: 1.6; font-family: 'Roboto Mono', monospace; }
-
-  /* ────── Tables ────── */
-  table { width: 100%; border-collapse: collapse; font-size: 13px; margin: var(--space-md) 0; }
-  th, td { text-align: left; padding: var(--space-sm) var(--space-mid); border-bottom: 1px solid var(--color-border); vertical-align: top; }
-  th { font-weight: 500; color: var(--color-text-secondary); font-size: 12px; text-transform: uppercase; letter-spacing: 0.4px; background: var(--color-default); }
-  tr:last-child td { border-bottom: none; }
-
-  /* ────── Callouts ────── */
-  .callout {
-    border: 1px solid var(--color-info);
-    border-radius: var(--radius);
-    padding: var(--space-md);
-    background: var(--color-info-light);
-    margin: var(--space-md) 0;
     font-size: 13px;
-    color: var(--color-text-primary);
+    background: var(--color-background-secondary, #FAFAFA);
+    padding: 16px;
+    border-radius: 4px;
+    border: 1px solid var(--color-secondary-outline, #E0E0E0);
+    overflow-x: auto;
+    margin-bottom: 16px;
+    line-height: 1.5;
   }
-  .callout .callout-title { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.4px; color: var(--color-info); margin-bottom: 4px; }
-  .callout.warn { border-color: var(--color-warning); background: #FCF1E0; }
-  .callout.warn .callout-title { color: var(--color-warning); }
-
-  /* ────── Pattern decision cards (§11) ────── */
-  .pattern-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-md); margin: var(--space-md) 0; }
-  .pattern-card {
-    background: var(--color-paper);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius);
-    overflow: hidden;
+  .doc-content pre code {
+    background: none;
+    border: none;
+    padding: 0;
   }
-  .pattern-card .head { padding: var(--space-md); background: var(--color-default); border-bottom: 1px solid var(--color-border); }
-  .pattern-card .head .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--color-text-secondary); margin-bottom: 4px; }
-  .pattern-card .head .title { font-size: 14px; font-weight: 500; }
-  .pattern-card .body-text { padding: var(--space-md); font-size: 12px; color: var(--color-text-secondary); line-height: 1.6; }
-  .pattern-card .body-text strong { color: var(--color-text-primary); }
-
-  /* ────── Form spacing visual (§13) ────── */
-  .form-spacing-mock {
-    background: var(--color-paper);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius);
-    padding: var(--space-lg);
-    margin: var(--space-md) 0;
-    max-width: 480px;
+  .doc-content blockquote {
+    border-left: 4px solid var(--color-primary-main, #2196F3);
+    padding: 8px 16px;
+    margin: 16px 0;
+    background: var(--color-info-light, #E4F7FD);
+    color: var(--color-text-primary, #212121);
   }
-  .form-spacing-mock .field { margin-bottom: 24px; position: relative; }
-  .form-spacing-mock .field:last-child { margin-bottom: 0; }
-  .form-spacing-mock .field label { display: block; font-size: 12px; color: var(--color-text-secondary); margin-bottom: 4px; }
-  .form-spacing-mock .field input {
+  .doc-content blockquote p:last-child { margin-bottom: 0; }
+  .doc-content table {
+    border-collapse: collapse;
     width: 100%;
-    height: 38px;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius);
-    padding: 0 var(--space-mid);
-    font-family: inherit;
+    margin-bottom: 16px;
     font-size: 14px;
   }
-  .form-spacing-mock .gap-marker {
-    position: absolute;
-    right: -64px;
-    top: 100%;
-    margin-top: 4px;
-    font-size: 10px;
-    color: var(--color-text-tertiary);
-    font-family: 'Roboto Mono', monospace;
-    background: var(--color-default);
-    border: 1px solid var(--color-border);
-    padding: 2px 6px;
-    border-radius: 2px;
+  .doc-content th, .doc-content td {
+    border: 1px solid var(--color-secondary-outline, #E0E0E0);
+    padding: 8px 12px;
+    text-align: left;
+    vertical-align: top;
   }
-
-  /* ────── Footer ────── */
-  footer { margin-top: var(--space-xxl); padding-top: var(--space-lg); border-top: 1px solid var(--color-border); font-size: 12px; color: var(--color-text-secondary); }
-
-  /* ────── Responsive ────── */
-  @media (max-width: 1100px) {
-    .shell { grid-template-columns: 280px 1fr; }
-    .page-toc { display: none; }
+  .doc-content th {
+    background: var(--color-background-secondary, #FAFAFA);
+    font-weight: 500;
   }
-  @media (max-width: 900px) {
-    .shell { grid-template-columns: 1fr; }
-    main { padding: var(--space-lg); }
-    .pht-grid, .pattern-grid, .detail-mock { grid-template-columns: 1fr; }
-    h1 { font-size: 24px; }
+  .doc-content strong { font-weight: 500; color: var(--color-text-primary, #212121); }
+  .doc-content a {
+    color: var(--color-primary-main, #2196F3);
+    text-decoration: none;
+  }
+  .doc-content a:hover { text-decoration: underline; }
+  .doc-content hr {
+    border: 0;
+    border-top: 1px solid var(--color-secondary-outline, #E0E0E0);
+    margin: 32px 0;
   }
 </style>
 </head>
 <body>
-<div class="shell">
-
-  <!-- ────── Sidebar ────── -->
-  <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
-
-  <!-- ────── Main ────── -->
-  <main>
-    <div class="page-banner">
-      <span class="badge">Experimental</span>
-      <p>HTML rendering of <code>PAGE_ARCHITECTURE.md</code> — testing whether an HTML artifact is more usable than the source Markdown. The MD file remains the canonical source of truth. If this works well, we'll discuss integrating it formally; if not, we'll delete it.</p>
-    </div>
-
-    <h1>TRIO WFS Page Architecture</h1>
-    <p class="page-lead">Rules for how pages are assembled from components. Read alongside <code>design-tokens/tokens.ts</code> and the component library. Token values are owned by <code>tokens.ts</code> — this file references token <em>roles</em> and <em>usage</em>.</p>
-
-    <!-- ═══════════════════ §1 ═══════════════════ -->
-    <section id="s1">
-      <h2><span class="section-num">01</span>Page anatomy — layer order</h2>
-      <p>Every TRIO page is built from three background layers, top to bottom. Each layer has a single canonical role — never mix them up.</p>
-
-      <div class="layer-diagram">
-        <span class="layer-label l1">background.default · #F5F5F5 · page canvas</span>
-        <div class="layer-pht">
-          <div class="pht-title">Page title</div>
-          <div class="pht-actions">
-            <span class="btn-mock secondary">⋯</span>
-            <span class="btn-mock">+ New</span>
-          </div>
-        </div>
-        <div class="layer-wrapper">
-          <span class="layer-wrapper-label">background.secondary · #FAFAFA · content wrapper</span>
-          <div class="paper-row">
-            <div class="paper-card">
-              <span class="paper-tag">background.paper</span><span class="paper-tag">#FFFFFF</span>
-            </div>
-            <div class="paper-card nested">
-              <span class="paper-tag">background.paper</span><span class="paper-tag">#FFFFFF</span>
-              <div class="nested-inner">
-                <span class="paper-tag">paper inside paper</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <h3>Rules</h3>
-      <ul>
-        <li><strong>Page canvas</strong> <span class="swatch" data-value="#F5F5F5"><span class="dot" style="background:#F5F5F5"></span>#F5F5F5</span> — only for the page canvas. <strong>16px padding on all four sides</strong> — the PHT and content wrapper sit within this padded area, never running to the browser edge.</li>
-        <li><strong>Content wrapper</strong> <span class="swatch" data-value="#FAFAFA"><span class="dot" style="background:#FAFAFA"></span>#FAFAFA</span> — the single wrapper below the PHT. Same border treatment as paper: <code>1px solid #E0E0E0</code> + 4px radius. Tabs sit flush at its top.</li>
-        <li><strong>Paper</strong> <span class="swatch" data-value="#FFFFFF"><span class="dot" style="background:#FFFFFF"></span>#FFFFFF</span> — all cards, panels, containers. Paper can nest inside paper. No exceptions.</li>
-        <li><strong>Borders</strong> on every container surface: <code>1px solid</code> <span class="swatch" data-value="#E0E0E0"><span class="dot" style="background:#E0E0E0"></span>#E0E0E0</span>. No elevation.</li>
-      </ul>
-    </section>
-
-    <!-- ═══════════════════ §2 ═══════════════════ -->
-    <section id="s2">
-      <h2><span class="section-num">02</span>Elevation &amp; shadows</h2>
-      <p>Drop shadows are <strong>only</strong> used on floating / overlay elements:</p>
-      <ul>
-        <li>Modals</li><li>Menus</li><li>Popovers</li><li>Breadcrumb dropdowns</li>
-      </ul>
-      <p><strong>Never</strong> on cards, panels, containers, or any paper surface that's part of the page layout. Token: <code>tokens.shadows.sm</code>.</p>
-    </section>
-
-    <!-- ═══════════════════ §3 ═══════════════════ -->
-    <section id="s3">
-      <h2><span class="section-num">03</span>Navigation header</h2>
-      <p>The NavigationHeader sits fixed at the top of every page. Always present, always the same — no variants.</p>
-      <ul>
-        <li>16px padding-bottom separating it from page content</li>
-        <li><strong>Exception:</strong> Digital Workers and future AI layouts omit the NavigationHeader entirely</li>
-      </ul>
-    </section>
-
-    <!-- ═══════════════════ §4 ═══════════════════ -->
-    <section id="s4">
-      <h2><span class="section-num">04</span>Page header toolbar (PHT)</h2>
-      <p>The toolbar below the NavigationHeader. Three variants, each for a different page context.</p>
-
-      <h3>Variants</h3>
-      <div class="pht-grid">
-        <div>
-          <div class="pht-mock">
-            <div class="crumb">Workers › All workers</div>
-            <div class="title-row">
-              <div><span class="title">All workers</span><span class="pill">2,341</span></div>
-              <div class="actions"><span class="btn-icon">⌕</span><span class="btn">+ New</span></div>
-            </div>
-          </div>
-          <p class="pht-variant-caption"><strong>full</strong> · default · with breadcrumb</p>
-        </div>
-        <div>
-          <div class="pht-mock">
-            <div class="title-row">
-              <div><span class="title">Settings</span></div>
-              <div class="actions"><span class="btn">Save</span></div>
-            </div>
-          </div>
-          <p class="pht-variant-caption"><strong>default</strong> · no breadcrumb</p>
-        </div>
-        <div>
-          <div class="pht-mock transparent">
-            <div class="title-row">
-              <div><span class="title">Programs</span></div>
-              <div class="actions"><span class="btn-icon">⌕</span></div>
-            </div>
-          </div>
-          <p class="pht-variant-caption"><strong>NewCanvas</strong> · transparent · DW direction</p>
-        </div>
-      </div>
-
-      <h3>Floating vs attached</h3>
-      <p>The toolbar either <strong>floats</strong> (16px gap to content) or <strong>attaches</strong> (no gap, shared border with content below). The choice depends on whether the toolbar controls the content directly.</p>
-
-      <h4>Floating · 16px gap</h4>
-      <p>Standalone bar with title and actions. Content below is independent — cards, panels, forms. Default behavior.</p>
-
-      <h4>Attached · no gap</h4>
-      <p>The breadcrumb row is swapped for sub-section tabs that control the grid below. The toolbar and grid share one continuous border — they read as one visual unit.</p>
-
-      <h3>Action slot composition</h3>
-      <p>The right side has three explicit slots — use them for what they're named for. Don't pour loose buttons into the actions area.</p>
-      <table>
-        <thead><tr><th>Slot</th><th>Component</th><th>Use for</th></tr></thead>
-        <tbody>
-          <tr><td><code>inputTextField</code></td><td>TextField / SearchBar</td><td>Search or filter input scoped to the page</td></tr>
-          <tr><td><code>buttonGroup</code></td><td>ButtonGroup (one or more)</td><td>Connected secondary actions — icon trios (filter / columns / more), or labeled clusters (Export / Print)</td></tr>
-          <tr><td><code>singleButton</code></td><td>Button</td><td>The single primary action for the page — "+ New Worker", "Save Changes"</td></tr>
-        </tbody>
-      </table>
-
-      <div class="callout warn">
-        <div class="callout-title">Don't</div>
-        Don't drop loose Buttons next to each other in the actions area — group them via ButtonGroup so they share one outer border. Don't put primary actions inside a ButtonGroup of secondary actions — the primary is its own Button in <code>singleButton</code>.
-      </div>
-
-      <h3>Key rules</h3>
-      <ul>
-        <li><strong>Header tabs are only for grid switching</strong> — tabbing between AG Grid views on list pages</li>
-        <li><strong>Detail pages</strong> use the Tabs component at the content wrapper level for section navigation — never header tabs. See §11.</li>
-        <li>Never invent a new header layout — always use a variant of PageHeaderToolbar</li>
-        <li>If a page has no actions, remove the button group entirely rather than disabling buttons</li>
-      </ul>
-    </section>
-
-    <!-- ═══════════════════ §5 ═══════════════════ -->
-    <section id="s5">
-      <h2><span class="section-num">05</span>Color usage</h2>
-
-      <h3>Background hierarchy</h3>
-      <ul>
-        <li>Never use <span class="swatch" data-value="#F5F5F5"><span class="dot" style="background:#F5F5F5"></span>#F5F5F5</span> for a card or container — that's the page canvas only</li>
-        <li>Never use <span class="swatch" data-value="#FAFAFA"><span class="dot" style="background:#FAFAFA"></span>#FAFAFA</span> for a card — that's the content wrapper only</li>
-      </ul>
-
-      <h3>Primary blue <span class="swatch" data-value="#2196F3"><span class="dot" style="background:#2196F3"></span>#2196F3</span></h3>
-      <ul>
-        <li>Save and Update actions only</li>
-        <li>Not for navigation, not for status indicators, not for decorative use</li>
-      </ul>
-
-      <h3>Data viz teal <span class="swatch" data-value="#37636b"><span class="dot" style="background:#37636b"></span>#37636b</span></h3>
-      <ul>
-        <li>Metric card bars, stepper indicators, charts</li>
-        <li>Complements the primary blue palette without competing with it</li>
-        <li>Not for buttons, not for status chips</li>
-      </ul>
-      <div class="callout">
-        <div class="callout-title">Stepper drift</div>
-        Active step circle, completed checkmark, and connectors between completed steps all use teal. The current <code>Stepper.tsx</code> uses primary blue — that's a known drift to be aligned to this rule, not the rule to follow.
-      </div>
-
-      <h3>Semantic colors — status &amp; feedback only</h3>
-      <table>
-        <thead><tr><th>Color</th><th>Token</th><th>Value</th><th>Use for</th></tr></thead>
-        <tbody>
-          <tr><td><span class="swatch" data-value="#388e3c"><span class="dot" style="background:#388e3c"></span>Success</span></td><td><code>success.main</code></td><td>#388e3c</td><td>Positive outcomes, active/filled status</td></tr>
-          <tr><td><span class="swatch" data-value="#E17109"><span class="dot" style="background:#E17109"></span>Warning</span></td><td><code>warning.main</code></td><td>#E17109</td><td>Caution, approaching a limit</td></tr>
-          <tr><td><span class="swatch" data-value="#DB4537"><span class="dot" style="background:#DB4537"></span>Error</span></td><td><code>error.main</code></td><td>#DB4537</td><td>Failures, destructive actions, rejections</td></tr>
-          <tr><td><span class="swatch" data-value="#54afca"><span class="dot" style="background:#54afca"></span>Info</span></td><td><code>info.main</code></td><td>#54afca</td><td>Informational, neutral callouts</td></tr>
-        </tbody>
-      </table>
-      <p>Never use semantic colors for decorative purposes or general UI chrome.</p>
-
-      <h3>What never gets a color</h3>
-      <ul>
-        <li>Page backgrounds (always default / secondary / paper)</li>
-        <li>Borders (always <span class="swatch" data-value="#E0E0E0"><span class="dot" style="background:#E0E0E0"></span>#E0E0E0</span>)</li>
-        <li>Dividers (always <span class="swatch" data-value="#E0E0E0"><span class="dot" style="background:#E0E0E0"></span>#E0E0E0</span>)</li>
-      </ul>
-    </section>
-
-    <!-- ═══════════════════ §6 ═══════════════════ -->
-    <section id="s6">
-      <h2><span class="section-num">06</span>Layout</h2>
-      <h3>Standard pages</h3>
-      <ul>
-        <li>16px padding inside the <code>background.secondary</code> wrapper</li>
-        <li>12-column grid, 16px gutters</li>
-        <li>Desktop-first — 1440px viewport target. Layout primitives stack below 1200px (lg) per §7. This is a graceful floor, not mobile support.</li>
-      </ul>
-      <h3>Full-width pages (Digital Workers, future AI)</h3>
-      <ul>
-        <li>No outer 16px padding — content stretches to the browser edge</li>
-        <li>Header still present but frameless</li>
-        <li>Same paper / border rules apply inside</li>
-      </ul>
-    </section>
-
-    <!-- ═══════════════════ §7 ═══════════════════ -->
-    <section id="s7">
-      <h2><span class="section-num">07</span>Responsive floor — below lg (1200px)</h2>
-      <p>TRIO is desktop-first. The intended viewport is 1440px. Below ~1200px the experience is <strong>degraded, not designed</strong> — the goal is graceful stacking, so a user on a narrower window sees something readable, not broken.</p>
-
-      <div class="callout">
-        <div class="callout-title">Fluid width, snap arrangement</div>
-        Containers grow and shrink with the browser within a breakpoint range. A 4-up MetricCard row at 1440 is still a 4-up row at 1280 — each card just narrower. The <em>arrangement</em> (4-up → 2-up → stacked) only changes when the browser crosses a defined breakpoint, where it snaps.
-      </div>
-
-      <h3>The breakpoints</h3>
-      <ul>
-        <li><strong>Default floor:</strong> lg (1200px). Most primitives stack below this.</li>
-        <li><strong>Some primitives stack later</strong> at md (900px) — see table.</li>
-        <li>Use only MUI's standard breakpoints (xs:0, sm:600, md:900, lg:1200, xl:1536). Never invent custom pixel values.</li>
-      </ul>
-
-      <h3>What stacks, and when</h3>
-      <table>
-        <thead><tr><th>Primitive</th><th>Stacks at</th><th>Behavior</th></tr></thead>
-        <tbody>
-          <tr><td>PageHeaderToolbar</td><td>lg (1200)</td><td>Title row and action row stack; chips/eyebrow stay inline</td></tr>
-          <tr><td>Filter bars</td><td>lg (1200)</td><td>Inputs/chips wrap, then stack</td></tr>
-          <tr><td>MetricCard rows</td><td>md / sm</td><td>4-up at lg → 2-up at md → 1-up at sm</td></tr>
-          <tr><td>Two-column form sections</td><td>md (900)</td><td>Collapse to single column</td></tr>
-          <tr><td>Detail page rails</td><td>md (900)</td><td>Left/center/right collapse to a single stacked column</td></tr>
-        </tbody>
-      </table>
-
-      <h3>What does NOT stack</h3>
-      <ul>
-        <li><strong>AG Grid tables</strong> — horizontal scroll is the fallback. If unusable below lg, show "best viewed on desktop"</li>
-        <li><strong>Modals</strong> — already width-constrained (500/900px), stay centered</li>
-        <li><strong>Page shell</strong> — the 12-column wrapper does not change</li>
-      </ul>
-
-      <h3>Navigation — needs definition</h3>
-      <p>Both NavigationHeader and NavigationVertical need responsive behavior defined together (paired treatments — collapsed rail + slim header, drawer pattern). Until then, both retain full desktop layout at all widths.</p>
-    </section>
-
-    <!-- ═══════════════════ §8 ═══════════════════ -->
-    <section id="s8">
-      <h2><span class="section-num">08</span>Typography</h2>
-      <ul>
-        <li><strong>Font:</strong> Roboto only — no Inter, no system-ui</li>
-        <li><strong>Max headline:</strong> H5 (24px) for page headers</li>
-        <li><strong>Page titles:</strong> H5 or H6 depending on header mode</li>
-        <li><strong>Body copy:</strong> body1 (16px) for primary, body2 (14px) for dense/secondary</li>
-        <li><strong>No uppercase text</strong> in UI — except overline labels where Figma calls for it</li>
-        <li><strong>No font weights above 500 (Medium)</strong> — 700 is not used in TRIO UI</li>
-      </ul>
-      <h3>How to use typography in code</h3>
-      <ul>
-        <li><strong>Tokens:</strong> <code>tokens.typography.h4</code>, <code>tokens.typography.caption</code>, etc. Full catalog at <code>design-tokens-typography.html</code>.</li>
-        <li><strong>In components:</strong> use MUI's <code>&lt;Typography variant="h4"&gt;</code>. The Trio theme wires every variant to the matching token.</li>
-        <li><strong>There is no Trio Typography wrapper</strong> — the theme does the work. Importing <code>Typography</code> from <code>@trio-wfs/ui</code> will not work because it isn't exported. This is intentional, not a gap.</li>
-        <li><strong>Never</strong> hand-style text elements (<code>&lt;h1 style={{fontSize: 34}}&gt;</code>) — bypasses the theme and reinvents tokens.</li>
-      </ul>
-    </section>
-
-    <!-- ═══════════════════ §9 ═══════════════════ -->
-    <section id="s9">
-      <h2><span class="section-num">09</span>Component defaults</h2>
-      <ul>
-        <li><strong>Border radius:</strong> 4px standard, 999px pill (chips, badges, step circles)</li>
-        <li><strong>Spacing:</strong> 4 / 8 / 12 / 16 / 24 / 32 / 40 px only — no arbitrary values</li>
-        <li><strong>Modals:</strong> 900px large, 500px small</li>
-        <li><strong>Drawer:</strong> 400px standard width <em>(legacy — panels on the 12-column grid are the future, see §16)</em></li>
-        <li><strong>Icons:</strong> <code>@mui/icons-material</code> Outlined only — no other libraries</li>
-        <li><strong>Icon size:</strong> 16x16 in buttons and tabs — always. No exceptions.</li>
-        <li><strong>Data tables:</strong> <strong>AG Grid</strong> — always. Never MUI X DataGrid, never hand-rolled <code>&lt;table&gt;</code>. See §10.</li>
-        <li><strong>PHT:</strong> title-to-eyebrow gap is 4px (spacing.xs)</li>
-        <li><strong>Footer:</strong> sticky, 16px padding, <span class="swatch" data-value="#E0E0E0"><span class="dot" style="background:#E0E0E0"></span>#E0E0E0</span> top border</li>
-        <li><strong>NavigationVertical:</strong> never has a background color — always transparent</li>
-      </ul>
-
-      <h3>Control heights</h3>
-      <p>Every form-row control renders at standard heights. Canonical source: <code>tokens.controls.height</code>. No hardcoded 32 / 38 anywhere.</p>
-      <table>
-        <thead><tr><th>Size</th><th>Height</th><th>Token</th></tr></thead>
-        <tbody>
-          <tr><td>small</td><td>32px</td><td><code>tokens.controls.height.small</code></td></tr>
-          <tr><td>medium</td><td>38px</td><td><code>tokens.controls.height.medium</code></td></tr>
-        </tbody>
-      </table>
-      <p><strong>Applies to:</strong> Button, Select, TextField, Autocomplete, NumberField, DatePicker, SearchBar, ButtonIcon (contained), ToggleButton (medium).</p>
-      <p><strong>Exception — compact icon-only (24px):</strong> ButtonIcon ghost small and ToggleButton small slots use <code>tokens.controls.ghostHeight</code> (24px). These live in dense toolbars, grid filter rows, and breadcrumb actions where a 32px control would dominate. Figma-sanctioned exception, not a drift.</p>
-
-      <h3>ContentContainer — the standard paper surface</h3>
-      <p>Every paper section is a <code>ContentContainer</code>. Hand-rolled paper cards are not allowed — use ContentContainer so the title strip stays consistent.</p>
-      <table>
-        <thead><tr><th>Property</th><th>Value</th></tr></thead>
-        <tbody>
-          <tr><td>Background</td><td><span class="swatch" data-value="#FFFFFF"><span class="dot" style="background:#FFFFFF"></span>#FFFFFF</span></td></tr>
-          <tr><td>Border</td><td>1px solid <span class="swatch" data-value="#E0E0E0"><span class="dot" style="background:#E0E0E0"></span>#E0E0E0</span></td></tr>
-          <tr><td>Radius</td><td>4px (or 0 when <code>flush</code>)</td></tr>
-          <tr><td>Title strip background</td><td><span class="swatch" data-value="#F5F5F5"><span class="dot" style="background:#F5F5F5"></span>#F5F5F5</span> — <strong>persistent</strong> across all containers</td></tr>
-          <tr><td>Title strip height</td><td>48px</td></tr>
-          <tr><td>Title strip padding</td><td>16px left, 8px right</td></tr>
-          <tr><td>Title text</td><td>Subtitle2 — 14px / 500 / 16.8 line-height</td></tr>
-          <tr><td>Body padding</td><td>16px default</td></tr>
-        </tbody>
-      </table>
-      <p><strong>Containers vs. components:</strong> standalone components (Alert, MetricCard, Stepper) already have their own structure — do not get wrapped in ContentContainer. The rule applies to grouping cards/sections (Profile, Compliance, Profession &amp; specialty, Bill rates, etc.).</p>
-    </section>
-
-    <!-- ═══════════════════ §10 ═══════════════════ -->
-    <section id="s10">
-      <h2><span class="section-num">10</span>Grid page patterns</h2>
-      <p><strong>Always use AG Grid for data tables in React.</strong> Hand-rolled <code>&lt;table&gt;</code> or MUI X DataGrid are not allowed. Static HTML prototypes mirror AG Grid's structure so engineers can drop in <code>AgGridReact</code>.</p>
-
-      <h3>Standalone grid page</h3>
-      <p>The PHT connects directly to the AG Grid — no content wrapper between them, no gap. Shared continuous border. PHT is the <strong>full variant</strong>, with <code>breadcrumb</code> filled by the <strong>Breadcrumb in state="Links"</strong> — the grid view switcher.</p>
-
-      <div class="mock-frame">
-        <div class="mock-pht-attached">
-          <div class="row1">
-            <div class="title">All workers</div>
-            <div class="actions"><span class="btn-icon">⌕</span><span class="btn-icon">⌄</span><span class="btn-icon">⋯</span><span class="btn">+ New worker</span></div>
-          </div>
-          <div class="mock-crumb-links">
-            <a class="link active">All <span style="color:var(--color-primary)">· 2,341</span></a>
-            <span class="pipe">|</span>
-            <a class="link">Active <span style="color:var(--color-text-secondary)">· 1,820</span></a>
-            <span class="pipe">|</span>
-            <a class="link">Pending <span style="color:var(--color-text-secondary)">· 412</span></a>
-            <span class="pipe">|</span>
-            <a class="link">Inactive <span style="color:var(--color-text-secondary)">· 109</span></a>
-          </div>
-        </div>
-        <div class="mock-grid">
-          <div class="header-row">
-            <div>Worker name ⇅</div><div>Status</div><div>Specialty</div><div>Last shift</div>
-          </div>
-          <div class="filter-row">
-            <div><div class="input"></div></div><div><div class="input"></div></div><div><div class="input"></div></div><div></div>
-          </div>
-          <div class="data-row"><div>Avery Lopez, RN</div><div>Active</div><div>ER</div><div>05/16/2026</div></div>
-          <div class="data-row"><div>Bryan Patel, LVN</div><div>Active</div><div>ICU</div><div>05/15/2026</div></div>
-          <div class="data-row"><div>Carolyn Vega, RN</div><div>Pending</div><div>Med-Surg</div><div>—</div></div>
-          <div class="data-row"><div>Devon Khoury, RN</div><div>Active</div><div>L&amp;D</div><div>05/12/2026</div></div>
-        </div>
-      </div>
-
-      <h4>Structure &amp; borders</h4>
-      <ul>
-        <li>Header's bottom border IS the grid's top border. The whole assembly shares one outer <code>1px solid #E0E0E0</code>.</li>
-        <li><strong>Vertical column dividers</strong> run through every row: <code>border-right: 1px solid #E0E0E0</code> on every header <code>th</code>, filter cell, and data <code>td</code>. The last cell in each row drops its right border so the outer frame stays clean.</li>
-        <li>Reference: Figma node <code>5650:4810</code></li>
-      </ul>
-
-      <h4>Grid view switching — Breadcrumb-Links, not Tabs</h4>
-      <ul>
-        <li>Same 40px height, same <span class="swatch" data-value="#FAFAFA"><span class="dot" style="background:#FAFAFA"></span>#FAFAFA</span> background, same caption (12px) text as a normal breadcrumb</li>
-        <li>Pipe <code>|</code> dividers (in border.default color) instead of slashes — the only visual difference from a regular breadcrumb</li>
-        <li>Non-selected: primary-blue link text. Hover underlines.</li>
-        <li>Selected: <code>text.primary</code> with a 2px primary-blue bottom border. Optional inline count; selected count flips to primary blue.</li>
-      </ul>
-
-      <h4>Column headers — paper bg, 40px tall</h4>
-      <ul>
-        <li>Background: <span class="swatch" data-value="#FFFFFF"><span class="dot" style="background:#FFFFFF"></span>#FFFFFF</span> — not #F5F5F5</li>
-        <li>Height: <strong>40px</strong>, matching the breadcrumb-Links strip above — reads as one continuous header band</li>
-        <li>Text: body2 medium — 14px / 500 / 21 line-height, <code>text.primary</code></li>
-        <li>Sort icons: 16px Material Outlined. <code>unfold_more</code> for unsorted in <code>text.disabled</code>; <code>arrow_upward</code> / <code>arrow_downward</code> for active in <span class="swatch" data-value="#424242"><span class="dot" style="background:#424242"></span>#424242</span> — <strong>never primary blue</strong>.</li>
-        <li><code>position: sticky; top: 0</code> so the header stays under vertical scroll.</li>
-      </ul>
-
-      <h4>Horizontal scroll behavior</h4>
-      <ul>
-        <li>The <code>.ag-grid</code> container is <code>overflow: auto</code> (horizontal + vertical)</li>
-        <li>Table is <code>width: max-content; min-width: 100%</code> — grows with content, never narrower than the container</li>
-        <li>Each cell is <code>white-space: nowrap</code> — content pushes into horizontal scroll instead of wrapping</li>
-        <li>Per-column widths pinned via <code>&lt;colgroup&gt;</code> (or <code>colDef.width</code> in AG Grid)</li>
-        <li>PHT, breadcrumb-Links strip, and outer border stay fixed; only the grid body scrolls</li>
-      </ul>
-
-      <h3>Grid inside a tab</h3>
-      <p>When a grid appears inside a tabbed section, the tab content area has 16px padding. The grid is wrapped in a ContentContainer. Same column-divider, paper-header, and horizontal-scroll rules apply inside.</p>
-    </section>
-
-    <!-- ═══════════════════ §11 ═══════════════════ -->
-    <section id="s11">
-      <h2><span class="section-num">11</span>Tab patterns</h2>
-      <p>There are <strong>three</strong> distinct uses for the Tabs component. Pick the right one.</p>
-
-      <div class="pattern-grid">
-        <div class="pattern-card">
-          <div class="head">
-            <div class="label">Pattern A</div>
-            <div class="title">Detail page section tabs</div>
-          </div>
-          <div style="background:var(--color-secondary); padding: 0;">
-            <div class="tab-strip wrapper-level">
-              <div class="tab active">Overview</div>
-              <div class="tab">Credentials</div>
-              <div class="tab">Documents</div>
-            </div>
-          </div>
-          <div class="body-text">
-            <strong>Surface:</strong> <code>secondary</code> — active tab blends with #FAFAFA wrapper.<br><br>
-            <strong>What swaps:</strong> everything below, including left + right rails. Each tab is its own page-shaped layout.<br><br>
-            <strong>Identity / page subject</strong> lives in the PHT, not repeated on every tab.
-          </div>
-        </div>
-
-        <div class="pattern-card">
-          <div class="head">
-            <div class="label">Pattern B</div>
-            <div class="title">In-container tabs</div>
-          </div>
-          <div style="background: var(--color-paper); padding: 0;">
-            <div class="tab-strip in-container">
-              <div class="tab active">Active</div>
-              <div class="tab">Completed</div>
-              <div class="tab">Cancelled</div>
-            </div>
-          </div>
-          <div class="body-text">
-            <strong>Surface:</strong> <code>paper</code> — active tab blends with the white container.<br><br>
-            <strong>What swaps:</strong> only the content inside that container.<br><br>
-            Used to switch between views of the same data set inside a single ContentContainer.
-          </div>
-        </div>
-
-        <div class="pattern-card">
-          <div class="head">
-            <div class="label">Pattern C</div>
-            <div class="title">Grid view switching</div>
-          </div>
-          <div class="mock-crumb-links" style="border-bottom: none;">
-            <a class="link active">All</a>
-            <span class="pipe">|</span>
-            <a class="link">Active</a>
-            <span class="pipe">|</span>
-            <a class="link">Pending</a>
-          </div>
-          <div class="body-text">
-            <strong>Not the Tabs component.</strong> Rendered with <strong>Breadcrumb in <code>state="Links"</code></strong> — same chrome as a normal breadcrumb, just pipe <code>|</code> dividers instead of slashes.<br><br>
-            Lives in the <code>breadcrumb</code> slot of the PHT (full variant). See §10.
-          </div>
-        </div>
-      </div>
-
-      <h3>Tabs vs Breadcrumb-Links — comparison</h3>
-      <table>
-        <thead><tr><th></th><th>Tabs (A &amp; B)</th><th>Breadcrumb-Links (C)</th></tr></thead>
-        <tbody>
-          <tr><td><strong>Component</strong></td><td>Tabs (MUI Tabs)</td><td>Breadcrumb with <code>state="Links"</code></td></tr>
-          <tr><td><strong>Visual</strong></td><td>Card tabs — rounded top, L/R strokes, top primary-blue indicator</td><td>Text links separated by <code>|</code>, 2px primary-blue bottom border on selected</td></tr>
-          <tr><td><strong>Surface</strong></td><td><code>secondary</code> (on #FAFAFA wrapper) or <code>paper</code> (inside container)</td><td>Always #FAFAFA (matches breadcrumb chrome)</td></tr>
-          <tr><td><strong>Lives where</strong></td><td>Top of content wrapper, or top of paper container</td><td><code>breadcrumb</code> slot of PHT</td></tr>
-          <tr><td><strong>Switches</strong></td><td>Whole tab panel, including rails</td><td>The grid view (data set the user sees)</td></tr>
-          <tr><td><strong>Counts</strong></td><td>No</td><td>Optional inline <code>· count</code> after each label</td></tr>
-        </tbody>
-      </table>
-      <div class="callout warn">
-        <div class="callout-title">Never</div>
-        Never use header tabs (Tabs component) for detail page section nav — that's pattern A. Never use Tabs for grid view switching — that's pattern C, which is Breadcrumb-Links.
-      </div>
-
-      <h3>Common rules (all three)</h3>
-      <ul>
-        <li>Tabs sit <strong>flush</strong> on their surface — no padding around the tabs themselves</li>
-        <li>Content below tabs gets 16px padding</li>
-        <li>Tabs with left icons are standard — use MUI Outlined icons at 16px</li>
-        <li>Selected tab: bottom border matches surface color (hides the HR line) and gets a 2px primary-blue indicator at the <strong>top</strong>, not the bottom</li>
-        <li>Selected tab has rounded top corners (4px) plus 1px <span class="swatch" data-value="#E0E0E0"><span class="dot" style="background:#E0E0E0"></span>#E0E0E0</span> left + right strokes — reads as a card tab attached to the content</li>
-        <li><strong>Overflow:</strong> use the built-in scroll-arrow variant. Never wrap tabs to a second line, never truncate labels, never hide tabs in a dropdown.</li>
-      </ul>
-    </section>
-
-    <!-- ═══════════════════ §12 ═══════════════════ -->
-    <section id="s12">
-      <h2><span class="section-num">12</span>Detail page pattern</h2>
-      <p>Most detail pages (Worker, Order, Facility) use <strong>wrapper-level section tabs</strong> (§11 pattern A) and a <strong>multi-column layout within each tab</strong>.</p>
-
-      <div class="mock-frame">
-        <div class="layer-wrapper" style="position: relative;">
-          <div class="tab-strip wrapper-level" style="margin: -16px -16px 16px;">
-            <div class="tab active">Overview</div>
-            <div class="tab">Credentials</div>
-            <div class="tab">Assignments</div>
-            <div class="tab">Timecards</div>
-            <div class="tab">Documents</div>
-            <div class="tab">Notes</div>
-          </div>
-          <div class="detail-mock">
-            <div class="rail-card"><div class="strip">Left rail</div><div class="body">Contact · Compliance · Tags · Quick-reference data about the subject</div></div>
-            <div class="rail-card"><div class="strip">Center column</div><div class="body">Dense tab content — assignment history table, credentials list, timecard grid…</div></div>
-            <div class="rail-card"><div class="strip">Right rail</div><div class="body">Active assignment · Bill rates · Account team · Recent activity</div></div>
-          </div>
-        </div>
-      </div>
-
-      <ul>
-        <li><strong>Subject identity belongs in the PHT</strong>, not a repeated card on every tab. Title, status chips, eyebrow ID, primary actions live there.</li>
-        <li><strong>Tabs swap the entire layout below</strong> — different tabs can use different rail compositions, single column, two column. Adapt per tab content.</li>
-        <li><strong>Common rail roles:</strong> left = supplemental identity / compliance, center = dense tab content, right = contextual support info.</li>
-      </ul>
-
-      <h3>Center column — grouping content</h3>
-      <ul>
-        <li>Related data groups into bordered paper containers (certification + license together, profession/specialty/experience as a row group)</li>
-        <li>Sub-groups within a container use internal borders <span class="swatch" data-value="#E0E0E0"><span class="dot" style="background:#E0E0E0"></span>#E0E0E0</span> to separate rows — not nested cards</li>
-      </ul>
-
-      <h3>Key-value pair display</h3>
-      <ul>
-        <li><strong>Label:</strong> Caption (12px), text.secondary — left-aligned</li>
-        <li><strong>Value:</strong> Body2 (14px), text.primary — right-aligned</li>
-        <li>Rows separated by horizontal border <span class="swatch" data-value="#E0E0E0"><span class="dot" style="background:#E0E0E0"></span>#E0E0E0</span></li>
-      </ul>
-    </section>
-
-    <!-- ═══════════════════ §13 ═══════════════════ -->
-    <section id="s13">
-      <h2><span class="section-num">13</span>Form layout</h2>
-      <table>
-        <thead><tr><th>Property</th><th>Token</th><th>Value</th></tr></thead>
-        <tbody>
-          <tr><td>Vertical gap between fields</td><td><code>spacing.lg</code></td><td>24px</td></tr>
-          <tr><td>Horizontal gap between columns</td><td><code>spacing.md</code></td><td>16px</td></tr>
-          <tr><td>Section divider margin</td><td><code>spacing.sm</code></td><td>8px top/bottom</td></tr>
-          <tr><td>Section title margin-bottom</td><td><code>spacing.sm</code></td><td>8px</td></tr>
-        </tbody>
-      </table>
-
-      <h3>Visual reference — 24px field gap</h3>
-      <div class="form-spacing-mock">
-        <div class="field"><label>First name</label><input value="Avery"><span class="gap-marker">24px</span></div>
-        <div class="field"><label>Last name</label><input value="Lopez"><span class="gap-marker">24px</span></div>
-        <div class="field"><label>License number</label><input value="RN-2249-CA"></div>
-      </div>
-
-      <ul>
-        <li>Form fields stack vertically with <strong>24px (spacing.lg)</strong> gap — mandatory, not 16px</li>
-        <li>Two-column form grids: <code>grid-template-columns: 1fr 1fr; gap: 24px 16px</code></li>
-        <li>Full-width fields (textareas, notes) span both columns</li>
-        <li>Checkboxes and radio groups: <strong>8px (spacing.sm)</strong> between options within the group</li>
-        <li>Form sections separated by 1px <span class="swatch" data-value="#E0E0E0"><span class="dot" style="background:#E0E0E0"></span>#E0E0E0</span> divider with 8px margin above/below</li>
-        <li>Section titles use Subtitle2 (14px, Medium 500)</li>
-        <li>Most forms live in <strong>modals</strong>, not on their own page. If too complex for 900px, break into steps — don't make the modal bigger.</li>
-      </ul>
-    </section>
-
-    <!-- ═══════════════════ §14 ═══════════════════ -->
-    <section id="s14">
-      <h2><span class="section-num">14</span>Data display &amp; formatting</h2>
-      <h3>Data formats</h3>
-      <table>
-        <thead><tr><th>Type</th><th>Format</th><th>Example</th></tr></thead>
-        <tbody>
-          <tr><td>Dates</td><td>MM/DD/YYYY</td><td>04/02/2024</td></tr>
-          <tr><td>Currency</td><td>$X,XXX.XX</td><td>$800.00</td></tr>
-          <tr><td>Phone</td><td>(XXX) XXX-XXXX</td><td>(215) 555-1212</td></tr>
-          <tr><td>Links / clickable text</td><td>Primary blue <span class="swatch" data-value="#2196F3"><span class="dot" style="background:#2196F3"></span>#2196F3</span></td><td>Email addresses, IDs that navigate, any text that triggers an action</td></tr>
-        </tbody>
-      </table>
-
-      <h3>Long text truncation</h3>
-      <p>Truncate and show a <strong>"Show More" link</strong> styled in primary blue. The number of visible lines depends on context — no fixed line count.</p>
-
-      <h3>Loading states</h3>
-      <ul>
-        <li><strong>Spinners only.</strong> No skeleton loading screens.</li>
-        <li>If loading takes &gt; 2 seconds, pair the spinner with a text label ("Loading credentials…")</li>
-      </ul>
-
-      <h3>Empty states</h3>
-      <ul>
-        <li><strong>AG Grid:</strong> "No rows to display" centered. No icons, no illustrations, no action buttons.</li>
-        <li><strong>Cards / pages:</strong> Explain why it's empty and suggest an action. No sad illustrations.</li>
-      </ul>
-    </section>
-
-    <!-- ═══════════════════ §15 ═══════════════════ -->
-    <section id="s15">
-      <h2><span class="section-num">15</span>Edit, delete &amp; alert patterns</h2>
-      <h3>Edit &amp; delete affordances</h3>
-      <ul>
-        <li><strong>Pencil icon</strong> — standard edit trigger. Used on grid rows and inline edit actions.</li>
-        <li><strong>Trashcan icon</strong> — standard remove/delete trigger.</li>
-        <li><strong>Grid row editing</strong> — always opens a modal. Do not inline-edit within the grid.</li>
-        <li><strong>Detail page editing</strong> — typically via modal. Default to modal unless Jesse says otherwise.</li>
-      </ul>
-
-      <h3>Callout / alert containers</h3>
-      <p>When content needs semantic emphasis (critical requirements, compliance warnings, important instructions), wrap it in a container with a <strong>full border using the info color</strong> <span class="swatch" data-value="#54afca"><span class="dot" style="background:#54afca"></span>info.main</span>. Not a left-accent-only treatment — full border around the container.</p>
-      <p>Use sparingly — for content the user must not miss, not general highlighting.</p>
-
-      <h3>Alert color cohesion</h3>
-      <p>When using the Alert component, every colored element inside the alert uses the <strong>same semantic color</strong> — the one matching severity. Border, icon, title, description, and action buttons all share that one color.</p>
-      <table>
-        <thead><tr><th>Severity</th><th>Single color used everywhere</th></tr></thead>
-        <tbody>
-          <tr><td>Info</td><td><span class="swatch" data-value="#54AFCA"><span class="dot" style="background:#54AFCA"></span>#54AFCA</span></td></tr>
-          <tr><td>Success</td><td><span class="swatch" data-value="#388E3C"><span class="dot" style="background:#388E3C"></span>#388E3C</span></td></tr>
-          <tr><td>Warning</td><td><span class="swatch" data-value="#E17109"><span class="dot" style="background:#E17109"></span>#E17109</span></td></tr>
-          <tr><td>Error</td><td><span class="swatch" data-value="#DB4537"><span class="dot" style="background:#DB4537"></span>#DB4537</span></td></tr>
-        </tbody>
-      </table>
-      <div class="callout warn">
-        <div class="callout-title">Don't</div>
-        Don't mix the semantic color (border + icon) with text.primary / text.secondary for the title and description. The alert reads as a single semantic block. (Exception: the <code>contained</code> filled variant where the background carries the color and text is contrastText/white — still one coordinated choice, just inverted.)
-      </div>
-    </section>
-
-    <!-- ═══════════════════ §16 ═══════════════════ -->
-    <section id="s16">
-      <h2><span class="section-num">16</span>Content surfaces — modal, panel, inline</h2>
-      <p>Three ways to show secondary content. Choice depends on whether the user is completing an action, referencing information, or optionally digging deeper.</p>
-
-      <div class="pattern-grid">
-        <div class="pattern-card">
-          <div class="head">
-            <div class="label">Current standard</div>
-            <div class="title">Modal</div>
-          </div>
-          <div class="body-text">
-            <strong>Used for:</strong> completing actions (create / edit / save), reviewing snapshots, destructive confirmations.<br><br>
-            Interrupts the workflow — user must complete or dismiss. Intentional for actions that change data.<br><br>
-            <strong>Large:</strong> 900px — complex forms, multi-step, data-heavy.<br>
-            <strong>Small:</strong> 500px — confirmations, simple single-action dialogs.<br><br>
-            If too complex for 900px, break into steps — don't make the modal bigger.
-          </div>
-        </div>
-        <div class="pattern-card">
-          <div class="head">
-            <div class="label">Newer direction</div>
-            <div class="title">Panel</div>
-          </div>
-          <div class="body-text">
-            Side panels that let the user reference detail without losing context.<br><br>
-            <strong>Layout-driven</strong>, not a fixed-width component — use the 12-column grid (e.g. panel = 4 cols, main = 8 cols).<br><br>
-            For <strong>referencing and reviewing</strong>, not for completing multi-field forms.<br><br>
-            Digital Workers is the primary testing ground. Specific defaults TBD.
-          </div>
-        </div>
-        <div class="pattern-card">
-          <div class="head">
-            <div class="label">Optional dig-in</div>
-            <div class="title">Inline expansion</div>
-          </div>
-          <div class="body-text">
-            For secondary content the user might want to dig into but doesn't need by default.<br><br>
-            Content expands in-place — no overlay, no interruption.<br><br>
-            Used when expanded content is subordinate to the primary content around it.<br><br>
-            Collapse/expand is the user's choice — don't auto-expand.
-          </div>
-        </div>
-      </div>
-
-      <div class="callout">
-        <div class="callout-title">Future direction</div>
-        Long-term direction is moving away from modals toward more responsive, contextual experiences (panels, inline) rather than interrupting overlays. Digital Workers demonstrates this. Until proven and adopted, <strong>modals remain the default for all existing TRIO projects</strong>.
-      </div>
-    </section>
-
-    <!-- ═══════════════════ §17 ═══════════════════ -->
-    <section id="s17">
-      <h2><span class="section-num">17</span>Still needs definition</h2>
-      <ul>
-        <li>☑ <s>Page Header — full spec of each variant and when to use each</s> <em>(§3–4)</em></li>
-        <li>☑ <s>Frameless header — exact spec</s> <em>(NewCanvas variant, §4)</em></li>
-        <li>☑ <s>Modal behavior rules</s> <em>(§12)</em></li>
-        <li>☐ <strong>Full-width layout</strong> — exact spec for Digital Workers / AI pages. Trimmed-down header exists in DW designs but is placement-only. Full requirements TBD — will be spec'd collaboratively with Jesse when ready.</li>
-        <li>☐ <strong>Panel pattern defaults</strong> — standard column splits, animation behavior, when panel vs modal</li>
-      </ul>
-    </section>
-
-    <footer>
-      Last updated 2026-05-07 · Source: Jesse Szygiel (Lead UX Designer, AHTG)<br>
-      Canonical source: <code>PAGE_ARCHITECTURE.md</code>. This HTML is a rendering of that file.
-    </footer>
-  </main>
-
-  <!-- ────── Right-side page ToC ────── -->
-  <aside class="page-toc" aria-label="On this page">
-    <div class="page-toc-label">On this page</div>
-    <ul>
-      <li><a href="#s1"><span class="num">01</span><span>Page anatomy</span></a></li>
-      <li><a href="#s2"><span class="num">02</span><span>Elevation &amp; shadows</span></a></li>
-      <li><a href="#s3"><span class="num">03</span><span>Navigation header</span></a></li>
-      <li><a href="#s4"><span class="num">04</span><span>Page header toolbar</span></a></li>
-      <li><a href="#s5"><span class="num">05</span><span>Color usage</span></a></li>
-      <li><a href="#s6"><span class="num">06</span><span>Layout</span></a></li>
-      <li><a href="#s7"><span class="num">07</span><span>Responsive floor</span></a></li>
-      <li><a href="#s8"><span class="num">08</span><span>Typography</span></a></li>
-      <li><a href="#s9"><span class="num">09</span><span>Component defaults</span></a></li>
-      <li><a href="#s10"><span class="num">10</span><span>Grid pages</span></a></li>
-      <li><a href="#s11"><span class="num">11</span><span>Tab patterns</span></a></li>
-      <li><a href="#s12"><span class="num">12</span><span>Detail page</span></a></li>
-      <li><a href="#s13"><span class="num">13</span><span>Forms</span></a></li>
-      <li><a href="#s14"><span class="num">14</span><span>Data display</span></a></li>
-      <li><a href="#s15"><span class="num">15</span><span>Edit, delete, alerts</span></a></li>
-      <li><a href="#s16"><span class="num">16</span><span>Content surfaces</span></a></li>
-      <li><a href="#s17"><span class="num">17</span><span>Needs definition</span></a></li>
-    </ul>
-  </aside>
-</div>
-
-<script>
-  // ────── Click-to-copy on swatches ──────
-  document.addEventListener('click', (e) => {
-    const swatch = e.target.closest('.swatch');
-    if (!swatch) return;
-    const value = swatch.dataset.value;
-    navigator.clipboard.writeText(value).then(() => {
-      swatch.classList.add('copied');
-      const originalText = swatch.textContent;
-      const dot = swatch.querySelector('.dot');
-      const dotHTML = dot ? dot.outerHTML : '';
-      swatch.innerHTML = dotHTML + ' Copied!';
-      setTimeout(() => {
-        swatch.classList.remove('copied');
-        swatch.innerHTML = dotHTML + ' ' + value;
-      }, 900);
-    });
-  });
-
-  // ────── Active section highlight — drives the right page ToC ──────
-  const sections = Array.from(document.querySelectorAll('section[id]'));
-  const tocLinks = Array.from(document.querySelectorAll('.page-toc a'));
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const id = entry.target.id;
-        tocLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
-      }
-    });
-  }, { rootMargin: '-30% 0px -60% 0px' });
-  sections.forEach(s => observer.observe(s));
-</script>
+<aside class="sidebar"></aside>
+<main class="main-content">
+  <div class="doc-banner">
+    <span class="material-icons-outlined">auto_awesome</span>
+    <span>This page is auto-generated from <code>PAGE_ARCHITECTURE.md</code>. To update, edit the markdown file and push — CI rebuilds this page on every deploy.</span>
+  </div>
+  <article class="doc-content">
+<h1>TRIO WFS Page Architecture Rules</h1>
+<p>Rules for how pages are assembled from components. Read alongside <code>design-tokens/tokens.ts</code> and the component library.</p>
+<blockquote>
+<p><strong>Canonical source.</strong> This file is the authoritative source for layout, color usage, component defaults, page composition, tabs, grids, forms, alerts, and content surfaces. Other docs (<code>README.md</code>, both <code>CLAUDE.md</code> files, <code>COMPONENT_TEMPLATE.md</code>, <code>DIGITAL_JESSE.md</code>) point here instead of restating these rules. If a rule appears to be duplicated elsewhere, this file wins.</p>
+<p>Token values are owned by <code>design-tokens/tokens.ts</code>, not this file. This file references token <em>roles</em> and <em>usage</em>, not literal hex values where avoidable.</p>
+<p><strong>For engineers:</strong> These rules are non-negotiable. Components are built to enforce them — do not override.
+<strong>For Claude:</strong> Read this before producing any UI output for TRIO WFS projects.</p>
+</blockquote>
+<hr>
+<h2>1. Page Anatomy — Layer Order</h2>
+<p>Every TRIO page is built from 3 background layers, top to bottom:</p>
+<pre><code>┌─────────────────────────────────────────────────┐
+│  background.default (#F5F5F5)  ← page canvas    │
+│  ← 16px padding on all sides of the canvas      │
+│  ┌───────────────────────────────────────────┐  │
+│  │  PageHeaderToolbar (paper, bordered)      │  │
+│  └───────────────────────────────────────────┘  │
+│  ← 16px gap                                     │
+│  ┌───────────────────────────────────────────┐  │
+│  │  background.secondary (#FAFAFA) wrapper    │  │
+│  │  + 1px #E0E0E0 border + 4px radius         │  │
+│  │  ← 16px internal padding around tab content│  │
+│  │  ┌─────────────┐  ┌─────────────────────┐ │  │
+│  │  │ background  │  │ background.paper    │ │  │
+│  │  │ .paper      │  │ (#FFFFFF)           │ │  │
+│  │  │ (#FFFFFF)   │  │  ┌───────────────┐  │ │  │
+│  │  │             │  │  │ background    │  │ │  │
+│  │  │             │  │  │ .paper        │  │ │  │
+│  │  └─────────────┘  │  └───────────────┘  │ │  │
+│  │                   └─────────────────────┘ │  │
+│  └───────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────┘
+</code></pre>
+<h3>Rules</h3>
+<ul>
+<li><strong><code>background.default</code> (<code>#F5F5F5</code>)</strong> — page canvas only. Nothing else uses this value. The canvas has <strong>16px padding on all four sides</strong> — the PHT and content wrapper both sit within this padded area, never running to the browser edge. (The future full-width PHT variant is the only exception — see §4.)<ul>
+<li><strong>Exception — NavigationVertical edge.</strong> When <code>NavigationVertical</code> is the immediate left neighbor of the content wrapper, the canvas&#39;s <strong>left padding is 0</strong>. The rail&#39;s right-edge internal padding (16px from the selected item to the rail edge) already provides the canonical inset; doubling them yields a 32px gap that reads as wrong even though every individual value is &quot;correct.&quot; Same logic applies if a vertical rail is added on the right.</li>
+</ul>
+</li>
+<li><strong><code>background.secondary</code> (<code>#FAFAFA</code>)</strong> — the single content wrapper that fills the page below the PHT. Has the <strong>same paper border treatment</strong> as other containers: <code>1px solid #E0E0E0</code> + 4px radius. Tabs sit flush at the top of this wrapper (see §11); tab content gets 16px padding inside it.</li>
+<li><strong><code>background.paper</code> (<code>#FFFFFF</code>)</strong> — all cards, panels, containers, and components. Paper can nest inside paper (e.g. a card inside a panel, both paper). No exceptions.</li>
+<li><strong>Border stroke</strong> — every container surface (paper <em>and</em> the <code>#FAFAFA</code> wrapper) uses <code>border: 1px solid</code> <code>components.border.default</code> (<code>#E0E0E0</code>). No elevation.</li>
+</ul>
+<hr>
+<h2>2. Elevation &amp; Shadows</h2>
+<p>Drop shadows are <strong>only</strong> used on floating/overlay elements:</p>
+<ul>
+<li>Modals</li>
+<li>Menus</li>
+<li>Popovers</li>
+<li>Breadcrumb dropdowns</li>
+</ul>
+<p><strong>Never</strong> use drop shadows on:</p>
+<ul>
+<li>Cards</li>
+<li>Panels</li>
+<li>Containers</li>
+<li>Any paper surface that is part of the page layout</li>
+</ul>
+<p>Token to use when shadows are appropriate: <code>tokens.shadows.sm</code></p>
+<hr>
+<h2>3. Navigation Header</h2>
+<p>The NavigationHeader sits fixed at the very top of every page. It is always present and always the same — no variants.</p>
+<ul>
+<li>16px padding-bottom separating it from the page content below</li>
+<li><strong>Exception:</strong> Digital Workers and future AI layouts omit the NavigationHeader entirely</li>
+</ul>
+<hr>
+<h2>4. PageHeaderToolbar</h2>
+<p>The toolbar below the NavigationHeader. Three variants, each for a different page context.</p>
+<h3>Variants</h3>
+<table>
+<thead>
+<tr>
+<th>Variant</th>
+<th>Background</th>
+<th>Border</th>
+<th>Breadcrumb</th>
+<th>When to use</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong><code>full</code></strong> (default)</td>
+<td>Paper (#FFFFFF)</td>
+<td>1px solid #E0E0E0</td>
+<td>Yes</td>
+<td>Most existing TRIO pages — title, breadcrumb, actions, optional chips/eyebrow</td>
+</tr>
+<tr>
+<td><strong><code>default</code></strong></td>
+<td>Paper (#FFFFFF)</td>
+<td>1px solid #E0E0E0</td>
+<td>No</td>
+<td>Pages that don&#39;t need breadcrumb navigation</td>
+</tr>
+<tr>
+<td><strong><code>NewCanvas</code></strong></td>
+<td>Transparent</td>
+<td>None</td>
+<td>Optional</td>
+<td>Modern/minimal direction — sits flush on a secondary-background &quot;canvas&quot;. Used on Programs page. Has scroll-triggered bottom divider.</td>
+</tr>
+</tbody></table>
+<h3>Elements (all optional, shown when provided)</h3>
+<ul>
+<li><strong>Breadcrumb row</strong> — top of toolbar (<code>full</code> and <code>NewCanvas</code> only). Can be swapped for sub-section tabs.</li>
+<li><strong>Page title</strong> — always present</li>
+<li><strong>Eyebrow text</strong> — small caption below the title</li>
+<li><strong>Chip tags</strong> — inline status indicators (<code>full</code> only)</li>
+<li><strong>Title icons</strong> — small icons next to the title</li>
+<li><strong>Action buttons / button groups</strong> — right-aligned</li>
+<li><strong>Status indicator</strong> — left color bar</li>
+</ul>
+<h3>Floating vs Attached</h3>
+<p>The toolbar either <strong>floats</strong> (16px gap to content) or <strong>attaches</strong> (no gap, shared border with content below). The choice depends on whether the toolbar controls the content directly.</p>
+<p><strong>Floating (16px gap):</strong></p>
+<ul>
+<li>Toolbar is a standalone bar with title and actions</li>
+<li>Content below is independent — cards, panels, forms</li>
+<li>This is the default behavior</li>
+</ul>
+<p><strong>Attached (no gap):</strong></p>
+<ul>
+<li>Toolbar&#39;s breadcrumb row is swapped for sub-section tabs</li>
+<li>Those tabs control which AG Grid view is shown below</li>
+<li>The toolbar and grid share one continuous border — they&#39;re one visual unit</li>
+<li>The tabs need a direct visual relationship to the content they switch</li>
+</ul>
+<h3>Key rules</h3>
+<ul>
+<li><strong>Header tabs are only for grid switching</strong> — tabbing between AG Grid views on list pages</li>
+<li><strong>Detail pages</strong> (candidate, job, facility) use the Tabs component <strong>at the content wrapper level</strong> for section navigation — never header tabs. See §11.</li>
+<li>Never invent a new header layout — always use a variant of PageHeaderToolbar</li>
+<li>If a page has no actions, remove the button group entirely rather than disabling buttons</li>
+</ul>
+<h3>Page placement — inset 16px from canvas edges</h3>
+<p>The PHT sits inside the page canvas&#39;s 16px padding (see §1). It does <strong>not</strong> run to the browser edge — <code>#F5F5F5</code> shows as a 16px gutter on the top, left, and right. Below it is a 16px gap to the content wrapper.</p>
+<p>Internal padding inside the PHT itself is 16px on all sides of the main row.</p>
+<p><strong>Future:</strong> a full-width PHT variant is planned for Digital Workers / AI layouts. That variant <em>will</em> run edge-to-edge with no canvas padding around it. It is not yet shipped — until then, treat all PHT use as inset.</p>
+<h3>Actions — slot composition</h3>
+<p>The right side of the PHT has three explicit slots: <code>inputTextFieldContent</code>, <code>buttonGroupContent</code>, and <code>singleButtonContent</code>. Use them for what they&#39;re named for; do not pour loose buttons into the actions area.</p>
+<table>
+<thead>
+<tr>
+<th>Slot</th>
+<th>Component</th>
+<th>Use for</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>inputTextFieldContent</code></td>
+<td><code>TextField</code> or <code>SearchBar</code></td>
+<td>Search / filter input scoped to the page</td>
+</tr>
+<tr>
+<td><code>buttonGroupContent</code></td>
+<td><code>ButtonGroup</code> (one or more)</td>
+<td>Connected secondary actions — icon trios (filter / columns / more), or labeled clusters (Export / Print)</td>
+</tr>
+<tr>
+<td><code>singleButtonContent</code></td>
+<td><code>Button</code></td>
+<td>The single primary action for the page (e.g. &quot;+ New Worker&quot;, &quot;Save Changes&quot;)</td>
+</tr>
+</tbody></table>
+<p>Multiple <code>ButtonGroup</code>s can sit in the actions area when actions cluster naturally — typically one icon-only group for grid controls and one labeled group for data actions, plus the primary <code>Button</code> on the far right.</p>
+<p><strong>Don&#39;t:</strong></p>
+<ul>
+<li>Drop loose <code>Button</code> or <code>IconButton</code> instances next to each other in the actions area. Group them via <code>ButtonGroup</code> so they share one outer border and internal dividers, matching the segmented chrome the rest of the system uses.</li>
+<li>Put primary actions inside a <code>ButtonGroup</code> of secondary actions. The primary action is its own <code>Button</code> in <code>singleButtonContent</code>.</li>
+</ul>
+<h3>Variant choice for grid pages</h3>
+<p>Standalone grid pages (§10) use the <strong><code>full</code> variant</strong> of PHT — the <code>breadcrumbContent</code> slot is filled with the <strong>Breadcrumb component in <code>state=&quot;Links&quot;</code></strong>, which renders the grid view switcher (<code>All | Active | Pending | …</code>). Don&#39;t use the <code>default</code> variant on grid pages; you&#39;d lose the slot the view switcher needs to live in.</p>
+<hr>
+<h2>5. Color Usage Rules</h2>
+<h3>Background hierarchy (see Section 1)</h3>
+<ul>
+<li>Never use <code>background.default</code> (<code>#F5F5F5</code>) for a card or container — that&#39;s the page canvas only</li>
+<li>Never use <code>background.secondary</code> (<code>#FAFAFA</code>) for a card — that&#39;s the content wrapper only</li>
+</ul>
+<h3>Primary blue (<code>#2196F3</code>)</h3>
+<ul>
+<li>Save and Update actions only</li>
+<li>Not for navigation, not for status indicators, not for decorative use</li>
+</ul>
+<h3>Data viz / accent teal (<code>#37636b</code> — <code>tokens.colors.dataViz.teal</code>)</h3>
+<ul>
+<li>Metric card bars, stepper indicators, charts</li>
+<li>Complements the primary blue palette without competing with it</li>
+<li>Not for buttons, not for status chips</li>
+<li><strong>Stepper specifically:</strong> active step circle fill, completed checkmark icon, and connectors between completed steps all use teal. The current <code>Stepper.tsx</code> implementation uses primary blue — that is a known drift to be aligned to this rule, not the rule to follow.</li>
+</ul>
+<h3>Semantic colors — use only for status and feedback</h3>
+<table>
+<thead>
+<tr>
+<th>Color</th>
+<th>Token</th>
+<th>Value</th>
+<th>Use for</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Success</td>
+<td><code>success.main</code></td>
+<td><code>#388e3c</code></td>
+<td>Positive outcomes, active/filled status</td>
+</tr>
+<tr>
+<td>Warning</td>
+<td><code>warning.main</code></td>
+<td><code>#E17109</code></td>
+<td>Caution, approaching a limit</td>
+</tr>
+<tr>
+<td>Error</td>
+<td><code>error.main</code></td>
+<td><code>#DB4537</code></td>
+<td>Failures, destructive actions, rejections</td>
+</tr>
+<tr>
+<td>Info</td>
+<td><code>info.main</code></td>
+<td><code>#54afca</code></td>
+<td>Informational, neutral callouts</td>
+</tr>
+</tbody></table>
+<p>Never use semantic colors for decorative purposes or general UI chrome.</p>
+<h3>What never gets a color</h3>
+<ul>
+<li>Page backgrounds (always default/secondary/paper)</li>
+<li>Borders (always <code>#E0E0E0</code>)</li>
+<li>Dividers (always <code>#E0E0E0</code>)</li>
+</ul>
+<hr>
+<h2>6. Layout Rules</h2>
+<h3>Standard pages</h3>
+<ul>
+<li>16px padding inside the <code>background.secondary</code> content wrapper</li>
+<li>12-column grid, 16px gutters</li>
+<li>Desktop-first — 1440px viewport target. Layout primitives stack below 1200px (<code>lg</code>) per Section 7. This is a graceful floor, not mobile support.</li>
+</ul>
+<h3>Full-width pages (Digital Workers, future AI layouts)</h3>
+<ul>
+<li>No outer 16px padding — content stretches to the browser edge</li>
+<li>Header still present but frameless</li>
+<li>Same paper/border rules apply inside</li>
+</ul>
+<hr>
+<h2>7. Responsive Floor — Below <code>lg</code> (1200px)</h2>
+<p>TRIO is desktop-first. The intended viewport is 1440px. Below ~1200px (MUI&#39;s <code>lg</code> breakpoint), the experience is <strong>degraded, not designed</strong> — the goal is graceful stacking instead of squishing, so a user on a narrower window sees something readable, not broken.</p>
+<p>This is not mobile support. Tables and dense workflows still require desktop, and the navigation components are TBD (see below). The responsive floor only ensures layout primitives don&#39;t visually collapse.</p>
+<h3>Fluid widths, snap arrangement</h3>
+<p><strong>Width is fluid; arrangement is discrete.</strong></p>
+<p>Containers grow and shrink with the browser within a breakpoint range. A 4-up <code>MetricCard</code> row at 1440px is the same 4-up row at 1280px — each card just gets proportionally narrower. The <em>arrangement</em> (4-up vs 2-up vs stacked, row vs column, multi-column vs single-column) only changes when the browser crosses a defined breakpoint, where it snaps cleanly to the new layout.</p>
+<p>So desktop sizes from 1200 to 1920+ all see the same arrangement, just with fluid widths. The &quot;snap&quot; happens when the browser crosses <em>below</em> a primitive&#39;s defined breakpoint — never gradually in between.</p>
+<p>This avoids two failure modes: rigid containers that leave dead margins on wide monitors, and squished half-wrapped middle states that come from also reflowing arrangement fluidly.</p>
+<h3>The breakpoints</h3>
+<ul>
+<li><strong>Default floor:</strong> <code>lg</code> (1200px). Most layout primitives stack below this.</li>
+<li><strong>Some primitives stack later</strong> at <code>md</code> (900px) — see the table below.</li>
+<li><strong>Above each primitive&#39;s defined breakpoint:</strong> normal desktop layout — rows, multi-column grids, side-by-side cards.</li>
+<li>Use only MUI&#39;s standard breakpoints (<code>xs:0, sm:600, md:900, lg:1200, xl:1536</code>). Never invent custom pixel values.</li>
+</ul>
+<h3>What stacks, and when</h3>
+<p>Each primitive has a defined breakpoint at which it snaps to stacked:</p>
+<table>
+<thead>
+<tr>
+<th>Primitive</th>
+<th>Stacks at</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>PageHeaderToolbar</code></td>
+<td><code>lg</code> (1200)</td>
+<td>Title row and action row stack vertically; chips/eyebrow stay inline with the title</td>
+</tr>
+<tr>
+<td>Filter bars</td>
+<td><code>lg</code> (1200)</td>
+<td>Filter inputs/chips wrap, then stack</td>
+</tr>
+<tr>
+<td><code>MetricCard</code> rows</td>
+<td><code>md</code> / <code>sm</code></td>
+<td>4-up at <code>lg</code> → 2-up at <code>md</code> → 1-up at <code>sm</code></td>
+</tr>
+<tr>
+<td>Two-column form sections</td>
+<td><code>md</code> (900)</td>
+<td>Collapse to single column</td>
+</tr>
+<tr>
+<td>Detail page rails (Section 12)</td>
+<td><code>md</code> (900)</td>
+<td>Left/center/right collapse to a single stacked column</td>
+</tr>
+</tbody></table>
+<h3>What does NOT stack</h3>
+<p>These remain desktop-only and are out of scope for the responsive floor:</p>
+<ul>
+<li><strong>AG Grid tables</strong> — horizontal scroll is the fallback. If a grid is unusable below <code>lg</code>, the page should display a &quot;best viewed on desktop&quot; notice rather than re-architect the grid.</li>
+<li><strong>Modals</strong> — already width-constrained (500/900px); stay centered.</li>
+<li><strong>The page shell itself</strong> — the 12-column grid wrapper does not change.</li>
+</ul>
+<h3>Navigation — needs definition</h3>
+<p>Both <code>NavigationHeader</code> and <code>NavigationVertical</code> need responsive behavior defined together — their treatments are paired (e.g. collapsed rail + slim header, drawer pattern). Until we work this through:</p>
+<ul>
+<li><code>NavigationHeader</code> retains its full layout at all widths (no overflow menu yet).</li>
+<li><code>NavigationVertical</code> retains its desktop layout at all widths (no collapse / drawer behavior yet).</li>
+</ul>
+<p>This section will be updated once the navigation responsive behavior is settled.</p>
+<h3>Implementation</h3>
+<p>Stacking behavior is baked into the layout primitives — consumers should not have to write <code>sx</code> overrides at every call site. A page using <code>&lt;PageHeaderToolbar&gt;</code> should get correct stacking automatically.</p>
+<p>When a one-off <code>sx</code> override is genuinely needed, follow this shape:</p>
+<pre><code class="language-tsx">sx={{
+  display: &#39;flex&#39;,
+  flexDirection: { xs: &#39;column&#39;, lg: &#39;row&#39; },
+  gap: { xs: 2, lg: 3 },
+}}
+</code></pre>
+<p><code>xs</code> is the lowest-breakpoint default; <code>lg</code> is where the desktop layout kicks in. Nothing in between needs a value.</p>
+<hr>
+<h2>8. Typography Rules</h2>
+<ul>
+<li><strong>Font:</strong> Roboto only — no Inter, no system-ui</li>
+<li><strong>Max headline:</strong> H5 (24px) for page headers</li>
+<li><strong>Page titles:</strong> H5 or H6 depending on header mode</li>
+<li><strong>Body copy:</strong> body1 (16px) for primary content, body2 (14px) for dense/secondary content</li>
+<li><strong>No uppercase text</strong> in UI — avoid <code>textTransform: uppercase</code> except for overline labels where explicitly called for in Figma</li>
+<li><strong>No font weights above 500 (Medium)</strong> — 700 is not used in TRIO UI</li>
+</ul>
+<h3>How to use typography in code</h3>
+<p>Typography is a <strong>token + theme system</strong>, not a wrapper component:</p>
+<ul>
+<li><strong>Tokens:</strong> <code>tokens.typography.h4</code>, <code>tokens.typography.caption</code>, etc. The full variant catalog is documented and rendered at <code>design-tokens-typography.html</code>.</li>
+<li><strong>In components:</strong> use MUI&#39;s <code>&lt;Typography variant=&quot;h4&quot;&gt;</code> from <code>@mui/material</code>. The Trio theme (<code>design-tokens/theme.ts</code>) wires every MUI typography variant to the matching token, so <code>&lt;Typography&gt;</code> renders Trio-compliantly inside <code>&lt;ThemeProvider theme={trioTheme}&gt;</code>.</li>
+<li><strong>There is no Trio <code>Typography</code> wrapper component</strong> — and one is not needed. The theme does the work. Importing <code>Typography</code> from <code>@trio-wfs/ui</code> will not work because it isn&#39;t exported. This is intentional, not a gap.</li>
+<li><strong>Never</strong> hand-style text elements (<code>&lt;h1 style={{fontSize: 34}}&gt;...</code>) — they bypass the theme entirely and reinvent token values that already exist.</li>
+</ul>
+<hr>
+<h2>9. Component Defaults</h2>
+<ul>
+<li><strong>Border radius:</strong> 4px standard, 999px pill (chips, badges, step circles)</li>
+<li><strong>Spacing:</strong> 4/8/12/16/24/32/40px only — no arbitrary values</li>
+<li><strong>Modals:</strong> 900px large, 500px small</li>
+<li><strong>Drawer:</strong> 400px standard width (legacy — panels on the 12-column grid are the future direction, see Section 16)</li>
+<li><strong>Icons:</strong> <code>@mui/icons-material</code> Outlined only — no other icon libraries</li>
+<li><strong>Icon size:</strong> 16x16 in buttons and tabs — always. No exceptions.</li>
+<li><strong>Data tables:</strong> <strong>AG Grid</strong> — always, no exceptions. Never MUI X DataGrid, never hand-rolled <code>&lt;table&gt;</code> markup. See §10 for grid layout rules (column dividers, paper-bg headers, horizontal scroll).</li>
+<li><strong>PageHeaderToolbar:</strong> title-to-eyebrow gap is 4px (<code>spacing.xs</code>)</li>
+<li><strong>Footer:</strong> sticky, 16px horizontal padding, 16px vertical padding on copy, <code>#E0E0E0</code> top border (standard component border, not input border)</li>
+<li><strong>NavigationVertical:</strong> never has a background color — always transparent</li>
+</ul>
+<h3>Control Heights</h3>
+<p>Every form-row interactive control renders at the standard sizes. The canonical source is <code>tokens.controls.height</code> — components read from it; no hardcoded <code>32</code> or <code>38</code> values anywhere.</p>
+<table>
+<thead>
+<tr>
+<th>Size</th>
+<th>Height</th>
+<th>Token</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>small</code></td>
+<td>32px</td>
+<td><code>tokens.controls.height.small</code></td>
+</tr>
+<tr>
+<td><code>medium</code></td>
+<td>38px</td>
+<td><code>tokens.controls.height.medium</code></td>
+</tr>
+</tbody></table>
+<p><strong>Applies to:</strong> Button, Select, TextField, Autocomplete, NumberField, DatePicker, SearchBar, ButtonIcon (contained variant), ToggleButton (medium).</p>
+<p><strong>Exception — compact icon-only controls (24px):</strong> <code>ButtonIcon</code> ghost variant small and <code>ToggleButton</code> small slots use <strong><code>tokens.controls.ghostHeight</code> (24px)</strong>. These affordances live in dense toolbars, grid filter rows, and breadcrumb actions where a 32px control would dominate the surrounding density. This is a Figma-sanctioned exception, not a drift — confirmed against component node 4819:14042 (ButtonIcon) and 6950:485 (ToggleButton).</p>
+<p>When adding a new interactive control, pull its height from <code>tokens.controls.height</code> so the rule is enforced structurally. Hardcoded values are drift waiting to happen.</p>
+<h3>ContentContainer — the standard paper surface</h3>
+<p>Every paper section on a page is a <code>ContentContainer</code>. Hand-rolled paper cards (white box + border + arbitrary header) are not allowed — use <code>ContentContainer</code> so the title strip stays consistent across the system.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Background</td>
+<td><code>background.paper</code> (<code>#FFFFFF</code>)</td>
+</tr>
+<tr>
+<td>Border</td>
+<td>1px solid <code>#E0E0E0</code></td>
+</tr>
+<tr>
+<td>Radius</td>
+<td>4px (or 0 when <code>flush</code>)</td>
+</tr>
+<tr>
+<td>Title strip background</td>
+<td><code>background.default</code> (<code>#F5F5F5</code>) — <strong>persistent</strong> across all containers</td>
+</tr>
+<tr>
+<td>Title strip height</td>
+<td>48px</td>
+</tr>
+<tr>
+<td>Title strip padding</td>
+<td>16px left, 8px right</td>
+</tr>
+<tr>
+<td>Title text</td>
+<td>Subtitle2 — 14px / 500 / 16.8px line-height, <code>text.primary</code></td>
+</tr>
+<tr>
+<td>Title actions slot</td>
+<td>Right-aligned: chips, icon buttons, small text buttons</td>
+</tr>
+<tr>
+<td>Body padding</td>
+<td>16px default (configurable per use)</td>
+</tr>
+<tr>
+<td>Bottom border under title</td>
+<td>1px solid <code>#E0E0E0</code></td>
+</tr>
+</tbody></table>
+<p>Containers can nest — a list of bordered KV rows inside a container body, or a smaller container inside a larger one. The title strip is required at the top level of each container.</p>
+<p><strong>Containers vs. components:</strong> standalone components like <code>Alert</code>, <code>MetricCard</code>, and <code>Stepper</code> already have their own structure and do <strong>not</strong> get wrapped in a ContentContainer or given a title strip. The rule applies to grouping cards/sections (Profile, Compliance, Profession &amp; specialty, Bill rates, etc.).</p>
+<hr>
+<h2>10. Grid Page Patterns</h2>
+<p><strong>Always use AG Grid for data tables in React.</strong> Hand-rolled <code>&lt;table&gt;</code> markup or MUI X DataGrid are not allowed. Static HTML prototypes mirror AG Grid&#39;s structure (column headers, filter row, zebra-striped data rows) so engineers can drop in <code>AgGridReact</code> when implementing.</p>
+<p>Two distinct patterns for data grids:</p>
+<h3>Standalone grid page</h3>
+<p>The PageHeaderToolbar connects directly to the AG Grid — no content wrapper between them, no gap. They share one continuous border. The PHT is the <strong><code>full</code> variant</strong>, with the <code>breadcrumbContent</code> slot occupied by the <strong>Breadcrumb component in <code>state=&quot;Links&quot;</code></strong> (pipe dividers) — this is the grid view switcher.</p>
+<pre><code>┌──────────────────────────────────────┐
+│  PageHeaderToolbar (full variant)    │  ← top row: title, chips, actions
+│  Title            [search] [⋯] [+]   │
+├──────────────────────────────────────┤  ← shared border, no gap
+│  All | Active | Pending | Inactive   │  ← Breadcrumb in state=&quot;Links&quot; (40px, #FAFAFA)
+├──────────────────────────────────────┤  ← shared border
+│  Col 1 │ Col 2 │ Col 3 │ ...    →   │  ← Column headers (40px, paper bg, body2)
+│  [___] │ [___] │ [   ] │ ...        │  ← Filter inputs (disabled if not searchable)
+│  data  │ data  │ data  │ ...        │  ← Data rows (42px, zebra stripe)
+└──────────────────────────────────────┘
+</code></pre>
+<h4>Structure &amp; borders</h4>
+<ul>
+<li>Header&#39;s bottom border IS the grid&#39;s top border. The whole assembly shares one outer <code>1px solid #E0E0E0</code>.</li>
+<li><strong>Vertical column dividers</strong> run through every row: <code>border-right: 1px solid #E0E0E0</code> on every header <code>th</code>, every filter cell, and every data <code>td</code>. The last cell in each row drops its right border so the outer frame stays clean.</li>
+<li>Reference: Figma node <code>5650:4810</code></li>
+</ul>
+<h4>Grid view switching — Breadcrumb-Links, not Tabs</h4>
+<p>The <code>Active | Pending | Inactive</code> switcher is the <strong>Breadcrumb component</strong>, rendered with <code>state=&quot;Links&quot;</code>:</p>
+<ul>
+<li>Same 40px height, same <code>background.secondary</code> (#FAFAFA), same caption (12px) text as a normal breadcrumb.</li>
+<li>Pipe <code>|</code> dividers (in <code>border.default</code> color) instead of slashes — that&#39;s the only visual difference from a regular breadcrumb.</li>
+<li>Non-selected items: primary-blue link text. Hover underlines.</li>
+<li>Selected item: <code>text.primary</code> color with a 2px primary-blue bottom border indicator on the item itself (matches the breadcrumb selected pattern).</li>
+<li>Optional inline count after each label, in <code>text.secondary</code>. Selected item flips its count to primary blue.</li>
+</ul>
+<p>This is the <strong>third tab pattern</strong> referenced in §11C — distinct from the Tabs component, which is <em>not</em> used for grid view switching.</p>
+<h4>Column headers — paper bg, 40px tall</h4>
+<ul>
+<li>Background: <code>background.paper</code> (#FFFFFF) — not <code>#F5F5F5</code>.</li>
+<li>Height: <strong>40px</strong>, matching the breadcrumb-Links strip directly above. Visually, the 40 → 40 rhythm reads as one continuous header band.</li>
+<li>Text: body2 medium — 14px / 500 / 21px line-height, <code>text.primary</code>.</li>
+<li>Sort indicator icons: 16px Material Outlined; <strong><code>unfold_more</code></strong> for unsorted columns in <code>text.disabled</code>, <strong><code>arrow_upward</code> / <code>arrow_downward</code></strong> for the active sort. The active sort icon uses <strong><code>components.icon.default</code> (#424242)</strong> — <em>never</em> primary blue. (Primary blue is reserved for Save/Update actions, see §5.)</li>
+<li><code>position: sticky; top: 0</code> so the header stays put under vertical scroll.</li>
+</ul>
+<h4>Horizontal scroll behavior</h4>
+<p>Grids must support a wide column count gracefully. <strong>Always allow horizontal scroll inside the grid container</strong> — never compress columns to fit:</p>
+<ul>
+<li>The <code>.ag-grid</code> container is <code>overflow: auto</code> (horizontal + vertical).</li>
+<li>The table is <code>width: max-content; min-width: 100%</code> — grows with content, never narrower than the container.</li>
+<li>Each cell is <code>white-space: nowrap</code> — content can&#39;t wrap and force odd row heights; it pushes into the horizontal scroll instead.</li>
+<li>Per-column widths are pinned via <code>&lt;colgroup&gt;</code> (or <code>colDef.width</code> in AG Grid). Default columns are sized for legibility, not &quot;fit the viewport.&quot;</li>
+<li>The PHT, breadcrumb-Links strip, and outer border stay fixed; only the grid body scrolls.</li>
+</ul>
+<p>When the column set grows beyond what fits, no layout breaks — the user scrolls. AG Grid&#39;s column pinning and the column-picker icon button (in the PHT&#39;s <code>buttonGroupContent</code> slot) handle the overflow ergonomics.</p>
+<h3>Grid inside a tab</h3>
+<p>When a grid appears inside a tabbed section, the tab content area has 16px padding around it. The grid is wrapped in a ContentContainer.</p>
+<pre><code>┌──────────────────────────────────────┐
+│  PageHeaderToolbar                   │
+├──────────────────────────────────────┤
+│ Tabs: Details | Tasks | Documents    │  ← flush to wrapper edge
+│  ┌────────────────────────────────┐  │
+│  │  16px padding                  │  │  ← content area inside tab
+│  │  ┌──────────────────────────┐  │  │
+│  │  │ ContentContainer (grid)  │  │  │
+│  │  └──────────────────────────┘  │  │
+│  └────────────────────────────────┘  │
+└──────────────────────────────────────┘
+</code></pre>
+<p>The same column-divider, paper-header, and horizontal-scroll rules apply inside the ContentContainer.</p>
+<hr>
+<h2>11. Tab Rules</h2>
+<p>There are <strong>three</strong> distinct uses for the Tabs component. Pick the right one.</p>
+<h3>A. Detail page section tabs — content wrapper level (most detail pages)</h3>
+<p>The primary section navigation on detail pages (Worker, Order, Facility, etc.). Tabs sit <strong>flush at the top of the <code>#FAFAFA</code> content wrapper</strong>, span its full width, and switching a tab swaps the <strong>entire content below</strong>, including the left and right rails. Each tab is its own page-shaped layout.</p>
+<pre><code>┌────────────────────────────────────────────┐  ← #FAFAFA wrapper, 1px #E0E0E0 border
+│ Overview · Credentials · Assignments · …   │  ← tabs flush at top, surface=&quot;secondary&quot;
+├────────────────────────────────────────────┤
+│   16px padding                             │
+│   ┌────────┐ ┌──────────────┐ ┌────────┐   │
+│   │ left   │ │   center     │ │ right  │   │  ← per-tab content (rails included)
+│   │ rail   │ │   column     │ │ rail   │   │
+│   └────────┘ └──────────────┘ └────────┘   │
+└────────────────────────────────────────────┘
+</code></pre>
+<ul>
+<li><strong>Surface:</strong> <code>surface=&quot;secondary&quot;</code> — the active tab&#39;s background blends with the <code>#FAFAFA</code> wrapper.</li>
+<li><strong>What swaps:</strong> everything below the tab strip. Rails are <strong>per tab</strong>, not persistent.</li>
+<li><strong>Identity / page subject:</strong> lives in the PageHeaderToolbar (title, chips, eyebrow), <em>not</em> repeated on every tab.</li>
+</ul>
+<h3>B. In-container tabs — inside a paper container</h3>
+<p>Used inside a single <code>ContentContainer</code> to switch between views of the same data set (e.g. &quot;Active / Completed / Cancelled&quot; on a list inside a card).</p>
+<ul>
+<li><strong>Surface:</strong> <code>surface=&quot;paper&quot;</code> — the active tab&#39;s background blends with the white container.</li>
+<li><strong>What swaps:</strong> only the content inside that container.</li>
+</ul>
+<h3>C. Header tabs — grid view switching only (list pages)</h3>
+<p>The view switcher inside a PageHeaderToolbar that flips between AG Grid views (<code>All / Active / Pending / Inactive</code>, etc.). Toolbar and grid share one continuous border (see §10, &quot;Standalone grid page&quot;).</p>
+<p><strong>This is <em>not</em> the Tabs component.</strong> It is rendered with the <strong>Breadcrumb component in <code>state=&quot;Links&quot;</code></strong> — the same chrome as a normal breadcrumb, just with <code>|</code> pipe dividers instead of <code>/</code> slashes. It lives in the <code>breadcrumbContent</code> slot of the PHT (full variant).</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Tabs (patterns A &amp; B)</th>
+<th>Breadcrumb-Links (pattern C)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Component</td>
+<td><code>Tabs</code> (MUI Tabs)</td>
+<td><code>Breadcrumb</code> with <code>state=&quot;Links&quot;</code></td>
+</tr>
+<tr>
+<td>Visual</td>
+<td>Card tabs — rounded top corners, L/R strokes, top primary-blue indicator</td>
+<td>Text links separated by <code>|</code>, with a 2px primary-blue bottom border on the selected item</td>
+</tr>
+<tr>
+<td>Surface</td>
+<td><code>secondary</code> (on #FAFAFA wrapper) or <code>paper</code> (inside container)</td>
+<td>Always <code>#FAFAFA</code> (matches breadcrumb chrome)</td>
+</tr>
+<tr>
+<td>Live where</td>
+<td>Top of content wrapper, or top of paper container</td>
+<td><code>breadcrumbContent</code> slot of PHT</td>
+</tr>
+<tr>
+<td>Switches</td>
+<td>Whole tab panel, including rails</td>
+<td>The grid view (data set the user sees)</td>
+</tr>
+<tr>
+<td>Counts</td>
+<td>No</td>
+<td>Optional inline <code>&lt;count&gt;</code> after each label</td>
+</tr>
+</tbody></table>
+<p><strong>Never use header tabs (Tabs component) for detail page section nav</strong> — that&#39;s pattern A. <strong>Never use Tabs for grid view switching</strong> — that&#39;s pattern C, which is Breadcrumb-Links.</p>
+<h3>Common rules (all three patterns)</h3>
+<ul>
+<li>Tabs sit <strong>flush</strong> on their surface — no padding around the tabs themselves</li>
+<li>Content below tabs gets 16px padding</li>
+<li>Tabs with left icons are standard — use MUI outlined icons at 16px</li>
+<li>The selected tab&#39;s bottom border matches the surface color (hides the HR line) and gets a 2px primary-blue indicator at the <strong>top</strong>, not the bottom</li>
+<li>The selected tab has rounded top corners (4px) plus 1px <code>#E0E0E0</code> left and right strokes — it reads as a card-tab attached to the content below</li>
+<li><strong>Overflow:</strong> when tabs exceed available width, use the built-in scroll arrow variant. Never wrap tabs to a second line, never truncate labels, never hide tabs in a dropdown.</li>
+</ul>
+<hr>
+<h2>12. Detail Page Pattern</h2>
+<p>Most detail pages (candidate, job, facility) use <strong>wrapper-level section tabs</strong> (§11, pattern A) and a <strong>multi-column layout within each tab</strong>:</p>
+<pre><code>NavigationHeader
+  PageHeaderToolbar (subject identity: title, chips, eyebrow, actions)
+  Content wrapper (#FAFAFA, bordered)
+    Tabs: Overview · Credentials · Assignments · Timecards · Documents · Notes
+    Per-tab content (each tab is its own layout):
+      Left rail (col-span 3) · Center column (col-span 6) · Right rail (col-span 3)
+</code></pre>
+<ul>
+<li><strong>Subject identity belongs in the PHT</strong>, not a repeated card on every tab. Title, status chips, eyebrow ID, and primary actions live there.</li>
+<li><strong>Tabs swap the entire layout below</strong> — different tabs can use different rail compositions, single column, two column, etc. Adapt per tab content.</li>
+<li><strong>Common per-tab rail roles:</strong><ul>
+<li><strong>Left rail</strong> — supplemental identity, contact, compliance, tags. Quick-reference data about the subject.</li>
+<li><strong>Center column</strong> — the dense content for that tab (assignment history table, credentials list, timecard grid, etc.).</li>
+<li><strong>Right rail</strong> — contextual info that supports the center content (active assignment, bill rates, account team, recent activity).</li>
+</ul>
+</li>
+</ul>
+<p>This is a common pattern, not mandatory. Some tabs are single-column, some use two. Adapt to the use case.</p>
+<h3>Center column — grouping content</h3>
+<p>Within the center column, related data groups into bordered paper containers:</p>
+<ul>
+<li>A container might hold certification + license info together</li>
+<li>Another container holds profession/specialty/experience as a row group</li>
+<li>Sub-groups within a container use internal borders (#E0E0E0) to separate rows — not nested cards</li>
+</ul>
+<p>The container signals &quot;these fields are connected.&quot;</p>
+<h3>Key-value pair display</h3>
+<p>The standard read-only data pattern across detail pages:</p>
+<ul>
+<li><strong>Label:</strong> Caption (12px), text.secondary — left-aligned</li>
+<li><strong>Value:</strong> Body2 (14px), text.primary — right-aligned</li>
+<li>Rows separated by horizontal border (#E0E0E0)</li>
+<li>Same pattern everywhere — detail cards, info panels, summary rails</li>
+</ul>
+<hr>
+<h2>13. Form Layout</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Token</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Vertical gap between fields</td>
+<td>spacing.lg</td>
+<td>24px</td>
+</tr>
+<tr>
+<td>Horizontal gap between columns</td>
+<td>spacing.md</td>
+<td>16px</td>
+</tr>
+<tr>
+<td>Section divider margin</td>
+<td>spacing.sm</td>
+<td>8px top/bottom</td>
+</tr>
+<tr>
+<td>Section title margin-bottom</td>
+<td>spacing.sm</td>
+<td>8px</td>
+</tr>
+</tbody></table>
+<h3>Rules</h3>
+<ul>
+<li>Form fields stack vertically with <strong>24px (spacing.lg)</strong> gap — mandatory, not 16px</li>
+<li>Two-column form grids: <code>grid-template-columns: 1fr 1fr; gap: 24px 16px</code></li>
+<li>Full-width fields (textareas, notes) span both columns</li>
+<li>Checkboxes and radio groups: <strong>8px (spacing.sm)</strong> between options within the group</li>
+<li>Form sections separated by 1px divider (<code>#E0E0E0</code>) with 8px margin above and below</li>
+<li>Section titles use Subtitle2 (14px, Medium 500)</li>
+<li>Most forms live in <strong>modals</strong>, not on their own page. If too complex for 900px, break into steps — don&#39;t make the modal bigger.</li>
+</ul>
+<hr>
+<h2>14. Data Display &amp; Formatting</h2>
+<h3>Data formats</h3>
+<table>
+<thead>
+<tr>
+<th>Data type</th>
+<th>Format</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Dates</td>
+<td>MM/DD/YYYY</td>
+<td>04/02/2024</td>
+</tr>
+<tr>
+<td>Currency</td>
+<td>$X,XXX.XX</td>
+<td>$800.00</td>
+</tr>
+<tr>
+<td>Phone</td>
+<td>(XXX) XXX-XXXX</td>
+<td>(215) 555-1212</td>
+</tr>
+<tr>
+<td>Links / clickable text</td>
+<td>Primary blue (#2196F3)</td>
+<td>Email addresses, IDs that navigate, any text that triggers an action</td>
+</tr>
+</tbody></table>
+<h3>Long text truncation</h3>
+<p>Truncate and show a <strong>&quot;Show More&quot; link</strong> styled in primary blue. The number of visible lines depends on context — no fixed line count. Use judgment based on container size.</p>
+<h3>Loading states</h3>
+<ul>
+<li><strong>Spinners only.</strong> No skeleton loading screens.</li>
+<li>If loading takes more than 2 seconds, pair the spinner with a text label (&quot;Loading credentials...&quot;)</li>
+</ul>
+<h3>Empty states</h3>
+<ul>
+<li><strong>AG Grid:</strong> &quot;No rows to display&quot; centered. No icons, no illustrations, no action buttons.</li>
+<li><strong>Cards / pages:</strong> Explain why it&#39;s empty and suggest an action. No sad illustrations.</li>
+</ul>
+<hr>
+<h2>15. Edit, Delete &amp; Alert Patterns</h2>
+<h3>Edit &amp; delete affordances</h3>
+<ul>
+<li><strong>Pencil icon</strong> — standard edit trigger. Used on grid rows and inline edit actions.</li>
+<li><strong>Trashcan icon</strong> — standard remove/delete trigger.</li>
+<li><strong>Grid row editing</strong> — always opens a modal. Do not inline-edit within the grid.</li>
+<li><strong>Detail page editing</strong> — typically via modal. Default to modal unless Jesse says otherwise.</li>
+</ul>
+<h3>Callout / alert containers</h3>
+<p>When content needs semantic emphasis (critical requirements, compliance warnings, important instructions), wrap it in a container with a <strong>full border using the info color</strong> (<code>info.main</code>). Not a left-accent-only treatment — full border around the container.</p>
+<p>Use sparingly — for content the user must not miss, not general highlighting.</p>
+<h3>Alert color cohesion</h3>
+<p>When using the <code>Alert</code> component (or any alert-style callout), every colored element inside the alert uses the <strong>same semantic color</strong> — the one matching the alert&#39;s severity. Border, icon, title, description, and action buttons all share that single color.</p>
+<table>
+<thead>
+<tr>
+<th>Severity</th>
+<th>Single color used everywhere</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Info</td>
+<td><code>info.main</code> (<code>#54AFCA</code>)</td>
+</tr>
+<tr>
+<td>Success</td>
+<td><code>success.main</code> (<code>#388E3C</code>)</td>
+</tr>
+<tr>
+<td>Warning</td>
+<td><code>warning.main</code> (<code>#E17109</code>)</td>
+</tr>
+<tr>
+<td>Error</td>
+<td><code>error.main</code> (<code>#DB4537</code>)</td>
+</tr>
+</tbody></table>
+<p><strong>Do not</strong> mix the semantic color (border + icon) with <code>text.primary</code> / <code>text.secondary</code> for the title and description. The alert reads as a single semantic block.</p>
+<p>The exception is the <code>contained</code>/filled variant where the background carries the color and text is <code>contrastText</code> (white) — that&#39;s still a single coordinated color choice, just inverted.</p>
+<hr>
+<h2>16. Content Surfaces — Modal, Panel, Inline</h2>
+<p>Three ways to show secondary content. The choice depends on whether the user is completing an action, referencing information, or optionally digging deeper.</p>
+<h3>Modal (current standard)</h3>
+<p>The default for most existing TRIO workflows. Used for:</p>
+<ul>
+<li><strong>Completing actions</strong> — create, edit, save, configure</li>
+<li><strong>Reviewing snapshots</strong> — previously saved data in a focused view</li>
+<li><strong>Destructive confirmations</strong> — delete, remove, deactivate</li>
+</ul>
+<p>Modals interrupt the workflow — the user must complete or dismiss before continuing. This is intentional for actions that change data.</p>
+<table>
+<thead>
+<tr>
+<th>Size</th>
+<th>Width</th>
+<th>When to use</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Large</td>
+<td>900px</td>
+<td>Complex forms, multi-step flows, data-heavy content</td>
+</tr>
+<tr>
+<td>Small</td>
+<td>500px</td>
+<td>Confirmations, simple single-action dialogs</td>
+</tr>
+</tbody></table>
+<p>If a form is too complex for 900px, break it into steps — don&#39;t make the modal bigger.</p>
+<h4>CTA labels — verb-noun pattern</h4>
+<p>Primary action buttons in modals (and any page-level primary action) follow a verb-noun pattern that names the consequence. Most Save/Update operations in TRIO live in modals, so this rule shows up here first, but it applies anywhere a primary action exists.</p>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>When to use</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Create [Noun]</strong></td>
+<td>The modal commits a <em>new</em> entity</td>
+<td>Create User · Create Shift Template · Create Fee Schedule</td>
+</tr>
+<tr>
+<td><strong>Update [Noun]</strong></td>
+<td>The modal commits <em>changes</em> to an existing entity</td>
+<td>Update Worker Profile · Update Bill Rate · Update Assignment</td>
+</tr>
+<tr>
+<td><strong>Delete [Noun]</strong></td>
+<td>Destructive — uses <code>error.main</code> color</td>
+<td>Delete Account · Delete Assignment</td>
+</tr>
+<tr>
+<td><strong>Approve [Noun]</strong> / <strong>Reject [Noun]</strong></td>
+<td>Review decisions</td>
+<td>Approve Submission · Reject Timecard</td>
+</tr>
+<tr>
+<td><strong>Send [Noun]</strong></td>
+<td>Transmit actions</td>
+<td>Send Invitation · Send Reminder</td>
+</tr>
+<tr>
+<td><strong>Assign [Noun]</strong></td>
+<td>Pairings</td>
+<td>Assign Worker · Assign Agency</td>
+</tr>
+</tbody></table>
+<p>Cancel always stays &quot;Cancel&quot; — paired with the verb-noun confirm action.</p>
+<p><strong>Never use:</strong> Save · Submit · OK · Confirm. They hide what the action commits.</p>
+<p><strong>Evaluation checklist</strong> — use when reviewing a prototype:</p>
+<ul>
+<li><input disabled="" type="checkbox"> Primary button is verb-noun, not &quot;Save&quot; / &quot;Submit&quot; / &quot;OK&quot;</li>
+<li><input disabled="" type="checkbox"> &quot;Create X&quot; if the flow produces a new record</li>
+<li><input disabled="" type="checkbox"> &quot;Update X&quot; if the flow modifies an existing record</li>
+<li><input disabled="" type="checkbox"> The noun is specific enough that the user knows what&#39;s about to commit</li>
+</ul>
+<h3>Panel (newer direction)</h3>
+<p>Side panels that let the user reference detail information without losing context of the main page. Reduces friction compared to modals because the main view stays visible and interactive.</p>
+<ul>
+<li>Panels are <strong>layout-driven</strong>, not a fixed-width component — they use the 12-column grid (e.g. panel takes 4 columns, main content takes 8)</li>
+<li>No rigid size or position rules yet — the split depends on the content</li>
+<li>Panels are for <strong>referencing and reviewing</strong>, not for completing multi-field forms</li>
+<li>Digital Workers is the primary testing ground for this pattern</li>
+</ul>
+<p>This pattern is still being developed. As we learn what works, specific defaults will be defined here.</p>
+<h3>Inline expansion</h3>
+<p>For secondary content the user might want to dig into but doesn&#39;t need by default.</p>
+<ul>
+<li>Content expands in-place — no overlay, no interruption</li>
+<li>Used when the expanded content is subordinate to the primary content around it</li>
+<li>Collapse/expand is the user&#39;s choice — don&#39;t auto-expand</li>
+</ul>
+<h3>Future direction</h3>
+<p>The long-term direction is moving away from modals toward more responsive, contextual experiences — content comes to the user in-context (panels, inline) rather than interrupting with modal overlays. Digital Workers demonstrates this approach. Until those patterns are proven and adopted, <strong>modals remain the default for all existing TRIO projects</strong>.</p>
+<hr>
+<h2>17. Still Needs Definition</h2>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> <del>Page Header — full spec of each variant and when to use each</del> (Sections 3–4)</li>
+<li><input checked="" disabled="" type="checkbox"> <del>Frameless header — exact spec</del> (NewCanvas variant, Section 4)</li>
+<li><input checked="" disabled="" type="checkbox"> <del>Modal behavior rules</del> (Section 12)</li>
+<li><input disabled="" type="checkbox"> Full-width layout — exact spec for Digital Workers / AI pages. Trimmed-down header exists in DW designs but is placement-only. Full requirements TBD — will be spec&#39;d collaboratively with Jesse when ready.</li>
+<li><input disabled="" type="checkbox"> Panel pattern defaults — standard column splits, animation behavior, when panel vs modal</li>
+</ul>
+<hr>
+<p><em>Last updated: 2026-05-26 — NavigationVertical edge exception added to §1 (canvas left-padding is 0 when the vertical rail is the immediate left neighbor; the rail&#39;s right-edge padding already supplies the 16px inset). Previous update 2026-05-07 — content-wrapper border treatment (§1), PHT 16px canvas inset (§4), PHT actions slot composition (§4), PHT full-variant requirement for grid pages (§4), Stepper teal alignment note (§5), AG Grid mandate (§9), ContentContainer persistent title strip spec (§9), Standalone grid page rebuild — Breadcrumb-Links view switcher, paper-bg 40px column headers, vertical column dividers throughout, horizontal scroll behavior, sort indicator color (§10), three-pattern Tabs taxonomy clarified — pattern C is Breadcrumb-Links not Tabs (§11), wrapper-level tabs in Detail Page Pattern (§12), Alert color cohesion rule (§15).</em>
+<em>Source: Jesse Szygiel (Lead UX Designer, AHTG)</em></p>
+
+  </article>
+</main>
 </body>
 </html>

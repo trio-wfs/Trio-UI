@@ -41,6 +41,12 @@ jobs:
         # works around it without affecting the deployed showcase artifact.
         run: npm install --no-audit --no-fund
 
+      # Generate page-architecture.html from PAGE_ARCHITECTURE.md so the
+      # MD file stays the single source of truth. CI runs this on every
+      # Pages deploy; locally invoke via `npm run build:architecture`.
+      - name: Build architecture page from markdown
+        run: npm run build:architecture
+
       # SHOWCASE_BASE tells Vite to emit chunk URLs prefixed with /Trio-UI/...
       # — required because GitHub Pages serves project sites under the repo
       # name, not the org root.

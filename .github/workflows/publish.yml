@@ -2,10 +2,14 @@ name: Publish to GitHub Packages
 
 # Fires when a tag matching v* is pushed (e.g. v1.0.0, v1.2.3).
 # Trigger from your laptop with:  git tag v1.0.0 && git push --tags
+#
+# workflow_dispatch lets you re-run from the Actions tab without pushing
+# a new tag — useful for debugging or retrying after a transient failure.
 on:
   push:
     tags:
       - 'v*'
+  workflow_dispatch:
 
 jobs:
   publish:
@@ -50,6 +54,10 @@ jobs:
       - name: Publish to GitHub Packages
         run: npm publish
         env:
-          # GITHUB_TOKEN is auto-injected by Actions; the `packages: write`
-          # permission above is what gives it the right scope for publishing.
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # NPM_PUBLISH_TOKEN is a Personal Access Token (classic) with
+          # write:packages scope, stored as a repo secret. We use a PAT
+          # instead of the auto-injected GITHUB_TOKEN because trio-wfs
+          # org-level workflow permissions are restrictive and only owners
+          # (not members) can lift them. The PAT bypasses that chain by
+          # carrying its own scopes directly.
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}

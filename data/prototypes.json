@@ -2,6 +2,66 @@
   "$comment": "Single source of truth for the Prototypes tracker page. Edit this file to update the page. Cards sort by lastUpdated descending (most recent first). Any link key in links{} that's empty/missing hides its button automatically.",
   "prototypes": [
     {
+      "id": "programs-privilege-activity",
+      "name": "Programs — Privilege Activity",
+      "project": "Programs",
+      "type": "react",
+      "status": "wip",
+      "progress": 60,
+      "version": "v0.4",
+      "owner": "Jesse",
+      "lastUpdated": "2026-05-28",
+      "icon": "account_tree",
+      "description": "Privilege Activity provider-based report — 4 metric cards (in-progress + active, coverage risk at 45 days, single-facility, idle) over AG Grid detail. Phase 1 grid stable; Phase 2 interactive cards depend on TanStack URL-filter lifecycle work.",
+      "links": {
+        "live": "",
+        "repo": "",
+        "figma": "",
+        "miro": "https://miro.com/app/board/uXjVLdK42YU=/",
+        "zeplin": ""
+      }
+    },
+    {
+      "id": "digital-workers",
+      "name": "Digital Workers",
+      "project": "Digital Workers",
+      "type": "figma",
+      "status": "wip",
+      "progress": 70,
+      "version": "v1.4",
+      "owner": "Jesse",
+      "lastUpdated": "2026-05-26",
+      "icon": "smart_toy",
+      "description": "AI-powered Digital Worker platform — Editor reframe (draft + AI feedback), Applied Policies tab, PolicyOnboarding chrome. May 26: production integration reactivated at reduced cadence (3× daily vs every 2 hours). DW Hub deadline at end of current PI.",
+      "links": {
+        "live": "",
+        "repo": "",
+        "figma": "https://www.figma.com/design/kbBDs0MjX0LusU0eprqg4n",
+        "miro": "https://miro.com/app/board/uXjVLzU8S1w=/",
+        "zeplin": ""
+      }
+    },
+    {
+      "id": "config-fees",
+      "name": "Config Fees",
+      "project": "Config Fees",
+      "type": "figma",
+      "status": "wip",
+      "progress": 55,
+      "version": "v0.9",
+      "owner": "Jesse",
+      "lastUpdated": "2026-05-26",
+      "icon": "receipt_long",
+      "description": "Fee Management UI — engineering-phase refinements + AR variant on deck. May 19 direction set: print docs show all individual fees with group references, billing grid per-fee-definition columns, client view hides fee details (client pushback reversal), agency view breaks out by GL accounting. AR scope pending Danny + Chris requirements session.",
+      "links": {
+        "live": "",
+        "repo": "",
+        "figma": "https://www.figma.com/design/kxcOpRSYW3vSHsHVdV9qPv",
+        "miro": "https://miro.com/app/board/uXjVIpMJpyc=/",
+        "zeplin": ""
+      }
+    },
+    {
       "id": "agency-scorecard",
       "name": "Agency Scorecard Dashboard",
       "project": "Agency Scorecard",

@@ -31,8 +31,7 @@
     "figma:publish": "figma connect publish --token $(grep FIGMA_ACCESS_TOKEN .env | cut -d= -f2)",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "build:showcase": "vite build --config vite.showcase.config.ts",
-    "build:architecture": "node scripts/build-architecture-page.js"
+    "build:showcase": "vite build --config vite.showcase.config.ts"
   },
   "peerDependencies": {
     "@emotion/react": ">=11.0.0",
@@ -53,7 +52,6 @@
     "@vitejs/plugin-react": "^6.0.1",
     "@vitest/browser-playwright": "^4.1.4",
     "@vitest/coverage-v8": "^4.1.4",
-    "marked": "^18.0.4",
     "playwright": "^1.59.1",
     "storybook": "^10.3.5",
     "tsup": "^8.5.1",

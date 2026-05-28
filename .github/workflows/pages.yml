@@ -51,17 +51,14 @@ jobs:
 
       # Stage only what Pages should serve into _site/. Keeps node_modules
       # and the npm library dist (the package payload) out of the public
-      # site footprint.
+      # site footprint. Wildcards on root .html/.css/.js so any new pages
+      # added to the repo root automatically deploy without workflow edits.
       - name: Stage Pages artifact
         run: |
           mkdir _site
-          cp design-system-overview.html _site/index.html
-          cp design-system-overview.html _site/
-          cp design-tokens-colors.html _site/
-          cp design-tokens-typography.html _site/
-          cp design-tokens-spacing.html _site/
-          cp design-system-shell.css _site/
-          cp design-system-nav.js _site/
+          cp *.html _site/
+          cp *.css _site/
+          cp *.js _site/
           cp -r components _site/
           cp -r showcase _site/
           cp -r design-tokens _site/

@@ -3,14 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Prototypes - TRIO WFS Design System</title>
+  <title>Prototypes — TRIO WFS Design System</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
   <link rel="stylesheet" href="design-system-shell.css">
   <style>
+    .tracker-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--spacing-lg);
+      gap: var(--spacing-md);
+      flex-wrap: wrap;
+    }
+
+    .tracker-count {
+      font-size: 13px;
+      color: var(--color-text-secondary);
+    }
+
     .proto-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
       gap: var(--spacing-md);
       margin-bottom: var(--spacing-xl);
     }
@@ -20,77 +34,206 @@
       border: 1px solid var(--color-secondary-outline);
       border-radius: var(--border-radius);
       overflow: hidden;
-      transition: border-color 0.15s;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.15s, transform 0.15s;
     }
 
     .proto-card:hover {
       border-color: var(--color-primary-main);
     }
 
-    .proto-card-thumb {
-      height: 160px;
-      background: var(--color-secondary-main);
+    .proto-thumb {
+      position: relative;
+      height: 120px;
+      background: linear-gradient(135deg, var(--color-background-secondary), var(--color-secondary-light, #F5F5F5));
       display: flex;
       align-items: center;
       justify-content: center;
       border-bottom: 1px solid var(--color-secondary-outline);
     }
 
-    .proto-card-thumb .material-icons-outlined {
-      font-size: 40px;
-      color: var(--color-secondary-outline);
+    .proto-thumb .material-icons-outlined {
+      font-size: 48px;
+      color: var(--color-text-tertiary, rgba(0,0,0,0.4));
     }
 
-    .proto-card-thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .proto-card-body {
-      padding: var(--spacing-md);
-    }
-
-    .proto-card-title {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--color-text-primary);
-      margin-bottom: var(--spacing-xs);
-    }
-
-    .proto-card-desc {
-      font-size: 13px;
-      color: var(--color-text-secondary);
-      line-height: 1.5;
-      margin-bottom: var(--spacing-sm);
-    }
-
-    .proto-card-meta {
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-sm);
-    }
-
-    .proto-tag {
+    .proto-type-pill {
+      position: absolute;
+      top: var(--spacing-sm);
+      right: var(--spacing-sm);
       font-size: 11px;
-      padding: 2px var(--spacing-sm);
-      border-radius: 999px;
       font-weight: 500;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
-    .proto-tag-project {
-      background: var(--color-primary-light);
+    .proto-type-react {
+      background: rgba(33, 150, 243, 0.1);
       color: var(--color-primary-main);
     }
 
-    .proto-tag-status {
-      background: var(--color-warning-light);
-      color: var(--color-warning-main);
+    .proto-type-figma {
+      background: rgba(155, 81, 224, 0.1);
+      color: #9B51E0;
     }
 
-    .proto-tag-ready {
-      background: var(--color-success-light);
-      color: var(--color-success-main);
+    .proto-type-concept {
+      background: rgba(117, 117, 117, 0.1);
+      color: var(--color-text-secondary);
+    }
+
+    .proto-body {
+      padding: var(--spacing-md);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-sm);
+    }
+
+    .proto-titlerow {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--spacing-sm);
+    }
+
+    .proto-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-text-primary);
+      margin: 0;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .proto-version {
+      font-size: 11px;
+      color: var(--color-text-secondary);
+      font-family: 'Roboto Mono', monospace;
+      background: var(--color-background-secondary);
+      padding: 2px 6px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    .proto-meta {
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .proto-divider { color: var(--color-secondary-outline); }
+
+    .proto-desc {
+      font-size: 13px;
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+      margin: 0;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .proto-progress {
+      margin-top: var(--spacing-xs);
+    }
+
+    .proto-progress-bar {
+      height: 6px;
+      background: var(--color-background-secondary);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 6px;
+    }
+
+    .proto-progress-fill {
+      height: 100%;
+      background: var(--color-primary-main);
+      border-radius: 999px;
+      transition: width 0.3s ease;
+    }
+
+    .proto-progress-fill.status-live { background: var(--color-success-main); }
+    .proto-progress-fill.status-shipped { background: #00897B; }
+    .proto-progress-fill.status-blocked { background: var(--color-error-main); }
+    .proto-progress-fill.status-draft { background: var(--color-text-tertiary, #BDBDBD); }
+
+    .proto-progress-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+    }
+
+    .proto-pct {
+      color: var(--color-text-secondary);
+      font-weight: 500;
+    }
+
+    .proto-status {
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-size: 10px;
+    }
+
+    .proto-status-live { background: var(--color-success-light, #E8F5E9); color: var(--color-success-main); }
+    .proto-status-wip { background: var(--color-warning-light, #FFF8E1); color: var(--color-warning-main); }
+    .proto-status-draft { background: var(--color-background-secondary); color: var(--color-text-secondary); }
+    .proto-status-shipped { background: #E0F2F1; color: #00695C; }
+    .proto-status-blocked { background: var(--color-error-light, #FBEAED); color: var(--color-error-main); }
+
+    .proto-updated {
+      font-size: 11px;
+      color: var(--color-text-tertiary, rgba(0,0,0,0.4));
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .proto-updated .material-icons-outlined {
+      font-size: 12px;
+    }
+
+    .proto-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: var(--spacing-xs);
+      padding-top: var(--spacing-sm);
+      border-top: 1px solid var(--color-secondary-outline);
+    }
+
+    .proto-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      padding: 4px 8px;
+      border-radius: 4px;
+      border: 1px solid var(--color-secondary-outline);
+      transition: background 0.1s, color 0.1s, border-color 0.1s;
+    }
+
+    .proto-link:hover {
+      background: var(--color-primary-light, #E3F2FD);
+      color: var(--color-primary-main);
+      border-color: var(--color-primary-main);
+    }
+
+    .proto-link .material-icons-outlined {
+      font-size: 14px;
     }
 
     .empty-state {
@@ -119,8 +262,34 @@
       font-size: 13px;
       color: var(--color-text-secondary);
       line-height: 1.5;
-      max-width: 400px;
+      max-width: 480px;
       margin: 0 auto;
+    }
+
+    .handoff-callout {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-md);
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-md) var(--spacing-lg);
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.15s;
+    }
+
+    .handoff-callout:hover { border-color: var(--color-primary-main); }
+
+    .handoff-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: var(--border-radius);
+      background: var(--color-primary-light, #E3F2FD);
+      flex-shrink: 0;
     }
   </style>
   <script src="design-system-nav.js"></script>
@@ -134,118 +303,25 @@
         <span class="material-icons-outlined">science</span>
         Prototypes
       </h1>
-      <p class="page-subtitle">Live prototypes and Figma explorations across TRIO WFS projects — these are the working specs engineering rebuilds from.</p>
+      <p class="page-subtitle">Live tracker of every TRIO WFS prototype — status, progress, and links to whichever tool the work lives in. Sorted by most recently updated.</p>
     </div>
 
     <div class="content-body" style="padding: 0 var(--spacing-xl) var(--spacing-xl);">
 
-      <!-- ── React Prototypes ── -->
-      <h2 style="font-size: 14px; font-weight: 500; margin-bottom: var(--spacing-md); display: flex; align-items: center; gap: var(--spacing-sm); text-transform: uppercase; letter-spacing: 0.5px; color: var(--color-text-secondary);">
-        <span class="material-icons-outlined" style="font-size: 16px; color: var(--color-primary-main);">code</span>
-        React Prototypes
-        <span style="font-size: 11px; color: var(--color-text-secondary); text-transform: none; letter-spacing: 0; font-weight: 400;">— built with <code>@trio-wfs/ui</code></span>
-      </h2>
-
-      <div class="proto-grid">
-
-        <!-- Agency Scorecard -->
-        <a href="https://jszygiel1981-ship-it.github.io/agency-scorecard/" target="_blank" class="proto-card" style="text-decoration: none; color: inherit;">
-          <div class="proto-card-thumb" id="scorecard-thumb">
-            <span class="material-icons-outlined">assessment</span>
-          </div>
-          <div class="proto-card-body">
-            <div class="proto-card-title">Agency Scorecard Dashboard</div>
-            <div class="proto-card-desc">
-              Real-time agency performance dashboard replacing manual quarterly PDFs. Rolling time frame paradigm with metric cards, donut charts, bar charts, and AG Grid detail tables.
-            </div>
-            <div class="proto-card-meta">
-              <span class="proto-tag proto-tag-project">Agency Scorecard</span>
-              <span class="proto-tag proto-tag-ready">Live</span>
-            </div>
-          </div>
-        </a>
-
+      <div class="tracker-toolbar">
+        <div class="tracker-count" id="trackerCount">Loading…</div>
       </div>
 
-      <!-- ── Figma Prototypes ── -->
-      <h2 style="font-size: 14px; font-weight: 500; margin-bottom: var(--spacing-md); display: flex; align-items: center; gap: var(--spacing-sm); text-transform: uppercase; letter-spacing: 0.5px; color: var(--color-text-secondary);">
-        <span class="material-icons-outlined" style="font-size: 16px; color: var(--color-primary-main);">design_services</span>
-        Figma Prototypes
-        <span style="font-size: 11px; color: var(--color-text-secondary); text-transform: none; letter-spacing: 0; font-weight: 400;">— design explorations and clickable mockups</span>
-      </h2>
-
-      <div class="proto-grid">
-
-        <!-- Market Rate Intelligence -->
-        <a href="https://v0-market-rate-intelligence-ne.vercel.app/" target="_blank" class="proto-card" style="text-decoration: none; color: inherit;">
-          <div class="proto-card-thumb">
-            <span class="material-icons-outlined">query_stats</span>
-          </div>
-          <div class="proto-card-body">
-            <div class="proto-card-title">Market Rate Intelligence</div>
-            <div class="proto-card-desc">
-              Bill rate benchmarking and market comparison for healthcare staffing — facility managers and coordinators see how their rates stack against the market.
-            </div>
-            <div class="proto-card-meta">
-              <span class="proto-tag proto-tag-project">Market Rate Intelligence</span>
-              <span class="proto-tag proto-tag-ready">Live</span>
-            </div>
-          </div>
-        </a>
-
-        <!-- Placeholder 1 — replace href with Figma prototype URL -->
-        <a href="#" class="proto-card" style="text-decoration: none; color: inherit; opacity: 0.6;">
-          <div class="proto-card-thumb">
-            <span class="material-icons-outlined">draw</span>
-          </div>
-          <div class="proto-card-body">
-            <div class="proto-card-title">Figma Prototype 1</div>
-            <div class="proto-card-desc">
-              Add href, title, and description. Optional: drop a thumbnail into <code>assets/prototypes/</code>.
-            </div>
-            <div class="proto-card-meta">
-              <span class="proto-tag proto-tag-status">Placeholder</span>
-            </div>
-          </div>
-        </a>
-
-        <!-- Placeholder 2 -->
-        <a href="#" class="proto-card" style="text-decoration: none; color: inherit; opacity: 0.6;">
-          <div class="proto-card-thumb">
-            <span class="material-icons-outlined">draw</span>
-          </div>
-          <div class="proto-card-body">
-            <div class="proto-card-title">Figma Prototype 2</div>
-            <div class="proto-card-desc">
-              Add href, title, and description.
-            </div>
-            <div class="proto-card-meta">
-              <span class="proto-tag proto-tag-status">Placeholder</span>
-            </div>
-          </div>
-        </a>
-
-        <!-- Placeholder 3 -->
-        <a href="#" class="proto-card" style="text-decoration: none; color: inherit; opacity: 0.6;">
-          <div class="proto-card-thumb">
-            <span class="material-icons-outlined">draw</span>
-          </div>
-          <div class="proto-card-body">
-            <div class="proto-card-title">Figma Prototype 3</div>
-            <div class="proto-card-desc">
-              Add href, title, and description.
-            </div>
-            <div class="proto-card-meta">
-              <span class="proto-tag proto-tag-status">Placeholder</span>
-            </div>
-          </div>
-        </a>
-
+      <div class="proto-grid" id="protoGrid">
+        <div class="empty-state">
+          <span class="material-icons-outlined">hourglass_empty</span>
+          <div class="empty-state-title">Loading prototypes…</div>
+          <div class="empty-state-desc">Reading <code>data/prototypes.json</code>.</div>
+        </div>
       </div>
 
-      <!-- Handoff callout — single tight strip instead of the 3-card How It Works -->
-      <a href="engineering-handoff.html" style="display: flex; align-items: center; gap: var(--spacing-md); background: var(--color-background-paper); border: 1px solid var(--color-secondary-outline); border-radius: var(--border-radius); padding: var(--spacing-md) var(--spacing-lg); text-decoration: none; color: inherit; transition: border-color 0.15s;" onmouseover="this.style.borderColor='var(--color-primary-main)'" onmouseout="this.style.borderColor='var(--color-secondary-outline)'">
-        <div style="display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: var(--border-radius); background: var(--color-primary-light); flex-shrink: 0;">
+      <a href="engineering-handoff.html" class="handoff-callout">
+        <div class="handoff-icon">
           <span class="material-icons-outlined" style="font-size: 20px; color: var(--color-primary-main);">engineering</span>
         </div>
         <div style="flex: 1;">
@@ -259,5 +335,150 @@
 
     </div>
   </main>
+
+  <script>
+    // ────────────────────────────────────────────────────────────────────────
+    // Prototype tracker — JSON-driven.
+    // Source of truth: data/prototypes.json (edit that file to update cards).
+    // Cards sort by lastUpdated descending (most recent first).
+    // ────────────────────────────────────────────────────────────────────────
+
+    const TYPE_LABEL = { react: 'React', figma: 'Figma', concept: 'Concept' };
+    const STATUS_LABEL = {
+      draft: 'Draft',
+      wip: 'In Progress',
+      live: 'Live',
+      shipped: 'Shipped',
+      blocked: 'Blocked',
+    };
+    const LINK_LABEL = {
+      live:   { icon: 'launch',     text: 'Live' },
+      repo:   { icon: 'code',       text: 'Repo' },
+      figma:  { icon: 'palette',    text: 'Figma' },
+      miro:   { icon: 'dashboard',  text: 'Miro' },
+      zeplin: { icon: 'assignment', text: 'Zeplin' },
+    };
+
+    function escapeHtml(str) {
+      return String(str ?? '').replace(/[&<>"']/g, (c) => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      }[c]));
+    }
+
+    function relativeDate(iso) {
+      if (!iso) return 'never';
+      const then = new Date(iso);
+      if (isNaN(then.getTime())) return iso;
+      const days = Math.floor((Date.now() - then.getTime()) / 86400000);
+      if (days < 0) return iso;
+      if (days === 0) return 'today';
+      if (days === 1) return 'yesterday';
+      if (days < 7) return `${days} days ago`;
+      if (days < 14) return '1 week ago';
+      if (days < 30) return `${Math.floor(days / 7)} weeks ago`;
+      if (days < 60) return '1 month ago';
+      return `${Math.floor(days / 30)} months ago`;
+    }
+
+    function renderLinks(links) {
+      if (!links) return '';
+      const entries = Object.entries(links).filter(([, v]) => v && v.trim());
+      if (!entries.length) return '';
+      return `
+        <div class="proto-links">
+          ${entries.map(([k, v]) => {
+            const meta = LINK_LABEL[k] || { icon: 'open_in_new', text: k };
+            return `<a href="${escapeHtml(v)}" target="_blank" rel="noopener" class="proto-link">
+              <span class="material-icons-outlined">${meta.icon}</span>
+              ${meta.text}
+            </a>`;
+          }).join('')}
+        </div>`;
+    }
+
+    function renderCard(p) {
+      const type = p.type || 'concept';
+      const status = p.status || 'draft';
+      const hasProgress = typeof p.progress === 'number';
+
+      return `
+        <article class="proto-card">
+          <div class="proto-thumb">
+            <span class="material-icons-outlined">${escapeHtml(p.icon || 'science')}</span>
+            <span class="proto-type-pill proto-type-${escapeHtml(type)}">${TYPE_LABEL[type] || type}</span>
+          </div>
+          <div class="proto-body">
+            <div class="proto-titlerow">
+              <h3 class="proto-title">${escapeHtml(p.name)}</h3>
+              ${p.version ? `<span class="proto-version">${escapeHtml(p.version)}</span>` : ''}
+            </div>
+            <div class="proto-meta">
+              <span>${escapeHtml(p.project || '')}</span>
+              ${p.owner ? `<span class="proto-divider">•</span><span>${escapeHtml(p.owner)}</span>` : ''}
+            </div>
+            <p class="proto-desc">${escapeHtml(p.description || '')}</p>
+            ${hasProgress ? `
+              <div class="proto-progress">
+                <div class="proto-progress-bar">
+                  <div class="proto-progress-fill status-${escapeHtml(status)}" style="width: ${Math.max(0, Math.min(100, p.progress))}%"></div>
+                </div>
+                <div class="proto-progress-meta">
+                  <span class="proto-pct">${p.progress}%</span>
+                  <span class="proto-status proto-status-${escapeHtml(status)}">${STATUS_LABEL[status] || status}</span>
+                </div>
+              </div>` : `
+              <div class="proto-progress-meta" style="margin-top: auto;">
+                <span></span>
+                <span class="proto-status proto-status-${escapeHtml(status)}">${STATUS_LABEL[status] || status}</span>
+              </div>`}
+            <div class="proto-updated">
+              <span class="material-icons-outlined">schedule</span>
+              Updated ${relativeDate(p.lastUpdated)}
+            </div>
+            ${renderLinks(p.links)}
+          </div>
+        </article>
+      `;
+    }
+
+    function renderEmpty() {
+      return `
+        <div class="empty-state">
+          <span class="material-icons-outlined">science</span>
+          <div class="empty-state-title">No prototypes yet</div>
+          <div class="empty-state-desc">Add an entry to <code>data/prototypes.json</code> with name, project, type, status, and any links you have.</div>
+        </div>`;
+    }
+
+    async function loadPrototypes() {
+      const grid = document.getElementById('protoGrid');
+      const count = document.getElementById('trackerCount');
+      try {
+        const res = await fetch('data/prototypes.json');
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        const items = (data.prototypes || []).slice().sort((a, b) => {
+          return new Date(b.lastUpdated || 0) - new Date(a.lastUpdated || 0);
+        });
+        if (!items.length) {
+          grid.innerHTML = renderEmpty();
+          count.textContent = 'No prototypes';
+          return;
+        }
+        grid.innerHTML = items.map(renderCard).join('');
+        count.textContent = `${items.length} prototype${items.length === 1 ? '' : 's'} — sorted by most recent`;
+      } catch (err) {
+        grid.innerHTML = `
+          <div class="empty-state">
+            <span class="material-icons-outlined">error_outline</span>
+            <div class="empty-state-title">Couldn't load prototypes</div>
+            <div class="empty-state-desc">${escapeHtml(String(err))}. Check that <code>data/prototypes.json</code> exists and is valid JSON.</div>
+          </div>`;
+        count.textContent = 'Error';
+      }
+    }
+
+    loadPrototypes();
+  </script>
 </body>
 </html>

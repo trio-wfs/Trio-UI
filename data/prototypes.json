@@ -1,0 +1,25 @@
+{
+  "$comment": "Single source of truth for the Prototypes tracker page. Edit this file to update the page. Cards sort by lastUpdated descending (most recent first). Any link key in links{} that's empty/missing hides its button automatically.",
+  "prototypes": [
+    {
+      "id": "agency-scorecard",
+      "name": "Agency Scorecard Dashboard",
+      "project": "Agency Scorecard",
+      "type": "react",
+      "status": "live",
+      "progress": 75,
+      "version": "v1.0",
+      "owner": "Jesse",
+      "lastUpdated": "2026-05-19",
+      "icon": "assessment",
+      "description": "Real-time agency performance dashboard replacing manual quarterly PDFs. Rolling time-frame paradigm with MetricCards, donut charts, bar charts, and AG Grid detail tables.",
+      "links": {
+        "live": "https://trio-wfs.github.io/agency-scorecard/",
+        "repo": "https://github.com/trio-wfs/agency-scorecard",
+        "figma": "",
+        "miro": "",
+        "zeplin": ""
+      }
+    }
+  ]
+}

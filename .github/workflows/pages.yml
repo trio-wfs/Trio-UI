@@ -63,6 +63,8 @@ jobs:
           cp -r showcase _site/
           cp -r design-tokens _site/
           cp -r assets _site/
+          # JSON data files (e.g. prototypes.json) read by client-side scripts.
+          cp -r data _site/
           # Serve PAGE_ARCHITECTURE.md as a downloadable asset.
           cp PAGE_ARCHITECTURE.md _site/
 

@@ -36,7 +36,13 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci
+        # Using `npm install` instead of `npm ci` because `npm ci` strict-checks
+        # the lock file against package.json in a way that's incompatible with
+        # certain nested-peer-dep arrangements (notably @rolldown's wasm32-wasi
+        # binding pulling in @emnapi/core+runtime at a different version than
+        # other consumers). `install` re-resolves on each run, which is fine for
+        # publish where the shipped artifact is dist/, not node_modules.
+        run: npm install --no-audit --no-fund
 
       - name: Build package
         run: npm run build

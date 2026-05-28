@@ -36,7 +36,10 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci
+        # See note in publish.yml — `npm ci` rejects the lock for a nested
+        # peer-dep arrangement that npm 11 considers inconsistent. `npm install`
+        # works around it without affecting the deployed showcase artifact.
+        run: npm install --no-audit --no-fund
 
       # SHOWCASE_BASE tells Vite to emit chunk URLs prefixed with /Trio-UI/...
       # — required because GitHub Pages serves project sites under the repo

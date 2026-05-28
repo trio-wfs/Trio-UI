@@ -10,23 +10,31 @@ Built on React + MUI v5, visually aligned with the AHTG Figma design system.
 
 ## Installing in a project
 
-**Step 1** — Add the design system as a local dependency in your project's `package.json`:
+This package is published to **GitHub Packages** under the `@trio-wfs` scope. Authentication is required because the registry is private to the TRIO WFS org.
 
-```json
-"dependencies": {
-  "@trio-wfs/ui": "file:../ahtg-design-system"
-}
+**Step 1** — Create a GitHub Personal Access Token (classic) with the `read:packages` scope. Save it somewhere safe.
+
+**Step 2** — In your consuming project, add an `.npmrc` file at the project root telling npm where to find `@trio-wfs/*` packages:
+
+```ini
+@trio-wfs:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${GITHUB_PACKAGES_TOKEN}
 ```
 
-> The path `../ahtg-design-system` assumes both repos sit in the same parent folder. Adjust if yours are elsewhere.
-
-**Step 2** — Install peer dependencies (React + MUI — skip any you already have):
+Then set the token in your shell environment (e.g. in `~/.zshrc`):
 
 ```bash
-npm install @mui/material @mui/icons-material @emotion/react @emotion/styled react react-dom
+export GITHUB_PACKAGES_TOKEN=ghp_yourTokenHere
 ```
 
-**Step 3** — Run `npm install` in your project. Done.
+> Don't commit your token. The `${GITHUB_PACKAGES_TOKEN}` placeholder in `.npmrc` is read from the environment so the file itself stays safe to commit.
+
+**Step 3** — Install the package and its peer dependencies (skip any peers you already have):
+
+```bash
+npm install @trio-wfs/ui
+npm install @mui/material @mui/icons-material @emotion/react @emotion/styled react react-dom
+```
 
 MUI v5 + Emotion is the required stack. MUI X DataGrid is **not used** — all tables use AG Grid.
 
@@ -48,7 +56,7 @@ Components use design tokens internally, but you should also apply the token pal
 
 ```tsx
 import { createTheme, ThemeProvider } from '@mui/material/styles'
-import { tokens } from './path/to/ahtg-design-system/design-tokens/tokens'
+import { tokens } from '@trio-wfs/ui'
 
 const theme = createTheme({
   palette: {
@@ -151,7 +159,7 @@ TypeScript interfaces for every component are in `Component.types.ts` alongside 
 
 ## Component Reference
 
-37 components live in the library, with 33 showcase pages in the design system website.
+37 components live in the library, each with a showcase page in the design system website.
 
 | Component | Use for |
 |-----------|---------|

@@ -1,0 +1,46 @@
+name: Publish to GitHub Packages
+
+# Fires when a tag matching v* is pushed (e.g. v1.0.0, v1.2.3).
+# Trigger from your laptop with:  git tag v1.0.0 && git push --tags
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    # Least-privilege: this workflow only needs to read the repo source and
+    # write to GitHub Packages. It deliberately can't push commits, open PRs,
+    # or modify other repo settings.
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      # Sets up Node + writes an .npmrc pointing the @trio-wfs scope at
+      # GitHub Packages so `npm publish` knows where to send the tarball.
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@trio-wfs'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build package
+        run: npm run build
+
+      - name: Publish to GitHub Packages
+        run: npm publish
+        env:
+          # GITHUB_TOKEN is auto-injected by Actions; the `packages: write`
+          # permission above is what gives it the right scope for publishing.
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

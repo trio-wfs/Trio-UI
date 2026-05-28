@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Handle - TRIO WFS Design System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+  <link rel="stylesheet" href="../../design-system-shell.css">
+  <style>
+    .main-content { background: var(--color-background-secondary); min-height: 100vh; }
+    .section { background: transparent; border-radius: 0; padding: 0; margin-bottom: 0; padding-bottom: var(--spacing-xl); }
+    .section + .section { border-top: 1px solid var(--color-secondary-outline); padding-top: var(--spacing-xl); }
+    .section-title .material-icons-outlined { font-size: 18px; color: var(--color-primary-main); }
+    .section .property-table { background: var(--color-background-paper); border: 1px solid var(--color-secondary-outline); border-radius: 4px; overflow: hidden; }
+    .section .property-table th { background: var(--color-background-paper); border-bottom: 1px solid var(--color-secondary-outline); }
+    .section .property-table td { border-bottom: 1px solid var(--color-secondary-outline); }
+    .card { background: var(--color-background-paper); }
+
+    /* Handle demo container — paper white surface */
+    .demo-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-xl);
+      align-items: center;
+      background: var(--color-background-paper);
+      padding: var(--spacing-lg);
+      border-radius: 4px;
+      border: 1px solid var(--color-secondary-outline);
+    }
+
+    /* Sortable list mock — shows Handle in context */
+    .sortable-row {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      padding: var(--spacing-sm) var(--spacing-md);
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+    }
+    .sortable-row + .sortable-row { margin-top: var(--spacing-xs); }
+    .sortable-row-label {
+      font-family: 'Roboto', sans-serif;
+      font-size: 14px;
+      color: var(--color-text-primary);
+      flex: 1;
+    }
+    .sortable-row-meta {
+      font-family: 'Roboto', sans-serif;
+      font-size: 12px;
+      color: var(--color-text-secondary);
+    }
+    .sortable-list {
+      background: var(--color-background-secondary);
+      padding: var(--spacing-md);
+      border-radius: 4px;
+      border: 1px solid var(--color-secondary-outline);
+    }
+
+    /* Labeled state cells */
+    .state-cell { display: flex; flex-direction: column; align-items: center; gap: var(--spacing-sm); }
+    .state-cell .state-label {
+      font-size: 11px; font-weight: 500; color: var(--color-text-secondary);
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .state-cell .state-target {
+      display: flex; align-items: center; justify-content: center;
+      width: 56px; height: 56px;
+    }
+
+    /* React mount points */
+    [data-trio-component] { display: inline-block; }
+
+    /* Card illustrations */
+    .card-illustration { background: var(--color-background-secondary, #FAFAFA); border: 1px solid var(--color-secondary-outline); border-radius: 4px; padding: var(--spacing-md); margin-bottom: var(--spacing-md); display: flex; align-items: center; justify-content: center; min-height: 80px; position: relative; }
+    .card-illustration-label { position: absolute; top: 8px; right: 8px; font-size: 9px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; padding: 2px 6px; border-radius: 999px; }
+    .do-card .card-illustration-label { background: var(--color-success-light, #E8F5E9); color: var(--color-success-main); }
+    .dont-card .card-illustration-label { background: var(--color-error-light, #FBEAED); color: var(--color-error-main); }
+    .card-illustration-wrong::after { content: ''; position: absolute; top: 50%; left: 16px; right: 16px; height: 2px; background: var(--color-error-main); opacity: 0.4; transform: rotate(-3deg); }
+  </style>
+  <script src="../../design-system-nav.js"></script>
+  <script type="module" src="../../showcase/dist/showcase.js"></script>
+</head>
+<body>
+  <aside class="sidebar"></aside>
+  <main class="main-content">
+
+    <header class="page-header">
+      <h1 class="page-title">Handle</h1>
+      <p class="page-subtitle">
+        Drag-handle affordance for reorderable lists and rows. Signals "grab me to move" with a six-dot
+        icon that expands on hover and grows again during the drag.
+      </p>
+      <div class="component-meta">
+        <span><span class="material-icons-outlined" style="font-size: 14px;">category</span> Interaction Affordance</span>
+        <span><span class="material-icons-outlined" style="font-size: 14px;">verified</span> Production Ready</span>
+      </div>
+    </header>
+
+
+    <!-- 1. OVERVIEW -->
+    <section class="section">
+      <h2 class="section-title"><span class="material-icons-outlined">info</span> Overview</h2>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title"><span class="material-icons-outlined" style="color: #2196F3;">psychology</span> Purpose</div>
+          <div class="card-content">
+            A small grab target that tells the user "this row is draggable." Used at the leading edge of a
+            reorderable row so the rest of the row stays clickable for normal interactions.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="material-icons-outlined" style="color: #2196F3;">priority_high</span> Visual Hierarchy</div>
+          <div class="card-content">
+            Low &mdash; Handle is a chrome affordance, not a control. It sits in the row gutter at <code>#424242</code>
+            and only lights up on hover so it never competes with row content.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="material-icons-outlined" style="color: #2196F3;">accessibility</span> Accessibility</div>
+          <div class="card-content">
+            Renders as <code>role="button"</code> with <code>aria-label="Drag to reorder"</code>. Pair with a
+            keyboard reordering pattern (e.g., select + ArrowUp/ArrowDown) since drag-and-drop alone is not
+            keyboard-accessible.
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- 2. USAGE GUIDELINES -->
+    <section class="section">
+      <h2 class="section-title"><span class="material-icons-outlined">rule</span> Usage Guidelines</h2>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title"><span class="material-icons-outlined">check_circle</span> When to Use</div>
+          <div class="card-illustration">
+            <span class="card-illustration-label">Correct</span>
+            <div class="sortable-list" style="background: transparent; border: none; padding: 0; width: 100%;">
+              <div class="sortable-row">
+                <div data-trio-component="Handle"></div>
+                <span class="sortable-row-label">Hospital Network</span>
+                <span class="sortable-row-meta">Step 1</span>
+              </div>
+              <div class="sortable-row">
+                <div data-trio-component="Handle"></div>
+                <span class="sortable-row-label">Facility Tier</span>
+                <span class="sortable-row-meta">Step 2</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Reorderable lists where order matters (workflow steps, custom column order, priority lists)</li>
+              <li>Settings rows users can rearrange (rule precedence, distribution waterfall)</li>
+              <li>Wizard/builder steps where users reshape the sequence</li>
+              <li>Saved-view ordering in a sidebar or settings panel</li>
+              <li>Any list where the row already has primary actions and drag must not steal clicks</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card dont-card">
+          <div class="card-title"><span class="material-icons-outlined">cancel</span> When NOT to Use</div>
+          <div class="card-illustration card-illustration-wrong">
+            <span class="card-illustration-label">Incorrect</span>
+            <div class="sortable-row" style="width: 100%; max-width: 320px;">
+              <div data-trio-component="Handle"></div>
+              <span class="sortable-row-label">Shift #4821</span>
+              <span class="sortable-row-meta">Submitted</span>
+            </div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Sortable data grids &mdash; column sorting and row order live in AG Grid, not Handle</li>
+              <li>Single-row selection or expand/collapse &mdash; use a ButtonIcon or row click instead</li>
+              <li>Static lists where order isn't user-editable &mdash; don't suggest interaction that isn't there</li>
+              <li>Mobile-first surfaces &mdash; touch drag is unreliable; use up/down arrow buttons instead</li>
+              <li>Lists with fewer than 3 items &mdash; reordering isn't worth the affordance cost</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- 3. STATES -->
+    <section class="section">
+      <h2 class="section-title"><span class="material-icons-outlined">toggle_on</span> States</h2>
+      <p class="section-description">
+        Three visual states sized to communicate intent. The default sits quietly in the row gutter;
+        hover lights up the icon to confirm grab-ability; drag grows the target for confident motion.
+        Use the <code>state</code> prop only for showcase or Storybook &mdash; in production, hover and drag
+        are CSS-driven.
+      </p>
+
+      <div class="demo-row" style="justify-content: space-around;">
+        <div class="state-cell">
+          <div class="state-target"><div data-trio-component="Handle" data-trio-props='{"state":"default"}'></div></div>
+          <span class="state-label">Default &mdash; 24&times;24</span>
+        </div>
+        <div class="state-cell">
+          <div class="state-target"><div data-trio-component="Handle" data-trio-props='{"state":"hover"}'></div></div>
+          <span class="state-label">Hover &mdash; 24&times;24 + tint</span>
+        </div>
+        <div class="state-cell">
+          <div class="state-target"><div data-trio-component="Handle" data-trio-props='{"state":"drag"}'></div></div>
+          <span class="state-label">Drag &mdash; 32&times;32 + shadow</span>
+        </div>
+        <div class="state-cell">
+          <div class="state-target"><div data-trio-component="Handle" data-trio-props='{"disabled":true}'></div></div>
+          <span class="state-label">Disabled</span>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- 4. IN CONTEXT -->
+    <section class="section">
+      <h2 class="section-title"><span class="material-icons-outlined">view_list</span> In Context</h2>
+      <p class="section-description">
+        Handle is designed to live at the leading edge of a row. Hover any row below to see the icon
+        light up; press and hold to see the drag state grow.
+      </p>
+
+      <div class="sortable-list">
+        <div class="sortable-row">
+          <div data-trio-component="Handle"></div>
+          <span class="sortable-row-label">Verify license is active</span>
+          <span class="sortable-row-meta">Required</span>
+        </div>
+        <div class="sortable-row">
+          <div data-trio-component="Handle"></div>
+          <span class="sortable-row-label">Confirm immunization record</span>
+          <span class="sortable-row-meta">Required</span>
+        </div>
+        <div class="sortable-row">
+          <div data-trio-component="Handle"></div>
+          <span class="sortable-row-label">Background check (most recent 12mo)</span>
+          <span class="sortable-row-meta">Conditional</span>
+        </div>
+        <div class="sortable-row">
+          <div data-trio-component="Handle"></div>
+          <span class="sortable-row-label">DEA registration for prescribers</span>
+          <span class="sortable-row-meta">Conditional</span>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- 5. BEST PRACTICES -->
+    <section class="section">
+      <h2 class="section-title"><span class="material-icons-outlined">recommend</span> Best Practices</h2>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title"><span class="material-icons-outlined">check_circle</span> Do</div>
+          <div class="card-illustration">
+            <span class="card-illustration-label">Correct</span>
+            <div class="sortable-row" style="width: 100%; max-width: 280px;">
+              <div data-trio-component="Handle"></div>
+              <span class="sortable-row-label">Worker rating priority</span>
+            </div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Place Handle at the leading edge of the row, before any content</li>
+              <li>Provide a keyboard reorder fallback (select + ArrowUp/ArrowDown) &mdash; drag alone isn't accessible</li>
+              <li>Use 8px row gutter spacing so the hover/drag growth doesn't shift surrounding content</li>
+              <li>Persist the new order immediately on drop &mdash; reordering shouldn't require a Save button</li>
+              <li>Animate the row drop with a brief fade or settle so the user sees where it landed</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card dont-card">
+          <div class="card-title"><span class="material-icons-outlined">cancel</span> Don't</div>
+          <div class="card-illustration card-illustration-wrong">
+            <span class="card-illustration-label">Incorrect</span>
+            <div class="sortable-row" style="width: 100%; max-width: 280px; justify-content: space-between;">
+              <span class="sortable-row-label">Step 1</span>
+              <div data-trio-component="Handle"></div>
+            </div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Don't put Handle at the trailing edge of the row &mdash; the leading edge is the established pattern</li>
+              <li>Don't show Handle on rows that aren't actually reorderable &mdash; it's a promise</li>
+              <li>Don't override the cursor &mdash; <code>grab</code> / <code>grabbing</code> is part of the affordance</li>
+              <li>Don't restyle the icon &mdash; the six-dot grid is the universal drag-handle signal</li>
+              <li>Don't combine Handle with row-level checkboxes that toggle on row click &mdash; clicks compete</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- 6. TECHNICAL SPECIFICATIONS -->
+    <section class="section">
+      <h2 class="section-title"><span class="material-icons-outlined">construction</span> Technical Specifications</h2>
+      <p class="section-description">
+        All values extracted from Figma component spec (node: 5460:2553). Implementation-ready values with token paths.
+      </p>
+
+      <table class="property-table">
+        <thead><tr><th>Property</th><th>Value</th><th>Token</th></tr></thead>
+        <tbody>
+          <tr><td>Default Size</td><td><code>24 &times; 24px</code></td><td><span class="token-path">&mdash;</span></td></tr>
+          <tr><td>Drag Size</td><td><code>32 &times; 32px</code></td><td><span class="token-path">&mdash;</span></td></tr>
+          <tr><td>Icon Size (default)</td><td><code>16px</code></td><td><span class="token-path">&mdash;</span></td></tr>
+          <tr><td>Icon Color (default)</td><td><code>#424242</code></td><td><span class="token-path">components.icon.default</span></td></tr>
+          <tr><td>Icon Color (hover / drag)</td><td><code>#2196F3</code></td><td><span class="token-path">primary.main</span></td></tr>
+          <tr><td>Icon Color (disabled)</td><td><code>—</code></td><td><span class="token-path">components.icon.disabled</span></td></tr>
+          <tr><td>Background (default)</td><td><code>transparent</code></td><td><span class="token-path">&mdash;</span></td></tr>
+          <tr><td>Background (hover / drag)</td><td><code>rgba(33,150,243,0.05)</code></td><td><span class="token-path">primary.main @ 5%</span></td></tr>
+          <tr><td>Shadow (drag)</td><td><code>shadows.sm</code></td><td><span class="token-path">shadows.sm</span></td></tr>
+          <tr><td>Border Radius</td><td><code>4px</code></td><td><span class="token-path">borderRadius.default</span></td></tr>
+          <tr><td>Cursor (default / hover)</td><td><code>grab</code></td><td><span class="token-path">&mdash;</span></td></tr>
+          <tr><td>Cursor (drag)</td><td><code>grabbing</code></td><td><span class="token-path">&mdash;</span></td></tr>
+          <tr><td>Transition</td><td><code>width/height/bg/shadow 150ms ease</code></td><td><span class="token-path">&mdash;</span></td></tr>
+          <tr><td>Icon</td><td colspan="2"><code>drag_indicator</code> (Material Icons)</td></tr>
+          <tr><td>Role / ARIA</td><td colspan="2"><code>role="button"</code> · <code>aria-label="Drag to reorder"</code></td></tr>
+          <tr><td>Base</td><td colspan="2"><code>@mui/material/Box</code> (no MUI Drag/Drop primitive)</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+</body>
+</html>

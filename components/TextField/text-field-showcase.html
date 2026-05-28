@@ -853,12 +853,16 @@
           </div>
           <div class="card-content">
             <ul>
+              <li><strong>Height comes from <code>tokens.controls.height</code></strong> &mdash; 32px small / 38px medium. Never hardcode <code>height: 32</code> or <code>height: 38</code>.</li>
+              <li><strong>Stack form fields with 24px vertical gap</strong> (<code>spacing.lg</code>) &mdash; mandatory, not 16px. Two-column form grids use <code>gap: 24px 16px</code>.</li>
+              <li><strong>Full-width fields (textareas, notes) span both columns</strong> in a two-column form grid.</li>
+              <li><strong>In a <code>PageHeaderToolbar</code>, TextField goes in the <code>inputTextFieldContent</code> slot</strong> &mdash; not loose next to action buttons.</li>
+              <li><strong>Most forms live in modals</strong>, not on their own page. If a form is too complex for 900px, break it into steps &mdash; don't make the modal bigger.</li>
               <li>Always include a clear, descriptive label</li>
-              <li>Use helper text for additional context</li>
-              <li>Show error messages clearly and specifically</li>
-              <li>Keep single-line inputs for short data</li>
-              <li>Provide clear placeholder examples</li>
-              <li>Use appropriate input types (email, tel, etc.)</li>
+              <li>Use helper text for additional context (units, format hints, character limits)</li>
+              <li>Show error messages clearly and specifically &mdash; name what's wrong</li>
+              <li>Use appropriate input types (<code>email</code>, <code>tel</code>) so mobile shows the right keyboard and validation hooks fire</li>
+              <li>Use multi-line only when the data is genuinely long-form (notes, descriptions)</li>
             </ul>
           </div>
         </div>
@@ -875,12 +879,14 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Use placeholder as the only label</li>
-              <li>Make required fields unclear</li>
-              <li>Show generic error messages</li>
-              <li>Use multi-line for short inputs</li>
-              <li>Disable without explanation</li>
-              <li>Make inputs too narrow for expected content</li>
+              <li><strong>Don't hardcode <code>height: 32</code> or <code>height: 38</code></strong> &mdash; the value belongs to <code>tokens.controls.height</code>, not the component call site.</li>
+              <li><strong>Don't use 16px gap between stacked form fields</strong> &mdash; the canonical vertical rhythm is 24px.</li>
+              <li><strong>Don't pour loose TextFields into a <code>PageHeaderToolbar</code></strong> &mdash; the actions area has explicit slots; TextField belongs in <code>inputTextFieldContent</code>.</li>
+              <li>Don't use placeholder as the only label &mdash; placeholders disappear on focus, leaving the user with no context</li>
+              <li>Don't make required fields unclear &mdash; use the <code>required</code> prop so the asterisk and <code>aria-required</code> are wired up consistently</li>
+              <li>Don't show generic error messages ("Invalid input") &mdash; name the constraint that was violated</li>
+              <li>Don't use multi-line for short single-value inputs &mdash; it sets the wrong expectation</li>
+              <li>Don't disable without explanation &mdash; pair disabled state with helper text that names what would unlock the field</li>
             </ul>
           </div>
         </div>

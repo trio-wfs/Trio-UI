@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Logos - TRIO WFS Design System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+  <link rel="stylesheet" href="../../design-system-shell.css">
+  <style>
+    .main-content { background: var(--color-background-secondary); min-height: 100vh; }
+    .section { background: transparent; border-radius: 0; padding: 0; margin-bottom: 0; padding-bottom: var(--spacing-xl); }
+    .section + .section { border-top: 1px solid var(--color-secondary-outline); padding-top: var(--spacing-xl); }
+    .section-title .material-icons-outlined { font-size: 18px; color: var(--color-primary-main); }
+    .section .property-table { background: var(--color-background-paper); border: 1px solid var(--color-secondary-outline); border-radius: 4px; overflow: hidden; }
+    .section .property-table th { background: var(--color-background-paper); border-bottom: 1px solid var(--color-secondary-outline); }
+    .section .property-table td { border-bottom: 1px solid var(--color-secondary-outline); }
+    .card { background: var(--color-background-paper); }
+
+    /* Logo demo surfaces — light for dark/logoOnly, dark for white */
+    .demo-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-xl);
+      align-items: center;
+      padding: var(--spacing-xl);
+      border-radius: 4px;
+      border: 1px solid var(--color-secondary-outline);
+    }
+    .demo-row.demo-light { background: var(--color-background-paper); }
+    .demo-row.demo-dark  { background: #1976D2; border-color: #1976D2; }
+    .demo-row.demo-canvas { background: var(--color-background-default); }
+
+    /* Variant cells with caption */
+    .variant-cell { display: flex; flex-direction: column; align-items: center; gap: var(--spacing-md); }
+    .variant-cell .variant-caption {
+      font-family: 'Roboto', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .demo-dark .variant-cell .variant-caption { color: rgba(255,255,255,0.85); }
+
+    /* React mount points */
+    [data-trio-component] { display: inline-block; }
+
+    /* Card illustrations */
+    .card-illustration { background: var(--color-background-secondary, #FAFAFA); border: 1px solid var(--color-secondary-outline); border-radius: 4px; padding: var(--spacing-md); margin-bottom: var(--spacing-md); display: flex; align-items: center; justify-content: center; min-height: 80px; position: relative; }
+    .card-illustration-label { position: absolute; top: 8px; right: 8px; font-size: 9px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; padding: 2px 6px; border-radius: 999px; }
+    .do-card .card-illustration-label { background: var(--color-success-light, #E8F5E9); color: var(--color-success-main); }
+    .dont-card .card-illustration-label { background: var(--color-error-light, #FBEAED); color: var(--color-error-main); }
+    .card-illustration-wrong::after { content: ''; position: absolute; top: 50%; left: 16px; right: 16px; height: 2px; background: var(--color-error-main); opacity: 0.4; transform: rotate(-3deg); }
+    /* For the dont illustration with white logo on white bg — make it visible enough to see the misuse */
+    .card-illustration-wrong.illus-white-on-white { background: #FFFFFF; }
+  </style>
+  <script src="../../design-system-nav.js"></script>
+  <script type="module" src="../../showcase/dist/showcase.js"></script>
+</head>
+<body>
+  <aside class="sidebar"></aside>
+  <main class="main-content">
+
+    <header class="page-header">
+      <h1 class="page-title">Product Logos</h1>
+      <p class="page-subtitle">
+        The TRIO product mark in three forms &mdash; full wordmark for light backgrounds, full wordmark
+        for dark backgrounds, and the standalone hexagon icon. Use the right variant for the surface
+        so the mark reads cleanly.
+      </p>
+      <div class="component-meta">
+        <span><span class="material-icons-outlined" style="font-size: 14px;">category</span> Brand Asset</span>
+        <span><span class="material-icons-outlined" style="font-size: 14px;">verified</span> Production Ready</span>
+      </div>
+    </header>
+
+
+    <!-- 1. OVERVIEW -->
+    <section class="section">
+      <h2 class="section-title"><span class="material-icons-outlined">info</span> Overview</h2>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title"><span class="material-icons-outlined" style="color: #2196F3;">psychology</span> Purpose</div>
+          <div class="card-content">
+            Identifies the surface as TRIO &mdash; in the header bar, on login and empty states, in marketing
+            footers, and anywhere brand presence matters. Three locked variants ensure the mark always
+            renders correctly on any background.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="material-icons-outlined" style="color: #2196F3;">priority_high</span> Visual Hierarchy</div>
+          <div class="card-content">
+            High &mdash; logos are recognition anchors, not decoration. Reserve them for moments where the
+            user benefits from knowing this is TRIO. Don't sprinkle logos across the UI as filler.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="material-icons-outlined" style="color: #2196F3;">accessibility</span> Accessibility</div>
+          <div class="card-content">
+            Defaults to <code>alt="TRIO"</code>. Override <code>alt</code> when the logo is acting as a link
+            (e.g., <code>alt="TRIO home"</code>). Pair with <code>aria-label</code> on the wrapping anchor
+            when the logo is the only interactive content.
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- 2. USAGE GUIDELINES -->
+    <section class="section">
+      <h2 class="section-title"><span class="material-icons-outlined">rule</span> Usage Guidelines</h2>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title"><span class="material-icons-outlined">check_circle</span> When to Use</div>
+          <div class="card-illustration">
+            <span class="card-illustration-label">Correct</span>
+            <div data-trio-component="ProductLogos" data-trio-props='{"logoType":"dark","width":140}'></div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>The primary header bar / app shell &mdash; full wordmark, dark or white per the bar's background</li>
+              <li>Login, signup, and password reset pages &mdash; mark anchors the page</li>
+              <li>Empty states for the whole app (not for individual sections within it)</li>
+              <li>Marketing footers, PDF report headers, exported documents</li>
+              <li>Favicons, app icons, mobile launchers &mdash; use <code>logoOnly</code> for icon-sized contexts</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card dont-card">
+          <div class="card-title"><span class="material-icons-outlined">cancel</span> When NOT to Use</div>
+          <div class="card-illustration card-illustration-wrong illus-white-on-white">
+            <span class="card-illustration-label">Incorrect</span>
+            <div data-trio-component="ProductLogos" data-trio-props='{"logoType":"white","width":140}'></div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Decoratively scattered across the UI &mdash; logos aren't ornaments</li>
+              <li>As an in-product button or icon &mdash; use ButtonIcon or a Material icon</li>
+              <li>White logo on a light background or dark logo on a dark background &mdash; mark disappears</li>
+              <li>Within form fields, table cells, or other dense data &mdash; reads as visual noise</li>
+              <li>Recolored or restyled &mdash; the mark is locked. Never change colors, proportions, or spacing</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- 3. VARIANTS -->
+    <section class="section">
+      <h2 class="section-title"><span class="material-icons-outlined">widgets</span> Variants</h2>
+      <p class="section-description">
+        Three locked variants &mdash; pick the one that matches the surface. The full wordmark variants
+        share natural dimensions (183&times;59); <code>logoOnly</code> is the standalone hexagon icon (57&times;59).
+      </p>
+
+      <div class="variant-group">
+        <div class="variant-label">Dark Logo &mdash; for Light Backgrounds</div>
+        <div class="demo-row demo-light">
+          <div class="variant-cell">
+            <div data-trio-component="ProductLogos" data-trio-props='{"logoType":"dark","width":183}'></div>
+            <span class="variant-caption">Natural &mdash; 183px</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">White Logo &mdash; for Dark Backgrounds</div>
+        <div class="demo-row demo-dark">
+          <div class="variant-cell">
+            <div data-trio-component="ProductLogos" data-trio-props='{"logoType":"white","width":183}'></div>
+            <span class="variant-caption">Natural &mdash; 183px</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Logo Only &mdash; Hexagon Icon</div>
+        <div class="demo-row demo-light">
+          <div class="variant-cell">
+            <div data-trio-component="ProductLogos" data-trio-props='{"logoType":"logoOnly","width":57}'></div>
+            <span class="variant-caption">Natural &mdash; 57px</span>
+          </div>
+          <div class="variant-cell">
+            <div data-trio-component="ProductLogos" data-trio-props='{"logoType":"logoOnly","width":40}'></div>
+            <span class="variant-caption">40px</span>
+          </div>
+          <div class="variant-cell">
+            <div data-trio-component="ProductLogos" data-trio-props='{"logoType":"logoOnly","width":24}'></div>
+            <span class="variant-caption">24px</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- 4. SIZES -->
+    <section class="section">
+      <h2 class="section-title"><span class="material-icons-outlined">straighten</span> Sizes</h2>
+      <p class="section-description">
+        Width drives sizing &mdash; height derives from the natural aspect ratio unless explicitly set.
+        Use the natural width whenever the layout permits; scale down only for header bars or compact
+        contexts. Don't scale up beyond natural size &mdash; the mark loses crispness.
+      </p>
+
+      <div class="variant-group">
+        <div class="variant-label">Full Wordmark Scaled</div>
+        <div class="demo-row demo-light">
+          <div class="variant-cell">
+            <div data-trio-component="ProductLogos" data-trio-props='{"logoType":"dark","width":183}'></div>
+            <span class="variant-caption">183px (natural)</span>
+          </div>
+          <div class="variant-cell">
+            <div data-trio-component="ProductLogos" data-trio-props='{"logoType":"dark","width":140}'></div>
+            <span class="variant-caption">140px</span>
+          </div>
+          <div class="variant-cell">
+            <div data-trio-component="ProductLogos" data-trio-props='{"logoType":"dark","width":100}'></div>
+            <span class="variant-caption">100px</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Icon Only Scaled</div>
+        <div class="demo-row demo-light">
+          <div class="variant-cell">
+            <div data-trio-component="ProductLogos" data-trio-props='{"logoType":"logoOnly","width":57}'></div>
+            <span class="variant-caption">57px (natural)</span>
+          </div>
+          <div class="variant-cell">
+            <div data-trio-component="ProductLogos" data-trio-props='{"logoType":"logoOnly","width":40}'></div>
+            <span class="variant-caption">40px</span>
+          </div>
+          <div class="variant-cell">
+            <div data-trio-component="ProductLogos" data-trio-props='{"logoType":"logoOnly","width":24}'></div>
+            <span class="variant-caption">24px</span>
+          </div>
+          <div class="variant-cell">
+            <div data-trio-component="ProductLogos" data-trio-props='{"logoType":"logoOnly","width":16}'></div>
+            <span class="variant-caption">16px</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- 5. BEST PRACTICES -->
+    <section class="section">
+      <h2 class="section-title"><span class="material-icons-outlined">recommend</span> Best Practices</h2>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title"><span class="material-icons-outlined">check_circle</span> Do</div>
+          <div class="card-illustration">
+            <span class="card-illustration-label">Correct</span>
+            <div style="display: flex; flex-direction: column; gap: 8px; align-items: center;">
+              <div data-trio-component="ProductLogos" data-trio-props='{"logoType":"dark","width":120}'></div>
+              <div style="font-size: 10px; color: #757575;">Dark logo on light surface, sized for the header</div>
+            </div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Pick the variant that contrasts with the background &mdash; dark on light, white on dark</li>
+              <li>Set <code>width</code> only &mdash; let height derive from the natural aspect ratio</li>
+              <li>Use <code>logoOnly</code> for icon-sized contexts (favicons, mobile launchers, tabs)</li>
+              <li>Preserve clear space around the mark &mdash; at least the height of the hexagon on all sides</li>
+              <li>Override <code>alt</code> with action context when the logo links somewhere ("TRIO home")</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card dont-card">
+          <div class="card-title"><span class="material-icons-outlined">cancel</span> Don't</div>
+          <div class="card-illustration card-illustration-wrong" style="background: #4CAF50;">
+            <span class="card-illustration-label">Incorrect</span>
+            <div data-trio-component="ProductLogos" data-trio-props='{"logoType":"dark","width":140}'></div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Don't place the dark logo on a colored brand background &mdash; readability collapses</li>
+              <li>Don't recolor, restroke, rotate, or skew the logo &mdash; the mark is locked</li>
+              <li>Don't scale the wordmark below ~100px width &mdash; legibility suffers; switch to <code>logoOnly</code></li>
+              <li>Don't stretch by setting incompatible <code>width</code> and <code>height</code> together</li>
+              <li>Don't use the logo as a decorative pattern, watermark, or background fill</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- 6. TECHNICAL SPECIFICATIONS -->
+    <section class="section">
+      <h2 class="section-title"><span class="material-icons-outlined">construction</span> Technical Specifications</h2>
+      <p class="section-description">
+        All values extracted from Figma component spec (node: 3868:51906). Implementation-ready values with token paths.
+      </p>
+
+      <table class="property-table">
+        <thead><tr><th>Property</th><th>Value</th><th>Token</th></tr></thead>
+        <tbody>
+          <tr><td>Variants</td><td><code>dark, white, logoOnly</code></td><td><span class="token-path">&mdash;</span></td></tr>
+          <tr><td>Natural Size (dark / white)</td><td><code>183 &times; 59px</code></td><td><span class="token-path">&mdash;</span></td></tr>
+          <tr><td>Natural Size (logoOnly)</td><td><code>57 &times; 59px</code></td><td><span class="token-path">&mdash;</span></td></tr>
+          <tr><td>Aspect Ratio (full wordmark)</td><td><code>3.1 : 1</code></td><td><span class="token-path">&mdash;</span></td></tr>
+          <tr><td>Aspect Ratio (logoOnly)</td><td><code>0.97 : 1</code> &mdash; nearly square</td><td><span class="token-path">&mdash;</span></td></tr>
+          <tr><td>Asset Type (dark / white)</td><td><code>PNG</code></td><td><span class="token-path">assets/logos/</span></td></tr>
+          <tr><td>Asset Type (logoOnly)</td><td><code>SVG</code></td><td><span class="token-path">assets/trio-icon.svg</span></td></tr>
+          <tr><td>Default Alt</td><td><code>"TRIO"</code></td><td><span class="token-path">&mdash;</span></td></tr>
+          <tr><td>Recommended Min Width (wordmark)</td><td><code>100px</code></td><td><span class="token-path">&mdash;</span></td></tr>
+          <tr><td>Recommended Min Width (logoOnly)</td><td><code>16px</code></td><td><span class="token-path">&mdash;</span></td></tr>
+          <tr><td>Draggable</td><td><code>false</code> &mdash; <code>draggable=false</code> on img</td><td><span class="token-path">&mdash;</span></td></tr>
+          <tr><td>Base</td><td colspan="2"><code>@mui/material/Box</code> wrapping a native <code>&lt;img&gt;</code></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+</body>
+</html>

@@ -138,6 +138,45 @@
       </div>
     </section>
 
+    <!-- Best Practices -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">recommend</span> Best Practices
+      </h2>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">check_circle</span> Do
+          </div>
+          <div class="card-content">
+            <ul>
+              <li><strong>Every paper section on a page is a <code>ContentContainer</code></strong> &mdash; hand-rolled paper cards (white box + border + arbitrary header) are not allowed. Use the component so the title strip stays consistent across the system.</li>
+              <li><strong>The title strip uses <code>background.default</code> (<code>#F5F5F5</code>) &mdash; persistent across every container</strong>. 48px tall, 16px left / 8px right padding, body Subtitle2.</li>
+              <li><strong>Containers can nest</strong> &mdash; KV row lists inside a container body, or a smaller container inside a larger one. The title strip is required at the top level of each container.</li>
+              <li><strong>Wrap AG Grid in a <code>ContentContainer</code> when the grid lives inside a tab</strong>; standalone grid pages skip the wrapper because PHT and grid share a continuous border.</li>
+              <li>Use <code>flush</code> radius when stacking containers that should read as one continuous surface (e.g. grid + PHT)</li>
+              <li>Title actions slot (right-aligned): chips, icon buttons, small text buttons &mdash; not primary CTAs (those belong in the PHT)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">cancel</span> Don't
+          </div>
+          <div class="card-content">
+            <ul>
+              <li><strong>Don't wrap standalone components in <code>ContentContainer</code></strong> &mdash; <code>Alert</code>, <code>MetricCard</code>, and <code>Stepper</code> already have their own structure. The container rule is for grouping cards / sections (Profile, Compliance, Bill Rates), not for chrome around components that own their own surface.</li>
+              <li><strong>Don't hand-roll paper cards</strong> &mdash; arbitrary white-box-with-border patterns drift over time. Use <code>ContentContainer</code> so the title strip, border, radius, and padding match the rest of the system.</li>
+              <li><strong>Don't add drop shadows to ContentContainer</strong> &mdash; shadows are only for floating overlays (modals, menus, popovers). Paper surfaces use borders, not elevation.</li>
+              <li><strong>Don't use nested cards instead of internal borders</strong> &mdash; sub-groups inside a container separate with 1px <code>#E0E0E0</code> horizontal borders, not nested paper cards.</li>
+              <li><strong>Don't use <code>background.default</code> (<code>#F5F5F5</code>) for the container body</strong> &mdash; that's the page canvas color and the title strip color, never the body. The body is always <code>background.paper</code>.</li>
+              <li>Don't put the page's primary CTA in the title actions slot &mdash; the primary action lives in the PHT's <code>singleButtonContent</code> slot, not in a container's title strip</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Technical Specifications -->
     <section class="section">
       <h2 class="section-title">

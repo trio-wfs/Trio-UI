@@ -349,10 +349,11 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Label the button with the primary action — "Save", "Submit", "Export"</li>
-              <li>Keep menu options closely related to the primary action</li>
-              <li>Use primary color for save/update flows, secondary for utility actions</li>
-              <li>Limit menu to 3–5 options — if more, consider a separate Menu</li>
+              <li><strong>Label with the verb-noun pattern</strong> &mdash; <em>Save Changes</em>, <em>Create Worker</em>, <em>Export CSV</em>. Never <em>Save</em>, <em>Submit</em>, <em>OK</em>, or <em>Confirm</em> as standalone labels &mdash; the user needs to know what the action commits.</li>
+              <li><strong>Menu options should be sibling actions of the primary</strong> &mdash; <em>Save Changes</em> + <em>Save as Draft</em> + <em>Save and Close</em>. If menu items aren't variants of the primary action, use a separate Button + Menu instead.</li>
+              <li><strong>Height comes from <code>tokens.controls.height</code></strong> &mdash; 32px small / 38px medium, matching every other interactive control.</li>
+              <li>Use primary color (<code>#2196F3</code>) only for Save / Update flows; use secondary for utility actions like Export or Print</li>
+              <li>Limit menu to 3&ndash;5 options &mdash; if more, the primary action is probably wrong</li>
             </ul>
           </div>
         </div>
@@ -367,10 +368,11 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Don't use as a replacement for a plain dropdown — the label must trigger something</li>
-              <li>Don't use for destructive actions without confirmation in the menu item</li>
-              <li>Don't place two split buttons adjacent to each other</li>
-              <li>Don't use in mobile contexts — targets are too small</li>
+              <li><strong>Don't use generic labels like <em>Save</em>, <em>Submit</em>, <em>OK</em>, <em>Confirm</em></strong> &mdash; they hide what the action commits. Use verb-noun pairs that name the consequence.</li>
+              <li><strong>Don't use SplitButton as a dropdown</strong> &mdash; the label half MUST trigger an action. If the user only ever clicks the chevron, use a plain Button + Menu instead.</li>
+              <li><strong>Don't use SplitButton for destructive actions</strong> &mdash; the split shape encourages accidental clicks on the primary label. Use a single Button + Modal confirmation.</li>
+              <li>Don't place two SplitButtons adjacent to each other &mdash; the chrome reads as one busy control</li>
+              <li>Don't use in mobile contexts &mdash; targets are too small (also: TRIO is desktop-first)</li>
             </ul>
           </div>
         </div>

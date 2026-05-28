@@ -246,11 +246,13 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Default to <code>level="paper"</code> — white is the workhorse for cards, panels, containers</li>
+              <li><strong>Paper surfaces are border-only, never shadowed at rest</strong> &mdash; <code>1px solid #E0E0E0</code> separates the surface from its parent. Shadows are reserved for floating overlays (modals, menus, popovers, tooltips).</li>
+              <li><strong>For page-level paper sections, use <code>ContentContainer</code></strong> (which composes Paper) &mdash; Paper directly is for layout primitives where ContentContainer's title strip would be wrong.</li>
+              <li><strong>Paper levels map to a strict hierarchy:</strong> <code>paper</code> (#FFFFFF) for components, <code>secondary</code> (#FAFAFA) for the page content wrapper, <code>default</code> (#F5F5F5) reserved for page canvas only. Don't reach across tiers.</li>
+              <li>Use <code>level="paper"</code> as the workhorse for cards, panels, containers</li>
               <li>Use <code>level="secondary"</code> for content wrappers below page headers</li>
-              <li>Use <code>level="subtle"</code> for nested containers — best inside paper or accent parents</li>
-              <li>Use <code>level="accent"</code> sparingly for highlighted/pinned content (e.g. canonical answers in Q&amp;A threads)</li>
-              <li>Reach for Paper directly when Card's slot structure would over-constrain the layout</li>
+              <li>Use <code>level="subtle"</code> for nested containers &mdash; best inside paper or accent parents</li>
+              <li>Use <code>level="accent"</code> sparingly for highlighted/pinned content</li>
             </ul>
           </div>
         </div>
@@ -261,11 +263,12 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Don't add <code>box-shadow</code> at rest — interactive wrappers own hover shadows</li>
-              <li>Don't use Paper for semantic feedback (warning, error, success) — use <code>&lt;Alert&gt;</code></li>
-              <li>Don't stack multiple <code>accent</code> surfaces — the highlight loses meaning</li>
-              <li>Don't use Paper as the only differentiator between sections — start with spacing, then surface tier</li>
-              <li>Don't pass <code>level="subtle"</code> at the top of the page — it has nothing to compose against</li>
+              <li><strong>Don't add box-shadow to Paper at rest</strong> &mdash; surfaces are border-only in TRIO. Elevation is reserved for floating overlays (Modal, Menu, PopOver, Tooltip, breadcrumb dropdowns).</li>
+              <li><strong>Don't use <code>background.default</code> (<code>#F5F5F5</code>) as a Paper level</strong> &mdash; that color is reserved for the page canvas, never for a surface. Same for <code>background.secondary</code> (<code>#FAFAFA</code>) outside the content wrapper.</li>
+              <li><strong>Don't use Paper for semantic feedback</strong> (warning, error, success) &mdash; use <code>&lt;Alert&gt;</code> with the appropriate severity.</li>
+              <li>Don't stack multiple <code>accent</code> surfaces &mdash; the highlight loses meaning</li>
+              <li>Don't use Paper as the only differentiator between sections &mdash; start with spacing, then surface tier</li>
+              <li>Don't pass <code>level="subtle"</code> at the top of the page &mdash; it has nothing to compose against</li>
             </ul>
           </div>
         </div>

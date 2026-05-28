@@ -329,8 +329,11 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Use the Medium size by default. Reserve Small for dense toolbars (e.g., inline grid filters).</li>
-              <li>Provide a clear placeholder that tells the user what is searchable: "Search workers, shifts, or orders..." is better than just "Search".</li>
+              <li><strong>Height comes from <code>tokens.controls.height</code></strong> &mdash; 32px small / 38px medium, matching every other form control. Never hardcode.</li>
+              <li><strong>In a <code>PageHeaderToolbar</code>, SearchBar goes in the <code>inputTextFieldContent</code> slot</strong> &mdash; not loose next to action buttons. SearchBar and TextField share this slot.</li>
+              <li>Use the Medium size by default. Reserve Small for dense toolbars (e.g., inline grid filters with 32px controls)</li>
+              <li>Provide a clear placeholder that tells the user what's searchable: "Search workers, shifts, or orders..." is better than just "Search"</li>
+              <li>Pair with AG Grid's column filters when both are needed &mdash; SearchBar is for global / cross-column search; the column filter row handles scoped per-column search</li>
             </ul>
           </div>
         </div>
@@ -345,8 +348,10 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Don't use SearchBar for navigation or routing. It's a filter control, not a site-wide search.</li>
-              <li>Don't use the Right type without reason — Left is the standard pattern across TRIO WFS.</li>
+              <li><strong>Don't hardcode <code>height: 32</code> or <code>height: 38</code></strong> &mdash; pull from <code>tokens.controls.height</code>.</li>
+              <li><strong>Don't pour SearchBar loose into the PHT actions area</strong> &mdash; it belongs in <code>inputTextFieldContent</code> so the actions area stays orderly.</li>
+              <li>Don't use SearchBar for navigation or routing &mdash; it's a filter control, not a site-wide search</li>
+              <li>Don't use the Right type without reason &mdash; Left is the standard pattern across TRIO WFS</li>
             </ul>
           </div>
         </div>

@@ -299,10 +299,12 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Use <code>color="staff"</code> for every TRIO Staff/RM author — slate anchors staff identity across all threads</li>
+              <li><strong>Avatar is non-interactive chrome</strong> &mdash; it identifies the author, it isn't clickable on its own. Wrap in an interactive parent if the surrounding row needs click behavior.</li>
+              <li><strong>The Avatar color palette is closed</strong> &mdash; staff, anonymized, plus 6 hash colors. Don't extend the palette ad-hoc; if a new role needs an avatar color, add it in Figma first.</li>
+              <li>Use <code>color="staff"</code> for every TRIO Staff / RM author &mdash; slate anchors staff identity across all threads</li>
               <li>Hash agency identifier colors from a stable input (e.g. agency name) so the same author keeps the same color across sessions</li>
-              <li>Use <code>color="anonymized"</code> in cross-agency views — uniform grey is the privacy contract made visible</li>
-              <li>Pass exactly 1–2 character initials; truncate before passing if the source is longer</li>
+              <li>Use <code>color="anonymized"</code> in cross-agency views &mdash; uniform grey is the privacy contract made visible</li>
+              <li>Pass exactly 1&ndash;2 character initials; truncate before passing if the source is longer</li>
             </ul>
           </div>
         </div>
@@ -313,10 +315,11 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Don't add hover or click behavior — wrap Avatar in an interactive parent if needed</li>
-              <li>Don't pass <code>staff</code> or <code>anonymized</code> through the hash function — both are reserved</li>
-              <li>Don't pass more than 2 characters — they will overflow the circle</li>
-              <li>Don't invent additional sizes or colors — extend the variant set in Figma first</li>
+              <li><strong>Don't add hover or click behavior to Avatar itself</strong> &mdash; Avatar is identity chrome, not a control. If the row is clickable, the parent owns the interaction.</li>
+              <li><strong>Don't invent additional sizes or colors</strong> &mdash; the variant set is locked. Extend in Figma first so the design system stays the source of truth.</li>
+              <li>Don't pass <code>staff</code> or <code>anonymized</code> through the hash function &mdash; both are reserved for specific roles</li>
+              <li>Don't pass more than 2 characters &mdash; they will overflow the circle</li>
+              <li>Don't add a drop shadow at rest &mdash; Avatar is a paper surface, border-only</li>
             </ul>
           </div>
         </div>

@@ -111,13 +111,36 @@
           <span class="material-icons-outlined">recommend</span>
           Best Practices
         </h2>
-        <ul style="font-size: 14px; color: var(--color-text-primary); line-height: 1.8; padding-left: 20px;">
-          <li>The footer appears on every page — it is not conditional.</li>
-          <li>The footer is sticky — it stays fixed at the bottom of the viewport.</li>
-          <li>The top border uses the standard component border (#E0E0E0).</li>
-          <li>Copyright year and version number should be dynamically generated, not hardcoded.</li>
-          <li>Links open in the same tab by default. External links should open in a new tab.</li>
-        </ul>
+        <div class="grid-2">
+          <div class="card do-card">
+            <div class="card-title">
+              <span class="material-icons-outlined">check_circle</span>
+              Do
+            </div>
+            <div class="card-content">
+              <ul>
+                <li><strong>The footer is sticky and appears on every page</strong> &mdash; 16px horizontal padding, 16px vertical padding on copy, 1px <code>#E0E0E0</code> top border (the standard component border, not the input border).</li>
+                <li><strong>Footer links use primary blue (<code>#2196F3</code>)</strong> &mdash; one of the few sanctioned uses of primary outside Save/Update actions, since clickable text is the exception.</li>
+                <li>Dynamically generate the copyright year and version number</li>
+                <li>Internal links open in the same tab; external links open in a new tab</li>
+                <li>Use caption (12px) typography &mdash; the footer is supporting chrome, not primary content</li>
+              </ul>
+            </div>
+          </div>
+          <div class="card dont-card">
+            <div class="card-title">
+              <span class="material-icons-outlined">cancel</span>
+              Don't
+            </div>
+            <div class="card-content">
+              <ul>
+                <li><strong>Don't add a drop shadow to the footer</strong> &mdash; shadows are reserved for floating overlays (modals, menus, popovers). The footer is a paper surface and uses the border, not elevation.</li>
+                <li>Don't hardcode the copyright year or version number &mdash; they should be derived from build/runtime data</li>
+                <li>Don't elevate footer typography above caption (12px) &mdash; body or larger text competes with primary page content</li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </section>
 
       <!-- ═══════════ 4. TECHNICAL SPECS ═══════════ -->

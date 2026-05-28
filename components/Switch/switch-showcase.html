@@ -347,10 +347,11 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Always provide a clear, descriptive label</li>
-              <li>Use for settings that apply immediately</li>
-              <li>Position labels consistently across a settings panel</li>
-              <li>Make the current state obvious through color and position</li>
+              <li><strong>Use Switch for settings that take effect immediately</strong> &mdash; that's the distinction from Checkbox (which is for selection that gets committed on save). Notifications on, auto-assign on, dark mode &mdash; all instant. See the Checkbox showcase for the other side of this rule.</li>
+              <li><strong>Switches within a group use 8px (<code>spacing.sm</code>) spacing between options</strong> &mdash; tighter than the 24px form-row gap because grouped switches are visually related.</li>
+              <li>Always provide a clear, descriptive label &mdash; the switch alone doesn't say what it controls</li>
+              <li>Position labels consistently across a settings panel &mdash; all on the same side (right is the default)</li>
+              <li>Make the current state obvious through color and position &mdash; the on/off contrast is the signal</li>
               <li>Group related switches together in settings views</li>
             </ul>
           </div>
@@ -370,11 +371,11 @@
           </div>
           <div class="card-content">
             <ul>
+              <li><strong>Don't use Switch for actions that require save/submit confirmation</strong> &mdash; that's Checkbox. Switches signal "this takes effect now." If toggling it doesn't change behavior until a Save click, it's the wrong control.</li>
+              <li><strong>Don't use Switch for irreversible or destructive actions</strong> &mdash; the instant-apply semantic is wrong for "Delete account" or "Cancel order." Use a Button + Modal confirmation flow.</li>
               <li>Don't use a switch without a visible label</li>
               <li>Don't use vague labels like "Toggle" or "Option"</li>
-              <li>Don't use for actions that require save/submit confirmation</li>
-              <li>Don't use for irreversible or destructive actions</li>
-              <li>Don't mix switch and checkbox patterns in the same form</li>
+              <li>Don't mix switch and checkbox patterns in the same form &mdash; the implied commit semantics fight each other</li>
             </ul>
           </div>
         </div>

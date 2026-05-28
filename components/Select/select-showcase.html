@@ -325,10 +325,13 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Sort options in a logical order (severity, alphabetical, frequency)</li>
-              <li>Always include a visible label above the select</li>
-              <li>Use helper text to guide complex selections</li>
-              <li>Provide a meaningful placeholder (not just "Select")</li>
+              <li><strong>Height comes from <code>tokens.controls.height</code></strong> &mdash; 32px small / 38px medium, matching every other form control. Never hardcode.</li>
+              <li><strong>Stack form fields with 24px vertical gap</strong> (<code>spacing.lg</code>) &mdash; mandatory, not 16px.</li>
+              <li><strong>Select's dropdown uses the shared MUI Menu chrome</strong> &mdash; 254px min-width, shadow, 4px radius. Inherited automatically because Select renders our custom Menu component. Don't override.</li>
+              <li>Sort options in a logical order (severity, alphabetical, frequency) &mdash; not the order they appear in the API</li>
+              <li>Always include a visible label above the select &mdash; placeholder alone is not a label</li>
+              <li>Use helper text to guide complex selections or name the constraint</li>
+              <li>Provide a meaningful placeholder (not just "Select") &mdash; e.g. "Choose a facility"</li>
               <li>Pre-select a default when one option is clearly most common</li>
             </ul>
           </div>
@@ -344,10 +347,12 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Don't use Select for only 2-3 options — use Radio buttons instead</li>
+              <li><strong>Don't hardcode <code>height: 32</code> or <code>height: 38</code></strong> &mdash; pull from <code>tokens.controls.height</code> so size stays consistent with every other control.</li>
+              <li><strong>Don't use 16px vertical gap between Select and the next form field</strong> &mdash; the canonical form rhythm is 24px.</li>
+              <li><strong>Don't use Select for triggering actions</strong> &mdash; that's what Button or Menu is for. Select is for entering a value.</li>
+              <li>Don't use Select for only 2-3 options &mdash; use RadioGroup so all options are visible without a click</li>
               <li>Don't use vague placeholders like "Select" or "Choose"</li>
-              <li>Don't hide critical information behind a dropdown</li>
-              <li>Don't use for triggering actions (use Button or Menu)</li>
+              <li>Don't hide critical information behind a dropdown &mdash; if the user needs to see all options to decide, use RadioGroup or a list</li>
               <li>Don't nest select dropdowns inside each other</li>
             </ul>
           </div>

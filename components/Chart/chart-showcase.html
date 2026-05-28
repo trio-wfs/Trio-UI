@@ -623,11 +623,13 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Use <code>&lt;Chart&gt;</code> — never raw <code>&lt;AgCharts&gt;</code> — so the theme is always applied</li>
-              <li>Keep chart titles short and meaningful (14–16px, medium weight)</li>
+              <li><strong>Use <code>&lt;Chart&gt;</code> from <code>@trio-wfs/ui</code> &mdash; never raw <code>&lt;AgCharts&gt;</code></strong> &mdash; so the TRIO theme, color palette, and typography are always applied. AG Charts is the only sanctioned charting library; never bring in Chart.js, Recharts, D3, or anything else.</li>
+              <li><strong>The data viz palette starts at the info tone scale</strong> (<code>info/900 → 700 → 500 → 300</code>) and extends to a 10-color sequence for charts with more series. Series 1 gets color 1, series 2 gets color 2, etc. Don't override.</li>
+              <li><strong>Semantic colors (success / warning / error) signal urgency, not series identity</strong> &mdash; use them when a series represents urgency (overdue, failed, critical), never decoratively.</li>
+              <li>Keep chart titles short and meaningful (14&ndash;16px, medium weight)</li>
               <li>Use a legend when 3 or more series are present</li>
               <li>Use bar/column for comparisons, line/area for trends, donut for proportions</li>
-              <li>Keep y-axis labels concise — use K/M suffixes for large numbers</li>
+              <li>Keep y-axis labels concise &mdash; use K/M suffixes for large numbers</li>
             </ul>
           </div>
         </div>
@@ -638,10 +640,12 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Don't set custom colors inline — use the TRIO palette from <code>trioChartPalette</code></li>
-              <li>Don't use more than 5–6 series in one chart — it becomes unreadable</li>
-              <li>Don't place charts inside a modal (900px large modal only if absolutely necessary)</li>
-              <li>Don't use pie charts — use donut instead (center label adds context)</li>
+              <li><strong>Don't set custom inline colors</strong> &mdash; the <code>trioChartPalette</code> is the source of truth. Custom hex values drift over time and break the visual rhythm with MetricCard and other data viz.</li>
+              <li><strong>Don't use semantic colors decoratively on chart series</strong> &mdash; <code>success</code> green or <code>error</code> red means "this series represents that state," not "I like that color." Reserve for genuinely urgent / status-bearing series.</li>
+              <li><strong>Don't introduce another charting library</strong> &mdash; AG Charts is the only sanctioned option. No D3, no Recharts, no Chart.js, no inline SVG hand-rolling.</li>
+              <li>Don't use more than 5&ndash;6 series in one chart &mdash; it becomes unreadable</li>
+              <li>Don't place charts inside a small modal &mdash; charts need room. Large modal (900px) only if absolutely necessary; prefer an inline panel or dedicated page.</li>
+              <li>Don't use pie charts &mdash; use donut instead (center label adds context)</li>
               <li>Don't mix chart types for the same data type in the same view</li>
             </ul>
           </div>

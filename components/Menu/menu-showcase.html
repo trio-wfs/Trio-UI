@@ -616,9 +616,12 @@
           </div>
           <div class="card-content">
             <ul>
+              <li><strong>Menu is a floating overlay &mdash; drop shadow is allowed</strong> (along with Tooltip, PopOver, and Modal). Min-width 254px, 4px radius, the standard overlay chrome.</li>
+              <li><strong>Select inherits Menu's chrome automatically</strong> &mdash; the Select dropdown is rendered with this Menu component, so any theme change here flows through. Don't override Menu styling per-instance.</li>
+              <li><strong>Use verb-noun labels for action items</strong> &mdash; <em>Create Worker</em>, <em>Update Profile</em>, <em>Delete Account</em>. Never <em>Save</em>, <em>Submit</em>, or <em>OK</em> as standalone labels. Same rule applies to buttons across the system.</li>
               <li>Group related items with titles and dividers</li>
-              <li>Use consistent icon placement across all items</li>
-              <li>Place destructive actions at the bottom, separated by a divider</li>
+              <li>Use consistent icon placement across all items &mdash; mixed icon/no-icon items read as inconsistent</li>
+              <li>Place destructive actions at the bottom, separated by a divider &mdash; physical distance reduces accidental clicks</li>
               <li>Keep labels short and action-oriented</li>
             </ul>
           </div>
@@ -641,6 +644,8 @@
           </div>
           <div class="card-content">
             <ul>
+              <li><strong>Don't use vague action labels</strong> &mdash; <em>OK</em>, <em>Save</em>, <em>Submit</em>, <em>Confirm</em> hide what the action commits. Use verb-noun (<em>Save Changes</em>, <em>Submit Approval</em>, <em>Confirm Delete</em>).</li>
+              <li><strong>Don't put primary actions in a Menu</strong> &mdash; Menu is for secondary or grouped actions. The primary action belongs in the PHT's single-button slot or as a dedicated Button.</li>
               <li>Don't mix different types of items without grouping</li>
               <li>Don't use overly long labels that wrap to multiple lines</li>
               <li>Don't omit icons from some items when others have them</li>

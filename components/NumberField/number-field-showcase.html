@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NumberField - TRIO WFS Design System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+  <link rel="stylesheet" href="../../design-system-shell.css">
+  <style>
+    /* ============================================================
+       CONTINUOUS CANVAS OVERRIDES
+       ============================================================ */
+    .main-content {
+      background: var(--color-background-secondary);
+      min-height: 100vh;
+    }
+
+    .section {
+      background: transparent;
+      border-radius: 0;
+      padding: 0;
+      margin-bottom: 0;
+      padding-bottom: var(--spacing-xl);
+    }
+
+    .section + .section {
+      border-top: 1px solid var(--color-secondary-outline);
+      padding-top: var(--spacing-xl);
+    }
+
+    .section-title .material-icons-outlined {
+      font-size: 18px;
+      color: var(--color-primary-main);
+    }
+
+    /* Tables: paper + border */
+    .section .property-table {
+      background: var(--color-background-paper);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .section .property-table th {
+      background: var(--color-background-paper);
+      border-bottom: 1px solid var(--color-secondary-outline);
+    }
+    .section .property-table td {
+      border-bottom: 1px solid var(--color-secondary-outline);
+    }
+
+    /* Cards: paper white */
+    .card {
+      background: var(--color-background-paper);
+    }
+
+    /* Demo container — paper white surface for live components */
+    .demo-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-lg);
+      align-items: flex-end;
+      background: var(--color-background-paper);
+      padding: var(--spacing-lg);
+      border-radius: 4px;
+      border: 1px solid var(--color-secondary-outline);
+    }
+
+    /* React mount points */
+    [data-trio-component] {
+      display: inline-block;
+    }
+
+    /* ── Card illustration (Do/Don't visuals) ── */
+    .card-illustration {
+      background: var(--color-background-secondary, #FAFAFA);
+      border: 1px solid var(--color-secondary-outline);
+      border-radius: 4px;
+      padding: var(--spacing-md);
+      margin-bottom: var(--spacing-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 80px;
+      position: relative;
+    }
+    .card-illustration-label {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      font-size: 9px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 2px 6px;
+      border-radius: 999px;
+    }
+    .do-card .card-illustration-label {
+      background: var(--color-success-light, #E8F5E9);
+      color: var(--color-success-main);
+    }
+    .dont-card .card-illustration-label {
+      background: var(--color-error-light, #FBEAED);
+      color: var(--color-error-main);
+    }
+    .card-illustration-wrong::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 16px;
+      right: 16px;
+      height: 2px;
+      background: var(--color-error-main);
+      opacity: 0.4;
+      transform: rotate(-3deg);
+    }
+  </style>
+  <script src="../../design-system-nav.js"></script>
+  <script type="module" src="../../showcase/dist/showcase.js"></script>
+</head>
+<body>
+  <!-- LEFT NAVIGATION -->
+  <aside class="sidebar"><!-- nav injected by design-system-nav.js --></aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+
+    <!-- ============================================================
+         PAGE HEADER
+         ============================================================ -->
+    <header class="page-header">
+      <h1 class="page-title">NumberField</h1>
+      <p class="page-subtitle">
+        Stepper input for numeric values with bounded min/max ranges. Use for quantity selection,
+        rate adjustments, and any small-range integer input where users may prefer clicking over typing.
+      </p>
+      <div class="component-meta">
+        <span><span class="material-icons-outlined" style="font-size: 14px;">category</span> Form Control</span>
+        <span><span class="material-icons-outlined" style="font-size: 14px;">verified</span> Production Ready</span>
+      </div>
+    </header>
+
+
+    <!-- ============================================================
+         1. OVERVIEW
+         ============================================================ -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">info</span>
+        Overview
+      </h2>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: #2196F3;">psychology</span>
+            Purpose
+          </div>
+          <div class="card-content">
+            A composite control — minus button, centered input, plus button — for entering a small
+            numeric value. Differs from a plain TextField by giving users an obvious tap-to-step
+            affordance for low-cardinality numeric entry.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: #2196F3;">priority_high</span>
+            Visual Hierarchy
+          </div>
+          <div class="card-content">
+            Low — NumberField sits within forms as a peer of TextField, Select, and Switch. Use
+            optional label + helperText to give it the same visual weight as adjacent inputs.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span class="material-icons-outlined" style="color: #2196F3;">accessibility</span>
+            Accessibility
+          </div>
+          <div class="card-content">
+            Supports keyboard entry, <code>ArrowUp</code>/<code>ArrowDown</code> for stepping, and
+            <code>Enter</code> to commit. Buttons expose <code>aria-label</code> and disable at min/max
+            boundaries. Pair with a visible label for screen-reader context.
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         2. USAGE GUIDELINES
+         ============================================================ -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">rule</span>
+        Usage Guidelines
+      </h2>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">check_circle</span>
+            When to Use
+          </div>
+          <div class="card-illustration">
+            <span class="card-illustration-label">Correct</span>
+            <div style="display: flex; gap: 16px; align-items: flex-end;">
+              <div data-trio-component="NumberField" data-trio-props='{"label":"Workers needed","value":3,"min":0,"max":20}'></div>
+              <div data-trio-component="NumberField" data-trio-props='{"label":"Shift length (hrs)","value":8,"min":4,"max":12}'></div>
+            </div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Bounded integer entry where the typical value is 1&ndash;20 (workers needed, beds, shifts)</li>
+              <li>Quantity selection in modals (number of submissions, copies of a template)</li>
+              <li>Rate or threshold tuning with small steps (overtime multiplier, alert window in hours)</li>
+              <li>Any numeric value where users may want to nudge up/down rather than type</li>
+              <li>Inputs constrained to a clear min/max range &mdash; the stepper makes boundaries obvious</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">cancel</span>
+            When NOT to Use
+          </div>
+          <div class="card-illustration card-illustration-wrong">
+            <span class="card-illustration-label">Incorrect</span>
+            <div style="display: flex; gap: 16px; align-items: flex-end;">
+              <div data-trio-component="NumberField" data-trio-props='{"label":"Annual salary","value":85000}'></div>
+            </div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Large numeric ranges (currency, dates, percentages with many decimal places) &mdash; use TextField with numeric validation</li>
+              <li>Currency input &mdash; use a TextField with adornments and formatting</li>
+              <li>Search-like numeric entry where typing is faster than stepping &mdash; use TextField</li>
+              <li>Numeric values selected from a known list &mdash; use Select or Autocomplete</li>
+              <li>Continuous-range tuning where exact value matters less than position &mdash; use Slider</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         3. VARIANTS
+         ============================================================ -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">widgets</span>
+        Variants
+      </h2>
+      <p class="section-description">
+        NumberField has one shape &mdash; a stepper with a centered numeric input. Optional label and
+        helperText slots adapt it to match the form context. Use the bounded version (with min/max)
+        whenever the valid range is known &mdash; the boundary buttons disable automatically.
+      </p>
+
+      <div class="variant-group">
+        <div class="variant-label">With Label</div>
+        <div class="demo-row">
+          <div data-trio-component="NumberField" data-trio-props='{"label":"Quantity","value":1}'></div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">With Label + Helper Text</div>
+        <div class="demo-row">
+          <div data-trio-component="NumberField" data-trio-props='{"label":"Workers needed","value":3,"helperText":"Maximum 20 per shift"}'></div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Bounded (min/max enforced)</div>
+        <div class="demo-row">
+          <div data-trio-component="NumberField" data-trio-props='{"label":"Beds","value":4,"min":0,"max":10,"helperText":"0 to 10 beds"}'></div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">No Label (inline use)</div>
+        <div class="demo-row">
+          <div data-trio-component="NumberField" data-trio-props='{"value":1,"aria-label":"Quantity"}'></div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         4. SIZES
+         ============================================================ -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">straighten</span>
+        Sizes
+      </h2>
+      <p class="section-description">
+        Two sizes match the Button height system. Use medium in primary forms and side panels; use
+        small in compact contexts &mdash; grid filter rows, dense modal forms, inline cell editors.
+      </p>
+
+      <div class="variant-group">
+        <div class="variant-label">Medium (Default) &mdash; 38px</div>
+        <div class="demo-row">
+          <div data-trio-component="NumberField" data-trio-props='{"label":"Medium","value":5,"size":"medium"}'></div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Small &mdash; 32px</div>
+        <div class="demo-row">
+          <div data-trio-component="NumberField" data-trio-props='{"label":"Small","value":5,"size":"small"}'></div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         5. STATES
+         ============================================================ -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">toggle_on</span>
+        States
+      </h2>
+      <p class="section-description">
+        Interactive and visual states. Hover and focus states are demonstrated by interacting with
+        the live components &mdash; hover the buttons or click into the input.
+      </p>
+
+      <div class="variant-group">
+        <div class="variant-label">Default</div>
+        <div class="demo-row">
+          <div data-trio-component="NumberField" data-trio-props='{"label":"Default","value":3}'></div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">At Minimum &mdash; decrement disabled</div>
+        <div class="demo-row">
+          <div data-trio-component="NumberField" data-trio-props='{"label":"At min","value":0,"min":0,"max":10,"helperText":"Already at minimum"}'></div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">At Maximum &mdash; increment disabled</div>
+        <div class="demo-row">
+          <div data-trio-component="NumberField" data-trio-props='{"label":"At max","value":10,"min":0,"max":10,"helperText":"Already at maximum"}'></div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Disabled</div>
+        <div class="demo-row">
+          <div data-trio-component="NumberField" data-trio-props='{"label":"Disabled","value":5,"disabled":true}'></div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Error</div>
+        <div class="demo-row">
+          <div data-trio-component="NumberField" data-trio-props='{"label":"Required quantity","value":0,"error":true,"helperText":"Value must be at least 1"}'></div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         6. BEST PRACTICES
+         ============================================================ -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">recommend</span>
+        Best Practices
+      </h2>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">check_circle</span>
+            Do
+          </div>
+          <div class="card-illustration">
+            <span class="card-illustration-label">Correct</span>
+            <div style="display: flex; flex-direction: column; gap: 8px; width: 100%; align-items: flex-start;">
+              <div data-trio-component="NumberField" data-trio-props='{"label":"Workers needed","value":3,"min":0,"max":20,"helperText":"0 to 20 per shift"}'></div>
+              <div style="font-size: 10px; color: #757575;">Specific label + bounded range + helper text describing the constraint</div>
+            </div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Set <code>min</code> and <code>max</code> whenever the valid range is known &mdash; the boundary buttons disable automatically</li>
+              <li>Use specific labels tied to the domain (&ldquo;Workers needed&rdquo; not &ldquo;Number&rdquo;)</li>
+              <li>Add helper text that names the constraint or unit (&ldquo;hours&rdquo;, &ldquo;0 to 10&rdquo;)</li>
+              <li>Pair with an <code>aria-label</code> when the visible label is omitted for layout reasons</li>
+              <li>Use <code>step</code> for non-integer increments (e.g., <code>step=0.5</code> for half-hour increments)</li>
+              <li>Match Button size in the same form &mdash; medium with medium buttons, small with small</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card dont-card">
+          <div class="card-title">
+            <span class="material-icons-outlined">cancel</span>
+            Don't
+          </div>
+          <div class="card-illustration card-illustration-wrong">
+            <span class="card-illustration-label">Incorrect</span>
+            <div style="display: flex; flex-direction: column; gap: 8px; width: 100%; align-items: flex-start;">
+              <div data-trio-component="NumberField" data-trio-props='{"label":"Number","value":99999}'></div>
+              <div style="font-size: 10px; color: #757575;">Vague label + unbounded + large value &mdash; this should be a TextField</div>
+            </div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Don't use for currency, salary, or any value users type rather than step &mdash; use TextField</li>
+              <li>Don't leave bounded inputs unbounded &mdash; users may step into invalid values before error appears on submit</li>
+              <li>Don't use unlabeled instances in primary forms &mdash; reserve label-less use for grid cells and toolbar controls</li>
+              <li>Don't omit helper text when the constraint isn't obvious from the label alone</li>
+              <li>Don't override the centered input alignment &mdash; the stepper symmetry is intentional</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         7. TECHNICAL SPECIFICATIONS
+         ============================================================ -->
+    <section class="section">
+      <h2 class="section-title">
+        <span class="material-icons-outlined">construction</span>
+        Technical Specifications
+      </h2>
+      <p class="section-description">
+        All values extracted from Figma component spec (node: 5464:5759). Implementation-ready values
+        with token paths.
+      </p>
+
+      <table class="property-table">
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Value</th>
+            <th>Token</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Height (medium)</td>
+            <td><code>38px</code></td>
+            <td><span class="token-path">controls.height.medium</span></td>
+          </tr>
+          <tr>
+            <td>Height (small)</td>
+            <td><code>32px</code></td>
+            <td><span class="token-path">controls.height.small</span></td>
+          </tr>
+          <tr>
+            <td>Font Size (medium)</td>
+            <td><code>14px</code></td>
+            <td><span class="token-path">typography.fontSize.sm</span></td>
+          </tr>
+          <tr>
+            <td>Font Size (small)</td>
+            <td><code>12px</code></td>
+            <td><span class="token-path">typography.fontSize.xs</span></td>
+          </tr>
+          <tr>
+            <td>Icon Size (medium / small)</td>
+            <td><code>18px / 16px</code></td>
+            <td><span class="token-path">&mdash;</span></td>
+          </tr>
+          <tr>
+            <td>Border</td>
+            <td><code>1px solid #E0E0E0</code></td>
+            <td><span class="token-path">components.border.default</span></td>
+          </tr>
+          <tr>
+            <td>Border (focus)</td>
+            <td><code>1px solid #64B5F6</code> + focus shadow</td>
+            <td><span class="token-path">components.border.focus</span></td>
+          </tr>
+          <tr>
+            <td>Border (error)</td>
+            <td><code>1px solid #DB4537</code></td>
+            <td><span class="token-path">error.main</span></td>
+          </tr>
+          <tr>
+            <td>Border Radius</td>
+            <td><code>4px</code></td>
+            <td><span class="token-path">borderRadius.default</span></td>
+          </tr>
+          <tr>
+            <td>Divider (between buttons + input)</td>
+            <td><code>1px solid #E0E0E0</code></td>
+            <td><span class="token-path">components.border.default</span></td>
+          </tr>
+          <tr>
+            <td>Background (default)</td>
+            <td><code>#FFFFFF</code></td>
+            <td><span class="token-path">background.paper</span></td>
+          </tr>
+          <tr>
+            <td>Background (disabled)</td>
+            <td><code>#EEEEEE</code></td>
+            <td><span class="token-path">action.disabledBackground</span></td>
+          </tr>
+          <tr>
+            <td>Icon Color (default)</td>
+            <td><code>#424242</code></td>
+            <td><span class="token-path">components.icon.default</span></td>
+          </tr>
+          <tr>
+            <td>Icon Color (disabled / boundary)</td>
+            <td><code>—</code></td>
+            <td><span class="token-path">components.icon.disabled</span></td>
+          </tr>
+          <tr>
+            <td>Label Font</td>
+            <td><code>12px Roboto Regular</code></td>
+            <td><span class="token-path">typography.fontSize.xs</span></td>
+          </tr>
+          <tr>
+            <td>Helper Text Font</td>
+            <td><code>12px Roboto Regular</code></td>
+            <td><span class="token-path">typography.fontSize.xs</span></td>
+          </tr>
+          <tr>
+            <td>Sizes</td>
+            <td><code>medium, small</code></td>
+            <td><span class="token-path">&mdash;</span></td>
+          </tr>
+          <tr>
+            <td>Disabled</td>
+            <td><code>true, false</code></td>
+            <td><span class="token-path">&mdash;</span></td>
+          </tr>
+          <tr>
+            <td>Keyboard</td>
+            <td colspan="2"><code>ArrowUp</code> / <code>ArrowDown</code> to step · <code>Enter</code> to commit · Tab through buttons + input</td>
+          </tr>
+          <tr>
+            <td>MUI Base</td>
+            <td colspan="2"><code>@mui/material/IconButton</code> + native <code>&lt;input type="number"&gt;</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+</body>
+</html>

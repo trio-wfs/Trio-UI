@@ -354,11 +354,15 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Use <strong>full</strong> as the default for list/grid views — breadcrumb + chips provide important context</li>
-              <li>Use <strong>default</strong> for simple utility pages without deep navigation</li>
-              <li>Keep page title to the entity name — avoid verbs (use "Shift Scheduler", not "Manage Shifts")</li>
-              <li>Put the primary action in ButtonGroup, secondary in SingleButton</li>
-              <li>Use indicator only when the entity has a meaningful status affecting the whole page</li>
+              <li><strong>Use the right variant for the page type:</strong> <code>full</code> for most pages (title, breadcrumb, actions); <code>default</code> when no breadcrumb is needed; <code>NewCanvas</code> for the Programs surface and other transparent/canvas pages.</li>
+              <li><strong>Standalone grid pages use the <code>full</code> variant with the <code>breadcrumbContent</code> slot filled by the Breadcrumb component in <code>state="Links"</code></strong> &mdash; that's the grid view switcher (<code>All | Active | Pending | …</code>). The PHT and grid share one continuous border, no gap.</li>
+              <li><strong>Actions slot composition is canonical:</strong> <code>inputTextFieldContent</code> takes a TextField or SearchBar (scoped search); <code>buttonGroupContent</code> takes one or more <code>ButtonGroup</code>s (connected secondary actions like the icon trio Filter / Columns / More); <code>singleButtonContent</code> takes the single primary <code>Button</code> for the page (e.g. "+ New Worker").</li>
+              <li><strong>Place the PHT inset 16px from the canvas edges</strong> &mdash; it sits inside the page canvas's padding, not flush to the browser edge. The future full-width variant for DW / AI layouts is the only exception.</li>
+              <li><strong>Detail page section nav lives at the content wrapper level, not in the PHT</strong> &mdash; use the Tabs component (Pattern A) flush at the top of the <code>#FAFAFA</code> wrapper.</li>
+              <li><strong>Below <code>lg</code> (1200px), the PHT title row and action row stack vertically</strong> &mdash; chips and eyebrow stay inline with the title.</li>
+              <li>Keep page title to the entity name &mdash; avoid verbs (use "Shift Scheduler", not "Manage Shifts")</li>
+              <li>Use the indicator strip only when the entity has a meaningful status affecting the whole page</li>
+              <li>Title-to-eyebrow gap is 4px (<code>spacing.xs</code>) &mdash; come from the component, don't override at the call site</li>
             </ul>
           </div>
         </div>
@@ -369,10 +373,16 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Don't put more than 4 chips in the title row — truncate with "+N More"</li>
+              <li><strong>Don't pour loose <code>Button</code> or <code>IconButton</code> instances into the actions area</strong> &mdash; group them via <code>ButtonGroup</code> so they share the segmented chrome the rest of the system uses.</li>
+              <li><strong>Don't put the primary action inside a <code>ButtonGroup</code> of secondary actions</strong> &mdash; the primary lives in <code>singleButtonContent</code> as its own <code>Button</code>.</li>
+              <li><strong>Don't use the <code>default</code> variant on grid pages</strong> &mdash; you lose the <code>breadcrumbContent</code> slot the view switcher needs to live in. Use <code>full</code>.</li>
+              <li><strong>Don't put the Tabs component in the PHT for detail page section nav</strong> &mdash; that's a wrapper-level Tabs (Pattern A). The only tab-like content in the PHT is Breadcrumb-Links for grid view switching.</li>
+              <li><strong>Don't run the PHT to the browser edge on standard pages</strong> &mdash; the page canvas keeps a 16px gutter. Full-width is reserved for the planned DW / AI layout variant.</li>
+              <li><strong>Don't invent a new header layout</strong> &mdash; always use a PHT variant.</li>
+              <li>Don't put more than 4 chips in the title row &mdash; truncate with "+N More"</li>
               <li>Don't use more than one toolbar per page</li>
-              <li>Don't put destructive actions (Delete, Archive) in the toolbar — move to a confirmation modal flow</li>
-              <li>Don't omit eyebrow text on complex pages — it provides orientation for new users</li>
+              <li>Don't put destructive actions (Delete, Archive) in the toolbar &mdash; move them into a confirmation modal flow</li>
+              <li>Don't disable buttons in the actions area when a page has no actions &mdash; remove the action group entirely</li>
             </ul>
           </div>
         </div>

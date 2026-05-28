@@ -327,10 +327,12 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Use 3 buttons as the default — filter, export, reset is the standard TRIO WFS pattern</li>
+              <li><strong>Heights:</strong> <code>sm</code> uses <strong>24px</strong> (<code>tokens.controls.ghostHeight</code>) &mdash; the same Figma-sanctioned compact exception as ButtonIcon's ghost-small. <code>md</code> uses <code>tokens.controls.height.medium</code> (38px). Confirmed against Figma node 6950:485.</li>
+              <li><strong>Icons are <code>@mui/icons-material</code> Outlined at 16px</strong> &mdash; never another library, never another size.</li>
+              <li><strong>Provide <code>aria-label</code> on every slot</strong> &mdash; ToggleButton is icon-only, so screen-reader labels are required.</li>
+              <li>Use 3 buttons as the default &mdash; filter, export, reset is the standard TRIO WFS pattern</li>
               <li>Always mark one slot as <code>active</code> when used for view switching</li>
-              <li>Use <strong>sm</strong> in the breadcrumb bar and compact toolbars</li>
-              <li>Provide <code>aria-label</code> on every slot</li>
+              <li>Use <strong>sm</strong> in the breadcrumb bar and compact toolbars where 24px is the right density</li>
             </ul>
           </div>
         </div>
@@ -345,9 +347,10 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Don't exceed 5 buttons — use a Menu or overflow pattern instead</li>
-              <li>Don't mix ToggleButton with standalone ButtonIcon in the same toolbar strip</li>
-              <li>Don't use for unrelated actions — slots should share a common theme</li>
+              <li><strong>Don't hardcode <code>height: 24</code> or <code>height: 38</code></strong> &mdash; pull from <code>tokens.controls.ghostHeight</code> / <code>tokens.controls.height</code>.</li>
+              <li><strong>Don't mix ToggleButton with standalone ButtonIcon in the same toolbar strip</strong> &mdash; group through one component so the segmented chrome is consistent.</li>
+              <li>Don't exceed 5 buttons &mdash; use a Menu or overflow pattern instead</li>
+              <li>Don't use for unrelated actions &mdash; slots should share a common theme (view modes, filters, chart types)</li>
             </ul>
           </div>
         </div>

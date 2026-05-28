@@ -188,11 +188,11 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Parallel content sections where only one is visible at a time</li>
-              <li>Worker profile sections, order detail views</li>
-              <li>When users need to compare related but separate data sets</li>
-              <li>Keep tab count between 2 and 8</li>
-              <li>Use scroll variants when tab count is variable</li>
+              <li><strong>Pattern A &mdash; detail page section tabs</strong> at the content wrapper level (Worker, Order, Facility detail). Use <code>surface="secondary"</code> &mdash; the active tab blends with the <code>#FAFAFA</code> wrapper. Switching a tab swaps the entire layout below, including rails.</li>
+              <li><strong>Pattern B &mdash; in-container tabs</strong> inside a paper <code>ContentContainer</code>, switching between views of the same data set (e.g. Active / Completed / Cancelled inside a card). Use <code>surface="paper"</code>.</li>
+              <li><strong>Subject identity (title, chips, eyebrow) lives in the <code>PageHeaderToolbar</code></strong> &mdash; not repeated on every tab.</li>
+              <li>Keep tab count between 2 and 8 &mdash; cognitive load climbs past that</li>
+              <li>Use scroll variants when tab count is variable &mdash; never wrap to a second line or truncate labels.</li>
             </ul>
           </div>
         </div>
@@ -208,11 +208,14 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Don't use for sequential workflows (use a Stepper instead)</li>
-              <li>Don't use when all content must be visible at once</li>
-              <li>Don't exceed 8 tabs — use secondary navigation or grouping</li>
-              <li>Don't put tabs inside modals unless absolutely necessary</li>
-              <li>Don't use long labels — keep to 1-2 words in title case</li>
+              <li><strong>Pattern C &mdash; grid view switching is NOT Tabs.</strong> The <code>All | Active | Pending | …</code> switcher on a standalone grid page is the <strong>Breadcrumb component in <code>state="Links"</code></strong>, living in the PHT's <code>breadcrumbContent</code> slot. Same height, same <code>#FAFAFA</code> chrome, pipe dividers.</li>
+              <li><strong>Don't use Tabs as header tabs on grid pages</strong> &mdash; standalone grid pages use the PHT <code>full</code> variant with Breadcrumb-Links in the breadcrumb slot.</li>
+              <li>Don't use Tabs for sequential workflows &mdash; use a Stepper instead</li>
+              <li>Don't use Tabs when all content must be visible at once &mdash; tabs are for parallel, mutually exclusive views</li>
+              <li>Don't exceed 8 tabs &mdash; use secondary navigation or grouping</li>
+              <li>Don't put tabs inside modals unless absolutely necessary &mdash; break complex forms into Stepper steps instead</li>
+              <li>Don't use long, descriptive labels &mdash; keep to 1-2 words in title case</li>
+              <li>Don't wrap tabs to a second line, truncate, or hide overflow in a dropdown &mdash; use the scroll-arrow variants.</li>
             </ul>
           </div>
         </div>
@@ -362,11 +365,12 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Use for parallel content sections where only one is visible at a time</li>
-              <li>Keep tab labels short (1-2 words) in title case</li>
-              <li>Use scroll variants when tab count is variable or context-dependent</li>
-              <li>Place tabs at the top of the content area they control</li>
-              <li>Use icons only when they add clarity to the label</li>
+              <li><strong>Tabs sit flush on their surface</strong> &mdash; no padding around the tabs themselves. Content below gets 16px padding.</li>
+              <li><strong>The selected tab's primary-blue indicator is at the TOP, not the bottom</strong> &mdash; paired with rounded top corners and 1px <code>#E0E0E0</code> left/right strokes. The selected tab reads as a card-tab attached to the content below.</li>
+              <li><strong>Tab icons are MUI Outlined at 16px</strong> &mdash; never another icon library, never another size.</li>
+              <li>Keep tab labels short (1-2 words) in title case &mdash; users scan, they don't read</li>
+              <li>Use icons only when they add clarity to the label &mdash; decorative icons add noise without aiding recognition</li>
+              <li>Place tabs at the top of the content area they control &mdash; never floating mid-page</li>
             </ul>
           </div>
         </div>
@@ -381,11 +385,13 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Don't use for sequential workflows — use a Stepper instead</li>
-              <li>Don't exceed 8 tabs — cognitive load increases significantly</li>
+              <li><strong>Don't put the indicator on the bottom edge of the tab</strong> &mdash; the canonical position is the top edge, matching the card-tab attachment metaphor.</li>
+              <li><strong>Don't pad around the tab strip itself</strong> &mdash; tabs sit flush on their surface; padding belongs around the content panel below.</li>
+              <li>Don't use Tabs for sequential workflows &mdash; use Stepper</li>
+              <li>Don't exceed 8 tabs &mdash; cognitive load increases significantly</li>
               <li>Don't put tabs inside modals unless absolutely necessary</li>
               <li>Don't use for content that must all be seen together</li>
-              <li>Don't use long, descriptive tab labels — keep them scannable</li>
+              <li>Don't use long, descriptive tab labels &mdash; keep them scannable</li>
             </ul>
           </div>
         </div>

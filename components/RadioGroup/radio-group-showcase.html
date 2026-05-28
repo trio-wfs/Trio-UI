@@ -297,11 +297,12 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Always pre-select the most common or safest option</li>
-              <li>Stack options vertically for easier scanning</li>
+              <li><strong>Radios within a group use 8px (<code>spacing.sm</code>) spacing between options</strong> &mdash; tighter than the 24px form-row gap because the options are visually related.</li>
+              <li><strong>Use RadioGroup for 2-5 visible single-choice options</strong> &mdash; users can see and compare every option without a click. For 6+ options, switch to Select. For 2-3 binary options where one is clearly preferred, RadioGroup still wins over Select.</li>
+              <li>Always pre-select the most common or safest option &mdash; never ship a RadioGroup with no default unless "no choice" is itself a meaningful state</li>
+              <li>Stack options vertically for easier scanning &mdash; horizontal layouts only work for very short labels</li>
               <li>Keep labels short and descriptive</li>
-              <li>Group related radio buttons with a clear heading</li>
-              <li>Use for single-choice selections with 2-5 visible options</li>
+              <li>Group related radios with a clear group heading</li>
             </ul>
           </div>
         </div>
@@ -316,11 +317,12 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Don't use radio buttons for multi-select — use Checkbox</li>
-              <li>Don't use more than 5 options — switch to Select dropdown</li>
+              <li><strong>Don't use 24px gap between radios in the same group</strong> &mdash; that's the form-row spacing. Within a group, options get 8px (<code>spacing.sm</code>).</li>
+              <li><strong>Don't use RadioGroup for on/off toggles</strong> &mdash; use Switch (for immediate-effect settings) or Checkbox (for save/submit selection).</li>
+              <li>Don't use radios for multi-select &mdash; use Checkbox</li>
+              <li>Don't use more than 5 options &mdash; switch to Select dropdown</li>
               <li>Don't leave the group without a default selection</li>
               <li>Don't place radios horizontally if labels are long</li>
-              <li>Don't use for on/off toggles — use Switch instead</li>
             </ul>
           </div>
         </div>

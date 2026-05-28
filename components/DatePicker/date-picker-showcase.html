@@ -248,25 +248,40 @@
       <!-- BEST PRACTICES -->
       <div class="section" id="best-practices">
         <h2 class="section-title"><span class="material-icons-outlined">recommend</span> Best Practices</h2>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-          <div class="card" style="border: 1px solid var(--color-secondary-outline); border-radius: 4px; padding: 16px;">
-            <div style="font-size: 12px; font-weight: 500; color: #388e3c; margin-bottom: 8px;">DO</div>
-            <ul style="font-size: 14px; margin: 0; padding-left: 16px; line-height: 1.8;">
-              <li>Use <code>type="date"</code> for date-only fields (most common)</li>
-              <li>Use <code>type="dateTime"</code> only when time is required (shift start/end)</li>
-              <li>Set <code>minDate</code> / <code>maxDate</code> to prevent invalid selections</li>
-              <li>Always include a label for accessibility</li>
-              <li>Show helper text for date format expectations</li>
-            </ul>
+        <div class="grid-2">
+          <div class="card do-card">
+            <div class="card-title">
+              <span class="material-icons-outlined">check_circle</span>
+              Do
+            </div>
+            <div class="card-content">
+              <ul>
+                <li><strong>Height comes from <code>tokens.controls.height</code></strong> &mdash; 32px small / 38px medium, matching every other form control. Never hardcode.</li>
+                <li><strong>Stack form fields with 24px vertical gap</strong> (<code>spacing.lg</code>) &mdash; mandatory, not 16px.</li>
+                <li><strong>Display dates in MM/DD/YYYY format</strong> &mdash; the canonical TRIO date format. Don't render as "Jan 5, 2024" or other locales.</li>
+                <li>Use <code>type="date"</code> for date-only fields (most common)</li>
+                <li>Use <code>type="dateTime"</code> only when time is required (shift start/end)</li>
+                <li>Set <code>minDate</code> / <code>maxDate</code> to prevent invalid selections</li>
+                <li>Always include a label for accessibility</li>
+                <li>Show helper text for date format expectations</li>
+              </ul>
+            </div>
           </div>
-          <div class="card" style="border: 1px solid var(--color-secondary-outline); border-radius: 4px; padding: 16px;">
-            <div style="font-size: 12px; font-weight: 500; color: #DB4537; margin-bottom: 8px;">DON'T</div>
-            <ul style="font-size: 14px; margin: 0; padding-left: 16px; line-height: 1.8;">
-              <li>Don't use dateTime when only a date is needed</li>
-              <li>Don't leave date pickers without min/max when there's a valid range</li>
-              <li>Don't use a plain text field for date input — always use DatePicker</li>
-              <li>Don't set unreasonably wide date ranges (e.g., 100 years back)</li>
-            </ul>
+          <div class="card dont-card">
+            <div class="card-title">
+              <span class="material-icons-outlined">cancel</span>
+              Don't
+            </div>
+            <div class="card-content">
+              <ul>
+                <li><strong>Don't hardcode <code>height: 32</code> or <code>height: 38</code></strong> &mdash; the value belongs to <code>tokens.controls.height</code>, not the call site.</li>
+                <li><strong>Don't display dates in a locale or relative format</strong> ("Jan 5, 2024", "3 days ago") &mdash; the system uses MM/DD/YYYY everywhere data is displayed.</li>
+                <li>Don't use dateTime when only a date is needed</li>
+                <li>Don't leave date pickers without min/max when there's a valid range</li>
+                <li>Don't use a plain text field for date input &mdash; always use DatePicker</li>
+                <li>Don't set unreasonably wide date ranges (e.g., 100 years back)</li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -283,7 +298,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr><td>Input height</td><td>36px (small) / 44px (medium)</td><td>Figma: TextField single-line</td></tr>
+            <tr><td>Input height</td><td>32px (small) / 38px (medium)</td><td><code>tokens.controls.height</code></td></tr>
             <tr><td>Calendar popup width</td><td>320px (date) / ~500px (dateTime)</td><td>Figma: Date Picker component</td></tr>
             <tr><td>Day cell size</td><td>36 x 36px</td><td>Figma: Building Blocks/Date Selections</td></tr>
             <tr><td>Selected day bg</td><td>#2196F3</td><td>primary.main</td></tr>

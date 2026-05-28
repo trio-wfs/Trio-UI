@@ -321,10 +321,14 @@
           </div>
           <div class="card-content">
             <ul>
+              <li><strong>Color cohesion &mdash; every colored element inside the alert uses the same semantic color.</strong> Border, icon, title, description, and action buttons all share the one color that matches the alert's severity. Don't mix the semantic color with <code>text.primary</code> / <code>text.secondary</code> for the title and description.</li>
+              <li><strong>Semantic color choice is functional, not stylistic</strong> &mdash; <code>info</code> for neutral callouts, <code>success</code> for positive outcomes, <code>warning</code> for caution, <code>error</code> for failures or destructive actions.</li>
+              <li><strong>For content users must not miss, use a full info-color border around the container</strong> &mdash; not a left-accent-only treatment. Reserve for compliance warnings and critical requirements, not general emphasis.</li>
+              <li><strong>Drop shadows are only for floating overlays</strong> (Modals, Menus, Popovers) &mdash; never on inline alerts.</li>
               <li>Use <strong>error</strong> only for blocking issues that require immediate action</li>
-              <li>Keep titles short — 4 words or fewer</li>
+              <li>Keep titles short &mdash; 4 words or fewer</li>
               <li>Pair every alert with a clear action or dismiss path</li>
-              <li>Use <strong>standard</strong> variant as the default — least visually disruptive</li>
+              <li>Use <strong>standard</strong> variant as the default &mdash; least visually disruptive</li>
               <li>Auto-dismiss success alerts after 3-5 seconds when possible</li>
               <li>Include an icon that reinforces the severity level</li>
             </ul>
@@ -350,10 +354,14 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Don't use <strong>contained</strong> for low-priority messages — it demands full attention</li>
+              <li><strong>Don't mix semantic colors with <code>text.primary</code> / <code>text.secondary</code> inside an alert</strong> &mdash; the alert must read as a single semantic block. Border + icon + title + description + action all share one color.</li>
+              <li><strong>Don't use a left-accent-only border for emphasis</strong> &mdash; the canonical callout treatment is a <em>full</em> info-color border around the container.</li>
+              <li><strong>Don't add drop shadows to inline alerts</strong> &mdash; shadows are reserved for floating overlays.</li>
+              <li><strong>Don't use semantic colors decoratively</strong> &mdash; <code>success</code> green for a brand chip, <code>warning</code> orange as accent &mdash; all break the rule that semantic color signals state.</li>
+              <li>Don't use <strong>contained</strong> for low-priority messages &mdash; it demands full attention</li>
               <li>Don't stack multiple alerts of the same severity</li>
               <li>Don't use alerts for empty states or loading states</li>
-              <li>Don't rely on color alone — always include an icon and text</li>
+              <li>Don't rely on color alone &mdash; always include an icon and text</li>
               <li>Don't use alerts for marketing or promotional messages</li>
               <li>Don't leave persistent alerts without a dismiss mechanism</li>
             </ul>

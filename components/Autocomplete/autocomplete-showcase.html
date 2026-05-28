@@ -388,9 +388,12 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Always provide a visible label above the field</li>
-              <li>Show provider counts in options for VMS context (e.g. "Agency Name (12 providers)")</li>
-              <li>Disable the field when the context makes it inapplicable — pair with helper text explaining why</li>
+              <li><strong>Height comes from <code>tokens.controls.height</code></strong> &mdash; 32px small / 38px medium, matching TextField, Select, and every other form control. Never hardcode.</li>
+              <li><strong>Stack form fields with 24px vertical gap</strong> (<code>spacing.lg</code>) &mdash; mandatory, not 16px.</li>
+              <li><strong>Multi-select chips inside the input use 24px pill height</strong> &mdash; component-specific styling that doesn't escape to other Chip uses. The popup, paper, and option styling all flow from the MuiAutocomplete theme.</li>
+              <li>Always provide a visible label above the field &mdash; placeholder alone is not a label</li>
+              <li>Show counts in options for VMS context (e.g. "Hospital Network (12 facilities)") &mdash; users decide before clicking</li>
+              <li>Disable the field when the context makes it inapplicable &mdash; pair with helper text explaining why it's unavailable</li>
               <li>Use for dynamic lists with 5+ options that benefit from search filtering</li>
               <li>Maintain consistent sizing with other form fields in the same row</li>
             </ul>
@@ -407,10 +410,12 @@
           </div>
           <div class="card-content">
             <ul>
+              <li><strong>Don't hardcode <code>height: 32</code> or <code>height: 38</code></strong> &mdash; pull from <code>tokens.controls.height</code> so size stays consistent with every other form control.</li>
+              <li><strong>Don't use 16px vertical gap between Autocomplete and the next form field</strong> &mdash; the canonical form rhythm is 24px.</li>
               <li>Don't use placeholder text as a substitute for a visible label</li>
               <li>Don't mix single and multi behavior for the same field type across the app</li>
-              <li>Don't disable without communicating why (silent disabled state is confusing)</li>
-              <li>Don't use for short static lists (&lt;5 items) — use Select instead</li>
+              <li>Don't disable without communicating why &mdash; silent disabled state is confusing</li>
+              <li>Don't use Autocomplete for short static lists (&lt;5 items) &mdash; use Select instead. If only 2-3 options, use RadioGroup so all options are visible.</li>
               <li>Don't allow free-form text entry unless the field explicitly supports it</li>
             </ul>
           </div>

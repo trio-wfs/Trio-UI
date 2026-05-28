@@ -319,11 +319,13 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Use sm size for toolbars and table actions</li>
-              <li>Group 2-4 related actions together</li>
+              <li><strong>ButtonGroup is what goes in the PHT's <code>buttonGroupContent</code> slot</strong> &mdash; connected secondary actions like the icon trio (Filter / Columns / More) or labeled clusters (Export / Print). Multiple ButtonGroups can sit in the actions area when actions cluster naturally.</li>
+              <li><strong>The page's primary action is NOT a ButtonGroup</strong> &mdash; it's a single <code>Button</code> in the PHT's <code>singleButtonContent</code> slot (e.g. "+ New Worker").</li>
+              <li><strong>Use small size for grid filter rows and dense toolbars</strong> (32px = <code>tokens.controls.height.small</code>); medium (38px) for primary action surfaces.</li>
+              <li><strong>Use the verb-noun pattern for ButtonGroup button labels too</strong> &mdash; <em>Export CSV</em>, <em>Print Page</em>, <em>Filter Active</em>. Never <em>OK</em>, <em>Submit</em>, <em>Save</em>.</li>
+              <li>Group 2-4 related actions together &mdash; the segmented chrome implies "these belong"</li>
               <li>Use consistent color within a single group</li>
-              <li>Use primary for save/confirm actions only</li>
-              <li>Keep button labels concise and action-oriented</li>
+              <li>Use primary blue (<code>#2196F3</code>) for Save/Update actions only &mdash; never for navigation or general grouping</li>
             </ul>
           </div>
         </div>
@@ -338,10 +340,13 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Don't mix primary and secondary colors in one group</li>
+              <li><strong>Don't put the primary action inside a ButtonGroup of secondary actions</strong> &mdash; the primary lives in the PHT's <code>singleButtonContent</code> as its own <code>Button</code>.</li>
+              <li><strong>Don't pour loose Button / IconButton instances into the PHT actions area</strong> &mdash; wrap them in ButtonGroup so they share the segmented chrome.</li>
+              <li><strong>Don't hardcode button heights inside the group</strong> &mdash; pull from <code>tokens.controls.height</code> so the size matches every other 32/38px control in the system.</li>
+              <li>Don't mix primary and secondary colors in one group &mdash; the segmented chrome reads as "these all share priority"</li>
               <li>Don't exceed 6 buttons in a single group</li>
-              <li>Don't use for exclusive toggle selection (use ToggleButton)</li>
-              <li>Don't use for page navigation (use Tabs)</li>
+              <li>Don't use ButtonGroup for exclusive toggle selection &mdash; use ToggleButton</li>
+              <li>Don't use ButtonGroup for page navigation &mdash; use Tabs (Pattern A or B) or Breadcrumb-Links (Pattern C)</li>
               <li>Don't group unrelated actions together</li>
             </ul>
           </div>

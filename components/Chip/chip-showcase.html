@@ -421,10 +421,12 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Use consistent chip sizes within the same context</li>
-              <li>Use semantic colors purposefully — not decoratively</li>
-              <li>Keep labels concise (1-2 words ideal)</li>
-              <li>Use the cancel icon only when the chip is removable</li>
+              <li><strong>Semantic colors are for status and feedback only</strong> &mdash; <code>success</code>, <code>warning</code>, <code>error</code>, <code>info</code> communicate state, not decoration. Active / Pending / Expired chips are correct uses; coloring "RN" or "Float Pool" by team is not.</li>
+              <li><strong>Border radius is 999px (pill)</strong> &mdash; the rounded shape distinguishes chips from buttons and tags at a glance.</li>
+              <li><strong>When a chip lives inside an <code>Alert</code>, it shares the alert's semantic color</strong> &mdash; the alert reads as a single semantic block.</li>
+              <li>Use consistent chip sizes within the same context &mdash; mixed sizes read as inconsistent system state, not intentional emphasis</li>
+              <li>Keep labels concise (1-2 words ideal) &mdash; chips are at-a-glance status indicators</li>
+              <li>Use the cancel icon only when the chip is genuinely removable &mdash; otherwise the X promises an interaction that doesn't exist</li>
               <li>Group related chips together with consistent spacing</li>
             </ul>
           </div>
@@ -444,11 +446,13 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Don't use chips as call-to-action buttons</li>
+              <li><strong>Don't use primary blue (<code>#2196F3</code>) for general chip labels</strong> &mdash; primary blue is reserved for Save/Update actions and links/clickable text. Use <code>color="default"</code> for neutral chips.</li>
+              <li><strong>Don't use semantic colors decoratively</strong> &mdash; <code>success</code> on a generic tag, <code>warning</code> on a brand label, <code>error</code> as accent &mdash; all break the rule that semantic color signals state.</li>
+              <li><strong>Don't recolor chips inside an Alert</strong> &mdash; the chip inherits the alert's severity color so the block reads as one semantic unit.</li>
+              <li>Don't use chips as call-to-action buttons &mdash; chips are status, buttons are actions</li>
               <li>Don't mix chip sizes in the same row</li>
-              <li>Don't use long labels — keep them concise</li>
-              <li>Don't use primary blue for general labels — reserve for selected state</li>
-              <li>Don't use more than 3 semantic color types in one view</li>
+              <li>Don't use long labels &mdash; keep them concise</li>
+              <li>Don't use more than 3 semantic color types in one view &mdash; signal-to-noise collapses</li>
             </ul>
           </div>
         </div>

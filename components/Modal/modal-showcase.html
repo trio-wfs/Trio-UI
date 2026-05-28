@@ -416,9 +416,9 @@
           </div>
           <div class="card-content">
             <ul>
-              <li><strong>Grid row editing — always opens a modal</strong> (never inline-edit within the grid). See <code>PAGE_ARCHITECTURE.md §15</code>.</li>
-              <li><strong>Detail page editing — typically via modal</strong>. Default to modal unless explicitly told otherwise. See <code>PAGE_ARCHITECTURE.md §15</code>.</li>
-              <li><strong>Most forms live in modals</strong>, not on their own page. If a form is too complex for 900px, break it into steps — don't make the modal bigger. See <code>PAGE_ARCHITECTURE.md §13</code>.</li>
+              <li><strong>Grid row editing — always opens a modal</strong> (never inline-edit within the grid).</li>
+              <li><strong>Detail page editing — typically via modal</strong>. Default to modal unless explicitly told otherwise.</li>
+              <li><strong>Most forms live in modals</strong>, not on their own page. If a form is too complex for 900px, break it into steps — don't make the modal bigger.</li>
               <li>Destructive confirmations — "Reject submission?", "Terminate placement?", "Delete account?"</li>
               <li>Acknowledging critical information before continuing — credential expiry, contract terms, compliance notices</li>
               <li>Single-step workflows that need isolation from the page beneath</li>
@@ -875,7 +875,7 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Use the verb-noun label pattern — <strong>Create [Noun]</strong> for new entities, <strong>Update [Noun]</strong> for changes to existing ones (e.g. "Create User", "Update Bill Rate"). See <code>PAGE_ARCHITECTURE.md §16</code> for the full table.</li>
+              <li>Use the verb-noun label pattern — <strong>Create [Noun]</strong> for new entities, <strong>Update [Noun]</strong> for changes to existing ones (e.g. "Create User", "Update Bill Rate").</li>
               <li>Use specific verb labels for non-CRUD actions — "Reject submission" beats "OK"; "Delete account" beats "Confirm"</li>
               <li>Use <code>variant="destructive"</code> for irreversible actions so the confirm button switches to red</li>
               <li>Auto-focus the Cancel button or the first form field — never the destructive action</li>

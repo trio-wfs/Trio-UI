@@ -583,10 +583,13 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Always include a left icon for primary nav items — icons are critical for scanability in time-pressured clinical environments</li>
-              <li>Keep primary nav labels short — 1 or 2 words maximum. The 260px width is tight with an icon, label, and chevron</li>
+              <li><strong>NavigationVertical's background is always transparent</strong> &mdash; the rail sits on the page canvas (<code>background.default</code>) and inherits it. Never apply a background color or surface fill.</li>
+              <li><strong>When NavigationVertical is the immediate left neighbor of the content wrapper, the page canvas's left padding is 0</strong>. The rail's right-edge padding (16px from the selected item to the rail edge) already supplies the canonical inset; doubling them yields a 32px gap that reads as wrong.</li>
+              <li><strong>Below <code>lg</code> (1200px), NavigationVertical retains its desktop layout</strong> &mdash; responsive collapse / drawer behavior is paired with NavigationHeader and is still TBD. Treat narrow widths as degraded, not designed.</li>
+              <li>Always include a left icon for primary nav items &mdash; icons are critical for scanability in time-pressured clinical environments. Use <code>@mui/icons-material</code> Outlined at 16px.</li>
+              <li>Keep primary nav labels short &mdash; 1 or 2 words maximum. The 260px width is tight with an icon, label, and chevron</li>
               <li>Auto-expand the active parent item on page load so users see where they are immediately</li>
-              <li>Use the title dropdown to let users switch programs without navigating away — update the nav items accordingly when the selection changes</li>
+              <li>Use the title dropdown to let users switch programs without navigating away &mdash; update the nav items accordingly when the selection changes</li>
               <li>Show the subtitle for context (e.g. facility name) so users know which program scope they're in</li>
             </ul>
           </div>
@@ -598,11 +601,13 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Don't apply a background color to the nav — it is always transparent against the page</li>
-              <li>Don't use settings-style items (left border) for primary navigation — the two patterns are visually distinct for a reason</li>
-              <li>Don't nest sub-navigation more than one level deep — if you need deeper hierarchy, reconsider the IA</li>
-              <li>Don't put more than 8-10 primary items in the nav — consider grouping or a secondary navigation pattern</li>
-              <li>Don't mix static and dropdown titles within the same app — pick one pattern and be consistent</li>
+              <li><strong>Don't apply a background color, paper fill, or surface stroke to the nav</strong> &mdash; it is always transparent.</li>
+              <li><strong>Don't double the inset between the rail and the content wrapper</strong> &mdash; the rail's right-edge padding already owns the 16px. Setting the canvas's left padding non-zero alongside it creates a 32px gap that reads as wrong.</li>
+              <li><strong>Don't substitute Outlined icons with another library</strong> &mdash; nav icons must be <code>@mui/icons-material</code> Outlined at 16px to match the rest of the system.</li>
+              <li>Don't use settings-style items (left border) for primary navigation &mdash; the two patterns are visually distinct for a reason</li>
+              <li>Don't nest sub-navigation more than one level deep &mdash; if you need deeper hierarchy, reconsider the IA</li>
+              <li>Don't put more than 8-10 primary items in the nav &mdash; consider grouping or a secondary navigation pattern</li>
+              <li>Don't mix static and dropdown titles within the same app &mdash; pick one pattern and be consistent</li>
             </ul>
           </div>
         </div>

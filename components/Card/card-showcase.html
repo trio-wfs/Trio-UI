@@ -269,6 +269,8 @@
           </div>
           <div class="card-content">
             <ul>
+              <li><strong>For page-level paper sections, use <code>ContentContainer</code> instead</strong> &mdash; every paper section on a page is a ContentContainer with the canonical title strip. Card is for in-content composition (slot-based header/body/footer), not for the primary page surface.</li>
+              <li><strong>Paper surfaces are border-only, never shadowed</strong> &mdash; shadows are reserved for floating overlays (modals, menus, popovers). Card uses <code>1px solid #E0E0E0</code> for separation.</li>
               <li>Use Card when the layout has discrete sections (header + body, body + footer, or all three)</li>
               <li>Pass any ReactNode as the header slot to compose richer layouts (avatar + name + actions)</li>
               <li>Use <code>divided=true</code> when section roles are genuinely different (e.g. confirm dialogs)</li>
@@ -283,10 +285,11 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Don't add hover or click behavior — wrap Card in an interactive component if needed</li>
-              <li>Don't nest Card in Card — double borders read busy. Use <code>Paper level="subtle"</code> instead</li>
-              <li>Don't add box-shadow at rest — surfaces are border-only in TRIO</li>
-              <li>Don't use Card for metrics — that's what MetricCard is for</li>
+              <li><strong>Don't add box-shadow at rest</strong> &mdash; Card is a paper surface, not a floating overlay. Only modals, menus, popovers, and breadcrumb dropdowns get shadows.</li>
+              <li><strong>Don't use Card for the primary page section</strong> &mdash; that's <code>ContentContainer</code>'s job (title strip + 16px body padding + canonical chrome).</li>
+              <li><strong>Don't use Card for metrics</strong> &mdash; that's MetricCard. It owns its own surface and has the metric-specific layouts (grouped, list, columnar).</li>
+              <li>Don't add hover or click behavior &mdash; wrap Card in an interactive component if needed</li>
+              <li>Don't nest Card in Card &mdash; double borders read busy. Use <code>Paper level="subtle"</code> instead</li>
             </ul>
           </div>
         </div>

@@ -382,11 +382,11 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Use <strong>error</strong> for urgent items (expired credentials, overdue timecards)</li>
-              <li>Use <strong>primary</strong> for general activity counts</li>
+              <li><strong>Badge color signals urgency, not decoration</strong> &mdash; <code>error</code> for action-required (expired, overdue), <code>warning</code> for caution, <code>primary</code> for general activity counts. The color IS the message; pick it deliberately.</li>
+              <li><strong>Border radius is 999px (pill)</strong> &mdash; same family as Chip. The rounded shape distinguishes badges from squared tags.</li>
               <li>Cap displayed counts at 99+ for large numbers</li>
-              <li>Use <strong>dot</strong> when presence matters more than count</li>
-              <li>Clear badges when the user has addressed the pending items</li>
+              <li>Use <strong>dot</strong> when presence matters more than count &mdash; the badge says "there's something here" without quantifying</li>
+              <li>Clear badges when the user has addressed the pending items &mdash; stale badges erode trust in the count</li>
             </ul>
           </div>
         </div>
@@ -405,10 +405,10 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Don't show a badge with count 0 — remove it entirely</li>
-              <li>Don't use badges for decorative purposes</li>
-              <li>Don't mix badge colors arbitrarily — color must communicate severity</li>
-              <li>Don't place a badge on text — anchor to icons or avatar elements</li>
+              <li><strong>Don't use semantic colors decoratively</strong> &mdash; <code>success</code> on a generic activity count, <code>warning</code> as an aesthetic choice, all break the rule that semantic color signals state. Pick the color that matches the urgency.</li>
+              <li><strong>Don't show a badge with count 0</strong> &mdash; remove it entirely. A "0" badge is noise that competes with real counts.</li>
+              <li><strong>Don't use primary blue (<code>#2196F3</code>) for badge content that doesn't represent an activity count</strong> &mdash; primary is reserved for actions and clickable text; badges are status, not navigation.</li>
+              <li>Don't place a badge on plain text &mdash; anchor to icons, avatars, or other affordances with shape</li>
             </ul>
           </div>
         </div>

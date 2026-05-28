@@ -310,9 +310,13 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Always mark exactly one item as <code>selected</code> — the current page</li>
-              <li>Keep link labels short — use the page/section name only</li>
-              <li>Use the <code>/</code> state as default; <code>|</code> for tab-style navigation</li>
+              <li><strong>Breadcrumb in <code>state="Links"</code> is the grid view switcher</strong> &mdash; the <code>All | Active | Pending | …</code> chrome at the top of standalone grid pages is NOT the Tabs component. It's this. Same 40px height, same <code>background.secondary</code>, pipe dividers, optional inline count per item.</li>
+              <li><strong>On a grid page, Breadcrumb-Links lives in the PHT's <code>breadcrumbContent</code> slot</strong> (full variant) &mdash; PHT and grid share one continuous border, no gap.</li>
+              <li><strong>Selected item in <code>state="Links"</code> uses a 2px primary-blue bottom border indicator</strong> on the item itself (not on the strip), with <code>text.primary</code> color. Non-selected items use primary-blue link text. Hover underlines.</li>
+              <li><strong>Optional inline counts go after each label</strong> in <code>text.secondary</code>. The selected item's count flips to primary blue.</li>
+              <li>Always mark exactly one item as <code>selected</code> &mdash; the current page or view</li>
+              <li>Keep link labels short &mdash; use the page/section name only</li>
+              <li>Use the <code>breadcrumb</code> state (slash dividers) for navigation hierarchy; use <code>Links</code> (pipe dividers) for view switching</li>
               <li>Show record count when the page is a list or table view</li>
             </ul>
           </div>
@@ -328,9 +332,12 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Don't exceed 6-7 path segments — truncate middle items with ellipsis</li>
+              <li><strong>Don't use the Tabs component for grid view switching</strong> &mdash; that's Pattern C in the §11 taxonomy, and it's Breadcrumb-Links, not Tabs.</li>
+              <li><strong>Don't use <code>state="Links"</code> for breadcrumb navigation</strong> &mdash; pipe dividers signal "lateral views of the same level," not hierarchical path. Use the <code>breadcrumb</code> state for path navigation.</li>
+              <li><strong>Don't restyle the selected-item indicator</strong> &mdash; 2px primary-blue bottom border on the item, item text in <code>text.primary</code>. Changing the indicator position or color breaks the visual rhyme with Tabs (which use top indicator instead).</li>
+              <li>Don't exceed 6-7 path segments &mdash; truncate middle items with ellipsis</li>
               <li>Don't put non-navigation actions in the breadcrumb strip</li>
-              <li>Don't use breadcrumb for step-by-step wizard navigation — use a Stepper</li>
+              <li>Don't use Breadcrumb for step-by-step wizard navigation &mdash; use a Stepper</li>
               <li>Don't use single-letter or ambiguous labels</li>
             </ul>
           </div>

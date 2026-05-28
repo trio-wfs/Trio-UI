@@ -174,14 +174,39 @@
           <span class="material-icons-outlined">recommend</span>
           Best Practices
         </h2>
-        <ul style="font-size: 14px; color: var(--color-text-primary); line-height: 1.8; padding-left: 20px;">
-          <li>The NavigationHeader is always the topmost element on every TRIO page — nothing sits above it.</li>
-          <li>Nav items with dropdowns show <code>keyboard_arrow_down</code>. Items without dropdowns have no arrow.</li>
-          <li>Only one nav item can be active at a time. The active indicator is a 2px bottom border.</li>
-          <li>The environment badge (TRIO WIP, TRIO PROD) should be hidden in production or set to a neutral label.</li>
-          <li>The SearchBar in the brand bar uses the existing <code>SearchBar</code> component with <code>type="Right"</code>.</li>
-          <li>The brand bar background (#607D8B) is the only place this color appears in the application — do not reuse it elsewhere.</li>
-        </ul>
+        <div class="grid-2">
+          <div class="card do-card">
+            <div class="card-title">
+              <span class="material-icons-outlined">check_circle</span>
+              Do
+            </div>
+            <div class="card-content">
+              <ul>
+                <li><strong>NavigationHeader is fixed at the very top of every TRIO page</strong> &mdash; always present, always the same, no variants.</li>
+                <li><strong>Maintain 16px padding-bottom between NavigationHeader and the page content below</strong> &mdash; that gap is canonical, not optional.</li>
+                <li>Show <code>keyboard_arrow_down</code> on nav items with dropdowns; items without dropdowns have no arrow</li>
+                <li>Use a 2px bottom border to indicate the single active nav item</li>
+                <li>Use the existing <code>SearchBar</code> component with <code>type="Right"</code> in the brand bar</li>
+                <li>Hide the environment badge in production, or set it to a neutral label</li>
+              </ul>
+            </div>
+          </div>
+          <div class="card dont-card">
+            <div class="card-title">
+              <span class="material-icons-outlined">cancel</span>
+              Don't
+            </div>
+            <div class="card-content">
+              <ul>
+                <li><strong>Don't reuse the brand bar background color (<code>#607D8B</code>)</strong> &mdash; this is the only place that color appears in TRIO; it's reserved for this surface.</li>
+                <li><strong>Don't introduce a responsive collapse or overflow menu</strong> &mdash; there is no responsive variant yet. Treat narrow viewports as degraded, not designed. (Paired with NavigationVertical's still-TBD responsive behavior.)</li>
+                <li>Don't allow more than one nav item to look active simultaneously</li>
+                <li>Don't omit NavigationHeader on TRIO product pages &mdash; the only exception is Digital Workers and future AI layouts</li>
+                <li>Don't display "TRIO WIP" or "TRIO PROD" badges in production</li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </section>
 
       <!-- ═══════════ 5. TECHNICAL SPECS ═══════════ -->

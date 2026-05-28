@@ -415,11 +415,13 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Always provide an <code>aria-label</code></li>
-              <li>Use <strong>ghost</strong> for inline/table actions — least disruptive</li>
+              <li><strong>Heights:</strong> <code>contained</code> variant uses <code>tokens.controls.height</code> (32 small / 38 medium) like every other control. <strong>Ghost-small uses 24px</strong> (<code>tokens.controls.ghostHeight</code>) &mdash; the Figma-sanctioned compact exception for dense toolbars, grid filter rows, and breadcrumb actions where a 32px control would dominate. Confirmed against Figma node 4819:14042.</li>
+              <li><strong>Icons are <code>@mui/icons-material</code> Outlined at 16px</strong> &mdash; never another icon library, never another size.</li>
+              <li><strong>Always provide an <code>aria-label</code></strong> &mdash; icon-only controls have no visible label, so screen-reader text is required.</li>
+              <li>Use <strong>ghost</strong> for inline / table actions &mdash; least disruptive</li>
               <li>Use <strong>contained primary</strong> for toolbar toggles and high-visibility actions</li>
               <li>Use <strong>contained secondary</strong> as the default toolbar button</li>
-              <li>Group related icon buttons into a toggle strip using ToggleButton</li>
+              <li>Pair with a Tooltip to clarify ambiguous icons</li>
             </ul>
           </div>
         </div>
@@ -438,10 +440,12 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Don't use icon-only buttons for primary page actions — use a labeled Button instead</li>
+              <li><strong>Don't hardcode <code>height: 24</code>, <code>32</code>, or <code>38</code></strong> &mdash; pull from <code>tokens.controls.height</code> (or <code>tokens.controls.ghostHeight</code> for ghost-small). Hardcoded values are drift waiting to happen.</li>
+              <li><strong>Don't use icon-only buttons for primary page actions</strong> &mdash; the primary action belongs in the PHT's single-button slot as a labeled <code>Button</code>. ButtonIcon is for grouped or chrome actions.</li>
+              <li><strong>Don't swap in a different icon library</strong> &mdash; icons are <code>@mui/icons-material</code> Outlined, always.</li>
               <li>Don't use ambiguous icons without a tooltip</li>
-              <li>Don't mix contained and ghost styles in the same toolbar strip</li>
-              <li>Don't use badge counts above 99 — truncate to "99+"</li>
+              <li>Don't mix contained and ghost styles in the same toolbar strip &mdash; the chrome reads as inconsistent</li>
+              <li>Don't use badge counts above 99 &mdash; truncate to "99+"</li>
             </ul>
           </div>
         </div>

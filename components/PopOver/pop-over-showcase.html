@@ -341,8 +341,10 @@
           </div>
           <div class="card-content">
             <ul>
+              <li><strong>PopOver is a floating overlay &mdash; drop shadow is allowed</strong> (along with Tooltip, Menu, and Modal). This is the sanctioned use of elevation; everywhere else in the system surfaces use borders, not shadows.</li>
+              <li><strong>PopOver is for preview / scoped content with an interactive escape hatch</strong> &mdash; that's the distinction from Tooltip (passive, hover-only, dismisses on move-away) and Modal (blocking, full attention required).</li>
               <li>Anchor the popover next to its trigger so the relationship is obvious</li>
-              <li>Use a short, descriptive title (1–3 words) — match the trigger label's intent</li>
+              <li>Use a short, descriptive title (1&ndash;3 words) &mdash; match the trigger label's intent</li>
               <li>Provide a "View all" or "Open …" action link when the content is a preview of a larger view</li>
               <li>Use the default 450px width for most cases; only override when the content is genuinely narrower</li>
             </ul>
@@ -359,10 +361,10 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Don't put long forms in a PopOver — promote to Modal or a side Panel instead</li>
-              <li>Don't use for destructive confirmations — Modal carries the right weight</li>
-              <li>Don't stack PopOvers (one opens another) — only one anchored panel should be open</li>
-              <li>Don't rely on hover to open — clicks are the contract; hover belongs to Tooltip</li>
+              <li><strong>Don't put long forms in a PopOver</strong> &mdash; promote to Modal (default for committing actions in TRIO) or a side Panel for review/reference.</li>
+              <li><strong>Don't use PopOver for destructive confirmations</strong> &mdash; the dismiss-on-outside-click contract means the user can lose the action accidentally. Modal carries the right weight.</li>
+              <li>Don't stack PopOvers (one opens another) &mdash; only one anchored panel should be open</li>
+              <li>Don't rely on hover to open &mdash; clicks are the contract; hover belongs to Tooltip</li>
             </ul>
           </div>
         </div>

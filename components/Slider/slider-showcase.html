@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slider - TRIO WFS Design System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+  <link rel="stylesheet" href="../../design-system-shell.css">
+  <style>
+    .main-content { background: var(--color-background-secondary); min-height: 100vh; }
+    .section { background: transparent; border-radius: 0; padding: 0; margin-bottom: 0; padding-bottom: var(--spacing-xl); }
+    .section + .section { border-top: 1px solid var(--color-secondary-outline); padding-top: var(--spacing-xl); }
+    .section-title .material-icons-outlined { font-size: 18px; color: var(--color-primary-main); }
+    .section .property-table { background: var(--color-background-paper); border: 1px solid var(--color-secondary-outline); border-radius: 4px; overflow: hidden; }
+    .section .property-table th { background: var(--color-background-paper); border-bottom: 1px solid var(--color-secondary-outline); }
+    .section .property-table td { border-bottom: 1px solid var(--color-secondary-outline); }
+    .card { background: var(--color-background-paper); }
+
+    /* Slider demo container — paper white, room for a wide track */
+    .demo-row {
+      background: var(--color-background-paper);
+      padding: var(--spacing-lg) var(--spacing-xl);
+      border-radius: 4px;
+      border: 1px solid var(--color-secondary-outline);
+    }
+    .demo-row > [data-trio-component] { width: 100%; max-width: 480px; display: block; }
+
+    /* React mount points */
+    [data-trio-component] { display: inline-block; }
+
+    /* Card illustrations */
+    .card-illustration { background: var(--color-background-secondary, #FAFAFA); border: 1px solid var(--color-secondary-outline); border-radius: 4px; padding: var(--spacing-md) var(--spacing-lg); margin-bottom: var(--spacing-md); display: flex; align-items: center; justify-content: center; min-height: 80px; position: relative; }
+    .card-illustration-label { position: absolute; top: 8px; right: 8px; font-size: 9px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; padding: 2px 6px; border-radius: 999px; }
+    .do-card .card-illustration-label { background: var(--color-success-light, #E8F5E9); color: var(--color-success-main); }
+    .dont-card .card-illustration-label { background: var(--color-error-light, #FBEAED); color: var(--color-error-main); }
+    .card-illustration-wrong::after { content: ''; position: absolute; top: 50%; left: 16px; right: 16px; height: 2px; background: var(--color-error-main); opacity: 0.4; transform: rotate(-3deg); }
+    .card-illustration [data-trio-component] { width: 100%; max-width: 280px; }
+  </style>
+  <script src="../../design-system-nav.js"></script>
+  <script type="module" src="../../showcase/dist/showcase.js"></script>
+</head>
+<body>
+  <aside class="sidebar"></aside>
+  <main class="main-content">
+
+    <header class="page-header">
+      <h1 class="page-title">Slider</h1>
+      <p class="page-subtitle">
+        Continuous-range selector for numeric values where position communicates more than the exact number.
+        Use for thresholds, ranges, and tuning interactions where users want to "feel" the value.
+      </p>
+      <div class="component-meta">
+        <span><span class="material-icons-outlined" style="font-size: 14px;">category</span> Form Control</span>
+        <span><span class="material-icons-outlined" style="font-size: 14px;">verified</span> Production Ready</span>
+      </div>
+    </header>
+
+
+    <!-- 1. OVERVIEW -->
+    <section class="section">
+      <h2 class="section-title"><span class="material-icons-outlined">info</span> Overview</h2>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title"><span class="material-icons-outlined" style="color: #2196F3;">psychology</span> Purpose</div>
+          <div class="card-content">
+            Position-based numeric selection along a continuous track. Differs from NumberField by emphasizing
+            relative position (close to min, near max) over the precise number.
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="material-icons-outlined" style="color: #2196F3;">priority_high</span> Visual Hierarchy</div>
+          <div class="card-content">
+            Medium &mdash; the filled track is a primary-blue line that draws the eye, so reserve Slider for
+            values worth highlighting (alert thresholds, fill-rate goals, scoring weights).
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="material-icons-outlined" style="color: #2196F3;">accessibility</span> Accessibility</div>
+          <div class="card-content">
+            Thumb supports <code>ArrowLeft</code>/<code>ArrowRight</code> for step, <code>Home</code>/<code>End</code> for min/max.
+            Pair with a visible label and consider <code>valueLabelDisplay="on"</code> when the exact value matters.
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- 2. USAGE GUIDELINES -->
+    <section class="section">
+      <h2 class="section-title"><span class="material-icons-outlined">rule</span> Usage Guidelines</h2>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title"><span class="material-icons-outlined">check_circle</span> When to Use</div>
+          <div class="card-illustration">
+            <span class="card-illustration-label">Correct</span>
+            <div data-trio-component="Slider" data-trio-props='{"value":[30,70],"min":0,"max":100,"valueLabelDisplay":"auto"}'></div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Threshold tuning where users want to feel the value (overtime alert hours, fill-rate target %)</li>
+              <li>Range selection &mdash; min and max as a paired control (date range, rate window)</li>
+              <li>Settings that benefit from visual feedback as the value changes</li>
+              <li>Values from a clear bounded range where position is meaningful</li>
+              <li>Coarse adjustments that don't need exact precision &mdash; users tune by feel</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card dont-card">
+          <div class="card-title"><span class="material-icons-outlined">cancel</span> When NOT to Use</div>
+          <div class="card-illustration card-illustration-wrong">
+            <span class="card-illustration-label">Incorrect</span>
+            <div data-trio-component="Slider" data-trio-props='{"value":42,"min":0,"max":100}'></div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Discrete integer entry where the value is the point &mdash; use NumberField</li>
+              <li>Values where users will type the exact number &mdash; use TextField</li>
+              <li>Selection from a known list of choices &mdash; use Select or RadioGroup</li>
+              <li>Binary on/off settings &mdash; use Switch</li>
+              <li>Currency, dates, or any high-precision input &mdash; use TextField with validation</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- 3. VARIANTS -->
+    <section class="section">
+      <h2 class="section-title"><span class="material-icons-outlined">widgets</span> Variants</h2>
+      <p class="section-description">
+        Single-value or range, with optional marks and value label display. Pick the shape that matches the
+        decision the user is making.
+      </p>
+
+      <div class="variant-group">
+        <div class="variant-label">Single Value</div>
+        <div class="demo-row">
+          <div data-trio-component="Slider" data-trio-props='{"value":40,"min":0,"max":100}'></div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Range (two thumbs)</div>
+        <div class="demo-row">
+          <div data-trio-component="Slider" data-trio-props='{"value":[20,80],"min":0,"max":100}'></div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">With Marks (auto)</div>
+        <div class="demo-row">
+          <div data-trio-component="Slider" data-trio-props='{"value":50,"min":0,"max":100,"step":10,"marks":true}'></div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">With Custom Marks + Labels</div>
+        <div class="demo-row">
+          <div data-trio-component="Slider" data-trio-props='{"value":50,"min":0,"max":100,"step":25,"marks":[{"value":0,"label":"None"},{"value":25,"label":"Low"},{"value":50,"label":"Med"},{"value":75,"label":"High"},{"value":100,"label":"All"}]}'></div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Value Label &mdash; Always On</div>
+        <div class="demo-row">
+          <div data-trio-component="Slider" data-trio-props='{"value":65,"min":0,"max":100,"valueLabelDisplay":"on"}'></div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Value Label &mdash; Auto (shows on interaction)</div>
+        <div class="demo-row">
+          <div data-trio-component="Slider" data-trio-props='{"value":35,"min":0,"max":100,"valueLabelDisplay":"auto"}'></div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- 4. SIZES -->
+    <section class="section">
+      <h2 class="section-title"><span class="material-icons-outlined">straighten</span> Sizes</h2>
+      <p class="section-description">
+        Two sizes &mdash; medium for primary forms and settings, small for compact contexts like grid filters
+        and dense modal forms.
+      </p>
+
+      <div class="variant-group">
+        <div class="variant-label">Medium (Default) &mdash; 20px thumb / 4px track</div>
+        <div class="demo-row">
+          <div data-trio-component="Slider" data-trio-props='{"value":50,"min":0,"max":100,"size":"medium"}'></div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Small &mdash; 16px thumb / 4px track</div>
+        <div class="demo-row">
+          <div data-trio-component="Slider" data-trio-props='{"value":50,"min":0,"max":100,"size":"small"}'></div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- 5. STATES -->
+    <section class="section">
+      <h2 class="section-title"><span class="material-icons-outlined">toggle_on</span> States</h2>
+      <p class="section-description">
+        Interactive and visual states. Hover, focus, and active states are demonstrated by interacting with
+        the live components &mdash; hover the thumb or drag to reposition.
+      </p>
+
+      <div class="variant-group">
+        <div class="variant-label">Default</div>
+        <div class="demo-row">
+          <div data-trio-component="Slider" data-trio-props='{"value":50,"min":0,"max":100}'></div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Disabled</div>
+        <div class="demo-row">
+          <div data-trio-component="Slider" data-trio-props='{"value":50,"min":0,"max":100,"disabled":true}'></div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- 6. BEST PRACTICES -->
+    <section class="section">
+      <h2 class="section-title"><span class="material-icons-outlined">recommend</span> Best Practices</h2>
+      <div class="grid-2">
+        <div class="card do-card">
+          <div class="card-title"><span class="material-icons-outlined">check_circle</span> Do</div>
+          <div class="card-illustration">
+            <span class="card-illustration-label">Correct</span>
+            <div style="display: flex; flex-direction: column; gap: 8px; width: 100%;">
+              <div data-trio-component="Slider" data-trio-props='{"value":75,"min":0,"max":100,"step":25,"marks":[{"value":0,"label":"None"},{"value":25,"label":"Low"},{"value":50,"label":"Med"},{"value":75,"label":"High"},{"value":100,"label":"All"}],"valueLabelDisplay":"auto"}'></div>
+              <div style="font-size: 10px; color: #757575;">Labeled marks + auto value bubble make the abstract scale concrete</div>
+            </div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Use labeled marks when the scale is conceptual (Low / Med / High) rather than literal</li>
+              <li>Pair with a visible value display (label, helper text, or <code>valueLabelDisplay="auto"</code>) when exact values matter</li>
+              <li>Match Slider size to surrounding form controls &mdash; medium with medium inputs, small with small</li>
+              <li>Use range sliders (two thumbs) when the value <em>is</em> a range, not when users pick one of two endpoints</li>
+              <li>Set <code>step</code> to match the precision users care about &mdash; not finer than they can perceive</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card dont-card">
+          <div class="card-title"><span class="material-icons-outlined">cancel</span> Don't</div>
+          <div class="card-illustration card-illustration-wrong">
+            <span class="card-illustration-label">Incorrect</span>
+            <div style="display: flex; flex-direction: column; gap: 8px; width: 100%;">
+              <div data-trio-component="Slider" data-trio-props='{"value":50,"min":0,"max":100}'></div>
+              <div style="font-size: 10px; color: #757575;">No label, no marks, no value display &mdash; user can't tell what 50 means</div>
+            </div>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li>Don't ship a Slider with no label and no value display &mdash; users can't tell what they're choosing</li>
+              <li>Don't use Slider when precise numeric entry matters &mdash; users will fight the thumb position</li>
+              <li>Don't use a 0-to-100 Slider for two-state choices &mdash; use Switch or ToggleButton</li>
+              <li>Don't combine a Slider and a NumberField that bind the same value &mdash; pick one input method</li>
+              <li>Don't use semantic colors (success/warning/error) on the track &mdash; reserve primary blue for it (§5)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- 7. TECHNICAL SPECIFICATIONS -->
+    <section class="section">
+      <h2 class="section-title"><span class="material-icons-outlined">construction</span> Technical Specifications</h2>
+      <p class="section-description">
+        All values extracted from Figma component spec (node: 2060:6895). Implementation-ready values with token paths.
+      </p>
+
+      <table class="property-table">
+        <thead><tr><th>Property</th><th>Value</th><th>Token</th></tr></thead>
+        <tbody>
+          <tr><td>Track Height</td><td><code>4px</code></td><td><span class="token-path">&mdash;</span></td></tr>
+          <tr><td>Track Color (filled)</td><td><code>#2196F3</code></td><td><span class="token-path">primary.main</span></td></tr>
+          <tr><td>Rail Color (unfilled)</td><td><code>#F5F5F5</code> + <code>1px #E0E0E0</code> border</td><td><span class="token-path">background.default + border.default</span></td></tr>
+          <tr><td>Thumb Size (medium)</td><td><code>20px</code> diameter</td><td><span class="token-path">&mdash;</span></td></tr>
+          <tr><td>Thumb Size (small)</td><td><code>16px</code> diameter</td><td><span class="token-path">&mdash;</span></td></tr>
+          <tr><td>Thumb Color</td><td><code>#2196F3</code></td><td><span class="token-path">primary.main</span></td></tr>
+          <tr><td>Thumb Border</td><td><code>2px solid #2196F3</code></td><td><span class="token-path">primary.main</span></td></tr>
+          <tr><td>Hover Ripple</td><td><code>rgba(33,150,243,0.08)</code> @ 8px</td><td><span class="token-path">primary.main @ 8%</span></td></tr>
+          <tr><td>Focus Ripple</td><td><code>rgba(33,150,243,0.16)</code> @ 8px</td><td><span class="token-path">primary.main @ 16%</span></td></tr>
+          <tr><td>Active Ripple</td><td><code>rgba(33,150,243,0.16)</code> @ 14px</td><td><span class="token-path">primary.main @ 16%</span></td></tr>
+          <tr><td>Value Label Background</td><td><code>#2196F3</code></td><td><span class="token-path">primary.main</span></td></tr>
+          <tr><td>Value Label Font</td><td><code>12px Roboto Regular</code></td><td><span class="token-path">typography.fontSize.xs</span></td></tr>
+          <tr><td>Mark Dot (inactive)</td><td><code>#E0E0E0</code></td><td><span class="token-path">border.default</span></td></tr>
+          <tr><td>Mark Dot (active)</td><td><code>#FFFFFF</code></td><td><span class="token-path">background.paper</span></td></tr>
+          <tr><td>Mark Label Font</td><td><code>12px Roboto Regular</code> @ <code>#757575</code></td><td><span class="token-path">fontSize.xs / text.secondary</span></td></tr>
+          <tr><td>Sizes</td><td><code>medium, small</code></td><td><span class="token-path">&mdash;</span></td></tr>
+          <tr><td>Disabled</td><td><code>true, false</code></td><td><span class="token-path">&mdash;</span></td></tr>
+          <tr><td>valueLabelDisplay</td><td><code>off, auto, on</code></td><td><span class="token-path">&mdash;</span></td></tr>
+          <tr><td>Keyboard</td><td colspan="2"><code>ArrowLeft</code>/<code>ArrowRight</code> step · <code>Home</code>/<code>End</code> min/max · <code>PageUp</code>/<code>PageDown</code> larger step</td></tr>
+          <tr><td>MUI Base</td><td colspan="2"><code>@mui/material/Slider</code></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+</body>
+</html>

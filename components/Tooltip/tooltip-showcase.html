@@ -534,11 +534,12 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Keep tooltip text short — one phrase or sentence</li>
-              <li>Use tooltips on icon-only ButtonIcon components for accessible labels</li>
-              <li>Choose the position that keeps the tooltip visible within the viewport</li>
-              <li>Prefer top or bottom for most UI contexts</li>
-              <li>Use tooltips to clarify secondary or ambiguous actions</li>
+              <li><strong>Tooltip is a floating overlay &mdash; drop shadow is allowed</strong>, paired with the arrow that points to the trigger. This is one of the few surfaces where elevation is correct; paper surfaces and cards stay border-only.</li>
+              <li><strong>Arrows are always on by default</strong> &mdash; TRIO tooltips show the arrow pointing at the trigger so the anchor is unambiguous. Don't pass <code>arrow={false}</code>.</li>
+              <li>Keep tooltip text short &mdash; one phrase or sentence</li>
+              <li>Use tooltips on icon-only ButtonIcon components for accessible labels &mdash; the icon alone doesn't communicate the action</li>
+              <li>Choose the position that keeps the tooltip visible within the viewport &mdash; top and bottom are the safest defaults</li>
+              <li>Use tooltips to clarify secondary or ambiguous actions, not to teach primary flows</li>
             </ul>
           </div>
         </div>
@@ -558,11 +559,11 @@
           </div>
           <div class="card-content">
             <ul>
-              <li>Don't put interactive content (links, buttons) inside a tooltip</li>
-              <li>Don't use tooltips to surface critical information users must see</li>
-              <li>Don't add tooltips to disabled elements — users can't trigger them</li>
+              <li><strong>Don't put interactive content (links, buttons) inside a tooltip</strong> &mdash; users can't reach it before it dismisses. Use a PopOver or Menu for content that needs interaction.</li>
+              <li><strong>Don't use tooltips to surface critical information users must see</strong> &mdash; tooltips require hover/focus to trigger and dismiss on move-away. For critical info, use Alert (or the full info-color border callout pattern).</li>
+              <li>Don't add tooltips to disabled elements &mdash; users can't trigger them. Wrap a disabled button in a span if you need a tooltip on the disabled state.</li>
               <li>Don't write long multi-sentence tooltip text</li>
-              <li>Don't duplicate visible labels with tooltips</li>
+              <li>Don't duplicate visible labels with tooltips &mdash; the tooltip adds noise without information</li>
             </ul>
           </div>
         </div>

@@ -486,6 +486,46 @@
           </div>
         </div>
       </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Total + breakdown — <code>excludePrimaryFromBar</code></div>
+        <p class="section-description">
+          When the primary metric is the <em>sum</em> and the remaining metrics are its
+          breakdown, set <code>excludePrimaryFromBar</code> so the progress bar segments
+          only the breakdown. Without this flag, BarFooter sums every metric and the bar
+          double-counts the total against its parts (e.g. [14, 7, 7] renders as 50/25/25
+          instead of 50/50).
+        </p>
+        <div class="demo-area">
+          <div class="metric-group">
+            <div class="metric-card-wrapper">
+              <div data-trio-component="MetricCard" data-trio-props='{"label":"Privileges","layout":"grouped","footer":"bar","excludePrimaryFromBar":true,"metrics":[{"label":"Total","value":14},{"label":"Active","value":7},{"label":"In Progress","value":7}]}'></div>
+            </div>
+            <div class="metric-card-wrapper">
+              <div data-trio-component="MetricCard" data-trio-props='{"label":"Timecards","layout":"grouped","footer":"bar","excludePrimaryFromBar":true,"metrics":[{"label":"Total","value":120},{"label":"Approved","value":84},{"label":"Pending","value":36}]}'></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Tappable metrics — <code>onClick</code> per item</div>
+        <p class="section-description">
+          Individual metrics become focusable <code>&lt;button&gt;</code> elements with
+          a pointer cursor when you pass <code>onClick</code> on the metric item.
+          A single card can drive multiple filter targets — each value fires its own
+          handler. Non-clickable metrics stay as plain <code>&lt;div&gt;</code> with no
+          cursor change. The "total" stays non-clickable on purpose; clicking the sum
+          isn't a filter, it's the unfiltered state.
+        </p>
+        <p class="section-description">
+          No selected / hover / pressed visuals on purpose — the affordance is the
+          cursor and the browser-default focus ring. Keyboard users get Tab + Enter
+          / Space for free. Live demo isn't shown here because <code>onClick</code> is a
+          function reference that can't be expressed in static JSON props; see the
+          Privilege Activity prototype for the wired-up version.
+        </p>
+      </div>
     </section>
 
     <!-- STATES (Semantic Color Overrides) -->
@@ -585,6 +625,8 @@
               <li><strong>Semantic colors signal urgency, not decoration</strong> &mdash; use <code>error</code> / <code>warning</code> / <code>success</code> only when the metric value itself communicates state (lapsing credentials, expired licenses, fill-rate misses).</li>
               <li><strong>MetricCard is a standalone component &mdash; do NOT wrap it in a <code>ContentContainer</code></strong>. It owns its own surface, border, and padding. Same rule applies to Alert and Stepper.</li>
               <li><strong>In responsive layouts, MetricCard rows snap from 4-up to 2-up to 1-up</strong> at <code>md</code> / <code>sm</code> breakpoints &mdash; never gradually reflow.</li>
+              <li><strong>Use <code>excludePrimaryFromBar</code> when the primary metric is the total</strong> &mdash; the bar should segment only the breakdown (Active + In Progress), not double-count the sum against its parts.</li>
+              <li><strong>Pass <code>onClick</code> on individual <code>metrics[i]</code> to make a value a filter trigger</strong> &mdash; each metric becomes its own focusable button. Lets one card drive multiple filter targets without a card-level handler.</li>
               <li>Always use cards in groups of 2 or more &mdash; a single card lacks the comparative context the format provides</li>
               <li>Use consistent footer style within a card group</li>
               <li>Keep labels short &mdash; they truncate at minimum width (170px)</li>
@@ -607,6 +649,8 @@
               <li><strong>Don't apply semantic colors decoratively</strong> &mdash; coloring a static count <code>success</code> green because it "looks healthy" breaks the rule. Semantic = state, not aesthetic.</li>
               <li><strong>Don't wrap MetricCard in <code>ContentContainer</code></strong> &mdash; it's a standalone component, not section content.</li>
               <li>Don't show the left labelIcon and the (?) help icon together &mdash; pick one based on whether the card needs a scanning aid or a tooltip</li>
+              <li><strong>Don't make the "total" primary metric clickable in a tappable grouped card</strong> &mdash; clicking the sum isn't a filter, it's the unfiltered state. Only the breakdown values should fire <code>onClick</code>.</li>
+              <li><strong>Don't sum the primary into the bar footer when it's a total</strong> &mdash; without <code>excludePrimaryFromBar</code>, a [14, 7, 7] card renders as 50/25/25 instead of the intended 50/50 split.</li>
               <li>Don't use a single standalone card without context &mdash; cards live in groups</li>
               <li>Don't mix footer styles within the same card group</li>
               <li>Don't use more than 4 metrics &mdash; switch to a table</li>
@@ -827,6 +871,18 @@
               <td><code>'bar'</code></td>
               <td>Footer display style beneath metric values</td>
             </tr>
+            <tr>
+              <td><code>excludePrimaryFromBar</code></td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
+              <td>When <code>footer="bar"</code>, skip <code>metrics[0]</code> from the bar math. Use for the "total + breakdown" pattern where the primary holds the sum and the rest are its parts.</td>
+            </tr>
+            <tr>
+              <td><code>onClick</code></td>
+              <td><code>(e) =&gt; void</code></td>
+              <td>—</td>
+              <td>Card-level click handler. When set, the whole card becomes clickable (cursor: pointer). For per-value filter triggers, use <code>metrics[i].onClick</code> instead.</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -869,6 +925,11 @@
                 <td><code>secondaryLabel</code></td>
                 <td><code>string</code></td>
                 <td>Caption chip text for <code>footer="labels"</code> style</td>
+              </tr>
+              <tr>
+                <td><code>onClick</code></td>
+                <td><code>(e) =&gt; void</code></td>
+                <td>Makes this individual metric act as a focusable <code>&lt;button&gt;</code> with a pointer cursor. Other metrics on the same card stay non-clickable unless they also set <code>onClick</code>. No selected / hover / pressed visuals — affordance is the cursor + browser focus ring.</td>
               </tr>
             </tbody>
           </table>

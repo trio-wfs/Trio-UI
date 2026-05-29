@@ -19,6 +19,7 @@ export const ContentContainer = React.forwardRef<HTMLDivElement, ContentContaine
   titleActions,
   padding = defaultContentContainerProps.padding,
   flush = defaultContentContainerProps.flush,
+  overflow = defaultContentContainerProps.overflow,
   children,
   sx,
 }, ref) => {
@@ -29,7 +30,7 @@ export const ContentContainer = React.forwardRef<HTMLDivElement, ContentContaine
         backgroundColor: tokens.colors.background.paper,
         border: `1px solid ${tokens.colors.components.border.default}`,
         borderRadius: flush ? 0 : `${tokens.borderRadius.default}px`,
-        overflow: 'hidden',
+        overflow,
         ...sx,
       }}
     >

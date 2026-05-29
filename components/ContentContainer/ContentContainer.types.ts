@@ -33,6 +33,16 @@ export interface ContentContainerProps {
   flush?: boolean;
 
   /**
+   * Overflow behavior of the container. Default `'hidden'` protects the
+   * rounded outer corners from sharp-cornered children (e.g. AG Grid that
+   * fills edge-to-edge). Use `'visible'` when a child needs to render
+   * outside the container — most commonly `position: sticky` panels that
+   * need to escape the container's clipping region.
+   * @default 'hidden'
+   */
+  overflow?: 'hidden' | 'visible';
+
+  /**
    * Content
    */
   children: React.ReactNode;
@@ -46,4 +56,5 @@ export interface ContentContainerProps {
 export const defaultContentContainerProps: Partial<ContentContainerProps> = {
   padding: 16,
   flush: false,
+  overflow: 'hidden',
 };

@@ -142,40 +142,6 @@
       min-width: 0;
     }
 
-    .proto-progress-row {
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-sm);
-    }
-
-    .proto-progress-bar {
-      flex: 1;
-      height: 6px;
-      background: var(--color-background-secondary);
-      border-radius: 999px;
-      overflow: hidden;
-    }
-
-    .proto-progress-fill {
-      height: 100%;
-      background: var(--color-primary-main);
-      border-radius: 999px;
-      transition: width 0.3s ease;
-    }
-
-    .proto-progress-fill.status-live { background: var(--color-success-main); }
-    .proto-progress-fill.status-shipped { background: #00897B; }
-    .proto-progress-fill.status-blocked { background: var(--color-error-main); }
-    .proto-progress-fill.status-draft { background: var(--color-text-tertiary, #BDBDBD); }
-
-    .proto-pct {
-      font-size: 11px;
-      color: var(--color-text-secondary);
-      font-weight: 500;
-      min-width: 32px;
-      text-align: right;
-    }
-
     .proto-status-row {
       display: flex;
       justify-content: space-between;
@@ -429,7 +395,6 @@
     function renderRow(p) {
       const type = p.type || 'concept';
       const status = p.status || 'draft';
-      const hasProgress = typeof p.progress === 'number';
       const primaryHref = pickPrimary(p.links);
 
       return `
@@ -450,13 +415,6 @@
             <p class="proto-desc">${escapeHtml(p.description || '')}</p>
           </div>
           <div class="proto-aside">
-            ${hasProgress ? `
-              <div class="proto-progress-row">
-                <div class="proto-progress-bar">
-                  <div class="proto-progress-fill status-${escapeHtml(status)}" style="width: ${Math.max(0, Math.min(100, p.progress))}%"></div>
-                </div>
-                <span class="proto-pct">${p.progress}%</span>
-              </div>` : ''}
             <div class="proto-status-row">
               <span class="proto-status proto-status-${escapeHtml(status)}">${STATUS_LABEL[status] || status}</span>
               <span class="proto-updated">

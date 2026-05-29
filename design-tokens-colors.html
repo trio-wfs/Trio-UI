@@ -410,7 +410,7 @@
         Background Colors
       </h2>
       <p class="section-description">
-        Background colors create surface hierarchy. Default is for application pages, Paper is where most content sits, Secondary is for page canvas, and Accent highlights cards and selections.
+        Background colors create surface hierarchy. Layer order: <strong>Default</strong> (application canvas) → <strong>Secondary</strong> (page wrapper) → <strong>Subtle</strong> (faint nested tier) → <strong>Paper</strong> (cards, modals, containers) → <strong>Accent</strong> (highlights and selections).
       </p>
       <div class="color-grid">
         <div class="color-card">
@@ -425,17 +425,6 @@
           </div>
         </div>
         <div class="color-card">
-          <div class="color-swatch" style="background-color: #FFFFFF; border: 1px solid #E0E0E0;">
-            <span class="color-label" style="color: #212121;">Paper</span>
-          </div>
-          <div class="color-info">
-            <div class="color-name">Background Paper</div>
-            <div class="color-value">#FFFFFF</div>
-            <div class="token-path">tokens.colors.background.paper</div>
-            <div class="color-usage">White - most content sits on paper (cards, modals, containers)</div>
-          </div>
-        </div>
-        <div class="color-card">
           <div class="color-swatch" style="background-color: #FAFAFA; border: 1px solid #E0E0E0;">
             <span class="color-label" style="color: #212121;">Secondary</span>
           </div>
@@ -444,6 +433,29 @@
             <div class="color-value">#FAFAFA</div>
             <div class="token-path">tokens.colors.background.secondary</div>
             <div class="color-usage">Page canvas (different from default application background)</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-swatch" style="background-color: #FAFAFA; border: 1px solid #E0E0E0; position: relative;">
+            <div style="position: absolute; inset: 0; background-color: rgba(0, 0, 0, 0.01);"></div>
+            <span class="color-label" style="color: #212121; position: relative;">Subtle</span>
+          </div>
+          <div class="color-info">
+            <div class="color-name">Background Subtle</div>
+            <div class="color-value">rgba(0, 0, 0, 0.01)</div>
+            <div class="token-path">tokens.colors.background.subtle</div>
+            <div class="color-usage">Transparent 1% black overlay — faint in-between tier for nested surfaces. Introduce sparingly; only when nested-container delineation is genuinely needed.</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-swatch" style="background-color: #FFFFFF; border: 1px solid #E0E0E0;">
+            <span class="color-label" style="color: #212121;">Paper</span>
+          </div>
+          <div class="color-info">
+            <div class="color-name">Background Paper</div>
+            <div class="color-value">#FFFFFF</div>
+            <div class="token-path">tokens.colors.background.paper</div>
+            <div class="color-usage">White - most content sits on paper (cards, modals, containers)</div>
           </div>
         </div>
         <div class="color-card">

@@ -7,35 +7,7 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
   <link rel="stylesheet" href="design-system-shell.css">
-  <style>
-    /* ============================================================
-       TEMPLATE OVERRIDE — CONTINUOUS CANVAS
-       Removes "boxy" card-per-section feel. Main content is one
-       white surface; sections separated by spacing + dividers.
-       ============================================================ */
-
-    /* Canvas is background.secondary (#FAFAFA) — containers within are paper white */
-    .main-content {
-      background: var(--color-background-secondary);
-      min-height: 100vh;
-    }
-
-    /* Sections are transparent on the gray canvas — no boxing */
-    .section {
-      background: transparent;
-      border-radius: 0;
-      padding: 0;
-      margin-bottom: 0;
-      padding-bottom: var(--spacing-xl);
-    }
-
-    /* Divider between sections */
-    .section + .section {
-      border-top: 1px solid var(--color-secondary-outline);
-      padding-top: var(--spacing-xl);
-    }
-
-    /* ── Section title: consistent treatment ── */
+  <style>    /* Canvas is background.secondary (#FAFAFA) — containers within are paper white */    /* Sections are transparent on the gray canvas — no boxing */    /* Divider between sections */    /* ── Section title: consistent treatment ── */
     /* h2: 20px/500, primary icon, always same pattern */
     .section-title {
       font-size: 20px;
@@ -370,7 +342,6 @@
       Meta chips: component type, Storybook link, Zeplin link, status. Same on every page.
     </div>
 
-
     <!-- ============================================================
          1. OVERVIEW
          ============================================================ -->
@@ -414,7 +385,6 @@
       <strong>Section 1: Overview</strong> — Always three cards: Purpose, Visual Hierarchy, Accessibility.
       Icon: <code>info</code>. Cards use <code>grid-3</code>. Keep each to 2-3 sentences.
     </div>
-
 
     <!-- ============================================================
          2. USAGE GUIDELINES
@@ -487,7 +457,6 @@
       The Don't illustration uses <code>card-illustration-wrong</code> for the strikethrough overlay.
     </div>
 
-
     <!-- ============================================================
          3. VARIANTS
          ============================================================ -->
@@ -524,7 +493,6 @@
       Only show variants that exist in Figma — never invent.
     </div>
 
-
     <!-- ============================================================
          4. SIZES (optional)
          ============================================================ -->
@@ -557,7 +525,6 @@
       <strong>Section 4: Sizes</strong> — Icon: <code>straighten</code>.
       Skip entirely if no size property in Figma.
     </div>
-
 
     <!-- ============================================================
          5. STATES
@@ -598,7 +565,6 @@
       Always Default + Hover + Disabled at minimum. Add Focus, Error, Loading, Active as relevant.
       This replaces the old "Boolean Controls" naming.
     </div>
-
 
     <!-- ============================================================
          5b. ANATOMY / DIAGRAMS (optional — complex components)
@@ -653,7 +619,6 @@
       The <code>ld-frame</code> pattern (browser chrome) is for modal/page-level diagrams.
       Both patterns are reusable — extend as needed for new complex components.
     </div>
-
 
     <!-- ============================================================
          5c. INTERACTIVE DEMO (optional — Modal, Drawer, etc.)
@@ -735,7 +700,6 @@
       Show inline preview + interactive button. Include spacing diagrams using <code>ld-frame</code>.
     </div>
 
-
     <!-- ============================================================
          6. BEST PRACTICES
          ============================================================ -->
@@ -815,7 +779,6 @@
       Same <code>card-illustration</code> pattern as Usage Guidelines when a visual makes the rule tangible.
     </div>
 
-
     <!-- ============================================================
          7. COLOR SEMANTICS (optional)
          ============================================================ -->
@@ -871,7 +834,6 @@
       <strong>Section 7: Color Semantics</strong> — Icon: <code>palette</code>.
       Only for components with color variants. Always include the "TRIO Example" column.
     </div>
-
 
     <!-- ============================================================
          8. TECHNICAL SPECIFICATIONS
@@ -932,7 +894,6 @@
       Always the last section. Three columns: Property, Value, Token.
       MUI base component is always the last row.
     </div>
-
 
     <!-- ============================================================
          TEMPLATE REFERENCE (remove from real pages)

@@ -246,6 +246,7 @@ body {
   flex: 1;
   padding: var(--spacing-xxl);
   background: var(--color-background-secondary);
+  min-height: 100vh;
 }
 
 .main-content > *:not(.hero):not(.content-wrap):not(.page-header) {
@@ -423,14 +424,25 @@ body {
 /* (Per-showcase HTML files set background, padding, min-height etc. inline. */
 /* These rules only add what's missing: overflow handling + flex wrapping so */
 /* wide demos like ButtonIcon's "Don't" cluster wrap instead of escaping.) */
-.card-illustration {
+/* Higher specificity (.card .card-illustration) wins over the per-page rule
+   in each showcase, so these settings apply globally without a 31-file sweep. */
+.card .card-illustration {
+  padding: 32px 24px 24px;   /* extra top clearance for the absolute label */
+  min-height: 140px;
   overflow: hidden;
   max-width: 100%;
 }
 
-.card-illustration > div {
+.card .card-illustration > div {
   flex-wrap: wrap;
   max-width: 100%;
+}
+
+/* Label sits top-left so it doesn't crowd right-aligned demo content */
+.card .card-illustration .card-illustration-label {
+  top: 10px;
+  left: 12px;
+  right: auto;
 }
 
 /* Do / Don't variants */

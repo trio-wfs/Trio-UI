@@ -351,6 +351,18 @@ Containers can nest — a list of bordered KV rows inside a container body, or a
 
 **Always use AG Grid for data tables in React.** Hand-rolled `<table>` markup or MUI X DataGrid are not allowed. Static HTML prototypes mirror AG Grid's structure (column headers, filter row, zebra-striped data rows) so engineers can drop in `AgGridReact` when implementing.
 
+**Always use the canonical theme.** Import `trioAgGridTheme` and `TRIO_AG_GRID_CSS` from `@trio-wfs/ui` and pass the theme to `<AgGridReact>`. Never re-skin AG Grid with raw CSS or a different theme — the canonical theme already encodes every rule in this section.
+
+#### Typography — 14px default
+
+All grid text is **14px** (`tokens.typography.fontSize.sm`, equivalent to MUI `body2`) unless explicitly overridden for a specific column or cell renderer. This applies to:
+
+- **Column headers** — 14px / 500 / 21px line-height (body2 medium), `text.primary`
+- **Data cells** — 14px / 400 / 21px line-height (body2), `text.primary`
+- **Floating filter inputs** — 14px
+
+Never shrink grid text below 14px to fit more columns — use horizontal scroll instead (see "Horizontal scroll behavior" below). Larger sizes (16px / body1) are reserved for cell renderers that need emphasis (e.g. a primary-name column) and must be called out per-column, not applied globally.
+
 Two distinct patterns for data grids:
 
 ### Standalone grid page
@@ -392,7 +404,7 @@ This is the **third tab pattern** referenced in §11C — distinct from the Tabs
 
 - Background: `background.paper` (#FFFFFF) — not `#F5F5F5`.
 - Height: **40px**, matching the breadcrumb-Links strip directly above. Visually, the 40 → 40 rhythm reads as one continuous header band.
-- Text: body2 medium — 14px / 500 / 21px line-height, `text.primary`.
+- Text: body2 medium — 14px / 500 / 21px line-height, `text.primary` (see Typography rule above).
 - Sort indicator icons: 16px Material Outlined; **`unfold_more`** for unsorted columns in `text.disabled`, **`arrow_upward` / `arrow_downward`** for the active sort. The active sort icon uses **`components.icon.default` (#424242)** — *never* primary blue. (Primary blue is reserved for Save/Update actions, see §5.)
 - `position: sticky; top: 0` so the header stays put under vertical scroll.
 
@@ -690,5 +702,5 @@ The long-term direction is moving away from modals toward more responsive, conte
 
 ---
 
-*Last updated: 2026-05-26 — NavigationVertical edge exception added to §1 (canvas left-padding is 0 when the vertical rail is the immediate left neighbor; the rail's right-edge padding already supplies the 16px inset). Previous update 2026-05-07 — content-wrapper border treatment (§1), PHT 16px canvas inset (§4), PHT actions slot composition (§4), PHT full-variant requirement for grid pages (§4), Stepper teal alignment note (§5), AG Grid mandate (§9), ContentContainer persistent title strip spec (§9), Standalone grid page rebuild — Breadcrumb-Links view switcher, paper-bg 40px column headers, vertical column dividers throughout, horizontal scroll behavior, sort indicator color (§10), three-pattern Tabs taxonomy clarified — pattern C is Breadcrumb-Links not Tabs (§11), wrapper-level tabs in Detail Page Pattern (§12), Alert color cohesion rule (§15).*
+*Last updated: 2026-05-29 — §10 Typography subsection added: AG Grid text is 14px (body2) by default for headers, cells, and floating filters; larger sizes must be called out per-column. Canonical theme requirement (`trioAgGridTheme` from `@trio-wfs/ui`) made explicit. Previous update 2026-05-26 — NavigationVertical edge exception added to §1 (canvas left-padding is 0 when the vertical rail is the immediate left neighbor; the rail's right-edge padding already supplies the 16px inset). Previous update 2026-05-07 — content-wrapper border treatment (§1), PHT 16px canvas inset (§4), PHT actions slot composition (§4), PHT full-variant requirement for grid pages (§4), Stepper teal alignment note (§5), AG Grid mandate (§9), ContentContainer persistent title strip spec (§9), Standalone grid page rebuild — Breadcrumb-Links view switcher, paper-bg 40px column headers, vertical column dividers throughout, horizontal scroll behavior, sort indicator color (§10), three-pattern Tabs taxonomy clarified — pattern C is Breadcrumb-Links not Tabs (§11), wrapper-level tabs in Detail Page Pattern (§12), Alert color cohesion rule (§15).*
 *Source: Jesse Szygiel (Lead UX Designer, AHTG)*

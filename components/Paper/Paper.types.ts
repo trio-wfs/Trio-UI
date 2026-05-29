@@ -16,10 +16,13 @@ import type { SxProps, Theme } from '@mui/material';
  * Paper Level
  * Figma property: "level"
  *
- * Layered surface hierarchy (outermost → innermost):
+ * Surface palette. `subtle` is a *de-emphasized substitute for paper*, not a
+ * tier between secondary and paper — it's a transparent overlay that only
+ * works on a canvas (default or secondary) background.
+ *
  * - default:   #F5F5F5 — page canvas
  * - secondary: #FAFAFA — content wrapper below header
- * - subtle:    rgba(0,0,0,0.1) — transparent in-between tier; sits 1 step "down" from its parent for nested containers. Use sparingly — introduce slowly where nested-container delineation is genuinely needed.
+ * - subtle:    rgba(255, 255, 255, 0.5) — de-emphasized substitute for paper. Use for container surfaces that shouldn't compete for attention. Only meaningful on the default/secondary canvas; subtle on paper is a no-op (math erases the overlay).
  * - paper:     #FFFFFF — cards, panels, containers (most common)
  * - accent:    #E4F7FD — highlighted/accent surfaces (e.g. pinned content)
  */

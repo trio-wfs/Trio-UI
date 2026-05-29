@@ -19,7 +19,7 @@ import { type PaperProps } from './Paper.types';
 const LEVEL_BG = {
   default: tokens.colors.background.default,     // #F5F5F5
   secondary: tokens.colors.background.secondary, // #FAFAFA
-  subtle: tokens.colors.background.subtle,       // rgba(0, 0, 0, 0.01) — 1% black overlay
+  subtle: tokens.colors.background.subtle,       // rgba(255, 255, 255, 0.5) — 50% white overlay
   paper: tokens.colors.background.paper,         // #FFFFFF
   accent: tokens.colors.background.accent,       // #E4F7FD
 } as const;

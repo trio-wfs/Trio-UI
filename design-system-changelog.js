@@ -10,6 +10,8 @@
  */
 
 const DS_CHANGELOG = [
+  { date: '2026-05-29', text: 'background.subtle reframed as a de-emphasized substitute for paper (rgba(255, 255, 255, 0.5)) — use for container surfaces that shouldn\'t compete for attention. Only meaningful on the default/secondary canvas; subtle on paper is a no-op by design. Updates: tokens.ts, Paper.types.ts, paper-showcase.html (anatomy + best practices), PAGE_ARCHITECTURE.md §1, shell.css CSS variable. Stat cards on the Overview now use subtle as the first in-house example.', type: 'Tokens' },
+  { date: '2026-05-29', text: 'AG Grid 14px typography default codified in PAGE_ARCHITECTURE.md §10 — headers, cells, and floating filters all 14px (body2) unless explicitly overridden per-column. Canonical theme (`trioAgGridTheme` from @trio-wfs/ui) made an explicit requirement.', type: 'Guidelines' },
   { date: '2026-05-21', text: 'Avatar, Card, Paper — three new components published to GitHub + bundled in dist. Background token tier `subtle` added (rgba(0,0,0,0.1)) between secondary and paper for nested-surface delineation. Component count: 37.', type: 'Components' },
   { date: '2026-05-21', text: 'Downloads merged into Engineering page — single destination for devs covering the model, four pillars (components/tokens/page architecture/Storybook), get-the-code cards, install/import examples, CSS token download + theme.ts viewer, reference prototypes, the handoff loop, and explicit asks of engineering. Downloads URL now redirects.', type: 'Infrastructure' },
   { date: '2026-05-21', text: 'Page Architecture wired into Foundation nav with a back-link in its sidebar — no longer a dead-end reference doc.', type: 'Infrastructure' },

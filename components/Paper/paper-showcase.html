@@ -55,13 +55,13 @@
       padding: var(--spacing-md);
       border-radius: 4px;
       border: 1px solid var(--color-secondary-outline);
-      background: rgba(0, 0, 0, 0.1);
+      background: var(--color-background-subtle);
       font-size: 13px;
       color: var(--color-text-primary);
     }
-    .nested-demo.parent-paper     { background: #FFFFFF; }
+    .nested-demo.parent-default   { background: #F5F5F5; }
     .nested-demo.parent-secondary { background: #FAFAFA; }
-    .nested-demo.parent-accent    { background: #E4F7FD; }
+    .nested-demo.parent-paper     { background: #FFFFFF; }
   </style>
   <script src="../../design-system-nav.js"></script>
   <script type="module" src="../../showcase/dist/showcase.js"></script>
@@ -183,7 +183,7 @@
         <div class="level-cell">
           <div data-trio-component="Paper" data-trio-props='{"level":"subtle","padding":"md"}' data-trio-children="level = subtle"></div>
           <div class="level-cell-label">subtle</div>
-          <div class="level-cell-hex">rgba(0,0,0,0.1) · nested</div>
+          <div class="level-cell-hex">rgba(255,255,255,0.5) · paper substitute</div>
         </div>
         <div class="level-cell">
           <div data-trio-component="Paper" data-trio-props='{"level":"paper","padding":"md"}' data-trio-children="level = paper (default)"></div>
@@ -216,19 +216,19 @@
         Anatomy — Subtle in Context
       </h2>
       <p class="section-description">
-        The <code>subtle</code> tier is a 10% black overlay. It composes with whatever sits behind it — rendering darker on lighter parents, less prominent on darker ones. Use sparingly: introduce only when nested-container delineation is genuinely needed.
+        The <code>subtle</code> tier is a 50% white overlay — a de-emphasized substitute for paper. It lifts a canvas surface halfway toward paper without committing to full paper emphasis. Reach for it when you'd otherwise be tempted to drop a card's border to soften it: subtle keeps the border + shape, halves the fill emphasis.
       </p>
-      <div class="nested-demo parent-paper">
-        <div class="nested-label">Parent: paper (#FFFFFF)</div>
-        <div class="nested-inner">Nested subtle — renders as ~#E6E6E6</div>
+      <div class="nested-demo parent-default">
+        <div class="nested-label">Parent: default canvas (#F5F5F5)</div>
+        <div class="nested-inner">Subtle here — renders as ~#FAFAFA (essentially equal to the secondary surface)</div>
       </div>
       <div class="nested-demo parent-secondary">
-        <div class="nested-label">Parent: secondary (#FAFAFA)</div>
-        <div class="nested-inner">Nested subtle — renders as ~#E1E1E1 (1 step down)</div>
+        <div class="nested-label">Parent: secondary canvas (#FAFAFA) — primary use case</div>
+        <div class="nested-inner">Subtle here — renders as ~#FCFCFC (clearly distinct from canvas, quieter than paper)</div>
       </div>
-      <div class="nested-demo parent-accent">
-        <div class="nested-label">Parent: accent (#E4F7FD)</div>
-        <div class="nested-inner">Nested subtle — renders as a slightly darker tint of the accent</div>
+      <div class="nested-demo parent-paper">
+        <div class="nested-label">Parent: paper (#FFFFFF) — don't do this</div>
+        <div class="nested-inner">Subtle here — renders as #FFFFFF (the math erases the overlay; no visual effect)</div>
       </div>
     </section>
 
@@ -251,7 +251,7 @@
               <li><strong>Paper levels map to a strict hierarchy:</strong> <code>paper</code> (#FFFFFF) for components, <code>secondary</code> (#FAFAFA) for the page content wrapper, <code>default</code> (#F5F5F5) reserved for page canvas only. Don't reach across tiers.</li>
               <li>Use <code>level="paper"</code> as the workhorse for cards, panels, containers</li>
               <li>Use <code>level="secondary"</code> for content wrappers below page headers</li>
-              <li>Use <code>level="subtle"</code> for nested containers &mdash; best inside paper or accent parents</li>
+              <li>Use <code>level="subtle"</code> as a <strong>de-emphasized substitute for paper</strong> &mdash; secondary metadata cards, stat panels, low-priority summary regions that shouldn't compete with primary content. Only meaningful on the default or secondary canvas.</li>
               <li>Use <code>level="accent"</code> sparingly for highlighted/pinned content</li>
             </ul>
           </div>
@@ -268,7 +268,7 @@
               <li><strong>Don't use Paper for semantic feedback</strong> (warning, error, success) &mdash; use <code>&lt;Alert&gt;</code> with the appropriate severity.</li>
               <li>Don't stack multiple <code>accent</code> surfaces &mdash; the highlight loses meaning</li>
               <li>Don't use Paper as the only differentiator between sections &mdash; start with spacing, then surface tier</li>
-              <li>Don't pass <code>level="subtle"</code> at the top of the page &mdash; it has nothing to compose against</li>
+              <li>Don't use <code>level="subtle"</code> on a paper parent &mdash; the 50% white overlay has no visual effect on #FFFFFF. If you need de-emphasis inside paper, drop the border or use a flat region instead.</li>
             </ul>
           </div>
         </div>

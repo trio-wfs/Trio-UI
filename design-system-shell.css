@@ -50,7 +50,7 @@
   /* Surfaces */
   --color-background-default:  #F5F5F5;
   --color-background-secondary: #FAFAFA;
-  --color-background-subtle:   rgba(0, 0, 0, 0.1);
+  --color-background-subtle:   rgba(255, 255, 255, 0.5);
   --color-background-paper:    #FFFFFF;
   --color-disabled-bg:         rgba(0, 0, 0, 0.12);
 
@@ -245,32 +245,52 @@ body {
   margin-left: 280px;
   flex: 1;
   padding: var(--spacing-xxl);
+  background: var(--color-background-secondary);
 }
 
-.main-content > *:not(.hero):not(.content-wrap) {
+.main-content > *:not(.hero):not(.content-wrap):not(.page-header) {
   max-width: 1100px;
   margin-left: auto;
   margin-right: auto;
 }
 
 /* ============================================================
-   PAGE HEADER
+   PAGE HEADER — PageHeaderToolbar NewCanvas pattern
+   Per PAGE_ARCHITECTURE.md §4: transparent-on-canvas background,
+   ~56px min-height bar, h6 title, full-width sticky bar that bleeds
+   past main-content's canvas padding via negative side margins.
+   Scroll-triggered divider mirrors the React component's behavior:
+   1px hairline fades in when the bar reaches viewport top.
    ============================================================ */
 .page-header {
-  margin-bottom: var(--spacing-xxl);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  min-height: 56px;
+  margin: 0 calc(-1 * var(--spacing-xxl)) var(--spacing-lg);
+  padding: var(--spacing-md) var(--spacing-xxl);
+  background: var(--color-background-secondary);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.page-header.is-stuck {
+  border-bottom-color: var(--color-secondary-outline);
 }
 
 .page-title {
-  font-size: 32px;
-  font-weight: 400;
-  margin-bottom: var(--spacing-sm);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.4;
+  margin: 0 0 4px 0;
 }
 
 .page-subtitle {
   font-size: 14px;
   color: var(--color-text-secondary);
-  line-height: 1.6;
+  line-height: 1.5;
   max-width: 800px;
+  margin: 0;
 }
 
 .component-meta {

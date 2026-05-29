@@ -122,5 +122,20 @@ function renderNav(currentHref) {
   if (sidebar) sidebar.innerHTML = html;
 }
 
-// Auto-render on DOMContentLoaded
-document.addEventListener('DOMContentLoaded', () => renderNav());
+// Sticky .page-header — adds .is-stuck when the bar reaches viewport top
+// so a 1px hairline divider fades in. Mirrors the React PageHeaderToolbar
+// NewCanvas variant's scroll-divider behavior.
+function attachStickyHeader() {
+  const header = document.querySelector('.page-header');
+  if (!header) return;
+  const update = () => {
+    header.classList.toggle('is-stuck', header.getBoundingClientRect().top <= 0);
+  };
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderNav();
+  attachStickyHeader();
+});

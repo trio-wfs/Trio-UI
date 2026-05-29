@@ -55,6 +55,14 @@ export interface SearchBarProps {
 
   /** HTML id attribute */
   id?: string;
+
+  /**
+   * Stretch the SearchBar to fill its container's width. When true, the
+   * outer wrapper becomes `display: flex; width: 100%` and the inner
+   * TextField grows via `flex: 1` so the support button stays sized while
+   * the input expands. Default `false` (inline-flex, content-sized).
+   */
+  fullWidth?: boolean;
 }
 
 export const defaultSearchBarProps: Partial<SearchBarProps> = {
@@ -62,4 +70,5 @@ export const defaultSearchBarProps: Partial<SearchBarProps> = {
   type: 'left',
   placeholder: 'Placeholder',
   showIcon: true,
+  fullWidth: false,
 };

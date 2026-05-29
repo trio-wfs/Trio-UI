@@ -54,6 +54,7 @@ export const SearchBar = React.forwardRef<HTMLDivElement, SearchBarProps>(({
   icon,
   name,
   id,
+  fullWidth = defaultSearchBarProps.fullWidth!,
 }, ref) => {
   const s = SIZE_MAP[size];
   const iconElement = icon || <SearchIcon sx={{ fontSize: s.iconSize }} />;
@@ -128,7 +129,8 @@ export const SearchBar = React.forwardRef<HTMLDivElement, SearchBarProps>(({
       ref={ref}
       id={id}
       sx={{
-        display: 'inline-flex',
+        display: fullWidth ? 'flex' : 'inline-flex',
+        width: fullWidth ? '100%' : undefined,
         alignItems: 'stretch',
         borderRadius: `${tokens.borderRadius.default}px`,
         overflow: 'hidden',
@@ -137,13 +139,18 @@ export const SearchBar = React.forwardRef<HTMLDivElement, SearchBarProps>(({
     >
       {type === 'left' && <SupportButton />}
 
-      {/* TRIO TextField — strip its radius so it sits flush in the assembly */}
+      {/* TRIO TextField — strip its radius so it sits flush in the assembly.
+          When fullWidth, this wrapper grows (flex:1) and the inner TextField
+          stretches with it via width:100% — so consumers don't need to wrap
+          SearchBar in their own Box to force layout. */}
       <Box onKeyDown={(e: React.KeyboardEvent) => e.key === 'Enter' && onSearch?.()} sx={{
         '& .MuiOutlinedInput-root': {
           borderRadius: 0,
           height: s.height,
           minHeight: s.height,
+          ...(fullWidth && { width: '100%' }),
         },
+        '& .MuiTextField-root': fullWidth ? { width: '100%' } : undefined,
         '& .MuiOutlinedInput-root fieldset': {
           borderRadius: 0,
         },
@@ -151,6 +158,7 @@ export const SearchBar = React.forwardRef<HTMLDivElement, SearchBarProps>(({
           boxShadow: `0 0 0 3px ${tokens.colors.components.border.focusShadow}`,
         },
         minWidth: 180,
+        ...(fullWidth && { flex: 1, minWidth: 0 }),
       }}>
         <TextField
           size={s.tfSize}

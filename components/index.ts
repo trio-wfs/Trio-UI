@@ -23,9 +23,10 @@ export { Card } from './Card/Card';
 export { Checkbox } from './Checkbox/Checkbox';
 export { Chip } from './Chip/Chip';
 export { ContentContainer } from './ContentContainer/ContentContainer';
+export { Disclosure } from './Disclosure/Disclosure';
 export { Footer } from './Footer/Footer';
 export { Menu } from './Menu/Menu';
-export { NavigationHeader } from './NavigationHeader/NavigationHeader';
+export { NavigationHeader, NAV_HEADER_HEIGHT } from './NavigationHeader/NavigationHeader';
 export { NavigationVertical } from './NavigationVertical/NavigationVertical';
 export { PageHeaderToolbar } from './PageHeaderToolbar/PageHeaderToolbar';
 export { MetricCard } from './MetricCard/MetricCard';
@@ -122,6 +123,10 @@ export type {
 export type {
   ContentContainerProps,
 } from './ContentContainer/ContentContainer.types';
+
+export type {
+  DisclosureProps,
+} from './Disclosure/Disclosure.types';
 
 export type {
   FooterLink,

@@ -8,7 +8,7 @@
  * Row 2 (Nav Bar): horizontal nav items with optional dropdown menus and active state.
  */
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Box, Typography, Avatar } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import {
@@ -20,6 +20,19 @@ import { SearchBar } from '../SearchBar/SearchBar';
 import { Menu } from '../Menu/Menu';
 import { tokens } from '../../design-tokens/tokens';
 import imgTrioLogoWhite from '../../assets/logos/trio-logo-white.svg';
+
+/**
+ * Total sticky height of the NavigationHeader in pixels (Row 1 brand bar +
+ * Row 2 nav bar = 50 + 50 = 100). Exported so consumers can compute layout
+ * offsets without hardcoding a literal — e.g. `scrollMarginTop` on anchor
+ * targets that scroll into view below the sticky header.
+ *
+ * Consumers also have a CSS-side path: the component sets `--trio-nav-height`
+ * on `:root` when it mounts, so non-TS code can use
+ * `scrollMarginTop: var(--trio-nav-height, 100px)`.
+ */
+export const NAV_HEADER_HEIGHT = 100;
+const NAV_HEADER_CSS_VAR = '--trio-nav-height';
 
 // ── Nav item (bottom bar) ────────────────────────────────────────────────────
 const NavItem: React.FC<{
@@ -116,6 +129,17 @@ export const NavigationHeader = React.forwardRef<HTMLDivElement, NavigationHeade
   // Dropdown menu state — tracks which menu is open and its anchor element
   const [menuAnchor, setMenuAnchor] = useState<{ id: string; el: HTMLElement } | null>(null);
   const [userMenuAnchor, setUserMenuAnchor] = useState<HTMLElement | null>(null);
+
+  // Publish the sticky height as a CSS variable on :root so any consumer
+  // (including stylesheets that don't import the TS constant) can offset
+  // anchors via `scrollMarginTop: var(--trio-nav-height)`. Removed on unmount
+  // so apps that toggle the header off return to a clean root.
+  useEffect(() => {
+    document.documentElement.style.setProperty(NAV_HEADER_CSS_VAR, `${NAV_HEADER_HEIGHT}px`);
+    return () => {
+      document.documentElement.style.removeProperty(NAV_HEADER_CSS_VAR);
+    };
+  }, []);
 
   const handleNavItemClick = useCallback((item: NavigationHeaderNavItem, event: React.MouseEvent<HTMLElement>) => {
     const hasMenu = !!(item.menuItems?.length);

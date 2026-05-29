@@ -17,6 +17,40 @@ import { createTheme } from '@mui/material/styles';
 import type { ThemeOptions } from '@mui/material/styles';
 import { tokens } from './tokens';
 
+// ─── TypeScript module augmentation ──────────────────────────────────────────
+// MUI's default palette types only declare a small subset of TRIO's tokens.
+// These declarations extend the types so consumers can use sx-prop paths like
+// `bgcolor: 'background.secondary'` or `borderColor: 'secondary.outline'`
+// with full type-safety, instead of falling back to raw token imports.
+declare module '@mui/material/styles' {
+  interface TypeBackground {
+    /** #FAFAFA — content wrapper below the page header */
+    secondary: string;
+    /** rgba(255, 255, 255, 0.5) — de-emphasized substitute for paper; only meaningful on canvas */
+    subtle: string;
+    /** #E4F7FD — highlighted/accent surfaces (pinned content, info containers) */
+    accent: string;
+  }
+
+  interface TypeText {
+    /** #FFFFFF — text rendered on dark/colored backgrounds */
+    inverse: string;
+  }
+
+  interface PaletteColor {
+    /** Outline / border variant (used heavily for secondary) */
+    outline: string;
+    /** Selected-state background tint (e.g. primary.selected for nav/list items) */
+    selected: string;
+  }
+
+  interface SimplePaletteColorOptions {
+    outline?: string;
+    selected?: string;
+  }
+}
+// ──────────────────────────────────────────────────────────────────────────────
+
 export const themeOptions: ThemeOptions = {
   palette: {
     mode: 'light',
@@ -25,9 +59,12 @@ export const themeOptions: ThemeOptions = {
       light: tokens.colors.primary.light,
       dark: tokens.colors.primary.dark,
       contrastText: tokens.colors.primary.contrastText,
+      selected: tokens.colors.primary.selected,
     },
     secondary: {
       main: tokens.colors.secondary.dark,
+      dark: tokens.colors.secondary.dark,
+      outline: tokens.colors.secondary.outline,
       contrastText: tokens.colors.text.inverse,
     },
     error: {
@@ -58,10 +95,14 @@ export const themeOptions: ThemeOptions = {
       primary: tokens.colors.text.primary,
       secondary: tokens.colors.text.secondary,
       disabled: tokens.colors.text.disabled,
+      inverse: tokens.colors.text.inverse,
     },
     background: {
       default: tokens.colors.background.default,
       paper: tokens.colors.background.paper,
+      secondary: tokens.colors.background.secondary,
+      subtle: tokens.colors.background.subtle,
+      accent: tokens.colors.background.accent,
     },
     action: {
       active: tokens.colors.action.active,

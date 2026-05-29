@@ -230,46 +230,46 @@
         Variants
       </h2>
       <p class="section-description">
-        Button groups come in two sizes and two color schemes. Primary blue is for confirming/save actions. Secondary is for editing/prompt actions.
+        Two surface pairs (<code>contained</code> + <code>secondary</code> for neutral grouped actions, <code>outline</code> + <code>primary</code> for action-emphasis groups) at two sizes (small 32px, medium 38px), in horizontal or vertical orientation. <code>variant</code> determines <code>color</code> — the other combinations don't exist in the design system and are TypeScript errors at the call site.
       </p>
 
       <div class="variant-group">
-        <div class="variant-label">Small (32px) - Toolbars and dense interfaces</div>
+        <div class="variant-label">Surface pairs — variant determines color</div>
         <div class="button-group-row">
           <div data-trio-component="ButtonGroup" data-trio-props='{"variant":"contained","color":"secondary","size":"small","buttons":["Edit","Duplicate","Archive"]}'></div>
-          <div data-trio-component="ButtonGroup" data-trio-props='{"variant":"outline","color":"secondary","size":"small","buttons":["Filter","Sort","Export"]}'></div>
+          <div data-trio-component="ButtonGroup" data-trio-props='{"variant":"outline","color":"primary","size":"small","buttons":["Approve","Save","Confirm"]}'></div>
         </div>
       </div>
 
       <div class="variant-group">
-        <div class="variant-label">Medium (38px) - Standard forms and modals</div>
+        <div class="variant-label">Small (32px) — toolbars and dense interfaces</div>
+        <div class="button-group-row">
+          <div data-trio-component="ButtonGroup" data-trio-props='{"variant":"contained","color":"secondary","size":"small","buttons":["Edit","Duplicate","Archive"]}'></div>
+          <div data-trio-component="ButtonGroup" data-trio-props='{"variant":"outline","color":"primary","size":"small","buttons":["Day","Week","Month"]}'></div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">Medium (38px) — standard forms and modals</div>
         <div class="button-group-row">
           <div data-trio-component="ButtonGroup" data-trio-props='{"variant":"contained","color":"secondary","size":"medium","buttons":["Option A","Option B","Option C"]}'></div>
-          <div data-trio-component="ButtonGroup" data-trio-props='{"variant":"outline","color":"secondary","size":"medium","buttons":["View","Edit","Delete"]}'></div>
+          <div data-trio-component="ButtonGroup" data-trio-props='{"variant":"outline","color":"primary","size":"medium","buttons":["View","Edit","Delete"]}'></div>
         </div>
       </div>
 
       <div class="variant-group">
-        <div class="variant-label">Primary - Confirming Actions</div>
-        <div class="button-group-row">
-          <div data-trio-component="ButtonGroup" data-trio-props='{"variant":"contained","color":"primary","size":"small","buttons":["Save Draft","Save & Close","Save & Continue"]}'></div>
-          <div data-trio-component="ButtonGroup" data-trio-props='{"variant":"outline","color":"primary","size":"small","buttons":["Approve","Approve & Next"]}'></div>
-        </div>
-      </div>
-
-      <div class="variant-group">
-        <div class="variant-label">Secondary - Editing/Prompt Actions</div>
-        <div class="button-group-row">
-          <div data-trio-component="ButtonGroup" data-trio-props='{"variant":"contained","color":"secondary","size":"small","buttons":["Edit","Duplicate","Archive"]}'></div>
-          <div data-trio-component="ButtonGroup" data-trio-props='{"variant":"outline","color":"secondary","size":"small","buttons":["Manage","Settings","History"]}'></div>
-        </div>
-      </div>
-
-      <div class="variant-group">
-        <div class="variant-label">Vertical - For narrow containers</div>
+        <div class="variant-label">Vertical — for narrow containers</div>
         <div class="button-group-row">
           <div data-trio-component="ButtonGroup" data-trio-props='{"variant":"contained","color":"secondary","size":"small","orientation":"vertical","buttons":["Option A","Option B","Option C"]}'></div>
-          <div data-trio-component="ButtonGroup" data-trio-props='{"variant":"outline","color":"secondary","size":"small","orientation":"vertical","buttons":["Edit","Duplicate","Archive"]}'></div>
+          <div data-trio-component="ButtonGroup" data-trio-props='{"variant":"outline","color":"primary","size":"small","orientation":"vertical","buttons":["Approve","Save","Confirm"]}'></div>
+        </div>
+      </div>
+
+      <div class="variant-group">
+        <div class="variant-label">With icons — each entry can carry startIcon / endIcon</div>
+        <div class="button-group-row">
+          <div data-trio-component="ButtonGroup" data-trio-props='{"variant":"contained","color":"secondary","size":"small","buttons":[{"label":"Edit","startIcon":"Edit"},{"label":"Duplicate","startIcon":"ContentCopy"},{"label":"Save","startIcon":"Save"}]}'></div>
+          <div data-trio-component="ButtonGroup" data-trio-props='{"variant":"outline","color":"primary","size":"small","buttons":[{"label":"Approve","startIcon":"Check"},{"label":"Continue","endIcon":"ArrowForward"}]}'></div>
         </div>
       </div>
     </section>

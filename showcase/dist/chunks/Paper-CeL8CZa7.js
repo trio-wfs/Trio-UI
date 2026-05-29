@@ -1,0 +1,1 @@
+import{t as e}from"./Paper-BWBSaGzS.js";export{e as Paper,e as default};

@@ -602,41 +602,31 @@ export const themeOptions: ThemeOptions = {
       },
     },
 
-    // MuiButtonGroup — migrated 2026-04-15
-    // ButtonGroup has slightly taller buttons than standalone Button per Figma
-    // (sm=32px, md=38px vs. standalone 28/36). Size is applied via variants.
-    // MUI's native ButtonGroup handles adjacent border-radius sharing by default,
-    // so no need to override those.
+    // MuiButtonGroup — ButtonGroup is a composition wrapper, not a new variant.
+    // It only provides visual chrome: shared outer border, internal dividers.
+    // Typography (size/weight/color) inherits from MuiButton's own sizeSmall/
+    // sizeMedium styles — small ButtonGroup = small Button text, etc. This
+    // matches the Figma architecture, where the group is a frame containing
+    // Button master instances (not a custom variant with its own typography).
+    // Height is the one intentional deviation: ButtonGroup is 4px taller than
+    // standalone Button per Figma (sm=32 vs. 28, md=38 vs. 36).
     MuiButtonGroup: {
       styleOverrides: {
         root: {
           fontFamily: tokens.typography.fontFamily,
-          '& .MuiButton-root': {
-            textTransform: 'none',
-          },
         },
       },
       variants: [
         {
           props: { size: 'small' },
           style: {
-            '& .MuiButton-root': {
-              height: 32,
-              fontSize: `${tokens.typography.fontSize.sm}px`,
-              fontWeight: tokens.typography.fontWeight.medium,
-              textTransform: 'none',
-            },
+            '& .MuiButton-root': { height: 32 },
           },
         },
         {
           props: { size: 'medium' },
           style: {
-            '& .MuiButton-root': {
-              height: 38,
-              fontSize: `${tokens.typography.fontSize.sm}px`,
-              fontWeight: tokens.typography.fontWeight.medium,
-              textTransform: 'none',
-            },
+            '& .MuiButton-root': { height: 38 },
           },
         },
       ],

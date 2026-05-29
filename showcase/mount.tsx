@@ -130,13 +130,19 @@ function resolveIcons(props: Record<string, any>): Record<string, any> {
       resolved[key] = iconRegistry[resolved[key]];
     }
   }
-  // Resolve icons inside ToggleButton `buttons` array items
+  // Resolve icons inside `buttons` array items — ToggleButton uses `icon`,
+  // ButtonGroup uses `startIcon` / `endIcon`. Strings stay strings (label
+  // shorthand for ButtonGroup); objects get their icon fields resolved.
   if (Array.isArray(resolved.buttons)) {
-    resolved.buttons = resolved.buttons.map((btn: Record<string, any>) => {
-      if (typeof btn.icon === 'string' && iconRegistry[btn.icon]) {
-        return { ...btn, icon: iconRegistry[btn.icon] };
+    resolved.buttons = resolved.buttons.map((btn: any) => {
+      if (typeof btn !== 'object' || btn === null) return btn;
+      const next: Record<string, any> = { ...btn };
+      for (const key of ['icon', 'startIcon', 'endIcon']) {
+        if (typeof next[key] === 'string' && iconRegistry[next[key]]) {
+          next[key] = iconRegistry[next[key]];
+        }
       }
-      return btn;
+      return next;
     });
   }
   // Resolve icons inside NavigationVertical `items` array

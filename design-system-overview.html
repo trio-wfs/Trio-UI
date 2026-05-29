@@ -40,22 +40,32 @@
     }
 
     @keyframes drift1 {
-      0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.9; }
-      33% { transform: translate(80px, -40px) scale(1.15); opacity: 1; }
-      66% { transform: translate(-50px, 30px) scale(0.9); opacity: 0.8; }
+      0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.9; border-radius: 50%; }
+      33% { transform: translate(80px, -40px) scale(1.15) rotate(6deg); opacity: 1; border-radius: 60% 40% 55% 45%; }
+      66% { transform: translate(-50px, 30px) scale(0.9) rotate(-4deg); opacity: 0.8; border-radius: 45% 55% 40% 60%; }
     }
     @keyframes drift2 {
-      0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.85; }
-      33% { transform: translate(-60px, 50px) scale(0.88); opacity: 1; }
-      66% { transform: translate(40px, -60px) scale(1.12); opacity: 0.75; }
+      0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.85; border-radius: 50%; }
+      33% { transform: translate(-60px, 50px) scale(0.88) rotate(-5deg); opacity: 1; border-radius: 55% 45% 60% 40%; }
+      66% { transform: translate(40px, -60px) scale(1.12) rotate(7deg); opacity: 0.75; border-radius: 40% 60% 45% 55%; }
     }
     @keyframes drift3 {
-      0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.9; }
-      50% { transform: translate(70px, 30px) scale(1.1); opacity: 1; }
+      0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.9; border-radius: 50%; }
+      50% { transform: translate(70px, 30px) scale(1.1) rotate(5deg); opacity: 1; border-radius: 55% 45% 50% 50%; }
     }
     @keyframes drift4 {
-      0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.85; }
-      50% { transform: translate(-50px, -40px) scale(0.9); opacity: 1; }
+      0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.85; border-radius: 50%; }
+      50% { transform: translate(-50px, -40px) scale(0.9) rotate(-6deg); opacity: 1; border-radius: 45% 55% 55% 45%; }
+    }
+
+    /* Honor reduced-motion preferences — pause the drift entirely. */
+    @media (prefers-reduced-motion: reduce) {
+      .hero::before,
+      .hero::after,
+      .hero-blobs::before,
+      .hero-blobs::after {
+        animation: none;
+      }
     }
 
     .hero::before,
